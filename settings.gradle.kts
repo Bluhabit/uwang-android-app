@@ -17,6 +17,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "learnKMM"
+rootProject.name = "BudgetKu"
 include(":androidApp")
 include(":shared")

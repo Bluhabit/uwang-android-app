@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "app.trian.learnkmm.android"
+    namespace = "com.bluehabit.budgetku"
     compileSdk = 33
     defaultConfig {
         applicationId =
-            "app.trian.learnkmm.android"
+            "com.bluehabit.budgetku"
         minSdk = 24
         targetSdk = 33
         versionCode = 1
