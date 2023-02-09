@@ -28,7 +28,12 @@ kotlin {
             dependencies{
                 with(Ktor.IO.Ktor){
                     implementation(ktorClientCore)
-                    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+//                    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+                    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4-native-mt")
+                }
+
+                with(SQLDelight.App.Cash.Sqldelight){
+                    implementation(coroutineExtension)
                 }
             }
         }
@@ -65,6 +70,7 @@ kotlin {
                 with(Ktor.IO.Ktor){
                     implementation(ktorIosClient)
                     implementation(contentNegotioton)
+                    kotlin.srcDir("${buildDir.absolutePath}/generated/source/kaptKotlin")
 //                    implementation(gson)
                 }
             }

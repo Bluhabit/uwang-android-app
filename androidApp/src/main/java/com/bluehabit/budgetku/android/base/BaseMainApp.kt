@@ -10,9 +10,9 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import app.trian.learnkmm.android.ApplicationState
-import app.trian.learnkmm.android.rememberApplicationState
-import app.trian.learnkmm.android.ui.NoteTheme
+import com.bluehabit.budgetku.android.ApplicationState
+import com.bluehabit.budgetku.android.rememberApplicationState
+import com.bluehabit.budgetku.android.ui.NoteTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

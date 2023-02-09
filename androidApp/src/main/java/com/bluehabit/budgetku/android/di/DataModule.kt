@@ -1,8 +1,8 @@
 package com.bluehabit.budgetku.android.di
 
 import android.content.Context
-import app.trian.learnkmm.NoteSDK
-import app.trian.learnkmm.createAndroidSDK
+import com.bluehabit.budgetku.NoteSDK
+import com.bluehabit.budgetku.createAndroidSDK
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.chuckerteam.chucker.api.RetentionManager

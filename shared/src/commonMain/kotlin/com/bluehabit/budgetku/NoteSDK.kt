@@ -1,7 +1,15 @@
 package com.bluehabit.budgetku
 
-import app.trian.learnkmm.entity.NoteModel
+import app.cash.sqldelight.coroutines.asFlow
+import app.cash.sqldelight.coroutines.mapToList
+import com.bluehabit.budgetku.entity.NoteModel
 import io.ktor.client.HttpClient
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 
 class NoteSDK(
     private val driverFactory: DriverFactory,
@@ -37,6 +45,8 @@ class NoteSDK(
             }
     }
 
+
+
     @Throws(
         Exception::class
     )
@@ -56,10 +66,10 @@ class NoteSDK(
     }
 
     @Throws(Exception::class)
-    suspend fun deleteNoteById(noteId:String):Pair<Boolean,String> {
+    suspend fun deleteNoteById(noteId: String): Pair<Boolean, String> {
         db.noteQueries.deleteNoteById(noteId)
 
-        return Pair(true,"Success")
+        return Pair(true, "Success")
     }
 
 }
