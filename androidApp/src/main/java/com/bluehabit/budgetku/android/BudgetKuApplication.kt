@@ -5,7 +5,6 @@ import android.content.Context
 import androidx.hilt.work.HiltWorkerFactory
 import androidx.multidex.MultiDex
 import androidx.work.Configuration
-import com.bluehabit.budgetku.sharedPref.KMMPreference
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 

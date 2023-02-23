@@ -3,7 +3,6 @@ package com.bluehabit.budgetku.android.feature.splashScreen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bluehabit.budgetku.sdk.auth.AuthSDK
-import com.bluehabit.budgetku.sdk.user.UserSDK
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
