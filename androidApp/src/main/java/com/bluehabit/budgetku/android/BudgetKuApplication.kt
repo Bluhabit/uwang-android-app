@@ -9,17 +9,9 @@ import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 
 @HiltAndroidApp
-class NoteApplication:Application(), Configuration.Provider {
-
+class BudgetKuApplication:Application(), Configuration.Provider {
     @Inject
     lateinit var workerFactory: HiltWorkerFactory
-
-    override fun onCreate() {
-        super.onCreate()
-
-
-    }
-
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base)
         MultiDex.install(this)

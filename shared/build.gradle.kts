@@ -29,9 +29,7 @@ kotlin {
             dependencies{
                 with(Ktor.IO.Ktor){
                     implementation(ktorClientCore)
-//                    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
-                    implementation(gson)
-                    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4-native-mt")
+                    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
                 }
 
                 with(SQLDelight.App.Cash.Sqldelight){
@@ -103,10 +101,10 @@ sqldelight{
     }
 }
 
-android {
-    namespace = "app.trian.learnkmm"
+android{
+    namespace = AppConfig.nameSpace
     compileSdk = 33
-    defaultConfig {
+    defaultConfig{
         minSdk = 24
         targetSdk = 33
     }

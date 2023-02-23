@@ -20,36 +20,35 @@ import dagger.hilt.components.SingletonComponent
 )
 object DataModule {
     @Provides
-    fun provideDataSDK(
+    fun provideChuckerInterceptor(
         @ApplicationContext appContext: Context
-    ): NoteSDK = createAndroidSDK(
-        context = appContext,
-        interceptor = ChuckerInterceptor.Builder(
-            appContext
-        )
-            .collector(
-                ChuckerCollector(
-                    context = appContext,
-                    showNotification = true,
-                    retentionPeriod = RetentionManager.Period.ONE_HOUR
-                )
-            )
-            .build()
+    ): ChuckerInterceptor = ChuckerInterceptor.Builder(
+        appContext
     )
-
-    @Provides
-    fun providerUserSDK(
-        @ApplicationContext appContext: Context
-    ): UserSDK = createUserSDK(
-        context = appContext,
-        interceptor = ChuckerInterceptor.Builder(
-            appContext
-        ).collector(
+        .collector(
             ChuckerCollector(
                 context = appContext,
                 showNotification = true,
                 retentionPeriod = RetentionManager.Period.ONE_HOUR
             )
-        ).build()
+        )
+        .build()
+
+    @Provides
+    fun provideDataSDK(
+        @ApplicationContext appContext: Context,
+        chucker: ChuckerInterceptor
+    ): NoteSDK = createAndroidSDK(
+        context = appContext,
+        interceptor = chucker
+    )
+
+    @Provides
+    fun providerUserSDK(
+        @ApplicationContext appContext: Context,
+        chucker: ChuckerInterceptor
+    ): UserSDK = createUserSDK(
+        context = appContext,
+        interceptor = chucker
     )
 }

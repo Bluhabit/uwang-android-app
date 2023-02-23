@@ -1,20 +1,24 @@
 plugins {
     id("com.android.application")
     id("com.google.dagger.hilt.android")
+    id("io.gitlab.arturbosch.detekt")
     kotlin("android")
     kotlin("kapt")
 }
 
 android {
-    namespace = "com.bluehabit.budgetku"
+    namespace = AppConfig.nameSpace
     compileSdk = 33
     defaultConfig {
-        applicationId =
-            "com.bluehabit.budgetku"
+        applicationId = AppConfig.applicationId
         minSdk = 24
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
+        multiDexEnabled = true
+        vectorDrawables {
+            useSupportLibrary = true
+        }
     }
     buildFeatures {
         compose = true
@@ -27,9 +31,42 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    lint {
+        baseline = file("lint-baseline.xml")
+        abortOnError = false
+    }
+
     buildTypes {
         getByName("release") {
+            buildConfigField(
+                "String",
+                "BASE_URL",
+                "\"${findProperty("BASE_URL").toString()}\""
+            )
             isMinifyEnabled = false
+        }
+
+        getByName("debug") {
+            buildConfigField(
+                "String",
+                "BASE_URL",
+                "\"${findProperty("BASE_URL_DEV").toString()}\""
+            )
+            isDebuggable = true
+        }
+    }
+    flavorDimensions.add("type")
+    productFlavors {
+
+
+    }
+    signingConfigs {
+        create("release") {
+//            keyAlias = ""
+//            keyPassword = ""
+//
+//            storeFile = file("")
+//            storePassword = ""
         }
     }
     compileOptions {
@@ -96,4 +133,27 @@ dependencies {
 // Allow references to generated code
 kapt {
     correctErrorTypes = true
+}
+//https://dev.to/akdevcraft/git-pre-hook-setup-pre-push-hook-for-gradle-project-example-1nn6
+//https://emmanuelkehinde.io/setting-up-git-pre-commit-pre-push-hook-for-ktlint-check/
+tasks.create<Copy>("installGitHook") {
+    var suffix = "macos"
+    if (org.apache.tools.ant.taskdefs.condition.Os.isFamily(org.apache.tools.ant.taskdefs.condition.Os.FAMILY_WINDOWS)) {
+        suffix = "windows"
+    }
+
+    copy {
+        from(File(rootProject.rootDir, "scripts/pre-push-$suffix"))
+        into { File(rootProject.rootDir, ".git/hooks") }
+        rename("pre-push-$suffix", "pre-push")
+    }
+
+    copy {
+        from(File(rootProject.rootDir, "scripts/pre-commit-$suffix"))
+        into { File(rootProject.rootDir, ".git/hooks") }
+        rename("pre-commit-$suffix", "pre-commit")
+    }
+
+    //make file executable
+    fileMode = "775".toInt(8)
 }
