@@ -6,6 +6,7 @@ object Ktor {
             val ktorAndroidClient by lazy{"io.ktor:ktor-client-okhttp:2.2.3"}
             val ktorIosClient by lazy{"io.ktor:ktor-client-darwin:2.2.3"}
             val gson by lazy{"io.ktor:ktor-serialization-gson:2.2.3"}
+            val json by lazy{"io.ktor:ktor-serialization-kotlinx-json:2.2.3"}
         }
     }
 }

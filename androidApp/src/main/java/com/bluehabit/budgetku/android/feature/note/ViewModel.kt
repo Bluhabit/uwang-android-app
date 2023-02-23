@@ -2,7 +2,7 @@ package com.bluehabit.budgetku.android.feature.note
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bluehabit.budgetku.NoteSDK
+import com.bluehabit.budgetku.note.NoteSDK
 import com.bluehabit.budgetku.entity.NoteModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

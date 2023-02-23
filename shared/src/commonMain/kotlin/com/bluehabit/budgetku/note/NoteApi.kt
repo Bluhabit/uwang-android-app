@@ -1,4 +1,4 @@
-package com.bluehabit.budgetku
+package com.bluehabit.budgetku.note
 
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get

@@ -1,5 +1,6 @@
 plugins {
     kotlin("multiplatform")
+    kotlin("plugin.serialization") version "1.8.0"
     id("com.android.library")
     id("app.cash.sqldelight")
 }
@@ -12,7 +13,7 @@ kotlin {
             }
         }
     }
-    
+
     listOf(
         iosX64(),
         iosArm64(),
@@ -29,6 +30,7 @@ kotlin {
                 with(Ktor.IO.Ktor){
                     implementation(ktorClientCore)
 //                    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+                    implementation(gson)
                     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4-native-mt")
                 }
 
@@ -54,7 +56,14 @@ kotlin {
                 }
             }
         }
-        val androidUnitTest by getting
+        val androidUnitTest by getting {
+            dependencies {
+                with(Mockk.Io.Mockk){
+                    implementation(mockk)
+                    implementation(mockkAndroid)
+                }
+            }
+        }
         val iosX64Main by getting
         val iosArm64Main by getting
         val iosSimulatorArm64Main by getting
