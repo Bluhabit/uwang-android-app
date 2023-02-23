@@ -6,9 +6,6 @@ import com.bluehabit.budgetku.BuildConfig
 import com.bluehabit.budgetku.createAuthSDK
 import com.bluehabit.budgetku.createDataConfiguration
 import com.bluehabit.budgetku.createUserSDK
-import com.bluehabit.budgetku.sharedPref.KMMContext
-import com.bluehabit.budgetku.sharedPref.KMMPreference
-import com.bluehabit.budgetku.sdk.user.UserSDK
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.chuckerteam.chucker.api.RetentionManager

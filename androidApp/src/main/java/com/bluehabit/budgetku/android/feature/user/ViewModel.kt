@@ -3,15 +3,12 @@ package com.bluehabit.budgetku.android.feature.user
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bluehabit.budgetku.entity.UserModel
 import com.bluehabit.budgetku.sdk.auth.AuthSDK
 import com.bluehabit.budgetku.sdk.user.UserSDK
 import com.bluehabit.budgetku.utils.Response
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
