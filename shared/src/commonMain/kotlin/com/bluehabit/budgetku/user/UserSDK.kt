@@ -20,16 +20,16 @@ class UserSDK(
     suspend fun signInWithEmail(
         email: String,
         password: String,
-    ): Triple<Boolean, String, UserResponse?> {
-        try {
+    ): Triple<Boolean, String, String?> {
+        return try {
             val res = api.signInWithEmail(email, password)
-            return Triple(
+            Triple(
                 true,
                 "success",
-                res
+                res.data.userId
             )
         } catch (e: Exception) {
-            return Triple(false, e.message ?: "something wrong", null)
+            Triple(false, e.message ?: "something wrong", null)
         }
 
     }

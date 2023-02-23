@@ -23,13 +23,8 @@ class UserViewModel @Inject constructor(
         launch {
             val data = userSDK.signInWithEmail(email, password)
             _userData.emit(
-                if (data.first) {
-                    data.third?.userId ?: "em"
-                } else {
-                    data.second
-                }
+                data.third ?: "em"
             )
-            Log.e("DATA", data.second)
         }
     }
 
