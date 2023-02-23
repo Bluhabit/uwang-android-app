@@ -30,6 +30,7 @@ kotlin {
                 with(Ktor.IO.Ktor){
                     implementation(ktorClientCore)
 //                    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+                    implementation(gson)
                     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4-native-mt")
                 }
 

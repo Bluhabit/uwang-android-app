@@ -3,7 +3,6 @@ package com.bluehabit.budgetku.user
 import com.bluehabit.budgetku.DriverFactory
 import com.bluehabit.budgetku.createDatabase
 import com.bluehabit.budgetku.entity.UserModel
-import com.bluehabit.budgetku.model.UserResponse
 import io.ktor.client.*
 
 class UserSDK(
@@ -19,16 +18,16 @@ class UserSDK(
     suspend fun signInWithEmail(
         email: String,
         password: String,
-    ): Triple<Boolean, String, UserResponse?> {
-        try {
+    ): Triple<Boolean, String, String?> {
+        return try {
             val res = api.signInWithEmail(email, password)
-            return Triple(
+            Triple(
                 true,
                 "success",
-                res
+                res.data.userId
             )
         } catch (e: Exception) {
-            return Triple(false, e.message ?: "something wrong", null)
+            Triple(false, e.message ?: "something wrong", null)
         }
 
     }
