@@ -4,11 +4,13 @@ import com.bluehabit.budgetku.DriverFactory
 import com.bluehabit.budgetku.createDatabase
 import com.bluehabit.budgetku.entity.UserModel
 import com.bluehabit.budgetku.model.UserResponse
+import com.bluehabit.budgetku.sharedPref.KMMPreference
 import io.ktor.client.*
 
 class UserSDK(
     private val driverFactory: DriverFactory,
-    private val httpClient: HttpClient
+    private val httpClient: HttpClient,
+    private val kmmPreference: KMMPreference
 ) {
     private val db = createDatabase(driverFactory)
     private val api = UserApi(httpClient)

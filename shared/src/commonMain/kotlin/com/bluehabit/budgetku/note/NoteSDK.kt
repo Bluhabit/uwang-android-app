@@ -3,11 +3,13 @@ package com.bluehabit.budgetku.note
 import com.bluehabit.budgetku.DriverFactory
 import com.bluehabit.budgetku.createDatabase
 import com.bluehabit.budgetku.entity.NoteModel
+import com.bluehabit.budgetku.sharedPref.KMMPreference
 import io.ktor.client.HttpClient
 
 class NoteSDK(
     private val driverFactory: DriverFactory,
-    private val httpClient: HttpClient
+    private val httpClient: HttpClient,
+    private val kmmPreference: KMMPreference
 ) {
     private val api = NoteApi(httpClient)
     private val db = createDatabase(driverFactory)
