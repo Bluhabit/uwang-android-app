@@ -26,7 +26,7 @@ internal fun ScreenUser(
     }
 
     LazyColumn(modifier = modifier.fillMaxWidth()) {
-        item {git
+        item {
             TextField(value = email, onValueChange = {
                 email = it
             })

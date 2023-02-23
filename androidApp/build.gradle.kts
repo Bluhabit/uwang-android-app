@@ -7,15 +7,18 @@ plugins {
 }
 
 android {
-    namespace = "com.bluehabit.budgetku"
+    namespace = AppConfig.nameSpace
     compileSdk = 33
     defaultConfig {
-        applicationId =
-            "com.bluehabit.budgetku"
+        applicationId = AppConfig.applicationId
         minSdk = 24
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
+        multiDexEnabled = true
+        vectorDrawables {
+            useSupportLibrary = true
+        }
     }
     buildFeatures {
         compose = true
@@ -28,9 +31,42 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    lint {
+        baseline = file("lint-baseline.xml")
+        abortOnError = false
+    }
+
     buildTypes {
         getByName("release") {
+            buildConfigField(
+                "String",
+                "BASE_URL",
+                "\"${findProperty("BASE_URL").toString()}\""
+            )
             isMinifyEnabled = false
+        }
+
+        getByName("debug") {
+            buildConfigField(
+                "String",
+                "BASE_URL",
+                "\"${findProperty("BASE_URL_DEV").toString()}\""
+            )
+            isDebuggable = true
+        }
+    }
+    flavorDimensions.add("type")
+    productFlavors {
+
+
+    }
+    signingConfigs {
+        create("release") {
+//            keyAlias = ""
+//            keyPassword = ""
+//
+//            storeFile = file("")
+//            storePassword = ""
         }
     }
     compileOptions {

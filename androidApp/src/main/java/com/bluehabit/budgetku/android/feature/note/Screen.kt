@@ -81,7 +81,7 @@ internal fun ScreenNote(
 @Preview
 @Composable
 fun PreviewScreenNote() {
-    BaseMainApp {
+    BaseMainApp {_,_->
         ScreenNote()
     }
 
