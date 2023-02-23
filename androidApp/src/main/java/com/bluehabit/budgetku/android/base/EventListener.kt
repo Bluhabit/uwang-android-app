@@ -1,6 +1,10 @@
 package com.bluehabit.budgetku.android.base
 
-import com.bluehabit.budgetku.android.base.listener.*
+import com.bluehabit.budgetku.android.base.listener.AppBarSelectedListener
+import com.bluehabit.budgetku.android.base.listener.AppStateEventListener
+import com.bluehabit.budgetku.android.base.listener.BottomAppBarClickListener
+import com.bluehabit.budgetku.android.base.listener.BottomSheetListener
+import com.bluehabit.budgetku.android.base.listener.SnackBarClickListener
 
 
 class EventListener {
@@ -9,6 +13,7 @@ class EventListener {
     private var bottomAppBarListener: BottomAppBarClickListener?=null
     private var snackBarClickListener: SnackBarClickListener?=null
     private var bottomSheetListener: BottomSheetListener?=null
+
 
     fun addOnEventListener(
         listener: AppStateEventListener
