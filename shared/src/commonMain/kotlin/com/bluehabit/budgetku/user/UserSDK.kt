@@ -9,8 +9,7 @@ import io.ktor.client.*
 
 class UserSDK(
     private val driverFactory: DriverFactory,
-    private val httpClient: HttpClient,
-    private val kmmPreference: KMMPreference
+    private val httpClient: HttpClient
 ) {
     private val db = createDatabase(driverFactory)
     private val api = UserApi(httpClient)

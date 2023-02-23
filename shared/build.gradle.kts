@@ -100,3 +100,12 @@ sqldelight{
         }
     }
 }
+
+android{
+    namespace = AppConfig.nameSpace
+    compileSdk = 33
+    defaultConfig{
+        minSdk = 24
+        targetSdk = 33
+    }
+}
