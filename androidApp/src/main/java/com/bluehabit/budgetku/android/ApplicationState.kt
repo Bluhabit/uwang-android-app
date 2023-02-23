@@ -11,10 +11,11 @@ import androidx.navigation.compose.rememberNavController
 
 class ApplicationState internal constructor(
     val router: NavHostController
-){
+) {
     var topAppBarType by mutableStateOf("")
     var bottomAppBarType by mutableStateOf("")
     var snackBarType by mutableStateOf("")
+    var bottomSheetType by mutableStateOf("")
 
     var currentRoute by mutableStateOf("")
 
@@ -22,28 +23,36 @@ class ApplicationState internal constructor(
         SnackbarHostState()
     )
 
-    fun changeBottomBar(type:String){
-        if(bottomAppBarType != type){
+    fun changeBottomBar(type: String) {
+        if (bottomAppBarType != type) {
             bottomAppBarType = type
         }
     }
-    fun changeTopAppBar(type:String){
-        if(topAppBarType != type){
+
+    fun changeTopAppBar(type: String) {
+        if (topAppBarType != type) {
             topAppBarType = type
         }
     }
-    fun changeSnackbar(type:String){
-        if(snackBarType != type){
+
+    fun changeSnackbar(type: String) {
+        if (snackBarType != type) {
             snackBarType = type
+        }
+    }
+
+    fun changeBottomSheet(type: String) {
+        if (bottomSheetType != type) {
+            bottomSheetType = type
         }
     }
 }
 
 @Composable
 fun rememberApplicationState(
-    router:NavHostController = rememberNavController()
-):ApplicationState {
-    return remember{
+    router: NavHostController = rememberNavController()
+): ApplicationState {
+    return remember {
         ApplicationState(
             router
         )

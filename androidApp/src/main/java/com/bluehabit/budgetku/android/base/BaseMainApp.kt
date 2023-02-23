@@ -18,16 +18,11 @@ import com.bluehabit.budgetku.android.ui.NoteTheme
 @Composable
 fun BaseMainApp(
     appState: ApplicationState = rememberApplicationState(),
-    topAppBar: @Composable (ApplicationState) -> Unit = {
-
-    },
-    bottomBar: @Composable (ApplicationState) -> Unit = {
-
-    },
-    snackbarBar: @Composable (ApplicationState) -> Unit = {
-
-    },
-    content: @Composable (appState: ApplicationState) -> Unit = { }
+    eventListener: EventListener = EventListener(),
+    topAppBar: @Composable (ApplicationState) -> Unit = {},
+    bottomBar: @Composable (ApplicationState) -> Unit = {},
+    snackbarBar: @Composable (ApplicationState) -> Unit = {},
+    content: @Composable (appState: ApplicationState,event:EventListener) -> Unit = {_,_-> }
 ) {
     NoteTheme {
         // A surface container using the 'background' color from the theme
@@ -49,7 +44,7 @@ fun BaseMainApp(
                 Column(
                     modifier = Modifier.padding(it)
                 ) {
-                    content(appState)
+                    content(appState,eventListener)
                 }
             }
         }

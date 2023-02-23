@@ -2,19 +2,32 @@ package com.bluehabit.budgetku.android
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
+import com.bluehabit.budgetku.android.base.EventListener
 import com.bluehabit.budgetku.android.feature.note.routeNote
+import com.bluehabit.budgetku.android.feature.splashScreen.routeSplash
 import com.bluehabit.budgetku.android.feature.user.User
 import com.bluehabit.budgetku.android.feature.user.routeUser
 
 @Composable
 fun AppNavigation(
-    applicationState: ApplicationState
+    applicationState: ApplicationState,
+    eventListener: EventListener
 ) {
     NavHost(
         navController = applicationState.router,
         startDestination = User.routeName
     ) {
-        routeNote(applicationState.router)
-        routeUser(applicationState.router)
+        routeSplash(
+            state=applicationState,
+            event = eventListener
+        )
+        routeNote(
+            state=applicationState,
+            event = eventListener
+        )
+        routeUser(
+            state=applicationState,
+            event = eventListener
+        )
     }
 }
