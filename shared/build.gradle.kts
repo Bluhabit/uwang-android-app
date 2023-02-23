@@ -29,6 +29,7 @@ kotlin {
             dependencies{
                 with(Ktor.IO.Ktor){
                     implementation(ktorClientCore)
+                    implementation(resource)
                     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
                 }
 

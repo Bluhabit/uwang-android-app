@@ -3,7 +3,6 @@ package com.bluehabit.budgetku.android
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import com.bluehabit.budgetku.android.base.EventListener
-import com.bluehabit.budgetku.android.feature.note.routeNote
 import com.bluehabit.budgetku.android.feature.splashScreen.Splash
 import com.bluehabit.budgetku.android.feature.splashScreen.routeSplash
 import com.bluehabit.budgetku.android.feature.user.routeUser
@@ -18,10 +17,6 @@ fun AppNavigation(
         startDestination = Splash.routeName
     ) {
         routeSplash(
-            state=applicationState,
-            event = eventListener
-        )
-        routeNote(
             state=applicationState,
             event = eventListener
         )
