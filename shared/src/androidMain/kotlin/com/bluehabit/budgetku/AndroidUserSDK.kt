@@ -2,10 +2,10 @@ package com.bluehabit.budgetku
 
 import android.content.Context
 import com.bluehabit.budgetku.user.UserSDK
-import io.ktor.client.*
-import io.ktor.client.engine.okhttp.*
-import io.ktor.client.plugins.contentnegotiation.*
-import io.ktor.serialization.gson.*
+import io.ktor.client.HttpClient
+import io.ktor.client.engine.okhttp.OkHttp
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.serialization.gson.gson
 import okhttp3.Interceptor
 
 fun createUserSDK(context: Context, interceptor: Interceptor): UserSDK = UserSDK(
