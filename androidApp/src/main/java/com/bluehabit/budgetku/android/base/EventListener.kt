@@ -4,10 +4,10 @@ import com.bluehabit.budgetku.android.base.listener.*
 
 class EventListener {
     private var appEvent:AppStateEventListener?=null
-    private var topAppBarListener:onAppBarSelectedListener?=null
-    private var bottomAppBarListener:onBottomAppBarClickListener?=null
-    private var snackBarClickListener:onSnackBarClickListener?=null
-    private var bottomSheetListener:onBottomSheetListener?=null
+    private var topAppBarListener:AppBarSelectedListener?=null
+    private var bottomAppBarListener:BottomAppBarClickListener?=null
+    private var snackBarClickListener:SnackBarClickListener?=null
+    private var bottomSheetListener:BottomSheetListener?=null
 
     fun addOnEventListener(
         listener: AppStateEventListener
@@ -19,7 +19,7 @@ class EventListener {
     }
 
     fun addOnAppBarListener(
-        listener: onAppBarSelectedListener
+        listener: AppBarSelectedListener
     ){
         topAppBarListener = listener
     }
@@ -32,7 +32,7 @@ class EventListener {
     }
 
     fun addOnBottomAppBarListener(
-        listener: onBottomAppBarClickListener
+        listener: BottomAppBarClickListener
     ){
         bottomAppBarListener = listener
     }
@@ -44,7 +44,7 @@ class EventListener {
     }
 
     fun addSnackbarBarListener(
-        listener: onSnackBarClickListener
+        listener: SnackBarClickListener
     ){
         snackBarClickListener = listener
     }
@@ -56,7 +56,7 @@ class EventListener {
         snackBarClickListener?.onAction(id)
     }
 
-    fun addOnBottomSheetListener(listener: onBottomSheetListener){
+    fun addOnBottomSheetListener(listener: BottomSheetListener){
         bottomSheetListener = listener
     }
 
