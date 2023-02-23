@@ -2,12 +2,13 @@ package com.bluehabit.budgetku.android.base
 
 import com.bluehabit.budgetku.android.base.listener.*
 
+
 class EventListener {
-    private var appEvent:AppStateEventListener?=null
-    private var topAppBarListener:AppBarSelectedListener?=null
-    private var bottomAppBarListener:BottomAppBarClickListener?=null
-    private var snackBarClickListener:SnackBarClickListener?=null
-    private var bottomSheetListener:BottomSheetListener?=null
+    private var appEvent: AppStateEventListener?=null
+    private var topAppBarListener: AppBarSelectedListener?=null
+    private var bottomAppBarListener: BottomAppBarClickListener?=null
+    private var snackBarClickListener: SnackBarClickListener?=null
+    private var bottomSheetListener: BottomSheetListener?=null
 
     fun addOnEventListener(
         listener: AppStateEventListener
