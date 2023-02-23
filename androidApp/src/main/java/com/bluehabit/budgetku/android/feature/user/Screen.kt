@@ -1,0 +1,40 @@
+package com.bluehabit.budgetku.android.feature.user
+
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.Button
+import androidx.compose.material.Text
+import androidx.compose.material.TextField
+import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
+
+@Composable
+internal fun ScreenUser(
+    modifier: Modifier = Modifier,
+    userID: String? = "empty",
+    onSubmit: (email: String, password: String) -> Unit = {_,_->},
+) {
+    var email by remember {
+        mutableStateOf("")
+    }
+    var password by remember {
+        mutableStateOf("")
+    }
+
+    LazyColumn(modifier = modifier.fillMaxWidth()) {
+        item {
+            TextField(value = email, onValueChange = {
+                email = it
+            })
+            TextField(value = password, onValueChange = {
+                password = it
+            })
+            Button(onClick = { onSubmit(email, password) }) {
+                Text(text = "Click me")
+            }
+        }
+        item {
+            Text(text = userID ?: "emit")
+        }
+    }
+}

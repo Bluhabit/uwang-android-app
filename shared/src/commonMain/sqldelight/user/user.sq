@@ -1,0 +1,26 @@
+CREATE TABLE IF NOT EXISTS USER(
+    id TEXT NOT NULL PRIMARY KEY,
+    fullName TEXT NOT NULL,
+    email TEXT NOT NULL,
+    phoneNumber TEXT NOT NULL,
+    dateOfBirth TEXT NOT NULL,
+    countryCode TEXT NOT NULL,
+    authProvider TEXT NOT NULL,
+    authTokenProvider TEXT NOT NULL,
+    status TEXT NOT NULL,
+    createdAt INTEGER NOT NULL,
+    updatedAt INTEGER NOT NULL
+);
+
+getById:
+SELECT * FROM USER WHERE id=?;
+
+insertUser:
+INSERT INTO
+USER(id,fullName,email,phoneNumber,dateOfBirth,countryCode,
+    authProvider,authTokenProvider,status,createdAt,updatedAt)
+VALUES (?,?,?,?,?,
+?,?,?,?,?,?);
+
+deleteUser:
+DELETE FROM USER;
