@@ -1,6 +1,6 @@
 package com.bluehabit.budgetku.sharedPref
 
-const val NAME = "BUDGETKU_APP"
+import com.bluehabit.budgetku.BuildConfig
 
 actual fun KMMContext.putInt(key: String, value: Int) {
     getSpEditor().putInt(key, value).apply()
@@ -26,6 +26,6 @@ actual fun KMMContext.getBool(key: String, default: Boolean): Boolean {
     return getSp().getBoolean(key, default)
 }
 
-private fun KMMContext.getSp() = getSharedPreferences(NAME, 0)
+private fun KMMContext.getSp() = getSharedPreferences(BuildConfig.SHARED_PREF_KEY, 0)
 
 private fun KMMContext.getSpEditor() = getSp().edit()

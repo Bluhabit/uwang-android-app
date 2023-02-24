@@ -19,8 +19,6 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
-
-        buildConfigField("String", "SHARED_PREF_KEY", "\"${findProperty("SHARED_PREF_KEY").toString()}\"")
     }
     buildFeatures {
         compose = true
@@ -60,16 +58,10 @@ android {
 
     signingConfigs {
         create("release") {
-            val keyAlias = findProperty("KEY_ALIAS")
-            val keyPassword = findProperty("KEY_PASSWORD")
-            val storeFile = findProperty("STORE_PATH")
-            val storePassword = findProperty("STORE_PASSWORD")
-
-//            keyAlias = ""
-//            keyPassword = ""
-//
-//            storeFile = file("")
-//            storePassword = ""
+            keyAlias = findProperty("KEY_ALIAS").toString()
+            keyPassword = findProperty("KEY_PASSWORD").toString()
+            storeFile = file(findProperty("STORE_PATH").toString())
+            storePassword = findProperty("STORE_PASSWORD").toString()
         }
     }
     compileOptions {
