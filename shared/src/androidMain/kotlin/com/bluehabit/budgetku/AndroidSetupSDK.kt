@@ -51,3 +51,19 @@ fun createDataConfiguration(
     interceptor,
     baseUrl
 )
+
+fun createAuthSDK(
+    sdk: AndroidSetupSDK
+): AuthSDK = AuthSDK(
+    driverFactory = sdk.driver,
+    client = sdk.httpClient,
+    pref = sdk.kmmPreference
+)
+
+fun createUserSDK(
+    sdk: AndroidSetupSDK
+): UserSDK = UserSDK(
+    driverFactory = sdk.driver,
+    client = sdk.httpClient,
+    pref = sdk.kmmPreference
+)
