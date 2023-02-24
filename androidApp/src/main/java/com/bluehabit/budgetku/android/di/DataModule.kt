@@ -1,10 +1,13 @@
 package com.bluehabit.budgetku.android.di
 
 import android.content.Context
-import com.bluehabit.budgetku.createAndroidSDK
+import com.bluehabit.budgetku.AndroidSetupSDK
+import com.bluehabit.budgetku.BuildConfig
+import com.bluehabit.budgetku.createAuthSDK
+import com.bluehabit.budgetku.createDataConfiguration
 import com.bluehabit.budgetku.createUserSDK
-import com.bluehabit.budgetku.note.NoteSDK
-import com.bluehabit.budgetku.user.UserSDK
+import com.bluehabit.budgetku.sdk.auth.AuthSDK
+import com.bluehabit.budgetku.sdk.user.UserSDK
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.chuckerteam.chucker.api.RetentionManager
@@ -14,7 +17,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 
-@Module()
+@Module
 @InstallIn(
     SingletonComponent::class
 )
@@ -35,20 +38,22 @@ object DataModule {
         .build()
 
     @Provides
-    fun provideDataSDK(
+    fun provideSDKConfig(
         @ApplicationContext appContext: Context,
-        chucker: ChuckerInterceptor
-    ): NoteSDK = createAndroidSDK(
-        context = appContext,
-        interceptor = chucker
+        chuckerInterceptor: ChuckerInterceptor
+    ):AndroidSetupSDK = createDataConfiguration(
+        appContext,
+        chuckerInterceptor,
+        BuildConfig.BASE_URL
     )
 
     @Provides
-    fun providerUserSDK(
-        @ApplicationContext appContext: Context,
-        chucker: ChuckerInterceptor
-    ): UserSDK = createUserSDK(
-        context = appContext,
-        interceptor = chucker
-    )
+    fun providerAuthSDK(
+        sdk: AndroidSetupSDK
+    ):AuthSDK = createAuthSDK(sdk)
+
+    @Provides
+    fun provideUserSDK(
+        sdk: AndroidSetupSDK
+    ):UserSDK = createUserSDK(sdk)
 }
