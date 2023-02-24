@@ -29,6 +29,7 @@ kotlin {
             dependencies{
                 with(Ktor.IO.Ktor){
                     implementation(ktorClientCore)
+                    implementation(resource)
                     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
                 }
 
@@ -107,5 +108,7 @@ android{
     defaultConfig{
         minSdk = 24
         targetSdk = 33
+
+        buildConfigField("String","SHARED_PREF_KEY","\"${findProperty("SHARED_PREF_KEY")}\"")
     }
 }
