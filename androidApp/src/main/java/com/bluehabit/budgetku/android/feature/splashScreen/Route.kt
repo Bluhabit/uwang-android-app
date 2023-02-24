@@ -7,7 +7,7 @@ import androidx.navigation.compose.composable
 import com.bluehabit.budgetku.android.ApplicationState
 import com.bluehabit.budgetku.android.base.EventListener
 import com.bluehabit.budgetku.android.base.extensions.pushRoute
-import com.bluehabit.budgetku.android.feature.user.User
+import com.bluehabit.budgetku.android.feature.signIn.SignIn
 
 object Splash {
     const val routeName = "Splash"
@@ -22,7 +22,7 @@ fun NavGraphBuilder.routeSplash(
         LaunchedEffect(key1 = viewModel, block = {
             viewModel.checkIfUserLoggedIn {
                 if(!it){
-                    state.pushRoute(User.routeName)
+                    state.pushRoute(SignIn.routeName)
                 }
             }
         })

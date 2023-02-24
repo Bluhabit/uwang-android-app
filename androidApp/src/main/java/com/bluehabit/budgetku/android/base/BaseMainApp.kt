@@ -3,6 +3,11 @@ package com.bluehabit.budgetku.android.base
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.BottomSheetScaffold
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.ModalBottomSheetLayout
+import androidx.compose.material.ModalBottomSheetValue
+import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -14,7 +19,7 @@ import com.bluehabit.budgetku.android.ApplicationState
 import com.bluehabit.budgetku.android.rememberApplicationState
 import com.bluehabit.budgetku.android.ui.NoteTheme
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
 fun BaseMainApp(
     appState: ApplicationState = rememberApplicationState(),
@@ -22,31 +27,52 @@ fun BaseMainApp(
     topAppBar: @Composable (ApplicationState) -> Unit = {},
     bottomBar: @Composable (ApplicationState) -> Unit = {},
     snackbarBar: @Composable (ApplicationState) -> Unit = {},
-    content: @Composable (appState: ApplicationState,event:EventListener) -> Unit = {_,_-> }
+    bottomSheet: @Composable (ApplicationState) -> Unit = {},
+    content: @Composable (appState: ApplicationState, event: EventListener) -> Unit = { _, _ -> }
 ) {
+    val bottomSheetState = rememberModalBottomSheetState(
+        initialValue = ModalBottomSheetValue.Hidden,
+        confirmStateChange = {
+            when (it) {
+                ModalBottomSheetValue.Hidden -> {
+                    eventListener.bottomSheetClose()
+                }
+                else -> Unit
+            }
+            true
+        }
+    )
     NoteTheme {
         // A surface container using the 'background' color from the theme
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
-            Scaffold(
-                topBar = {
-                    topAppBar(appState)
+            ModalBottomSheetLayout(
+                sheetContent = {
+                    bottomSheet(appState)
                 },
-                bottomBar = {
-                    bottomBar(appState)
-                },
-                snackbarHost = {
-                    snackbarBar(appState)
-                }
+                sheetState = bottomSheetState,
             ) {
-                Column(
-                    modifier = Modifier.padding(it)
+                Scaffold(
+                    topBar = {
+                        topAppBar(appState)
+                    },
+                    bottomBar = {
+                        bottomBar(appState)
+                    },
+                    snackbarHost = {
+                        snackbarBar(appState)
+                    },
                 ) {
-                    content(appState,eventListener)
+                    Column(
+                        modifier = Modifier.padding(it)
+                    ) {
+                        content(appState, eventListener)
+                    }
                 }
             }
+
         }
     }
 }

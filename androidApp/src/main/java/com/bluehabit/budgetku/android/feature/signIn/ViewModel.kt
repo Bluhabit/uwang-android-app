@@ -1,4 +1,4 @@
-package com.bluehabit.budgetku.android.feature.user
+package com.bluehabit.budgetku.android.feature.signIn
 
 import android.util.Log
 import androidx.lifecycle.ViewModel

@@ -1,4 +1,4 @@
-package com.bluehabit.budgetku.android.feature.user
+package com.bluehabit.budgetku.android.feature.signIn
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
@@ -13,7 +13,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 
 @Composable
-internal fun ScreenUser(
+internal fun ScreenSignIn(
     modifier: Modifier = Modifier,
     userID: String? = "empty",
     onSubmit: (email: String, password: String) -> Unit = {_,_->},
