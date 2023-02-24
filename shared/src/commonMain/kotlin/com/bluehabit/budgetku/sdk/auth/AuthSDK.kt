@@ -26,8 +26,6 @@ class AuthSDK(
     private val pref: KMMPreference
 ) {
     private val db = createDatabase(driverFactory)
-
-
     suspend fun isLoggedIn(): Boolean = pref.getString("USER") != null
 
     @Throws(
@@ -48,11 +46,11 @@ class AuthSDK(
                 )
             }
         }
-        when(res){
+        when (res) {
             is Response.Result -> {
-                pref.put("USER",res.data.token)
+                pref.put("USER", res.data.token)
             }
-            else->Unit
+            else -> Unit
         }
         emit(res)
     }.flowOn(Dispatchers.Default)

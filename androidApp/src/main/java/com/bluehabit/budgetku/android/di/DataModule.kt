@@ -3,7 +3,9 @@ package com.bluehabit.budgetku.android.di
 import android.content.Context
 import com.bluehabit.budgetku.AndroidSetupSDK
 import com.bluehabit.budgetku.BuildConfig
+import com.bluehabit.budgetku.createAuthSDK
 import com.bluehabit.budgetku.createDataConfiguration
+import com.bluehabit.budgetku.createUserSDK
 import com.bluehabit.budgetku.sdk.auth.AuthSDK
 import com.bluehabit.budgetku.sdk.user.UserSDK
 import com.chuckerteam.chucker.api.ChuckerCollector
@@ -39,7 +41,7 @@ object DataModule {
     fun provideSDKConfig(
         @ApplicationContext appContext: Context,
         chuckerInterceptor: ChuckerInterceptor
-    ) = createDataConfiguration(
+    ):AndroidSetupSDK = createDataConfiguration(
         appContext,
         chuckerInterceptor,
         BuildConfig.BASE_URL
@@ -48,18 +50,10 @@ object DataModule {
     @Provides
     fun providerAuthSDK(
         sdk: AndroidSetupSDK
-    ) = AuthSDK(
-        driverFactory = sdk.driver,
-        client = sdk.httpClient,
-        pref = sdk.kmmPreference
-    )
+    ):AuthSDK = createAuthSDK(sdk)
 
     @Provides
     fun provideUserSDK(
         sdk: AndroidSetupSDK
-    ) = UserSDK(
-        driverFactory = sdk.driver,
-        client = sdk.httpClient,
-        pref = sdk.kmmPreference
-    )
+    ):UserSDK = createUserSDK(sdk)
 }
