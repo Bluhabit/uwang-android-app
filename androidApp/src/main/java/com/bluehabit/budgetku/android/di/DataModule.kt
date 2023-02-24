@@ -3,9 +3,9 @@ package com.bluehabit.budgetku.android.di
 import android.content.Context
 import com.bluehabit.budgetku.AndroidSetupSDK
 import com.bluehabit.budgetku.BuildConfig
-import com.bluehabit.budgetku.createAuthSDK
 import com.bluehabit.budgetku.createDataConfiguration
-import com.bluehabit.budgetku.createUserSDK
+import com.bluehabit.budgetku.sdk.auth.AuthSDK
+import com.bluehabit.budgetku.sdk.user.UserSDK
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.chuckerteam.chucker.api.RetentionManager
@@ -48,14 +48,18 @@ object DataModule {
     @Provides
     fun providerAuthSDK(
         sdk: AndroidSetupSDK
-    ) = createAuthSDK(
-        sdk
+    ) = AuthSDK(
+        driverFactory = sdk.driver,
+        client = sdk.httpClient,
+        pref = sdk.kmmPreference
     )
 
     @Provides
-    fun provideUSerSDK(
+    fun provideUserSDK(
         sdk: AndroidSetupSDK
-    ) = createUserSDK(
-        sdk
+    ) = UserSDK(
+        driverFactory = sdk.driver,
+        client = sdk.httpClient,
+        pref = sdk.kmmPreference
     )
 }
