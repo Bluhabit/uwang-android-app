@@ -108,5 +108,7 @@ android{
     defaultConfig{
         minSdk = 24
         targetSdk = 33
+
+        buildConfigField("String","SHARED_PREF_KEY","\"${findProperty("SHARED_PREF_KEY")}\"")
     }
 }
