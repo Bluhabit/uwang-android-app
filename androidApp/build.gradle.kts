@@ -19,6 +19,8 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        buildConfigField("String", "SHARED_PREF_KEY", "\"${findProperty("SHARED_PREF_KEY").toString()}\"")
     }
     buildFeatures {
         compose = true
@@ -55,13 +57,14 @@ android {
             isDebuggable = true
         }
     }
-    flavorDimensions.add("type")
-    productFlavors {
 
-
-    }
     signingConfigs {
         create("release") {
+            val keyAlias = findProperty("KEY_ALIAS")
+            val keyPassword = findProperty("KEY_PASSWORD")
+            val storeFile = findProperty("STORE_PATH")
+            val storePassword = findProperty("STORE_PASSWORD")
+
 //            keyAlias = ""
 //            keyPassword = ""
 //
@@ -130,12 +133,11 @@ dependencies {
     debugImplementation(LeakCanary.leakCanary)
 }
 
-// Allow references to generated code
+
 kapt {
     correctErrorTypes = true
 }
-//https://dev.to/akdevcraft/git-pre-hook-setup-pre-push-hook-for-gradle-project-example-1nn6
-//https://emmanuelkehinde.io/setting-up-git-pre-commit-pre-push-hook-for-ktlint-check/
+
 tasks.create<Copy>("installGitHook") {
     var suffix = "macos"
     if (org.apache.tools.ant.taskdefs.condition.Os.isFamily(org.apache.tools.ant.taskdefs.condition.Os.FAMILY_WINDOWS)) {
@@ -147,13 +149,10 @@ tasks.create<Copy>("installGitHook") {
         into { File(rootProject.rootDir, ".git/hooks") }
         rename("pre-push-$suffix", "pre-push")
     }
-
     copy {
         from(File(rootProject.rootDir, "scripts/pre-commit-$suffix"))
         into { File(rootProject.rootDir, ".git/hooks") }
         rename("pre-commit-$suffix", "pre-commit")
     }
-
-    //make file executable
     fileMode = "775".toInt(8)
 }
