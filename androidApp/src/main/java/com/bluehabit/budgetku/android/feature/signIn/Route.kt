@@ -1,6 +1,5 @@
 package com.bluehabit.budgetku.android.feature.signIn
 
-import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
