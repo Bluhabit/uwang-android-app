@@ -1,3 +1,10 @@
+/*
+ * Copyright © 2023 Blue Habit.
+ *
+ * Unauthorized copying, publishing of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ */
+
 object Hilt {
     val hiltNavigationCompose by lazy { "androidx.hilt:hilt-navigation-compose:1.0.0" }
     val hiltWork by lazy { "androidx.hilt:hilt-work:1.0.0" }

@@ -1,3 +1,10 @@
+/*
+ * Copyright © 2023 Blue Habit.
+ *
+ * Unauthorized copying, publishing of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ */
+
 object JetpackCompose {
     val composeBom  by lazy { "androidx.compose:compose-bom:2022.10.00" }
     val material3 by lazy{"androidx.compose.material3:material3"}
