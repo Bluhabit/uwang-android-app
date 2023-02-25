@@ -1,3 +1,10 @@
+/*
+ * Copyright © 2023 Blue Habit.
+ *
+ * Unauthorized copying, publishing of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ */
+
 plugins {
     //trick: for the same plugin versions in all sub-modules
     id("com.android.application").version("7.4.1").apply(false)
