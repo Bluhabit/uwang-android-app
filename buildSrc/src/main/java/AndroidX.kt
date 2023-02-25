@@ -1,3 +1,10 @@
+/*
+ * Copyright © 2023 Blue Habit.
+ *
+ * Unauthorized copying, publishing of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ */
+
 object AndroidX {
     object Core{
         val coreKtx by lazy { "androidx.core:core-ktx:1.7.0" }

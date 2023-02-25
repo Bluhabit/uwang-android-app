@@ -1,3 +1,10 @@
+/*
+ * Copyright © 2023 Blue Habit.
+ *
+ * Unauthorized copying, publishing of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ */
+
 package com.bluehabit.budgetku
 
 import android.content.Context
@@ -20,11 +27,14 @@ class AndroidSetupSDK(
     private val interceptor: Interceptor,
     private val baseUrl: String
 ) {
-    var kmmPreference: KMMPreference = KMMPreference(context as KMMContext)
-    var driver = DriverFactory(context)
-    var httpClient: HttpClient = HttpClient(
+    val kmmPreference: KMMPreference = KMMPreference(context as KMMContext)
+    val driver = DriverFactory(context)
+    val httpClient: HttpClient = HttpClient(
         OkHttp
     ) {
+        install(HttpTimeout){
+            socketTimeoutMillis = 180000
+        }
         install(Resources)
         defaultRequest {
             val locale = kmmPreference.getString("locale")

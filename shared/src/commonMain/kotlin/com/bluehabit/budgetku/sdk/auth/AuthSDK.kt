@@ -1,3 +1,10 @@
+/*
+ * Copyright © 2023 Blue Habit.
+ *
+ * Unauthorized copying, publishing of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ */
+
 package com.bluehabit.budgetku.sdk.auth
 
 import com.bluehabit.budgetku.DriverFactory
@@ -20,6 +27,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.stateIn
 
 class AuthSDK(
     private val driverFactory: DriverFactory,
@@ -37,7 +45,11 @@ class AuthSDK(
         password: String,
     ): Flow<Response<BaseResponse<UserResponse>>> = flow {
         emit(Response.Loading)
-        val res = safeApiCall<UserResponse> {
+        val res = safeApiCall<UserResponse>(
+            onSaveToken = {
+                pref.put("USER", it)
+            }
+        ) {
             client.post(AuthApi.SignInWithEmail()) {
                 setBody(
                     SignInEmailRequest(
@@ -47,12 +59,6 @@ class AuthSDK(
                 )
             }
         }
-        when (res) {
-            is Response.Result -> {
-                pref.put("USER", res.data.token)
-            }
-            else -> Unit
-        }
         emit(res)
     }.flowOn(Dispatchers.Default)
 
@@ -60,16 +66,18 @@ class AuthSDK(
         Exception::class
     )
     suspend fun signInGoogle(
-        token:String
-    ):Flow<Response<BaseResponse<UserResponse>>> = flow {
+        token: String
+    ): Flow<Response<BaseResponse<UserResponse>>> = flow {
         emit(Response.Loading)
         val res = safeApiCall<UserResponse> {
-            client.post(AuthApi.SignInGoogle()){
-                setBody(SignInGoogleRequest(
-                    token=token
-                ))
+            client.post(AuthApi.SignInGoogle()) {
+                setBody(
+                    SignInGoogleRequest(
+                        token = token
+                    )
+                )
             }
         }
         emit(res)
-    }
+    }.flowOn(Dispatchers.Default)
 }
