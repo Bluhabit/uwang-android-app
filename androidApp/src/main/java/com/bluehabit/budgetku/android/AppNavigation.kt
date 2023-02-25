@@ -5,7 +5,7 @@ import androidx.navigation.compose.NavHost
 import com.bluehabit.budgetku.android.base.EventListener
 import com.bluehabit.budgetku.android.feature.splashScreen.Splash
 import com.bluehabit.budgetku.android.feature.splashScreen.routeSplash
-import com.bluehabit.budgetku.android.feature.user.routeUser
+import com.bluehabit.budgetku.android.feature.signIn.routeSignIn
 
 @Composable
 fun AppNavigation(
@@ -20,7 +20,7 @@ fun AppNavigation(
             state=applicationState,
             event = eventListener
         )
-        routeUser(
+        routeSignIn(
             state=applicationState,
             event = eventListener
         )

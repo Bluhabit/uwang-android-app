@@ -7,6 +7,10 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.platform.LocalConfiguration
 import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.base.EventListener
+import com.bluehabit.budgetku.android.components.BaseBottomAppBar
+import com.bluehabit.budgetku.android.components.BaseBottomSheet
+import com.bluehabit.budgetku.android.components.BaseSnackbar
+import com.bluehabit.budgetku.android.components.BaseTopAppBar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -28,7 +32,19 @@ class MainActivity : ComponentActivity() {
             })
             BaseMainApp(
                 appState = appState,
-                eventListener = eventListener
+                eventListener = eventListener,
+                topAppBar = {
+                    BaseTopAppBar(state = it)
+                },
+                bottomBar = {
+                    BaseBottomAppBar(state = it)
+                },
+                snackbarBar = {
+                    BaseSnackbar(state = it)
+                },
+                bottomSheet = {
+                    BaseBottomSheet(state = it)
+                }
             ) { state, event ->
                 AppNavigation(applicationState = state, eventListener = event)
             }
