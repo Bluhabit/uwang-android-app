@@ -2,6 +2,7 @@ package com.bluehabit.budgetku.android.base
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetLayout
@@ -14,6 +15,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.bluehabit.budgetku.android.ApplicationState
 import com.bluehabit.budgetku.android.rememberApplicationState
 import com.bluehabit.budgetku.android.ui.NoteTheme
@@ -49,7 +51,9 @@ fun BaseMainApp(
         ) {
             ModalBottomSheetLayout(
                 sheetContent = {
-                    bottomSheet(appState)
+                    Column(Modifier.height(20.dp)) {
+                        bottomSheet(appState)
+                    }
                 },
                 sheetState = bottomSheetState,
             ) {

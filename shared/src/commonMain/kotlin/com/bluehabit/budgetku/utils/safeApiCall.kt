@@ -12,7 +12,7 @@ suspend inline fun <reified T> safeApiCall(call: () -> HttpResponse): Response<B
             val data = response.body<BaseResponse<T>>()
             Response.Result(data)
         } else {
-            val data = response.body<BaseResponse<T>>()
+            val data = response.body<BaseResponse<List<Any>>>()
             Response.Error(data.message, data.code)
         }
 
