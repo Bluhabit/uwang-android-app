@@ -37,7 +37,11 @@ class AuthSDK(
         password: String,
     ): Flow<Response<BaseResponse<UserResponse>>> = flow {
         emit(Response.Loading)
-        val res = safeApiCall<UserResponse> {
+        val res = safeApiCall<UserResponse>(
+            onSaveToken = {
+                pref.put("USER", it)
+            }
+        ) {
             client.post(AuthApi.SignInWithEmail()) {
                 setBody(
                     SignInEmailRequest(
@@ -47,12 +51,6 @@ class AuthSDK(
                 )
             }
         }
-        when (res) {
-            is Response.Result -> {
-                pref.put("USER", res.data.token)
-            }
-            else -> Unit
-        }
         emit(res)
     }.flowOn(Dispatchers.Default)
 
@@ -60,14 +58,16 @@ class AuthSDK(
         Exception::class
     )
     suspend fun signInGoogle(
-        token:String
-    ):Flow<Response<BaseResponse<UserResponse>>> = flow {
+        token: String
+    ): Flow<Response<BaseResponse<UserResponse>>> = flow {
         emit(Response.Loading)
         val res = safeApiCall<UserResponse> {
-            client.post(AuthApi.SignInGoogle()){
-                setBody(SignInGoogleRequest(
-                    token=token
-                ))
+            client.post(AuthApi.SignInGoogle()) {
+                setBody(
+                    SignInGoogleRequest(
+                        token = token
+                    )
+                )
             }
         }
         emit(res)

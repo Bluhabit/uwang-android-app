@@ -10,13 +10,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
 @Composable
 internal fun ScreenSignIn(
     modifier: Modifier = Modifier,
     userID: String? = "empty",
-    onSubmit: (email: String, password: String) -> Unit = {_,_->},
+    onSubmit: (email: String, password: String) -> Unit = { _, _ -> },
 ) {
     var email by remember {
         mutableStateOf("")
@@ -25,7 +26,7 @@ internal fun ScreenSignIn(
         mutableStateOf("")
     }
 
-    LazyColumn(modifier = modifier.fillMaxWidth()) {
+    LazyColumn(modifier = modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
         item {
             TextField(value = email, onValueChange = {
                 email = it

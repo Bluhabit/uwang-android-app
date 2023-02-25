@@ -24,46 +24,30 @@ class UserViewModel @Inject constructor(
     private val _userData = MutableStateFlow<String>("")
     val userData = _userData.asStateFlow()
 
-    fun signInWithEmail(email: String, password: String) = with(viewModelScope) {
+    fun signInWithEmail(email: String, password: String, cb: suspend (Boolean, String) -> Unit) = with(viewModelScope) {
         launch {
-
             authSDK.signInWithEmail("", "")
                 .collect {
                     when (it) {
-                        is Response.Error -> {
-                            Log.e("HOHO", it.message)
-                        }
-                        Response.Loading -> {
-                            Log.e("HOHO", "Loading")
-                        }
-                        is Response.Result -> {
-                            Log.e("HOHO", it.data.toString())
-                        }
+                        is Response.Error -> cb(false, it.message)
+                        Response.Loading -> Unit
+                        is Response.Result -> cb(true, "")
                     }
                 }
         }
     }
 
-    fun signInGoogle(result: Task<GoogleSignInAccount>?) = with(viewModelScope) {
+    fun signInGoogle(result: Task<GoogleSignInAccount>?, cb: suspend (Boolean, String) -> Unit) = with(viewModelScope) {
         launch {
-
-                val token = result!!.await()
-                authSDK.signInGoogle(
-                    token.idToken.orEmpty()
-                )
-                    .collect {
-                        when (it) {
-                            is Response.Error -> {
-                                Log.e("HOHO", it.message)
-                            }
-                            Response.Loading -> {
-                                Log.e("HOHO", "Loading")
-                            }
-                            is Response.Result -> {
-                                Log.e("HOHO", it.data.toString())
-                            }
-                        }
+            val token = result!!.await()
+            authSDK.signInGoogle(token.idToken.orEmpty())
+                .collect {
+                    when (it) {
+                        is Response.Error -> cb(false, it.message)
+                        Response.Loading -> Unit
+                        is Response.Result -> cb(true, "")
                     }
+                }
 
         }
     }
