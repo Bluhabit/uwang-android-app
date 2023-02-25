@@ -84,6 +84,11 @@ dependencies {
     implementation(AndroidX.Multidex.multidex)
     implementation(AndroidX.Navigation.navigationCompose)
 
+
+    with(Jetbrains.Kotlinx){
+        implementation(googlePlayKotlinCoroutine)
+        testImplementation(kotlinxCoroutinesTest)
+    }
     with(JetpackCompose) {
         implementation(platform(composeBom))
         androidTestImplementation(
@@ -113,6 +118,10 @@ dependencies {
         kapt(hiltCompiler)
     }
 
+    with(Google.Android.Gms){
+        implementation(playServicesAuth)
+        implementation(playServiceBase)
+    }
     with(Worker) {
         implementation(workRuntime)
     }
