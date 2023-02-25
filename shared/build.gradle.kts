@@ -110,5 +110,6 @@ android{
         targetSdk = 33
 
         buildConfigField("String","SHARED_PREF_KEY","\"${findProperty("SHARED_PREF_KEY")}\"")
+        buildConfigField("String","X_API_KEY","\"${findProperty("X_API_KEY")}\"")
     }
 }
