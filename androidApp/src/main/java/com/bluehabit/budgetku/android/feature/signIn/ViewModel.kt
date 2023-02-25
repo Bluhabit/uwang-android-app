@@ -1,6 +1,5 @@
 package com.bluehabit.budgetku.android.feature.signIn
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bluehabit.budgetku.sdk.auth.AuthSDK
@@ -26,7 +25,7 @@ class UserViewModel @Inject constructor(
 
     fun signInWithEmail(email: String, password: String, cb: suspend (Boolean, String) -> Unit) = with(viewModelScope) {
         launch {
-            authSDK.signInWithEmail("", "")
+            authSDK.signInWithEmail(email, password)
                 .collect {
                     when (it) {
                         is Response.Error -> cb(false, it.message)
