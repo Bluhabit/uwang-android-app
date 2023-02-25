@@ -10,6 +10,7 @@ import io.ktor.client.engine.okhttp.OkHttp
 import io.ktor.client.plugins.*
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.resources.*
+import io.ktor.client.request.*
 import io.ktor.http.*
 import io.ktor.serialization.gson.gson
 import okhttp3.Interceptor
@@ -19,12 +20,15 @@ class AndroidSetupSDK(
     private val interceptor: Interceptor,
     private val baseUrl: String
 ) {
+    var kmmPreference: KMMPreference = KMMPreference(context as KMMContext)
     var driver = DriverFactory(context)
     var httpClient: HttpClient = HttpClient(
         OkHttp
     ) {
         install(Resources)
         defaultRequest {
+            val locale = kmmPreference.getString("locale")
+            header("Accept-Language",locale ?: "en")
             url(baseUrl)
             contentType(ContentType.Application.Json)
         }
@@ -39,7 +43,7 @@ class AndroidSetupSDK(
             addInterceptor(interceptor)
         }
     }
-    var kmmPreference: KMMPreference = KMMPreference(context as KMMContext)
+
 }
 
 fun createDataConfiguration(
