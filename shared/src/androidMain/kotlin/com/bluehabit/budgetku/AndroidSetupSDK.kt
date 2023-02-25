@@ -29,6 +29,7 @@ class AndroidSetupSDK(
         defaultRequest {
             val locale = kmmPreference.getString("locale")
             header("Accept-Language",locale ?: "en")
+            header("x-api-key",BuildConfig.X_API_KEY)
             url(baseUrl)
             contentType(ContentType.Application.Json)
         }
