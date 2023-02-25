@@ -5,6 +5,7 @@ import com.bluehabit.budgetku.createDatabase
 import com.bluehabit.budgetku.entity.UserModel
 import com.bluehabit.budgetku.model.BaseResponse
 import com.bluehabit.budgetku.model.SignInEmailRequest
+import com.bluehabit.budgetku.model.SignInGoogleRequest
 import com.bluehabit.budgetku.model.UserResponse
 import com.bluehabit.budgetku.sharedPref.KMMPreference
 import com.bluehabit.budgetku.utils.Response
@@ -54,4 +55,21 @@ class AuthSDK(
         }
         emit(res)
     }.flowOn(Dispatchers.Default)
+
+    @Throws(
+        Exception::class
+    )
+    suspend fun signInGoogle(
+        token:String
+    ):Flow<Response<BaseResponse<UserResponse>>> = flow {
+        emit(Response.Loading)
+        val res = safeApiCall<UserResponse> {
+            client.post(AuthApi.SignInGoogle()){
+                setBody(SignInGoogleRequest(
+                    token=token
+                ))
+            }
+        }
+        emit(res)
+    }
 }

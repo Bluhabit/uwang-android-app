@@ -8,4 +8,5 @@ fun ApplicationState.listenChanges(
     config: Configuration
 ) = this.router.addOnDestinationChangedListener { _, destination, _ ->
     currentRoute = destination.route.orEmpty()
+
 }
