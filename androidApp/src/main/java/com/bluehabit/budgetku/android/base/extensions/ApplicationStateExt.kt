@@ -15,14 +15,14 @@ fun ApplicationState.replaceRoute(routeName:String){
     }
 }
 
-fun ApplicationState.pushAndClear(routeName:String){
+fun ApplicationState.pushAndReplace(routeName:String){
     this.router.navigate(routeName){
         popUpTo(currentRoute)
         launchSingleTop = true
     }
 }
 
-fun ApplicationState.pushAndClearAll(routeName:String){
+fun ApplicationState.pushAndReplaceAll(routeName:String){
     this.router.navigate(routeName){
         popUpTo(currentRoute){
             inclusive = true

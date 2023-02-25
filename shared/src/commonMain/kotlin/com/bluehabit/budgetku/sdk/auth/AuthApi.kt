@@ -9,4 +9,10 @@ class AuthApi {
 
     @Resource("sign-in-google")
     class SignInGoogle(val parent: AuthApi = AuthApi())
+
+    @Resource("sign-up-email")
+    class SignUpWithEmail(val parent: AuthApi = AuthApi())
+
+    @Resource("sign-up-google")
+    class SignUpWithGoogle(val parent: AuthApi = AuthApi())
 }
