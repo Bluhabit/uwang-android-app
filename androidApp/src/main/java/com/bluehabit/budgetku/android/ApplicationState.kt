@@ -36,6 +36,7 @@ class ApplicationState internal constructor(
         }
     }
 
+
     fun changeTopAppBar(type: String) {
         if (topAppBarType != type) {
             topAppBarType = type
