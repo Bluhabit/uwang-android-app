@@ -10,14 +10,19 @@ package com.bluehabit.budgetku.android.components
 
 import androidx.compose.runtime.Composable
 import com.bluehabit.budgetku.android.ApplicationState
+import com.bluehabit.budgetku.android.feature.dashboard.Dashboard
+import com.bluehabit.budgetku.android.feature.dashboard.components.DashboardBottomNavigation
 
 @Composable
 fun BaseBottomAppBar(
-    state:ApplicationState
+    state: ApplicationState
 ) {
-    with(state){
-        when(state.bottomAppBarType){
-            else ->Unit
+    with(state) {
+        when (bottomAppBarType) {
+            Dashboard.BottomNavigationType -> {
+                DashboardBottomNavigation()
+            }
+            else -> Unit
         }
     }
 }
