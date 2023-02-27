@@ -38,15 +38,15 @@ class EventListener {
         topAppBarListener?.onAction(id, *params)
     }
 
-    fun topAppBarNavigation() {
-        topAppBarListener?.onNavigation()
+    fun onNavigationIconClicked() {
+        topAppBarListener?.onNavigationIconClicked()
     }
 
     fun addOnBottomAppBarListener(listener: BottomAppBarClickListener) {
         bottomAppBarListener = listener
     }
 
-    fun bottomAppBarClick(id: String, params: Array<out String>) {
+    fun bottomAppBarClick(id: String,vararg params: String) {
         bottomAppBarListener?.onItemClick(
             id,
             *params
@@ -83,4 +83,13 @@ class EventListener {
     fun bottomSheetClose() {
         bottomSheetListener?.onClose()
     }
+
+    fun clear(){
+        appEvent = null
+        topAppBarListener = null
+        bottomSheetListener = null
+        bottomAppBarListener = null
+        snackBarClickListener = null
+    }
+
 }

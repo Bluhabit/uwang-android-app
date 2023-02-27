@@ -14,9 +14,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.bluehabit.budgetku.android.ApplicationState
-import com.bluehabit.budgetku.android.base.EventListener
 import com.bluehabit.budgetku.android.base.contract.GoogleAuthContract
+import com.bluehabit.budgetku.android.base.extensions.navigateAndReplaceAll
 import com.bluehabit.budgetku.android.base.extensions.showSnackbar
+import com.bluehabit.budgetku.android.feature.dashboard.home.Home
 
 object SignIn {
     const val routeName = "SignIn"
@@ -24,7 +25,6 @@ object SignIn {
 
 fun NavGraphBuilder.routeSignIn(
     state: ApplicationState,
-    event: EventListener
 ) {
     composable(SignIn.routeName) {
         val viewModel = hiltViewModel<UserViewModel>()
@@ -40,7 +40,9 @@ fun NavGraphBuilder.routeSignIn(
         ScreenSignIn(
             userID = userId,
             onSubmit = { email, password ->
-                launcher.launch(1)
+                //launcher.launch(1)
+
+                state.navigateAndReplaceAll(Home.routeName)
             }
         )
     }

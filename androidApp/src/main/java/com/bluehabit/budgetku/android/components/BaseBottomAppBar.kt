@@ -20,7 +20,9 @@ fun BaseBottomAppBar(
     with(state) {
         when (bottomAppBarType) {
             Dashboard.BottomNavigationType -> {
-                DashboardBottomNavigation()
+                DashboardBottomNavigation(
+                    appState = state
+                )
             }
             else -> Unit
         }

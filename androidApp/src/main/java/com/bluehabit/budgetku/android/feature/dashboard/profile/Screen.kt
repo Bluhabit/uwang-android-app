@@ -5,7 +5,7 @@
  * Proprietary and confidential
  */
 
-package com.bluehabit.budgetku.android.feature.splashScreen
+package com.bluehabit.budgetku.android.feature.dashboard.profile
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
@@ -14,7 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.bluehabit.budgetku.android.base.BaseMainApp
 
 @Composable
-internal fun ScreenSplash(
+internal fun ScreenProfile(
     modifier: Modifier = Modifier,
 ) {
     Column {
@@ -24,8 +24,9 @@ internal fun ScreenSplash(
 
 @Preview
 @Composable
-fun PreviewScreenSplash() {
+fun PreviewScreenProfile() {
     BaseMainApp {
-        ScreenSplash()
+        ScreenProfile()
     }
+
 }

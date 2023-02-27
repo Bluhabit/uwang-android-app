@@ -26,7 +26,6 @@ internal fun ScreenHome(
 @Composable
 fun PreviewScreenHome() {
     BaseMainApp {
-        _,_->
         ScreenHome()
     }
 
