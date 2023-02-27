@@ -31,19 +31,18 @@ import com.bluehabit.budgetku.android.ui.NoteTheme
 @Composable
 fun BaseMainApp(
     appState: ApplicationState = rememberApplicationState(),
-    eventListener: EventListener = EventListener(),
     topAppBar: @Composable (ApplicationState) -> Unit = {},
     bottomBar: @Composable (ApplicationState) -> Unit = {},
     snackbarBar: @Composable (ApplicationState) -> Unit = {},
     bottomSheet: @Composable (ApplicationState) -> Unit = {},
-    content: @Composable (appState: ApplicationState, event: EventListener) -> Unit = { _, _ -> }
+    content: @Composable (appState: ApplicationState) -> Unit = {  }
 ) {
     val bottomSheetState = rememberModalBottomSheetState(
         initialValue = ModalBottomSheetValue.Hidden,
         confirmStateChange = {
             when (it) {
                 ModalBottomSheetValue.Hidden -> {
-                    eventListener.bottomSheetClose()
+                    appState.event.bottomSheetClose()
                 }
                 else -> Unit
             }
@@ -78,7 +77,7 @@ fun BaseMainApp(
                     Column(
                         modifier = Modifier.padding(it)
                     ) {
-                        content(appState, eventListener)
+                        content(appState)
                     }
                 }
             }

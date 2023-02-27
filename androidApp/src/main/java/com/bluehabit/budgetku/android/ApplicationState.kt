@@ -12,12 +12,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.bluehabit.budgetku.android.base.EventListener
+import com.bluehabit.budgetku.android.feature.splashScreen.Splash
+import kotlinx.coroutines.CoroutineScope
 
 class ApplicationState internal constructor(
-    val router: NavHostController
+    val router: NavHostController,
+    val scope:CoroutineScope,
+    val event:EventListener
 ) {
     var topAppBarType by mutableStateOf("")
     var bottomAppBarType by mutableStateOf("")
@@ -54,15 +60,27 @@ class ApplicationState internal constructor(
             bottomSheetType = type
         }
     }
+
+    fun clear(){
+        bottomSheetType = ""
+        bottomAppBarType = ""
+        snackBarType = ""
+        bottomSheetType = ""
+        currentRoute = Splash.routeName
+    }
 }
 
 @Composable
 fun rememberApplicationState(
-    router: NavHostController = rememberNavController()
+    router: NavHostController = rememberNavController(),
+    scope: CoroutineScope = rememberCoroutineScope(),
+    event: EventListener= EventListener()
 ): ApplicationState {
     return remember {
         ApplicationState(
-            router
+            router,
+            scope,
+            event
         )
     }
 }

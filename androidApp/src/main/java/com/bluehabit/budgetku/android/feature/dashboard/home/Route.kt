@@ -12,7 +12,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.bluehabit.budgetku.android.ApplicationState
-import com.bluehabit.budgetku.android.base.EventListener
+import com.bluehabit.budgetku.android.base.extensions.addOnBottomAppBarListener
+import com.bluehabit.budgetku.android.base.extensions.runSuspend
+import com.bluehabit.budgetku.android.base.extensions.showSnackbar
 import com.bluehabit.budgetku.android.feature.dashboard.Dashboard
 
 object Home {
@@ -21,12 +23,19 @@ object Home {
 
 fun NavGraphBuilder.routeHome(
     state: ApplicationState,
-    event: EventListener
 ) {
     composable(Home.routeName) {
         val viewModel = hiltViewModel<HomeViewModel>()
         LaunchedEffect(key1 = state, block = {
-            state.changeBottomBar(Dashboard.BottomNavigationType)
+            with(state) {
+                changeBottomBar(Dashboard.BottomNavigationType)
+                addOnBottomAppBarListener { id, params ->
+                    runSuspend {
+                        showSnackbar("Ini dipanggil di $id")
+                    }
+
+                }
+            }
         })
 
         ScreenHome()

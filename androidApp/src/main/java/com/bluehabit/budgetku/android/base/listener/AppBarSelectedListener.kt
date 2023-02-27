@@ -8,6 +8,6 @@
 package com.bluehabit.budgetku.android.base.listener
 
 interface AppBarSelectedListener {
-    fun onNavigation()
+    fun onNavigationIconClicked()
     fun onAction(id:String,vararg params:String)
 }
