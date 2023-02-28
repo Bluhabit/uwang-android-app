@@ -7,21 +7,20 @@
 
 package com.bluehabit.budgetku.android.base
 
-import com.bluehabit.budgetku.android.base.listener.AppBarSelectedListener
+import com.bluehabit.budgetku.android.base.listener.AppBarListener
 import com.bluehabit.budgetku.android.base.listener.AppStateEventListener
-import com.bluehabit.budgetku.android.base.listener.BottomAppBarClickListener
 import com.bluehabit.budgetku.android.base.listener.BottomSheetListener
-import com.bluehabit.budgetku.android.base.listener.SnackBarClickListener
+import com.bluehabit.budgetku.android.base.listener.SnackbarListener
 
 
 class EventListener {
     private var appEvent: AppStateEventListener? = null
-    private var topAppBarListener: AppBarSelectedListener? = null
-    private var bottomAppBarListener: BottomAppBarClickListener? = null
-    private var snackBarClickListener: SnackBarClickListener? = null
+    private var appBarListener: AppBarListener? = null
+    private var snackBarListener: SnackbarListener? = null
     private var bottomSheetListener: BottomSheetListener? = null
 
 
+    //region app event
     fun addOnEventListener(listener: AppStateEventListener) {
         appEvent = listener
     }
@@ -29,42 +28,50 @@ class EventListener {
     fun sendEvent(eventName: String) {
         appEvent?.onEvent(eventName)
     }
-
-    fun addOnAppBarListener(listener: AppBarSelectedListener) {
-        topAppBarListener = listener
+    //end region
+    //region app bar
+    fun addOnAppBarListener(listener: AppBarListener) {
+        appBarListener = listener
     }
 
-    fun topAppBarAction(id: String, params: Array<out String>) {
-        topAppBarListener?.onAction(id, *params)
+    fun actionItemClicked(id: String,vararg params: String) {
+        appBarListener?.onActionItemClicked(id, *params)
     }
 
-    fun onNavigationIconClicked() {
-        topAppBarListener?.onNavigationIconClicked()
+    fun navigationButtonClicked() {
+        appBarListener?.onNavigationButtonClicked()
     }
 
-    fun addOnBottomAppBarListener(listener: BottomAppBarClickListener) {
-        bottomAppBarListener = listener
-    }
-
-    fun bottomAppBarClick(id: String,vararg params: String) {
-        bottomAppBarListener?.onItemClick(
+    fun navigationItemClick(id: String, vararg params: String) {
+        appBarListener?.onNavigationItemClicked(
             id,
             *params
         )
     }
 
-    fun addSnackbarBarListener(listener: SnackBarClickListener) {
-        snackBarClickListener = listener
+    fun fabClicked(id: String, vararg params: String) {
+        appBarListener?.onFabClicked(
+            id,
+            *params
+        )
+    }
+    //end region
+    //region snackbar
+
+    fun addSnackbarBarListener(listener: SnackbarListener) {
+        snackBarListener = listener
     }
 
     fun snackbarContent(id: String, params: Array<out String>) {
-        snackBarClickListener?.onContent(id, *params)
+        snackBarListener?.onContent(id, *params)
     }
 
     fun snackbarAction(id: String) {
-        snackBarClickListener?.onAction(id)
+        snackBarListener?.onAction(id)
     }
 
+    //end region
+    //region bottom sheet
     fun addOnBottomSheetListener(listener: BottomSheetListener) {
         bottomSheetListener = listener
     }
@@ -83,13 +90,13 @@ class EventListener {
     fun bottomSheetClose() {
         bottomSheetListener?.onClose()
     }
+    //end bottom sheet
 
     fun clear(){
         appEvent = null
-        topAppBarListener = null
+        appBarListener = null
         bottomSheetListener = null
-        bottomAppBarListener = null
-        snackBarClickListener = null
+        snackBarListener = null
     }
 
 }

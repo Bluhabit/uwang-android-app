@@ -19,6 +19,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import com.bluehabit.budgetku.android.ApplicationState
 import com.bluehabit.budgetku.android.base.BaseMainApp
+import com.bluehabit.budgetku.android.base.extensions.navigationItemClick
 import com.bluehabit.budgetku.android.base.extensions.navigateSingleTop
 import com.bluehabit.budgetku.android.feature.dashboard.home.Home
 import com.bluehabit.budgetku.android.feature.dashboard.profile.Profile
@@ -59,7 +60,7 @@ fun DashboardBottomNavigation(
                 unselectedContentColor = MaterialTheme.colorScheme.onPrimary,
                 onClick = {
                     with(appState) {
-                        event.bottomAppBarClick(it.route)
+                        navigationItemClick(it.route)
                         navigateSingleTop(it.route)
                     }
                 },

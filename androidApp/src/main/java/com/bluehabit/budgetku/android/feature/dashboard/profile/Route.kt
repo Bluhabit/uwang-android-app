@@ -12,9 +12,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.bluehabit.budgetku.android.ApplicationState
-import com.bluehabit.budgetku.android.base.extensions.addOnBottomAppBarListener
+import com.bluehabit.budgetku.android.base.extensions.addOnAppBarListener
 import com.bluehabit.budgetku.android.base.extensions.runSuspend
 import com.bluehabit.budgetku.android.base.extensions.showSnackbar
+import com.bluehabit.budgetku.android.base.listener.AppBarListenerImpl
 import com.bluehabit.budgetku.android.feature.dashboard.Dashboard
 
 object Profile {
@@ -29,12 +30,18 @@ fun NavGraphBuilder.routeProfile(
         LaunchedEffect(key1 = state, block = {
             with(state) {
                 changeBottomBar(Dashboard.BottomNavigationType)
-                addOnBottomAppBarListener { id, params ->
-                    runSuspend {
-                        showSnackbar("Ini dipanggil di $id")
-                    }
-
-                }
+                addOnAppBarListener(
+                    AppBarListenerImpl(
+                        onNavButtonClicked = {},
+                        onNavItemClicked = { id, _ ->
+                            runSuspend {
+                                showSnackbar("Ini $id")
+                            }
+                        },
+                        onFabClicked = { _, _ -> },
+                        onActionClicked = { _, _ -> }
+                    )
+                )
             }
         })
 
