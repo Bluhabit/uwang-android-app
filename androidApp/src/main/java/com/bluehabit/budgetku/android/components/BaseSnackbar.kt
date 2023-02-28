@@ -12,6 +12,7 @@ import androidx.compose.material3.Snackbar
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.runtime.Composable
 import com.bluehabit.budgetku.android.ApplicationState
+import com.bluehabit.budgetku.android.base.listener.SnackbarType
 
 @Composable
 fun BaseSnackbar(
@@ -22,7 +23,7 @@ fun BaseSnackbar(
         snackbar = {
             with(state) {
                 when (snackBarType) {
-                    "BASIC" -> {
+                    SnackbarType.BASIC -> {
                         Snackbar(
                             snackbarData = it,
                             contentColor = MaterialTheme.colorScheme.onSurface,
@@ -31,7 +32,7 @@ fun BaseSnackbar(
                             actionContentColor = MaterialTheme.colorScheme.onPrimary
                         )
                     }
-                    else -> Unit
+                    SnackbarType.DASHBOARD -> TODO()
                 }
             }
         }

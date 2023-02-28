@@ -38,3 +38,15 @@ class AppBarListenerImpl(
     }
 
 }
+
+enum class TopAppBarType{
+    HIDE,
+    BASIC,
+    DASHBOARD
+}
+
+enum class BottomAppBarType{
+    HIDE,
+    BASIC,
+    DASHBOARD
+}

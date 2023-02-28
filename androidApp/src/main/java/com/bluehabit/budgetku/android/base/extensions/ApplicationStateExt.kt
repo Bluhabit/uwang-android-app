@@ -14,6 +14,7 @@ import com.bluehabit.budgetku.android.base.listener.AppBarListenerImpl
 import com.bluehabit.budgetku.android.base.listener.AppStateEventListener
 import com.bluehabit.budgetku.android.base.listener.BottomSheetListener
 import com.bluehabit.budgetku.android.base.listener.SnackbarListener
+import com.bluehabit.budgetku.android.base.listener.SnackbarType
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.launch
@@ -124,28 +125,28 @@ fun ApplicationState.runSuspend(
 
 //region snackbar
 suspend fun ApplicationState.showSnackbar(message: String): SnackbarResult = with(snackbarHostState) {
-    if (snackBarType != "BASIC") {
-        snackBarType = "BASIC"
+    if (snackBarType != SnackbarType.BASIC) {
+        snackBarType = SnackbarType.BASIC
     }
     showSnackbar(message)
 }
 
 suspend fun ApplicationState.showShortSnackbar(message: String): SnackbarResult = with(snackbarHostState) {
-    if (snackBarType != "BASIC") {
-        snackBarType = "BASIC"
+    if (snackBarType != SnackbarType.BASIC) {
+        snackBarType = SnackbarType.BASIC
     }
     showSnackbar(message, duration = SnackbarDuration.Short)
 }
 
 suspend fun ApplicationState.showLongSnackbar(message: String): SnackbarResult = with(snackbarHostState) {
-    if (snackBarType != "BASIC") {
-        snackBarType = "BASIC"
+    if (snackBarType != SnackbarType.BASIC) {
+        snackBarType = SnackbarType.BASIC
     }
     showSnackbar(message, duration = SnackbarDuration.Long)
 }
 
 
-suspend fun ApplicationState.showSnackbar(message: String, type: String): SnackbarResult =
+suspend fun ApplicationState.showSnackbar(message: String, type: SnackbarType): SnackbarResult =
     with(snackbarHostState) {
         if (snackBarType != type) {
             snackBarType = type
@@ -166,8 +167,8 @@ suspend fun ApplicationState.showSnackbar(
     duration: SnackbarDuration =
         if (actionLabel == null) SnackbarDuration.Short else SnackbarDuration.Indefinite
 ) = with(snackbarHostState) {
-    if (snackBarType != "BASIC") {
-        snackBarType = "BASIC"
+    if (snackBarType != SnackbarType.BASIC) {
+        snackBarType = SnackbarType.BASIC
     }
     showSnackbar(
         message = message,

@@ -13,10 +13,14 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.bluehabit.budgetku.android.ApplicationState
 import com.bluehabit.budgetku.android.base.extensions.addOnAppBarListener
+import com.bluehabit.budgetku.android.base.extensions.addOnBottomSheetListener
+import com.bluehabit.budgetku.android.base.extensions.addSnackbarBarListener
 import com.bluehabit.budgetku.android.base.extensions.runSuspend
 import com.bluehabit.budgetku.android.base.extensions.showSnackbar
 import com.bluehabit.budgetku.android.base.listener.AppBarListenerImpl
-import com.bluehabit.budgetku.android.feature.dashboard.Dashboard
+import com.bluehabit.budgetku.android.base.listener.BottomAppBarType
+import com.bluehabit.budgetku.android.base.listener.BottomSheetListenerImpl
+import com.bluehabit.budgetku.android.base.listener.SnackbarListenerImpl
 
 object Home {
     const val routeName = "Home"
@@ -29,7 +33,7 @@ fun NavGraphBuilder.routeHome(
         val viewModel = hiltViewModel<HomeViewModel>()
         LaunchedEffect(key1 = state, block = {
             with(state) {
-                changeBottomBar(Dashboard.BottomNavigationType)
+                changeBottomBar(BottomAppBarType.DASHBOARD)
                 addOnAppBarListener(
                     AppBarListenerImpl(
                         onNavButtonClicked = {},
@@ -42,6 +46,16 @@ fun NavGraphBuilder.routeHome(
                         onActionClicked = { _, _ -> }
                     )
                 )
+                addOnBottomSheetListener(BottomSheetListenerImpl(
+                    onActionClick = { _, _ -> },
+                    onClose = {},
+                    onContentClick = { _, _ -> }
+                ))
+
+                addSnackbarBarListener(SnackbarListenerImpl(
+                    onActionClicked = {},
+                    onContentClicked = { _, _ -> }
+                ))
             }
         })
 

@@ -24,3 +24,8 @@ class SnackbarListenerImpl(
         this.onActionClicked.invoke(id)
     }
 }
+
+enum class SnackbarType{
+    BASIC,
+    DASHBOARD
+}
