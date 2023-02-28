@@ -17,7 +17,7 @@ fun BaseBottomSheet(
 ) {
     with(state) {
         when (bottomSheetType) {
-            BottomSheetType.BASIC -> TODO()
+            BottomSheetType.BASIC -> {}
             BottomSheetType.DASHBOARD -> TODO()
         }
     }

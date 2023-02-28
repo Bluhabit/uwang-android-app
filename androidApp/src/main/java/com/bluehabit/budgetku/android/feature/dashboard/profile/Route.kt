@@ -13,6 +13,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.bluehabit.budgetku.android.ApplicationState
 import com.bluehabit.budgetku.android.base.extensions.addOnAppBarListener
+import com.bluehabit.budgetku.android.base.extensions.changeBottomBar
 import com.bluehabit.budgetku.android.base.extensions.runSuspend
 import com.bluehabit.budgetku.android.base.extensions.showSnackbar
 import com.bluehabit.budgetku.android.base.listener.AppBarListenerImpl
@@ -31,16 +32,15 @@ fun NavGraphBuilder.routeProfile(
             with(state) {
                 changeBottomBar(BottomAppBarType.DASHBOARD)
                 addOnAppBarListener(
-                    AppBarListenerImpl(
-                        onNavButtonClicked = {},
-                        onNavItemClicked = { id, _ ->
-                            runSuspend {
-                                showSnackbar("Ini $id")
-                            }
-                        },
-                        onFabClicked = { _, _ -> },
-                        onActionClicked = { _, _ -> }
-                    )
+                    onNavButtonClicked = {},
+                    onNavItemClicked = { id, _ ->
+                        runSuspend {
+                            showSnackbar("Ini $id")
+                        }
+                    },
+                    onFabClicked = { _, _ -> },
+                    onActionClicked = { _, _ -> }
+
                 )
             }
         })

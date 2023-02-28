@@ -17,7 +17,7 @@ fun BaseTopAppBar(
 ) {
     with(state) {
         when (topAppBarType) {
-            TopAppBarType.HIDE -> TODO()
+            TopAppBarType.HIDE -> Unit
             TopAppBarType.BASIC -> TODO()
             TopAppBarType.DASHBOARD -> TODO()
         }

@@ -25,7 +25,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluehabit.budgetku.android.ApplicationState
 import com.bluehabit.budgetku.android.rememberApplicationState
-import com.bluehabit.budgetku.android.ui.NoteTheme
+import com.bluehabit.budgetku.android.ui.BudgetKuTheme
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
@@ -49,7 +49,7 @@ fun BaseMainApp(
             true
         }
     )
-    NoteTheme {
+    BudgetKuTheme {
         // A surface container using the 'background' color from the theme
         Surface(
             modifier = Modifier.fillMaxSize(),
