@@ -10,11 +10,10 @@ package com.bluehabit.budgetku.android.base.extensions
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarResult
 import com.bluehabit.budgetku.android.ApplicationState
-import com.bluehabit.budgetku.android.base.listener.AppBarSelectedListener
+import com.bluehabit.budgetku.android.base.listener.AppBarListenerImpl
 import com.bluehabit.budgetku.android.base.listener.AppStateEventListener
-import com.bluehabit.budgetku.android.base.listener.BottomAppBarClickListener
 import com.bluehabit.budgetku.android.base.listener.BottomSheetListener
-import com.bluehabit.budgetku.android.base.listener.SnackBarClickListener
+import com.bluehabit.budgetku.android.base.listener.SnackbarListener
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.launch
@@ -180,8 +179,6 @@ suspend fun ApplicationState.showSnackbar(
 //end region
 
 //region event
-
-
 fun ApplicationState.addOnEventListener(listener: AppStateEventListener) =
     event.addOnEventListener(listener)
 
@@ -190,30 +187,32 @@ fun ApplicationState.sendEvent(eventName: String) =
     event.sendEvent(eventName)
 
 
-fun ApplicationState.addOnAppBarListener(listener: AppBarSelectedListener) =
+fun ApplicationState.addOnAppBarListener(listener: AppBarListenerImpl) =
     event.addOnAppBarListener(listener)
 
 
-fun ApplicationState.topAppBarAction(id: String, params: Array<out String>) =
-    event.topAppBarAction(id, params)
+fun ApplicationState.actionItemClicked(id: String, vararg params:String) =
+    event.actionItemClicked(id, *params)
 
 
-fun ApplicationState.onNavigationIconClicked() =
-    event.onNavigationIconClicked()
+fun ApplicationState.navigationButtonClicked() =
+    event.navigationButtonClicked()
 
 
-fun ApplicationState.addOnBottomAppBarListener(listener: BottomAppBarClickListener) =
-    event.addOnBottomAppBarListener(listener)
+fun ApplicationState.navigationItemClick(id: String, vararg params: String) =
+    event.navigationItemClick(
+        id,
+        *params
+    )
 
-
-fun ApplicationState.bottomAppBarClick(id: String, vararg params: String) =
-    event.bottomAppBarClick(
+fun ApplicationState.fabClicked(id: String, vararg params: String) =
+    event.fabClicked(
         id,
         *params
     )
 
 
-fun ApplicationState.addSnackbarBarListener(listener: SnackBarClickListener) =
+fun ApplicationState.addSnackbarBarListener(listener: SnackbarListener) =
     event.addSnackbarBarListener(listener)
 
 
