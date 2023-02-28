@@ -9,6 +9,7 @@ package com.bluehabit.budgetku.android.components
 
 import androidx.compose.runtime.Composable
 import com.bluehabit.budgetku.android.ApplicationState
+import com.bluehabit.budgetku.android.base.listener.TopAppBarType
 
 @Composable
 fun BaseTopAppBar(
@@ -16,10 +17,9 @@ fun BaseTopAppBar(
 ) {
     with(state) {
         when (topAppBarType) {
-            "BASIC" -> {
-
-            }
-            else -> Unit
+            TopAppBarType.HIDE -> TODO()
+            TopAppBarType.BASIC -> TODO()
+            TopAppBarType.DASHBOARD -> TODO()
         }
     }
 

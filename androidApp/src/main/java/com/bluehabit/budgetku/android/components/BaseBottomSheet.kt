@@ -9,6 +9,7 @@ package com.bluehabit.budgetku.android.components
 
 import androidx.compose.runtime.Composable
 import com.bluehabit.budgetku.android.ApplicationState
+import com.bluehabit.budgetku.android.base.listener.BottomSheetType
 
 @Composable
 fun BaseBottomSheet(
@@ -16,7 +17,8 @@ fun BaseBottomSheet(
 ) {
     with(state) {
         when (bottomSheetType) {
-            else -> Unit
+            BottomSheetType.BASIC -> TODO()
+            BottomSheetType.DASHBOARD -> TODO()
         }
     }
 }

@@ -16,7 +16,7 @@ import com.bluehabit.budgetku.android.base.extensions.addOnAppBarListener
 import com.bluehabit.budgetku.android.base.extensions.runSuspend
 import com.bluehabit.budgetku.android.base.extensions.showSnackbar
 import com.bluehabit.budgetku.android.base.listener.AppBarListenerImpl
-import com.bluehabit.budgetku.android.feature.dashboard.Dashboard
+import com.bluehabit.budgetku.android.base.listener.BottomAppBarType
 
 object Profile {
     const val routeName = "Profile"
@@ -29,7 +29,7 @@ fun NavGraphBuilder.routeProfile(
         val viewModel = hiltViewModel<ProfileViewModel>()
         LaunchedEffect(key1 = state, block = {
             with(state) {
-                changeBottomBar(Dashboard.BottomNavigationType)
+                changeBottomBar(BottomAppBarType.DASHBOARD)
                 addOnAppBarListener(
                     AppBarListenerImpl(
                         onNavButtonClicked = {},

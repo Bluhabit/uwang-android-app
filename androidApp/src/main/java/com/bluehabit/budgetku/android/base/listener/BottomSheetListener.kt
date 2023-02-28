@@ -31,3 +31,8 @@ class BottomSheetListenerImpl(
     }
 
 }
+
+enum class BottomSheetType{
+    BASIC,
+    DASHBOARD
+}
