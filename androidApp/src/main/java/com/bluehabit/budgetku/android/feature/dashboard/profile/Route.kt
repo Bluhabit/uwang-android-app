@@ -16,7 +16,6 @@ import com.bluehabit.budgetku.android.base.extensions.addOnAppBarListener
 import com.bluehabit.budgetku.android.base.extensions.changeBottomBar
 import com.bluehabit.budgetku.android.base.extensions.runSuspend
 import com.bluehabit.budgetku.android.base.extensions.showSnackbar
-import com.bluehabit.budgetku.android.base.listener.AppBarListenerImpl
 import com.bluehabit.budgetku.android.base.listener.BottomAppBarType
 
 object Profile {
