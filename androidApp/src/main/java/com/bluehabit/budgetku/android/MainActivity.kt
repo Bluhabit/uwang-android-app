@@ -63,6 +63,6 @@ class MainActivity : ComponentActivity() {
     override fun onDestroy() {
         super.onDestroy()
         eventListener.clear()
-        appState.clear()
+        appState.reset()
     }
 }

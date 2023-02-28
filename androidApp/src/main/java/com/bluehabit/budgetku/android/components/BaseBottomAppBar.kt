@@ -19,7 +19,7 @@ fun BaseBottomAppBar(
 ) {
     with(state) {
         when (bottomAppBarType) {
-            BottomAppBarType.HIDE -> TODO()
+            BottomAppBarType.HIDE -> Unit
             BottomAppBarType.BASIC -> TODO()
             BottomAppBarType.DASHBOARD -> {
                 DashboardBottomNavigation(

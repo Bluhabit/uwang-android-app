@@ -15,12 +15,10 @@ import com.bluehabit.budgetku.android.ApplicationState
 import com.bluehabit.budgetku.android.base.extensions.addOnAppBarListener
 import com.bluehabit.budgetku.android.base.extensions.addOnBottomSheetListener
 import com.bluehabit.budgetku.android.base.extensions.addSnackbarBarListener
+import com.bluehabit.budgetku.android.base.extensions.changeBottomBar
 import com.bluehabit.budgetku.android.base.extensions.runSuspend
 import com.bluehabit.budgetku.android.base.extensions.showSnackbar
-import com.bluehabit.budgetku.android.base.listener.AppBarListenerImpl
 import com.bluehabit.budgetku.android.base.listener.BottomAppBarType
-import com.bluehabit.budgetku.android.base.listener.BottomSheetListenerImpl
-import com.bluehabit.budgetku.android.base.listener.SnackbarListenerImpl
 
 object Home {
     const val routeName = "Home"
@@ -31,31 +29,31 @@ fun NavGraphBuilder.routeHome(
 ) {
     composable(Home.routeName) {
         val viewModel = hiltViewModel<HomeViewModel>()
+
         LaunchedEffect(key1 = state, block = {
             with(state) {
                 changeBottomBar(BottomAppBarType.DASHBOARD)
                 addOnAppBarListener(
-                    AppBarListenerImpl(
-                        onNavButtonClicked = {},
-                        onNavItemClicked = { id, _ ->
-                            runSuspend {
-                                showSnackbar("Ini $id")
-                            }
-                        },
-                        onFabClicked = { _, _ -> },
-                        onActionClicked = { _, _ -> }
-                    )
+                    onNavButtonClicked = {},
+                    onNavItemClicked = { id, _ ->
+                        runSuspend {
+                            showSnackbar("Ini $id")
+                        }
+                    },
+                    onFabClicked = { _, _ -> },
+                    onActionClicked = { _, _ -> }
                 )
-                addOnBottomSheetListener(BottomSheetListenerImpl(
+                addOnBottomSheetListener(
                     onActionClick = { _, _ -> },
                     onClose = {},
                     onContentClick = { _, _ -> }
-                ))
+                )
 
-                addSnackbarBarListener(SnackbarListenerImpl(
+                addSnackbarBarListener(
                     onActionClicked = {},
                     onContentClicked = { _, _ -> }
-                ))
+                )
+
             }
         })
 

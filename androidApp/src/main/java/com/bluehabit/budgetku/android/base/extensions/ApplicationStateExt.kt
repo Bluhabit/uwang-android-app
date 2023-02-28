@@ -10,11 +10,15 @@ package com.bluehabit.budgetku.android.base.extensions
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarResult
 import com.bluehabit.budgetku.android.ApplicationState
+import com.bluehabit.budgetku.android.base.listener.AppBarListener
 import com.bluehabit.budgetku.android.base.listener.AppBarListenerImpl
 import com.bluehabit.budgetku.android.base.listener.AppStateEventListener
+import com.bluehabit.budgetku.android.base.listener.BottomAppBarType
 import com.bluehabit.budgetku.android.base.listener.BottomSheetListener
+import com.bluehabit.budgetku.android.base.listener.BottomSheetType
 import com.bluehabit.budgetku.android.base.listener.SnackbarListener
 import com.bluehabit.budgetku.android.base.listener.SnackbarType
+import com.bluehabit.budgetku.android.base.listener.TopAppBarType
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.launch
@@ -188,11 +192,40 @@ fun ApplicationState.sendEvent(eventName: String) =
     event.sendEvent(eventName)
 
 
-fun ApplicationState.addOnAppBarListener(listener: AppBarListenerImpl) =
-    event.addOnAppBarListener(listener)
+fun ApplicationState.addOnAppBarListener(impl: AppBarListenerImpl) =
+    event.addOnAppBarListener(
+        impl
+    )
+
+fun ApplicationState.addOnAppBarListener(
+    onNavButtonClicked: () -> Unit = {},
+    onNavItemClicked: (id: String, params: Array<out String>) -> Unit = { _, _ -> },
+    onFabClicked: (id: String, params: Array<out String>) -> Unit = { _, _ -> },
+    onActionClicked: (id: String, params: Array<out String>) -> Unit = { _, _ -> }
+) =
+    event.addOnAppBarListener(
+        object : AppBarListener {
+            override fun onNavigationButtonClicked() {
+                onNavButtonClicked()
+            }
+
+            override fun onNavigationItemClicked(id: String, vararg params: String) {
+                onNavItemClicked(id, params)
+            }
+
+            override fun onFabClicked(id: String, vararg params: String) {
+                onFabClicked(id, params)
+            }
+
+            override fun onActionItemClicked(id: String, vararg params: String) {
+                onActionClicked(id, params)
+            }
+
+        }
+    )
 
 
-fun ApplicationState.actionItemClicked(id: String, vararg params:String) =
+fun ApplicationState.actionItemClicked(id: String, vararg params: String) =
     event.actionItemClicked(id, *params)
 
 
@@ -206,27 +239,60 @@ fun ApplicationState.navigationItemClick(id: String, vararg params: String) =
         *params
     )
 
-fun ApplicationState.fabClicked(id: String, vararg params: String) =
+fun ApplicationState.onFabClick(id: String, vararg params: String) =
     event.fabClicked(
         id,
         *params
     )
 
 
-fun ApplicationState.addSnackbarBarListener(listener: SnackbarListener) =
-    event.addSnackbarBarListener(listener)
+fun ApplicationState.addSnackbarBarListener(
+    onContentClicked:(id:String,params:Array<out String>)->Unit={_,_->},
+    onActionClicked:(id:String)->Unit={}
+) =
+    event.addSnackbarBarListener(
+        object :SnackbarListener{
+            override fun onContent(id: String, vararg params: String) {
+                onContentClicked.invoke(id,params)
+            }
+
+            override fun onAction(id: String) {
+                onActionClicked.invoke(id)
+            }
+
+        }
+    )
 
 
-fun ApplicationState.snackbarContent(id: String, params: Array<out String>) =
+fun ApplicationState.onSnackbarContentClick(id: String, params: Array<out String>) =
     event.snackbarContent(id, params)
 
 
-fun ApplicationState.snackbarAction(id: String) =
+fun ApplicationState.onSnackbarActionClick(id: String) =
     event.snackbarAction(id)
 
 
-fun ApplicationState.addOnBottomSheetListener(listener: BottomSheetListener) =
-    event.addOnBottomSheetListener(listener)
+fun ApplicationState.addOnBottomSheetListener(
+    onContentClick: (id: String, params: Array<out String>) -> Unit = { _, _ -> },
+    onClose: () -> Unit = {},
+    onActionClick: (id: String, params: Array<out String>) -> Unit = { _, _ -> }
+) =
+    event.addOnBottomSheetListener(
+        object :BottomSheetListener{
+            override fun onContentClick(id: String, vararg params: String) {
+                onContentClick.invoke(id,params)
+            }
+
+            override fun onClose() {
+                onClose.invoke()
+            }
+
+            override fun onAction(id: String, vararg params: String) {
+                onActionClick.invoke(id,params)
+            }
+
+        }
+    )
 
 
 fun ApplicationState.bottomSheetAction(id: String, params: Array<out String>) =
@@ -240,4 +306,31 @@ fun ApplicationState.bottomSheetContent(id: String, params: Array<out String>) =
 fun ApplicationState.bottomSheetClose() =
     event.bottomSheetClose()
 
+//end region
+
+//region type
+fun ApplicationState.changeBottomBar(type: BottomAppBarType) {
+    if (bottomAppBarType != type) {
+        bottomAppBarType = type
+    }
+}
+
+
+fun ApplicationState.changeTopAppBar(type: TopAppBarType) {
+    if (topAppBarType != type) {
+        topAppBarType = type
+    }
+}
+
+fun ApplicationState.changeSnackbar(type: SnackbarType) {
+    if (snackBarType != type) {
+        snackBarType = type
+    }
+}
+
+fun ApplicationState.changeBottomSheet(type: BottomSheetType) {
+    if (bottomSheetType != type) {
+        bottomSheetType = type
+    }
+}
 //end region

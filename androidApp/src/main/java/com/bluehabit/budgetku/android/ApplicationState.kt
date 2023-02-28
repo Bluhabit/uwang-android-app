@@ -40,32 +40,8 @@ class ApplicationState internal constructor(
         SnackbarHostState()
     )
 
-    fun changeBottomBar(type: BottomAppBarType) {
-        if (bottomAppBarType != type) {
-            bottomAppBarType = type
-        }
-    }
 
-
-    fun changeTopAppBar(type: TopAppBarType) {
-        if (topAppBarType != type) {
-            topAppBarType = type
-        }
-    }
-
-    fun changeSnackbar(type: SnackbarType) {
-        if (snackBarType != type) {
-            snackBarType = type
-        }
-    }
-
-    fun changeBottomSheet(type: BottomSheetType) {
-        if (bottomSheetType != type) {
-            bottomSheetType = type
-        }
-    }
-
-    fun clear(){
+    fun reset(){
         bottomSheetType = BottomSheetType.BASIC
         bottomAppBarType = BottomAppBarType.HIDE
         snackBarType = SnackbarType.BASIC
