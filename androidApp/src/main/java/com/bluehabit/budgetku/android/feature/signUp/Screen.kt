@@ -5,7 +5,7 @@
  * Proprietary and confidential
  */
 
-package com.bluehabit.budgetku.android.feature.signIn
+package com.bluehabit.budgetku.android.feature.signUp
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
@@ -32,11 +31,15 @@ import com.bluehabit.budgetku.android.components.AnnotationTextItem
 import com.bluehabit.budgetku.android.components.TextWithAction
 
 @Composable
-internal fun ScreenSignIn(
-    onSubmit: (email: String, password: String) -> Unit = { _, _ -> },
-    onSubmitWithGoogle:()->Unit={},
-    onSignUp:()->Unit={}
+internal fun ScreenSignUp(
+    modifier: Modifier = Modifier,
+    onSubmit:(String,String,String)->Unit={_,_,_->},
+    onSubmitWithGoogle:()->Unit ={},
+    onSignIn:()->Unit={}
 ) {
+    var fullName by remember {
+        mutableStateOf("")
+    }
     var email by remember {
         mutableStateOf("")
     }
@@ -56,12 +59,23 @@ internal fun ScreenSignIn(
     ) {
         Column {
             TextField(
+                value = fullName,
+                onValueChange = {
+                    fullName = it
+                },
+                placeholder={
+                    Text(text = "Full Name")
+                },
+                modifier = Modifier.fillMaxWidth()
+            )
+            Spacer(modifier = Modifier.height(10.dp))
+            TextField(
                 value = email,
                 onValueChange = {
                     email = it
                 },
                 placeholder={
-                            Text(text = "Email")
+                    Text(text = "Email")
                 },
                 modifier = Modifier.fillMaxWidth()
             )
@@ -80,7 +94,7 @@ internal fun ScreenSignIn(
         Spacer(modifier = Modifier.height(10.dp))
         Column {
             Button(
-                onClick = { onSubmit(email, password) },
+                onClick = { onSubmit(email, password,fullName) },
                 modifier=Modifier.fillMaxWidth()
             ) {
                 Text(text = "Sign In")
@@ -96,12 +110,12 @@ internal fun ScreenSignIn(
         Spacer(modifier = Modifier.height(16.dp))
         TextWithAction(
             labels = listOf(
-                AnnotationTextItem.Text("Belum punya akun?"),
-                AnnotationTextItem.Button("Daftar disni")
+                AnnotationTextItem.Text("Sudah punya akun?"),
+                AnnotationTextItem.Button("Masuk disni")
             ),
             onTextClick = {
                 if(it == 1){
-                 onSignUp()
+                    onSignIn()
                 }
             }
         )
@@ -111,8 +125,9 @@ internal fun ScreenSignIn(
 
 @Preview
 @Composable
-fun PreviewScreenSignIn() {
+fun PreviewScreenSignUp() {
     BaseMainApp {
-        ScreenSignIn()
+        ScreenSignUp()
     }
+
 }

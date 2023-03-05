@@ -7,6 +7,7 @@
 
 package com.bluehabit.budgetku.android.feature.splashScreen
 
+import android.util.Log
 import androidx.compose.runtime.LaunchedEffect
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
@@ -27,10 +28,13 @@ fun NavGraphBuilder.routeSplash(
         val viewModel = hiltViewModel<SplashViewModel>()
         LaunchedEffect(key1 = viewModel, block = {
             viewModel.checkIfUserLoggedIn {
-                if(it){
-                    state.navigateAndReplaceAll(Home.routeName)
-                }else{
-                    state.navigateAndReplaceAll(SignIn.routeName)
+                with(state) {
+                    if (it) {
+                        navigateAndReplaceAll(Home.routeName)
+                    } else {
+                        Log.e("HOHO","HEHE")
+                        navigateAndReplaceAll(SignIn.routeName)
+                    }
                 }
             }
         })

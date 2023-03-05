@@ -12,6 +12,7 @@ import androidx.navigation.compose.NavHost
 import com.bluehabit.budgetku.android.feature.dashboard.home.routeHome
 import com.bluehabit.budgetku.android.feature.dashboard.profile.routeProfile
 import com.bluehabit.budgetku.android.feature.signIn.routeSignIn
+import com.bluehabit.budgetku.android.feature.signUp.routeSignUp
 import com.bluehabit.budgetku.android.feature.splashScreen.Splash
 import com.bluehabit.budgetku.android.feature.splashScreen.routeSplash
 
@@ -27,6 +28,9 @@ fun AppNavigation(
             state=applicationState
         )
         routeSignIn(
+            state=applicationState
+        )
+        routeSignUp(
             state=applicationState
         )
         routeHome(

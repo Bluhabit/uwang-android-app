@@ -15,7 +15,6 @@ import kotlinx.serialization.SerializationException
 
 suspend inline fun <reified T> safeApiCall(call: () -> HttpResponse): Response<BaseResponse<T>> {
     return try {
-
         val response = call.invoke()
         if (response.status.value in 200..209) {
             val data = response.body<BaseResponse<T>>()
@@ -24,22 +23,18 @@ suspend inline fun <reified T> safeApiCall(call: () -> HttpResponse): Response<B
             val data = response.body<BaseResponse<List<Any>>>()
             Response.Error(data.message, data.code)
         }
-
-    } catch (e: SerializationException) {
-        Response.Error(e.message.orEmpty(), 0)
-    } catch (e: SocketTimeoutException) {
-        Response.Error("Timeout")
-    } catch (e: ConnectTimeoutException) {
-        Response.Error("Timeout")
+    } catch (e: Exception) {
+        Response.Error(e.message.orEmpty())
     }
 }
-suspend inline fun <reified T> safeApiCall( onSaveToken: (token:String) -> Unit = {},call: () -> HttpResponse): Response<BaseResponse<T>> {
+
+suspend inline fun <reified T> safeApiCall(onSaveToken: (token: String) -> Unit = {}, call: () -> HttpResponse): Response<BaseResponse<T>> {
     return try {
 
         val response = call.invoke()
         if (response.status.value in 200..209) {
             val data = response.body<BaseResponse<T>>()
-            if(data.token.isNotEmpty()){
+            if (data.token.isNotEmpty()) {
                 onSaveToken(data.token)
             }
             Response.Result(data)

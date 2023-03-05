@@ -5,5 +5,10 @@
  * Proprietary and confidential
  */
 
-package com.bluehabit.budgetku.entity
+package com.bluehabit.budgetku.model
 
+data class SignUpEmailRequest(
+    val fullName:String,
+    val email: String,
+    val password: String,
+)
