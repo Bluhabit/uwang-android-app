@@ -7,7 +7,6 @@
 
 package com.bluehabit.budgetku.sdk.auth
 
-import app.cash.sqldelight.logs.LogSqliteDriver
 import com.bluehabit.budgetku.DriverFactory
 import com.bluehabit.budgetku.createDatabase
 import com.bluehabit.budgetku.model.BaseResponse
@@ -16,7 +15,6 @@ import com.bluehabit.budgetku.model.SignInGoogleRequest
 import com.bluehabit.budgetku.model.SignUpEmailRequest
 import com.bluehabit.budgetku.model.SignUpGoogleRequest
 import com.bluehabit.budgetku.model.UserResponse
-import com.bluehabit.budgetku.model.toEntity
 import com.bluehabit.budgetku.sharedPref.KMMPreference
 import com.bluehabit.budgetku.utils.Response
 import com.bluehabit.budgetku.utils.getValue
@@ -32,15 +30,15 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
-const val KEY_TOKEN = "SAJKSNF"
+
 class AuthSDK(
     driverFactory: DriverFactory,
     private val client: HttpClient,
     private val pref: KMMPreference
 ) {
+    private val KEY_TOKEN = "85f177bb-668f-4bc8-ab67-a181eae0fd4f"
     private val db = createDatabase(driverFactory)
     fun isLoggedIn(): Boolean = pref.getString(KEY_TOKEN) != null
-
 
     @Throws(
         Exception::class
