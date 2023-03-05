@@ -13,20 +13,6 @@ import io.ktor.client.network.sockets.*
 import io.ktor.client.statement.*
 import kotlinx.serialization.SerializationException
 
-suspend inline fun <reified T> safeApiCall(call: () -> HttpResponse): Response<BaseResponse<T>> {
-    return try {
-        val response = call.invoke()
-        if (response.status.value in 200..209) {
-            val data = response.body<BaseResponse<T>>()
-            Response.Result(data)
-        } else {
-            val data = response.body<BaseResponse<List<Any>>>()
-            Response.Error(data.message, data.code)
-        }
-    } catch (e: Exception) {
-        Response.Error(e.message.orEmpty())
-    }
-}
 
 suspend inline fun <reified T> safeApiCall(onSaveToken: (token: String) -> Unit = {}, call: () -> HttpResponse): Response<BaseResponse<T>> {
     return try {
