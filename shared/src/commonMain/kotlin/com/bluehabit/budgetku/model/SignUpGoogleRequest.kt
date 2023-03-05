@@ -5,5 +5,8 @@
  * Proprietary and confidential
  */
 
-package com.bluehabit.budgetku.entity
+package com.bluehabit.budgetku.model
 
+data class SignUpGoogleRequest(
+    val token: String
+)

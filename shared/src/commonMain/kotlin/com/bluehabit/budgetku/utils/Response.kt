@@ -12,3 +12,13 @@ sealed class Response<out R>{
     data class Result<out Result>(val data:Result):Response<Result>()
     data class Error(val message:String="",val code:Int=0):Response<Nothing>()
 }
+
+fun <T> Response<T>.getValue(cb:(T)->Unit){
+    when(this){
+        is Response.Error -> Unit
+        Response.Loading -> Unit
+        is Response.Result -> {
+            cb(this.data)
+        }
+    }
+}

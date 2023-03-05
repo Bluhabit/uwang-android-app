@@ -48,12 +48,10 @@ fun NavGraphBuilder.routeHome(
                     onClose = {},
                     onContentClick = { _, _ -> }
                 )
-
                 addSnackbarBarListener(
                     onActionClicked = {},
                     onContentClicked = { _, _ -> }
                 )
-
             }
         })
 
