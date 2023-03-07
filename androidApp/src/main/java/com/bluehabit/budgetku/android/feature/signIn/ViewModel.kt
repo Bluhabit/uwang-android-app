@@ -27,7 +27,7 @@ class UserViewModel @Inject constructor(
     private val userSDK: UserSDK
 ) : ViewModel() {
 
-    private val _userData = MutableStateFlow<String>("")
+    private val _userData = MutableStateFlow("")
     val userData = _userData.asStateFlow()
 
     fun signInWithEmail(

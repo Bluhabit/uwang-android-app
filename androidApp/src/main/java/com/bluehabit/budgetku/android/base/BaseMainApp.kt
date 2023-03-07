@@ -18,6 +18,7 @@ import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -31,18 +32,36 @@ import com.bluehabit.budgetku.android.ui.BudgetKuTheme
 @Composable
 fun BaseMainApp(
     appState: ApplicationState = rememberApplicationState(),
-    topAppBar: @Composable (ApplicationState) -> Unit = {},
-    bottomBar: @Composable (ApplicationState) -> Unit = {},
-    snackbarBar: @Composable (ApplicationState) -> Unit = {},
-    bottomSheet: @Composable (ApplicationState) -> Unit = {},
-    content: @Composable (appState: ApplicationState) -> Unit = {  }
+    topAppBar: @Composable (ApplicationState) -> Unit = {
+        if (it.showTopAppBar) {
+            it.topAppBar.invoke()
+        }
+    },
+    bottomBar: @Composable (ApplicationState) -> Unit = {
+        if (it.showBottomAppBar) {
+            it.bottomAppBar.invoke()
+        }
+    },
+    snackbarBar: @Composable (ApplicationState) -> Unit = { state ->
+        SnackbarHost(
+            hostState = state.snackbarHostState,
+            snackbar = {
+                state.snackbar.invoke(it)
+            }
+        )
+
+    },
+    bottomSheet: @Composable (ApplicationState) -> Unit = {
+        it.bottomSheet.invoke()
+    },
+    content: @Composable (appState: ApplicationState) -> Unit = { }
 ) {
     val bottomSheetState = rememberModalBottomSheetState(
         initialValue = ModalBottomSheetValue.Hidden,
         confirmStateChange = {
             when (it) {
                 ModalBottomSheetValue.Hidden -> {
-                    appState.event.bottomSheetClose()
+
                 }
                 else -> Unit
             }

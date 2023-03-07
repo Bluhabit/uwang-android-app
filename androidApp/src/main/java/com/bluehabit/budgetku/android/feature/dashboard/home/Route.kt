@@ -7,18 +7,15 @@
 
 package com.bluehabit.budgetku.android.feature.dashboard.home
 
+import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.LaunchedEffect
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.bluehabit.budgetku.android.ApplicationState
-import com.bluehabit.budgetku.android.base.extensions.addOnAppBarListener
-import com.bluehabit.budgetku.android.base.extensions.addOnBottomSheetListener
-import com.bluehabit.budgetku.android.base.extensions.addSnackbarBarListener
-import com.bluehabit.budgetku.android.base.extensions.changeBottomBar
-import com.bluehabit.budgetku.android.base.extensions.runSuspend
-import com.bluehabit.budgetku.android.base.extensions.showSnackbar
-import com.bluehabit.budgetku.android.base.listener.BottomAppBarType
+import com.bluehabit.budgetku.android.base.extensions.navigateSingleTop
+import com.bluehabit.budgetku.android.feature.dashboard.components.DashboardBottomNavigation
 
 object Home {
     const val routeName = "Home"
@@ -31,27 +28,17 @@ fun NavGraphBuilder.routeHome(
         val viewModel = hiltViewModel<HomeViewModel>()
 
         LaunchedEffect(key1 = state, block = {
-            with(state) {
-                changeBottomBar(BottomAppBarType.DASHBOARD)
-                addOnAppBarListener(
-                    onNavButtonClicked = {},
-                    onNavItemClicked = { id, _ ->
-                        runSuspend {
-                            showSnackbar("Ini $id")
-                        }
-                    },
-                    onFabClicked = { _, _ -> },
-                    onActionClicked = { _, _ -> }
-                )
-                addOnBottomSheetListener(
-                    onActionClick = { _, _ -> },
-                    onClose = {},
-                    onContentClick = { _, _ -> }
-                )
-                addSnackbarBarListener(
-                    onActionClicked = {},
-                    onContentClicked = { _, _ -> }
-                )
+            with(state){
+                setupTopAppBar {
+                    TopAppBar {
+                        Text(text = "INi Top")
+                    }
+                }
+                setupBottomAppBar{
+                    DashboardBottomNavigation(currentRoute = currentRoute){
+                        state.navigateSingleTop(it.route)
+                    }
+                }
             }
         })
 

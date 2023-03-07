@@ -20,7 +20,7 @@ class SplashViewModel @Inject constructor(
 ) : ViewModel() {
 
     fun checkIfUserLoggedIn(
-        cb:(isLoggedIn:Boolean)->Unit
+        cb:suspend (isLoggedIn:Boolean)->Unit
     )= with(viewModelScope){
         launch {
             cb(authSDK.isLoggedIn())
