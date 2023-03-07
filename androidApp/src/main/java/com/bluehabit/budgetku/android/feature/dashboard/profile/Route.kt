@@ -7,16 +7,18 @@
 
 package com.bluehabit.budgetku.android.feature.dashboard.profile
 
+import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.bluehabit.budgetku.android.ApplicationState
-import com.bluehabit.budgetku.android.base.extensions.addOnAppBarListener
-import com.bluehabit.budgetku.android.base.extensions.changeBottomBar
-import com.bluehabit.budgetku.android.base.extensions.runSuspend
-import com.bluehabit.budgetku.android.base.extensions.showSnackbar
-import com.bluehabit.budgetku.android.base.listener.BottomAppBarType
+import com.bluehabit.budgetku.android.feature.dashboard.components.DashboardBottomNavigation
 
 object Profile {
     const val routeName = "Profile"
@@ -27,20 +29,21 @@ fun NavGraphBuilder.routeProfile(
 ) {
     composable(Profile.routeName) {
         val viewModel = hiltViewModel<ProfileViewModel>()
+        var nama by remember {
+            mutableStateOf("HEHE")
+        }
         LaunchedEffect(key1 = state, block = {
-            with(state) {
-                changeBottomBar(BottomAppBarType.DASHBOARD)
-                addOnAppBarListener(
-                    onNavButtonClicked = {},
-                    onNavItemClicked = { id, _ ->
-                        runSuspend {
-                            showSnackbar("Ini $id")
-                        }
-                    },
-                    onFabClicked = { _, _ -> },
-                    onActionClicked = { _, _ -> }
-
-                )
+            with(state){
+                setupTopAppBar {
+                    TopAppBar {
+                        Text(text = "Ini dari $nama")
+                    }
+                }
+                setupBottomAppBar{
+                    DashboardBottomNavigation(currentRoute = currentRoute){
+                        nama = it.name
+                    }
+                }
             }
         })
 

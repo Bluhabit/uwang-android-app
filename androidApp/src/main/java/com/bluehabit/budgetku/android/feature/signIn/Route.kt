@@ -8,18 +8,12 @@
 package com.bluehabit.budgetku.android.feature.signIn
 
 import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.bluehabit.budgetku.android.ApplicationState
 import com.bluehabit.budgetku.android.base.contract.GoogleAuthContract
-import com.bluehabit.budgetku.android.base.extensions.navigate
-import com.bluehabit.budgetku.android.base.extensions.navigateAndReplaceAll
 import com.bluehabit.budgetku.android.base.extensions.navigateSingleTop
-import com.bluehabit.budgetku.android.base.extensions.showSnackbar
-import com.bluehabit.budgetku.android.feature.dashboard.home.Home
 import com.bluehabit.budgetku.android.feature.signUp.SignUp
 
 object SignIn {
@@ -34,7 +28,7 @@ fun NavGraphBuilder.routeSignIn(
 
         val launcher = rememberLauncherForActivityResult(contract = GoogleAuthContract(), onResult = {
             viewModel.signInGoogle(it){ success,message->
-                state.showSnackbar(message)
+
             }
         })
 
@@ -42,7 +36,6 @@ fun NavGraphBuilder.routeSignIn(
             onSubmit = { email, password ->
                 viewModel.signInWithEmail(email,password){
                     success,message->
-                    state.showSnackbar(message)
                 }
 
             },
@@ -55,3 +48,4 @@ fun NavGraphBuilder.routeSignIn(
         )
     }
 }
+

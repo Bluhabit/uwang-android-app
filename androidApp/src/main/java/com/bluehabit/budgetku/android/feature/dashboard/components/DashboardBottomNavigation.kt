@@ -17,13 +17,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
-import com.bluehabit.budgetku.android.ApplicationState
 import com.bluehabit.budgetku.android.base.BaseMainApp
-import com.bluehabit.budgetku.android.base.extensions.navigationItemClick
-import com.bluehabit.budgetku.android.base.extensions.navigateSingleTop
 import com.bluehabit.budgetku.android.feature.dashboard.home.Home
 import com.bluehabit.budgetku.android.feature.dashboard.profile.Profile
-import com.bluehabit.budgetku.android.rememberApplicationState
 
 sealed class DashboardBottomNavigationMenu(
     val route: String = "",
@@ -48,21 +44,20 @@ var menus = listOf(
     DashboardBottomNavigationMenu.MenuProfile
 )
 
+
 @Composable
 fun DashboardBottomNavigation(
-    appState: ApplicationState
+    currentRoute:String,
+    onClick:(DashboardBottomNavigationMenu)->Unit={}
 ) {
     BottomNavigation() {
         menus.forEach {
             BottomNavigationItem(
-                selected = appState.currentRoute == it.route,
+                selected = currentRoute == it.route,
                 selectedContentColor = MaterialTheme.colorScheme.onBackground,
                 unselectedContentColor = MaterialTheme.colorScheme.onPrimary,
                 onClick = {
-                    with(appState) {
-                        navigationItemClick(it.route)
-                        navigateSingleTop(it.route)
-                    }
+                   onClick(it)
                 },
                 icon = {
                     Icon(imageVector = it.icon, contentDescription = it.name)
@@ -79,7 +74,8 @@ fun PreviewDashboardBottomNavigation() {
     BaseMainApp(
         bottomBar = {
             DashboardBottomNavigation(
-                appState = rememberApplicationState()
+                currentRoute = "",
+                onClick = {}
             )
         }
     )

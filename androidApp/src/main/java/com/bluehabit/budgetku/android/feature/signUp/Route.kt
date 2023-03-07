@@ -14,7 +14,6 @@ import androidx.navigation.compose.composable
 import com.bluehabit.budgetku.android.ApplicationState
 import com.bluehabit.budgetku.android.base.contract.GoogleAuthContract
 import com.bluehabit.budgetku.android.base.extensions.navigateAndReplaceAll
-import com.bluehabit.budgetku.android.base.extensions.showSnackbar
 import com.bluehabit.budgetku.android.feature.signIn.SignIn
 
 object SignUp {
@@ -30,7 +29,7 @@ fun NavGraphBuilder.routeSignUp(
 
         val launcher = rememberLauncherForActivityResult(contract = GoogleAuthContract(), onResult = {
             viewModel.signUpGoogle(it) { success, message ->
-                state.showSnackbar(message)
+
             }
 
         })
@@ -38,7 +37,7 @@ fun NavGraphBuilder.routeSignUp(
         ScreenSignUp(
             onSubmit = { email, password, name ->
                 viewModel.signUpWithEmail(name, email, password) { success, message ->
-                    state.showSnackbar(message)
+
                 }
             },
             onSubmitWithGoogle = {
