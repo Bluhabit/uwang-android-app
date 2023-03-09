@@ -9,13 +9,15 @@ package com.bluehabit.budgetku.sdk.auth
 
 import com.bluehabit.budgetku.DriverFactory
 import com.bluehabit.budgetku.createDatabase
-import com.bluehabit.budgetku.entity.UserModel
 import com.bluehabit.budgetku.model.BaseResponse
 import com.bluehabit.budgetku.model.SignInEmailRequest
 import com.bluehabit.budgetku.model.SignInGoogleRequest
+import com.bluehabit.budgetku.model.SignUpEmailRequest
+import com.bluehabit.budgetku.model.SignUpGoogleRequest
 import com.bluehabit.budgetku.model.UserResponse
 import com.bluehabit.budgetku.sharedPref.KMMPreference
 import com.bluehabit.budgetku.utils.Response
+import com.bluehabit.budgetku.utils.getValue
 import com.bluehabit.budgetku.utils.safeApiCall
 import io.ktor.client.*
 import io.ktor.client.call.*
@@ -27,15 +29,16 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.stateIn
+
 
 class AuthSDK(
-    private val driverFactory: DriverFactory,
+    driverFactory: DriverFactory,
     private val client: HttpClient,
     private val pref: KMMPreference
 ) {
+    private val KEY_TOKEN = "85f177bb-668f-4bc8-ab67-a181eae0fd4f"
     private val db = createDatabase(driverFactory)
-    suspend fun isLoggedIn(): Boolean = pref.getString("USER") != null
+    fun isLoggedIn(): Boolean = pref.getString(KEY_TOKEN) != null
 
     @Throws(
         Exception::class
@@ -45,17 +48,22 @@ class AuthSDK(
         password: String,
     ): Flow<Response<BaseResponse<UserResponse>>> = flow {
         emit(Response.Loading)
-        val res = safeApiCall<UserResponse>(
-            onSaveToken = {
-                pref.put("USER", it)
-            }
-        ) {
-            client.post(AuthApi.SignInWithEmail()) {
-                setBody(
-                    SignInEmailRequest(
-                        email,
-                        password
-                    )
+        val res = safeApiCall<UserResponse>(onSaveToken = { pref.put(KEY_TOKEN, it) }) {
+            client.post(AuthApi.SignInWithEmail()) { setBody(SignInEmailRequest(email, password)) }
+        }
+        res.getValue {
+            with(it.data) {
+                db.userQueries.insertUser(
+                    userId = userId.orEmpty(),
+                    userFullName = userProfile?.userFullName.orEmpty(),
+                    userCountryCode = userProfile?.userCountryCode.orEmpty(),
+                    userEmail = userEmail,
+                    userDateOfBirth = userProfile?.userDateOfBirth.orEmpty(),
+                    userPhoneNumber = userPhoneNumber,
+                    userProfilePicture = userProfile?.userProfilePicture.orEmpty(),
+                    userStatus = userStatus,
+                    createdAt = createdAt,
+                    updatedAt = updatedAt
                 )
             }
         }
@@ -69,13 +77,57 @@ class AuthSDK(
         token: String
     ): Flow<Response<BaseResponse<UserResponse>>> = flow {
         emit(Response.Loading)
-        val res = safeApiCall<UserResponse> {
+        val res = safeApiCall<UserResponse>(onSaveToken = { pref.put(KEY_TOKEN, it) }) {
             client.post(AuthApi.SignInGoogle()) {
-                setBody(
-                    SignInGoogleRequest(
-                        token = token
-                    )
+                setBody(SignInGoogleRequest(token))
+            }
+        }
+        res.getValue {
+            with(it.data) {
+                db.userQueries.insertUser(
+                    userId = userId.orEmpty(),
+                    userFullName = userProfile?.userFullName.orEmpty(),
+                    userCountryCode = userProfile?.userCountryCode.orEmpty(),
+                    userEmail = userEmail,
+                    userDateOfBirth = userProfile?.userDateOfBirth.orEmpty(),
+                    userPhoneNumber = userPhoneNumber,
+                    userProfilePicture = userProfile?.userProfilePicture.orEmpty(),
+                    userStatus = userStatus,
+                    createdAt = createdAt,
+                    updatedAt = updatedAt
                 )
+            }
+        }
+        emit(res)
+    }.flowOn(Dispatchers.Default)
+
+    @Throws(
+        Exception::class
+    )
+    suspend fun signUpWithEmail(
+        fullName: String,
+        email: String,
+        password: String
+    ): Flow<Response<BaseResponse<UserResponse>>> = flow {
+        emit(Response.Loading)
+        val res = safeApiCall<UserResponse> {
+            client.post(AuthApi.SignUpWithEmail()) {
+                setBody(SignUpEmailRequest(fullName, email, password))
+            }
+        }
+        emit(res)
+    }.flowOn(Dispatchers.Default)
+
+    @Throws(
+        Exception::class
+    )
+    suspend fun signUpGoogle(
+        token: String
+    ): Flow<Response<BaseResponse<UserResponse>>> = flow {
+        emit(Response.Loading)
+        val res = safeApiCall<UserResponse> {
+            client.post(AuthApi.SignUpWithGoogle()) {
+                setBody(SignUpGoogleRequest(token))
             }
         }
         emit(res)

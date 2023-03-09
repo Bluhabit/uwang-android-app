@@ -5,9 +5,10 @@
  * Proprietary and confidential
  */
 
-package com.bluehabit.budgetku.android.base.listener
+package com.bluehabit.budgetku.model
 
-interface AppBarSelectedListener {
-    fun onNavigation()
-    fun onAction(id:String,vararg params:String)
-}
+data class SignUpEmailRequest(
+    val fullName:String,
+    val email: String,
+    val password: String,
+)

@@ -7,22 +7,48 @@
 
 package com.bluehabit.budgetku.android
 
+import androidx.compose.material3.Snackbar
+import androidx.compose.material3.SnackbarData
+import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.bluehabit.budgetku.android.base.EventListener
+import com.bluehabit.budgetku.android.base.extensions.runSuspend
+import com.bluehabit.budgetku.android.feature.splashScreen.Splash
+import kotlinx.coroutines.CoroutineScope
+
+class CreateContent(
+    private val content: @Composable () -> Unit
+) {
+    @Composable
+    fun invoke() {
+        content.invoke()
+    }
+}
+
+class CreateSnackbarContent(
+    private val content: @Composable (SnackbarData) -> Unit
+) {
+    @Composable
+    fun invoke(snackbarData: SnackbarData) {
+        content.invoke(snackbarData)
+    }
+}
 
 class ApplicationState internal constructor(
-    val router: NavHostController
+    val router: NavHostController,
+    val scope: CoroutineScope,
+    val event: EventListener
 ) {
-    var topAppBarType by mutableStateOf("")
-    var bottomAppBarType by mutableStateOf("")
-    var snackBarType by mutableStateOf("")
-    var bottomSheetType by mutableStateOf("")
+
 
     var currentRoute by mutableStateOf("")
 
@@ -30,38 +56,95 @@ class ApplicationState internal constructor(
         SnackbarHostState()
     )
 
-    fun changeBottomBar(type: String) {
-        if (bottomAppBarType != type) {
-            bottomAppBarType = type
+    internal var showBottomAppBar by mutableStateOf(false)
+    internal var bottomAppBar by mutableStateOf(CreateContent {})
+
+    internal var showTopAppBar by mutableStateOf(false)
+    internal var topAppBar by mutableStateOf(CreateContent {})
+
+    internal var snackbar by mutableStateOf(CreateSnackbarContent {
+        Snackbar(snackbarData = it)
+    })
+
+    internal var bottomSheet by mutableStateOf(CreateContent {})
+    fun setupBottomAppBar(
+        content: @Composable () -> Unit = {}
+    ) {
+        bottomAppBar = CreateContent(content)
+        if (!showBottomAppBar) {
+            showBottomAppBar = true
         }
     }
 
-    fun changeTopAppBar(type: String) {
-        if (topAppBarType != type) {
-            topAppBarType = type
+    fun setupTopAppBar(
+        content: @Composable () -> Unit = {}
+    ) {
+        topAppBar = CreateContent(content)
+        if (!showTopAppBar) {
+            showTopAppBar = true
         }
     }
 
-    fun changeSnackbar(type: String) {
-        if (snackBarType != type) {
-            snackBarType = type
+    fun setupBottomSheet(content: @Composable () -> Unit = {}) {
+        bottomSheet = CreateContent(content)
+    }
+
+    fun setupSnackbar(content: @Composable (SnackbarData) -> Unit = {}) {
+        snackbar = CreateSnackbarContent(content)
+    }
+
+    fun setupDefaultSnackbar() {
+        snackbar = CreateSnackbarContent {
+            Snackbar(it)
         }
     }
 
-    fun changeBottomSheet(type: String) {
-        if (bottomSheetType != type) {
-            bottomSheetType = type
+    fun hideBottomAppBar() {
+        showBottomAppBar = false
+    }
+
+    fun hideTopAppBar() {
+        showTopAppBar = false
+    }
+
+    fun showSnackbar(message: String) {
+        runSuspend {
+            snackbarHostState.showSnackbar(message)
         }
+    }
+
+    fun showSnackbar(message: String, duration: SnackbarDuration) {
+        runSuspend {
+            snackbarHostState.showSnackbar(message, duration = duration)
+        }
+    }
+
+    fun showSnackbar(message:String,actionLabel:String,onAction:()->Unit={}){
+        runSuspend {
+            when(snackbarHostState.showSnackbar(message,actionLabel = actionLabel,withDismissAction = true)){
+                SnackbarResult.Dismissed -> Unit
+                SnackbarResult.ActionPerformed -> onAction()
+            }
+        }
+    }
+
+    fun reset() {
+        bottomAppBar = CreateContent { }
+        currentRoute = Splash.routeName
     }
 }
 
 @Composable
 fun rememberApplicationState(
-    router: NavHostController = rememberNavController()
+    router: NavHostController = rememberNavController(),
+    scope: CoroutineScope = rememberCoroutineScope(),
+    event: EventListener = EventListener()
 ): ApplicationState {
     return remember {
         ApplicationState(
-            router
+            router,
+            scope,
+            event
         )
     }
 }
