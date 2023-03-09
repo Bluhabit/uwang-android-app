@@ -5,8 +5,8 @@
  * Proprietary and confidential
  */
 
-package com.bluehabit.budgetku.android.base.listener
+package com.bluehabit.budgetku.model
 
-fun interface BottomAppBarClickListener {
-    fun onItemClick(id:String,vararg params:String)
-}
+data class SignUpGoogleRequest(
+    val token: String
+)
