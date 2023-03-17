@@ -7,7 +7,6 @@
 
 package com.bluehabit.budgetku.android.feature.signUp
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bluehabit.budgetku.android.base.BaseViewModel
 import com.bluehabit.budgetku.sdk.auth.AuthSDK

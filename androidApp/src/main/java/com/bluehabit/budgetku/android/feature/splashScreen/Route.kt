@@ -8,14 +8,10 @@
 package com.bluehabit.budgetku.android.feature.splashScreen
 
 import androidx.compose.runtime.LaunchedEffect
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.bluehabit.budgetku.android.ApplicationState
 import com.bluehabit.budgetku.android.base.UIWrapper
-import com.bluehabit.budgetku.android.base.extensions.navigateAndReplaceAll
-import com.bluehabit.budgetku.android.base.extensions.navigateSingleTop
-import com.bluehabit.budgetku.android.feature.dashboard.home.Home
 
 object Splash {
     const val routeName = "Splash"

@@ -7,11 +7,9 @@
 
 package com.bluehabit.budgetku.android.feature.splashScreen
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bluehabit.budgetku.android.base.BaseViewModel
 import com.bluehabit.budgetku.android.base.extensions.navigateAndReplaceAll
-import com.bluehabit.budgetku.android.base.extensions.navigateSingleTop
 import com.bluehabit.budgetku.android.feature.dashboard.home.Home
 import com.bluehabit.budgetku.android.feature.signIn.SignIn
 import com.bluehabit.budgetku.sdk.auth.AuthSDK
