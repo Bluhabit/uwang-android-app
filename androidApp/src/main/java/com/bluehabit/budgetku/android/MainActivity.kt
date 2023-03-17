@@ -29,7 +29,6 @@ class MainActivity : ComponentActivity() {
                 event = eventListener
             )
             val localConfig = LocalConfiguration.current
-
             LaunchedEffect(key1 = appState.router, block = {
                 appState.listenChanges(
                     ctx = this@MainActivity,
@@ -40,11 +39,5 @@ class MainActivity : ComponentActivity() {
                 AppNavigation(applicationState = it)
             }
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        eventListener.clear()
-        appState.reset()
     }
 }

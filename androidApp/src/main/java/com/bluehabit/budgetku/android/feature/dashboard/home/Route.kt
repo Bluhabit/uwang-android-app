@@ -9,11 +9,10 @@ package com.bluehabit.budgetku.android.feature.dashboard.home
 
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
-import androidx.compose.runtime.LaunchedEffect
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.bluehabit.budgetku.android.ApplicationState
+import com.bluehabit.budgetku.android.base.UIWrapper
 import com.bluehabit.budgetku.android.base.extensions.navigateSingleTop
 import com.bluehabit.budgetku.android.feature.dashboard.components.DashboardBottomNavigation
 
@@ -22,26 +21,34 @@ object Home {
 }
 
 fun NavGraphBuilder.routeHome(
-    state: ApplicationState,
+    state: ApplicationState
 ) {
     composable(Home.routeName) {
-        val viewModel = hiltViewModel<HomeViewModel>()
 
-        LaunchedEffect(key1 = state, block = {
-            with(state){
+        UIWrapper<String, HomeViewModel>(
+            appState = state,
+            parent = "Dashboard"
+        ) {
+            with(state) {
                 setupTopAppBar {
                     TopAppBar {
-                        Text(text = "INi Top")
+                        Text(text = it.orEmpty())
                     }
                 }
-                setupBottomAppBar{
-                    DashboardBottomNavigation(currentRoute = currentRoute){
+                setupBottomAppBar {
+                    DashboardBottomNavigation(currentRoute = currentRoute) {
                         state.navigateSingleTop(it.route)
                     }
                 }
             }
-        })
 
-        ScreenHome()
+            ScreenHome(
+                onClick = {
+                    setName("Hayolo")
+                }
+            )
+        }
+
+
     }
 }

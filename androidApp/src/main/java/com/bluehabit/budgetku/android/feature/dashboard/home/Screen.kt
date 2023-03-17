@@ -9,6 +9,7 @@ package com.bluehabit.budgetku.android.feature.dashboard.home
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -18,11 +19,14 @@ import com.bluehabit.budgetku.android.base.BaseMainApp
 @Composable
 internal fun ScreenHome(
     modifier: Modifier = Modifier,
+    onClick:()->Unit={}
 ) {
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
-        Text(text = "Hello world")
+        Button(onClick = onClick) {
+            Text(text = "INI")
+        }
     }
 }
 

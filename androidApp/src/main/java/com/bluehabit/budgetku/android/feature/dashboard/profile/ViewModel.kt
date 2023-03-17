@@ -8,10 +8,17 @@
 package com.bluehabit.budgetku.android.feature.dashboard.profile
 
 import androidx.lifecycle.ViewModel
+import com.bluehabit.budgetku.android.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
-) : ViewModel() {
+) : BaseViewModel<String>("") {
+    fun setName(name:String){
+        _uiState.tryEmit(name)
+    }
+
+
 }

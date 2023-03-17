@@ -12,12 +12,8 @@ import androidx.compose.material3.SnackbarData
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.bluehabit.budgetku.android.base.EventListener
@@ -65,25 +61,33 @@ class ApplicationState internal constructor(
     internal var snackbar by mutableStateOf(CreateSnackbarContent {
         Snackbar(snackbarData = it)
     })
-
     internal var bottomSheet by mutableStateOf(CreateContent {})
+
+    @Composable
     fun setupBottomAppBar(
         content: @Composable () -> Unit = {}
     ) {
-        bottomAppBar = CreateContent(content)
-        if (!showBottomAppBar) {
-            showBottomAppBar = true
-        }
+        LaunchedEffect(key1 = this, block = {
+            bottomAppBar = CreateContent(content)
+            if (!showBottomAppBar) {
+                showBottomAppBar = true
+            }
+        })
     }
 
+    @Composable
     fun setupTopAppBar(
         content: @Composable () -> Unit = {}
     ) {
-        topAppBar = CreateContent(content)
-        if (!showTopAppBar) {
-            showTopAppBar = true
-        }
+        LaunchedEffect(key1 = this, block = {
+            topAppBar = CreateContent(content)
+            if (!showTopAppBar) {
+                showTopAppBar = true
+            }
+        })
+
     }
+
 
     fun setupBottomSheet(content: @Composable () -> Unit = {}) {
         bottomSheet = CreateContent(content)

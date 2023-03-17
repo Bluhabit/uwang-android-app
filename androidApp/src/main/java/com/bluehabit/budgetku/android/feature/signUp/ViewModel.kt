@@ -9,6 +9,7 @@ package com.bluehabit.budgetku.android.feature.signUp
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.bluehabit.budgetku.android.base.BaseViewModel
 import com.bluehabit.budgetku.sdk.auth.AuthSDK
 import com.bluehabit.budgetku.utils.Response
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -21,7 +22,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
     private val authSDK: AuthSDK
-) : ViewModel() {
+) : BaseViewModel<String>("") {
 
     fun signUpWithEmail(
         fullName: String,
