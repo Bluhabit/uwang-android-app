@@ -8,7 +8,6 @@
 package com.bluehabit.budgetku.android.feature.signUp
 
 import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.bluehabit.budgetku.android.ApplicationState
