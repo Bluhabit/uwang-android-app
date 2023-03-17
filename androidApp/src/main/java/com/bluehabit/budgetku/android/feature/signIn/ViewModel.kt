@@ -7,40 +7,55 @@
 
 package com.bluehabit.budgetku.android.feature.signIn
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.bluehabit.budgetku.android.base.BaseViewModel
+import com.bluehabit.budgetku.android.base.extensions.navigateAndReplaceAll
+import com.bluehabit.budgetku.android.feature.dashboard.home.Home
 import com.bluehabit.budgetku.sdk.auth.AuthSDK
 import com.bluehabit.budgetku.sdk.user.UserSDK
 import com.bluehabit.budgetku.utils.Response
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.tasks.Task
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 @HiltViewModel
-class UserViewModel @Inject constructor(
+class SignInViewModel @Inject constructor(
     private val authSDK: AuthSDK,
     private val userSDK: UserSDK
-) : ViewModel() {
+) : BaseViewModel<SignInState>(SignInState()) {
 
-    private val _userData = MutableStateFlow("")
-    val userData = _userData.asStateFlow()
+    fun setEmail(email: String) {
+        _uiState.tryEmit(
+            uiState.value.copy(
+                email = email
+            )
+        )
+    }
 
-    fun signInWithEmail(
-        email: String, password: String,
-        cb: suspend (Boolean, String) -> Unit
-    ) = with(viewModelScope) {
+    fun setPassword(password: String) {
+        _uiState.tryEmit(
+            uiState.value.copy(
+                password = password
+            )
+        )
+    }
+    fun signInWithEmail() = with(viewModelScope) {
         launch {
-            authSDK.signInWithEmail(email, password)
+            authSDK.signInWithEmail(uiState.value.email, uiState.value.password)
                 .collect {
                     when (it) {
-                        is Response.Error -> cb(false, it.message)
+                        is Response.Error -> {
+                            app.showSnackbar(it.message)
+                        }
                         Response.Loading -> Unit
-                        is Response.Result -> cb(true, it.data.message)
+                        is Response.Result -> {
+                            app.navigateAndReplaceAll(
+                                Home.routeName
+                            )
+                        }
                     }
                 }
         }
@@ -48,7 +63,6 @@ class UserViewModel @Inject constructor(
 
     fun signInGoogle(
         result: Task<GoogleSignInAccount>?,
-        cb: suspend (Boolean, String) -> Unit
     ) = with(viewModelScope) {
         launch {
             if (result != null) {
@@ -56,17 +70,24 @@ class UserViewModel @Inject constructor(
                 authSDK.signInGoogle(token.idToken.orEmpty())
                     .collect {
                         when (it) {
-                            is Response.Error -> cb(false, it.message)
+                            is Response.Error -> {
+                                app.showSnackbar(it.message)
+                            }
                             Response.Loading -> Unit
-                            is Response.Result -> cb(true, it.data.message)
+                            is Response.Result -> {
+                                app.navigateAndReplaceAll(
+                                    Home.routeName
+                                )
+                            }
                         }
                     }
             } else {
-                cb(false, "Sign in canceled by provider")
+                app.showSnackbar("Sign in canceled by provider")
             }
 
         }
     }
+
 
 
 }

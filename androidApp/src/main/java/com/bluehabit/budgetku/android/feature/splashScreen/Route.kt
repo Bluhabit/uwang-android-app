@@ -12,7 +12,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.bluehabit.budgetku.android.ApplicationState
+import com.bluehabit.budgetku.android.base.UIWrapper
 import com.bluehabit.budgetku.android.base.extensions.navigateAndReplaceAll
+import com.bluehabit.budgetku.android.base.extensions.navigateSingleTop
 import com.bluehabit.budgetku.android.feature.dashboard.home.Home
 
 object Splash {
@@ -23,21 +25,12 @@ fun NavGraphBuilder.routeSplash(
     state: ApplicationState,
 ) {
     composable(Splash.routeName) {
-        val viewModel = hiltViewModel<SplashViewModel>()
-        LaunchedEffect(key1 = viewModel, block = {
-            state.navigateAndReplaceAll(Home.routeName)
-//            viewModel.checkIfUserLoggedIn {
-//
-//                with(state) {
-//                    if (it) {
-//                        navigateAndReplaceAll(Home.routeName)
-//                    } else {
-//                        navigateAndReplaceAll(SignIn.routeName)
-//                    }
-//                }
-//            }
-        })
+        UIWrapper<String, SplashViewModel>(appState = state) {
+            LaunchedEffect(key1 = this, block = {
+                checkIfUserLoggedIn()
+            })
+            ScreenSplash()
+        }
 
-        ScreenSplash()
     }
 }

@@ -9,15 +9,11 @@ package com.bluehabit.budgetku.android.feature.dashboard.profile
 
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.bluehabit.budgetku.android.ApplicationState
+import com.bluehabit.budgetku.android.base.UIWrapper
+import com.bluehabit.budgetku.android.base.extensions.navigateSingleTop
 import com.bluehabit.budgetku.android.feature.dashboard.components.DashboardBottomNavigation
 
 object Profile {
@@ -28,26 +24,29 @@ fun NavGraphBuilder.routeProfile(
     state: ApplicationState
 ) {
     composable(Profile.routeName) {
-        val viewModel = hiltViewModel<ProfileViewModel>()
-        var nama by remember {
-            mutableStateOf("HEHE")
-        }
-        LaunchedEffect(key1 = state, block = {
-            with(state){
+        UIWrapper<String,ProfileViewModel>(
+            appState = state,
+            parent = "Dashboard"
+        ) {
+            with(state) {
                 setupTopAppBar {
                     TopAppBar {
-                        Text(text = "Ini dari $nama")
+                        Text(text = it.orEmpty())
                     }
                 }
-                setupBottomAppBar{
-                    DashboardBottomNavigation(currentRoute = currentRoute){
-                        nama = it.name
+                setupBottomAppBar {
+                    DashboardBottomNavigation(currentRoute = currentRoute) {
+                        navigateSingleTop(it.route)
                     }
                 }
             }
-        })
 
-        ScreenProfile()
+            ScreenProfile(
+                onClick = {
+                    setName(Math.random().toString())
+                }
+            )
+        }
 
     }
 }

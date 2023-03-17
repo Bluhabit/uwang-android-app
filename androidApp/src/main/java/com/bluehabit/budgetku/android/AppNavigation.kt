@@ -9,6 +9,8 @@ package com.bluehabit.budgetku.android
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.navigation
+import com.bluehabit.budgetku.android.feature.dashboard.home.Home
 import com.bluehabit.budgetku.android.feature.dashboard.home.routeHome
 import com.bluehabit.budgetku.android.feature.dashboard.profile.routeProfile
 import com.bluehabit.budgetku.android.feature.signIn.routeSignIn
@@ -33,11 +35,14 @@ fun AppNavigation(
         routeSignUp(
             state=applicationState
         )
-        routeHome(
-            state=applicationState
-        )
-        routeProfile(
-            state=applicationState
-        )
+        navigation(startDestination = Home.routeName,route= "Dashboard"){
+            routeHome(
+                state=applicationState
+            )
+            routeProfile(
+                state=applicationState
+            )
+        }
+
     }
 }

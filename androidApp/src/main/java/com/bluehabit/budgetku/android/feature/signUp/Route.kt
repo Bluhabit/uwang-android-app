@@ -12,6 +12,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.bluehabit.budgetku.android.ApplicationState
+import com.bluehabit.budgetku.android.base.UIWrapper
 import com.bluehabit.budgetku.android.base.contract.GoogleAuthContract
 import com.bluehabit.budgetku.android.base.extensions.navigateAndReplaceAll
 import com.bluehabit.budgetku.android.feature.signIn.SignIn
@@ -24,29 +25,28 @@ fun NavGraphBuilder.routeSignUp(
     state: ApplicationState,
 ) {
     composable(SignUp.routeName) {
-        val viewModel = hiltViewModel<SignUpViewModel>()
+        UIWrapper<String, SignUpViewModel>(appState = state) {
+            val launcher =
+                rememberLauncherForActivityResult(contract = GoogleAuthContract(), onResult = {
+                    signUpGoogle(it) { success, message ->
 
+                    }
 
-        val launcher = rememberLauncherForActivityResult(contract = GoogleAuthContract(), onResult = {
-            viewModel.signUpGoogle(it) { success, message ->
+                })
 
-            }
+            ScreenSignUp(
+                onSubmit = { email, password, name ->
+                    signUpWithEmail(name, email, password) { success, message ->
 
-        })
-
-        ScreenSignUp(
-            onSubmit = { email, password, name ->
-                viewModel.signUpWithEmail(name, email, password) { success, message ->
-
+                    }
+                },
+                onSubmitWithGoogle = {
+                    launcher.launch(1)
+                },
+                onSignIn = {
+                    state.navigateAndReplaceAll(SignIn.routeName)
                 }
-            },
-            onSubmitWithGoogle = {
-                launcher.launch(1)
-            },
-            onSignIn = {
-                state.navigateAndReplaceAll(SignIn.routeName)
-            }
-        )
-
+            )
+        }
     }
 }

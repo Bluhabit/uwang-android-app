@@ -120,3 +120,6 @@ android{
         buildConfigField("String","X_API_KEY","\"${findProperty("X_API_KEY")}\"")
     }
 }
+dependencies {
+    implementation(AndroidX.Core.coreKtx)
+}
