@@ -19,10 +19,6 @@ import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -37,7 +33,6 @@ import com.bluehabit.budgetku.android.base.extensions.navigateAndReplaceAll
 import com.bluehabit.budgetku.android.components.AnnotationTextItem
 import com.bluehabit.budgetku.android.components.TextWithAction
 import com.bluehabit.budgetku.android.feature.signIn.SignIn
-import com.bluehabit.budgetku.android.feature.signIn.SignInEvent
 import com.bluehabit.budgetku.android.rememberApplicationState
 
 object SignUp {

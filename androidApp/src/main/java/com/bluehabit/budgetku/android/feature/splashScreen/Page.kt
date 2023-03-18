@@ -10,14 +10,12 @@ package com.bluehabit.budgetku.android.feature.splashScreen
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.bluehabit.budgetku.android.ApplicationState
 import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.base.UIWrapper
-import com.bluehabit.budgetku.android.feature.signIn.SignInEvent
 import com.bluehabit.budgetku.android.rememberApplicationState
 
 object Splash {
