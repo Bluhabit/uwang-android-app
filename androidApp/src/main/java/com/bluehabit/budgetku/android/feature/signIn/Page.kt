@@ -53,12 +53,13 @@ fun NavGraphBuilder.routeSignIn(
 internal fun ScreenSignIn(
     appState: ApplicationState
 ) {
-    UIWrapper<SignInState, SignInViewModel>(
+    UIWrapper<SignInState,SignInEvent, SignInViewModel>(
         appState = appState
-    ) { (email, password) ->
+    ) { (email,password) ->
+
         val launcher = rememberLauncherForActivityResult(
             contract = GoogleAuthContract(),
-            onResult = ::signInGoogle
+            onResult = {sendEvent(SignInEvent.SignInWithGoogle(it))}
         )
 
         Column(
@@ -74,7 +75,7 @@ internal fun ScreenSignIn(
             Column {
                 TextField(
                     value = email,
-                    onValueChange = ::setEmail,
+                    onValueChange ={sendEvent(SignInEvent.SetEmail(it))},
                     placeholder = {
                         Text(text = "Email")
                     },
@@ -83,7 +84,7 @@ internal fun ScreenSignIn(
                 Spacer(modifier = Modifier.height(10.dp))
                 TextField(
                     value = password,
-                    onValueChange = ::setPassword,
+                    onValueChange = {sendEvent(SignInEvent.SetPassword(it))},
                     placeholder = {
                         Text(text = "Password")
                     },
@@ -93,7 +94,7 @@ internal fun ScreenSignIn(
             Spacer(modifier = Modifier.height(10.dp))
             Column {
                 Button(
-                    onClick = ::signInWithEmail,
+                    onClick = {sendEvent(SignInEvent.SignInWithEmail)},
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Text(text = "Sign In")

@@ -8,13 +8,25 @@
 package com.bluehabit.budgetku.android.feature.dashboard.home
 
 import com.bluehabit.budgetku.android.base.BaseViewModel
+import com.bluehabit.budgetku.android.feature.signIn.SignInEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-) : BaseViewModel<String>("") {
-    fun setName(name:String){
-        _uiState.tryEmit(name)
+) : BaseViewModel<HomeState, HomeEvent>(HomeState()) {
+    init {
+        handleEvent()
+    }
+    override fun handleEvent() = onEvent {
+        when (it) {
+            is HomeEvent.SetName -> {
+                updateState(
+                    uiState.value.copy(
+                        name = it.name
+                    )
+                )
+            }
+        }
     }
 }

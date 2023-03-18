@@ -125,6 +125,5 @@ fun ApplicationState.addOnEventListener(listener: AppStateEventListener) =
 
 fun ApplicationState.sendEvent(eventName: String) =
     event.sendEvent(eventName)
-
-
 //end region
+

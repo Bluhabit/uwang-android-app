@@ -8,14 +8,27 @@
 package com.bluehabit.budgetku.android.feature.dashboard.profile
 
 import com.bluehabit.budgetku.android.base.BaseViewModel
+import com.bluehabit.budgetku.android.feature.signIn.SignInEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
-) : BaseViewModel<String>("") {
-    fun setName(name:String){
-        _uiState.tryEmit(name)
+) : BaseViewModel<ProfileState, ProfileEvent>(ProfileState()) {
+    init {
+        handleEvent()
+    }
+
+    override fun handleEvent() = onEvent {
+        when (it) {
+            is ProfileEvent.SetName -> {
+                updateState(
+                    uiState.value.copy(
+                        name = it.name
+                    )
+                )
+            }
+        }
     }
 
 

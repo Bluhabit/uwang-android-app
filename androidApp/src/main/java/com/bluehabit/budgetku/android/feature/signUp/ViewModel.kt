@@ -21,46 +21,70 @@ import javax.inject.Inject
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
     private val authSDK: AuthSDK
-) : BaseViewModel<String>("") {
+) : BaseViewModel<SignUpState, SignUpEvent>(SignUpState()) {
 
-    fun signUpWithEmail(
-        fullName: String,
-        email: String,
-        password: String,
-        cb: suspend (Boolean, String) -> Unit
-    ) = with(viewModelScope) {
-        launch {
-            authSDK.signUpWithEmail(
-                fullName, email, password
-            ).collect {
-                when (it) {
-                    is Response.Error -> cb(false, it.message)
-                    Response.Loading -> Unit
-                    is Response.Result -> cb(true, it.data.message)
-                }
+    init {
+        handleEvent()
+    }
+
+    private fun signUpWithEmail(
+    ) = async {
+        authSDK.signUpWithEmail(
+            uiState.value.fullName, uiState.value.email, uiState.value.password
+        ).collect {
+            when (it) {
+                is Response.Error -> app.showSnackbar(it.message)
+                Response.Loading -> Unit
+                is Response.Result -> app.showSnackbar(it.data.message)
             }
         }
     }
 
-    fun signUpGoogle(
-        result: Task<GoogleSignInAccount>?,
-        cb: suspend (Boolean, String) -> Unit
-    ) = with(viewModelScope) {
-        launch {
-            if (result != null) {
-                val token = result.await()
-                authSDK.signUpGoogle(token.idToken.orEmpty())
-                    .collect {
-                        when (it) {
-                            is Response.Error -> cb(false, it.message)
-                            Response.Loading -> Unit
-                            is Response.Result -> cb(true, "")
-                        }
-                    }
-            } else {
-                cb(false, "")
-            }
 
+    private fun signUpGoogle(
+        result: Task<GoogleSignInAccount>?
+    ) = async {
+        if (result != null) {
+            val token = result.await()
+            authSDK.signUpGoogle(token.idToken.orEmpty()).collect {
+                when (it) {
+                    is Response.Error -> app.showSnackbar(it.message)
+                    Response.Loading -> Unit
+                    is Response.Result -> app.showSnackbar(it.data.message)
+                }
+            }
+        } else {
+            app.showSnackbar("Cancel by provider")
+        }
+
+    }
+
+
+    override fun handleEvent() = onEvent {
+        when (it) {
+            is SignUpEvent.SetEmail -> {
+                updateState(
+                    uiState.value.copy(
+                        email = it.email
+                    )
+                )
+            }
+            is SignUpEvent.SetFullName -> {
+                updateState(
+                    uiState.value.copy(
+                        fullName = it.fullName
+                    )
+                )
+            }
+            is SignUpEvent.SetPassword -> {
+                updateState(
+                    uiState.value.copy(
+                        password = it.password
+                    )
+                )
+            }
+            SignUpEvent.SignUpWithEmail -> signUpWithEmail()
+            is SignUpEvent.SignUpWithGoogle -> signUpGoogle(it.result)
         }
     }
 }

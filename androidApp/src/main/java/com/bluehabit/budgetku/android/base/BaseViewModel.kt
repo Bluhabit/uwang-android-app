@@ -8,37 +8,65 @@
 package com.bluehabit.budgetku.android.base
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.bluehabit.budgetku.android.ApplicationState
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.consumeAsFlow
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-abstract class BaseViewModel<State>(
-    initialState: State
+abstract class BaseViewModel<State, E>(
+    initialState: State,
 ) : ViewModel() {
-    protected val _uiState: MutableStateFlow<State> = MutableStateFlow(initialState)
-    val uiState get() = _uiState.asStateFlow()
-
-    protected lateinit var app: ApplicationState
-
-    fun setAppState(appState: ApplicationState){
-        app = appState
+    companion object {
+        val dispatcher: CoroutineDispatcher = Dispatchers.Default
     }
 
-}
-
-abstract class BaseDataViewModel<FormState,Data>(
-    initialState: FormState,
-    initialData:Data
-) : ViewModel() {
-    protected val _uiState: MutableStateFlow<FormState> = MutableStateFlow(initialState)
+    private val _uiState: MutableStateFlow<State> = MutableStateFlow(initialState)
     val uiState get() = _uiState.asStateFlow()
 
-    protected val _dataState:MutableStateFlow<Data> = MutableStateFlow(initialData)
-    val dataState get() = _dataState.asStateFlow()
-    protected lateinit var app: ApplicationState
+    private val event = Channel<E>(Channel.UNLIMITED)
 
-    fun setAppState(appState: ApplicationState){
-        app = appState
+    private lateinit var _app: ApplicationState
+    val app get() = _app
+
+    protected fun onEvent(
+        block: suspend (E) -> Unit
+    ) {
+        async {
+            event.consumeAsFlow().collect {
+                block(it)
+            }
+        }
+
     }
 
+    protected inline fun async(crossinline block: suspend () -> Unit) = with(viewModelScope) {
+        launch { block() }
+    }
+
+    protected suspend inline fun <T> await(crossinline block: suspend () -> T): T =
+        withContext(dispatcher) { block() }
+
+    protected inline fun asyncFlow(crossinline block: suspend () -> Unit) = async {
+        withContext(dispatcher) {
+            block()
+        }
+    }
+
+    protected abstract fun handleEvent()
+    protected fun updateState(s: State) {
+        _uiState.tryEmit(s)
+    }
+
+    fun sendEvent(e: E) = async { event.send(e) }
+
+
+    fun setAppState(appState: ApplicationState) {
+        _app = appState
+    }
 }
