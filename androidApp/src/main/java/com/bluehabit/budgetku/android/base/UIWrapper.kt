@@ -8,28 +8,23 @@
 package com.bluehabit.budgetku.android.base
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.bluehabit.budgetku.android.ApplicationState
 
 @Composable
-inline fun <State,Event, reified ViewModel : BaseViewModel<State,Event>> UIWrapper(
+inline fun <reified VM : BaseViewModel<*, *>> UIWrapper(
     appState: ApplicationState,
-    parent: String = "",
-    content: @Composable ViewModel.(uiState: State) -> Unit = {}
+    parent: String? = null,
+    content: @Composable VM.() -> Unit = {}
 ) {
-    val vm = (if (parent.isEmpty()) {
+    val vm = (if (parent.isNullOrEmpty()) {
         hiltViewModel()
     } else {
         val parentEntry = remember(key1 = appState.router.currentBackStackEntry) {
             appState.router.getBackStackEntry(parent)
         }
-        hiltViewModel<ViewModel>(parentEntry)
-    }).also {
-        it.setAppState(appState)
-    }
-    val uiState by vm.uiState.collectAsState()
-    content(vm, uiState)
+        hiltViewModel<VM>(parentEntry)
+    }).also { it.setAppState(appState) }
+    content(vm)
 }
