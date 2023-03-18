@@ -13,7 +13,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.bluehabit.budgetku.android.ApplicationState
-import com.bluehabit.budgetku.utils.Response
 
 @Composable
 inline fun <State,Event, reified ViewModel : BaseViewModel<State,Event>> UIWrapper(

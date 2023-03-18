@@ -8,7 +8,6 @@
 package com.bluehabit.budgetku.android.feature.dashboard.profile
 
 import com.bluehabit.budgetku.android.base.BaseViewModel
-import com.bluehabit.budgetku.android.feature.signIn.SignInEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

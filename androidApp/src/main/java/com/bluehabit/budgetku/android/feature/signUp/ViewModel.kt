@@ -7,14 +7,12 @@
 
 package com.bluehabit.budgetku.android.feature.signUp
 
-import androidx.lifecycle.viewModelScope
 import com.bluehabit.budgetku.android.base.BaseViewModel
 import com.bluehabit.budgetku.sdk.auth.AuthSDK
 import com.bluehabit.budgetku.utils.Response
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.tasks.Task
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
