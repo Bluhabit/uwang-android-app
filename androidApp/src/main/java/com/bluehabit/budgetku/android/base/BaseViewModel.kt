@@ -12,15 +12,18 @@ import androidx.lifecycle.viewModelScope
 import com.bluehabit.budgetku.android.ApplicationState
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.cancel
 import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 abstract class BaseViewModel<State, E>(
-    initialState: State,
+    private val initialState: State,
 ) : ViewModel() {
     companion object {
         val dispatcher: CoroutineDispatcher = Dispatchers.Default
@@ -68,5 +71,13 @@ abstract class BaseViewModel<State, E>(
 
     fun setAppState(appState: ApplicationState) {
         _app = appState
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+
+        event.cancel()
+        _uiState.tryEmit(initialState)
+        async { currentCoroutineContext().cancel() }
     }
 }

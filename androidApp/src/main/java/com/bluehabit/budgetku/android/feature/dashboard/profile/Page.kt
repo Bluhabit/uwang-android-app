@@ -13,6 +13,8 @@ import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavGraphBuilder
@@ -40,14 +42,17 @@ fun NavGraphBuilder.routeProfile(
 internal fun ScreenProfile(
     appState: ApplicationState
 ) {
-    UIWrapper<ProfileState, ProfileEvent, ProfileViewModel>(
+
+    UIWrapper<ProfileViewModel>(
         appState = appState,
         parent = "Dashboard"
-    ) { (name) ->
+    ) {
+        val state by uiState.collectAsState()
+
         with(appState) {
             setupTopAppBar {
                 TopAppBar {
-                    Text(text = name)
+                    Text(text = "Title ${state.name}")
                 }
             }
             setupBottomAppBar {
@@ -56,7 +61,6 @@ internal fun ScreenProfile(
                 }
             }
         }
-
         Column(
             modifier = Modifier.fillMaxSize()
         ) {

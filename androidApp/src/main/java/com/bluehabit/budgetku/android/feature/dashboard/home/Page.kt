@@ -13,6 +13,8 @@ import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavGraphBuilder
@@ -41,15 +43,17 @@ fun NavGraphBuilder.routeHome(
 internal fun ScreenHome(
     appState: ApplicationState
 ) {
-
-    UIWrapper<HomeState, HomeEvent, HomeViewModel>(
+    UIWrapper<HomeViewModel>(
         appState = appState,
         parent = "Dashboard"
-    ) { (name) ->
+    ) {
+        val state by uiState.collectAsState(initial = HomeState())
+
+
         with(appState) {
             setupTopAppBar {
                 TopAppBar {
-                    Text(text = name)
+                    Text(text = "title ${state.name}")
                 }
             }
             setupBottomAppBar {

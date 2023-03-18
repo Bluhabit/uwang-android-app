@@ -19,6 +19,8 @@ import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -51,7 +53,9 @@ fun NavGraphBuilder.routeSignUp(
 internal fun ScreenSignUp(
     appState: ApplicationState
 ) {
-    UIWrapper<SignUpState, SignUpEvent, SignUpViewModel>(appState = appState) { (fullName, email, password) ->
+    UIWrapper<SignUpViewModel>(appState = appState) {
+        val state by uiState.collectAsState()
+
         val launcher = rememberLauncherForActivityResult(
             contract = GoogleAuthContract(),
             onResult = { sendEvent(SignUpEvent.SignUpWithGoogle(it)) }
@@ -71,7 +75,7 @@ internal fun ScreenSignUp(
         ) {
             Column {
                 TextField(
-                    value = fullName,
+                    value = state.fullName,
                     onValueChange = {
                         sendEvent(SignUpEvent.SetFullName(it))
                     },
@@ -82,7 +86,7 @@ internal fun ScreenSignUp(
                 )
                 Spacer(modifier = Modifier.height(10.dp))
                 TextField(
-                    value = email,
+                    value = state.email,
                     onValueChange = {
                         sendEvent(SignUpEvent.SetEmail(it))
                     },
@@ -93,7 +97,7 @@ internal fun ScreenSignUp(
                 )
                 Spacer(modifier = Modifier.height(10.dp))
                 TextField(
-                    value = password,
+                    value = state.password,
                     onValueChange = {
                         sendEvent(SignUpEvent.SetPassword(it))
                     },

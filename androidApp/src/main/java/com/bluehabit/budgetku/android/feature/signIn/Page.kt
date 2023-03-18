@@ -19,6 +19,8 @@ import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -53,13 +55,14 @@ fun NavGraphBuilder.routeSignIn(
 internal fun ScreenSignIn(
     appState: ApplicationState
 ) {
-    UIWrapper<SignInState,SignInEvent, SignInViewModel>(
+    UIWrapper<SignInViewModel>(
         appState = appState
-    ) { (email,password) ->
+    ) {
+        val state by uiState.collectAsState()
 
         val launcher = rememberLauncherForActivityResult(
             contract = GoogleAuthContract(),
-            onResult = {sendEvent(SignInEvent.SignInWithGoogle(it))}
+            onResult = { sendEvent(SignInEvent.SignInWithGoogle(it)) }
         )
 
         Column(
@@ -74,8 +77,8 @@ internal fun ScreenSignIn(
         ) {
             Column {
                 TextField(
-                    value = email,
-                    onValueChange ={sendEvent(SignInEvent.SetEmail(it))},
+                    value = state.email,
+                    onValueChange = { sendEvent(SignInEvent.SetEmail(it)) },
                     placeholder = {
                         Text(text = "Email")
                     },
@@ -83,8 +86,8 @@ internal fun ScreenSignIn(
                 )
                 Spacer(modifier = Modifier.height(10.dp))
                 TextField(
-                    value = password,
-                    onValueChange = {sendEvent(SignInEvent.SetPassword(it))},
+                    value = state.password,
+                    onValueChange = { sendEvent(SignInEvent.SetPassword(it)) },
                     placeholder = {
                         Text(text = "Password")
                     },
@@ -94,7 +97,7 @@ internal fun ScreenSignIn(
             Spacer(modifier = Modifier.height(10.dp))
             Column {
                 Button(
-                    onClick = {sendEvent(SignInEvent.SignInWithEmail)},
+                    onClick = { sendEvent(SignInEvent.SignInWithEmail) },
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Text(text = "Sign In")

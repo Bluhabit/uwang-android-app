@@ -35,7 +35,7 @@ fun NavGraphBuilder.routeSplash(
 internal fun ScreenSplash(
     state: ApplicationState,
 ) {
-    UIWrapper<String, SplashEvent, SplashViewModel>(appState = state) {
+    UIWrapper<SplashViewModel>(appState = state) {
         LaunchedEffect(key1 = this, block = {
             sendEvent(SplashEvent.CheckSession)
         })
