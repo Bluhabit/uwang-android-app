@@ -5,9 +5,10 @@
  * Proprietary and confidential
  */
 
-package com.bluehabit.budgetku.android.feature.signIn
+package com.bluehabit.budgetku.android.feature.splashScreen
 
-data class SignInState(
-    var email:String="",
-    var password:String=""
-)
+sealed class SplashEvent{
+    object Init:SplashEvent()
+
+    object CheckSession:SplashEvent()
+}

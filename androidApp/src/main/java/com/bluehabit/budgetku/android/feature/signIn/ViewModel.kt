@@ -7,7 +7,6 @@
 
 package com.bluehabit.budgetku.android.feature.signIn
 
-import androidx.lifecycle.viewModelScope
 import com.bluehabit.budgetku.android.base.BaseViewModel
 import com.bluehabit.budgetku.android.base.extensions.navigateAndReplaceAll
 import com.bluehabit.budgetku.android.feature.dashboard.home.Home
@@ -17,7 +16,6 @@ import com.bluehabit.budgetku.utils.Response
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.tasks.Task
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
@@ -25,26 +23,37 @@ import javax.inject.Inject
 class SignInViewModel @Inject constructor(
     private val authSDK: AuthSDK,
     private val userSDK: UserSDK
-) : BaseViewModel<SignInState>(SignInState()) {
+) : BaseViewModel<SignInState, SignInEvent>(SignInState()) {
 
-    fun setEmail(email: String) {
-        _uiState.tryEmit(
-            uiState.value.copy(
-                email = email
-            )
-        )
+    init {
+        this.handleEvent()
     }
 
-    fun setPassword(password: String) {
-        _uiState.tryEmit(
-            uiState.value.copy(
-                password = password
-            )
-        )
+    private fun signInWithEmail() = async {
+        authSDK.signInWithEmail(uiState.value.email, uiState.value.password)
+            .collect {
+                when (it) {
+                    is Response.Error -> {
+                        app.showSnackbar(it.message)
+                    }
+                    Response.Loading -> Unit
+                    is Response.Result -> {
+                        app.navigateAndReplaceAll(
+                            Home.routeName
+                        )
+                    }
+                }
+            }
+
+
     }
-    fun signInWithEmail() = with(viewModelScope) {
-        launch {
-            authSDK.signInWithEmail(uiState.value.email, uiState.value.password)
+
+    private fun signInGoogle(
+        result: Task<GoogleSignInAccount>?,
+    ) = async {
+        if (result != null) {
+            val token = result.await()
+            authSDK.signInGoogle(token.idToken.orEmpty())
                 .collect {
                     when (it) {
                         is Response.Error -> {
@@ -58,36 +67,32 @@ class SignInViewModel @Inject constructor(
                         }
                     }
                 }
+        } else {
+            app.showSnackbar("Sign in canceled by provider")
         }
+
     }
 
-    fun signInGoogle(
-        result: Task<GoogleSignInAccount>?,
-    ) = with(viewModelScope) {
-        launch {
-            if (result != null) {
-                val token = result.await()
-                authSDK.signInGoogle(token.idToken.orEmpty())
-                    .collect {
-                        when (it) {
-                            is Response.Error -> {
-                                app.showSnackbar(it.message)
-                            }
-                            Response.Loading -> Unit
-                            is Response.Result -> {
-                                app.navigateAndReplaceAll(
-                                    Home.routeName
-                                )
-                            }
-                        }
-                    }
-            } else {
-                app.showSnackbar("Sign in canceled by provider")
+    override fun handleEvent() = onEvent {
+        when (it) {
+            SignInEvent.SignInWithEmail -> signInWithEmail()
+            is SignInEvent.SignInWithGoogle -> signInGoogle(it.result)
+            is SignInEvent.SetEmail -> {
+               updateState(
+                    uiState.value.copy(
+                        email = it.email
+                    )
+                )
             }
-
+            is SignInEvent.SetPassword -> {
+               updateState(
+                    uiState.value.copy(
+                        password = it.password
+                    )
+                )
+            }
         }
     }
-
-
-
 }
+
+
