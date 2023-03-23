@@ -41,4 +41,4 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-aku ganteng
+
