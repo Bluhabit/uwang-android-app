@@ -66,7 +66,7 @@ internal fun ScreenProfile(
         ) {
 
             Button(onClick = {
-                sendEvent(ProfileEvent.SetName(Math.random().toString()))
+                dispatch(ProfileEvent.SetName(Math.random().toString()))
             }) {
                 Text(text = "Klik Coba")
             }

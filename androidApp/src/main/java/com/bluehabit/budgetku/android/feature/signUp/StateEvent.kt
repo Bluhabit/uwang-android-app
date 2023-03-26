@@ -7,14 +7,19 @@
 
 package com.bluehabit.budgetku.android.feature.signUp
 
+import android.os.Parcelable
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.tasks.Task
+import kotlinx.parcelize.Parcelize
+import javax.annotation.concurrent.Immutable
 
+@Immutable
+@Parcelize
 data class SignUpState(
-    var fullName:String="",
-    var email:String="",
-    var password:String=""
-)
+    val fullName:String="",
+    val email:String="",
+    val password:String=""
+) : Parcelable
 
 sealed class SignUpEvent{
 

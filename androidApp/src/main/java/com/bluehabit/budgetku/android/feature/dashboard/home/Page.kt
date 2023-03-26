@@ -66,7 +66,7 @@ internal fun ScreenHome(
             modifier = Modifier.fillMaxSize()
         ) {
             Button(onClick = {
-                sendEvent(HomeEvent.SetName("Hayolo"))
+                dispatch(HomeEvent.SetName("Hayolo"))
             }) {
                 Text(text = "INI")
             }

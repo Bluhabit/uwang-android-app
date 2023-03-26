@@ -9,6 +9,7 @@ plugins {
     id("com.android.application")
     id("com.google.dagger.hilt.android")
     id("io.gitlab.arturbosch.detekt")
+    id("kotlin-parcelize")
     kotlin("android")
     kotlin("kapt")
 }
@@ -79,18 +80,25 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+        freeCompilerArgs = listOf(
+            "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
+            "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api",
+            "-opt-in=androidx.compose.material.ExperimentalMaterialApi",
+            "-opt-in=androidx.compose.ui.ExperimentalComposeUiApi",
+            "-opt-in=androidx.compose.foundation.ExperimentalFoundationApi"
+        )
     }
 }
 
 dependencies {
-    implementation(project(":shared"))
+    //implementation(project(":shared"))
 
+    implementation(project(":data"))
     implementation(AndroidX.Core.coreKtx)
     implementation(AndroidX.Lifecycle.runtimeLifecycleKtx)
     implementation(AndroidX.Activity.activityCompose)
     implementation(AndroidX.Multidex.multidex)
     implementation(AndroidX.Navigation.navigationCompose)
-
 
     with(Jetbrains.Kotlinx){
         implementation(googlePlayKotlinCoroutine)
@@ -118,12 +126,13 @@ dependencies {
         implementation(flowLayout)
     }
     with(Hilt) {
-        implementation(hiltNavigationCompose)
-        implementation(hiltWork)
-        implementation(hiltAndroid)
+        api(hiltNavigationCompose)
+        api(hiltWork)
+        api(hiltAndroid)
         kapt(hiltAndroidCompiler)
         kapt(hiltCompiler)
     }
+
 
     with(Google.Android.Gms){
         implementation(playServicesAuth)
@@ -137,6 +146,10 @@ dependencies {
     with(Chucker) {
         debugImplementation(chuckerDebug)
         releaseImplementation(chuckerRelease)
+    }
+    with(Mockk.Io.Mockk){
+        testImplementation(mockk)
+        testImplementation(mockkAndroid)
     }
     debugImplementation(LeakCanary.leakCanary)
 }
