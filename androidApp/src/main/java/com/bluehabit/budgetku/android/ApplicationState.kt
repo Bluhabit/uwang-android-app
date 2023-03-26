@@ -28,7 +28,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.bluehabit.budgetku.android.base.EventListener
 import com.bluehabit.budgetku.android.base.extensions.runSuspend
-import com.bluehabit.budgetku.android.feature.splashScreen.Splash
 import kotlinx.coroutines.CoroutineScope
 
 class CreateContent(
