@@ -28,7 +28,10 @@ suspend inline fun <reified T> safeApiCall(call: () -> HttpResponse): Response<T
     }
 }
 
-suspend inline fun <reified T> safeApiCall(onSaveToken: (token: String) -> Unit = {}, call: () -> HttpResponse): Response<T> {
+suspend inline fun <reified T> safeApiCall(
+    onSaveToken: (token: String) -> Unit = {},
+    call: () -> HttpResponse
+): Response<T> {
     return try {
 
         val response = call.invoke()
