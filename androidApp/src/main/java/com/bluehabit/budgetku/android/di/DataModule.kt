@@ -75,7 +75,7 @@ object DataModule {
         sharedPreferences: SharedPreferences
     ): HttpClient = HttpClient(OkHttp) {
         install(HttpTimeout) {
-            socketTimeoutMillis = 180000
+            socketTimeoutMillis = 180_000
         }
         install(Resources)
         defaultRequest {

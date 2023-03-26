@@ -12,10 +12,7 @@ import com.bluehabit.budgetku.android.base.BaseViewModel
 import com.bluehabit.budgetku.data.common.Response
 import com.bluehabit.budgetku.data.domain.auth.SignInWIthGoogleUseCase
 import com.bluehabit.budgetku.data.domain.auth.SignInWithEmailUseCase
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.gms.tasks.Task
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
@@ -51,7 +48,8 @@ class SignInViewModel @Inject constructor(
             SignInEvent.SignInWithEmail -> validateData { email, password ->
                 signInWithEmailUseCase(email,password).collect(::handelResponse)
             }
-            is SignInEvent.SignInWithGoogle ->  signInWIthGoogleUseCase(it.result?.await()?.idToken).collect(::handelResponse)
+            is SignInEvent.SignInWithGoogle ->
+                signInWIthGoogleUseCase(it.result?.await()?.idToken).collect(::handelResponse)
         }
     }
 }
