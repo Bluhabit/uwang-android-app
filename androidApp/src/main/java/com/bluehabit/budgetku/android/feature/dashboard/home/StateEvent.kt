@@ -7,9 +7,15 @@
 
 package com.bluehabit.budgetku.android.feature.dashboard.home
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+import javax.annotation.concurrent.Immutable
+
+@Immutable
+@Parcelize
 data class HomeState(
-    var name: String = ""
-)
+    val name: String = ""
+) : Parcelable
 
 sealed class HomeEvent {
     class SetName(var name: String) : HomeEvent()

@@ -15,17 +15,12 @@ import javax.inject.Inject
 class ProfileViewModel @Inject constructor(
 ) : BaseViewModel<ProfileState, ProfileEvent>(ProfileState()) {
     init {
-        handleEvent()
+        handleActions()
     }
 
-    override fun handleEvent() = onEvent {
+    override fun handleActions() = onEvent {
         when (it) {
             is ProfileEvent.SetName -> {
-                updateState(
-                    uiState.value.copy(
-                        name = it.name
-                    )
-                )
             }
         }
     }

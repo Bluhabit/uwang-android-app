@@ -13,7 +13,6 @@ plugins {
     id("app.cash.sqldelight").version("2.0.0-alpha05").apply(false)
     id("io.gitlab.arturbosch.detekt") version "1.22.0" apply false
     kotlin("android").version("1.8.0").apply(false)
-    kotlin("multiplatform").version("1.8.0").apply(false)
 }
 extensions.findByName("buildScan")?.withGroovyBuilder {
     setProperty("termsOfServiceUrl", "https://gradle.com/terms-of-service")

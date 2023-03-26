@@ -7,90 +7,51 @@
 
 package com.bluehabit.budgetku.android.feature.signIn
 
+import android.util.Patterns
 import com.bluehabit.budgetku.android.base.BaseViewModel
-import com.bluehabit.budgetku.android.base.extensions.navigateAndReplaceAll
-import com.bluehabit.budgetku.android.feature.dashboard.home.Home
-import com.bluehabit.budgetku.sdk.auth.AuthSDK
-import com.bluehabit.budgetku.sdk.user.UserSDK
-import com.bluehabit.budgetku.utils.Response
+import com.bluehabit.budgetku.data.common.Response
+import com.bluehabit.budgetku.data.domain.auth.SignInWIthGoogleUseCase
+import com.bluehabit.budgetku.data.domain.auth.SignInWithEmailUseCase
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.tasks.Task
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 @HiltViewModel
 class SignInViewModel @Inject constructor(
-    private val authSDK: AuthSDK,
-    private val userSDK: UserSDK
+    private val signInWithEmailUseCase: SignInWithEmailUseCase,
+    private val signInWIthGoogleUseCase: SignInWIthGoogleUseCase
 ) : BaseViewModel<SignInState, SignInEvent>(SignInState()) {
 
     init {
-        this.handleEvent()
+        handleActions()
     }
 
-    private fun signInWithEmail() = async {
-        authSDK.signInWithEmail(uiState.value.email, uiState.value.password)
-            .collect {
-                when (it) {
-                    is Response.Error -> {
-                        app.showSnackbar(it.message)
-                    }
-                    Response.Loading -> Unit
-                    is Response.Result -> {
-                        app.navigateAndReplaceAll(
-                            Home.routeName
-                        )
-                    }
-                }
-            }
-
-
-    }
-
-    private fun signInGoogle(
-        result: Task<GoogleSignInAccount>?,
-    ) = async {
-        if (result != null) {
-            val token = result.await()
-            authSDK.signInGoogle(token.idToken.orEmpty())
-                .collect {
-                    when (it) {
-                        is Response.Error -> {
-                            app.showSnackbar(it.message)
-                        }
-                        Response.Loading -> Unit
-                        is Response.Result -> {
-                            app.navigateAndReplaceAll(
-                                Home.routeName
-                            )
-                        }
-                    }
-                }
-        } else {
-            app.showSnackbar("Sign in canceled by provider")
+    private fun validateData(
+        valid:suspend (String,String)->Unit
+    ) = asyncWithState {
+        when{
+            !Patterns.EMAIL_ADDRESS.matcher(email).matches() -> showSnackbar("Email didn't valid")
+            else->valid(email,password)
         }
-
     }
 
-    override fun handleEvent() = onEvent {
+    private fun handelResponse(response:Response<String>) = async {
+        when(response){
+            is Response.Error -> Unit
+            Response.Loading -> Unit
+            is Response.Result -> Unit
+        }
+    }
+
+    override fun handleActions() = onEvent {
         when (it) {
-            SignInEvent.SignInWithEmail -> signInWithEmail()
-            is SignInEvent.SignInWithGoogle -> signInGoogle(it.result)
-            is SignInEvent.SetEmail -> {
-               updateState(
-                    uiState.value.copy(
-                        email = it.email
-                    )
-                )
+            SignInEvent.SignInWithEmail -> validateData { email, password ->
+                signInWithEmailUseCase(email,password).collect(::handelResponse)
             }
-            is SignInEvent.SetPassword -> {
-               updateState(
-                    uiState.value.copy(
-                        password = it.password
-                    )
-                )
-            }
+            is SignInEvent.SignInWithGoogle ->  signInWIthGoogleUseCase(it.result?.await()?.idToken).collect(::handelResponse)
         }
     }
 }

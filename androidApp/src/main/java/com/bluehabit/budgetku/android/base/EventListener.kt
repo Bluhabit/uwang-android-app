@@ -7,11 +7,14 @@
 
 package com.bluehabit.budgetku.android.base
 
+import androidx.compose.material.ModalBottomSheetValue
 import com.bluehabit.budgetku.android.base.listener.AppStateEventListener
+import com.bluehabit.budgetku.android.base.listener.BottomSheetStateListener
 
 
 class EventListener {
     private var appEvent: AppStateEventListener? = null
+    private var bottomSheetStateListener: BottomSheetStateListener? = null
 
     //region app event
     fun addOnEventListener(listener: AppStateEventListener) {
@@ -23,9 +26,19 @@ class EventListener {
     }
     //end region
 
+    //region bottom sheet
+    fun addOnBottomSheetStateListener(listener: BottomSheetStateListener) {
+        bottomSheetStateListener = listener
+    }
 
-    fun clear(){
+    fun changeBottomSheetState(state: ModalBottomSheetValue) {
+        bottomSheetStateListener?.onStateChanges(state)
+    }
+    //end region
+
+    fun clear() {
         appEvent = null
+        bottomSheetStateListener = null
     }
 
 

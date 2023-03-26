@@ -62,7 +62,7 @@ internal fun ScreenSignIn(
 
         val launcher = rememberLauncherForActivityResult(
             contract = GoogleAuthContract(),
-            onResult = { sendEvent(SignInEvent.SignInWithGoogle(it)) }
+            onResult = { dispatch(SignInEvent.SignInWithGoogle(it)) }
         )
 
         Column(
@@ -78,7 +78,9 @@ internal fun ScreenSignIn(
             Column {
                 TextField(
                     value = state.email,
-                    onValueChange = { sendEvent(SignInEvent.SetEmail(it)) },
+                    onValueChange = {
+                        commit { copy(email = it) }
+                    },
                     placeholder = {
                         Text(text = "Email")
                     },
@@ -87,7 +89,7 @@ internal fun ScreenSignIn(
                 Spacer(modifier = Modifier.height(10.dp))
                 TextField(
                     value = state.password,
-                    onValueChange = { sendEvent(SignInEvent.SetPassword(it)) },
+                    onValueChange = { commit { copy(password = it) } },
                     placeholder = {
                         Text(text = "Password")
                     },
@@ -97,7 +99,9 @@ internal fun ScreenSignIn(
             Spacer(modifier = Modifier.height(10.dp))
             Column {
                 Button(
-                    onClick = { sendEvent(SignInEvent.SignInWithEmail) },
+                    onClick = {
+                        dispatch(SignInEvent.SignInWithEmail)
+                    },
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Text(text = "Sign In")

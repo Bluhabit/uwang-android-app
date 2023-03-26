@@ -8,13 +8,11 @@
 package com.bluehabit.budgetku.android.di
 
 import android.content.Context
-import com.bluehabit.budgetku.AndroidSetupSDK
+import android.content.SharedPreferences
+import app.cash.sqldelight.db.SqlDriver
+import app.cash.sqldelight.driver.android.AndroidSqliteDriver
 import com.bluehabit.budgetku.BuildConfig
-import com.bluehabit.budgetku.createAuthSDK
-import com.bluehabit.budgetku.createDataConfiguration
-import com.bluehabit.budgetku.createUserSDK
-import com.bluehabit.budgetku.sdk.auth.AuthSDK
-import com.bluehabit.budgetku.sdk.user.UserSDK
+import com.bluehabit.budgetku.db.Database
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.chuckerteam.chucker.api.RetentionManager
@@ -23,6 +21,17 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import io.ktor.client.HttpClient
+import io.ktor.client.engine.okhttp.OkHttp
+import io.ktor.client.plugins.HttpTimeout
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.plugins.defaultRequest
+import io.ktor.client.plugins.resources.Resources
+import io.ktor.client.request.header
+import io.ktor.http.ContentType
+import io.ktor.http.contentType
+import io.ktor.serialization.gson.gson
+
 
 @Module
 @InstallIn(
@@ -45,22 +54,45 @@ object DataModule {
         .build()
 
     @Provides
-    fun provideSDKConfig(
-        @ApplicationContext appContext: Context,
-        chuckerInterceptor: ChuckerInterceptor
-    ):AndroidSetupSDK = createDataConfiguration(
-        appContext,
-        chuckerInterceptor,
-        BuildConfig.BASE_URL
+    fun provideSharedPref(
+        @ApplicationContext appContext: Context
+    ): SharedPreferences = appContext.getSharedPreferences(
+        "fdasa-34fdsf-465ds",
+        Context.MODE_PRIVATE
     )
 
     @Provides
-    fun providerAuthSDK(
-        sdk: AndroidSetupSDK
-    ):AuthSDK = createAuthSDK(sdk)
+    fun provideDatabase(
+        @ApplicationContext appContext: Context
+    ): SqlDriver = AndroidSqliteDriver(
+        Database.Schema, appContext,
+        "bluehabit-budgetku.db"
+    )
 
     @Provides
-    fun provideUserSDK(
-        sdk: AndroidSetupSDK
-    ):UserSDK = createUserSDK(sdk)
+    fun provideHttpClient(
+        chuckerInterceptor: ChuckerInterceptor,
+        sharedPreferences: SharedPreferences
+    ): HttpClient = HttpClient(OkHttp) {
+        install(HttpTimeout) {
+            socketTimeoutMillis = 180000
+        }
+        install(Resources)
+        defaultRequest {
+            val locale = sharedPreferences.getString("locale", "")
+            header("Accept-Language", locale ?: "en")
+            url(BuildConfig.BASE_URL)
+            contentType(ContentType.Application.Json)
+        }
+        install(ContentNegotiation) {
+            gson {
+                setLenient()
+                setPrettyPrinting()
+            }
+        }
+        engine {
+            config { followRedirects(true) }
+            addInterceptor(chuckerInterceptor)
+        }
+    }
 }

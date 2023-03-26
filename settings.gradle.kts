@@ -26,4 +26,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "BudgetKu"
 include(":androidApp")
-include(":shared")
+//include(":shared")
+include(":data")

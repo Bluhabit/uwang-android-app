@@ -37,7 +37,7 @@ internal fun ScreenSplash(
 ) {
     UIWrapper<SplashViewModel>(appState = state) {
         LaunchedEffect(key1 = this, block = {
-            sendEvent(SplashEvent.CheckSession)
+            dispatch(SplashEvent.CheckSession)
         })
         Column {
 

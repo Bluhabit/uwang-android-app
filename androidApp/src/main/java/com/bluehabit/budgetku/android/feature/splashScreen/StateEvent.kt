@@ -7,8 +7,16 @@
 
 package com.bluehabit.budgetku.android.feature.splashScreen
 
-sealed class SplashEvent{
-    object Init:SplashEvent()
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+import javax.annotation.concurrent.Immutable
 
+@Immutable
+@Parcelize
+data class SplashState(
+    val a:String=""
+) : Parcelable
+
+sealed class SplashEvent{
     object CheckSession:SplashEvent()
 }

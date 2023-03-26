@@ -15,16 +15,13 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
 ) : BaseViewModel<HomeState, HomeEvent>(HomeState()) {
     init {
-        handleEvent()
+        handleActions()
     }
-    override fun handleEvent() = onEvent {
+
+    override fun handleActions() = onEvent {
         when (it) {
             is HomeEvent.SetName -> {
-                updateState(
-                    uiState.value.copy(
-                        name = it.name
-                    )
-                )
+
             }
         }
     }
