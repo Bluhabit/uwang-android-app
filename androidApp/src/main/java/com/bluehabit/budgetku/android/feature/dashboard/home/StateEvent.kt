@@ -17,6 +17,12 @@ data class HomeState(
     val name: String = ""
 ) : Parcelable
 
+@Immutable
+@Parcelize
+data class HomeDataState(
+    var a:List<String> = listOf()
+) : Parcelable
+
 sealed class HomeEvent {
     class SetName(var name: String) : HomeEvent()
 }

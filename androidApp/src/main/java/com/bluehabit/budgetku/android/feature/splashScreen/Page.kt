@@ -34,16 +34,15 @@ fun NavGraphBuilder.routeSplash(
 @Composable
 internal fun ScreenSplash(
     state: ApplicationState,
-) {
-    UIWrapper<SplashViewModel>(appState = state) {
-        LaunchedEffect(key1 = this, block = {
-            dispatch(SplashEvent.CheckSession)
-        })
-        Column {
+) = UIWrapper<SplashViewModel>(appState = state) {
+    LaunchedEffect(key1 = this, block = {
+        dispatch(SplashEvent.CheckSession)
+    })
+    Column {
 
-        }
     }
 }
+
 
 @Preview
 @Composable

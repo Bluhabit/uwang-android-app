@@ -37,9 +37,9 @@ class SignInViewModel @Inject constructor(
 
     private fun handelResponse(response:Response<String>) = async {
         when(response){
-            is Response.Error -> Unit
-            Response.Loading -> Unit
-            is Response.Result -> Unit
+            is Response.Error -> showSnackbar(response.message.orEmpty())
+            Response.Loading -> showSnackbar("Loading")
+            is Response.Result -> showSnackbar("Sukses")
         }
     }
 

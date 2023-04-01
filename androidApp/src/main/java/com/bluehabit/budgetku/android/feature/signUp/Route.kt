@@ -52,8 +52,7 @@ fun NavGraphBuilder.routeSignUp(
 @Composable
 internal fun ScreenSignUp(
     appState: ApplicationState
-) {
-    UIWrapper<SignUpViewModel>(appState = appState) {
+) =UIWrapper<SignUpViewModel>(appState = appState) {
         val state by uiState.collectAsState()
 
         val launcher = rememberLauncherForActivityResult(
@@ -140,7 +139,7 @@ internal fun ScreenSignUp(
 
         }
     }
-}
+
 
 @Preview
 @Composable

@@ -54,86 +54,84 @@ fun NavGraphBuilder.routeSignIn(
 @Composable
 internal fun ScreenSignIn(
     appState: ApplicationState
+) = UIWrapper<SignInViewModel>(
+    appState = appState
 ) {
-    UIWrapper<SignInViewModel>(
-        appState = appState
+    val state by uiState.collectAsState()
+
+    val launcher = rememberLauncherForActivityResult(
+        contract = GoogleAuthContract(),
+        onResult = { dispatch(SignInEvent.SignInWithGoogle(it)) }
+    )
+
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight()
+            .padding(
+                horizontal = 16.dp
+            ),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
     ) {
-        val state by uiState.collectAsState()
-
-        val launcher = rememberLauncherForActivityResult(
-            contract = GoogleAuthContract(),
-            onResult = { dispatch(SignInEvent.SignInWithGoogle(it)) }
-        )
-
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight()
-                .padding(
-                    horizontal = 16.dp
-                ),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            Column {
-                TextField(
-                    value = state.email,
-                    onValueChange = {
-                        commit { copy(email = it) }
-                    },
-                    placeholder = {
-                        Text(text = "Email")
-                    },
-                    modifier = Modifier.fillMaxWidth()
-                )
-                Spacer(modifier = Modifier.height(10.dp))
-                TextField(
-                    value = state.password,
-                    onValueChange = { commit { copy(password = it) } },
-                    placeholder = {
-                        Text(text = "Password")
-                    },
-                    modifier = Modifier.fillMaxWidth()
-                )
-            }
-            Spacer(modifier = Modifier.height(10.dp))
-            Column {
-                Button(
-                    onClick = {
-                        dispatch(SignInEvent.SignInWithEmail)
-                    },
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Text(text = "Sign In")
-                }
-
-                Button(
-                    onClick = {
-                        launcher.launch(1)
-                    },
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Text(text = "Continue With Google")
-                }
-            }
-            Spacer(modifier = Modifier.height(16.dp))
-            TextWithAction(
-                labels = listOf(
-                    AnnotationTextItem.Text("Belum punya akun?"),
-                    AnnotationTextItem.Button("Daftar disni")
-                ),
-                onTextClick = {
-                    if (it == 1) {
-                        appState.navigate(SignUp.routeName)
-                    }
-                }
+        Column {
+            TextField(
+                value = state.email,
+                onValueChange = {
+                    commit { copy(email = it) }
+                },
+                placeholder = {
+                    Text(text = "Email")
+                },
+                modifier = Modifier.fillMaxWidth()
             )
-
+            Spacer(modifier = Modifier.height(10.dp))
+            TextField(
+                value = state.password,
+                onValueChange = { commit { copy(password = it) } },
+                placeholder = {
+                    Text(text = "Password")
+                },
+                modifier = Modifier.fillMaxWidth()
+            )
         }
+        Spacer(modifier = Modifier.height(10.dp))
+        Column {
+            Button(
+                onClick = {
+                    dispatch(SignInEvent.SignInWithEmail)
+                },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(text = "Sign In")
+            }
+
+            Button(
+                onClick = {
+                    launcher.launch(1)
+                },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(text = "Continue With Google")
+            }
+        }
+        Spacer(modifier = Modifier.height(16.dp))
+        TextWithAction(
+            labels = listOf(
+                AnnotationTextItem.Text("Belum punya akun?"),
+                AnnotationTextItem.Button("Daftar disni")
+            ),
+            onTextClick = {
+                if (it == 1) {
+                    appState.navigate(SignUp.routeName)
+                }
+            }
+        )
 
     }
 
 }
+
 
 @Preview
 @Composable

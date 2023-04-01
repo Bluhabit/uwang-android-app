@@ -12,6 +12,7 @@ import io.ktor.client.call.body
 import io.ktor.client.network.sockets.ConnectTimeoutException
 import io.ktor.client.network.sockets.SocketTimeoutException
 import io.ktor.client.statement.HttpResponse
+import java.net.ConnectException
 
 suspend inline fun <reified T> safeApiCall(call: () -> HttpResponse): Response<T> {
     return try {
@@ -23,7 +24,7 @@ suspend inline fun <reified T> safeApiCall(call: () -> HttpResponse): Response<T
             val data = response.body<BaseResponse<List<Any>>>()
             Response.Error(data.message, data.code)
         }
-    } catch (e: Exception) {
+    }catch (e:Exception){
         Response.Error(e.message.orEmpty())
     }
 }
@@ -46,9 +47,7 @@ suspend inline fun <reified T> safeApiCall(
             Response.Error(data.message, data.code)
         }
 
-    } catch (e: SocketTimeoutException) {
-        Response.Error("Timeout")
-    } catch (e: ConnectTimeoutException) {
-        Response.Error("Timeout")
+    } catch (e:Exception){
+        Response.Error(e.message.orEmpty())
     }
 }

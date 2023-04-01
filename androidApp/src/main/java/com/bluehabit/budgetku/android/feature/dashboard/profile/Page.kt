@@ -41,9 +41,7 @@ fun NavGraphBuilder.routeProfile(
 @Composable
 internal fun ScreenProfile(
     appState: ApplicationState
-) {
-
-    UIWrapper<ProfileViewModel>(
+) =UIWrapper<ProfileViewModel>(
         appState = appState,
         parent = "Dashboard"
     ) {
@@ -73,7 +71,7 @@ internal fun ScreenProfile(
         }
     }
 
-}
+
 
 @Preview
 @Composable
