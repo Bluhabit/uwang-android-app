@@ -7,6 +7,10 @@
 
 package com.bluehabit.budgetku.android
 
+import android.content.Context
+import androidx.compose.material.ModalBottomSheetState
+import androidx.compose.material.ModalBottomSheetValue
+import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.material3.Snackbar
 import androidx.compose.material3.SnackbarData
 import androidx.compose.material3.SnackbarDuration
@@ -19,11 +23,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.bluehabit.budgetku.android.base.EventListener
 import com.bluehabit.budgetku.android.base.extensions.runSuspend
-import com.bluehabit.budgetku.android.feature.splashScreen.Splash
 import kotlinx.coroutines.CoroutineScope
 
 class CreateContent(
@@ -44,10 +48,13 @@ class CreateSnackbarContent(
     }
 }
 
+
 class ApplicationState internal constructor(
     val router: NavHostController,
+    val bottomSheetState: ModalBottomSheetState,
     val scope: CoroutineScope,
-    val event: EventListener
+    val event: EventListener,
+    val context: Context
 ) {
 
 
@@ -108,17 +115,40 @@ class ApplicationState internal constructor(
         }
     }
 
+    @Composable
     fun hideBottomAppBar() {
-        showBottomAppBar = false
+        LaunchedEffect(key1 = this, block = {
+            if (showBottomAppBar) {
+                showBottomAppBar = false
+            }
+        })
     }
 
+    @Composable
     fun hideTopAppBar() {
-        showTopAppBar = false
+        LaunchedEffect(key1 = this, block = {
+            if (showTopAppBar) {
+                showTopAppBar = false
+            }
+        })
+
     }
 
     fun showSnackbar(message: String) {
         runSuspend {
             snackbarHostState.showSnackbar(message)
+        }
+    }
+
+    fun showSnackbar(message: Int) {
+        runSuspend {
+            snackbarHostState.showSnackbar(context.getString(message))
+        }
+    }
+
+    fun showSnackbar(message: Int, vararg params: String) {
+        runSuspend {
+            snackbarHostState.showSnackbar(context.getString(message, params))
         }
     }
 
@@ -128,32 +158,39 @@ class ApplicationState internal constructor(
         }
     }
 
-    fun showSnackbar(message:String,actionLabel:String,onAction:()->Unit={}){
+    fun showSnackbar(message: String, actionLabel: String, onAction: () -> Unit = {}) {
         runSuspend {
-            when(snackbarHostState.showSnackbar(message,actionLabel = actionLabel,withDismissAction = true)){
+            when (snackbarHostState.showSnackbar(message, actionLabel = actionLabel, withDismissAction = true)) {
                 SnackbarResult.Dismissed -> Unit
                 SnackbarResult.ActionPerformed -> onAction()
             }
         }
     }
 
-    fun reset() {
-        bottomAppBar = CreateContent { }
-        currentRoute = Splash.routeName
-    }
+
 }
 
 @Composable
 fun rememberApplicationState(
     router: NavHostController = rememberNavController(),
     scope: CoroutineScope = rememberCoroutineScope(),
-    event: EventListener = EventListener()
+    event: EventListener = EventListener(),
+    context: Context = LocalContext.current
 ): ApplicationState {
+    val state = rememberModalBottomSheetState(
+        initialValue = ModalBottomSheetValue.Hidden,
+        confirmStateChange = {
+            event.changeBottomSheetState(it)
+            true
+        }
+    )
     return remember {
         ApplicationState(
             router,
+            state,
             scope,
-            event
+            event,
+            context
         )
     }
 }

@@ -9,12 +9,10 @@ package com.bluehabit.budgetku.android
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.navigation
-import com.bluehabit.budgetku.android.feature.dashboard.home.Home
+import com.bluehabit.budgetku.android.feature.auth.signIn.routeSignIn
+import com.bluehabit.budgetku.android.feature.auth.signUp.routeSignUp
 import com.bluehabit.budgetku.android.feature.dashboard.home.routeHome
 import com.bluehabit.budgetku.android.feature.dashboard.profile.routeProfile
-import com.bluehabit.budgetku.android.feature.signIn.routeSignIn
-import com.bluehabit.budgetku.android.feature.signUp.routeSignUp
 import com.bluehabit.budgetku.android.feature.splashScreen.Splash
 import com.bluehabit.budgetku.android.feature.splashScreen.routeSplash
 
@@ -27,22 +25,21 @@ fun AppNavigation(
         startDestination = Splash.routeName
     ) {
         routeSplash(
-            state=applicationState
+            state = applicationState
         )
         routeSignIn(
-            state=applicationState
+            state = applicationState
         )
         routeSignUp(
-            state=applicationState
+            state = applicationState
         )
-        navigation(startDestination = Home.routeName,route= "Dashboard"){
-            routeHome(
-                state=applicationState
-            )
-            routeProfile(
-                state=applicationState
-            )
-        }
+        routeHome(
+            state = applicationState
+        )
+        routeProfile(
+            state = applicationState
+        )
+
 
     }
 }
