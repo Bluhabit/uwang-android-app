@@ -7,14 +7,15 @@
 
 package com.bluehabit.budgetku.android.feature.dashboard.profile
 
-import com.bluehabit.budgetku.android.base.BaseViewModel
 import com.bluehabit.budgetku.android.base.BaseViewModelData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
-) : BaseViewModelData<ProfileState,ProfileDataState, ProfileEvent>(ProfileState(),ProfileDataState()) {
+) : BaseViewModelData<ProfileState,ProfileDataState, ProfileEvent>(ProfileState(),
+    ProfileDataState()
+) {
     init {
         handleActions()
     }
