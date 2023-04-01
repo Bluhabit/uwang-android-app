@@ -5,7 +5,7 @@
  * Proprietary and confidential
  */
 
-package com.bluehabit.budgetku.android.feature.signUp
+package com.bluehabit.budgetku.android.feature.auth.signUp
 
 import com.bluehabit.budgetku.android.base.BaseViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount

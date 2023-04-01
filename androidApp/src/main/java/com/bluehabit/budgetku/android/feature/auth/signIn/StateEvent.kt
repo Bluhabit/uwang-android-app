@@ -5,7 +5,7 @@
  * Proprietary and confidential
  */
 
-package com.bluehabit.budgetku.android.feature.signIn
+package com.bluehabit.budgetku.android.feature.auth.signIn
 
 import android.os.Parcelable
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -21,6 +21,6 @@ data class SignInState(
 ) : Parcelable
 
 sealed class SignInEvent {
-    object SignInWithEmail:SignInEvent()
-    class SignInWithGoogle(var result: Task<GoogleSignInAccount>?):SignInEvent()
+    object SignInWithEmail: SignInEvent()
+    class SignInWithGoogle(var result: Task<GoogleSignInAccount>?): SignInEvent()
 }

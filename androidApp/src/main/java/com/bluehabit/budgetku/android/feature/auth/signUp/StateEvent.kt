@@ -5,7 +5,7 @@
  * Proprietary and confidential
  */
 
-package com.bluehabit.budgetku.android.feature.signUp
+package com.bluehabit.budgetku.android.feature.auth.signUp
 
 import android.os.Parcelable
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -23,12 +23,12 @@ data class SignUpState(
 
 sealed class SignUpEvent{
 
-    object SignUpWithEmail:SignUpEvent()
-    class SignUpWithGoogle(var result: Task<GoogleSignInAccount>?):SignUpEvent()
+    object SignUpWithEmail: SignUpEvent()
+    class SignUpWithGoogle(var result: Task<GoogleSignInAccount>?): SignUpEvent()
 
-    class SetFullName(var fullName:String):SignUpEvent()
-    class SetEmail(var email:String):SignUpEvent()
-    class SetPassword(var password:String):SignUpEvent()
+    class SetFullName(var fullName:String): SignUpEvent()
+    class SetEmail(var email:String): SignUpEvent()
+    class SetPassword(var password:String): SignUpEvent()
 
 
 

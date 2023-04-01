@@ -20,6 +20,7 @@ import com.bluehabit.budgetku.android.base.extensions.navigateSingleTop
 import com.bluehabit.budgetku.android.base.extensions.navigateUp
 import com.bluehabit.budgetku.android.base.extensions.runSuspend
 import com.bluehabit.budgetku.android.base.extensions.showBottomSheet
+import com.bluehabit.budgetku.data.common.Response
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -28,7 +29,6 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.cancel
 import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -46,6 +46,11 @@ abstract class BaseViewModel<State : Parcelable, Action>(
     private val action = Channel<Action>(Channel.UNLIMITED)
 
     private lateinit var _app: ApplicationState
+
+    fun setAppState(appState: ApplicationState) {
+        _app = appState
+    }
+
     protected fun onEvent(
         block: suspend (Action) -> Unit
     ) {
@@ -55,7 +60,6 @@ abstract class BaseViewModel<State : Parcelable, Action>(
                 .collect { block(it) }
         }
     }
-
 
     protected inline fun async(crossinline block: suspend () -> Unit) = with(viewModelScope) {
         launch { block() }
@@ -78,27 +82,24 @@ abstract class BaseViewModel<State : Parcelable, Action>(
     fun runSuspend(cb: suspend CoroutineScope. () -> Unit) = _app.runSuspend(block = cb)
 
     protected abstract fun handleActions()
-    fun commit(state: State) {
+    private fun commit(state: State) {
         _uiState.tryEmit(state)
     }
 
-    fun commit(state: State.() -> State) {
-        commit(state(uiState.value))
-    }
+    fun commit(state: State.() -> State) = this.commit(state(uiState.value))
 
-    protected infix fun BaseViewModel<State, Action>.commit(s: State.() -> State) {
-        commit(s(uiState.value))
-    }
-
-    fun resetState() {
-        commit(initialState)
-    }
+    fun resetState() = commit(initialState)
 
     fun dispatch(e: Action) = async { action.send(e) }
 
-    fun setAppState(appState: ApplicationState) {
-        _app = appState
-    }
+    //region response
+    fun Response.Error.errorMessage() =
+        this.message.ifEmpty { _app.context.getString(this.stringRes) }
+
+    fun Response.Error.errorMessage(vararg params: String) =
+        this.message.ifEmpty { _app.context.getString(this.stringRes, *params) }
+
+    //end region
 
     //region snakcbar
     fun showSnackbar(message: String) = _app.showSnackbar(message)
@@ -113,14 +114,12 @@ abstract class BaseViewModel<State : Parcelable, Action>(
     fun navigateSingleTop(routeName: String, vararg args: String) =
         _app.navigateSingleTop(routeName, *args)
 
-    fun navigateSingleTop(routeName: String) = _app.navigateSingleTop(routeName)
     fun navigateAndReplace(routeName: String, vararg args: String) =
         _app.navigateAndReplace(routeName, *args)
 
     fun navigateAndReplaceAll(routeName: String, vararg args: String) =
         _app.navigateAndReplaceAll(routeName, *args)
 
-    fun navigateAndReplaceAll(routeName: String) = _app.navigateAndReplaceAll(routeName)
     //end region
 
     //region bottom sheet
@@ -149,16 +148,16 @@ abstract class BaseViewModelData<State : Parcelable, DataState : Parcelable, Act
             launch { block(uiDataState.value) }
         }
 
-    fun commitData(dataState: DataState) {
+    private fun commitData(dataState: DataState) {
         _uiDataState.tryEmit(dataState)
     }
 
     fun commitData(dataState: DataState.() -> DataState) {
-        commitData(dataState(uiDataState.value))
+        this.commitData(dataState(uiDataState.value))
     }
 
     fun resetDataState() {
-        commitData(initialData)
+        this.commitData(initialData)
     }
 
     override fun onCleared() {

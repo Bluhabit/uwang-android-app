@@ -9,7 +9,7 @@ package com.bluehabit.budgetku.android.feature.splashScreen
 
 import com.bluehabit.budgetku.android.base.BaseViewModel
 import com.bluehabit.budgetku.android.feature.dashboard.home.Home
-import com.bluehabit.budgetku.android.feature.signIn.SignIn
+import com.bluehabit.budgetku.android.feature.auth.signIn.SignIn
 import com.bluehabit.budgetku.data.domain.auth.CheckSessionUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

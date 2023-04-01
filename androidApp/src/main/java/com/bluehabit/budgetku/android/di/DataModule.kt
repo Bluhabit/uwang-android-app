@@ -12,6 +12,7 @@ import android.content.SharedPreferences
 import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.android.AndroidSqliteDriver
 import com.bluehabit.budgetku.BuildConfig
+import com.bluehabit.budgetku.data.local.SharedPref
 import com.bluehabit.budgetku.db.Database
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
@@ -31,6 +32,7 @@ import io.ktor.client.request.header
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
 import io.ktor.serialization.gson.gson
+import java.util.Locale
 
 
 @Module
@@ -62,6 +64,13 @@ object DataModule {
     )
 
     @Provides
+    fun provideLocalSession(
+        sharedPreferences: SharedPreferences
+    ): SharedPref = SharedPref(
+        sharedPreferences
+    )
+
+    @Provides
     fun provideDatabase(
         @ApplicationContext appContext: Context
     ): SqlDriver = AndroidSqliteDriver(
@@ -73,16 +82,16 @@ object DataModule {
     @Provides
     fun provideHttpClient(
         chuckerInterceptor: ChuckerInterceptor,
-        sharedPreferences: SharedPreferences
+        sharedPref: SharedPref
     ): HttpClient = HttpClient(OkHttp) {
         install(HttpTimeout) {
             socketTimeoutMillis = 180_000
         }
         install(Resources)
         defaultRequest {
-            val locale = sharedPreferences.getString("locale", "")
-            header("Accept-Language", locale ?: "en")
             url(BuildConfig.BASE_URL)
+            val locale = sharedPref.getLanguage()
+            header("Accept-Language", locale.ifEmpty { Locale.ENGLISH.language })
             contentType(ContentType.Application.Json)
         }
         install(ContentNegotiation) {

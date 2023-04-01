@@ -5,7 +5,7 @@
  * Proprietary and confidential
  */
 
-package com.bluehabit.budgetku.android.feature.signUp
+package com.bluehabit.budgetku.android.feature.auth.signUp
 
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.compose.foundation.layout.Arrangement
@@ -34,7 +34,7 @@ import com.bluehabit.budgetku.android.base.contract.GoogleAuthContract
 import com.bluehabit.budgetku.android.base.extensions.navigateAndReplaceAll
 import com.bluehabit.budgetku.android.components.AnnotationTextItem
 import com.bluehabit.budgetku.android.components.TextWithAction
-import com.bluehabit.budgetku.android.feature.signIn.SignIn
+import com.bluehabit.budgetku.android.feature.auth.signIn.SignIn
 import com.bluehabit.budgetku.android.rememberApplicationState
 
 object SignUp {
