@@ -5,7 +5,7 @@
  * Proprietary and confidential
  */
 
-package com.bluehabit.budgetku.android.feature.signIn
+package com.bluehabit.budgetku.android.feature.auth.signIn
 
 import android.util.Patterns
 import com.bluehabit.budgetku.android.base.BaseViewModel
@@ -27,17 +27,18 @@ class SignInViewModel @Inject constructor(
     }
 
     private fun validateData(
-        valid:suspend (String,String)->Unit
+        valid: suspend (String, String) -> Unit
     ) = asyncWithState {
-        when{
+        when {
             !Patterns.EMAIL_ADDRESS.matcher(email).matches() -> showSnackbar("Email didn't valid")
-            else->valid(email,password)
+            email.isEmpty() || password.isEmpty() -> showSnackbar("Email or password cannot emmpty")
+            else -> valid(email, password)
         }
     }
 
-    private fun handelResponse(response:Response<String>) = async {
-        when(response){
-            is Response.Error -> showSnackbar(response.message.orEmpty())
+    private fun handelResponse(response: Response<String>) = async {
+        when (response) {
+            is Response.Error -> showSnackbar(response.errorMessage())
             Response.Loading -> showSnackbar("Loading")
             is Response.Result -> showSnackbar("Sukses")
         }
@@ -46,8 +47,9 @@ class SignInViewModel @Inject constructor(
     override fun handleActions() = onEvent {
         when (it) {
             SignInEvent.SignInWithEmail -> validateData { email, password ->
-                signInWithEmailUseCase(email,password).collect(::handelResponse)
+                signInWithEmailUseCase(email, password).collect(::handelResponse)
             }
+
             is SignInEvent.SignInWithGoogle ->
                 signInWIthGoogleUseCase(it.result?.await()?.idToken).collect(::handelResponse)
         }

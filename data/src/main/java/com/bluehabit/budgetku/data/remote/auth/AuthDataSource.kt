@@ -7,8 +7,8 @@
 
 package com.bluehabit.budgetku.data.remote.auth
 
-import android.content.SharedPreferences
 import com.bluehabit.budgetku.data.common.safeApiCall
+import com.bluehabit.budgetku.data.local.SharedPref
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.resources.post
 import io.ktor.client.request.setBody
@@ -16,19 +16,12 @@ import javax.inject.Inject
 
 class AuthDataSource @Inject constructor(
     private val httpClient: HttpClient,
-    private val sharedPreferences: SharedPreferences
+    private val pref: SharedPref
 ) {
     suspend fun signInWithEmail(
         email: String,
         password: String
-    ) = safeApiCall<String>(
-        onSaveToken = {
-            val sp = sharedPreferences.edit()
-            sp.putBoolean("isLoggedIn", true)
-            sp.putString("token", it)
-            sp.apply()
-        }
-    ) {
+    ) = safeApiCall<String>(onSaveToken = { pref.setUserLoggedIn(token = it) }) {
         httpClient.post(AuthApi.SignInWithEmail()) {
             setBody(
                 mapOf(
@@ -41,14 +34,7 @@ class AuthDataSource @Inject constructor(
 
     suspend fun signInWithGoogle(
         token: String
-    ) = safeApiCall<String>(
-        onSaveToken = {
-            val sp = sharedPreferences.edit()
-            sp.putBoolean("isLoggedIn", true)
-            sp.putString("token", it)
-            sp.apply()
-        }
-    ) {
+    ) = safeApiCall<String>(onSaveToken = { pref.setUserLoggedIn(token = it) }) {
         httpClient.post(AuthApi.SignInGoogle()) {
             setBody(mapOf("token" to token))
         }

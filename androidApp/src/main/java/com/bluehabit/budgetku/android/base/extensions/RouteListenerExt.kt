@@ -5,10 +5,11 @@
  * Proprietary and confidential
  */
 
-package com.bluehabit.budgetku.android
+package com.bluehabit.budgetku.android.base.extensions
 
 import android.content.Context
 import android.content.res.Configuration
+import com.bluehabit.budgetku.android.ApplicationState
 
 fun ApplicationState.listenChanges(
     ctx: Context,

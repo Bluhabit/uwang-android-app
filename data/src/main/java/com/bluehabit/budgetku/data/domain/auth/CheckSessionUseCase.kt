@@ -7,11 +7,11 @@
 
 package com.bluehabit.budgetku.data.domain.auth
 
-import android.content.SharedPreferences
+import com.bluehabit.budgetku.data.local.SharedPref
 import javax.inject.Inject
 
 class CheckSessionUseCase @Inject constructor(
-    private val sharedPreferences: SharedPreferences
+    private val pref: SharedPref
 ) {
-    operator fun invoke(): Boolean = sharedPreferences.getBoolean("isLoggedIn", false)
+    operator fun invoke(): Boolean = pref.getIsLoggedIn()
 }

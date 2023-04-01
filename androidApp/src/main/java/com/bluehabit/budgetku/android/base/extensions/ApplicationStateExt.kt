@@ -77,11 +77,6 @@ fun ApplicationState.navigateSingleTop(routeName: String, vararg args:String) {
         launchSingleTop = true
     }
 }
-fun ApplicationState.navigateSingleTop(routeName: String) {
-    this.router.navigate(routeName) {
-        launchSingleTop = true
-    }
-}
 
 /**
  * Navigation into [routeName] as destination, and pop all backstack before last route
@@ -136,13 +131,6 @@ fun ApplicationState.navigateAndReplaceAll(routeName: String, vararg args:String
         }
     }
 }
-fun ApplicationState.navigateAndReplaceAll(routeName: String) {
-    this.router.navigate(routeName) {
-        popUpTo(currentRoute) {
-            inclusive = true
-        }
-    }
-}
 
 
 //end region
@@ -176,7 +164,6 @@ fun ApplicationState.exit() =
 
 fun ApplicationState.listenChanges() = this.router.addOnDestinationChangedListener { _, destination, _ ->
     currentRoute = destination.route.orEmpty()
-
 }
 
 fun ApplicationState.showBottomSheet(){

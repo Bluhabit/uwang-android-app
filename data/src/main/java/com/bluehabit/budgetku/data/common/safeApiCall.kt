@@ -9,10 +9,7 @@ package com.bluehabit.budgetku.data.common
 
 import com.bluehabit.budgetku.data.model.BaseResponse
 import io.ktor.client.call.body
-import io.ktor.client.network.sockets.ConnectTimeoutException
-import io.ktor.client.network.sockets.SocketTimeoutException
 import io.ktor.client.statement.HttpResponse
-import java.net.ConnectException
 
 suspend inline fun <reified T> safeApiCall(call: () -> HttpResponse): Response<T> {
     return try {

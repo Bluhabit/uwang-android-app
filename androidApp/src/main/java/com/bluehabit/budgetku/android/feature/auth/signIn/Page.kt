@@ -5,7 +5,7 @@
  * Proprietary and confidential
  */
 
-package com.bluehabit.budgetku.android.feature.signIn
+package com.bluehabit.budgetku.android.feature.auth.signIn
 
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.compose.foundation.layout.Arrangement
@@ -34,7 +34,7 @@ import com.bluehabit.budgetku.android.base.contract.GoogleAuthContract
 import com.bluehabit.budgetku.android.base.extensions.navigate
 import com.bluehabit.budgetku.android.components.AnnotationTextItem
 import com.bluehabit.budgetku.android.components.TextWithAction
-import com.bluehabit.budgetku.android.feature.signUp.SignUp
+import com.bluehabit.budgetku.android.feature.auth.signUp.SignUp
 import com.bluehabit.budgetku.android.rememberApplicationState
 
 object SignIn {
@@ -52,9 +52,7 @@ fun NavGraphBuilder.routeSignIn(
 }
 
 @Composable
-internal fun ScreenSignIn(
-    appState: ApplicationState
-) = UIWrapper<SignInViewModel>(
+internal fun ScreenSignIn(appState: ApplicationState) = UIWrapper<SignInViewModel>(
     appState = appState
 ) {
     val state by uiState.collectAsState()
@@ -123,7 +121,7 @@ internal fun ScreenSignIn(
             ),
             onTextClick = {
                 if (it == 1) {
-                    appState.navigate(SignUp.routeName)
+                    navigate(SignUp.routeName)
                 }
             }
         )
