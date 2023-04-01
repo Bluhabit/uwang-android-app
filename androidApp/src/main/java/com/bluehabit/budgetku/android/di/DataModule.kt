@@ -65,7 +65,8 @@ object DataModule {
     fun provideDatabase(
         @ApplicationContext appContext: Context
     ): SqlDriver = AndroidSqliteDriver(
-        Database.Schema, appContext,
+        Database.Schema,
+        appContext,
         "bluehabit-budgetku.db"
     )
 

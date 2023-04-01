@@ -42,8 +42,7 @@ fun NavGraphBuilder.routeHome(
 @Composable
 internal fun ScreenHome(
     appState: ApplicationState
-) {
-    UIWrapper<HomeViewModel>(
+) =UIWrapper<HomeViewModel>(
         appState = appState,
         parent = "Dashboard"
     ) {
@@ -75,7 +74,7 @@ internal fun ScreenHome(
     }
 
 
-}
+
 
 @Preview
 @Composable

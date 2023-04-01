@@ -52,9 +52,7 @@ abstract class BaseViewModel<State : Parcelable, Action>(
         async {
             action
                 .consumeAsFlow()
-                .collect {
-                    block(it)
-                }
+                .collect { block(it) }
         }
     }
 
@@ -85,7 +83,7 @@ abstract class BaseViewModel<State : Parcelable, Action>(
     }
 
     fun commit(state: State.() -> State) {
-        _uiState.tryEmit(state(uiState.value))
+        commit(state(uiState.value))
     }
 
     protected infix fun BaseViewModel<State, Action>.commit(s: State.() -> State) {
