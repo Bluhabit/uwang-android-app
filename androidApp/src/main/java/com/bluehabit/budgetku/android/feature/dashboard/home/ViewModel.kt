@@ -7,14 +7,20 @@
 
 package com.bluehabit.budgetku.android.feature.dashboard.home
 
-import com.bluehabit.budgetku.android.base.BaseViewModel
+import com.bluehabit.budgetku.android.base.BaseViewModelData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-) : BaseViewModel<String>("") {
-    fun setName(name:String){
-        _uiState.tryEmit(name)
+) : BaseViewModelData<HomeState, HomeDataState, HomeEvent>(HomeState(), HomeDataState()) {
+    init {
+        handleActions()
+    }
+
+    override fun handleActions() = onEvent {
+        when (it) {
+            is HomeEvent.SetName -> Unit
+        }
     }
 }

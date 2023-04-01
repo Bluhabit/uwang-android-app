@@ -7,29 +7,31 @@
 
 package com.bluehabit.budgetku.android.feature.splashScreen
 
-import androidx.lifecycle.viewModelScope
 import com.bluehabit.budgetku.android.base.BaseViewModel
-import com.bluehabit.budgetku.android.base.extensions.navigateAndReplaceAll
 import com.bluehabit.budgetku.android.feature.dashboard.home.Home
-import com.bluehabit.budgetku.android.feature.signIn.SignIn
-import com.bluehabit.budgetku.sdk.auth.AuthSDK
+import com.bluehabit.budgetku.android.feature.auth.signIn.SignIn
+import com.bluehabit.budgetku.data.domain.auth.CheckSessionUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SplashViewModel @Inject constructor(
-    private val authSDK: AuthSDK
-) : BaseViewModel<String>("") {
-    fun checkIfUserLoggedIn() = with(viewModelScope) {
-        launch {
-//            app.navigateSingleTop(Home.routeName)
-            if (authSDK.isLoggedIn()) {
-                app.navigateAndReplaceAll(Home.routeName)
-            } else {
-                app.navigateAndReplaceAll(SignIn.routeName)
-            }
+    private val checkSessionUseCase: CheckSessionUseCase
+) : BaseViewModel<SplashState, SplashEvent>(SplashState()) {
 
+    init {
+        handleActions()
+    }
+
+    private fun checkIfUserLoggedIn() = async {
+        if (checkSessionUseCase()) navigateAndReplaceAll(Home.routeName)
+        else navigateAndReplaceAll(SignIn.routeName)
+    }
+
+
+    override fun handleActions() = onEvent {
+        when (it) {
+            SplashEvent.CheckSession -> checkIfUserLoggedIn()
         }
     }
 }

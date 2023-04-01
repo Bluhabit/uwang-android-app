@@ -29,4 +29,6 @@ class BudgetKuApplication:Application(), Configuration.Provider {
         .setWorkerFactory(workerFactory)
         .build()
 
+    //    Test
+
 }

@@ -47,8 +47,9 @@ var menus = listOf(
 
 @Composable
 fun DashboardBottomNavigation(
-    currentRoute:String,
-    onClick:(DashboardBottomNavigationMenu)->Unit={}
+    currentRoute: String,
+    onClick: (DashboardBottomNavigationMenu) -> Unit = {},
+    onRefresh: () -> Unit = {}
 ) {
     BottomNavigation() {
         menus.forEach {
@@ -57,7 +58,9 @@ fun DashboardBottomNavigation(
                 selectedContentColor = MaterialTheme.colorScheme.onBackground,
                 unselectedContentColor = MaterialTheme.colorScheme.onPrimary,
                 onClick = {
-                   onClick(it)
+                    if (currentRoute != it.route) {
+                        onClick(it)
+                    } else onRefresh()
                 },
                 icon = {
                     Icon(imageVector = it.icon, contentDescription = it.name)
