@@ -7,3 +7,17 @@
 
 package com.bluehabit.budgetku.android.feature.auth.inputPin
 
+import com.bluehabit.budgetku.android.base.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
+
+@HiltViewModel
+class InputPinViewModel @Inject constructor(
+) : BaseViewModel<InputPinState, InputPinEvent>(InputPinState()) {
+    init {
+        handleActions()
+    }
+
+    override fun handleActions() = onEvent {}
+
+}

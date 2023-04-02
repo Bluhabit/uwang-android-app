@@ -7,4 +7,11 @@
 
 package com.bluehabit.budgetku.android.feature.auth.inputPin
 
-data class
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+import javax.annotation.concurrent.Immutable
+
+@Immutable
+@Parcelize
+data class InputPinState(var a : String = "") : Parcelable
+sealed class InputPinEvent{}
