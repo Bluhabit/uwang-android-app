@@ -5,7 +5,7 @@
  * Proprietary and confidential
  */
 
-package com.bluehabit.budgetku.android.feature.dashboard.components
+package com.bluehabit.budgetku.android.components
 
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
@@ -48,8 +48,8 @@ var menus = listOf(
 @Composable
 fun DashboardBottomNavigation(
     currentRoute: String,
-    onClick: (DashboardBottomNavigationMenu) -> Unit = {},
-    onRefresh: () -> Unit = {}
+    onRefresh: () -> Unit = {},
+    onClick: (DashboardBottomNavigationMenu) -> Unit = {}
 ) {
     BottomNavigation() {
         menus.forEach {

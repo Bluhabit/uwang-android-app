@@ -23,7 +23,7 @@ import com.bluehabit.budgetku.android.ApplicationState
 import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.base.UIWrapper
 import com.bluehabit.budgetku.android.base.extensions.navigateSingleTop
-import com.bluehabit.budgetku.android.feature.dashboard.components.DashboardBottomNavigation
+import com.bluehabit.budgetku.android.components.DashboardBottomNavigation
 import com.bluehabit.budgetku.android.rememberApplicationState
 
 object Profile {
