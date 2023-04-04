@@ -15,6 +15,7 @@ import androidx.navigation.compose.composable
 import com.bluehabit.budgetku.android.ApplicationState
 import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.base.UIWrapper
+import com.bluehabit.budgetku.android.components.DashboardBottomNavigation
 
 object Community {
     const val routeName = "Community"
@@ -32,6 +33,13 @@ fun NavGraphBuilder.routeCommunity(
 internal fun ScreenCommunity(
     appState: ApplicationState,
 ) = UIWrapper<CommunityViewModel>(appState = appState) {
+    with(appState) {
+        setupBottomAppBar {
+            DashboardBottomNavigation(currentRoute = appState.currentRoute, onRefresh = {}) {
+
+            }
+        }
+    }
     Column {
 
     }
