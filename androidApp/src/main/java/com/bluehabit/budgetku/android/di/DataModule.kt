@@ -40,20 +40,7 @@ import java.util.Locale
     SingletonComponent::class
 )
 object DataModule {
-    @Provides
-    fun provideChuckerInterceptor(
-        @ApplicationContext appContext: Context
-    ): ChuckerInterceptor = ChuckerInterceptor.Builder(
-        appContext
-    )
-        .collector(
-            ChuckerCollector(
-                context = appContext,
-                showNotification = true,
-                retentionPeriod = RetentionManager.Period.ONE_HOUR
-            )
-        )
-        .build()
+
 
     @Provides
     fun provideSharedPref(
@@ -81,28 +68,46 @@ object DataModule {
 
     @Provides
     fun provideHttpClient(
-        chuckerInterceptor: ChuckerInterceptor,
+        @ApplicationContext appContext: Context,
         sharedPref: SharedPref
-    ): HttpClient = HttpClient(OkHttp) {
-        install(HttpTimeout) {
-            socketTimeoutMillis = 180_000
+    ): HttpClient  {
+        val chucker = ChuckerInterceptor.Builder(
+            appContext
+        )
+            .collector(
+                ChuckerCollector(
+                    context = appContext,
+                    showNotification = true,
+                    retentionPeriod = RetentionManager.Period.ONE_HOUR
+                )
+            )
+            .maxContentLength(250000L)
+            .redactHeaders(emptySet())
+            .alwaysReadResponseBody(false)
+            .build()
+        val okHttpEngine = OkHttp.create {
+            addInterceptor(chucker)
         }
-        install(Resources)
-        defaultRequest {
-            url(BuildConfig.BASE_URL)
-            val locale = sharedPref.getLanguage()
-            header("Accept-Language", locale.ifEmpty { Locale.ENGLISH.language })
-            contentType(ContentType.Application.Json)
-        }
-        install(ContentNegotiation) {
-            gson {
-                setLenient()
-                setPrettyPrinting()
+        return HttpClient(okHttpEngine) {
+            expectSuccess = true
+            install(HttpTimeout) {
+                socketTimeoutMillis = 180000
             }
-        }
-        engine {
-            config { followRedirects(true) }
-            addInterceptor(chuckerInterceptor)
+            install(Resources)
+            defaultRequest {
+                url(BuildConfig.BASE_URL)
+                val locale = sharedPref.getLanguage()
+                header("Accept-Language", locale.ifEmpty { Locale.ENGLISH.language })
+                contentType(ContentType.Application.Json)
+            }
+            install(ContentNegotiation) {
+                gson {
+                    setLenient()
+                    setPrettyPrinting()
+                }
+            }
+
         }
     }
 }
+
