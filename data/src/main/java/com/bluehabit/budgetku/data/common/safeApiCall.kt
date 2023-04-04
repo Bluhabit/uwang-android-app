@@ -31,7 +31,6 @@ suspend inline fun <reified T> safeApiCall(
     call: () -> HttpResponse
 ): Response<T> {
     return try {
-
         val response = call.invoke()
         if (response.status.value in 200..209) {
             val data = response.body<BaseResponse<T>>()
@@ -43,7 +42,6 @@ suspend inline fun <reified T> safeApiCall(
             val data = response.body<BaseResponse<List<Any>>>()
             Response.Error(data.message, data.code)
         }
-
     } catch (e:Exception){
         Response.Error(e.message.orEmpty())
     }

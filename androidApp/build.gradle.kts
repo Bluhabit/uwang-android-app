@@ -133,8 +133,8 @@ dependencies {
     }
 
     with(libs.chuker){
-        debugApi(release)
-        releaseApi(debug)
+        debugApi(debug)
+        releaseApi(release)
     }
 
     testImplementation(libs.junit)
