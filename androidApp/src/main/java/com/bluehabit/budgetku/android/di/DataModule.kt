@@ -81,7 +81,7 @@ object DataModule {
                     retentionPeriod = RetentionManager.Period.ONE_HOUR
                 )
             )
-            .maxContentLength(250000L)
+            .maxContentLength(250_000L)
             .redactHeaders(emptySet())
             .alwaysReadResponseBody(false)
             .build()
@@ -91,7 +91,7 @@ object DataModule {
         return HttpClient(okHttpEngine) {
             expectSuccess = true
             install(HttpTimeout) {
-                socketTimeoutMillis = 180000
+                socketTimeoutMillis = 180_000
             }
             install(Resources)
             defaultRequest {
