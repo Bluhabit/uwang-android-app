@@ -42,8 +42,7 @@ fun NavGraphBuilder.routeProfile(
 internal fun ScreenProfile(
     appState: ApplicationState
 ) =UIWrapper<ProfileViewModel>(
-        appState = appState,
-        parent = "Dashboard"
+        appState = appState
     ) {
         val state by uiState.collectAsState()
 
