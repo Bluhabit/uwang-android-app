@@ -25,11 +25,4 @@ sealed class SignUpEvent{
 
     object SignUpWithEmail: SignUpEvent()
     class SignUpWithGoogle(var result: Task<GoogleSignInAccount>?): SignUpEvent()
-
-    class SetFullName(var fullName:String): SignUpEvent()
-    class SetEmail(var email:String): SignUpEvent()
-    class SetPassword(var password:String): SignUpEvent()
-
-
-
 }

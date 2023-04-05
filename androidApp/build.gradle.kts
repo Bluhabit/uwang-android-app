@@ -2,6 +2,7 @@
 
 import com.android.build.api.dsl.ApkSigningConfig
 import com.android.build.api.dsl.ApplicationBuildType
+import org.jetbrains.kotlin.gradle.internal.Kapt3GradleSubplugin.Companion.isIncludeCompileClasspath
 
 /*
  * Copyright © 2023 Blue Habit.
@@ -29,7 +30,8 @@ android {
         versionCode = 1
         versionName = "1.0"
         multiDexEnabled = true
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+//        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.bluehabit.budgetku.android.HiltTestRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -46,6 +48,11 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+        }
+    }
     lint {
         baseline = file("lint-baseline.xml")
         abortOnError = false
@@ -53,12 +60,16 @@ android {
 
     buildTypes {
         release {
-            setBaseUrl()
+            setupBaseUrl()
+            setupDatabase()
+            setupSharedPrefName()
             isMinifyEnabled = false
         }
 
         debug {
-            setBaseUrl()
+            setupBaseUrl()
+            setupDatabase()
+            setupSharedPrefName()
             isDebuggable = true
         }
     }
@@ -92,7 +103,7 @@ dependencies {
 
 
     implementation(libs.core.ktx)
-    api(libs.lifecycle.runtime.ktx)
+    implementation(libs.lifecycle.runtime.ktx)
     implementation(libs.activity.compose)
     implementation(platform(libs.compose.bom))
     implementation(libs.ui)
@@ -116,7 +127,9 @@ dependencies {
         implementation(navigation.compose)
         implementation(android)
         implementation(work)
+        androidTestImplementation(android.test)
         kapt(android.compiler)
+        kaptTest(android.compiler)
         kapt(compiler)
     }
     with(libs.gms.play.service) {
@@ -142,10 +155,13 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
     androidTestImplementation(platform(libs.compose.bom))
     androidTestImplementation(libs.ui.test.junit4)
+    testImplementation(libs.ui.test.junit4)
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
+    testImplementation(libs.robolectric)
 
     debugImplementation(libs.leak.canary)
+
 }
 kapt {
     correctErrorTypes = true
@@ -170,11 +186,27 @@ tasks.create<Copy>("installGitHook") {
     fileMode = "775".toInt(8)
 }
 
-fun ApplicationBuildType.setBaseUrl() {
+fun ApplicationBuildType.setupBaseUrl() {
     buildConfigField(
         "String",
         "BASE_URL",
         "\"${findProperty("BASE_URL").toString()}\""
+    )
+}
+
+fun ApplicationBuildType.setupDatabase() {
+    buildConfigField(
+        "String",
+        "DATABASE",
+        "\"${findProperty("DATABASE").toString()}\""
+    )
+}
+
+fun ApplicationBuildType.setupSharedPrefName() {
+    buildConfigField(
+        "String",
+        "SHARED_PREFERENCES",
+        "\"${findProperty("SHARED_PREFERENCES").toString()}\""
     )
 }
 
