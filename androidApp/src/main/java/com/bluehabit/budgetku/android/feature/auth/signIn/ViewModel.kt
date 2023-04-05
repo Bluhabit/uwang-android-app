@@ -13,6 +13,7 @@ import com.bluehabit.budgetku.data.common.Response
 import com.bluehabit.budgetku.data.domain.auth.SignInWIthGoogleUseCase
 import com.bluehabit.budgetku.data.domain.auth.SignInWithEmailUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
@@ -36,22 +37,22 @@ class SignInViewModel @Inject constructor(
         }
     }
 
-    private fun handelResponse(response: Response<String>) = async {
-        when (response) {
-            is Response.Error -> showSnackbar(response.errorMessage())
-            Response.Loading -> showSnackbar("Loading")
-            is Response.Result -> showSnackbar("Sukses")
-        }
-    }
-
     override fun handleActions() = onEvent {
         when (it) {
             SignInEvent.SignInWithEmail -> validateData { email, password ->
-                signInWithEmailUseCase(email, password).collect(::handelResponse)
+                signInWithEmailUseCase(email, password).onEach(
+                    loading = { showSnackbar("Loading") },
+                    error = ::showSnackbar,
+                    success = { showSnackbar(this) }
+                )
             }
 
             is SignInEvent.SignInWithGoogle ->
-                signInWIthGoogleUseCase(it.result?.await()?.idToken).collect(::handelResponse)
+                signInWIthGoogleUseCase(it.result?.await()?.idToken).onEach(
+                    loading = { showSnackbar("Loading") },
+                    error = ::showSnackbar,
+                    success = { showSnackbar(this) }
+                )
         }
     }
 }

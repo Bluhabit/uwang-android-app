@@ -46,7 +46,7 @@ object DataModule {
     fun provideSharedPref(
         @ApplicationContext appContext: Context
     ): SharedPreferences = appContext.getSharedPreferences(
-        "fdasa-34fdsf-465ds",
+        BuildConfig.SHARED_PREFERENCES,
         Context.MODE_PRIVATE
     )
 
@@ -63,17 +63,16 @@ object DataModule {
     ): SqlDriver = AndroidSqliteDriver(
         Database.Schema,
         appContext,
-        "bluehabit-budgetku.db"
+        BuildConfig.DATABASE
     )
 
     @Provides
     fun provideHttpClient(
         @ApplicationContext appContext: Context,
         sharedPref: SharedPref
-    ): HttpClient  {
-        val chucker = ChuckerInterceptor.Builder(
-            appContext
-        )
+    ): HttpClient {
+        val chucker = ChuckerInterceptor
+            .Builder(appContext)
             .collector(
                 ChuckerCollector(
                     context = appContext,
