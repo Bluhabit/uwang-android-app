@@ -8,6 +8,7 @@
 package com.bluehabit.budgetku.data.domain.auth
 
 import com.bluehabit.budgetku.data.common.Response
+import com.bluehabit.budgetku.data.model.user.UserCredentialResponse
 import com.bluehabit.budgetku.data.remote.auth.AuthDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -18,7 +19,7 @@ import javax.inject.Inject
 class SignInWIthGoogleUseCase @Inject constructor(
     private val authDataSource: AuthDataSource
 ) {
-    operator fun invoke(token:String?):Flow<Response<String>> = flow {
+    operator fun invoke(token: String?) = flow {
         emit(Response.Loading)
         val result = authDataSource.signInWithGoogle(token.orEmpty())
         emit(result)

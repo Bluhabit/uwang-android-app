@@ -9,11 +9,9 @@ package com.bluehabit.budgetku.android.feature.auth.signIn
 
 import android.util.Patterns
 import com.bluehabit.budgetku.android.base.BaseViewModel
-import com.bluehabit.budgetku.data.common.Response
 import com.bluehabit.budgetku.data.domain.auth.SignInWIthGoogleUseCase
 import com.bluehabit.budgetku.data.domain.auth.SignInWithEmailUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
@@ -43,7 +41,7 @@ class SignInViewModel @Inject constructor(
                 signInWithEmailUseCase(email, password).onEach(
                     loading = { showSnackbar("Loading") },
                     error = ::showSnackbar,
-                    success = { showSnackbar(this) }
+                    success = { showSnackbar(userProfile.userFullName) }
                 )
             }
 
@@ -51,7 +49,7 @@ class SignInViewModel @Inject constructor(
                 signInWIthGoogleUseCase(it.result?.await()?.idToken).onEach(
                     loading = { showSnackbar("Loading") },
                     error = ::showSnackbar,
-                    success = { showSnackbar(this) }
+                    success = { showSnackbar(userProfile.userFullName) }
                 )
         }
     }

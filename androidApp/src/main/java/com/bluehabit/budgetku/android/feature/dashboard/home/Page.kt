@@ -43,8 +43,7 @@ fun NavGraphBuilder.routeHome(
 internal fun ScreenHome(
     appState: ApplicationState
 ) = UIWrapper<HomeViewModel>(
-    appState = appState,
-    parent = "Dashboard"
+    appState = appState
 ) {
     val state by uiState.collectAsState(initial = HomeState())
 
