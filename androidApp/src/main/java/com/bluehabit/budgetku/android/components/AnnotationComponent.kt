@@ -18,9 +18,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.ClickableText
-import androidx.compose.material3.Checkbox
-import androidx.compose.material3.CheckboxDefaults
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material.Checkbox
+import androidx.compose.material.CheckboxDefaults
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -56,7 +56,7 @@ fun CheckBoxWithAction(
                     )
                     withStyle(
                         style = SpanStyle(
-                            color = MaterialTheme.colorScheme.primary,
+                            color = MaterialTheme.colors.primary,
                         )
                     ) {
                         append(data.text)
@@ -67,7 +67,7 @@ fun CheckBoxWithAction(
                     append(" ")
                     withStyle(
                         style = SpanStyle(
-                            color = MaterialTheme.colorScheme.onBackground,
+                            color = MaterialTheme.colors.onBackground,
                         )
                     ) {
                         append(data.text)
@@ -89,7 +89,7 @@ fun CheckBoxWithAction(
             checked = checked,
             onCheckedChange = onCheckedChange,
             colors = CheckboxDefaults.colors(
-                checkedColor = MaterialTheme.colorScheme.primary,
+                checkedColor = MaterialTheme.colors.primary,
                 uncheckedColor = Color.Gray
             ),
             modifier = Modifier
@@ -101,11 +101,11 @@ fun CheckBoxWithAction(
 
         ClickableText(
             text = annotates,
-            style = MaterialTheme.typography.bodyMedium.copy(
-                color = MaterialTheme.colorScheme.onSecondary
+            style = MaterialTheme.typography.body1.copy(
+                color = MaterialTheme.colors.onSecondary
             ),
             onClick = { offset ->
-                labels.forEachIndexed { index, checkbox ->
+                labels.forEachIndexed { index, _ ->
                     annotates.getStringAnnotations(
                         tag = "text_${index}",
                         start = offset,
@@ -137,7 +137,7 @@ fun TextWithAction(
                     )
                     withStyle(
                         style = SpanStyle(
-                            color = MaterialTheme.colorScheme.primary,
+                            color = MaterialTheme.colors.primary,
                         )
                     ) {
                         append(data.text)
@@ -148,7 +148,7 @@ fun TextWithAction(
                     append(" ")
                     withStyle(
                         style = SpanStyle(
-                            color = MaterialTheme.colorScheme.onBackground,
+                            color = MaterialTheme.colors.onBackground,
                         )
                     ) {
                         append(data.text)
@@ -159,8 +159,8 @@ fun TextWithAction(
     }
     ClickableText(
         text = annotates,
-        style = MaterialTheme.typography.bodyMedium.copy(
-            color = MaterialTheme.colorScheme.onSecondary
+        style = MaterialTheme.typography.body1.copy(
+            color = MaterialTheme.colors.onSecondary
         ),
         onClick = { offset ->
             labels.forEachIndexed { index, _ ->
@@ -186,7 +186,7 @@ fun PreviewCheckboxInput() {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(MaterialTheme.colorScheme.background)
+                .background(MaterialTheme.colors.background)
         ) {
             Spacer(modifier = Modifier.height(20.dp))
             CheckBoxWithAction(
