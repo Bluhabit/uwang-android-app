@@ -12,14 +12,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetValue
+import androidx.compose.material.Scaffold
+import androidx.compose.material.SnackbarHost
+import androidx.compose.material.Surface
 import androidx.compose.material.rememberModalBottomSheetState
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarHost
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -28,7 +27,6 @@ import com.bluehabit.budgetku.android.ApplicationState
 import com.bluehabit.budgetku.android.rememberApplicationState
 import com.bluehabit.budgetku.android.ui.BudgetKuTheme
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
 fun BaseMainApp(
     appState: ApplicationState = rememberApplicationState(),
@@ -42,7 +40,7 @@ fun BaseMainApp(
             it.bottomAppBar.invoke()
         }
     },
-    snackbarBar: @Composable (ApplicationState) -> Unit = { state ->
+    snackBar: @Composable (ApplicationState) -> Unit = { state ->
         SnackbarHost(
             hostState = state.snackbarHostState,
             snackbar = {
@@ -56,23 +54,12 @@ fun BaseMainApp(
     },
     content: @Composable (appState: ApplicationState) -> Unit = { }
 ) {
-    val bottomSheetState = rememberModalBottomSheetState(
-        initialValue = ModalBottomSheetValue.Hidden,
-        confirmStateChange = {
-            when (it) {
-                ModalBottomSheetValue.Hidden -> {
 
-                }
-                else -> Unit
-            }
-            true
-        }
-    )
     BudgetKuTheme {
         // A surface container using the 'background' color from the theme
         Surface(
             modifier = Modifier.fillMaxSize(),
-            color = MaterialTheme.colorScheme.background
+            color = MaterialTheme.colors.surface
         ) {
             ModalBottomSheetLayout(
                 sheetContent = {
@@ -80,7 +67,7 @@ fun BaseMainApp(
                         bottomSheet(appState)
                     }
                 },
-                sheetState = bottomSheetState,
+                sheetState = appState.bottomSheetState,
             ) {
                 Scaffold(
                     topBar = {
@@ -90,7 +77,7 @@ fun BaseMainApp(
                         bottomBar(appState)
                     },
                     snackbarHost = {
-                        snackbarBar(appState)
+                        snackBar(appState)
                     },
                 ) {
                     Column(

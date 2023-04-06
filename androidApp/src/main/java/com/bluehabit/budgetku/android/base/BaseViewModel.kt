@@ -117,7 +117,6 @@ abstract class BaseViewModel<State : Parcelable, Action>(
 
     fun Response.Error.errorMessage(vararg params: String) =
         this.message.ifEmpty { _app.context.getString(this.stringRes, *params) }
-
     //end region
 
     //region snakcbar
