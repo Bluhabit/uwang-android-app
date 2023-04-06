@@ -32,7 +32,7 @@ class SignUpViewModel @Inject constructor(
         result: Task<GoogleSignInAccount>?
     ) = async {
         if(result != null){
-
+            showSnackbar("")
         }
     }
 
