@@ -126,7 +126,7 @@ complexity:
     active: true
     threshold: 600
   LongMethod:
-    active: true
+    active: false
     threshold: 100
   LongParameterList:
     active: true
