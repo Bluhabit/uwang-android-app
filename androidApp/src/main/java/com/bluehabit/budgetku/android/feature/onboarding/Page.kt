@@ -163,9 +163,13 @@ internal fun ScreenOnboard(
                     bottom = 40.dp,
                     start = 20.dp,
                     end = 20.dp
-                )
+                ),
+            shape = MaterialTheme.shapes.large
         ) {
-            Text(text = "Getting Started")
+            Text(
+                text = "Getting Started",
+                style = MaterialTheme.typography.subtitle2
+            )
         }
     }
 }
