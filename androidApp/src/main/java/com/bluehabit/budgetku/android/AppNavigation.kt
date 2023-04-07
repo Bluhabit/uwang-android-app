@@ -13,6 +13,7 @@ import com.bluehabit.budgetku.android.feature.auth.signIn.routeSignIn
 import com.bluehabit.budgetku.android.feature.auth.signUp.routeSignUp
 import com.bluehabit.budgetku.android.feature.dashboard.home.routeHome
 import com.bluehabit.budgetku.android.feature.dashboard.profile.routeProfile
+import com.bluehabit.budgetku.android.feature.onboarding.routeOnboard
 import com.bluehabit.budgetku.android.feature.splashScreen.Splash
 import com.bluehabit.budgetku.android.feature.splashScreen.routeSplash
 
@@ -25,6 +26,9 @@ fun AppNavigation(
         startDestination = Splash.routeName
     ) {
         routeSplash(
+            state = applicationState
+        )
+        routeOnboard(
             state = applicationState
         )
         routeSignIn(
