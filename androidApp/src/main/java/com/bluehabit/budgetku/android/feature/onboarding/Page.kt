@@ -16,7 +16,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Button
 import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -40,6 +39,7 @@ import com.bluehabit.budgetku.android.ApplicationState
 import com.bluehabit.budgetku.android.R
 import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.base.UIWrapper
+import com.bluehabit.budgetku.android.components.ButtonPrimary
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 
@@ -156,23 +156,17 @@ internal fun ScreenOnboard(
                 .height(8.dp),
             strokeCap = StrokeCap.Round
         )
-        Button(
-            onClick = { /*TODO*/ },
+        ButtonPrimary(
             modifier = Modifier
-                .fillMaxWidth()
                 .align(Alignment.BottomCenter)
                 .padding(
                     bottom = 40.dp,
                     start = 20.dp,
                     end = 20.dp
-                )
-                .height(45.dp),
-            shape = MaterialTheme.shapes.large
+                ),
+            text = "Get Started",
         ) {
-            Text(
-                text = "Getting Started",
-                style = MaterialTheme.typography.subtitle2
-            )
+
         }
     }
 }
