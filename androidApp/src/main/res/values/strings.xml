@@ -15,4 +15,7 @@
     <string name="onboard_subtitle_2">Catat semua transaksi sehingga kamu bisa menjadi bebas finansial</string>
     <string name="onboard_subtitle_3">Pilihan yang tepat untuk menjaga keamanan dan ketenangan finansialmu</string>
     <string name="onboard_subtitle_4">Miliki laporan keuangan secara real-time yang bisa kamu analisa agar lebih hemat</string>
+
+    <string name="male">Laki-Laki</string>
+    <string name="female">Perempuan</string>
 </resources>

@@ -17,6 +17,7 @@ data class OnboardState(
     val percentage:Float=01f
 ) : Parcelable
 
+
 sealed class OnboardEvent{
     data class PagerChanges(val page:Int=0):OnboardEvent()
 
