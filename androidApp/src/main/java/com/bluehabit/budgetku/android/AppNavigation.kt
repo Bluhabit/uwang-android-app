@@ -16,7 +16,6 @@ import com.bluehabit.budgetku.android.feature.auth.signUp.routeSignUp
 import com.bluehabit.budgetku.android.feature.dashboard.home.routeHome
 import com.bluehabit.budgetku.android.feature.dashboard.profile.routeProfile
 import com.bluehabit.budgetku.android.feature.onboarding.routeOnboard
-import com.bluehabit.budgetku.android.feature.splashScreen.Splash
 import com.bluehabit.budgetku.android.feature.splashScreen.routeSplash
 
 @Composable

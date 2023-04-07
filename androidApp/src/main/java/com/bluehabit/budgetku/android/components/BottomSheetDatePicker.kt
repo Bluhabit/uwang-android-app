@@ -21,7 +21,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.bluehabit.budgetku.android.ui.BudgetKuTheme
 import com.commandiron.wheel_picker_compose.WheelDatePicker
-import com.commandiron.wheel_picker_compose.core.SelectorProperties
 import com.commandiron.wheel_picker_compose.core.WheelPickerDefaults
 import java.time.LocalDate
 
