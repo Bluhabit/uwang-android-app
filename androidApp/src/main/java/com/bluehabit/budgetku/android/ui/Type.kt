@@ -19,7 +19,9 @@ import com.bluehabit.budgetku.R
 
 val UberMove = FontFamily(
     Font(R.font.uber_move_bold),
-    Font(R.font.uber_move_medium)
+    Font(R.font.uber_move_medium),
+    Font(R.font.uber_move_text_light),
+    Font(R.font.uber_move_text_regular)
 )
 
 // Set of Material typography styles to start with
