@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -118,7 +117,9 @@ internal fun ScreenOnboard(
                     contentDescription = stringResource(id = Onboard.title[it]),
                     modifier = Modifier
                         .fillMaxWidth()
-                        .fillMaxHeight(fraction = 0.4f),
+                        .height(
+                            264.dp
+                        ),
                     contentScale = ContentScale.FillBounds
                 )
                 Column(
@@ -151,7 +152,8 @@ internal fun ScreenOnboard(
                     top = 40.dp,
                     start = 20.dp,
                     end = 20.dp
-                ),
+                )
+                .height(8.dp),
             strokeCap = StrokeCap.Round
         )
         Button(
@@ -163,7 +165,8 @@ internal fun ScreenOnboard(
                     bottom = 40.dp,
                     start = 20.dp,
                     end = 20.dp
-                ),
+                )
+                .height(45.dp),
             shape = MaterialTheme.shapes.large
         ) {
             Text(
