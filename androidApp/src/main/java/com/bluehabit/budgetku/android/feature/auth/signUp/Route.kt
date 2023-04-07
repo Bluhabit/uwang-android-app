@@ -76,7 +76,7 @@ internal fun ScreenSignUp(
                 TextField(
                     value = state.fullName,
                     onValueChange = {
-                        dispatch(SignUpEvent.SetFullName(it))
+                        commit { copy(fullName = it) }
                     },
                     placeholder = {
                         Text(text = "Full Name")
@@ -87,7 +87,7 @@ internal fun ScreenSignUp(
                 TextField(
                     value = state.email,
                     onValueChange = {
-                        dispatch(SignUpEvent.SetEmail(it))
+                        commit { copy(email = it) }
                     },
                     placeholder = {
                         Text(text = "Email")
@@ -98,7 +98,7 @@ internal fun ScreenSignUp(
                 TextField(
                     value = state.password,
                     onValueChange = {
-                        dispatch(SignUpEvent.SetPassword(it))
+                        commit { copy(password = it) }
                     },
                     placeholder = {
                         Text(text = "Password")

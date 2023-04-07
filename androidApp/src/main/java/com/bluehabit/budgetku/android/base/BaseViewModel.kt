@@ -27,8 +27,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -58,6 +61,22 @@ abstract class BaseViewModel<State : Parcelable, Action>(
             action
                 .consumeAsFlow()
                 .collect { block(it) }
+        }
+    }
+
+    suspend fun <T> Flow<Response<T>>.onEach(
+        loading: suspend () -> Unit,
+        error: suspend String.() -> Unit,
+        success: suspend T.() -> Unit
+    ) {
+        this.catch {
+            error(it.message.orEmpty())
+        }.collect {
+            when (it) {
+                is Response.Error -> error(it.errorMessage())
+                Response.Loading -> loading()
+                is Response.Result -> success(it.data)
+            }
         }
     }
 
@@ -98,7 +117,6 @@ abstract class BaseViewModel<State : Parcelable, Action>(
 
     fun Response.Error.errorMessage(vararg params: String) =
         this.message.ifEmpty { _app.context.getString(this.stringRes, *params) }
-
     //end region
 
     //region snakcbar

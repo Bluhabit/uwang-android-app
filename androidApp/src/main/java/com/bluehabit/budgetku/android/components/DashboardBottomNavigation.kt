@@ -5,15 +5,15 @@
  * Proprietary and confidential
  */
 
-package com.bluehabit.budgetku.android.feature.dashboard.components
+package com.bluehabit.budgetku.android.components
 
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Person
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
@@ -48,15 +48,15 @@ var menus = listOf(
 @Composable
 fun DashboardBottomNavigation(
     currentRoute: String,
-    onClick: (DashboardBottomNavigationMenu) -> Unit = {},
-    onRefresh: () -> Unit = {}
+    onRefresh: () -> Unit = {},
+    onClick: (DashboardBottomNavigationMenu) -> Unit = {}
 ) {
     BottomNavigation() {
         menus.forEach {
             BottomNavigationItem(
                 selected = currentRoute == it.route,
-                selectedContentColor = MaterialTheme.colorScheme.onBackground,
-                unselectedContentColor = MaterialTheme.colorScheme.onPrimary,
+                selectedContentColor = MaterialTheme.colors.onBackground,
+                unselectedContentColor = MaterialTheme.colors.onPrimary,
                 onClick = {
                     if (currentRoute != it.route) {
                         onClick(it)
