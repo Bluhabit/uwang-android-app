@@ -10,7 +10,8 @@ espresso-core = "3.5.1"
 lifecycle-runtime-ktx = "2.6.1"
 activity-compose = "1.7.0"
 compose-bom = "2023.03.00"
-namespace = "com.bluehabit.budgetku"
+namespace = "com.bluehabit.budgetku.android"
+namespacedata = "com.bluehabit.budgetku.data"
 application-id = "com.bluehabit.budgetku"
 ktor = "2.2.3"
 sqldelight = "2.0.0-alpha05"
@@ -28,11 +29,11 @@ mockk = "1.13.4"
 
 
 [libraries]
-android-materia={group="com.google.android.material",name="material",version="1.8.0"}
+android-material={group="com.google.android.material",name="material",version="1.8.0"}
 
 #Compose
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }
-material = { group = "androidx.compose.material", name = "material" }
+compose-material = { group = "androidx.compose.material", name = "material" }
 navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version = "2.5.3" }
 ui = { group = "androidx.compose.ui", name = "ui" }
 ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
