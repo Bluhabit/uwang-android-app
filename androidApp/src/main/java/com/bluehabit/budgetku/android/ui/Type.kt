@@ -14,7 +14,7 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import com.bluehabit.budgetku.R
+import com.bluehabit.budgetku.android.R
 
 
 val UberMove = FontFamily(
