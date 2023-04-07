@@ -28,6 +28,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
@@ -117,6 +118,7 @@ internal fun ScreenCompleteProfile(
                 style = MaterialTheme.typography.h5,
                 fontWeight = FontWeight.Bold
             )
+            Spacer(modifier = Modifier.height(16.dp))
             Text(
                 text = "Masukkan data diri kamu, termasuk nama, tanggal lahir dan Pastikan kamu memasukkan informasi yang benar dan akurat.",
                 style = MaterialTheme.typography.subtitle1,
@@ -146,7 +148,7 @@ internal fun ScreenCompleteProfile(
             )
             Spacer(modifier = Modifier.height(20.dp))
             FormInputWithIcon(
-                value = "",
+                value = if(state.dateOfBirth == null) "" else state.dateOfBirth.toString(),
                 label = "Tanggal Lahir",
                 placeholder = "Masukkan Tanggal Lahirmu",
                 clickable = true,
@@ -163,7 +165,7 @@ internal fun ScreenCompleteProfile(
             )
             Spacer(modifier = Modifier.height(20.dp))
             FormInputWithIcon(
-                value = "",
+                value = if(state.gender == null) "" else stringResource(state.gender!!.label),
                 label = "Jenis Kelamin",
                 placeholder = "Masukkin jenis kelaminmu",
                 clickable = true,
@@ -181,6 +183,7 @@ internal fun ScreenCompleteProfile(
         }
         ButtonPrimary(
             modifier = Modifier.align(Alignment.BottomCenter),
+            enabled = (state.fullName.isNotEmpty() && state.dateOfBirth != null && state.gender != null),
             text = "Konfirmasi"
         ) {
 
