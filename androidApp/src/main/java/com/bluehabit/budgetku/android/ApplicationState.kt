@@ -10,12 +10,12 @@ package com.bluehabit.budgetku.android
 import android.content.Context
 import androidx.compose.material.ModalBottomSheetState
 import androidx.compose.material.ModalBottomSheetValue
+import androidx.compose.material.Snackbar
+import androidx.compose.material.SnackbarData
+import androidx.compose.material.SnackbarDuration
+import androidx.compose.material.SnackbarHostState
+import androidx.compose.material.SnackbarResult
 import androidx.compose.material.rememberModalBottomSheetState
-import androidx.compose.material3.Snackbar
-import androidx.compose.material3.SnackbarData
-import androidx.compose.material3.SnackbarDuration
-import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.SnackbarResult
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -160,10 +160,11 @@ class ApplicationState internal constructor(
 
     fun showSnackbar(message: String, actionLabel: String, onAction: () -> Unit = {}) {
         runSuspend {
-            when (snackbarHostState.showSnackbar(message, actionLabel = actionLabel, withDismissAction = true)) {
+            when(snackbarHostState.showSnackbar(message, actionLabel = actionLabel, duration = SnackbarDuration.Indefinite)){
                 SnackbarResult.Dismissed -> Unit
                 SnackbarResult.ActionPerformed -> onAction()
             }
+
         }
     }
 
@@ -179,7 +180,7 @@ fun rememberApplicationState(
 ): ApplicationState {
     val state = rememberModalBottomSheetState(
         initialValue = ModalBottomSheetValue.Hidden,
-        confirmStateChange = {
+        confirmValueChange = {
             event.changeBottomSheetState(it)
             true
         }
