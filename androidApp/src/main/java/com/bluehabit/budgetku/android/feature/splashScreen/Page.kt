@@ -58,7 +58,7 @@ internal fun ScreenSplash(
         verticalArrangement = Arrangement.Center
     ) {
         Image(
-            painter = painterResource(id = R.drawable.logo_budgetku),
+            painter = painterResource(id = R.drawable.logo_budgetku_full),
             contentDescription = "Logo App",
             modifier = Modifier
                 .height(104.dp)
