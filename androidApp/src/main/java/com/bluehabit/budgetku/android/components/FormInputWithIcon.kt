@@ -29,8 +29,8 @@ import com.bluehabit.budgetku.android.base.BaseMainApp
 @Composable
 fun FormInputWithIcon(
     value: String = "",
-    label: String = "Nama Lengkap",
-    placeholder: String = "Masukkan nama lengkapmu",
+    label: String = "",
+    placeholder: String = "",
     icon: @Composable (() -> Unit)? = null,
     clickable: Boolean = false,
     error:Boolean=false,

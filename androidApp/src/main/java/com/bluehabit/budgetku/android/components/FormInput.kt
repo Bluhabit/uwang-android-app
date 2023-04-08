@@ -29,8 +29,8 @@ import com.bluehabit.budgetku.android.base.BaseMainApp
 @Composable
 fun FormInput(
     value: String = "",
-    label: String = "Nama Lengkap",
-    placeholder: String = "Masukkan nama lengkapmu",
+    label: String = "",
+    placeholder: String = "",
     error:Boolean=false,
     errorMessage:String="",
     keyboardActions: KeyboardActions= KeyboardActions(),
