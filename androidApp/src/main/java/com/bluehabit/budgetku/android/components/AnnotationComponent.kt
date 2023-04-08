@@ -20,7 +20,10 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.Checkbox
 import androidx.compose.material.CheckboxDefaults
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Info
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -42,8 +45,7 @@ fun CheckBoxWithAction(
     checked: Boolean = false,
     labels: List<AnnotationTextItem> = listOf(),
     onCheckedChange: (Boolean) -> Unit = {},
-    onTextClick: (Int) -> Unit = {},
-    modifier: Modifier = Modifier
+    onTextClick: (Int) -> Unit = {}
 ) {
     val annotates = buildAnnotatedString {
         labels.forEachIndexed { index, data ->
@@ -63,6 +65,7 @@ fun CheckBoxWithAction(
                     }
                     pop()
                 }
+
                 is AnnotationTextItem.Text -> {
                     append(" ")
                     withStyle(
@@ -77,7 +80,7 @@ fun CheckBoxWithAction(
         }
     }
     Row(
-        modifier = modifier.padding(
+        modifier = Modifier.padding(
             vertical = 4.dp,
             horizontal = 4.dp
         ),
@@ -96,6 +99,80 @@ fun CheckBoxWithAction(
                 .size(16.dp)
 
         )
+
+        Spacer(modifier = Modifier.width(8.dp))
+
+        ClickableText(
+            text = annotates,
+            style = MaterialTheme.typography.body1.copy(
+                color = MaterialTheme.colors.onSecondary
+            ),
+            onClick = { offset ->
+                labels.forEachIndexed { index, _ ->
+                    annotates.getStringAnnotations(
+                        tag = "text_${index}",
+                        start = offset,
+                        end = offset
+                    )
+                        .firstOrNull()?.let {
+                            onTextClick(index)
+                        }
+                }
+
+            }
+        )
+    }
+}
+
+@Composable
+fun IconWithAction(
+    icon: (@Composable () -> Unit)? = null,
+    labels: List<AnnotationTextItem> = listOf(),
+    onCheckedChange: (Boolean) -> Unit = {},
+    onTextClick: (Int) -> Unit = {}
+) {
+    val annotates = buildAnnotatedString {
+        labels.forEachIndexed { index, data ->
+            when (data) {
+                is AnnotationTextItem.Button -> {
+                    append(" ")
+                    pushStringAnnotation(
+                        tag = "text_${index}",
+                        annotation = "text_${index}"
+                    )
+                    withStyle(
+                        style = SpanStyle(
+                            color = MaterialTheme.colors.primary,
+                        )
+                    ) {
+                        append(data.text)
+                    }
+                    pop()
+                }
+
+                is AnnotationTextItem.Text -> {
+                    append(" ")
+                    withStyle(
+                        style = SpanStyle(
+                            color = MaterialTheme.colors.onBackground,
+                        )
+                    ) {
+                        append(data.text)
+                    }
+                }
+            }
+        }
+    }
+    Row(
+        modifier = Modifier.padding(
+            vertical = 4.dp,
+            horizontal = 4.dp
+        ),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Start
+    ) {
+
+        icon?.invoke()
 
         Spacer(modifier = Modifier.width(8.dp))
 
@@ -144,6 +221,7 @@ fun TextWithAction(
                     }
                     pop()
                 }
+
                 is AnnotationTextItem.Text -> {
                     append(" ")
                     withStyle(
@@ -197,6 +275,27 @@ fun PreviewCheckboxInput() {
                     AnnotationTextItem.Button("Ini Button 1")
                 ),
                 onTextClick = {}
+            )
+            Spacer(modifier = Modifier.height(20.dp))
+            IconWithAction(
+                icon={
+                     Icon(imageVector = Icons.Outlined.Info, contentDescription = "")
+                },
+                labels = listOf(
+                    AnnotationTextItem.Text("Tes"),
+                    AnnotationTextItem.Button("Ini Button"),
+                    AnnotationTextItem.Text("Tes 1"),
+                    AnnotationTextItem.Button("Ini Button 1")
+                )
+            )
+            Spacer(modifier = Modifier.height(20.dp))
+            TextWithAction(
+                labels = listOf(
+                    AnnotationTextItem.Text("Tes"),
+                    AnnotationTextItem.Button("Ini Button"),
+                    AnnotationTextItem.Text("Tes 1"),
+                    AnnotationTextItem.Button("Ini Button 1")
+                )
             )
         }
 

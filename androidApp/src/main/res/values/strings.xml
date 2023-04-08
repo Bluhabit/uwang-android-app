@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright © 2023 Blue Habit.
+  ~
+  ~ Unauthorized copying, publishing of this file, via any medium is strictly prohibited
+  ~ Proprietary and confidential
+  -->
+
+<resources>
+    <string name="onboard_title_1">Nabung Semakin Mudah</string>
+    <string name="onboard_title_2">Lacak Pengeluaran</string>
+    <string name="onboard_title_3">Keamanan Terjamin</string>
+    <string name="onboard_title_4">Laporan up-to-date</string>
+
+    <string name="onboard_subtitle_1">Mulai perjalananmu bareng Budgetku buat capai target keuanganmu</string>
+    <string name="onboard_subtitle_2">Catat semua transaksi sehingga kamu bisa menjadi bebas finansial</string>
+    <string name="onboard_subtitle_3">Pilihan yang tepat untuk menjaga keamanan dan ketenangan finansialmu</string>
+    <string name="onboard_subtitle_4">Miliki laporan keuangan secara real-time yang bisa kamu analisa agar lebih hemat</string>
+
+    <string name="male">Laki-Laki</string>
+    <string name="female">Perempuan</string>
+    <string name="text_title_complete_profile">Beritahu Kami Tentang Dirimu</string>
+    <string name="text_subtitle_complete_profile">Masukkan data diri kamu, termasuk nama, tanggal lahir dan Pastikan kamu memasukkan informasi yang benar dan akurat.</string>
+    <string name="label_input_full_name">Nama Lengkap</string>
+    <string name="placeholder_input_full_name">Masukkan Nama Lengkapmu</string>
+    <string name="label_input_date_of_birth_complete_profile">Tanggal Lahir</string>
+    <string name="placeholder_input_date_of_birth_complete_profile">Masukkan Tanggal Lahirmu</string>
+    <string name="label_input_gender_complete_profile">Jenis Kelamin</string>
+    <string name="placeholder_input_gender_complete_profile">Masukkin jenis kelaminmu</string>
+    <string name="text_button_confirmation_complete_profile">Konfirmasi</string>
+    <string name="title_picker_date_of_birth_bottom_sheet">Pilih Tanggal Lahir Kamu</string>
+    <string name="title_picker_gender_bottom_sheet">Pilih Jenis Kelamin Kamu</string>
+    <string name="text_button_confirmation_date_of_birth_bottom_sheet">Pilih</string>
+    <string name="text_button_confirmation_gender_bottom_sheet">Pilih</string>
+</resources>

@@ -8,8 +8,8 @@
 package com.bluehabit.budgetku.android.base
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.ModalBottomSheetLayout
@@ -60,7 +60,7 @@ fun BaseMainApp(
         ) {
             ModalBottomSheetLayout(
                 sheetContent = {
-                    Column(Modifier.height(20.dp)) {
+                    Column(Modifier.defaultMinSize(minHeight = 20.dp)) {
                         bottomSheet(appState)
                     }
                 },
