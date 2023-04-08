@@ -44,7 +44,7 @@ enum class Gender(val value: String, val label: Int) {
 
 @Composable
 fun BottomSheetGenderPicker(
-    title: String = "Pilih Jenis Kelamin Kamu",
+    title: String = "",
     genders: List<Gender> = listOf(Gender.MALE, Gender.FEMALE),
     selectedGender: Gender? = null,
     onDismiss: () -> Unit = {},
@@ -60,7 +60,7 @@ fun BottomSheetGenderPicker(
                 onConfirm(it)
             }
         },
-        textConfirmation = "Pilih",
+        textConfirmation = stringResource(R.string.text_button_confirmation_gender_bottom_sheet),
         enableConfirmation = selected != null
     ) {
         Text(
