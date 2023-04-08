@@ -18,4 +18,13 @@
 
     <string name="male">Laki-Laki</string>
     <string name="female">Perempuan</string>
+    <string name="text_title_complete_profile">Beritahu Kami Tentang Dirimu</string>
+    <string name="text_subtitle_complete_profile">Masukkan data diri kamu, termasuk nama, tanggal lahir dan Pastikan kamu memasukkan informasi yang benar dan akurat.</string>
+    <string name="label_input_full_name">Nama Lengkap</string>
+    <string name="placeholder_input_full_name">Masukkan Nama Lengkapmu</string>
+    <string name="label_input_date_of_birth_complete_profile">Tanggal Lahir</string>
+    <string name="placeholder_input_date_of_birth_complete_profile">Masukkan Tanggal Lahirmu</string>
+    <string name="label_input_gender_complete_profile">Jenis Kelamin</string>
+    <string name="placeholder_input_gender_complete_profile">Masukkin jenis kelaminmu</string>
+    <string name="text_button_confirmation_complete_profile">Konfirmasi</string>
 </resources>
