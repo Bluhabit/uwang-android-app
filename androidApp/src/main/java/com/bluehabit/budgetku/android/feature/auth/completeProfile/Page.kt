@@ -28,6 +28,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
@@ -35,6 +37,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.bluehabit.budgetku.android.ApplicationState
+import com.bluehabit.budgetku.android.R
 import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.base.UIWrapper
 import com.bluehabit.budgetku.android.components.BottomSheetDatePicker
@@ -76,6 +79,8 @@ internal fun ScreenCompleteProfile(
             when (state.contentBottomSheet) {
                 "DatePicker" -> {
                    BottomSheetDatePicker(
+                       title = stringResource(R.string.title_picker_date_of_birth_bottom_sheet),
+                       textButtonConfirmation = stringResource(R.string.text_button_confirmation_date_of_birth_bottom_sheet),
                        onDismiss = {
                            hideBottomSheet()
                        },
@@ -84,11 +89,11 @@ internal fun ScreenCompleteProfile(
                            hideBottomSheet()
                        }
                    )
-
                 }
 
                 else -> {
                     BottomSheetGenderPicker(
+                        title = stringResource(R.string.title_picker_gender_bottom_sheet),
                         onDismiss = {
                             hideBottomSheet()
                         },
@@ -113,20 +118,21 @@ internal fun ScreenCompleteProfile(
             modifier = Modifier.fillMaxSize()
         ) {
             Text(
-                text = "Beritahu Kami Tentang Dirimu",
+                text = stringResource(R.string.text_title_complete_profile),
                 style = MaterialTheme.typography.h5,
                 fontWeight = FontWeight.Bold
             )
+            Spacer(modifier = Modifier.height(16.dp))
             Text(
-                text = "Masukkan data diri kamu, termasuk nama, tanggal lahir dan Pastikan kamu memasukkan informasi yang benar dan akurat.",
+                text = stringResource(R.string.text_subtitle_complete_profile),
                 style = MaterialTheme.typography.subtitle1,
                 fontWeight = FontWeight.Normal
             )
             Spacer(modifier = Modifier.height(20.dp))
             FormInput(
                 value = state.fullName,
-                label = "Nama Lengkap",
-                placeholder = "Masukkan Nama Lengkapmu",
+                label = stringResource(R.string.label_input_full_name),
+                placeholder = stringResource(R.string.placeholder_input_full_name),
                 onChange = {
                     commit {
                         copy(
@@ -146,9 +152,9 @@ internal fun ScreenCompleteProfile(
             )
             Spacer(modifier = Modifier.height(20.dp))
             FormInputWithIcon(
-                value = "",
-                label = "Tanggal Lahir",
-                placeholder = "Masukkan Tanggal Lahirmu",
+                value = if(state.dateOfBirth == null) "" else state.dateOfBirth.toString(),
+                label = stringResource(R.string.label_input_date_of_birth_complete_profile),
+                placeholder = stringResource(R.string.placeholder_input_date_of_birth_complete_profile),
                 clickable = true,
                 onClick = {
                     commit { copy(contentBottomSheet = "DatePicker") }
@@ -157,15 +163,16 @@ internal fun ScreenCompleteProfile(
                 icon = {
                     Icon(
                         imageVector = Icons.Outlined.DateRange,
-                        contentDescription = ""
+                        contentDescription = "",
+                        tint = if(state.dateOfBirth == null) Color.LightGray else MaterialTheme.colors.primary
                     )
                 }
             )
             Spacer(modifier = Modifier.height(20.dp))
             FormInputWithIcon(
-                value = "",
-                label = "Jenis Kelamin",
-                placeholder = "Masukkin jenis kelaminmu",
+                value = if(state.gender == null) "" else stringResource(state.gender!!.label),
+                label = stringResource(R.string.label_input_gender_complete_profile),
+                placeholder = stringResource(R.string.placeholder_input_gender_complete_profile),
                 clickable = true,
                 onClick = {
                     commit { copy(contentBottomSheet = "GenderPicker") }
@@ -174,14 +181,16 @@ internal fun ScreenCompleteProfile(
                 icon = {
                     Icon(
                         imageVector = Icons.Outlined.KeyboardArrowDown,
-                        contentDescription = ""
+                        contentDescription = "",
+                        tint= if(state.gender == null) Color.LightGray else MaterialTheme.colors.primary
                     )
                 }
             )
         }
         ButtonPrimary(
             modifier = Modifier.align(Alignment.BottomCenter),
-            text = "Konfirmasi"
+            enabled = (state.fullName.isNotEmpty() && state.dateOfBirth != null && state.gender != null),
+            text = stringResource(R.string.text_button_confirmation_complete_profile)
         ) {
 
         }
@@ -196,7 +205,8 @@ fun PreviewScreenCompleteProfile() {
             TopAppBar(
                 backgroundColor = MaterialTheme.colors.surface,
                 navigationIcon = {
-                    Icon(imageVector = Icons.Outlined.ArrowBack, contentDescription = "")
+                    Icon(imageVector = Icons.Outlined.ArrowBack,
+                        contentDescription = "")
                 },
                 title = {},
                 elevation = 0.dp

@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.MaterialTheme
@@ -28,8 +29,10 @@ import com.bluehabit.budgetku.android.base.BaseMainApp
 @Composable
 fun FormInput(
     value: String = "",
-    label: String = "Nama Lengkap",
-    placeholder: String = "Masukkan nama lengkapmu",
+    label: String = "",
+    placeholder: String = "",
+    error:Boolean=false,
+    errorMessage:String="",
     keyboardActions: KeyboardActions= KeyboardActions(),
     keyboardOptions: KeyboardOptions= KeyboardOptions(),
     onChange:(String)->Unit={}
@@ -40,17 +43,20 @@ fun FormInput(
         Text(
             text = label,
             style = MaterialTheme.typography.subtitle2,
-            fontWeight = FontWeight.Normal
+            fontWeight = FontWeight.Normal,
+            color = MaterialTheme.colors.onSurface
         )
         Spacer(modifier = Modifier.height(6.dp))
         OutlinedTextField(
             value = value,
             onValueChange = onChange,
+            isError=error,
             modifier = Modifier.fillMaxWidth(),
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 backgroundColor = Color(0xFFFAFAFA),
                 unfocusedBorderColor = Color(0xFFFAFAFA),
-                focusedBorderColor = MaterialTheme.colors.primary
+                focusedBorderColor = MaterialTheme.colors.primary,
+                textColor = MaterialTheme.colors.onSurface,
             ),
             placeholder = {
                 Text(
@@ -60,8 +66,20 @@ fun FormInput(
                 )
             },
             keyboardOptions = keyboardOptions,
-            keyboardActions = keyboardActions
+            keyboardActions = keyboardActions,
+            textStyle = MaterialTheme.typography.subtitle2,
         )
+        if(error){
+            Spacer(modifier = Modifier.height(6.dp))
+            Text(
+                text = errorMessage,
+                style = MaterialTheme.typography.subtitle2,
+                fontWeight = FontWeight.Normal,
+                color = MaterialTheme.colors.error
+            )
+        }else{
+            Spacer(modifier = Modifier.height(16.dp))
+        }
     }
 }
 
@@ -69,6 +87,17 @@ fun FormInput(
 @Composable
 fun PreviewFormInput() {
     BaseMainApp {
-        FormInput()
+        Column(
+            modifier = Modifier.padding(
+                horizontal = 20.dp
+            )
+        ) {
+
+            FormInput()
+            FormInput(
+                error = true,
+                errorMessage = "Ini Error"
+            )
+        }
     }
 }
