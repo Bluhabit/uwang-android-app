@@ -27,4 +27,8 @@
     <string name="label_input_gender_complete_profile">Jenis Kelamin</string>
     <string name="placeholder_input_gender_complete_profile">Masukkin jenis kelaminmu</string>
     <string name="text_button_confirmation_complete_profile">Konfirmasi</string>
+    <string name="title_picker_date_of_birth_bottom_sheet">Pilih Tanggal Lahir Kamu</string>
+    <string name="title_picker_gender_bottom_sheet">Pilih Jenis Kelamin Kamu</string>
+    <string name="text_button_confirmation_date_of_birth_bottom_sheet">Pilih</string>
+    <string name="text_button_confirmation_gender_bottom_sheet">Pilih</string>
 </resources>
