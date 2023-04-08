@@ -34,7 +34,8 @@ import java.time.LocalDate
 
 @Composable
 fun BottomSheetDatePicker(
-    title: String = "Pilih Tanggal Lahir Kamu",
+    title: String = "",
+    textButtonConfirmation:String="",
     selectedDate: LocalDate? = null,
     onDismiss: () -> Unit = {},
     onConfirm: (LocalDate) -> Unit = {}
@@ -55,7 +56,7 @@ fun BottomSheetDatePicker(
                 onConfirm(it)
             }
         },
-        textConfirmation = "Pilih",
+        textConfirmation = textButtonConfirmation,
         enableConfirmation = selected != null
     ) {
         Text(
