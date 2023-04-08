@@ -90,7 +90,8 @@ android {
             "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
             "-opt-in=androidx.compose.material.ExperimentalMaterialApi",
             "-opt-in=androidx.compose.ui.ExperimentalComposeUiApi",
-            "-opt-in=androidx.compose.foundation.ExperimentalFoundationApi"
+            "-opt-in=androidx.compose.foundation.ExperimentalFoundationApi",
+            "-opt-in=com.google.accompanist.pager.ExperimentalPagerApi"
         )
     }
 }
@@ -100,6 +101,7 @@ dependencies {
 
     coreLibraryDesugaring(libs.desugar.jdk.lib)
 
+    implementation(libs.android.material)
 
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)
@@ -108,7 +110,7 @@ dependencies {
     implementation(libs.ui)
     implementation(libs.ui.graphics)
     implementation(libs.ui.tooling.preview)
-    implementation(libs.material)
+    implementation(libs.compose.material)
     implementation(libs.compose.calendar)
     implementation(libs.wheel.picker.compose)
     implementation(libs.coil.compose)

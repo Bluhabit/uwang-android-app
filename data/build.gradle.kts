@@ -17,7 +17,7 @@ plugins {
 }
 
 android {
-    namespace = libs.versions.namespace.get()
+    namespace = libs.versions.namespacedata.get()
     compileSdk = 33
 
     defaultConfig {
