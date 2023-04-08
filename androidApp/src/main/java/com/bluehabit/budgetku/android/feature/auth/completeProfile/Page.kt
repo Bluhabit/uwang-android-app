@@ -79,6 +79,8 @@ internal fun ScreenCompleteProfile(
             when (state.contentBottomSheet) {
                 "DatePicker" -> {
                    BottomSheetDatePicker(
+                       title = stringResource(R.string.title_picker_date_of_birth_bottom_sheet),
+                       textButtonConfirmation = stringResource(R.string.text_button_confirmation_date_of_birth_bottom_sheet),
                        onDismiss = {
                            hideBottomSheet()
                        },
@@ -91,6 +93,7 @@ internal fun ScreenCompleteProfile(
 
                 else -> {
                     BottomSheetGenderPicker(
+                        title = stringResource(R.string.title_picker_gender_bottom_sheet),
                         onDismiss = {
                             hideBottomSheet()
                         },
