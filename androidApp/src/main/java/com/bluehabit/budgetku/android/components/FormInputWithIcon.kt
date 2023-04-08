@@ -33,6 +33,8 @@ fun FormInputWithIcon(
     placeholder: String = "Masukkan nama lengkapmu",
     icon: @Composable (() -> Unit)? = null,
     clickable: Boolean = false,
+    error:Boolean=false,
+    errorMessage:String="",
     keyboardActions: KeyboardActions = KeyboardActions(),
     keyboardOptions: KeyboardOptions = KeyboardOptions(),
     onChange: (String) -> Unit = {},
@@ -44,7 +46,8 @@ fun FormInputWithIcon(
         Text(
             text = label,
             style = MaterialTheme.typography.subtitle2,
-            fontWeight = FontWeight.Normal
+            fontWeight = FontWeight.Normal,
+            color = MaterialTheme.colors.onSurface
         )
         Spacer(modifier = Modifier.height(6.dp))
         OutlinedTextField(
@@ -61,8 +64,11 @@ fun FormInputWithIcon(
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 backgroundColor = Color(0xFFFAFAFA),
                 unfocusedBorderColor = Color(0xFFFAFAFA),
-                focusedBorderColor = MaterialTheme.colors.primary
+                focusedBorderColor = MaterialTheme.colors.primary,
+                textColor = MaterialTheme.colors.onSurface,
+                disabledTextColor = MaterialTheme.colors.onSurface
             ),
+            isError=error,
             placeholder = {
                 Text(
                     text = placeholder,
@@ -72,8 +78,20 @@ fun FormInputWithIcon(
             },
             keyboardOptions = keyboardOptions,
             keyboardActions = keyboardActions,
-            trailingIcon = icon
+            trailingIcon = icon,
+            textStyle = MaterialTheme.typography.subtitle2
         )
+        if(error){
+            Spacer(modifier = Modifier.height(6.dp))
+            Text(
+                text = errorMessage,
+                style = MaterialTheme.typography.subtitle2,
+                fontWeight = FontWeight.Normal,
+                color = MaterialTheme.colors.error
+            )
+        }else{
+            Spacer(modifier = Modifier.height(16.dp))
+        }
     }
 }
 
