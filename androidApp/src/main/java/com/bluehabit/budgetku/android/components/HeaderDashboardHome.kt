@@ -9,6 +9,7 @@ package com.bluehabit.budgetku.android.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -31,16 +32,26 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluehabit.budgetku.android.R
 import com.bluehabit.budgetku.android.base.BaseMainApp
-import compose.icons.FeatherIcons
-import compose.icons.feathericons.Eye
+import com.bluehabit.budgetku.android.base.extensions.formatToRupiah
+import java.math.BigDecimal
 
 @Composable
-fun HeaderDashboardHome() {
+fun HeaderDashboardHome(
+    displayName: String = "",
+    currentMonth: String = "",
+    remainingBalance: BigDecimal = BigDecimal.ZERO,
+    expenses: BigDecimal = BigDecimal.ZERO,
+    income: BigDecimal = BigDecimal.ZERO,
+    showBalance: Boolean = true,
+    onShowBalance: (Boolean) -> Unit = {}
+) {
 
     val ctx = LocalContext.current
     val currentWidth = ctx
@@ -68,19 +79,19 @@ fun HeaderDashboardHome() {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "\uD83D\uDC4B Hi, Mario Jr.",
+                text = stringResource(R.string.text_title_display_name_dashbaord_home, displayName),
                 style = MaterialTheme.typography.h6,
                 fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colors.onPrimary
+                color = MaterialTheme.colors.onPrimary,
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis
             )
-            Spacer(modifier = Modifier.width(8.dp))
+            Spacer(modifier = Modifier.width(10.dp))
             Image(
                 painter = painterResource(id = R.drawable.dummy_avatar),
                 contentDescription = "",
                 modifier = Modifier
-                    .size(
-                        30.dp
-                    )
+                    .size(30.dp)
                     .clip(CircleShape)
             )
 
@@ -88,19 +99,38 @@ fun HeaderDashboardHome() {
         Spacer(modifier = Modifier.height(24.dp))
         Row {
             Text(
-                text = "Sisa Keuangan Bulan April",
+                text = stringResource(R.string.text_subtitle_remaining_balance_dashboard_home, currentMonth),
                 style = MaterialTheme.typography.subtitle1,
                 fontWeight = FontWeight.Normal,
-                color = MaterialTheme.colors.onPrimary
+                color = MaterialTheme.colors.onPrimary.copy(
+                    alpha = 0.5f
+                ),
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
             )
-            Icon(imageVector = FeatherIcons.Eye, contentDescription = "")
+            Spacer(modifier = Modifier.height(8.dp))
+            Icon(
+                painter = painterResource(
+                    id = if (showBalance) R.drawable.eye_open
+                    else R.drawable.eye_close
+                ),
+                contentDescription = "",
+                tint = Color.White.copy(
+                    alpha = 0.5f
+                ),
+                modifier = Modifier.clickable {
+                    onShowBalance(!showBalance)
+                }
+            )
         }
         Spacer(modifier = Modifier.height(9.dp))
         Text(
-            text = "Rp2.000.000",
+            text = remainingBalance.formatToRupiah(),
             style = MaterialTheme.typography.h4,
             fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colors.onPrimary
+            color = MaterialTheme.colors.onPrimary,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
         )
         Spacer(modifier = Modifier.height(24.dp))
         Row(
@@ -128,18 +158,22 @@ fun HeaderDashboardHome() {
                     )
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(
-                        text = "Uang Masuk",
+                        text = stringResource(R.string.text_title_income_dashboar_home),
                         style = MaterialTheme.typography.body2,
                         fontWeight = FontWeight.Medium,
-                        color = MaterialTheme.colors.onPrimary
+                        color = MaterialTheme.colors.onPrimary,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
                     )
                 }
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = "Rp10.000.000",
+                    text = income.formatToRupiah(),
                     style = MaterialTheme.typography.subtitle1,
                     fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colors.onPrimary
+                    color = MaterialTheme.colors.onPrimary,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
                 )
             }
             Column(
@@ -160,20 +194,24 @@ fun HeaderDashboardHome() {
                         contentDescription = "",
                         tint = Color(0xFFFE3419)
                     )
-                    Spacer(modifier = Modifier.height(8.dp))
+                    Spacer(modifier = Modifier.width(8.dp))
                     Text(
-                        text = "Uang Keluar",
+                        text = stringResource(R.string.text_title_expense_dashboard_home),
                         style = MaterialTheme.typography.body2,
                         fontWeight = FontWeight.Medium,
-                        color = MaterialTheme.colors.onPrimary
+                        color = MaterialTheme.colors.onPrimary,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
                     )
                 }
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = "Rp10.000.000",
+                    text = expenses.formatToRupiah(),
                     style = MaterialTheme.typography.subtitle1,
                     fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colors.onPrimary
+                    color = MaterialTheme.colors.onPrimary,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
                 )
             }
         }
@@ -186,7 +224,13 @@ fun PreviewHeaderDashboard() {
     BaseMainApp {
         LazyColumn(content = {
             item {
-                HeaderDashboardHome()
+                HeaderDashboardHome(
+                    displayName = "Mario Jr.",
+                    currentMonth = "April",
+                    remainingBalance = BigDecimal(20_000_0000),
+                    expenses = BigDecimal(30_000_000),
+                    income = BigDecimal(100_000_000)
+                )
             }
         })
     }

@@ -40,6 +40,17 @@
     <string name="title_card_remianing_budget_dashboard_home">Sisa Budget</string>
     <string name="text_card_used_budget_dashboard_home">terpakai</string>
     <string name="text_card_score_financial_dashboard_home">Skor kesehatan keuanganmu</string>
-    <string name="text_button_expand_card_monthly_dashboard_home">Tutup</string>
+    <string name="text_button_expand_card_monthly_dashboard_home">Lihat Rincian</string>
+    <string name="text_button_hide_card_monthly_dashboard_home">Tutup Rincian</string>
+    <string name="text_title_display_name_dashbaord_home">👋 Hi, %1$s !</string>
+    <string name="text_subtitle_remaining_balance_dashboard_home">Sisa Keuangan Bulan %1$s</string>
+    <string name="text_title_income_dashboar_home">Uang Masuk</string>
+    <string name="text_title_expense_dashboard_home">Uang Keluar</string>
+    <string name="title_section_list_account_dashboard_home">Daftar Rekening</string>
+    <string name="title_section_monthly_budgeting_dashboard_home">Anggaran Bulanan</string>
+    <string name="title_section_new_transaction_dashboard_home">Transaksi Baru</string>
+    <string name="title_section_challenge_dashbaord_home">Tantangan Keuangan</string>
+    <string name="title_section_tutorial_dashboard_home">Tutorial dari Budgetku</string>
+    <string name="title_section_article_dashboard_home">Yang Menarik di Budgetku</string>
     <!--    end dashboard-->
 </resources>

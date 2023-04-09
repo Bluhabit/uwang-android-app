@@ -52,21 +52,19 @@ fun ItemTransaction(
 ) {
     Column(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(
-                top = 16.dp,
-                start = 20.dp,
-                end = 20.dp
-            )
-            .clickable(
-                enabled = clickable,
-                onClick = onClick
-            ),
+            .fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
+    ) { Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable(enabled = clickable, onClick = onClick)
+                .padding(
+                    top = 16.dp,
+                    start = 20.dp,
+                    end = 20.dp,
+                    bottom = 16.dp
+                ),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.Top
         ) {
@@ -132,7 +130,6 @@ fun ItemTransaction(
             }
 
         }
-        Spacer(modifier = Modifier.height(16.dp))
         Divider()
     }
 }
