@@ -7,15 +7,18 @@
 
 package com.bluehabit.budgetku.android.components
 
+import androidx.compose.foundation.layout.height
 import androidx.compose.material.BottomAppBar
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.bluehabit.budgetku.android.R
 import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.feature.dashboard.budget.Budget
@@ -76,6 +79,7 @@ fun DashboardBottomNavigation(
     BottomAppBar(
         backgroundColor = MaterialTheme.colors.surface,
         cutoutShape = null,
+        modifier = Modifier.height(65.dp)
     ) {
 
         menus.forEach {
