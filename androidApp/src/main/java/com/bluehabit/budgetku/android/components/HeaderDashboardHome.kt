@@ -227,9 +227,9 @@ fun PreviewHeaderDashboard() {
                 HeaderDashboardHome(
                     displayName = "Mario Jr.",
                     currentMonth = "April",
-                    remainingBalance = BigDecimal(200000000),
-                    expenses = BigDecimal(30000000),
-                    income = BigDecimal(100000000)
+                    remainingBalance = BigDecimal(200_000_000),
+                    expenses = BigDecimal(30_000_000),
+                    income = BigDecimal(100_000_000)
                 )
             }
         })
