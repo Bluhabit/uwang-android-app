@@ -64,14 +64,12 @@ fun ItemAccount() {
                 .background(Color.White)
         ) {
             Image(
-                painter = painterResource(id = R.drawable.ic_logo_jago),
+                painter = painterResource(id = R.drawable.ic_jago),
                 contentDescription = "",
                 modifier = Modifier
                     .fillMaxSize()
                     .clip(CircleShape),
             )
-
-
         }
         Column {
             Text(
