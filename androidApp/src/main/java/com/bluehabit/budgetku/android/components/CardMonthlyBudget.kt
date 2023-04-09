@@ -114,7 +114,7 @@ fun CardMonthlyBudget(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(
-                        text = stringResource(R.string.title_card_remianing_budget_dashboard_home),
+                        text = stringResource(R.string.title_card_remaining_budget_dashboard_home),
                         style = MaterialTheme.typography.h6,
                         fontWeight = FontWeight.Medium,
                         maxLines = 1,

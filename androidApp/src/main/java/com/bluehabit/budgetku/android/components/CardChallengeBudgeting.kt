@@ -33,7 +33,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluehabit.budgetku.android.R
@@ -75,7 +77,9 @@ fun CardChallengeBudgeting(
             Column(
                 modifier = Modifier
                     .align(Alignment.TopStart)
-                    .fillMaxWidth()
+                    .fillMaxWidth(
+                        fraction = 0.7f
+                    )
                     .padding(
                         horizontal = 16.dp,
                         vertical = 16.dp
@@ -85,13 +89,16 @@ fun CardChallengeBudgeting(
                     text = title,
                     style = MaterialTheme.typography.h6,
                     fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colors.onPrimary
+                    color = MaterialTheme.colors.onPrimary,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
                 )
                 Text(
                     text = message,
                     style = MaterialTheme.typography.subtitle2,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colors.onPrimary
+                    fontWeight = FontWeight.Normal,
+                    color = MaterialTheme.colors.onPrimary,
+                    softWrap = true
                 )
             }
             Image(
@@ -128,7 +135,7 @@ fun CardChallengeBudgeting(
             )
 
             Text(
-                text = "$point/$pointTarget pts",
+                text = stringResource(id = R.string.text_label_points_dashboard_home, point.toString(), pointTarget.toString()),
                 style = MaterialTheme.typography.body1,
                 fontWeight = FontWeight.Medium,
                 color = Grey700
@@ -150,7 +157,7 @@ fun CardChallengeBudgeting(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "Lihat Tantangan",
+                text = stringResource(R.string.text_button_show_challenge_card_challenge_budgeting),
                 style = MaterialTheme.typography.subtitle1,
                 fontWeight = FontWeight.Medium,
                 color = Grey700

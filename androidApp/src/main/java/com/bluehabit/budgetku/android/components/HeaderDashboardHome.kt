@@ -79,7 +79,7 @@ fun HeaderDashboardHome(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = stringResource(R.string.text_title_display_name_dashbaord_home, displayName),
+                text = stringResource(R.string.text_title_display_name_dashboard_home, displayName),
                 style = MaterialTheme.typography.h6,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colors.onPrimary,
@@ -158,7 +158,7 @@ fun HeaderDashboardHome(
                     )
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(
-                        text = stringResource(R.string.text_title_income_dashboar_home),
+                        text = stringResource(R.string.text_title_income_dashboard_home),
                         style = MaterialTheme.typography.body2,
                         fontWeight = FontWeight.Medium,
                         color = MaterialTheme.colors.onPrimary,
