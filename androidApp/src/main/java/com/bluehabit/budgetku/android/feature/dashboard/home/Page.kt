@@ -64,6 +64,7 @@ internal fun ScreenHome(
     with(appState) {
         bottomNavigationListener(object : BottomNavigationListener {
             override fun onRefresh(item: DashboardBottomNavigationMenu) {
+                //todo: remove empty
 
             }
 
@@ -72,7 +73,7 @@ internal fun ScreenHome(
             }
 
             override fun onFab() {
-
+                //todo: remove empty
             }
 
         })
