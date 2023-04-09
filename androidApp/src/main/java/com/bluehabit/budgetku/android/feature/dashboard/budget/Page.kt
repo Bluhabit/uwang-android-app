@@ -39,7 +39,7 @@ internal fun ScreenBudget(
     with(appState) {
         bottomNavigationListener(object : BottomNavigationListener {
             override fun onRefresh(item: DashboardBottomNavigationMenu) {
-                //todo: remove empty
+                //remove empty
             }
 
             override fun onNavigate(item: DashboardBottomNavigationMenu) {
@@ -47,7 +47,7 @@ internal fun ScreenBudget(
             }
 
             override fun onFab() {
-                //todo: remove empty
+                //remove empty
             }
 
         })
