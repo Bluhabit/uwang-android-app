@@ -105,7 +105,7 @@ val Typography = Typography(
     ),
     button = TextStyle(
         fontFamily = UberMove,
-        fontWeight = FontWeight.Normal,
+        fontWeight = FontWeight.Medium,
         fontSize = 14.sp,
         letterSpacing = 1.25.sp
     ),
