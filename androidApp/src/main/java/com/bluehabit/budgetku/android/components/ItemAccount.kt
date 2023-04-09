@@ -9,6 +9,7 @@ package com.bluehabit.budgetku.android.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -33,11 +34,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluehabit.budgetku.android.R
 import com.bluehabit.budgetku.android.base.BaseMainApp
+import com.bluehabit.budgetku.android.base.extensions.formatToRupiah
 import com.bluehabit.budgetku.android.ui.Grey100
 import com.bluehabit.budgetku.android.ui.Grey700
+import java.math.BigDecimal
 
 @Composable
-fun ItemAccount() {
+fun ItemAccount(
+    accountBankName: String = "",
+    accountBalance: BigDecimal = BigDecimal.ZERO,
+    onClick: () -> Unit = {}
+) {
     val ctx = LocalContext.current
     val currentWidth = ctx
         .resources
@@ -50,6 +57,9 @@ fun ItemAccount() {
             .width(cardWidth)
             .height(cardWidth + 25.dp)
             .clip(MaterialTheme.shapes.medium)
+            .clickable {
+                onClick()
+            }
             .background(Grey100)
             .padding(
                 vertical = 16.dp,
@@ -73,13 +83,13 @@ fun ItemAccount() {
         }
         Column {
             Text(
-                text = "Bank BCA",
+                text = accountBankName,
                 style = MaterialTheme.typography.subtitle1,
                 fontWeight = FontWeight.Medium,
                 color = Grey700
             )
             Text(
-                text = "Rp1.000.000",
+                text = accountBalance.formatToRupiah(),
                 style = MaterialTheme.typography.h6,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colors.onSurface
@@ -97,7 +107,10 @@ fun PreviewItemAccount() {
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             content = {
                 items(4) {
-                    ItemAccount()
+                    ItemAccount(
+                        accountBalance = BigDecimal(100_000_000),
+                        accountBankName = "Bank Jago"
+                    )
                 }
             }
         )
