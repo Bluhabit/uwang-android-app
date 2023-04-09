@@ -45,6 +45,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -115,13 +116,17 @@ fun CardMonthlyBudget(
                     Text(
                         text = stringResource(R.string.title_card_remianing_budget_dashboard_home),
                         style = MaterialTheme.typography.h6,
-                        fontWeight = FontWeight.Medium
+                        fontWeight = FontWeight.Medium,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
                     )
                     Text(
                         text = remainingBudget.formatToRupiah(),
                         style = MaterialTheme.typography.h6,
                         fontWeight = FontWeight.Bold,
-                        color = color
+                        color = color,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
                     )
                 }
                 Spacer(modifier = Modifier.height(17.dp))
@@ -165,6 +170,8 @@ fun CardMonthlyBudget(
                         }
 
                     },
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
                 )
             }
             Spacer(modifier = Modifier.height(17.dp))
@@ -182,7 +189,9 @@ fun CardMonthlyBudget(
                 Text(
                     text = stringResource(R.string.text_card_score_financial_dashboard_home),
                     style = MaterialTheme.typography.subtitle1,
-                    fontWeight = FontWeight.Normal
+                    fontWeight = FontWeight.Normal,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
                 )
                 Text(
                     text = buildAnnotatedString {
@@ -203,7 +212,9 @@ fun CardMonthlyBudget(
                             append("/")
                             append("100")
                         }
-                    }
+                    },
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
                 )
             }
             AnimatedVisibility(visible = visible) {
@@ -229,28 +240,34 @@ fun CardMonthlyBudget(
                                 Text(
                                     text = it.transactionName,
                                     style = MaterialTheme.typography.subtitle1,
-                                    fontWeight = FontWeight.Medium
+                                    fontWeight = FontWeight.Medium,
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis
                                 )
                             }
-                            Text(text = buildAnnotatedString {
-                                withStyle(
-                                    style = SpanStyle(
-                                        fontStyle = MaterialTheme.typography.subtitle1.fontStyle,
-                                        fontWeight = FontWeight.Normal
-                                    ),
-                                ) {
-                                    append(stringResource(id = R.string.text_card_used_budget_dashboard_home))
-                                }
-                                withStyle(
-                                    style = SpanStyle(
-                                        fontStyle = MaterialTheme.typography.subtitle1.fontStyle,
-                                        fontWeight = FontWeight.SemiBold
-                                    ),
-                                ) {
-                                    append(" ")
-                                    append(it.usedAmount.formatToRupiah())
-                                }
-                            })
+                            Text(
+                                text = buildAnnotatedString {
+                                    withStyle(
+                                        style = SpanStyle(
+                                            fontStyle = MaterialTheme.typography.subtitle1.fontStyle,
+                                            fontWeight = FontWeight.Normal
+                                        ),
+                                    ) {
+                                        append(stringResource(id = R.string.text_card_used_budget_dashboard_home))
+                                    }
+                                    withStyle(
+                                        style = SpanStyle(
+                                            fontStyle = MaterialTheme.typography.subtitle1.fontStyle,
+                                            fontWeight = FontWeight.SemiBold
+                                        ),
+                                    ) {
+                                        append(" ")
+                                        append(it.usedAmount.formatToRupiah())
+                                    }
+                                },
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis
+                            )
                         }
                         Divider()
                     }
@@ -271,13 +288,18 @@ fun CardMonthlyBudget(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "${if(visible) stringResource(R.string.text_button_expand_card_monthly_dashboard_home) else "Lihat"} Rincian",
+                    text = stringResource(
+                        if (visible) R.string.text_button_hide_card_monthly_dashboard_home
+                        else R.string.text_button_expand_card_monthly_dashboard_home
+                    ),
                     style = MaterialTheme.typography.subtitle1,
                     fontWeight = FontWeight.Medium,
-                    color = LightBlue600
+                    color = LightBlue600,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
                 )
                 Icon(
-                    imageVector = if(visible) Icons.Outlined.KeyboardArrowUp else Icons.Outlined.KeyboardArrowDown ,
+                    imageVector = if (visible) Icons.Outlined.KeyboardArrowUp else Icons.Outlined.KeyboardArrowDown,
                     contentDescription = ""
                 )
             }

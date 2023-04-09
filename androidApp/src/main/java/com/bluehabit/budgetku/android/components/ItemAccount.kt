@@ -64,7 +64,7 @@ fun ItemAccount() {
                 .background(Color.White)
         ) {
             Image(
-                painter = painterResource(id = R.drawable.ic_logo_bca),
+                painter = painterResource(id = R.drawable.ic_logo_jago),
                 contentDescription = "",
                 modifier = Modifier
                     .fillMaxSize()
