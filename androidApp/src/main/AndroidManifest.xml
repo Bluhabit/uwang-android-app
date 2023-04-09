@@ -15,19 +15,26 @@
     <uses-permission-sdk-23 android:name="android.permission.POST_NOTIFICATIONS"/>
 
     <application
-        android:name=".android.BudgetKuApplication"
+        android:name=".BudgetKuApplication"
         android:allowBackup="false"
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme"
         tools:ignore="DataExtractionRules">
         <activity
-            android:name=".android.MainActivity"
+            android:name=".MainActivity"
+            android:windowSoftInputMode="adjustResize"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="androidx.activity.ComponentActivity"
+            >
+
+        </activity>
+
     </application>
 </manifest> 

@@ -18,9 +18,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.ClickableText
-import androidx.compose.material3.Checkbox
-import androidx.compose.material3.CheckboxDefaults
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material.Checkbox
+import androidx.compose.material.CheckboxDefaults
+import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Info
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -42,8 +45,7 @@ fun CheckBoxWithAction(
     checked: Boolean = false,
     labels: List<AnnotationTextItem> = listOf(),
     onCheckedChange: (Boolean) -> Unit = {},
-    onTextClick: (Int) -> Unit = {},
-    modifier: Modifier = Modifier
+    onTextClick: (Int) -> Unit = {}
 ) {
     val annotates = buildAnnotatedString {
         labels.forEachIndexed { index, data ->
@@ -56,18 +58,19 @@ fun CheckBoxWithAction(
                     )
                     withStyle(
                         style = SpanStyle(
-                            color = MaterialTheme.colorScheme.primary,
+                            color = MaterialTheme.colors.primary,
                         )
                     ) {
                         append(data.text)
                     }
                     pop()
                 }
+
                 is AnnotationTextItem.Text -> {
                     append(" ")
                     withStyle(
                         style = SpanStyle(
-                            color = MaterialTheme.colorScheme.onBackground,
+                            color = MaterialTheme.colors.onBackground,
                         )
                     ) {
                         append(data.text)
@@ -77,7 +80,7 @@ fun CheckBoxWithAction(
         }
     }
     Row(
-        modifier = modifier.padding(
+        modifier = Modifier.padding(
             vertical = 4.dp,
             horizontal = 4.dp
         ),
@@ -89,7 +92,7 @@ fun CheckBoxWithAction(
             checked = checked,
             onCheckedChange = onCheckedChange,
             colors = CheckboxDefaults.colors(
-                checkedColor = MaterialTheme.colorScheme.primary,
+                checkedColor = MaterialTheme.colors.primary,
                 uncheckedColor = Color.Gray
             ),
             modifier = Modifier
@@ -101,11 +104,85 @@ fun CheckBoxWithAction(
 
         ClickableText(
             text = annotates,
-            style = MaterialTheme.typography.bodyMedium.copy(
-                color = MaterialTheme.colorScheme.onSecondary
+            style = MaterialTheme.typography.body1.copy(
+                color = MaterialTheme.colors.onSecondary
             ),
             onClick = { offset ->
-                labels.forEachIndexed { index, checkbox ->
+                labels.forEachIndexed { index, _ ->
+                    annotates.getStringAnnotations(
+                        tag = "text_${index}",
+                        start = offset,
+                        end = offset
+                    )
+                        .firstOrNull()?.let {
+                            onTextClick(index)
+                        }
+                }
+
+            }
+        )
+    }
+}
+
+@Composable
+fun IconWithAction(
+    icon: (@Composable () -> Unit)? = null,
+    labels: List<AnnotationTextItem> = listOf(),
+    onCheckedChange: (Boolean) -> Unit = {},
+    onTextClick: (Int) -> Unit = {}
+) {
+    val annotates = buildAnnotatedString {
+        labels.forEachIndexed { index, data ->
+            when (data) {
+                is AnnotationTextItem.Button -> {
+                    append(" ")
+                    pushStringAnnotation(
+                        tag = "text_${index}",
+                        annotation = "text_${index}"
+                    )
+                    withStyle(
+                        style = SpanStyle(
+                            color = MaterialTheme.colors.primary,
+                        )
+                    ) {
+                        append(data.text)
+                    }
+                    pop()
+                }
+
+                is AnnotationTextItem.Text -> {
+                    append(" ")
+                    withStyle(
+                        style = SpanStyle(
+                            color = MaterialTheme.colors.onBackground,
+                        )
+                    ) {
+                        append(data.text)
+                    }
+                }
+            }
+        }
+    }
+    Row(
+        modifier = Modifier.padding(
+            vertical = 4.dp,
+            horizontal = 4.dp
+        ),
+        verticalAlignment = Alignment.Top,
+        horizontalArrangement = Arrangement.Start
+    ) {
+
+        icon?.invoke()
+
+        Spacer(modifier = Modifier.width(8.dp))
+
+        ClickableText(
+            text = annotates,
+            style = MaterialTheme.typography.body1.copy(
+                color = MaterialTheme.colors.onSecondary
+            ),
+            onClick = { offset ->
+                labels.forEachIndexed { index, _ ->
                     annotates.getStringAnnotations(
                         tag = "text_${index}",
                         start = offset,
@@ -137,18 +214,19 @@ fun TextWithAction(
                     )
                     withStyle(
                         style = SpanStyle(
-                            color = MaterialTheme.colorScheme.primary,
+                            color = MaterialTheme.colors.primary,
                         )
                     ) {
                         append(data.text)
                     }
                     pop()
                 }
+
                 is AnnotationTextItem.Text -> {
                     append(" ")
                     withStyle(
                         style = SpanStyle(
-                            color = MaterialTheme.colorScheme.onBackground,
+                            color = MaterialTheme.colors.onBackground,
                         )
                     ) {
                         append(data.text)
@@ -159,8 +237,8 @@ fun TextWithAction(
     }
     ClickableText(
         text = annotates,
-        style = MaterialTheme.typography.bodyMedium.copy(
-            color = MaterialTheme.colorScheme.onSecondary
+        style = MaterialTheme.typography.body1.copy(
+            color = MaterialTheme.colors.onSecondary
         ),
         onClick = { offset ->
             labels.forEachIndexed { index, _ ->
@@ -186,7 +264,7 @@ fun PreviewCheckboxInput() {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(MaterialTheme.colorScheme.background)
+                .background(MaterialTheme.colors.background)
         ) {
             Spacer(modifier = Modifier.height(20.dp))
             CheckBoxWithAction(
@@ -197,6 +275,27 @@ fun PreviewCheckboxInput() {
                     AnnotationTextItem.Button("Ini Button 1")
                 ),
                 onTextClick = {}
+            )
+            Spacer(modifier = Modifier.height(20.dp))
+            IconWithAction(
+                icon={
+                     Icon(imageVector = Icons.Outlined.Info, contentDescription = "")
+                },
+                labels = listOf(
+                    AnnotationTextItem.Text("Tes"),
+                    AnnotationTextItem.Button("Ini Button"),
+                    AnnotationTextItem.Text("Tes 1"),
+                    AnnotationTextItem.Button("Ini Button 1")
+                )
+            )
+            Spacer(modifier = Modifier.height(20.dp))
+            TextWithAction(
+                labels = listOf(
+                    AnnotationTextItem.Text("Tes"),
+                    AnnotationTextItem.Button("Ini Button"),
+                    AnnotationTextItem.Text("Tes 1"),
+                    AnnotationTextItem.Button("Ini Button 1")
+                )
             )
         }
 

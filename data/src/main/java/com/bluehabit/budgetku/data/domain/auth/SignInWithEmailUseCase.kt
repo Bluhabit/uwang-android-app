@@ -10,7 +10,6 @@ package com.bluehabit.budgetku.data.domain.auth
 import com.bluehabit.budgetku.data.common.Response
 import com.bluehabit.budgetku.data.remote.auth.AuthDataSource
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
@@ -21,7 +20,7 @@ class SignInWithEmailUseCase @Inject constructor(
     operator fun invoke(
         email: String,
         password: String
-    ): Flow<Response<String>> = flow {
+    ) = flow {
         emit(Response.Loading)
         val result = authDataSource.signInWithEmail(email, password)
         emit(result)
