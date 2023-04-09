@@ -15,6 +15,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.base.EventListener
 import com.bluehabit.budgetku.android.base.extensions.listenChanges
+import com.bluehabit.budgetku.android.base.listener.ToAppStateEventListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -24,8 +25,8 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        eventListener = EventListener()
         setContent {
-            eventListener = EventListener()
             appState = rememberApplicationState(
                 event = eventListener
             )
@@ -40,6 +41,20 @@ class MainActivity : ComponentActivity() {
                 AppNavigation(applicationState = it)
             }
         }
+        listenFromChild()
+    }
+
+    private fun listenFromChild() {
+        eventListener.addOnEventListener(object : ToAppStateEventListener {
+            override fun onEvent(eventName: String) {
+                TODO("Not yet implemented")
+            }
+
+            override fun exit() {
+                finish()
+            }
+
+        })
     }
 }
 
