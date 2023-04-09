@@ -46,6 +46,7 @@ import com.bluehabit.budgetku.android.components.HeaderSectionDashboardHome
 import com.bluehabit.budgetku.android.components.ItemAccount
 import com.bluehabit.budgetku.android.components.ItemTransaction
 import com.bluehabit.budgetku.android.rememberApplicationState
+import java.math.BigDecimal
 
 object Home {
     const val routeName = "Home"
@@ -116,7 +117,10 @@ internal fun ScreenHome(
                             Spacer(modifier = Modifier.width(4.dp))
                         }
                         items(3) {
-                            ItemAccount()
+                            ItemAccount(
+                                accountBalance = BigDecimal(100_000_000),
+                                accountBankName = "Bank Jago"
+                            )
                         }
                     })
             }
