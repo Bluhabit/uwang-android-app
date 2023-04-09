@@ -38,7 +38,7 @@ internal fun ScreenReport(
     with(appState) {
         bottomNavigationListener(object : BottomNavigationListener {
             override fun onRefresh(item: DashboardBottomNavigationMenu) {
-
+                //todo: remove empty
             }
 
             override fun onNavigate(item: DashboardBottomNavigationMenu) {
@@ -46,7 +46,7 @@ internal fun ScreenReport(
             }
 
             override fun onFab() {
-
+                //todo: remove empty
             }
 
         })
