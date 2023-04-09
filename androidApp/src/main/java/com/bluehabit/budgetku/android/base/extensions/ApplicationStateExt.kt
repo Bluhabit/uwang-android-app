@@ -9,7 +9,6 @@ package com.bluehabit.budgetku.android.base.extensions
 
 import com.bluehabit.budgetku.android.ApplicationState
 import com.bluehabit.budgetku.android.base.listener.BottomNavigationListener
-import com.bluehabit.budgetku.android.base.listener.ToAppStateEventListener
 import com.bluehabit.budgetku.android.base.listener.BottomSheetStateListener
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.CoroutineStart
