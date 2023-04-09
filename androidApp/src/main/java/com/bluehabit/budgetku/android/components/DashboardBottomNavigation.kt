@@ -7,68 +7,102 @@
 
 package com.bluehabit.budgetku.android.components
 
-import androidx.compose.material.BottomNavigation
+import androidx.compose.material.BottomAppBar
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Home
-import androidx.compose.material.icons.outlined.Person
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.bluehabit.budgetku.android.R
 import com.bluehabit.budgetku.android.base.BaseMainApp
+import com.bluehabit.budgetku.android.feature.dashboard.budget.Budget
+import com.bluehabit.budgetku.android.feature.dashboard.community.Community
 import com.bluehabit.budgetku.android.feature.dashboard.home.Home
-import com.bluehabit.budgetku.android.feature.dashboard.profile.Profile
+import com.bluehabit.budgetku.android.feature.dashboard.report.Report
+import com.bluehabit.budgetku.android.ui.Grey500
 
 sealed class DashboardBottomNavigationMenu(
     val route: String = "",
-    val name: String = "",
-    val icon: ImageVector = Icons.Outlined.Home
+    val name: Int = R.string.label_nav_report_dashboard,
+    val iconActive: Int = R.drawable.nav_home_active,
+    val iconInactive: Int = R.drawable.nav_home_inactive
 ) {
     object MenuHome : DashboardBottomNavigationMenu(
         route = Home.routeName,
-        name = "Home",
-        icon = Icons.Outlined.Home
+        name = R.string.label_nav_home_dashboard,
+        iconActive = R.drawable.nav_home_active,
+        iconInactive = R.drawable.nav_home_inactive
     )
 
-    object MenuProfile : DashboardBottomNavigationMenu(
-        route = Profile.routeName,
-        name = "Profile",
-        icon = Icons.Outlined.Person
+    object MenuCommunity : DashboardBottomNavigationMenu(
+        route = Community.routeName,
+        name = R.string.label_nav_community_dashboard,
+        iconActive = R.drawable.nav_community_active,
+        iconInactive = R.drawable.nav_community_inactive
+    )
+
+    object MenuBudget : DashboardBottomNavigationMenu(
+        route = Budget.routeName,
+        name = R.string.label_nav_budget_dashboard,
+        iconActive = R.drawable.nav_budget_active,
+        iconInactive = R.drawable.nav_budget_inactive
+    )
+
+    object MenuReport : DashboardBottomNavigationMenu(
+        route = Report.routeName,
+        name = R.string.label_nav_report_dashboard,
+        iconActive = R.drawable.nav_report_active,
+        iconInactive = R.drawable.nav_report_inactive
     )
 }
 
 var menus = listOf(
     DashboardBottomNavigationMenu.MenuHome,
-    DashboardBottomNavigationMenu.MenuProfile
+    DashboardBottomNavigationMenu.MenuCommunity,
+    DashboardBottomNavigationMenu.MenuBudget,
+    DashboardBottomNavigationMenu.MenuReport
 )
 
 
 @Composable
 fun DashboardBottomNavigation(
     currentRoute: String,
-    onRefresh: () -> Unit = {},
+    onRefresh: (DashboardBottomNavigationMenu) -> Unit = {},
     onClick: (DashboardBottomNavigationMenu) -> Unit = {}
 ) {
-    BottomNavigation() {
+    BottomAppBar(
+        backgroundColor = MaterialTheme.colors.surface,
+        cutoutShape = null,
+    ) {
+
         menus.forEach {
             BottomNavigationItem(
                 selected = currentRoute == it.route,
-                selectedContentColor = MaterialTheme.colors.onBackground,
-                unselectedContentColor = MaterialTheme.colors.onPrimary,
+                selectedContentColor = MaterialTheme.colors.primary,
+                unselectedContentColor = Grey500,
                 onClick = {
-                    if (currentRoute != it.route) {
-                        onClick(it)
-                    } else onRefresh()
+                    if (currentRoute != it.route) onClick(it)
+                    else onRefresh(it)
                 },
                 icon = {
-                    Icon(imageVector = it.icon, contentDescription = it.name)
+                    Icon(
+                        painter = painterResource(
+                            id = if (currentRoute == it.route) it.iconActive
+                            else it.iconInactive
+                        ),
+                        contentDescription = stringResource(id = it.name)
+                    )
+                },
+                label = {
+                    Text(text = stringResource(id = it.name))
                 }
             )
         }
-
     }
+
 }
 
 @Preview

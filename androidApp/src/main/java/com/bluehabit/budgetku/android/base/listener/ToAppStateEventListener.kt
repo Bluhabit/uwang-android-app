@@ -7,6 +7,8 @@
 
 package com.bluehabit.budgetku.android.base.listener
 
-fun interface AppStateEventListener {
+interface ToAppStateEventListener {
     fun onEvent(eventName:String)
+
+    fun exit()
 }

@@ -146,6 +146,10 @@ dependencies {
         testImplementation(test)
     }
 
+    with(libs.composeIcons){
+        implementation(feather)
+    }
+
     with(libs.chuker){
         debugApi(debug)
         releaseApi(release)

@@ -31,4 +31,15 @@
     <string name="title_picker_gender_bottom_sheet">Pilih Jenis Kelamin Kamu</string>
     <string name="text_button_confirmation_date_of_birth_bottom_sheet">Pilih</string>
     <string name="text_button_confirmation_gender_bottom_sheet">Pilih</string>
+
+    <!--    dashboard -->
+    <string name="label_nav_community_dashboard">Komunitas</string>
+    <string name="label_nav_home_dashboard">Home</string>
+    <string name="label_nav_budget_dashboard">Anggaran</string>
+    <string name="label_nav_report_dashboard">Laporan</string>
+    <string name="title_card_remianing_budget_dashboard_home">Sisa Budget</string>
+    <string name="text_card_used_budget_dashboard_home">terpakai</string>
+    <string name="text_card_score_financial_dashboard_home">Skor kesehatan keuanganmu</string>
+    <string name="text_button_expand_card_monthly_dashboard_home">Tutup</string>
+    <!--    end dashboard-->
 </resources>
