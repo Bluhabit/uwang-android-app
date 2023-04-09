@@ -10,10 +10,20 @@ package com.bluehabit.budgetku.android.feature.auth.signUp
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.*
+import androidx.compose.material.Button
+import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.runtime.Composable
@@ -21,8 +31,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
@@ -34,9 +44,10 @@ import com.bluehabit.budgetku.android.R
 import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.base.UIWrapper
 import com.bluehabit.budgetku.android.base.contract.GoogleAuthContract
-import com.bluehabit.budgetku.android.base.extensions.navigateAndReplaceAll
-import com.bluehabit.budgetku.android.components.*
-import com.bluehabit.budgetku.android.feature.auth.signIn.SignIn
+import com.bluehabit.budgetku.android.components.AnnotationTextItem
+import com.bluehabit.budgetku.android.components.ButtonPrimary
+import com.bluehabit.budgetku.android.components.FormInput
+import com.bluehabit.budgetku.android.components.IconWithAction
 import com.bluehabit.budgetku.android.rememberApplicationState
 import com.bluehabit.budgetku.android.ui.Grey700
 
@@ -81,12 +92,12 @@ internal fun ScreenSignUp(
         Column() {
             Image(
                 painter = painterResource(R.drawable.logo_budgetku_full),
-                contentDescription = "Logo Budgetku Full",
+                contentDescription = stringResource(R.string.logo_budgetku_signup),
                 modifier = Modifier.size(169.dp)
             )
 
             Text(
-                text = "Daftar Akun Baru",
+                text = stringResource(R.string.label_register_newaccount_signup),
                 style = MaterialTheme.typography.h4,
                 fontWeight = FontWeight.Bold
             )
@@ -99,13 +110,13 @@ internal fun ScreenSignUp(
                 // Teks "Sudah punya akun?"
                 Text(
 
-                    text = "Sudah punya akun?",
+                    text = stringResource(R.string.label_haveanyaccount_signup),
                     color = Grey700,
                     style = MaterialTheme.typography.subtitle1
                 )
                 // Teks "Login disini" yang bisa diklik
                 Text(
-                    text = "Login disini",
+                    text = stringResource(R.string.text_button_signinhere_signup),
                     color = MaterialTheme.colors.primary,
                     style = MaterialTheme.typography.subtitle1,
                     fontWeight = FontWeight.Bold,
@@ -125,8 +136,8 @@ internal fun ScreenSignUp(
         ) {
             FormInput(
                 value = state.fullName,
-                label = "Email",
-                placeholder = "Masukkan Email Kamu",
+                label = stringResource(id = R.string.label_input_email_signup),
+                placeholder = stringResource(R.string.placeholder_input_email_signup),
                 onChange = {
                     commit {
                         copy(
@@ -145,7 +156,7 @@ internal fun ScreenSignUp(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text(
-                    text = "Lupa Password?",
+                    text = stringResource(R.string.text_button_forgetpassword_signup),
                     color = MaterialTheme.colors.primary,
                     style = MaterialTheme.typography.subtitle1,
                     fontWeight = FontWeight.Bold,
@@ -158,7 +169,7 @@ internal fun ScreenSignUp(
 
             Spacer(modifier = Modifier.height(40.dp))
             ButtonPrimary(
-                text = "Daftar",
+                text = stringResource(R.string.text_button_register_signup),
                 onClick = { launcher.launch(1) },
             )
             Spacer(modifier = Modifier.height(40.dp))
@@ -167,7 +178,7 @@ internal fun ScreenSignUp(
                 horizontalArrangement = Arrangement.Center,
             ) {
                 Text(
-                    text = "Atau",
+                    text = stringResource(R.string.label_or_signup),
                     color = Grey700,
                     style = MaterialTheme.typography.subtitle1
                 )
@@ -177,7 +188,7 @@ internal fun ScreenSignUp(
                 onClick = { launcher.launch(1) },
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text(text = "Daftar dengan Google")
+                Text(text = stringResource(R.string.text_button_signin_with_google_signup))
             }
         }
         Spacer(modifier = Modifier.height(10.dp))
@@ -186,10 +197,10 @@ internal fun ScreenSignUp(
                 Icon(imageVector = Icons.Outlined.Info, contentDescription = "")
             },
             labels = listOf(
-                AnnotationTextItem.Text("Dengan mendaftar, saya menyetujui"),
-                AnnotationTextItem.Button("Syarat dan Ketentuan"),
-                AnnotationTextItem.Text("serta"),
-                AnnotationTextItem.Button("Kebijakan Privasi")
+                AnnotationTextItem.Text(stringResource(R.string.label_agreement_signup)),
+                AnnotationTextItem.Button(stringResource(R.string.textbutton_privacyandpolice_signup)),
+                AnnotationTextItem.Text(stringResource(R.string.label_serta_signup)),
+                AnnotationTextItem.Button(stringResource(R.string.textbutton_termsprivated_signup))
             )
         )
 
