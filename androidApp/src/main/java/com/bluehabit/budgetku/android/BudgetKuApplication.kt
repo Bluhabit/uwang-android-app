@@ -22,13 +22,9 @@ class BudgetKuApplication:Application(), Configuration.Provider {
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base)
         MultiDex.install(this)
-
     }
 
     override fun getWorkManagerConfiguration(): Configuration = Configuration.Builder()
         .setWorkerFactory(workerFactory)
         .build()
-
-    //    Test
-
 }

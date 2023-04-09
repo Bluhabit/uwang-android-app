@@ -17,14 +17,12 @@ plugins {
 }
 
 android {
-    namespace = libs.versions.namespace.get()
+    namespace = libs.versions.namespacedata.get()
     compileSdk = 33
 
     defaultConfig {
         minSdk = 24
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
-
     }
 
     buildTypes {

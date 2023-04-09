@@ -23,7 +23,7 @@ import com.bluehabit.budgetku.android.ApplicationState
 import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.base.UIWrapper
 import com.bluehabit.budgetku.android.base.extensions.navigateSingleTop
-import com.bluehabit.budgetku.android.feature.dashboard.components.DashboardBottomNavigation
+import com.bluehabit.budgetku.android.components.DashboardBottomNavigation
 import com.bluehabit.budgetku.android.rememberApplicationState
 
 object Home {
@@ -42,38 +42,35 @@ fun NavGraphBuilder.routeHome(
 @Composable
 internal fun ScreenHome(
     appState: ApplicationState
-) =UIWrapper<HomeViewModel>(
-        appState = appState,
-        parent = "Dashboard"
+) = UIWrapper<HomeViewModel>(
+    appState = appState
+) {
+    val state by uiState.collectAsState(initial = HomeState())
+
+
+    with(appState) {
+        setupTopAppBar {
+            TopAppBar {
+                Text(text = "title ${state.name}")
+            }
+        }
+        setupBottomAppBar {
+            DashboardBottomNavigation(currentRoute = currentRoute, onRefresh = {}) {
+                appState.navigateSingleTop(it.route)
+            }
+        }
+    }
+    Column(
+        modifier = Modifier.fillMaxSize()
     ) {
-        val state by uiState.collectAsState(initial = HomeState())
-
-
-        with(appState) {
-            setupTopAppBar {
-                TopAppBar {
-                    Text(text = "title ${state.name}")
-                }
-            }
-            setupBottomAppBar {
-                DashboardBottomNavigation(currentRoute = currentRoute) {
-                    appState.navigateSingleTop(it.route)
-                }
-            }
+        Button(onClick = {
+            dispatch(HomeEvent.SetName("Hayolo"))
+        }) {
+            Text(text = "INI")
         }
-        Column(
-            modifier = Modifier.fillMaxSize()
-        ) {
-            Button(onClick = {
-                dispatch(HomeEvent.SetName("Hayolo"))
-            }) {
-                Text(text = "INI")
-            }
-        }
-
     }
 
-
+}
 
 
 @Preview
