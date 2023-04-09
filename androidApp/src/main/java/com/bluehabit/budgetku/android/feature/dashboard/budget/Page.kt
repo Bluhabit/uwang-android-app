@@ -5,7 +5,7 @@
  * Proprietary and confidential
  */
 
-package com.bluehabit.budgetku.android.feature.dashboard.community
+package com.bluehabit.budgetku.android.feature.dashboard.budget
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
@@ -20,26 +20,26 @@ import com.bluehabit.budgetku.android.base.extensions.navigateSingleTop
 import com.bluehabit.budgetku.android.base.listener.BottomNavigationListener
 import com.bluehabit.budgetku.android.components.DashboardBottomNavigationMenu
 
-object Community {
-    const val routeName = "Community"
+object Budget {
+    const val routeName = "Budget"
 }
 
-fun NavGraphBuilder.routeCommunity(
+fun NavGraphBuilder.routeBudget(
     state: ApplicationState,
 ) {
-    composable(Community.routeName) {
-        ScreenCommunity(appState = state)
+    composable(Budget.routeName) {
+        ScreenBudget(appState = state)
     }
 }
 
 @Composable
-internal fun ScreenCommunity(
+internal fun ScreenBudget(
     appState: ApplicationState,
-) = UIWrapper<CommunityViewModel>(appState = appState) {
+) = UIWrapper<BudgetViewModel>(appState = appState) {
     with(appState) {
         bottomNavigationListener(object : BottomNavigationListener {
             override fun onRefresh(item: DashboardBottomNavigationMenu) {
-                // remove empty
+                //remove empty
             }
 
             override fun onNavigate(item: DashboardBottomNavigationMenu) {
@@ -59,8 +59,8 @@ internal fun ScreenCommunity(
 
 @Preview
 @Composable
-fun PreviewScreenCommunity() {
+fun PreviewScreenBudget() {
     BaseMainApp {
-        ScreenCommunity(it)
+        ScreenBudget(it)
     }
 }
