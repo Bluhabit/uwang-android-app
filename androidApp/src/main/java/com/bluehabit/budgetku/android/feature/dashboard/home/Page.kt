@@ -45,6 +45,7 @@ import com.bluehabit.budgetku.android.components.HeaderDashboardHome
 import com.bluehabit.budgetku.android.components.HeaderSectionDashboardHome
 import com.bluehabit.budgetku.android.components.ItemAccount
 import com.bluehabit.budgetku.android.components.ItemTransaction
+import com.bluehabit.budgetku.android.components.ItemTutorial
 import com.bluehabit.budgetku.android.rememberApplicationState
 import java.math.BigDecimal
 
@@ -160,7 +161,7 @@ internal fun ScreenHome(
             }
             item {
                 HeaderSectionDashboardHome(
-                    title = stringResource(R.string.title_section_challenge_dashbaord_home)
+                    title = stringResource(R.string.title_section_challenge_dashboard_home)
                 ) {
 
                 }
@@ -190,10 +191,19 @@ internal fun ScreenHome(
                 }
             }
             item {
-                Text(
-                    text = "Need Improvement UI/UX",
-                    modifier = Modifier.fillMaxWidth(),
-                    textAlign = TextAlign.Center
+                LazyRow(
+                    horizontalArrangement = Arrangement.spacedBy(16.dp),
+                    content = {
+                        item {
+                            Spacer(modifier = Modifier.width(4.dp))
+                        }
+                        items(3) {
+                            ItemTutorial(
+                                title = "Cara Transaksi di Budgetku ",
+                                image = R.drawable.ic_tutorial
+                            )
+                        }
+                    }
                 )
             }
             item {
