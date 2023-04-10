@@ -40,7 +40,11 @@ import com.bluehabit.budgetku.android.R
 import com.bluehabit.budgetku.android.ApplicationState
 import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.base.UIWrapper
-import com.bluehabit.budgetku.android.components.*
+import com.bluehabit.budgetku.android.components.BottomSheetDatePicker
+import com.bluehabit.budgetku.android.components.BottomSheetGenderPicker
+import com.bluehabit.budgetku.android.components.ButtonPrimary
+import com.bluehabit.budgetku.android.components.FormInput
+import com.bluehabit.budgetku.android.components.FormInputWithIcon
 
 object CompleteProfile {
     const val routeName = "CompleteProfile"

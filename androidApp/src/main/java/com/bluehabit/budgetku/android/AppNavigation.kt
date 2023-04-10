@@ -16,7 +16,6 @@ import com.bluehabit.budgetku.android.feature.auth.signUp.routeSignUp
 import com.bluehabit.budgetku.android.feature.createBudget.routeCreateBudget
 import com.bluehabit.budgetku.android.feature.dashboard.budget.routeBudget
 import com.bluehabit.budgetku.android.feature.dashboard.community.routeCommunity
-import com.bluehabit.budgetku.android.feature.dashboard.home.Home
 import com.bluehabit.budgetku.android.feature.dashboard.home.routeHome
 import com.bluehabit.budgetku.android.feature.dashboard.report.routeReport
 import com.bluehabit.budgetku.android.feature.onboarding.routeOnboard
