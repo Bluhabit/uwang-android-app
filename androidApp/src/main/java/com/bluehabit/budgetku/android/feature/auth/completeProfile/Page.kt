@@ -31,7 +31,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.bluehabit.budgetku.R
+import com.bluehabit.budgetku.android.R
 import com.bluehabit.budgetku.android.ApplicationState
 import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.base.UIWrapper
