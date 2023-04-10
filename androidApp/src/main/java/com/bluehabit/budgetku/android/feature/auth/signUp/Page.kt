@@ -114,15 +114,12 @@ internal fun ScreenSignUp(
                     color = Grey700,
                     style = MaterialTheme.typography.subtitle1
                 )
-                // Teks "Login disini" yang bisa diklik
                 Text(
                     text = stringResource(R.string.text_button_signinhere_signup),
                     color = MaterialTheme.colors.primary,
                     style = MaterialTheme.typography.subtitle1,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.clickable {
-                        // Aksi yang dilakukan ketika teks "Login disini" diklik
-                        // Contoh: Navigasi ke halaman login
                     }
                 )
             }
@@ -161,8 +158,6 @@ internal fun ScreenSignUp(
                     style = MaterialTheme.typography.subtitle1,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.clickable {
-                        // Aksi yang dilakukan ketika teks "Login disini" diklik
-                        // Contoh: Navigasi ke halaman login
                     }
                 )
             }
