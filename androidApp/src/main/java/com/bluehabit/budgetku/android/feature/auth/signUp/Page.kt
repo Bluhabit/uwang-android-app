@@ -108,7 +108,6 @@ internal fun ScreenSignUp(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                // Teks "Sudah punya akun?"
                 Text(
 
                     text = stringResource(R.string.label_haveanyaccount_signup),
