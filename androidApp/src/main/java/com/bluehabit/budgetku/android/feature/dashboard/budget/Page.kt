@@ -44,10 +44,12 @@ import com.bluehabit.budgetku.android.base.UIWrapper
 import com.bluehabit.budgetku.android.base.extensions.bottomNavigationListener
 import com.bluehabit.budgetku.android.base.extensions.navigateSingleTop
 import com.bluehabit.budgetku.android.base.listener.BottomNavigationListener
+import com.bluehabit.budgetku.android.components.BottomSheetAddBudgetTransaction
 import com.bluehabit.budgetku.android.feature.dashboard.budget.components.CardEmptyBudget
 import com.bluehabit.budgetku.android.feature.dashboard.budget.components.CardEmptyTransactionBudget
 import com.bluehabit.budgetku.android.feature.dashboard.budget.components.CardSummaryBudget
 import com.bluehabit.budgetku.android.components.DashboardBottomNavigationMenu
+import com.bluehabit.budgetku.android.feature.createBudget.CreateBudget
 import com.bluehabit.budgetku.android.feature.dashboard.budget.components.ItemExpensesCategoryBudget
 import com.bluehabit.budgetku.android.feature.dashboard.budget.components.ItemTipsBudgetEmpty
 import com.bluehabit.budgetku.android.feature.dashboard.budget.components.ItemTipsBudgetSuccess
@@ -73,9 +75,24 @@ internal fun ScreenBudget(
 ) = UIWrapper<BudgetViewModel>(appState = appState) {
     val dataState by uiDataState.collectAsState()
     with(appState) {
+        setupBottomSheet {
+            BottomSheetAddBudgetTransaction(
+                onDismiss = {
+                    hideBottomSheet()
+                },
+                onAddAccount = {},
+                onAddTransaction = {},
+                onAddBudget = {
+                    hideBottomSheet()
+                    navigate(CreateBudget.routeName)
+                },
+                onAddTransfer = {},
+            )
+        }
         bottomNavigationListener(object : BottomNavigationListener {
             override fun onRefresh(item: DashboardBottomNavigationMenu) {
-                //remove empty
+                // remove empty
+
             }
 
             override fun onNavigate(item: DashboardBottomNavigationMenu) {
@@ -83,7 +100,7 @@ internal fun ScreenBudget(
             }
 
             override fun onFab() {
-                //remove empty
+                showBottomSheet()
             }
 
         })
