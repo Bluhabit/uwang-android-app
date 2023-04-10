@@ -45,6 +45,7 @@ import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.base.UIWrapper
 import com.bluehabit.budgetku.android.base.contract.GoogleAuthContract
 import com.bluehabit.budgetku.android.components.AnnotationTextItem
+import com.bluehabit.budgetku.android.components.ButtonGoogle
 import com.bluehabit.budgetku.android.components.ButtonPrimary
 import com.bluehabit.budgetku.android.components.FormInput
 import com.bluehabit.budgetku.android.components.IconWithAction
@@ -184,12 +185,10 @@ internal fun ScreenSignUp(
                 )
             }
             Spacer(modifier = Modifier.height(20.dp))
-            Button(
+            ButtonGoogle(
+                text = stringResource(R.string.text_button_signin_with_google_signup),
                 onClick = { launcher.launch(1) },
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Text(text = stringResource(R.string.text_button_signin_with_google_signup))
-            }
+            )
         }
         Spacer(modifier = Modifier.height(10.dp))
         IconWithAction(

@@ -65,7 +65,6 @@ class ApplicationState internal constructor(
     )
 
     internal var showBottomAppBar by mutableStateOf(false)
-    internal var bottomAppBar by mutableStateOf(CreateContent {})
 
     internal var showTopAppBar by mutableStateOf(false)
     internal var topAppBar by mutableStateOf(CreateContent {})
@@ -74,18 +73,6 @@ class ApplicationState internal constructor(
         Snackbar(snackbarData = it)
     })
     internal var bottomSheet by mutableStateOf(CreateContent {})
-
-    @Composable
-    fun setupBottomAppBar(
-        content: @Composable () -> Unit = {}
-    ) {
-        LaunchedEffect(key1 = this, block = {
-            bottomAppBar = CreateContent(content)
-            if (!showBottomAppBar) {
-                showBottomAppBar = true
-            }
-        })
-    }
 
     @Composable
     fun setupTopAppBar(
