@@ -100,7 +100,7 @@ internal fun ScreenSignIn(appState: ApplicationState) = UIWrapper<SignInViewMode
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(bottom = 40.dp),
+                        .padding(bottom = 40.dp,top=24.dp),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(
