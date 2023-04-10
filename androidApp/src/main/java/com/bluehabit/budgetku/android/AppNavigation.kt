@@ -10,6 +10,7 @@ package com.bluehabit.budgetku.android
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import com.bluehabit.budgetku.android.feature.auth.completeProfile.routeCompleteProfile
+import com.bluehabit.budgetku.android.feature.auth.inputPin.routeInputPin
 import com.bluehabit.budgetku.android.feature.auth.signIn.routeSignIn
 import com.bluehabit.budgetku.android.feature.auth.signUp.SignUp
 import com.bluehabit.budgetku.android.feature.auth.signUp.routeSignUp
@@ -45,6 +46,9 @@ fun AppNavigation(
             state = applicationState
         )
         routeProfile(
+            state = applicationState
+        )
+        routeInputPin(
             state = applicationState
         )
 

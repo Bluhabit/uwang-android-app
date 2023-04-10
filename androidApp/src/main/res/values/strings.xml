@@ -47,4 +47,17 @@
     <string name="label_or_signup">Atau</string>
     <string name="text_button_signin_with_google_signup">Daftar dengan Google</string>
 
+    <string name="text_input_pin">Masukkan PIN</string>
+    <string name="label_forgotpin_inputpin">Lupa PIN?</string>
+    <string name="text_button_numpad_1">1</string>
+    <string name="text_button_numpad_2">2</string>
+    <string name="text_button_numpad_3">3</string>
+    <string name="text_button_numpad_4">4</string>
+    <string name="text_button_numpad_5">5</string>
+    <string name="text_button_numpad_6">6</string>
+    <string name="text_button_numpad_7">7</string>
+    <string name="text_button_numpad_8">8</string>
+    <string name="text_button_numpad_9">9</string>
+    <string name="text_button_numpad_0">0</string>
+
 </resources>
