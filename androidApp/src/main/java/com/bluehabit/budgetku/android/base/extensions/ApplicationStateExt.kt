@@ -8,14 +8,13 @@
 package com.bluehabit.budgetku.android.base.extensions
 
 import com.bluehabit.budgetku.android.ApplicationState
-import com.bluehabit.budgetku.android.base.listener.AppStateEventListener
+import com.bluehabit.budgetku.android.base.listener.BottomNavigationListener
 import com.bluehabit.budgetku.android.base.listener.BottomSheetStateListener
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
-
 
 
 //region route
@@ -39,7 +38,7 @@ fun ApplicationState.navigateUp() {
  *
  * @throws IllegalArgumentException from navHostController
  */
-fun ApplicationState.navigate(routeName: String, vararg args:String) {
+fun ApplicationState.navigate(routeName: String, vararg args: String) {
     var buildRoute = routeName
     if (args.isNotEmpty()) {
         args.forEach {
@@ -62,7 +61,7 @@ fun ApplicationState.navigate(routeName: String, vararg args:String) {
  *
  * @throws IllegalArgumentException from navHostController
  */
-fun ApplicationState.navigateSingleTop(routeName: String, vararg args:String) {
+fun ApplicationState.navigateSingleTop(routeName: String, vararg args: String) {
     var buildRoute = routeName
     if (args.isNotEmpty()) {
         args.forEach {
@@ -87,7 +86,7 @@ fun ApplicationState.navigateSingleTop(routeName: String, vararg args:String) {
  *
  * @throws IllegalArgumentException from navHostController
  */
-fun ApplicationState.navigateAndReplace(routeName: String, vararg args:String) {
+fun ApplicationState.navigateAndReplace(routeName: String, vararg args: String) {
     var buildRoute = routeName
     if (args.isNotEmpty()) {
         args.forEach {
@@ -114,7 +113,7 @@ fun ApplicationState.navigateAndReplace(routeName: String, vararg args:String) {
  *
  * @throws IllegalArgumentException from navHostController
  */
-fun ApplicationState.navigateAndReplaceAll(routeName: String, vararg args:String) {
+fun ApplicationState.navigateAndReplaceAll(routeName: String, vararg args: String) {
     var buildRoute = routeName
     if (args.isNotEmpty()) {
         args.forEach {
@@ -148,32 +147,38 @@ fun ApplicationState.runSuspend(
 
 
 //region event
-fun ApplicationState.addOnEventListener(listener: AppStateEventListener) =
-    event.addOnEventListener(listener)
-
 fun ApplicationState.addOnBottomSheetStateChangeListener(listener: BottomSheetStateListener) =
     event.addOnBottomSheetStateListener(listener)
 
+fun ApplicationState.bottomNavigationListener(listener: BottomNavigationListener) =
+    event.bottomNavigationListener(listener)
 
-fun ApplicationState.sendEvent(eventName: String) =
-    event.sendEvent(eventName)
+fun ApplicationState.sendEvent(eventName: String) = event.sendEvent(eventName)
 
 fun ApplicationState.exit() =
     event.sendEvent("EXIT")
 //end region
 
-fun ApplicationState.listenChanges() = this.router.addOnDestinationChangedListener { _, destination, _ ->
-    currentRoute = destination.route.orEmpty()
-}
-
-fun ApplicationState.showBottomSheet(){
+fun ApplicationState.showBottomSheet() {
     runSuspend {
         bottomSheetState.show()
     }
 }
 
-fun ApplicationState.hideBottomSheet(){
+fun ApplicationState.hideBottomSheet() {
     runSuspend {
         bottomSheetState.hide()
+    }
+}
+
+fun ApplicationState.showBottomBar() {
+    if (!showBottomAppBar) {
+        showBottomAppBar = true
+    }
+}
+
+fun ApplicationState.hideBottomBar() {
+    if (showBottomAppBar) {
+        showBottomAppBar = false
     }
 }

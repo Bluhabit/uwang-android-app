@@ -31,6 +31,7 @@ fun FormInput(
     value: String = "",
     label: String = "",
     placeholder: String = "",
+    leadingIcon: (@Composable ()->Unit)?=null,
     error:Boolean=false,
     errorMessage:String="",
     keyboardActions: KeyboardActions= KeyboardActions(),
@@ -65,6 +66,7 @@ fun FormInput(
                     fontWeight = FontWeight.Normal
                 )
             },
+            leadingIcon=leadingIcon,
             keyboardOptions = keyboardOptions,
             keyboardActions = keyboardActions,
             textStyle = MaterialTheme.typography.subtitle2,

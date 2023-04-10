@@ -11,6 +11,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.FabPosition
+import androidx.compose.material.FloatingActionButton
+import androidx.compose.material.FloatingActionButtonDefaults
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.Scaffold
@@ -21,8 +25,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluehabit.budgetku.android.ApplicationState
+import com.bluehabit.budgetku.android.components.DashboardBottomNavigation
 import com.bluehabit.budgetku.android.rememberApplicationState
 import com.bluehabit.budgetku.android.ui.BudgetKuTheme
+import compose.icons.FeatherIcons
+import compose.icons.feathericons.Plus
 
 @Composable
 fun BaseMainApp(
@@ -30,11 +37,6 @@ fun BaseMainApp(
     topAppBar: @Composable (ApplicationState) -> Unit = {
         if (it.showTopAppBar) {
             it.topAppBar.invoke()
-        }
-    },
-    bottomBar: @Composable (ApplicationState) -> Unit = {
-        if (it.showBottomAppBar) {
-            it.bottomAppBar.invoke()
         }
     },
     snackBar: @Composable (ApplicationState) -> Unit = { state ->
@@ -45,6 +47,15 @@ fun BaseMainApp(
             }
         )
 
+    },
+    bottomBar: @Composable (ApplicationState) -> Unit = { state ->
+        if (state.showBottomAppBar) {
+            DashboardBottomNavigation(
+                currentRoute = state.currentRoute,
+                onRefresh = { state.event.refresh(it) },
+                onClick = { state.event.navigate(it) }
+            )
+        }
     },
     bottomSheet: @Composable (ApplicationState) -> Unit = {
         it.bottomSheet.invoke()
@@ -76,6 +87,30 @@ fun BaseMainApp(
                     snackbarHost = {
                         snackBar(appState)
                     },
+                    isFloatingActionButtonDocked = true,
+                    floatingActionButton = {
+                        if (appState.showBottomAppBar) {
+                            FloatingActionButton(
+                                onClick = {
+                                    appState.event.onFab()
+                                },
+                                backgroundColor = MaterialTheme.colors.primary,
+                                elevation = FloatingActionButtonDefaults.elevation(
+                                    focusedElevation = 0.dp,
+                                    pressedElevation = 0.dp,
+                                    hoveredElevation = 0.dp,
+                                    defaultElevation = 0.dp
+                                )
+                            ) {
+                                Icon(
+                                    imageVector = FeatherIcons.Plus,
+                                    contentDescription = "",
+                                    tint = MaterialTheme.colors.onPrimary
+                                )
+                            }
+                        }
+                    },
+                    floatingActionButtonPosition = FabPosition.Center
                 ) {
                     Column(
                         modifier = Modifier.padding(it)

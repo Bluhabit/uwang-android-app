@@ -5,7 +5,7 @@
  * Proprietary and confidential
  */
 
-package com.bluehabit.budgetku.android.feature.dashboard.profile
+package com.bluehabit.budgetku.android.feature.dashboard.report
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
@@ -13,15 +13,9 @@ import javax.annotation.concurrent.Immutable
 
 @Immutable
 @Parcelize
-data class ProfileState(
-    val name:String=""
+data class ReportState(
+    val a: String = ""
 ) : Parcelable
 
-@Immutable
-@Parcelize
-data class ProfileDataState(
-    val name:String=""
-) : Parcelable
-sealed class ProfileEvent{
-    class SetName(var name:String):ProfileEvent()
+sealed class ReportEvent {
 }
