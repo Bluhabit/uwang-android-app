@@ -12,6 +12,7 @@ import androidx.navigation.compose.NavHost
 import com.bluehabit.budgetku.android.feature.auth.completeProfile.routeCompleteProfile
 import com.bluehabit.budgetku.android.feature.auth.signIn.routeSignIn
 import com.bluehabit.budgetku.android.feature.auth.signUp.routeSignUp
+import com.bluehabit.budgetku.android.feature.createBudget.routeCreateBudget
 import com.bluehabit.budgetku.android.feature.dashboard.budget.routeBudget
 import com.bluehabit.budgetku.android.feature.dashboard.community.routeCommunity
 import com.bluehabit.budgetku.android.feature.dashboard.home.Home
@@ -56,6 +57,9 @@ fun AppNavigation(
             state = applicationState
         )
 
+        routeCreateBudget(
+            state = applicationState
+        )
 
     }
 }
