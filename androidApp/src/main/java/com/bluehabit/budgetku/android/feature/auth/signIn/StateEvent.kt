@@ -17,7 +17,9 @@ import javax.annotation.concurrent.Immutable
 @Parcelize
 data class SignInState(
     val email: String = "",
-    val password: String = ""
+    val password: String = "",
+    var emailIsError: Boolean=false,
+    var passwordIsError: Boolean=false,
 ) : Parcelable
 
 sealed class SignInEvent {

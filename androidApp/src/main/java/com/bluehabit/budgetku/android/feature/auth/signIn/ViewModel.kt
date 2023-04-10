@@ -29,8 +29,14 @@ class SignInViewModel @Inject constructor(
         valid: suspend (String, String) -> Unit
     ) = asyncWithState {
         when {
-            !Patterns.EMAIL_ADDRESS.matcher(email).matches() -> showSnackbar("Email didn't valid")
-            email.isEmpty() || password.isEmpty() -> showSnackbar("Email or password cannot emmpty")
+            email.isEmpty() || password.isEmpty() -> {
+                    emailIsError = email.isEmpty()
+                    passwordIsError = password.isEmpty()
+            }
+            !Patterns.EMAIL_ADDRESS.matcher(email).matches() -> {
+                emailIsError = true
+                showSnackbar("Email didn't valid")
+            }
             else -> valid(email, password)
         }
     }
