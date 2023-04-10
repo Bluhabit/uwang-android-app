@@ -5,27 +5,19 @@
  * Proprietary and confidential
  */
 
-package com.bluehabit.budgetku.android.feature.dashboard.profile
+package com.bluehabit.budgetku.android.feature.createBudget
 
 import com.bluehabit.budgetku.android.base.BaseViewModelData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class ProfileViewModel @Inject constructor(
-) : BaseViewModelData<ProfileState,ProfileDataState, ProfileEvent>(ProfileState(),
-    ProfileDataState()
-) {
+class CreateBudgetViewModel @Inject constructor(
+) : BaseViewModelData<CreateBudgetState, CreateBudgetDataState, CreateBudgetEvent>(CreateBudgetState(), CreateBudgetDataState()) {
     init {
         handleActions()
     }
 
-    override fun handleActions() = onEvent {
-        when (it) {
-            is ProfileEvent.SetName -> {
-            }
-        }
-    }
-
+    override fun handleActions() = onEvent {}
 
 }

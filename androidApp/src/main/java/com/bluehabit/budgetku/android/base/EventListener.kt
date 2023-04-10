@@ -8,21 +8,36 @@
 package com.bluehabit.budgetku.android.base
 
 import androidx.compose.material.ModalBottomSheetValue
-import com.bluehabit.budgetku.android.base.listener.AppStateEventListener
+import com.bluehabit.budgetku.android.base.listener.BottomNavigationListener
 import com.bluehabit.budgetku.android.base.listener.BottomSheetStateListener
+import com.bluehabit.budgetku.android.base.listener.ToAppStateEventListener
+import com.bluehabit.budgetku.android.components.DashboardBottomNavigationMenu
 
 
 class EventListener {
-    private var appEvent: AppStateEventListener? = null
+    private var toAppEvent: ToAppStateEventListener? = null
+    private var bottomNavigationEvent: BottomNavigationListener? = null
     private var bottomSheetStateListener: BottomSheetStateListener? = null
 
+    fun bottomNavigationListener(listener: BottomNavigationListener){
+        bottomNavigationEvent = listener
+    }
+
+    fun refresh(item:DashboardBottomNavigationMenu) = bottomNavigationEvent?.onRefresh(item)
+    fun navigate(item:DashboardBottomNavigationMenu) = bottomNavigationEvent?.onNavigate(item)
+    fun onFab() = bottomNavigationEvent?.onFab()
+
     //region app event
-    fun addOnEventListener(listener: AppStateEventListener) {
-        appEvent = listener
+    fun addOnEventListener(listener: ToAppStateEventListener) {
+        toAppEvent = listener
     }
 
     fun sendEvent(eventName: String) {
-        appEvent?.onEvent(eventName)
+        toAppEvent?.onEvent(eventName)
+    }
+
+    fun exit() {
+        toAppEvent?.exit()
     }
     //end region
 
@@ -37,7 +52,7 @@ class EventListener {
     //end region
 
     fun clear() {
-        appEvent = null
+        toAppEvent = null
         bottomSheetStateListener = null
     }
 

@@ -15,7 +15,12 @@ import androidx.navigation.compose.composable
 import com.bluehabit.budgetku.android.ApplicationState
 import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.base.UIWrapper
-import com.bluehabit.budgetku.android.components.DashboardBottomNavigation
+import com.bluehabit.budgetku.android.base.extensions.bottomNavigationListener
+import com.bluehabit.budgetku.android.base.extensions.navigateSingleTop
+import com.bluehabit.budgetku.android.base.listener.BottomNavigationListener
+import com.bluehabit.budgetku.android.components.BottomSheetAddBudgetTransaction
+import com.bluehabit.budgetku.android.components.DashboardBottomNavigationMenu
+import com.bluehabit.budgetku.android.feature.createBudget.CreateBudget
 
 object Community {
     const val routeName = "Community"
@@ -34,11 +39,35 @@ internal fun ScreenCommunity(
     appState: ApplicationState,
 ) = UIWrapper<CommunityViewModel>(appState = appState) {
     with(appState) {
-        setupBottomAppBar {
-            DashboardBottomNavigation(currentRoute = appState.currentRoute, onRefresh = {}) {
+        setupBottomSheet {
+            BottomSheetAddBudgetTransaction(
+                onDismiss = {
+                    hideBottomSheet()
+                },
+                onAddAccount = {},
+                onAddTransaction = {},
+                onAddBudget = {
+                    hideBottomSheet()
+                    navigate(CreateBudget.routeName)
+                },
+                onAddTransfer = {},
+            )
+        }
+        bottomNavigationListener(object : BottomNavigationListener {
+            override fun onRefresh(item: DashboardBottomNavigationMenu) {
+                // remove empty
 
             }
-        }
+
+            override fun onNavigate(item: DashboardBottomNavigationMenu) {
+                navigateSingleTop(item.route)
+            }
+
+            override fun onFab() {
+                showBottomSheet()
+            }
+
+        })
     }
     Column {
 

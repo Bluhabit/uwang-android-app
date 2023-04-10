@@ -15,7 +15,10 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.bluehabit.budgetku.android.base.BaseMainApp
 
 @Composable
 fun ButtonPrimary(
@@ -38,7 +41,18 @@ fun ButtonPrimary(
     ) {
         Text(
             text = text,
-            style = MaterialTheme.typography.subtitle2
+            style = MaterialTheme.typography.button,
+            fontWeight = FontWeight.Medium
+        )
+    }
+}
+
+@Preview
+@Composable
+fun PreviewButtonPrimary() {
+    BaseMainApp {
+        ButtonPrimary(
+            text = "Continue"
         )
     }
 }
