@@ -33,6 +33,7 @@ import com.bluehabit.budgetku.android.base.extensions.bottomNavigationListener
 import com.bluehabit.budgetku.android.base.extensions.gridItems
 import com.bluehabit.budgetku.android.base.extensions.navigateSingleTop
 import com.bluehabit.budgetku.android.base.listener.BottomNavigationListener
+import com.bluehabit.budgetku.android.components.BottomSheetAddBudgetTransaction
 import com.bluehabit.budgetku.android.components.CardArticleGrid
 import com.bluehabit.budgetku.android.components.CardChallengeBudgeting
 import com.bluehabit.budgetku.android.components.CardMonthlyBudget
@@ -43,6 +44,7 @@ import com.bluehabit.budgetku.android.components.HeaderSectionDashboardHome
 import com.bluehabit.budgetku.android.components.ItemAccount
 import com.bluehabit.budgetku.android.components.ItemTransaction
 import com.bluehabit.budgetku.android.components.ItemTutorial
+import com.bluehabit.budgetku.android.feature.createBudget.CreateBudget
 import com.bluehabit.budgetku.android.rememberApplicationState
 import java.math.BigDecimal
 
@@ -71,6 +73,20 @@ internal fun ScreenHome(
 
 
     with(appState) {
+        setupBottomSheet {
+            BottomSheetAddBudgetTransaction(
+                onDismiss = {
+                    hideBottomSheet()
+                },
+                onAddAccount = {},
+                onAddTransaction = {},
+                onAddBudget = {
+                    hideBottomSheet()
+                    navigate(CreateBudget.routeName)
+                },
+                onAddTransfer = {},
+            )
+        }
         bottomNavigationListener(object : BottomNavigationListener {
             override fun onRefresh(item: DashboardBottomNavigationMenu) {
                 // remove empty
@@ -82,7 +98,7 @@ internal fun ScreenHome(
             }
 
             override fun onFab() {
-                // remove empty
+                showBottomSheet()
             }
 
         })

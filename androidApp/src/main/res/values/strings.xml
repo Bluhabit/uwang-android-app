@@ -67,5 +67,14 @@
     <string name="text_label_usage_percentage_summary_budget">%1$s terpakai</string>
     <string name="text_label_usage_summary_budget">Terpakai %1$s</string>
     <string name="text_button_edit_summary_budget">Edit</string>
+    <string name="text_title_bottom_sheet_add_budget_transaction">Tambah Baru</string>
+    <string name="title_item_add_account_budget">Tambah Akun Finansial</string>
+    <string name="title_item_add_transaction_budget">Catat Transaksi</string>
+    <string name="title_item_add_transfer_budget">Transfer Antar Akun</string>
+    <string name="title_item_add_budget">Bikin Budget</string>
+    <string name="subtitle_item_add_account_budget">Bank,e-wallet,cash,investasi</string>
+    <string name="subtitle_item_add_transaction_budget"><![CDATA[Pengeluaran & pemasukan]]></string>
+    <string name="subtitle_item_add_transfer_budget">Pindahin uang ke akun berbeda</string>
+    <string name="subtitle_item_add_budget">Pantau kategori pengeluaran</string>
     <!--    end dashboard-->
 </resources>
