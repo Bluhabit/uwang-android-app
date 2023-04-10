@@ -13,8 +13,11 @@ import com.bluehabit.budgetku.android.feature.auth.completeProfile.routeComplete
 import com.bluehabit.budgetku.android.feature.auth.signIn.routeSignIn
 import com.bluehabit.budgetku.android.feature.auth.signUp.SignUp
 import com.bluehabit.budgetku.android.feature.auth.signUp.routeSignUp
+import com.bluehabit.budgetku.android.feature.dashboard.budget.routeBudget
+import com.bluehabit.budgetku.android.feature.dashboard.community.routeCommunity
+import com.bluehabit.budgetku.android.feature.dashboard.home.Home
 import com.bluehabit.budgetku.android.feature.dashboard.home.routeHome
-import com.bluehabit.budgetku.android.feature.dashboard.profile.routeProfile
+import com.bluehabit.budgetku.android.feature.dashboard.report.routeReport
 import com.bluehabit.budgetku.android.feature.onboarding.routeOnboard
 import com.bluehabit.budgetku.android.feature.splashScreen.routeSplash
 
@@ -24,6 +27,7 @@ fun AppNavigation(
 ) {
     NavHost(
         navController = applicationState.router,
+        startDestination = Home.routeName
         startDestination = SignUp.routeName
     ) {
         routeSplash(
@@ -44,7 +48,13 @@ fun AppNavigation(
         routeHome(
             state = applicationState
         )
-        routeProfile(
+        routeCommunity(
+            state = applicationState
+        )
+        routeBudget(
+            state = applicationState
+        )
+        routeReport(
             state = applicationState
         )
 

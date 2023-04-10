@@ -32,6 +32,30 @@
     <string name="text_button_confirmation_date_of_birth_bottom_sheet">Pilih</string>
     <string name="text_button_confirmation_gender_bottom_sheet">Pilih</string>
 
+    <!--    dashboard -->
+    <string name="label_nav_community_dashboard">Komunitas</string>
+    <string name="label_nav_home_dashboard">Home</string>
+    <string name="label_nav_budget_dashboard">Anggaran</string>
+    <string name="label_nav_report_dashboard">Laporan</string>
+    <string name="title_card_remaining_budget_dashboard_home">Sisa Budget</string>
+    <string name="text_card_used_budget_dashboard_home">terpakai</string>
+    <string name="text_card_score_financial_dashboard_home">Skor kesehatan keuanganmu</string>
+    <string name="text_button_expand_card_monthly_dashboard_home">Lihat Rincian</string>
+    <string name="text_button_hide_card_monthly_dashboard_home">Tutup Rincian</string>
+    <string name="text_title_display_name_dashboard_home">👋 Hi, %1$s !</string>
+    <string name="text_label_points_dashboard_home">%1$s/%2$s pts</string>
+    <string name="text_subtitle_remaining_balance_dashboard_home">Sisa Keuangan Bulan %1$s</string>
+    <string name="text_title_income_dashboard_home">Uang Masuk</string>
+    <string name="text_title_expense_dashboard_home">Uang Keluar</string>
+    <string name="title_section_list_account_dashboard_home">Daftar Rekening</string>
+    <string name="title_section_monthly_budgeting_dashboard_home">Anggaran Bulanan</string>
+    <string name="title_section_new_transaction_dashboard_home">Transaksi Baru</string>
+    <string name="title_section_challenge_dashboard_home">Tantangan Keuangan</string>
+    <string name="title_section_tutorial_dashboard_home">Tutorial dari Budgetku</string>
+    <string name="title_section_article_dashboard_home">Yang Menarik di Budgetku</string>
+    <string name="text_button_show_challenge_card_challenge_budgeting">Lihat Tantangan</string>
+    <!--    end dashboard-->
+
     <string name="label_input_email_signup">Email</string>
     <string name="placeholder_input_email_signup">Masukkan Email Kamu</string>
     <string name="text_button_forgetpassword_signup">Lupa Password?</string>
