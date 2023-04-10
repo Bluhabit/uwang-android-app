@@ -26,7 +26,7 @@ val UberMove = FontFamily(
     ),
     Font(
         resId=R.font.uber_move_medium,
-        weight = FontWeight.SemiBold,
+        weight = FontWeight.Medium,
         style = FontStyle.Normal
     ),
     Font(
@@ -75,7 +75,7 @@ val Typography = Typography(
     ),
     h6 = TextStyle(
         fontFamily = UberMove,
-        fontWeight = FontWeight.Normal,
+        fontWeight = FontWeight.Medium,
         fontSize = 20.sp,
         letterSpacing = 0.15.sp
     ),
