@@ -35,11 +35,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import com.bluehabit.budgetku.R
 import com.bluehabit.budgetku.android.ApplicationState
-import com.bluehabit.budgetku.android.R
 import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.base.UIWrapper
 import com.bluehabit.budgetku.android.components.ButtonPrimary
+import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 
@@ -74,6 +75,7 @@ fun NavGraphBuilder.routeOnboard(
     }
 }
 
+@OptIn(ExperimentalPagerApi::class)
 @Composable
 internal fun ScreenOnboard(
     appState: ApplicationState,

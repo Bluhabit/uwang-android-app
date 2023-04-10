@@ -15,7 +15,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import com.bluehabit.budgetku.android.R
+import com.bluehabit.budgetku.R
 
 
 val UberMove = FontFamily(
@@ -35,7 +35,7 @@ val UberMove = FontFamily(
         style = FontStyle.Normal
     ),
     Font(
-        resId=R.font.uber_move_text_regular,
+        resId= R.font.uber_move_text_regular,
         weight = FontWeight.Normal,
         style = FontStyle.Normal
     )
