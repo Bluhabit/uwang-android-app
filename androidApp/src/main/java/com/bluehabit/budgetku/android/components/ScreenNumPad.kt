@@ -32,6 +32,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -102,7 +103,7 @@ val buttons = mapOf(
 )
 
 @Composable
-fun ScreenInputAmount(
+fun ScreenNumPad(
     value: String = "",
     onSubmit: () -> Unit = {},
     onClear: () -> Unit = {},
@@ -145,7 +146,7 @@ fun ScreenInputAmount(
                 )
             )
             Text(
-                text = "Input Nominal",
+                text = stringResource(R.string.text_title_screen_num_pad),
                 style = MaterialTheme.typography.h6,
                 fontWeight = FontWeight.Bold
             )
@@ -285,7 +286,7 @@ fun ScreenInputAmount(
                     }
 
                 }
-                ButtonPrimary(text = "Simpan", onClick = onSubmit)
+                ButtonPrimary(text = stringResource(R.string.text_button_input_amount_num_pad), onClick = onSubmit)
             }
         }
     }
@@ -293,9 +294,9 @@ fun ScreenInputAmount(
 
 @Preview
 @Composable
-fun PreviewScreenInputAmount() {
+fun PreviewScreenInputNumPad() {
     BaseMainApp {
-        ScreenInputAmount(
+        ScreenNumPad(
             value = "1.000.000"
         )
     }

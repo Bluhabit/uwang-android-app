@@ -19,6 +19,7 @@ import com.bluehabit.budgetku.android.feature.dashboard.home.Home
 import com.bluehabit.budgetku.android.feature.dashboard.home.routeHome
 import com.bluehabit.budgetku.android.feature.dashboard.report.routeReport
 import com.bluehabit.budgetku.android.feature.onboarding.routeOnboard
+import com.bluehabit.budgetku.android.feature.resultCreateBudget.routeResultCreateBudget
 import com.bluehabit.budgetku.android.feature.splashScreen.routeSplash
 
 @Composable
@@ -56,10 +57,11 @@ fun AppNavigation(
         routeReport(
             state = applicationState
         )
-
         routeCreateBudget(
             state = applicationState
         )
-
+        routeResultCreateBudget(
+            state = applicationState
+        )
     }
 }
