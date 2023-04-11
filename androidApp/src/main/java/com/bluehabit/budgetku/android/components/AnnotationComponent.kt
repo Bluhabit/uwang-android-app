@@ -172,7 +172,7 @@ fun IconWithAction(
             vertical = 4.dp,
             horizontal = 4.dp
         ),
-        verticalAlignment = Alignment.CenterVertically,
+        verticalAlignment = Alignment.Top,
         horizontalArrangement = Arrangement.Start
     ) {
 
