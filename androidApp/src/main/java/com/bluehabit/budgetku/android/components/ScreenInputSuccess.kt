@@ -5,7 +5,7 @@
  * Proprietary and confidential
  */
 
-package com.bluehabit.budgetku.android.feature.resultCreateBudget.components
+package com.bluehabit.budgetku.android.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -36,18 +36,18 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluehabit.budgetku.android.R
 import com.bluehabit.budgetku.android.base.BaseMainApp
-import com.bluehabit.budgetku.android.components.DottedLine
 import com.bluehabit.budgetku.android.ui.Grey300
 
 @Composable
-fun ScreenSuccessCreateBudget(
+fun ScreenInputSuccess(
+    title: String = "",
+    subtitle: String = "",
     onDismiss: () -> Unit = {},
     onSubmit: (Boolean) -> Unit = {}
 ) {
@@ -109,7 +109,7 @@ fun ScreenSuccessCreateBudget(
                 )
             }
             Text(
-                text = stringResource(R.string.text_message_success_create_budget),
+                text = title,
                 style = MaterialTheme.typography.h5,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier
@@ -125,7 +125,7 @@ fun ScreenSuccessCreateBudget(
             )
 
             Text(
-                text = stringResource(R.string.text_message_like_total_budget_create_budget),
+                text = subtitle,
                 style = MaterialTheme.typography.h5,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier
@@ -200,6 +200,6 @@ fun ScreenSuccessCreateBudget(
 @Composable
 fun PreviewScreenSuccessCreateBudget() {
     BaseMainApp {
-        ScreenSuccessCreateBudget()
+        ScreenInputSuccess()
     }
 }

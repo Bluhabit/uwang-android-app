@@ -8,15 +8,17 @@
 package com.bluehabit.budgetku.android.feature.resultCreateBudget
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.bluehabit.budgetku.android.ApplicationState
+import com.bluehabit.budgetku.android.R
 import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.base.UIWrapper
 import com.bluehabit.budgetku.android.feature.dashboard.home.Home
-import com.bluehabit.budgetku.android.feature.resultCreateBudget.components.ScreenFeedbackCreateBudget
-import com.bluehabit.budgetku.android.feature.resultCreateBudget.components.ScreenSuccessCreateBudget
+import com.bluehabit.budgetku.android.components.ScreenInputFeedback
+import com.bluehabit.budgetku.android.components.ScreenInputSuccess
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 
@@ -51,7 +53,9 @@ internal fun ScreenResultCreateBudget(
     ) {
         when (it) {
             0 -> {
-                ScreenSuccessCreateBudget(
+                ScreenInputSuccess(
+                    title = stringResource(R.string.text_message_success_create_budget),
+                    subtitle = stringResource(R.string.text_message_like_total_budget_create_budget),
                     onDismiss = {
                         navigateAndReplaceAll(Home.routeName)
                     },
@@ -67,7 +71,8 @@ internal fun ScreenResultCreateBudget(
             }
 
             1 -> {
-                ScreenFeedbackCreateBudget(
+                ScreenInputFeedback(
+                    title = stringResource(R.string.text_title_like_feedback),
                     feedback = "",
                     onChange = {},
                     onSubmit = {
