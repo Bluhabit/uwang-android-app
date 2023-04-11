@@ -40,6 +40,10 @@ internal fun ScreenResultCreateBudget(
         initialPage = 0
     )
 
+    with(appState) {
+        hideTopAppBar()
+    }
+
     HorizontalPager(
         count = 2,
         userScrollEnabled = false,
