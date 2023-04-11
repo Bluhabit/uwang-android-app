@@ -24,5 +24,7 @@ data class SignInState(
 
 sealed class SignInEvent {
     object SignInWithEmail: SignInEvent()
+    class OnEmailChange(var email: String) : SignInEvent()
+    class OnPasswordChange(var password: String) : SignInEvent()
     class SignInWithGoogle(var result: Task<GoogleSignInAccount>?): SignInEvent()
 }

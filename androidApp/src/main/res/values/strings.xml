@@ -76,5 +76,18 @@
     <string name="subtitle_item_add_transaction_budget"><![CDATA[Pengeluaran & pemasukan]]></string>
     <string name="subtitle_item_add_transfer_budget">Pindahin uang ke akun berbeda</string>
     <string name="subtitle_item_add_budget">Pantau kategori pengeluaran</string>
+    <string name="label_title_login">Login ke akunmu</string>
+    <string name="label_have_account">Belum punya akun?</string>
+    <string name="label_register_here">Daftar Disini</string>
+    <string name="input_your_email">Masukan email kamu</string>
+    <string name="email">Email</string>
+    <string name="email_not_valid">email tidak valid</string>
+    <string name="input_your_password">Masukan password kamu</string>
+    <string name="password">Password</string>
+    <string name="password_required">password harus diisi</string>
+    <string name="forgot_password">Lupa Password?</string>
+    <string name="login">Login</string>
+    <string name="or">Atau</string>
+    <string name="sign_in_with_google">Masuk dengan Google</string>
     <!--    end dashboard-->
 </resources>

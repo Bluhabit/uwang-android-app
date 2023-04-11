@@ -7,7 +7,6 @@
 
 package com.bluehabit.budgetku.android.feature.auth.signIn
 
-import android.util.Patterns
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -27,6 +26,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -93,22 +93,22 @@ internal fun ScreenSignIn(appState: ApplicationState) = UIWrapper<SignInViewMode
             }
             item {
                 Text(
-                    text = "Login ke akunmu",
+                    text = stringResource(R.string.label_title_login),
                     style = MaterialTheme.typography.h4,
                     fontWeight = FontWeight.Bold
                 )
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(bottom = 40.dp,top=24.dp),
+                        .padding(bottom = 40.dp, top = 24.dp),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(
-                        text = "Belum punya akun?",
+                        text = stringResource(R.string.label_have_account),
                         style = MaterialTheme.typography.subtitle1
                     )
                     Text(
-                        text = "Daftar Disini",
+                        text = stringResource(R.string.label_register_here),
                         style = MaterialTheme.typography.subtitle1,
                         fontWeight = FontWeight.Bold,
                         color = Blue800
@@ -117,23 +117,23 @@ internal fun ScreenSignIn(appState: ApplicationState) = UIWrapper<SignInViewMode
             }
             item {
                 FormInput(
-                    placeholder = "Masukan email kamu",
-                    label = "Email",
+                    placeholder = stringResource(R.string.input_your_email),
+                    label = stringResource(R.string.email),
                     value = state.email,
                     error = state.emailIsError,
-                    errorMessage = "email tidak valid",
+                    errorMessage = stringResource(R.string.email_not_valid),
                     onChange = {
-                        commit { copy(email = it, emailIsError = !Patterns.EMAIL_ADDRESS.matcher(email).matches()) }
+                        dispatch(SignInEvent.OnEmailChange(it))
                     },
                 )
                 FormInputPassword(
-                    placeholder = "Masukan password kamu",
-                    label = "Password",
+                    placeholder = stringResource(R.string.input_your_password),
+                    label = stringResource(R.string.password),
                     value = state.password,
                     error = state.passwordIsError,
-                    errorMessage = "password harus diisi",
+                    errorMessage = stringResource(R.string.password_required),
                     onChange = {
-                        commit { copy(password = it) }
+                        dispatch(SignInEvent.OnPasswordChange(it))
                     },
                 )
                 Row(
@@ -143,7 +143,7 @@ internal fun ScreenSignIn(appState: ApplicationState) = UIWrapper<SignInViewMode
                     horizontalArrangement = Arrangement.End
                 ) {
                     Text(
-                        text = "Lupa Password?",
+                        text = stringResource(R.string.forgot_password),
                         style = MaterialTheme.typography.subtitle1,
                         fontWeight = FontWeight.Bold,
                         color = Blue800
@@ -151,12 +151,12 @@ internal fun ScreenSignIn(appState: ApplicationState) = UIWrapper<SignInViewMode
                 }
             }
             item {
-                ButtonPrimary(text = "Login", onClick = {
+                ButtonPrimary(text = stringResource(R.string.login), onClick = {
                     dispatch(SignInEvent.SignInWithEmail)
                 })
                 Spacer(modifier = Modifier.height(24.dp))
                 Text(
-                    text = "Atau",
+                    text = stringResource(R.string.or),
                     style = MaterialTheme.typography.subtitle2,
                     modifier = Modifier.fillMaxWidth(),
                     textAlign = TextAlign.Center,
@@ -164,7 +164,7 @@ internal fun ScreenSignIn(appState: ApplicationState) = UIWrapper<SignInViewMode
                 )
                 Spacer(modifier = Modifier.height(24.dp))
                 ButtonGoogle(
-                    text = "Masuk dengan Google"
+                    text = stringResource(R.string.sign_in_with_google)
                 )
             }
         }, contentPadding = PaddingValues(horizontal = 21.dp)
