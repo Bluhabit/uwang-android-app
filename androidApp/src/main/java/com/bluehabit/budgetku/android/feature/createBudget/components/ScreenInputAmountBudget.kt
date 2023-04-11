@@ -9,6 +9,7 @@ package com.bluehabit.budgetku.android.feature.createBudget.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -19,6 +20,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Divider
 import androidx.compose.material.Icon
@@ -39,6 +41,8 @@ import com.bluehabit.budgetku.android.components.AnnotationTextItem
 import com.bluehabit.budgetku.android.components.ButtonPrimary
 import com.bluehabit.budgetku.android.components.FormInput
 import com.bluehabit.budgetku.android.components.TextWithAction
+import com.bluehabit.budgetku.android.ui.Grey100
+import com.bluehabit.budgetku.android.ui.Grey300
 import com.bluehabit.budgetku.android.ui.Yellow600
 
 @Composable
@@ -102,13 +106,34 @@ fun ScreenInputAmountBudget(
                 )
 
                 Row(
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(MaterialTheme.shapes.medium)
+                        .border(
+                            width = 1.dp,
+                            shape = MaterialTheme.shapes.medium,
+                            color = Grey300
+                        )
+                        .padding(
+                            all = 16.dp
+                        ),
+                    horizontalArrangement = Arrangement.Start,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_idea_star),
-                        contentDescription = "",
-                        tint = Yellow600
-                    )
+                    Column(
+                        modifier = Modifier
+                            .size(30.dp)
+                            .clip(CircleShape)
+                            .background(Grey100),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_idea_star),
+                            contentDescription = "",
+                            tint = Yellow600
+                        )
+                    }
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(
                         text = stringResource(R.string.text_message_tips_savings_create_budget),
