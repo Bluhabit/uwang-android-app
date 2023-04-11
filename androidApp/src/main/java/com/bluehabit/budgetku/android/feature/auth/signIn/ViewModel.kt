@@ -30,12 +30,10 @@ class SignInViewModel @Inject constructor(
     ) = asyncWithState {
         when {
             email.isEmpty() || password.isEmpty() -> {
-                    emailIsError = email.isEmpty()
-                    passwordIsError = password.isEmpty()
+                commit { copy(emailIsError = email.isEmpty(), passwordIsError = password.isEmpty()) }
             }
             !Patterns.EMAIL_ADDRESS.matcher(email).matches() -> {
-                emailIsError = true
-                showSnackbar("Email didn't valid")
+                commit { copy(emailIsError = true) }
             }
             else -> valid(email, password)
         }
@@ -50,6 +48,15 @@ class SignInViewModel @Inject constructor(
                     success = { showSnackbar(userProfile.userFullName) }
                 )
             }
+
+            is SignInEvent.OnEmailChange -> commit {
+                copy(
+                    email = it.email,
+                    emailIsError = (!Patterns.EMAIL_ADDRESS.matcher(it.email).matches() or it.email.isEmpty())
+                )
+            }
+
+            is SignInEvent.OnPasswordChange -> commit { copy(password = it.password, passwordIsError = it.password.isEmpty()) }
 
             is SignInEvent.SignInWithGoogle ->
                 signInWIthGoogleUseCase(it.result?.await()?.idToken).onEach(
