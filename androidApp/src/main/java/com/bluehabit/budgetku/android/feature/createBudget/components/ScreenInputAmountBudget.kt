@@ -29,6 +29,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -43,7 +44,8 @@ import com.bluehabit.budgetku.android.ui.Yellow600
 @Composable
 fun ScreenInputAmountBudget(
     amount: String = "",
-    onInputAmount: () -> Unit = {}
+    onInputAmount: () -> Unit = {},
+    onSubmit: () -> Unit = {}
 ) {
     Column(
         modifier = Modifier
@@ -79,18 +81,18 @@ fun ScreenInputAmountBudget(
                     )
             ) {
                 Text(
-                    text = "Budget",
+                    text = stringResource(R.string.text_title_card_input_amount),
                     style = MaterialTheme.typography.h6,
                     fontWeight = FontWeight.Bold
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 FormInput(
                     value = amount,
-                    label = "Budget per Bulan",
-                    placeholder = "0",
+                    label = stringResource(R.string.label_input_amount_per_month_create_budget),
+                    placeholder = stringResource(R.string.label_input_amount_create_budget),
                     leadingIcon = {
                         Text(
-                            text = "Rp",
+                            text = stringResource(R.string.prefix_rupiah),
                             style = MaterialTheme.typography.subtitle1,
                             fontWeight = FontWeight.Medium
                         )
@@ -109,7 +111,7 @@ fun ScreenInputAmountBudget(
                     )
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(
-                        text = "Pakai rule 50% kebutuhan, 20% keinginan,20% ditabung",
+                        text = stringResource(R.string.text_message_tips_savings_create_budget),
                         style = MaterialTheme.typography.subtitle2,
                         fontWeight = FontWeight.Normal
                     )
@@ -142,8 +144,8 @@ fun ScreenInputAmountBudget(
                 )
                 TextWithAction(
                     labels = listOf(
-                        AnnotationTextItem.Text("Cari tau keuntungan bikin budget "),
-                        AnnotationTextItem.Button("di sini", true)
+                        AnnotationTextItem.Text(stringResource(R.string.text_benefit_budget_first)),
+                        AnnotationTextItem.Button(stringResource(R.string.text_button_benefit_budget_first), true)
                     ),
                     onTextClick = {}
                 )
@@ -157,9 +159,10 @@ fun ScreenInputAmountBudget(
                         vertical = 20.dp
                     )
             ) {
-                ButtonPrimary(text = "Simpan") {
-
-                }
+                ButtonPrimary(
+                    text = stringResource(R.string.text_button_save_amount_create_budget),
+                    onClick = onSubmit
+                )
             }
         }
     }

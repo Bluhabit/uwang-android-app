@@ -76,5 +76,21 @@
     <string name="subtitle_item_add_transaction_budget"><![CDATA[Pengeluaran & pemasukan]]></string>
     <string name="subtitle_item_add_transfer_budget">Pindahin uang ke akun berbeda</string>
     <string name="subtitle_item_add_budget">Pantau kategori pengeluaran</string>
+    <string name="text_title_page_create_budget">Atur Total Budget</string>
+    <string name="text_title_card_input_amount">Budget</string>
+    <string name="label_input_amount_per_month_create_budget">Budget per Bulan</string>
+    <string name="label_input_amount_create_budget">Masukkan nominal</string>
+    <string name="prefix_rupiah">Rp</string>
+    <string name="text_message_tips_savings_create_budget">Pakai rule 50% kebutuhan, 20% keinginan,20% ditabung</string>
+    <string name="text_button_save_amount_create_budget">Simpan</string>
+    <string name="text_benefit_budget_first">"Cari tau keuntungan bikin budget "</string>
+    <string name="text_button_benefit_budget_first">di sini</string>
+    <string name="text_title_screen_num_pad">Input Nominal</string>
+    <string name="text_button_input_amount_num_pad">Simpan</string>
+    <string name="text_title_like_feedback">Wow, apa sih yang bikin kamu suka tambah total budget</string>
+    <string name="placeholder_input_feedback_create_budget">Tulis hal yang kamu sukai</string>
+    <string name="text_button_submit_feedback_create_budeget">Kirim</string>
+    <string name="text_message_success_create_budget">Yay, berhasil tambah total budget!</string>
+    <string name="text_message_like_total_budget_create_budget">Kamu suka tambah total budget?</string>
     <!--    end dashboard-->
 </resources>

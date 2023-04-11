@@ -8,6 +8,7 @@
 package com.bluehabit.budgetku.android.feature.createBudget
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -16,16 +17,20 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.bluehabit.budgetku.android.ApplicationState
+import com.bluehabit.budgetku.android.R
 import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.base.UIWrapper
-import com.bluehabit.budgetku.android.components.ScreenInputAmount
+import com.bluehabit.budgetku.android.components.ScreenNumPad
 import com.bluehabit.budgetku.android.feature.createBudget.components.ScreenInputAmountBudget
+import com.bluehabit.budgetku.android.feature.resultCreateBudget.ResultCreateBudget
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 
@@ -63,9 +68,11 @@ internal fun ScreenCreateBudget(
                 },
                 title = {
                     Text(
-                        text = "Atur Total Budget",
+                        text = stringResource(R.string.text_title_page_create_budget),
                         style = MaterialTheme.typography.h6,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.fillMaxWidth()
                     )
                 }
             )
@@ -81,7 +88,7 @@ internal fun ScreenCreateBudget(
             0 -> {
                 appState.showTopAppBar()
                 ScreenInputAmountBudget(
-                    amount = "1.000.000",
+                    amount = "",
                     onInputAmount = {
                         runSuspend {
                             pagerState.scrollToPage(
@@ -89,15 +96,24 @@ internal fun ScreenCreateBudget(
                             )
                         }
 
+                    },
+                    onSubmit = {
+                        navigateAndReplaceAll(ResultCreateBudget.routeName)
                     }
                 )
             }
 
             1 -> {
                 appState.hideTopAppBar()
-                ScreenInputAmount(
-                    value = "1.000.000",
-                    onSubmit = {},
+                ScreenNumPad(
+                    value = "",
+                    onSubmit = {
+                        runSuspend {
+                            pagerState.scrollToPage(
+                                page = 0
+                            )
+                        }
+                    },
                     onClear = {},
                     onRemove = {},
                     onDismiss = {
