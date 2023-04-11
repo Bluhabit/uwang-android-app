@@ -120,6 +120,7 @@ internal fun ScreenSignUp(
                     style = MaterialTheme.typography.subtitle1,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.clickable {
+                    
                     }
                 )
             }
@@ -158,6 +159,7 @@ internal fun ScreenSignUp(
                     style = MaterialTheme.typography.subtitle1,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.clickable {
+
                     }
                 )
             }
