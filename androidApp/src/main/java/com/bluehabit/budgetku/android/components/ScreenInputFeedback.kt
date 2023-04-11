@@ -5,7 +5,7 @@
  * Proprietary and confidential
  */
 
-package com.bluehabit.budgetku.android.feature.resultCreateBudget.components
+package com.bluehabit.budgetku.android.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -45,11 +45,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluehabit.budgetku.android.R
 import com.bluehabit.budgetku.android.base.BaseMainApp
-import com.bluehabit.budgetku.android.components.ButtonPrimary
 import com.bluehabit.budgetku.android.ui.Grey300
 
 @Composable
-fun ScreenFeedbackCreateBudget(
+fun ScreenInputFeedback(
+    title:String="",
     feedback: String = "",
     onChange: (String) -> Unit = {},
     onDismiss: () -> Unit = {},
@@ -106,7 +106,7 @@ fun ScreenFeedbackCreateBudget(
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = stringResource(R.string.text_title_like_feedback),
+                    text = title,
                     style = MaterialTheme.typography.h5,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier
@@ -198,6 +198,6 @@ fun ScreenFeedbackCreateBudget(
 @Composable
 fun PreviewScreenFeedbackCreateBudget() {
     BaseMainApp {
-        ScreenFeedbackCreateBudget()
+        ScreenInputFeedback()
     }
 }
