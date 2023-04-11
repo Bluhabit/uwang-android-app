@@ -45,6 +45,7 @@ import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.base.UIWrapper
 import com.bluehabit.budgetku.android.base.contract.GoogleAuthContract
 import com.bluehabit.budgetku.android.components.AnnotationTextItem
+import com.bluehabit.budgetku.android.components.ButtonGoogle
 import com.bluehabit.budgetku.android.components.ButtonPrimary
 import com.bluehabit.budgetku.android.components.FormInput
 import com.bluehabit.budgetku.android.components.IconWithAction
@@ -107,22 +108,19 @@ internal fun ScreenSignUp(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                // Teks "Sudah punya akun?"
                 Text(
 
                     text = stringResource(R.string.label_haveanyaccount_signup),
                     color = Grey700,
                     style = MaterialTheme.typography.subtitle1
                 )
-                // Teks "Login disini" yang bisa diklik
                 Text(
                     text = stringResource(R.string.text_button_signinhere_signup),
                     color = MaterialTheme.colors.primary,
                     style = MaterialTheme.typography.subtitle1,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.clickable {
-                        // Aksi yang dilakukan ketika teks "Login disini" diklik
-                        // Contoh: Navigasi ke halaman login
+                    
                     }
                 )
             }
@@ -161,8 +159,7 @@ internal fun ScreenSignUp(
                     style = MaterialTheme.typography.subtitle1,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.clickable {
-                        // Aksi yang dilakukan ketika teks "Login disini" diklik
-                        // Contoh: Navigasi ke halaman login
+
                     }
                 )
             }
@@ -184,12 +181,10 @@ internal fun ScreenSignUp(
                 )
             }
             Spacer(modifier = Modifier.height(20.dp))
-            Button(
+            ButtonGoogle(
+                text = stringResource(R.string.text_button_signin_with_google_signup),
                 onClick = { launcher.launch(1) },
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Text(text = stringResource(R.string.text_button_signin_with_google_signup))
-            }
+            )
         }
         Spacer(modifier = Modifier.height(10.dp))
         IconWithAction(
