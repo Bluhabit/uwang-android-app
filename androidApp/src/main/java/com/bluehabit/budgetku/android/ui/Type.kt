@@ -35,7 +35,7 @@ val UberMove = FontFamily(
         style = FontStyle.Normal
     ),
     Font(
-        resId=R.font.uber_move_text_regular,
+        resId= R.font.uber_move_text_regular,
         weight = FontWeight.Normal,
         style = FontStyle.Normal
     )

@@ -21,7 +21,7 @@ fi
 
 # Perform lint check
 echo "Performing pre-commit lint check of ""$dirToLint"
-$dirToLint./gradlew detekt --daemon
+$dirToLint/gradlew detekt --daemon
 detektStatus=$?
 
 lintStatus=1

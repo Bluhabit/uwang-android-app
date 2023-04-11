@@ -10,16 +10,17 @@ package com.bluehabit.budgetku.android
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import com.bluehabit.budgetku.android.feature.auth.completeProfile.routeCompleteProfile
+import com.bluehabit.budgetku.android.feature.auth.inputPin.routeInputPin
 import com.bluehabit.budgetku.android.feature.auth.signIn.routeSignIn
 import com.bluehabit.budgetku.android.feature.auth.signUp.routeSignUp
 import com.bluehabit.budgetku.android.feature.createBudget.routeCreateBudget
 import com.bluehabit.budgetku.android.feature.dashboard.budget.routeBudget
 import com.bluehabit.budgetku.android.feature.dashboard.community.routeCommunity
-import com.bluehabit.budgetku.android.feature.dashboard.home.Home
 import com.bluehabit.budgetku.android.feature.dashboard.home.routeHome
 import com.bluehabit.budgetku.android.feature.dashboard.report.routeReport
 import com.bluehabit.budgetku.android.feature.onboarding.routeOnboard
 import com.bluehabit.budgetku.android.feature.resultCreateBudget.routeResultCreateBudget
+import com.bluehabit.budgetku.android.feature.splashScreen.Splash
 import com.bluehabit.budgetku.android.feature.splashScreen.routeSplash
 
 @Composable
@@ -28,7 +29,7 @@ fun AppNavigation(
 ) {
     NavHost(
         navController = applicationState.router,
-        startDestination = Home.routeName
+        startDestination = Splash.routeName
     ) {
         routeSplash(
             state = applicationState
@@ -60,6 +61,10 @@ fun AppNavigation(
         routeCreateBudget(
             state = applicationState
         )
+        routeInputPin(
+            state = applicationState
+        )
+
         routeResultCreateBudget(
             state = applicationState
         )
