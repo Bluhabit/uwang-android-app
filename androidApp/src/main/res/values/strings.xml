@@ -106,4 +106,20 @@
     <string name="subtitle_item_add_transfer_budget">Pindahin uang ke akun berbeda</string>
     <string name="subtitle_item_add_budget">Pantau kategori pengeluaran</string>
     <!--    end dashboard-->
+
+    <string name="label_input_email_signup">Email</string>
+    <string name="placeholder_input_email_signup">Masukkan Email Kamu</string>
+    <string name="text_button_forgetpassword_signup">Lupa Password?</string>
+    <string name="text_button_signinhere_signup">Login disini</string>
+    <string name="textbutton_privacyandpolice_signup">Syarat dan Ketentuan</string>
+    <string name="label_agreement_signup">Dengan mendaftar, saya menyetujui</string>
+    <string name="label_serta_signup">serta</string>
+    <string name="textbutton_termsprivated_signup">Kebijakan Privasi</string>
+    <string name="logo_budgetku_signup">Logo Budgetku Full</string>
+    <string name="label_register_newaccount_signup">Daftar Akun Baru</string>
+    <string name="label_haveanyaccount_signup">Sudah punya akun?</string>
+    <string name="text_button_register_signup">Daftar</string>
+    <string name="label_or_signup">Atau</string>
+    <string name="text_button_signin_with_google_signup">Daftar dengan Google</string>
+
 </resources>
