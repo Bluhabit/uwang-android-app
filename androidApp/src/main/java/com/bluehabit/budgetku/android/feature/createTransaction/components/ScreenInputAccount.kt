@@ -43,7 +43,10 @@ import java.math.BigDecimal
 
 @Composable
 fun ScreenInputAccount(
-    transactionType: String = ""
+    transactionType: String = "",
+    selectedAccount: String = "",
+    onSelectedAccount: () -> Unit = {},
+    onAddAccount: () -> Unit = {}
 ) {
     Column(
         modifier = Modifier
@@ -77,6 +80,9 @@ fun ScreenInputAccount(
                             selected = it == 1,
                             accountBankName = "Bank BCA",
                             accountBalance = BigDecimal(1_000),
+                            onClick = {
+                                onSelectedAccount()
+                            }
                         )
                     }
                 })
@@ -135,7 +141,7 @@ fun ScreenInputAccount(
                             vertical = 20.dp
                         )
                 ) {
-                    ButtonOutlinedPrimary(text = "Tambah Rekening Disini")
+                    ButtonOutlinedPrimary(text = "Tambah Rekening Disini", onClick = onAddAccount)
                 }
             }
         }

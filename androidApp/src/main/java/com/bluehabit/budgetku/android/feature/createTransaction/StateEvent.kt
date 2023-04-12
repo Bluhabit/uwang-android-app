@@ -14,7 +14,8 @@ import javax.annotation.concurrent.Immutable
 @Immutable
 @Parcelize
 data class CreateTransactionState(
-    val a: String = ""
+    val step: Int = 1,
+    val percentage: Float = 0.15f
 ) : Parcelable
 
 @Immutable
@@ -24,4 +25,6 @@ data class CreateTransactionDataState(
 ) : Parcelable
 
 sealed interface CreateTransactionEvent {
+    object NexPage : CreateTransactionEvent
+    object PrevPage : CreateTransactionEvent
 }

@@ -9,6 +9,7 @@ package com.bluehabit.budgetku.android.feature.createTransaction.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -35,9 +36,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluehabit.budgetku.android.R
 import com.bluehabit.budgetku.android.base.BaseMainApp
+import java.time.LocalDate
 
 @Composable
-fun ScreenInputDateTransaction() {
+fun ScreenInputDateTransaction(
+    date: LocalDate? = null,
+    onSelectDate: () -> Unit = {}
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -70,6 +75,10 @@ fun ScreenInputDateTransaction() {
             modifier = Modifier
                 .fillMaxWidth()
                 .clip(MaterialTheme.shapes.small)
+                .clickable(
+                    enabled = true,
+                    onClick = onSelectDate
+                )
                 .background(MaterialTheme.colors.surface)
                 .padding(
                     horizontal = 16.dp,
