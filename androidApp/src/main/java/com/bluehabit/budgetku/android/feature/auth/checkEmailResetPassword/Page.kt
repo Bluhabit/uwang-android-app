@@ -85,11 +85,18 @@ internal fun CheckEmailResetPassword(appState: ApplicationState) = UIWrapper<Res
             Spacer(modifier = Modifier.height(12.dp))
             Text(
                 modifier = Modifier.padding(bottom = 5.dp),
-                text = stringResource(id = R.string.detail_check_email_reset_password) + " @${state.email}",
+                text = stringResource(id = R.string.detail_check_email_reset_password),
                 style = MaterialTheme.typography.subtitle1,
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Normal,
                 color = Color(0xFF616161),
+            )
+            Text(
+                text = state.email,
+                style = MaterialTheme.typography.subtitle1,
+                textAlign = TextAlign.Center,
+                fontWeight = FontWeight.Normal,
+                color = Color(0xFF0074C9),
             )
         }
 
