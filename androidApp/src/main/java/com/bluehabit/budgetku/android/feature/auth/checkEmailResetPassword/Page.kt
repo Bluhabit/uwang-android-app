@@ -48,14 +48,14 @@ fun NavGraphBuilder.routeCheckEmailResetPassword(
     state: ApplicationState,
 ) {
     composable(CheckEmailResetPassword.routeName) {
-        CheckEmailResetPassword(
+        ScreenCheckEmailResetPassword(
             state
         )
     }
 }
 
 @Composable
-internal fun CheckEmailResetPassword(appState: ApplicationState) = UIWrapper<ResetPasswordViewModel>(
+internal fun ScreenCheckEmailResetPassword(appState: ApplicationState) = UIWrapper<CheckEmailResetPasswordViewModel>(
     appState = appState
 ) {
     val state by uiState.collectAsState()
@@ -129,7 +129,7 @@ internal fun CheckEmailResetPassword(appState: ApplicationState) = UIWrapper<Res
 @Composable
 fun PreviewScreenSignIn() {
     BaseMainApp {
-        CheckEmailResetPassword(
+        ScreenCheckEmailResetPassword(
             appState = rememberApplicationState()
         )
     }
