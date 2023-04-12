@@ -53,7 +53,7 @@ fun NavGraphBuilder.routeCreateNewPassword(
 }
 
 @Composable
-internal fun ScreenCreateNewPassword(appState: ApplicationState) = UIWrapper<ResetPasswordViewModel>(
+internal fun ScreenCreateNewPassword(appState: ApplicationState) = UIWrapper<CreateNewPasswordViewModel>(
     appState = appState
 ) {
     val state by uiState.collectAsState()
