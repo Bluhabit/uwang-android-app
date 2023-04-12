@@ -7,95 +7,143 @@
 
 package com.bluehabit.budgetku.android.components
 
-import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.KeyboardArrowLeft
+import androidx.compose.material.icons.outlined.KeyboardArrowRight
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
-import com.bluehabit.budgetku.android.ui.BudgetKuTheme
-import com.commandiron.wheel_picker_compose.WheelDatePicker
-import com.commandiron.wheel_picker_compose.core.WheelPickerDefaults
+import com.bluehabit.budgetku.android.base.BaseMainApp
+import com.bluehabit.budgetku.android.ui.Grey400
+import io.github.boguszpawlowski.composecalendar.StaticCalendar
 import java.time.LocalDate
+import java.time.format.TextStyle
+import java.util.Locale
 
 @Composable
 fun BottomSheetDatePicker(
-    title: String = "",
-    textButtonConfirmation:String="",
     selectedDate: LocalDate? = null,
-    onDismiss: () -> Unit = {},
-    onConfirm: (LocalDate) -> Unit = {}
+    onSelectDay: (LocalDate) -> Unit = {},
+    onSubmit: () -> Unit = {}
 ) {
-    val ctx = LocalContext.current
-    val currentWidth = ctx
-        .resources
-        .displayMetrics.widthPixels.dp /
-            LocalDensity.current.density
-
-    var selected by remember {
-        mutableStateOf(selectedDate)
-    }
     BaseBottomSheet(
-        onDismiss = onDismiss,
-        onConfirm = {
-            selected?.let {
-                onConfirm(it)
-            }
-        },
-        textConfirmation = textButtonConfirmation,
-        enableConfirmation = selected != null
+        onDismiss = {},
+        onConfirm = {},
+        textConfirmation = "Simpan"
     ) {
-        Text(
-            text = title,
-            style = MaterialTheme.typography.h5,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.fillMaxWidth(),
-            textAlign = TextAlign.Start
-        )
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ){
-            WheelDatePicker(
-                startDate = selected ?: LocalDate.now(),
-                onSnappedDate = {
-                    selected = it
-                },
-                selectorProperties = WheelPickerDefaults.selectorProperties(
-                    enabled = true,
-                    color = Color.Transparent,
-                    border = BorderStroke(
-                        width=0.dp,
-                        color = Color.Transparent
+        StaticCalendar(
+            modifier = Modifier.fillMaxHeight(fraction = 0.5f),
+            daysOfWeekHeader = {
+                Row(
+                    modifier = Modifier.padding(
+                        vertical = 8.dp
                     )
-                ),
-                size = DpSize(
-                    width = currentWidth,
-                    height = currentWidth/2
-                )
-            )
-        }
+                ) {
+                    it.forEach { dayOfWeek ->
+                        Text(
+                            textAlign = TextAlign.Center,
+                            text = dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.getDefault()),
+                            modifier = Modifier
+                                .weight(1f)
+                                .wrapContentHeight(),
+                            color = MaterialTheme.colors.primary
+                        )
+                    }
+                }
+            },
+            monthHeader = {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceEvenly
+                ) {
+                    IconButton(onClick = {
+                        it.currentMonth = it.currentMonth.minusMonths(1)
+                    }) {
+                        Icon(imageVector = Icons.Outlined.KeyboardArrowLeft, contentDescription = "")
+                    }
+                    Text(
+                        text = it.currentMonth.month
+                            .getDisplayName(TextStyle.FULL, Locale.getDefault())
+                            .lowercase()
+                            .replaceFirstChar { it.titlecase() }
+                            .plus(", ${it.currentMonth.year}"),
+                        style = MaterialTheme.typography.h6,
+                        fontWeight = FontWeight.Bold
+                    )
+                    IconButton(onClick = { it.currentMonth = it.currentMonth.plusMonths(1) }) {
+                        Icon(imageVector = Icons.Outlined.KeyboardArrowRight, contentDescription = "")
+                    }
+                }
+            },
+            dayContent = {
+                Column(
+                    modifier = Modifier
+                        .size(50.dp)
+                        .align(Alignment.Center)
+                        .clip(CircleShape)
+                        .clickable(
+                            enabled = true,
+                            onClick = {
+                                onSelectDay(it.date)
+                            }
+                        )
+                        .background(
+                            when {
+                                (it.date == LocalDate.now()) -> MaterialTheme.colors.primary.copy(
+                                    alpha = 0.7f
+                                )
+                                it.date == selectedDate -> MaterialTheme.colors.primary
+                                else -> Color.Transparent
+                            }
+                        )
+                        .padding(
+                            all = 10.dp
+                        ),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    Text(
+                        text = it.date.dayOfMonth.toString(),
+                        style = MaterialTheme.typography.subtitle1,
+                        fontWeight = FontWeight.Medium,
+                        color = when {
+                            it.isCurrentDay -> MaterialTheme.colors.onPrimary
+                            it.isFromCurrentMonth -> MaterialTheme.colors.onSurface
+                            else -> Grey400
+                        }
+                    )
+                }
+            }
+        )
     }
 }
 
 @Preview
 @Composable
 fun PreviewBottomSheetDatePicker() {
-    BudgetKuTheme {
+    BaseMainApp {
         BottomSheetDatePicker()
     }
 }
