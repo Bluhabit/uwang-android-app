@@ -8,7 +8,6 @@
 package com.bluehabit.budgetku.android.feature.auth.checkEmailResetPassword
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -30,6 +29,7 @@ import com.bluehabit.budgetku.android.ApplicationState
 import com.bluehabit.budgetku.android.R
 import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.base.UIWrapper
+import com.bluehabit.budgetku.android.components.ButtonOutlinedPrimary
 import com.bluehabit.budgetku.android.components.ButtonPrimary
 import com.bluehabit.budgetku.android.rememberApplicationState
 
@@ -52,19 +52,17 @@ internal fun CheckEmailResetPassword(appState: ApplicationState) = UIWrapper<Res
     appState = appState
 ) {
     val state by uiState.collectAsState()
-    Column(
+    Box(
         modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxHeight()
-            .padding(
-                horizontal = 20.dp,
-                vertical = 40.dp
-            ),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.SpaceBetween
+            .fillMaxSize()
     ) {
         Column(
-            modifier = Modifier.background(Color.Red),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(
+                    start = 20.dp,
+                    end = 20.dp,
+                ),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
@@ -89,14 +87,21 @@ internal fun CheckEmailResetPassword(appState: ApplicationState) = UIWrapper<Res
         }
 
         Column(
-
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(
+                    start = 20.dp,
+                    end = 20.dp,
+                    bottom = 40.dp
+                ),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             ButtonPrimary(
-                text = stringResource(id = R.string.label_button_send_link_to_email_for_reset_password),
+                text = stringResource(id = R.string.open_email_check_email_reset_password),
                 onClick = { dispatch(CheckEmailResetPasswordEvent.OpenEmailApplication) }
             )
-            ButtonPrimary(
-                text = stringResource(id = R.string.label_button_send_link_to_email_for_reset_password),
+            ButtonOutlinedPrimary(
+                text = stringResource(id = R.string.try_another_email_check_email_reset_password),
                 onClick = { dispatch(CheckEmailResetPasswordEvent.ChangeEmailForResetPassword) }
             )
         }
