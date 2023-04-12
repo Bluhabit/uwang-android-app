@@ -54,6 +54,7 @@ fun BottomSheetDatePicker(
     ) {
         StaticCalendar(
             modifier = Modifier.fillMaxHeight(fraction = 0.5f),
+            horizontalSwipeEnabled = true,
             daysOfWeekHeader = {
                 Row(
                     modifier = Modifier.padding(
