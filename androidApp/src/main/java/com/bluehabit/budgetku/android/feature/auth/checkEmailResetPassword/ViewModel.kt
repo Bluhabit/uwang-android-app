@@ -12,7 +12,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class ResetPasswordViewModel @Inject constructor(
+class CheckEmailResetPasswordViewModel @Inject constructor(
 
 ) : BaseViewModel<CheckEmailResetPasswordState, CheckEmailResetPasswordEvent>(CheckEmailResetPasswordState()) {
 
