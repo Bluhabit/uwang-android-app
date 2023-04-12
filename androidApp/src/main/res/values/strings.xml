@@ -32,6 +32,20 @@
     <string name="text_button_confirmation_date_of_birth_bottom_sheet">Pilih</string>
     <string name="text_button_confirmation_gender_bottom_sheet">Pilih</string>
 
+    <string name="text_input_pin">Masukkan PIN</string>
+    <string name="label_forgotpin_inputpin">Lupa PIN?</string>
+    <string name="text_button_numpad_1">1</string>
+    <string name="text_button_numpad_2">2</string>
+    <string name="text_button_numpad_3">3</string>
+    <string name="text_button_numpad_4">4</string>
+    <string name="text_button_numpad_5">5</string>
+    <string name="text_button_numpad_6">6</string>
+    <string name="text_button_numpad_7">7</string>
+    <string name="text_button_numpad_8">8</string>
+    <string name="text_button_numpad_9">9</string>
+    <string name="text_button_numpad_0">0</string>
+
+
     <!--    dashboard -->
     <string name="label_nav_community_dashboard">Komunitas</string>
     <string name="label_nav_home_dashboard">Home</string>
@@ -54,7 +68,74 @@
     <string name="title_section_tutorial_dashboard_home">Tutorial dari Budgetku</string>
     <string name="title_section_article_dashboard_home">Yang Menarik di Budgetku</string>
     <string name="text_button_show_challenge_card_challenge_budgeting">Lihat Tantangan</string>
+    <string name="text_message_information_category_dashboard_budget">"Kamu belum punya kategori pengeluaran, bikin transaksi dulu untuk bisa liat pengeluaran "</string>
+    <string name="text_button_add_transaction_dashboard_budget">Tambah Transaksi disini</string>
+    <string name="title_section_category_expenses_dashboard_budget">Kategori Pengeluaran</string>
+    <string name="text_message_tips_and_tricks_dashboard_budget">Coba deh buat budget dulu biar Budgetku bisa tau kebiasaan pengeluaran kamu.</string>
+    <string name="text_button_create_budget_dashboard_budget">Buat Budget</string>
+    <string name="text_title_no_budget_dashboard_budget">Kamu Belum Punya Budget</string>
+    <string name="text_title_remaining_budget_dashboard_budget">Sisa Budget</string>
+    <string name="text_label_usage_category_budget">%1$s dari budget</string>
+    <string name="text_tips_budget_success_first">Anggaran kamu aman! Kamu bisa pakai</string>
+    <string name="text_tips_budget_success_end">/hari untuk bulan ini</string>
+    <string name="text_label_usage_percentage_summary_budget">%1$s terpakai</string>
+    <string name="text_label_usage_summary_budget">Terpakai %1$s</string>
+    <string name="text_button_edit_summary_budget">Edit</string>
+    <string name="text_title_bottom_sheet_add_budget_transaction">Tambah Baru</string>
+    <string name="title_item_add_account_budget">Tambah Akun Finansial</string>
+    <string name="title_item_add_transaction_budget">Catat Transaksi</string>
+    <string name="title_item_add_transfer_budget">Transfer Antar Akun</string>
+    <string name="title_item_add_budget">Bikin Budget</string>
+    <string name="subtitle_item_add_account_budget">Bank,e-wallet,cash,investasi</string>
+    <string name="subtitle_item_add_transaction_budget"><![CDATA[Pengeluaran & pemasukan]]></string>
+    <string name="subtitle_item_add_transfer_budget">Pindahin uang ke akun berbeda</string>
+    <string name="subtitle_item_add_budget">Pantau kategori pengeluaran</string>
+    <string name="label_title_login">Login ke akunmu</string>
+    <string name="label_have_account">Belum punya akun?</string>
+    <string name="label_register_here">Daftar Disini</string>
+    <string name="input_your_email">Masukan email kamu</string>
+    <string name="email">Email</string>
+    <string name="email_not_valid">email tidak valid</string>
+    <string name="input_your_password">Masukan password kamu</string>
+    <string name="password">Password</string>
+    <string name="password_required">password harus diisi</string>
+    <string name="forgot_password">Lupa Password?</string>
+    <string name="login">Login</string>
+    <string name="or">Atau</string>
+    <string name="sign_in_with_google">Masuk dengan Google</string>
+    <string name="text_title_page_create_budget">Atur Total Budget</string>
+    <string name="text_title_card_input_amount">Budget</string>
+    <string name="label_input_amount_per_month_create_budget">Budget per Bulan</string>
+    <string name="label_input_amount_create_budget">Masukkan nominal</string>
+    <string name="prefix_rupiah">Rp</string>
+    <string name="text_message_tips_savings_create_budget">Pakai rule 50% kebutuhan, 20% keinginan,20% ditabung</string>
+    <string name="text_button_save_amount_create_budget">Simpan</string>
+    <string name="text_benefit_budget_first">"Cari tau keuntungan bikin budget "</string>
+    <string name="text_button_benefit_budget_first">di sini</string>
+    <string name="text_title_screen_num_pad">Input Nominal</string>
+    <string name="text_button_input_amount_num_pad">Simpan</string>
+    <string name="text_title_like_feedback">Wow, apa sih yang bikin kamu suka tambah total budget</string>
+    <string name="placeholder_input_feedback_create_budget">Tulis hal yang kamu sukai</string>
+    <string name="text_button_submit_feedback_create_budeget">Kirim</string>
+    <string name="text_message_success_create_budget">Yay, berhasil tambah total budget!</string>
+    <string name="text_message_like_total_budget_create_budget">Kamu suka tambah total budget?</string>
     <!--    end dashboard-->
+
+    <string name="label_input_email_signup">Email</string>
+    <string name="placeholder_input_email_signup">Masukkan Email Kamu</string>
+    <string name="text_button_forgetpassword_signup">Lupa Password?</string>
+    <string name="text_button_signinhere_signup">Login disini</string>
+    <string name="textbutton_privacyandpolice_signup">Syarat dan Ketentuan</string>
+    <string name="label_agreement_signup">Dengan mendaftar, saya menyetujui</string>
+    <string name="label_serta_signup">serta</string>
+    <string name="textbutton_termsprivated_signup">Kebijakan Privasi</string>
+    <string name="logo_budgetku_signup">Logo Budgetku Full</string>
+    <string name="label_register_newaccount_signup">Daftar Akun Baru</string>
+    <string name="label_haveanyaccount_signup">Sudah punya akun?</string>
+    <string name="text_button_register_signup">Daftar</string>
+    <string name="label_or_signup">Atau</string>
+    <string name="text_button_signin_with_google_signup">Daftar dengan Google</string>
+
 
     <!--   reset password -->
     <string name="title_send_link_to_email_for_reset_password">Reset Password</string>

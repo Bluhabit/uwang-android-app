@@ -30,6 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -37,7 +38,7 @@ import com.bluehabit.budgetku.android.base.BaseMainApp
 
 sealed class AnnotationTextItem(var text: String) {
     data class Text(var label: String) : AnnotationTextItem(label)
-    data class Button(var label: String) : AnnotationTextItem(label)
+    data class Button(var label: String, val underline: Boolean = false) : AnnotationTextItem(label)
 }
 
 @Composable
@@ -59,6 +60,8 @@ fun CheckBoxWithAction(
                     withStyle(
                         style = SpanStyle(
                             color = MaterialTheme.colors.primary,
+                            textDecoration = if (data.underline) TextDecoration.Underline
+                            else TextDecoration.None
                         )
                     ) {
                         append(data.text)
@@ -128,7 +131,6 @@ fun CheckBoxWithAction(
 fun IconWithAction(
     icon: (@Composable () -> Unit)? = null,
     labels: List<AnnotationTextItem> = listOf(),
-    onCheckedChange: (Boolean) -> Unit = {},
     onTextClick: (Int) -> Unit = {}
 ) {
     val annotates = buildAnnotatedString {
@@ -143,6 +145,8 @@ fun IconWithAction(
                     withStyle(
                         style = SpanStyle(
                             color = MaterialTheme.colors.primary,
+                            textDecoration = if (data.underline) TextDecoration.Underline
+                            else TextDecoration.None
                         )
                     ) {
                         append(data.text)
@@ -168,7 +172,7 @@ fun IconWithAction(
             vertical = 4.dp,
             horizontal = 4.dp
         ),
-        verticalAlignment = Alignment.CenterVertically,
+        verticalAlignment = Alignment.Top,
         horizontalArrangement = Arrangement.Start
     ) {
 
@@ -215,6 +219,8 @@ fun TextWithAction(
                     withStyle(
                         style = SpanStyle(
                             color = MaterialTheme.colors.primary,
+                            textDecoration = if (data.underline) TextDecoration.Underline
+                            else TextDecoration.None
                         )
                     ) {
                         append(data.text)
@@ -278,8 +284,8 @@ fun PreviewCheckboxInput() {
             )
             Spacer(modifier = Modifier.height(20.dp))
             IconWithAction(
-                icon={
-                     Icon(imageVector = Icons.Outlined.Info, contentDescription = "")
+                icon = {
+                    Icon(imageVector = Icons.Outlined.Info, contentDescription = "")
                 },
                 labels = listOf(
                     AnnotationTextItem.Text("Tes"),

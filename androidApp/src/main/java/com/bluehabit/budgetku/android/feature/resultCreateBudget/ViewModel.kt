@@ -5,15 +5,18 @@
  * Proprietary and confidential
  */
 
-package com.bluehabit.budgetku.android.feature.dashboard.budget
+package com.bluehabit.budgetku.android.feature.resultCreateBudget
 
 import com.bluehabit.budgetku.android.base.BaseViewModelData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class BudgetViewModel @Inject constructor(
-) : BaseViewModelData<BudgetState, BudgetDataState, BudgetEvent>(BudgetState(), BudgetDataState()) {
+class ResultCreateBudgetViewModel @Inject constructor(
+) : BaseViewModelData<ResultCreateBudgetState, ResultCreateBudgetDataState, ResultCreateBudgetEvent>(
+    ResultCreateBudgetState(),
+    ResultCreateBudgetDataState()
+) {
     init {
         handleActions()
     }

@@ -5,7 +5,7 @@
  * Proprietary and confidential
  */
 
-package com.bluehabit.budgetku.android.feature.dashboard.budget
+package com.bluehabit.budgetku.android.feature.auth.inputPin
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
@@ -13,16 +13,5 @@ import javax.annotation.concurrent.Immutable
 
 @Immutable
 @Parcelize
-data class BudgetState(
-    val a: String = ""
-) : Parcelable
-
-@Immutable
-@Parcelize
-data class BudgetDataState(
-    val currentMonth: String = "April 2023",
-    val hasBudget:Boolean=true
-) : Parcelable
-
-sealed class BudgetEvent {
-}
+data class InputPinState(var a : String = "") : Parcelable
+sealed class InputPinEvent{}
