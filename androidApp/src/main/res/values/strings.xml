@@ -160,5 +160,7 @@
     <!--   check email for reset password -->
     <string name="title_check_email_reset_password">Cek Email Kamu</string>
     <string name="detail_check_email_reset_password">Kami baru saja mengirim intruksi pemulihan password ke email </string>
+    <string name="open_email_check_email_reset_password">Buka Aplikasi Email</string>
+    <string name="try_another_email_check_email_reset_password">Coba Email lainnya</string>
     <!--   check email for reset password -->
 </resources>
