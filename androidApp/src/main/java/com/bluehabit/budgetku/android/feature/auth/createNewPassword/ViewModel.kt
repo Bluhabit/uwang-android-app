@@ -13,7 +13,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class ResetPasswordViewModel @Inject constructor(
+class CreateNewPasswordViewModel @Inject constructor(
 
 ) : BaseViewModel<CreateNewPasswordState, CreateNewPasswordEvent>(CreateNewPasswordState()) {
 
