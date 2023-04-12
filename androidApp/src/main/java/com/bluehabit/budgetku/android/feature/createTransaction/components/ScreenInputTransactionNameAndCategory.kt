@@ -9,6 +9,7 @@ package com.bluehabit.budgetku.android.feature.createTransaction.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -43,7 +44,11 @@ import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.components.DottedLine
 
 @Composable
-fun ScreenInputTransactionNameAndCategory() {
+fun ScreenInputTransactionNameAndCategory(
+    transactionName: String = "",
+    onSelectCategory:()->Unit={},
+    onChange: (String) -> Unit = {}
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -72,8 +77,8 @@ fun ScreenInputTransactionNameAndCategory() {
             )
 
             TextField(
-                value = "",
-                onValueChange = {},
+                value = transactionName,
+                onValueChange = onChange,
                 enabled = true,
                 placeholder = {
                     Text(
@@ -94,7 +99,7 @@ fun ScreenInputTransactionNameAndCategory() {
                     textColor = MaterialTheme.colors.onPrimary,
                     cursorColor = MaterialTheme.colors.onPrimary,
 
-                ),
+                    ),
                 maxLines = 3,
                 textStyle = MaterialTheme.typography.h4.copy(
                     fontWeight = FontWeight.Bold
@@ -105,6 +110,10 @@ fun ScreenInputTransactionNameAndCategory() {
                 modifier = Modifier
                     .fillMaxWidth()
                     .clip(MaterialTheme.shapes.small)
+                    .clickable(
+                        enabled = true,
+                        onClick = onSelectCategory
+                    )
                     .background(MaterialTheme.colors.surface)
                     .padding(
                         horizontal = 16.dp,

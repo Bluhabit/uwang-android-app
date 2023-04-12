@@ -41,6 +41,7 @@ import com.bluehabit.budgetku.android.ui.Yellow800
 
 @Composable
 fun ScreenInputTransactionType(
+    selected: String = "",
     onSelectedType: (isExpenses: Boolean) -> Unit = {}
 ) {
     Column(
@@ -71,7 +72,7 @@ fun ScreenInputTransactionType(
         Spacer(modifier = Modifier.height(30.dp))
         ButtonTransactionType(
             name = "Pemasukan",
-            selected = false,
+            selected = selected == "Pemasukkan",
             icon = R.drawable.arrow_long_circle_up,
             iconColor = Color(0xFF57C45C),
             onClick = {
@@ -81,7 +82,7 @@ fun ScreenInputTransactionType(
         Spacer(modifier = Modifier.height(16.dp))
         ButtonTransactionType(
             name = "Pengeluaran",
-            selected = true,
+            selected = selected == "Pengeluaran",
             icon = R.drawable.arrow_long_circle_down,
             iconColor = Color(0xFFFE3419),
             onClick = {

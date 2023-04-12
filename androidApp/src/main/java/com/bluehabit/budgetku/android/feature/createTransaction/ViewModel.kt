@@ -21,6 +21,43 @@ class CreateTransactionViewModel @Inject constructor(
         handleActions()
     }
 
-    override fun handleActions() = onEvent {}
+    private fun calculatePage(isNext: Boolean) = asyncWithState {
+
+        val page = if (isNext) {
+            if (step < 7) {
+                step + 1
+            } else step
+        } else {
+            if (step > 1) {
+                step - 1
+            } else step
+        }
+
+        val percentage = when (page) {
+            1 -> 0.15f
+            2 -> 0.35f
+            3 -> 0.45f
+            4 -> 0.6f
+            5 -> 0.7f
+            6 -> 0.8f
+            7 -> 1f
+            else -> 0f
+        }
+
+        commit {
+            copy(
+                step = page,
+                percentage = percentage
+            )
+        }
+
+    }
+
+    override fun handleActions() = onEvent {
+        when (it) {
+            CreateTransactionEvent.NexPage -> calculatePage(true)
+            CreateTransactionEvent.PrevPage -> calculatePage(false)
+        }
+    }
 
 }

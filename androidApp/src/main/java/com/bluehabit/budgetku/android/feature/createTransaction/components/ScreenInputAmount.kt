@@ -31,7 +31,13 @@ import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.components.NumPad
 
 @Composable
-fun ScreenInputAmount() {
+fun ScreenInputAmount(
+    amount: String = "",
+    onSubmit: () -> Unit = {},
+    onClear: () -> Unit = {},
+    onRemove: () -> Unit = {},
+    onChange: (String) -> Unit = {}
+) {
     Column(
         modifier = Modifier
             .fillMaxHeight()
@@ -64,7 +70,7 @@ fun ScreenInputAmount() {
                 )
         ) {
             Text(
-                text = "1.000.000",
+                text = amount,
                 style = MaterialTheme.typography.h3,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Right,
@@ -76,7 +82,12 @@ fun ScreenInputAmount() {
                     )
             )
             Spacer(modifier = Modifier.height(16.dp))
-            NumPad()
+            NumPad(
+                onSubmit = onSubmit,
+                onChange = onChange,
+                onRemove = onRemove,
+                onClear = onClear
+            )
         }
 
     }
@@ -87,6 +98,8 @@ fun ScreenInputAmount() {
 @Composable
 fun PreviewScreenInputAmount() {
     BaseMainApp {
-        ScreenInputAmount()
+        ScreenInputAmount(
+            amount = "1.000.000"
+        )
     }
 }
