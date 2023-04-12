@@ -57,26 +57,6 @@ internal fun ScreenCreateNewPassword(appState: ApplicationState) = UIWrapper<Cre
     appState = appState
 ) {
     val state by uiState.collectAsState()
-    with(appState) {
-        setupTopAppBar {
-            TopAppBar(
-                navigationIcon = {
-                    Icon(
-                        imageVector = Icons.Outlined.ArrowBack,
-                        contentDescription = "",
-                        modifier = Modifier
-                            .clickable {
-                                navigateUp()
-                            }
-                    )
-                },
-                backgroundColor = Color.White,
-                title = {
-                    Text(text = "")
-                },
-            )
-        }
-    }
     Column(
         modifier = Modifier
             .fillMaxSize()
