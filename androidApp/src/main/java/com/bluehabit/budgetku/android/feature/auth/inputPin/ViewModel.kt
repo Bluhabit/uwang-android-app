@@ -5,15 +5,15 @@
  * Proprietary and confidential
  */
 
-package com.bluehabit.budgetku.android.feature.dashboard.budget
+package com.bluehabit.budgetku.android.feature.auth.inputPin
 
-import com.bluehabit.budgetku.android.base.BaseViewModelData
+import com.bluehabit.budgetku.android.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class BudgetViewModel @Inject constructor(
-) : BaseViewModelData<BudgetState, BudgetDataState, BudgetEvent>(BudgetState(), BudgetDataState()) {
+class InputPinViewModel @Inject constructor(
+) : BaseViewModel<InputPinState, InputPinEvent>(InputPinState()) {
     init {
         handleActions()
     }

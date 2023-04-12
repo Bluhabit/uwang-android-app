@@ -5,7 +5,7 @@
  * Proprietary and confidential
  */
 
-package com.bluehabit.budgetku.android.feature.dashboard.budget
+package com.bluehabit.budgetku.android.feature.resultCreateBudget
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
@@ -13,16 +13,15 @@ import javax.annotation.concurrent.Immutable
 
 @Immutable
 @Parcelize
-data class BudgetState(
+data class ResultCreateBudgetState(
     val a: String = ""
 ) : Parcelable
 
 @Immutable
 @Parcelize
-data class BudgetDataState(
-    val currentMonth: String = "April 2023",
-    val hasBudget:Boolean=true
+data class ResultCreateBudgetDataState(
+    val a: String = ""
 ) : Parcelable
 
-sealed class BudgetEvent {
+sealed class ResultCreateBudgetEvent {
 }

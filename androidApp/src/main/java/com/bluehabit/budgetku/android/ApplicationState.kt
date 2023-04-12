@@ -121,6 +121,16 @@ class ApplicationState internal constructor(
 
     }
 
+    @Composable
+    fun showTopAppBar() {
+        LaunchedEffect(key1 = this, block = {
+            if (!showTopAppBar) {
+                showTopAppBar = true
+            }
+        })
+    }
+
+
     fun showSnackbar(message: String) {
         runSuspend {
             snackbarHostState.showSnackbar(message)
@@ -147,7 +157,7 @@ class ApplicationState internal constructor(
 
     fun showSnackbar(message: String, actionLabel: String, onAction: () -> Unit = {}) {
         runSuspend {
-            when(snackbarHostState.showSnackbar(message, actionLabel = actionLabel, duration = SnackbarDuration.Indefinite)){
+            when (snackbarHostState.showSnackbar(message, actionLabel = actionLabel, duration = SnackbarDuration.Indefinite)) {
                 SnackbarResult.Dismissed -> Unit
                 SnackbarResult.ActionPerformed -> onAction()
             }
