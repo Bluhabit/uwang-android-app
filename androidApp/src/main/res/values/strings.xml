@@ -55,4 +55,29 @@
     <string name="title_section_article_dashboard_home">Yang Menarik di Budgetku</string>
     <string name="text_button_show_challenge_card_challenge_budgeting">Lihat Tantangan</string>
     <!--    end dashboard-->
+
+    <!--   reset password -->
+    <string name="title_send_link_to_email_for_reset_password">Reset Password</string>
+    <string name="detail_send_link_to_email_for_reset_password">Masukkan email yang terhubung dengan akun kamu. Kami akan mengirim email intruksi untuk mereset password kamu.</string>
+    <string name="label_email_send_link_to_email_for_reset_password">Email</string>
+    <string name="placeholder_send_link_to_email_for_reset_password">Masukkan email kamu</string>
+    <string name="label_button_send_link_to_email_for_reset_password">Reset Password</string>
+    <!--   end reset password -->
+
+    <!--   create new password -->
+    <string name="title_create_new_password">Buat Password Baru</string>
+    <string name="detail_create_new_password">Password baru kamu harus berbeda dengan yang sebelumnya digunakan.</string>
+    <string name="label_input_password_create_new_password">Password Baru</string>
+    <string name="label_confirm_password_create_new_password">Konfirmasi Password Baru</string>
+    <string name="placeholder_password_create_new_password">Password</string>
+    <string name="text_button_save_new_password">Simpan Perubahan</string>
+    <string name="subtitle_error_password_not_identical">Password harus sama</string>
+    <string name="subtitle_error_password_empty">Password tidak boleh kosong</string>
+    <string name="subtitle_error_password_length">Password harus 8 karakter atau lebih</string>
+    <!--   create new password -->
+
+    <!--   check email for reset password -->
+    <string name="title_check_email_reset_password">Cek Email Kamu</string>
+    <string name="detail_check_email_reset_password">Kami baru saja mengirim intruksi pemulihan password ke email </string>
+    <!--   check email for reset password -->
 </resources>
