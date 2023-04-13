@@ -8,6 +8,8 @@
 package com.bluehabit.budgetku.android
 
 import android.content.Context
+import android.graphics.Rect
+import android.view.ViewTreeObserver
 import androidx.compose.material.ModalBottomSheetState
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.Snackbar
@@ -17,13 +19,16 @@ import androidx.compose.material.SnackbarHostState
 import androidx.compose.material.SnackbarResult
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalView
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.bluehabit.budgetku.android.base.EventListener
@@ -46,6 +51,10 @@ class CreateSnackbarContent(
     fun invoke(snackbarData: SnackbarData) {
         content.invoke(snackbarData)
     }
+}
+
+enum class KeyboardVisibility {
+    Opened, Closed
 }
 
 
@@ -191,4 +200,30 @@ fun rememberApplicationState(
             context
         )
     }
+}
+
+@Composable
+fun rememberKeyboardVisibility(): State<KeyboardVisibility> {
+    val keyboardVisibility = remember { mutableStateOf(KeyboardVisibility.Closed) }
+    val view = LocalView.current
+    DisposableEffect(view) {
+        val onGlobalListener = ViewTreeObserver.OnGlobalLayoutListener {
+            val rect = Rect()
+            view.getWindowVisibleDisplayFrame(rect)
+            val screenHeight = view.rootView.height
+            val keypadHeight = screenHeight - rect.bottom
+            keyboardVisibility.value = if (keypadHeight > screenHeight * 0.15) {
+                KeyboardVisibility.Opened
+            } else {
+                KeyboardVisibility.Closed
+            }
+        }
+        view.viewTreeObserver.addOnGlobalLayoutListener(onGlobalListener)
+
+        onDispose {
+            view.viewTreeObserver.removeOnGlobalLayoutListener(onGlobalListener)
+        }
+    }
+
+    return keyboardVisibility
 }
