@@ -7,7 +7,6 @@
 
 package com.bluehabit.budgetku.android.components
 
-import androidx.appcompat.view.menu.MenuBuilder.ItemInvoker
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.Divider
@@ -16,7 +15,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -27,11 +25,7 @@ import com.bluehabit.budgetku.android.ui.Grey500
 
 @Composable
 fun BottomSheetSortBudgetTransaction(
-    onDismiss: () -> Unit = {},
-    onAddAccount: () -> Unit = {},
-    onAddTransaction: () -> Unit = {},
-    onAddTransfer: () -> Unit = {},
-    onAddBudget: () -> Unit = {}
+    onDismiss: () -> Unit = {}
 ) {
     BaseBottomSheet(
         textConfirmation = "",
@@ -49,25 +43,21 @@ fun BottomSheetSortBudgetTransaction(
             )
             Spacer(modifier = Modifier.height(40.dp))
             ItemSortBudgetTransaction(
-                title = stringResource(R.string.title_item_add_sort_pengeluaran_kecil),
-                onClick = onAddAccount
+                title = stringResource(R.string.title_item_add_sort_pengeluaran_kecil)
             )
             ItemSortBudgetTransaction(
-                title = stringResource(R.string.title_item_add_sort_pengeluaran_terbesar),
-                onClick = onAddAccount
+                title = stringResource(R.string.title_item_add_sort_pengeluaran_terbesar)
             )
             ItemSortBudgetTransaction(
-                title = stringResource(R.string.title_item_add_sort_pengeluaran_terbaru),
-                onClick = onAddAccount
+                title = stringResource(R.string.title_item_add_sort_pengeluaran_terbaru)
             )
             ItemSortBudgetTransaction(
-                title = stringResource(R.string.title_item_add_sort_pengeluaran_terlama),
-                onClick = onAddAccount
+                title = stringResource(R.string.title_item_add_sort_pengeluaran_terlama)
             )
             Spacer(modifier = Modifier.height(20.dp))
             ButtonPrimary(
                 text = stringResource(R.string.text_button_choose_category_budget),
-                onClick = { },
+                onClick = {},
             )
         }
     )
@@ -77,7 +67,6 @@ fun BottomSheetSortBudgetTransaction(
 @Composable
 fun ItemSortBudgetTransaction(
     title: String = "",
-    onClick: () -> Unit = {}
 ) {
     Text(
         text = title,
