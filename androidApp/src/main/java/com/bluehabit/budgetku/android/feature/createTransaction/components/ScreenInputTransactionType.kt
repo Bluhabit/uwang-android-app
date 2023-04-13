@@ -30,6 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -62,7 +63,7 @@ fun ScreenInputTransactionType(
         )
         Spacer(modifier = Modifier.height(30.dp))
         Text(
-            text = "Untuk apa transaksi kamu, apakah pengeluaran atau pemasukan?",
+            text = stringResource(R.string.text_title_input_transaction_type_create_transaction),
             style = MaterialTheme.typography.h5,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center,
@@ -71,8 +72,8 @@ fun ScreenInputTransactionType(
         )
         Spacer(modifier = Modifier.height(30.dp))
         ButtonTransactionType(
-            name = "Pemasukan",
-            selected = selected == "Pemasukkan",
+            name = stringResource(R.string.text_transaction_type_income),
+            selected = selected == stringResource(R.string.text_transaction_type_income),
             icon = R.drawable.arrow_long_circle_up,
             iconColor = Color(0xFF57C45C),
             onClick = {
@@ -81,8 +82,8 @@ fun ScreenInputTransactionType(
         )
         Spacer(modifier = Modifier.height(16.dp))
         ButtonTransactionType(
-            name = "Pengeluaran",
-            selected = selected == "Pengeluaran",
+            name = stringResource(R.string.text_transaction_type_expenses),
+            selected = selected == stringResource(R.string.text_transaction_type_expenses),
             icon = R.drawable.arrow_long_circle_down,
             iconColor = Color(0xFFFE3419),
             onClick = {

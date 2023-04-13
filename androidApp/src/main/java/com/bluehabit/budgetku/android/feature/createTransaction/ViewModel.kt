@@ -21,6 +21,7 @@ class CreateTransactionViewModel @Inject constructor(
         handleActions()
     }
 
+
     private fun calculatePage(isNext: Boolean) = asyncWithState {
 
         val page = if (isNext) {
@@ -57,6 +58,11 @@ class CreateTransactionViewModel @Inject constructor(
         when (it) {
             CreateTransactionEvent.NexPage -> calculatePage(true)
             CreateTransactionEvent.PrevPage -> calculatePage(false)
+            is CreateTransactionEvent.ChangeBottomSheet -> commit {
+                copy(
+                    bottomSheetType = it.bottomSheetType
+                )
+            }
         }
     }
 

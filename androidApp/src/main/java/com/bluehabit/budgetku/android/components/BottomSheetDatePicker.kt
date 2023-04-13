@@ -49,7 +49,7 @@ fun BottomSheetDatePicker(
 ) {
     BaseBottomSheet(
         onDismiss = {},
-        onConfirm = {},
+        onConfirm = onSubmit,
         textConfirmation = "Simpan"
     ) {
         StaticCalendar(
@@ -115,6 +115,7 @@ fun BottomSheetDatePicker(
                                 (it.date == LocalDate.now()) -> MaterialTheme.colors.primary.copy(
                                     alpha = 0.7f
                                 )
+
                                 it.date == selectedDate -> MaterialTheme.colors.primary
                                 else -> Color.Transparent
                             }

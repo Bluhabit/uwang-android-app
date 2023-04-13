@@ -11,11 +11,17 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 import javax.annotation.concurrent.Immutable
 
+enum class CreateTransactionBottomSheetType {
+    CATEGORY,
+    DATE_PICKER
+}
+
 @Immutable
 @Parcelize
 data class CreateTransactionState(
     val step: Int = 1,
-    val percentage: Float = 0.15f
+    val percentage: Float = 0.15f,
+    val bottomSheetType: CreateTransactionBottomSheetType = CreateTransactionBottomSheetType.CATEGORY
 ) : Parcelable
 
 @Immutable
@@ -27,4 +33,6 @@ data class CreateTransactionDataState(
 sealed interface CreateTransactionEvent {
     object NexPage : CreateTransactionEvent
     object PrevPage : CreateTransactionEvent
+
+    data class ChangeBottomSheet(val bottomSheetType: CreateTransactionBottomSheetType) : CreateTransactionEvent
 }
