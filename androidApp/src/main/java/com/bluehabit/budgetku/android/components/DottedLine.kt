@@ -21,12 +21,13 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun DottedLine(
+    modifier: Modifier=Modifier,
     color: Color = MaterialTheme.colors.primary,
     height: Dp = 1.dp,
 ) {
     val pathEffect = PathEffect.dashPathEffect(floatArrayOf(15f, 15f), 0f)
     Canvas(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .height(height)
     ) {
