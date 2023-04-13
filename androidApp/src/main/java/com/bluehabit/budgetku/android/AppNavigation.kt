@@ -15,6 +15,7 @@ import com.bluehabit.budgetku.android.feature.auth.inputPin.routeInputPin
 import com.bluehabit.budgetku.android.feature.auth.signIn.routeSignIn
 import com.bluehabit.budgetku.android.feature.auth.signUp.routeSignUp
 import com.bluehabit.budgetku.android.feature.createBudget.routeCreateBudget
+import com.bluehabit.budgetku.android.feature.createTransaction.routeCreateTransaction
 import com.bluehabit.budgetku.android.feature.dashboard.budget.routeBudget
 import com.bluehabit.budgetku.android.feature.dashboard.community.routeCommunity
 import com.bluehabit.budgetku.android.feature.dashboard.home.routeHome
@@ -69,6 +70,10 @@ fun AppNavigation(
             state = applicationState
         )
         routeResultCreateBudget(
+            state = applicationState
+        )
+
+        routeCreateTransaction(
             state = applicationState
         )
     }
