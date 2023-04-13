@@ -159,6 +159,33 @@
     <string name="text_sub_title_like_create_transaction">Kamu suka tambah budget?</string>
     <string name="text_button_choose_category_budget">Pilih</string>
 
+    <!--   reset password -->
+    <string name="title_send_link_to_email_for_reset_password">Reset Password</string>
+    <string name="detail_send_link_to_email_for_reset_password">Masukkan email yang terhubung dengan akun kamu. Kami akan mengirim email intruksi untuk mereset password kamu.</string>
+    <string name="label_email_send_link_to_email_for_reset_password">Email</string>
+    <string name="placeholder_send_link_to_email_for_reset_password">Masukkan email kamu</string>
+    <string name="label_button_send_link_to_email_for_reset_password">Reset Password</string>
+    <!--   end reset password -->
+
+    <!--   create new password -->
+    <string name="title_create_new_password">Buat Password Baru</string>
+    <string name="detail_create_new_password">Password baru kamu harus berbeda dengan yang sebelumnya digunakan.</string>
+    <string name="label_input_password_create_new_password">Password Baru</string>
+    <string name="label_confirm_password_create_new_password">Konfirmasi Password Baru</string>
+    <string name="placeholder_password_create_new_password">Password</string>
+    <string name="text_button_save_new_password">Simpan Perubahan</string>
+    <string name="subtitle_error_password_not_identical">Password harus sama</string>
+    <string name="subtitle_error_password_empty">Password tidak boleh kosong</string>
+    <string name="subtitle_error_password_length">Password harus 8 karakter atau lebih</string>
+    <!--   create new password -->
+
+    <!--   check email for reset password -->
+    <string name="title_check_email_reset_password">Cek Email Kamu</string>
+    <string name="detail_check_email_reset_password">Kami baru saja mengirim intruksi pemulihan password ke email </string>
+    <string name="open_email_check_email_reset_password">Buka Aplikasi Email</string>
+    <string name="try_another_email_check_email_reset_password">Coba Email lainnya</string>
+    <!--   check email for reset password -->
+    
     <!--    change password-->
     <string name="title_change_password">Ubah Password</string>
     <string name="subtitle_change_password">Password baru kamu harus berbeda dengan yang sebelumnya digunakan.</string>
@@ -175,5 +202,4 @@
     <string name="subtitle_error_password_empty_change_password">Password tidak boleh kosong</string>
     <string name="subtitle_error_password_length_change_password">Password harus 8 karakter atau lebih</string>
     <!--    end change password-->
-
 </resources>
