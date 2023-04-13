@@ -35,6 +35,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -66,7 +67,7 @@ fun ScreenInputTransactionNameAndCategory(
                 )
         ) {
             Text(
-                text = "Transaksi kamu buat apa nih?",
+                text = stringResource(R.string.text_title_input_transaction_name_create_transaction),
                 style = MaterialTheme.typography.h5,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center,
@@ -82,7 +83,7 @@ fun ScreenInputTransactionNameAndCategory(
                 enabled = true,
                 placeholder = {
                     Text(
-                        text = "Tulis nama transaksi disini...",
+                        text = stringResource(R.string.text_placeholder_transaction_name_create_transaction),
                         style = MaterialTheme.typography.h4,
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colors.onPrimary.copy(
@@ -128,7 +129,7 @@ fun ScreenInputTransactionNameAndCategory(
                         contentDescription = ""
                     )
                     Spacer(modifier = Modifier.width(8.dp))
-                    Text(text = "Pilih Kategori transaksi")
+                    Text(text = stringResource(R.string.text_input_input_category_create_transaction))
                 }
                 Icon(
                     imageVector = Icons.Outlined.KeyboardArrowDown,

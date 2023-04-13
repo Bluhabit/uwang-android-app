@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -29,77 +30,129 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluehabit.budgetku.android.R
 import com.bluehabit.budgetku.android.base.BaseMainApp
+import com.bluehabit.budgetku.android.components.ButtonOutlinedPrimary
+import com.bluehabit.budgetku.android.components.ButtonPrimary
 import java.time.LocalDate
 
 @Composable
 fun ScreenInputDateTransaction(
     date: LocalDate? = null,
-    onSelectDate: () -> Unit = {}
+    onSelectDate: () -> Unit = {},
+    onAddMore: () -> Unit = {},
+    onSave: () -> Unit = {}
 ) {
+    val ctx = LocalContext.current
+    val currentWidth = ctx
+        .resources
+        .displayMetrics.widthPixels.dp /
+            LocalDensity.current.density
+    val buttonWidth = (currentWidth / 2) - 20.dp
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colors.primary)
-            .padding(
-                horizontal = 20.dp
-            ),
+            .background(MaterialTheme.colors.primary),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
+        verticalArrangement = Arrangement.SpaceBetween,
     ) {
-        Text(
-            text = "Kapan kamu melakukan transaksinya?",
-            style = MaterialTheme.typography.h5,
-            fontWeight = FontWeight.Bold,
-            textAlign = TextAlign.Center,
-            color = MaterialTheme.colors.onPrimary,
-            modifier = Modifier.padding(
-                horizontal = 16.dp
+        Spacer(modifier = Modifier.height(10.dp))
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(
+                    horizontal = 20.dp
+                ),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = stringResource(R.string.text_title_input_date_transaction_create_transaction),
+                style = MaterialTheme.typography.h5,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+                color = MaterialTheme.colors.onPrimary,
+                modifier = Modifier.padding(
+                    horizontal = 16.dp
+                )
             )
-        )
-        Spacer(modifier = Modifier.height(30.dp))
-        Image(
-            painter = painterResource(id = R.drawable.ic_header_input_date_transaction),
-            contentDescription = "",
-            modifier = Modifier.size(260.dp)
-        )
-        Spacer(modifier = Modifier.height(30.dp))
+            Spacer(modifier = Modifier.height(30.dp))
+            Image(
+                painter = painterResource(id = R.drawable.ic_header_input_date_transaction),
+                contentDescription = "",
+                modifier = Modifier.size(260.dp)
+            )
+            Spacer(modifier = Modifier.height(30.dp))
 
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(MaterialTheme.shapes.small)
+                    .clickable(
+                        enabled = true,
+                        onClick = onSelectDate
+                    )
+                    .background(MaterialTheme.colors.surface)
+                    .padding(
+                        horizontal = 16.dp,
+                        vertical = 16.dp
+                    ),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Row {
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_pin),
+                        contentDescription = ""
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(text = stringResource(R.string.text_placeholder_input_date_transaction_create_transaction))
+                }
+                Icon(
+                    imageVector = Icons.Outlined.KeyboardArrowDown,
+                    contentDescription = ""
+                )
+
+            }
+
+        }
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .clip(MaterialTheme.shapes.small)
-                .clickable(
-                    enabled = true,
-                    onClick = onSelectDate
+                .clip(
+                    RoundedCornerShape(
+                        topEnd = 20.dp,
+                        topStart = 20.dp
+                    )
                 )
                 .background(MaterialTheme.colors.surface)
                 .padding(
-                    horizontal = 16.dp,
-                    vertical = 16.dp
+                    vertical = 20.dp,
+                    horizontal = 20.dp
                 ),
-            horizontalArrangement = Arrangement.SpaceBetween,
+            horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Row {
-                Image(
-                    painter = painterResource(id = R.drawable.ic_pin),
-                    contentDescription = ""
-                )
-                Spacer(modifier = Modifier.width(8.dp))
-                Text(text = "Atur tanggal")
-            }
-            Icon(
-                imageVector = Icons.Outlined.KeyboardArrowDown,
-                contentDescription = ""
+            ButtonPrimary(
+                text = stringResource(R.string.text_button_add_more_transaction_create_transaction),
+                fullWidth = false,
+                modifier = Modifier.width(buttonWidth),
+                onClick = onAddMore
             )
-
+            Spacer(modifier = Modifier.width(8.dp))
+            ButtonOutlinedPrimary(
+                text = stringResource(R.string.text_button_save_transaction_create_transaction),
+                fullWidth = false,
+                modifier = Modifier.width(buttonWidth),
+                onClick = onSave
+            )
         }
     }
 
