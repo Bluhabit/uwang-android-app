@@ -119,6 +119,11 @@
     <string name="text_button_submit_feedback_create_budeget">Kirim</string>
     <string name="text_message_success_create_budget">Yay, berhasil tambah total budget!</string>
     <string name="text_message_like_total_budget_create_budget">Kamu suka tambah total budget?</string>
+    <string name="text_title_bottom_sheet_sort_budget_transaction">Urutkan Kategori Pengeluaran</string>
+    <string name="title_item_add_sort_pengeluaran_kecil">Pengeluaran Terkecil</string>
+    <string name="title_item_add_sort_pengeluaran_terbesar">Pengeluaran Terbesar</string>
+    <string name="title_item_add_sort_pengeluaran_terbaru">Pengeluaran Terbaru</string>
+    <string name="title_item_add_sort_pengeluaran_terlama">Pengeluaran Terlama</string>
     <!--    end dashboard-->
 
     <string name="label_input_email_signup">Email</string>
@@ -135,6 +140,7 @@
     <string name="text_button_register_signup">Daftar</string>
     <string name="label_or_signup">Atau</string>
     <string name="text_button_signin_with_google_signup">Daftar dengan Google</string>
+    <string name="text_button_choose_category_budget">Pilih</string>
 
     <!--    change password-->
     <string name="title_change_password">Ubah Password</string>
