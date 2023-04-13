@@ -31,7 +31,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.bluehabit.budgetku.android.KeyboardState.*
 import com.bluehabit.budgetku.android.base.EventListener
 import com.bluehabit.budgetku.android.base.extensions.runSuspend
 import kotlinx.coroutines.CoroutineScope
@@ -208,7 +207,7 @@ fun rememberApplicationState(
 
 @Composable
 fun rememberKeyboardState(): State<KeyboardState> {
-    val keyboardState = remember { mutableStateOf(Closed) }
+    val keyboardState = remember { mutableStateOf(KeyboardState.Closed) }
     val view = LocalView.current
     DisposableEffect(view) {
         val onGlobalListener = ViewTreeObserver.OnGlobalLayoutListener {
@@ -217,9 +216,9 @@ fun rememberKeyboardState(): State<KeyboardState> {
             val screenHeight = view.rootView.height
             val keypadHeight = screenHeight - rect.bottom
             keyboardState.value = if (keypadHeight > screenHeight * 0.15) {
-                Opened
+                KeyboardState.Opened
             } else {
-                Closed
+                KeyboardState.Closed
             }
         }
         view.viewTreeObserver.addOnGlobalLayoutListener(onGlobalListener)
