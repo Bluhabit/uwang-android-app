@@ -119,6 +119,11 @@
     <string name="text_button_submit_feedback_create_budeget">Kirim</string>
     <string name="text_message_success_create_budget">Yay, berhasil tambah total budget!</string>
     <string name="text_message_like_total_budget_create_budget">Kamu suka tambah total budget?</string>
+    <string name="text_title_bottom_sheet_sort_budget_transaction">Urutkan Kategori Pengeluaran</string>
+    <string name="title_item_add_sort_pengeluaran_kecil">Pengeluaran Terkecil</string>
+    <string name="title_item_add_sort_pengeluaran_terbesar">Pengeluaran Terbesar</string>
+    <string name="title_item_add_sort_pengeluaran_terbaru">Pengeluaran Terbaru</string>
+    <string name="title_item_add_sort_pengeluaran_terlama">Pengeluaran Terlama</string>
     <!--    end dashboard-->
 
     <string name="label_input_email_signup">Email</string>
@@ -152,5 +157,23 @@
     <string name="text_title_success_create_transaction">Yay, berhasil tambah transaksi baru!</string>
     <string name="text_title_feedback_create_transaction">Wow, apa sih yang bikin kamu suka tambah transaksi</string>
     <string name="text_sub_title_like_create_transaction">Kamu suka tambah budget?</string>
+    <string name="text_button_choose_category_budget">Pilih</string>
+
+    <!--    change password-->
+    <string name="title_change_password">Ubah Password</string>
+    <string name="subtitle_change_password">Password baru kamu harus berbeda dengan yang sebelumnya digunakan.</string>
+    <string name="label_input_old_password_change_password">Password Lama</string>
+    <string name="label_input_new_password_change_password">Password Baru</string>
+    <string name="label_input_confirm_new_password_change_password">Konfirmasi Password Baru</string>
+    <string name="placeholder_old_password_change_password">Masukkan password lama</string>
+    <string name="placeholder_new_password_change_password">Masukkan password baru</string>
+    <string name="placeholder_confirm_new_password_change_password">Masukkan konfirmasi password baru</string>
+    <string name="text_button_save_change_password">Simpan Perubahan</string>
+    <string name="subtitle_error_old_password_not_identical">Password tidak sesuai</string>
+    <string name="subtitle_error_password_no_changes">Password harus berbeda dengan password lama</string>
+    <string name="subtitle_error_password_not_identical_change_password">Password harus sama dengan password baru</string>
+    <string name="subtitle_error_password_empty_change_password">Password tidak boleh kosong</string>
+    <string name="subtitle_error_password_length_change_password">Password harus 8 karakter atau lebih</string>
+    <!--    end change password-->
 
 </resources>
