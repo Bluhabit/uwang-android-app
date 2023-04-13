@@ -31,14 +31,13 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.bluehabit.budgetku.android.ApplicationState
-import com.bluehabit.budgetku.android.KeyboardVisibility
+import com.bluehabit.budgetku.android.KeyboardState
 import com.bluehabit.budgetku.android.R
 import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.base.UIWrapper
 import com.bluehabit.budgetku.android.components.ButtonPrimary
 import com.bluehabit.budgetku.android.components.FormInputPassword
 import com.bluehabit.budgetku.android.rememberApplicationState
-import com.bluehabit.budgetku.android.rememberKeyboardVisibility
 
 object ChangePassword {
     const val routeName = "ChangePassword"
@@ -59,7 +58,7 @@ internal fun ScreenChangePassword(appState: ApplicationState) = UIWrapper<Change
     appState = appState
 ) {
     val state by uiState.collectAsState()
-    val keyboardVisibility by rememberKeyboardVisibility()
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -151,7 +150,7 @@ internal fun ScreenChangePassword(appState: ApplicationState) = UIWrapper<Change
             )
         }
 
-        if (keyboardVisibility == KeyboardVisibility.Closed) {
+        if (appState.keyboardState == KeyboardState.Closed) {
             ButtonPrimary(
                 text = stringResource(id = R.string.text_button_save_change_password),
                 enabled = state.isButtonEnabled,
