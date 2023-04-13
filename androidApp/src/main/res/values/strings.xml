@@ -135,5 +135,22 @@
     <string name="text_button_register_signup">Daftar</string>
     <string name="label_or_signup">Atau</string>
     <string name="text_button_signin_with_google_signup">Daftar dengan Google</string>
+    <string name="text_title_input_accoun_create_transaction">Mau pakai akun yang mana buat %1$s kamu?</string>
+    <string name="text_title_description_tips_create_another_account_create_transaction">Kamu juga bisa tambah akun rekening lainnya dan bisa langsung dipakai transaksi</string>
+    <string name="text_button_add_account_create_transaction">Tambah Rekening Disini</string>
+    <string name="text_title_input_amount_create_transaction">Berapa nih jumlah Transaksi kamu?</string>
+    <string name="text_title_input_date_transaction_create_transaction">Kapan kamu melakukan transaksinya?</string>
+    <string name="text_placeholder_input_date_transaction_create_transaction">Atur tanggal</string>
+    <string name="text_button_add_more_transaction_create_transaction">Tambah Lagi</string>
+    <string name="text_button_save_transaction_create_transaction">Simpan</string>
+    <string name="text_title_input_transaction_name_create_transaction">Transaksi kamu buat apa nih?</string>
+    <string name="text_placeholder_transaction_name_create_transaction">Tulis nama transaksi disini...</string>
+    <string name="text_input_input_category_create_transaction">Pilih Kategori transaksi</string>
+    <string name="text_title_input_transaction_type_create_transaction">Untuk apa transaksi kamu, apakah pengeluaran atau pemasukan?</string>
+    <string name="text_transaction_type_income">Pemasukan</string>
+    <string name="text_transaction_type_expenses">Pengeluaran</string>
+    <string name="text_title_success_create_transaction">Yay, berhasil tambah transaksi baru!</string>
+    <string name="text_title_feedback_create_transaction">Wow, apa sih yang bikin kamu suka tambah transaksi</string>
+    <string name="text_sub_title_like_create_transaction">Kamu suka tambah budget?</string>
 
 </resources>

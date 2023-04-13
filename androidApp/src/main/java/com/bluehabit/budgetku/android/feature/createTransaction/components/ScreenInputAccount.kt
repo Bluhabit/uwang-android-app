@@ -29,6 +29,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -62,7 +63,7 @@ fun ScreenInputAccount(
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(
-                text = "Mau pakai akun yang mana buat $transactionType kamu?",
+                text = stringResource(R.string.text_title_input_accoun_create_transaction, transactionType),
                 style = MaterialTheme.typography.h5,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center,
@@ -126,7 +127,7 @@ fun ScreenInputAccount(
                     }
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(
-                        text = "Kamu juga bisa tambah akun rekening lainnya dan bisa langsung dipakai transaksi",
+                        text = stringResource(R.string.text_title_description_tips_create_another_account_create_transaction),
                         style = MaterialTheme.typography.subtitle2,
                         fontWeight = FontWeight.Normal
                     )
@@ -141,7 +142,10 @@ fun ScreenInputAccount(
                             vertical = 20.dp
                         )
                 ) {
-                    ButtonOutlinedPrimary(text = "Tambah Rekening Disini", onClick = onAddAccount)
+                    ButtonOutlinedPrimary(
+                        text = stringResource(R.string.text_button_add_account_create_transaction),
+                        onClick = onAddAccount
+                    )
                 }
             }
         }
