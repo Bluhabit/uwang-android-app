@@ -136,4 +136,10 @@
     <string name="label_or_signup">Atau</string>
     <string name="text_button_signin_with_google_signup">Daftar dengan Google</string>
 
+
+    <!--    budget category-->
+    <string name="title_budget_category_bottom_sheet">Kategori</string>
+    <string name="placeholder_search_budget_category_bottom_sheet">Cari </string>
+    <!--    end budget category-->
+
 </resources>
