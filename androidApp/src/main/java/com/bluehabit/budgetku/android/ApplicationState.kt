@@ -31,6 +31,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.bluehabit.budgetku.android.KeyboardState.*
 import com.bluehabit.budgetku.android.base.EventListener
 import com.bluehabit.budgetku.android.base.extensions.runSuspend
 import kotlinx.coroutines.CoroutineScope
@@ -53,7 +54,7 @@ class CreateSnackbarContent(
     }
 }
 
-enum class KeyboardVisibility {
+enum class KeyboardState {
     Opened, Closed
 }
 
@@ -63,7 +64,8 @@ class ApplicationState internal constructor(
     val bottomSheetState: ModalBottomSheetState,
     val scope: CoroutineScope,
     val event: EventListener,
-    val context: Context
+    val context: Context,
+    val keyboardState: KeyboardState
 ) {
 
 
@@ -191,20 +193,22 @@ fun rememberApplicationState(
             true
         }
     )
+    val keyboardState by rememberKeyboardState()
     return remember {
         ApplicationState(
             router,
             state,
             scope,
             event,
-            context
+            context,
+            keyboardState
         )
     }
 }
 
 @Composable
-fun rememberKeyboardVisibility(): State<KeyboardVisibility> {
-    val keyboardVisibility = remember { mutableStateOf(KeyboardVisibility.Closed) }
+fun rememberKeyboardState(): State<KeyboardState> {
+    val keyboardState = remember { mutableStateOf(Closed) }
     val view = LocalView.current
     DisposableEffect(view) {
         val onGlobalListener = ViewTreeObserver.OnGlobalLayoutListener {
@@ -212,10 +216,10 @@ fun rememberKeyboardVisibility(): State<KeyboardVisibility> {
             view.getWindowVisibleDisplayFrame(rect)
             val screenHeight = view.rootView.height
             val keypadHeight = screenHeight - rect.bottom
-            keyboardVisibility.value = if (keypadHeight > screenHeight * 0.15) {
-                KeyboardVisibility.Opened
+            keyboardState.value = if (keypadHeight > screenHeight * 0.15) {
+                Opened
             } else {
-                KeyboardVisibility.Closed
+                Closed
             }
         }
         view.viewTreeObserver.addOnGlobalLayoutListener(onGlobalListener)
@@ -225,5 +229,5 @@ fun rememberKeyboardVisibility(): State<KeyboardVisibility> {
         }
     }
 
-    return keyboardVisibility
+    return keyboardState
 }
