@@ -37,7 +37,7 @@ import com.bluehabit.budgetku.android.ui.Grey300
 fun BaseBottomSheet(
     textConfirmation: String = "Confirm",
     enableConfirmation: Boolean = true,
-    showButtonConfirmation:Boolean=true,
+    showButtonConfirmation: Boolean = true,
     onDismiss: () -> Unit = {},
     onConfirm: () -> Unit = {},
     content: @Composable ColumnScope.() -> Unit = {}
@@ -68,7 +68,14 @@ fun BaseBottomSheet(
             modifier = Modifier
                 .width(50.dp)
                 .height(6.dp)
-                .clip(MaterialTheme.shapes.medium)
+                .clip(
+                    RoundedCornerShape(
+                        topStart = 24.dp,
+                        topEnd = 24.dp,
+                        bottomStart = 0.dp,
+                        bottomEnd = 0.dp
+                    )
+                )
                 .background(Grey300)
         ) {
 
@@ -90,7 +97,7 @@ fun BaseBottomSheet(
             Spacer(modifier = Modifier.height(16.dp))
             content(this)
             Spacer(modifier = Modifier.height(16.dp))
-            if(showButtonConfirmation) {
+            if (showButtonConfirmation) {
                 ButtonPrimary(
                     text = textConfirmation,
                     enabled = enableConfirmation,

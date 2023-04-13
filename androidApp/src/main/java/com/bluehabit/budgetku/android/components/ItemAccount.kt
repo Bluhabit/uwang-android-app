@@ -38,12 +38,14 @@ import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.base.extensions.formatToRupiah
 import com.bluehabit.budgetku.android.ui.Grey100
 import com.bluehabit.budgetku.android.ui.Grey700
+import com.bluehabit.budgetku.android.ui.Yellow200
 import java.math.BigDecimal
 
 @Composable
 fun ItemAccount(
     accountBankName: String = "",
     accountBalance: BigDecimal = BigDecimal.ZERO,
+    selected: Boolean = false,
     onClick: () -> Unit = {}
 ) {
     val ctx = LocalContext.current
@@ -61,7 +63,10 @@ fun ItemAccount(
             .clickable {
                 onClick()
             }
-            .background(Grey100)
+            .background(
+                if (selected) Yellow200
+                else Grey100
+            )
             .padding(
                 vertical = 16.dp,
                 horizontal = 16.dp

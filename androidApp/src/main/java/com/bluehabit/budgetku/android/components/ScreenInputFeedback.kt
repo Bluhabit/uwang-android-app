@@ -8,6 +8,7 @@
 package com.bluehabit.budgetku.android.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -49,14 +50,17 @@ import com.bluehabit.budgetku.android.ui.Grey300
 
 @Composable
 fun ScreenInputFeedback(
-    title:String="",
+    title: String = "",
     feedback: String = "",
+    showCloseButton: Boolean = true,
     onChange: (String) -> Unit = {},
     onDismiss: () -> Unit = {},
     onSubmit: () -> Unit = {}
 ) {
     Box(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colors.surface)
     ) {
         Image(
             painter = painterResource(id = R.drawable.ic_overlay_result_create_budget),
@@ -68,19 +72,21 @@ fun ScreenInputFeedback(
                 ),
             contentScale = ContentScale.FillWidth
         )
-        IconButton(
-            modifier = Modifier
-                .align(Alignment.TopEnd)
-                .padding(
-                    top = 30.dp,
-                    end = 30.dp
-                ),
-            onClick = onDismiss
-        ) {
-            Icon(
-                imageVector = Icons.Outlined.Close,
-                contentDescription = ""
-            )
+        if (showCloseButton) {
+            IconButton(
+                modifier = Modifier
+                    .align(Alignment.TopEnd)
+                    .padding(
+                        top = 30.dp,
+                        end = 30.dp
+                    ),
+                onClick = onDismiss
+            ) {
+                Icon(
+                    imageVector = Icons.Outlined.Close,
+                    contentDescription = ""
+                )
+            }
         }
 
 
