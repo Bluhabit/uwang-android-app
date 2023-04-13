@@ -30,16 +30,21 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.bluehabit.budgetku.android.ApplicationState
+import com.bluehabit.budgetku.android.R
 import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.base.UIWrapper
+import com.bluehabit.budgetku.android.components.BottomSheetDatePicker
 import com.bluehabit.budgetku.android.components.ScreenInputFeedback
 import com.bluehabit.budgetku.android.components.ScreenInputSuccess
+import com.bluehabit.budgetku.android.feature.createTransaction.CreateTransactionBottomSheetType.DATE_PICKER
+import com.bluehabit.budgetku.android.feature.createTransaction.CreateTransactionBottomSheetType.CATEGORY
 import com.bluehabit.budgetku.android.feature.createTransaction.components.ScreenInputAccount
 import com.bluehabit.budgetku.android.feature.createTransaction.components.ScreenInputAmount
 import com.bluehabit.budgetku.android.feature.createTransaction.components.ScreenInputDateTransaction
@@ -67,6 +72,20 @@ internal fun ScreenCreateTransaction(
 
     with(appState) {
         hideTopAppBar()
+
+        setupBottomSheet {
+            when (state.bottomSheetType) {
+                CATEGORY -> {}
+                DATE_PICKER -> {
+                    BottomSheetDatePicker(
+                        onSubmit = {
+                            hideBottomSheet()
+                        }
+                    )
+                }
+            }
+
+        }
     }
     BackHandler {
         if (state.step == 1) {
@@ -117,20 +136,25 @@ internal fun ScreenCreateTransaction(
             5 -> ScreenInputDateTransaction(
                 date = null,
                 onSelectDate = {
+                    dispatch(CreateTransactionEvent.ChangeBottomSheet(DATE_PICKER))
+                    showBottomSheet()
+                },
+                onAddMore = {},
+                onSave = {
                     dispatch(CreateTransactionEvent.NexPage)
                 }
             )
 
             6 -> ScreenInputSuccess(
-                title = "Yay, berhasil tambah transaksi baru!",
-                subtitle = "Kamu suka tambah budget?",
+                title = stringResource(R.string.text_title_success_create_transaction),
+                subtitle = stringResource(R.string.text_sub_title_like_create_transaction),
                 onSubmit = {
                     dispatch(CreateTransactionEvent.NexPage)
                 }
             )
 
             7 -> ScreenInputFeedback(
-                title = "Wow, apa sih yang bikin kamu suka tambah transaksi",
+                title = stringResource(R.string.text_title_feedback_create_transaction),
                 onSubmit = {
 
                 }
@@ -139,7 +163,7 @@ internal fun ScreenCreateTransaction(
             else -> ScreenInputAmount()
         }
 
-        if(state.step in 1..5) {
+        if (state.step in 1..5) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()

@@ -177,6 +177,7 @@ fun rememberApplicationState(
 ): ApplicationState {
     val state = rememberModalBottomSheetState(
         initialValue = ModalBottomSheetValue.Hidden,
+        skipHalfExpanded = true,
         confirmValueChange = {
             event.changeBottomSheetState(it)
             true
