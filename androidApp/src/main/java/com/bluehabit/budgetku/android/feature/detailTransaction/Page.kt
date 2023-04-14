@@ -134,9 +134,9 @@ internal fun ScreenDetailTransaction(
             fontWeight = FontWeight.Normal,
             color = Grey700
         )
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(24.dp))
         DottedLine()
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(24.dp))
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -196,7 +196,7 @@ internal fun ScreenDetailTransaction(
             )
         }
         DottedLine()
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(24.dp))
         Column(
             modifier = Modifier
                 .fillMaxWidth()
