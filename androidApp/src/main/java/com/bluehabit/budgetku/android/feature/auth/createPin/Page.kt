@@ -307,7 +307,6 @@ internal fun ScreenCreatePin(
                             modifier = Modifier.align(Alignment.Center)
                         )
                     }
-                    Spacer(modifier = Modifier.width(58.dp))
                 }
 
                 Spacer(modifier = Modifier.height(72.dp))
