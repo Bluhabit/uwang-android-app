@@ -36,7 +36,7 @@ fun BottomSheetSuccessPin(
     onDismiss: () -> Unit = {},
 ) {
     BaseBottomSheet(
-        textConfirmation = "Oke",
+        textConfirmation = stringResource(R.string.button_success_pin),
         enableConfirmation = true,
         showButtonConfirmation = true,
         showLineHeader = false,
