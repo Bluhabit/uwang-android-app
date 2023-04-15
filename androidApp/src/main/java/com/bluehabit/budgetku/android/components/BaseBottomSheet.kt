@@ -38,6 +38,7 @@ fun BaseBottomSheet(
     textConfirmation: String = "Confirm",
     enableConfirmation: Boolean = true,
     showButtonConfirmation:Boolean=true,
+    showLineHeader: Boolean = true,
     onDismiss: () -> Unit = {},
     onConfirm: () -> Unit = {},
     content: @Composable ColumnScope.() -> Unit = {}
@@ -64,14 +65,18 @@ fun BaseBottomSheet(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceBetween
     ) {
-        Box(
-            modifier = Modifier
-                .width(50.dp)
-                .height(6.dp)
-                .clip(MaterialTheme.shapes.medium)
-                .background(Grey300)
+        if (
+            showLineHeader
         ) {
+            Box(
+                modifier = Modifier
+                    .width(50.dp)
+                    .height(6.dp)
+                    .clip(MaterialTheme.shapes.medium)
+                    .background(Grey300)
+            ) {
 
+            }
         }
 
         Column(
