@@ -9,11 +9,16 @@ package com.bluehabit.budgetku.android
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
+import com.bluehabit.budgetku.android.feature.auth.checkEmailResetPassword.routeCheckEmailResetPassword
+import com.bluehabit.budgetku.android.feature.auth.changePassword.routeChangePassword
 import com.bluehabit.budgetku.android.feature.auth.completeProfile.routeCompleteProfile
 import com.bluehabit.budgetku.android.feature.auth.inputPin.routeInputPin
+import com.bluehabit.budgetku.android.feature.auth.createNewPassword.routeCreateNewPassword
+import com.bluehabit.budgetku.android.feature.auth.resetPassword.routeResetPassword
 import com.bluehabit.budgetku.android.feature.auth.signIn.routeSignIn
 import com.bluehabit.budgetku.android.feature.auth.signUp.routeSignUp
 import com.bluehabit.budgetku.android.feature.createBudget.routeCreateBudget
+import com.bluehabit.budgetku.android.feature.createTransaction.routeCreateTransaction
 import com.bluehabit.budgetku.android.feature.dashboard.budget.routeBudget
 import com.bluehabit.budgetku.android.feature.dashboard.community.routeCommunity
 import com.bluehabit.budgetku.android.feature.dashboard.home.routeHome
@@ -64,8 +69,24 @@ fun AppNavigation(
         routeInputPin(
             state = applicationState
         )
-
+        routeChangePassword(
+            state = applicationState
+        )
         routeResultCreateBudget(
+            state = applicationState
+        )
+
+        routeResetPassword(
+            state = applicationState
+        )
+        routeCreateNewPassword(
+            state = applicationState
+        )
+        routeCheckEmailResetPassword(
+            state = applicationState
+        )
+        routeCreateTransaction(
+
             state = applicationState
         )
     }

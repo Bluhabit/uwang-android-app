@@ -48,11 +48,14 @@ import com.bluehabit.budgetku.android.ui.Grey300
 fun ScreenInputSuccess(
     title: String = "",
     subtitle: String = "",
+    showCloseButton:Boolean=true,
     onDismiss: () -> Unit = {},
     onSubmit: (Boolean) -> Unit = {}
 ) {
     Box(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colors.surface)
     ) {
         Image(
             painter = painterResource(id = R.drawable.ic_overlay_result_create_budget),
@@ -64,19 +67,21 @@ fun ScreenInputSuccess(
                 ),
             contentScale = ContentScale.FillWidth
         )
-        IconButton(
-            modifier = Modifier
-                .align(Alignment.TopEnd)
-                .padding(
-                    top = 30.dp,
-                    end = 30.dp
-                ),
-            onClick = onDismiss
-        ) {
-            Icon(
-                imageVector = Icons.Outlined.Close,
-                contentDescription = ""
-            )
+        if(showCloseButton) {
+            IconButton(
+                modifier = Modifier
+                    .align(Alignment.TopEnd)
+                    .padding(
+                        top = 30.dp,
+                        end = 30.dp
+                    ),
+                onClick = onDismiss
+            ) {
+                Icon(
+                    imageVector = Icons.Outlined.Close,
+                    contentDescription = ""
+                )
+            }
         }
 
 
