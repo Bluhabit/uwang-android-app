@@ -38,7 +38,6 @@ import com.bluehabit.budgetku.android.R
 import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.base.extensions.formatToRupiah
 import com.bluehabit.budgetku.android.ui.Blue600
-import com.bluehabit.budgetku.android.ui.Grey100
 import com.bluehabit.budgetku.android.ui.Grey300
 import com.bluehabit.budgetku.android.ui.Grey500
 import com.bluehabit.budgetku.android.ui.Grey700
@@ -236,7 +235,7 @@ fun ContentItemFeedTemplate(
                 all = 16.dp
             )
     ) {
-        items.forEachIndexed { index, it ->
+        items.forEachIndexed { index, feed ->
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
@@ -254,7 +253,7 @@ fun ContentItemFeedTemplate(
                     )
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(
-                        text = it.name,
+                        text = feed.name,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
                         style = MaterialTheme.typography.subtitle1,
@@ -267,7 +266,7 @@ fun ContentItemFeedTemplate(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(
-                        text = it.allocation,
+                        text = feed.allocation,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
                         style = MaterialTheme.typography.body2,
@@ -275,7 +274,7 @@ fun ContentItemFeedTemplate(
                         color = Grey700
                     )
                     Text(
-                        text = it.amount.formatToRupiah(),
+                        text = feed.amount.formatToRupiah(),
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
                         style = MaterialTheme.typography.body2,

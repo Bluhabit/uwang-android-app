@@ -25,7 +25,6 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Tab
 import androidx.compose.material.TabRow
 import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.runtime.Composable
@@ -196,7 +195,8 @@ internal fun ScreenCommunity(
                     ItemFeed(
                         userName = "Devianrahmani",
                         createdAt = "11 April 2023, 17:32",
-                        body = "Inget selalu bedakan pengeluaran antara kebutuhan dan keinginan. Jangan lupa juga buat selalu catet pengeluaran biar kakak tau tuh alokasi keuangan selama satu bulan itu kemana aja.",
+                        body = "Inget selalu bedakan pengeluaran antara kebutuhan dan keinginan. Jangan lupa juga buat selalu catet" +
+                                " pengeluaran biar kakak tau tuh alokasi keuangan selama satu bulan itu kemana aja.",
                         comments = 12,
                         likes = 345,
                     )
@@ -238,7 +238,8 @@ internal fun ScreenCommunity(
                         likes = 345,
                         content = {
                             Text(
-                                text = "Inget selalu bedakan pengeluaran antara kebutuhan dan keinginan. Jangan lupa juga buat selalu catet pengeluaran biar kakak tau tuh alokasi keuangan selama satu bulan itu kemana aja.",
+                                text = "Inget selalu bedakan pengeluaran antara kebutuhan dan keinginan. Jangan lupa juga buat selalu " +
+                                        "catet pengeluaran biar kakak tau tuh alokasi keuangan selama satu bulan itu kemana aja.",
                                 style = MaterialTheme.typography.subtitle1,
                                 fontWeight = FontWeight.Normal,
                                 color = Grey900
