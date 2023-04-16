@@ -34,6 +34,10 @@
 
     <string name="text_input_pin">Masukkan PIN</string>
     <string name="label_forgotpin_inputpin">Lupa PIN?</string>
+    <string name="text_create_pin">Buat kode PIN kamu</string>
+    <string name="title_create_pin_success">PIN Berhasil dibuat</string>
+    <string name="subtitle_create_pin_success">Gunakan catat keuangan kamu lebih aman dan mudah dengan Budgetku!</string>
+    <string name="button_success_pin">Oke</string>
     <string name="text_button_numpad_1">1</string>
     <string name="text_button_numpad_2">2</string>
     <string name="text_button_numpad_3">3</string>
