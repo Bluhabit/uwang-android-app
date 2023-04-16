@@ -14,7 +14,7 @@ import javax.annotation.concurrent.Immutable
 @Immutable
 @Parcelize
 data class CommunityState(
-    var a:String=""
+    var selectedtab:Int=1
 ) : Parcelable
 
 
