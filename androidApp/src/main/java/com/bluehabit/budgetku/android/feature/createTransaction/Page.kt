@@ -40,7 +40,11 @@ import com.bluehabit.budgetku.android.ApplicationState
 import com.bluehabit.budgetku.android.R
 import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.base.UIWrapper
+import com.bluehabit.budgetku.android.components.BottomSheetAddBudgetCategory
 import com.bluehabit.budgetku.android.components.BottomSheetDatePicker
+import com.bluehabit.budgetku.android.components.BudgetCategory
+import com.bluehabit.budgetku.android.components.ItemBudgetCategory
+import com.bluehabit.budgetku.android.components.ItemBudgetSubCategory
 import com.bluehabit.budgetku.android.components.ScreenInputFeedback
 import com.bluehabit.budgetku.android.components.ScreenInputSuccess
 import com.bluehabit.budgetku.android.feature.createTransaction.CreateTransactionBottomSheetType.DATE_PICKER
@@ -75,7 +79,78 @@ internal fun ScreenCreateTransaction(
 
         setupBottomSheet {
             when (state.bottomSheetType) {
-                CATEGORY -> {}
+                CATEGORY -> {
+                    BottomSheetAddBudgetCategory(
+                        onDismiss = { hideBottomSheet() },
+                        onSearch = {
+
+                        },
+                        popularBudgetCategories = listOf(
+                            ItemBudgetCategory(
+                                title = "Makanan & Minuman",
+                                icon = R.drawable.icon_food,
+                            ),
+                            ItemBudgetCategory(
+                                title = "Kebutuhan Rumah",
+                                icon = R.drawable.icon_house
+                            ),
+                            ItemBudgetCategory(
+                                title = "Tagihan & Utilitas",
+                                icon = R.drawable.icon_bill
+                            )
+                        ),
+                        budgetCategories = listOf(
+                            BudgetCategory(
+                                title = "Kebutuhan sehari-hari",
+                                categories = listOf(
+                                    ItemBudgetCategory(
+                                        title = "Makanan & Minuman",
+                                        icon = R.drawable.icon_food,
+                                        subCategories = listOf(
+                                            ItemBudgetSubCategory(
+                                                title = "Restoran",
+                                                icon = R.drawable.icon_restaurant
+                                            ),
+                                            ItemBudgetSubCategory(
+                                                title = "Food Delivery",
+                                                icon = R.drawable.icon_food_delivery
+                                            ),
+                                            ItemBudgetSubCategory(
+                                                title = "Coffee Shop",
+                                                icon = R.drawable.icon_coffee
+                                            ),
+                                            ItemBudgetSubCategory(
+                                                title = "Fast Food",
+                                                icon = R.drawable.icon_fast_food
+                                            ),
+                                        )
+                                    ),
+                                    ItemBudgetCategory(
+                                        title = "Bensin",
+                                        icon = R.drawable.icon_bus
+                                    )
+                                )
+                            ),
+                            BudgetCategory(
+                                title = "Kebutuhan rumah tangga",
+                                categories = listOf(
+                                    ItemBudgetCategory(
+                                        title = "Kebutuhan Rumah",
+                                        icon = R.drawable.icon_house
+                                    ),
+                                    ItemBudgetCategory(
+                                        title = "Tagihan & Utilitas",
+                                        icon = R.drawable.icon_bill
+                                    )
+                                )
+                            ),
+                        ),
+                        onCategorySelected = {
+                            showSnackbar(it)
+                            hideBottomSheet()
+                        },
+                    )
+                }
                 DATE_PICKER -> {
                     BottomSheetDatePicker(
                         onSubmit = {
@@ -129,7 +204,8 @@ internal fun ScreenCreateTransaction(
                 transactionName = "",
                 onChange = {},
                 onSelectCategory = {
-                    dispatch(CreateTransactionEvent.NexPage)
+                    dispatch(CreateTransactionEvent.ChangeBottomSheet(CATEGORY))
+                    showBottomSheet()
                 },
             )
 
