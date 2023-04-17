@@ -5,19 +5,14 @@
  * Proprietary and confidential
  */
 
-package com.bluehabit.budgetku.android.feature.dashboard.community
+package com.bluehabit.budgetku.android.feature.auth.createPin
 
 import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
+import kotlinx.android.parcel.Parcelize
 import javax.annotation.concurrent.Immutable
 
 @Immutable
 @Parcelize
-data class CommunityState(
-    var selectedtab:Int=1
-) : Parcelable
+data class CreatePinState(var a : String = "") : Parcelable
 
-
-sealed class CommunityEvent{
-
-}
+sealed class CreatePinEvent{}

@@ -34,6 +34,10 @@
 
     <string name="text_input_pin">Masukkan PIN</string>
     <string name="label_forgotpin_inputpin">Lupa PIN?</string>
+    <string name="text_create_pin">Buat kode PIN kamu</string>
+    <string name="title_create_pin_success">PIN Berhasil dibuat</string>
+    <string name="subtitle_create_pin_success">Gunakan catat keuangan kamu lebih aman dan mudah dengan Budgetku!</string>
+    <string name="button_success_pin">Oke</string>
     <string name="text_button_numpad_1">1</string>
     <string name="text_button_numpad_2">2</string>
     <string name="text_button_numpad_3">3</string>
@@ -119,6 +123,11 @@
     <string name="text_button_submit_feedback_create_budeget">Kirim</string>
     <string name="text_message_success_create_budget">Yay, berhasil tambah total budget!</string>
     <string name="text_message_like_total_budget_create_budget">Kamu suka tambah total budget?</string>
+    <string name="text_title_bottom_sheet_sort_budget_transaction">Urutkan Kategori Pengeluaran</string>
+    <string name="title_item_add_sort_pengeluaran_kecil">Pengeluaran Terkecil</string>
+    <string name="title_item_add_sort_pengeluaran_terbesar">Pengeluaran Terbesar</string>
+    <string name="title_item_add_sort_pengeluaran_terbaru">Pengeluaran Terbaru</string>
+    <string name="title_item_add_sort_pengeluaran_terlama">Pengeluaran Terlama</string>
     <!--    end dashboard-->
 
     <string name="label_input_email_signup">Email</string>
@@ -152,11 +161,59 @@
     <string name="text_title_success_create_transaction">Yay, berhasil tambah transaksi baru!</string>
     <string name="text_title_feedback_create_transaction">Wow, apa sih yang bikin kamu suka tambah transaksi</string>
     <string name="text_sub_title_like_create_transaction">Kamu suka tambah budget?</string>
-
+    <string name="text_button_choose_category_budget">Pilih</string>
 
     <!--    budget category-->
     <string name="title_budget_category_bottom_sheet">Kategori</string>
     <string name="placeholder_search_budget_category_bottom_sheet">Cari </string>
     <!--    end budget category-->
+
+    <!--   reset password -->
+    <string name="title_send_link_to_email_for_reset_password">Reset Password</string>
+    <string name="detail_send_link_to_email_for_reset_password">Masukkan email yang terhubung dengan akun kamu. Kami akan mengirim email intruksi untuk mereset password kamu.</string>
+    <string name="label_email_send_link_to_email_for_reset_password">Email</string>
+    <string name="placeholder_send_link_to_email_for_reset_password">Masukkan email kamu</string>
+    <string name="label_button_send_link_to_email_for_reset_password">Reset Password</string>
+    <!--   end reset password -->
+
+    <!--   create new password -->
+    <string name="title_create_new_password">Buat Password Baru</string>
+    <string name="detail_create_new_password">Password baru kamu harus berbeda dengan yang sebelumnya digunakan.</string>
+    <string name="label_input_password_create_new_password">Password Baru</string>
+    <string name="label_confirm_password_create_new_password">Konfirmasi Password Baru</string>
+    <string name="placeholder_password_create_new_password">Password</string>
+    <string name="text_button_save_new_password">Simpan Perubahan</string>
+    <string name="subtitle_error_password_not_identical">Password harus sama</string>
+    <string name="subtitle_error_password_empty">Password tidak boleh kosong</string>
+    <string name="subtitle_error_password_length">Password harus 8 karakter atau lebih</string>
+    <!--   create new password -->
+
+    <!--   check email for reset password -->
+    <string name="title_check_email_reset_password">Cek Email Kamu</string>
+    <string name="detail_check_email_reset_password">Kami baru saja mengirim intruksi pemulihan password ke email </string>
+    <string name="open_email_check_email_reset_password">Buka Aplikasi Email</string>
+    <string name="try_another_email_check_email_reset_password">Coba Email lainnya</string>
+    <!--   check email for reset password -->
+    
+    <!--    change password-->
+    <string name="title_change_password">Ubah Password</string>
+    <string name="subtitle_change_password">Password baru kamu harus berbeda dengan yang sebelumnya digunakan.</string>
+    <string name="label_input_old_password_change_password">Password Lama</string>
+    <string name="label_input_new_password_change_password">Password Baru</string>
+    <string name="label_input_confirm_new_password_change_password">Konfirmasi Password Baru</string>
+    <string name="placeholder_old_password_change_password">Masukkan password lama</string>
+    <string name="placeholder_new_password_change_password">Masukkan password baru</string>
+    <string name="placeholder_confirm_new_password_change_password">Masukkan konfirmasi password baru</string>
+    <string name="text_button_save_change_password">Simpan Perubahan</string>
+    <string name="subtitle_error_old_password_not_identical">Password tidak sesuai</string>
+    <string name="subtitle_error_password_no_changes">Password harus berbeda dengan password lama</string>
+    <string name="subtitle_error_password_not_identical_change_password">Password harus sama dengan password baru</string>
+    <string name="subtitle_error_password_empty_change_password">Password tidak boleh kosong</string>
+    <string name="subtitle_error_password_length_change_password">Password harus 8 karakter atau lebih</string>
+    <string name="text_title_dashboard_community">Komunitas</string>
+    <string name="text_tab_feed">Feeds</string>
+    <string name="text_tab_article">Article</string>
+    <string name="text_tab_academy">Academy</string>
+    <!--    end change password-->
 
 </resources>
