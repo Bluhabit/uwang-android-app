@@ -5,7 +5,7 @@
  * Proprietary and confidential
  */
 
-package com.bluehabit.budgetku.android.components.bottomSheet
+package com.bluehabit.budgetku.android.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -22,28 +23,43 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Clear
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.bluehabit.budgetku.android.components.button.ButtonOutlinedPrimary
 import com.bluehabit.budgetku.android.components.button.ButtonPrimary
 import com.bluehabit.budgetku.android.ui.BudgetKuTheme
 import com.bluehabit.budgetku.android.ui.Grey300
+import com.bluehabit.budgetku.android.ui.Grey700
 
 @Composable
-fun BaseBottomSheet(
+fun BottomSheetConfirmation(
+    title: String = "",
+    message: String = "",
     textConfirmation: String = "Confirm",
+    textCancel: String = "Confirm",
     enableConfirmation: Boolean = true,
-    showButtonConfirmation:Boolean=true,
-    showLineHeader: Boolean = true,
+    enableCancel: Boolean = true,
+    showButtonConfirmation: Boolean = true,
     onDismiss: () -> Unit = {},
     onConfirm: () -> Unit = {},
     content: @Composable ColumnScope.() -> Unit = {}
 ) {
+    val ctx = LocalContext.current
+    val currentWidth = ctx
+        .resources
+        .displayMetrics.widthPixels.dp /
+            LocalDensity.current.density
+    val buttonWidth = (currentWidth / 2) - 28.dp
     Column(
         modifier = Modifier
             .defaultMinSize(
@@ -66,18 +82,16 @@ fun BaseBottomSheet(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceBetween
     ) {
-        if (
-            showLineHeader
+        Box(
+            modifier = Modifier
+                .width(50.dp)
+                .height(6.dp)
+                .clip(
+                    MaterialTheme.shapes.medium
+                )
+                .background(Grey300)
         ) {
-            Box(
-                modifier = Modifier
-                    .width(50.dp)
-                    .height(6.dp)
-                    .clip(MaterialTheme.shapes.medium)
-                    .background(Grey300)
-            ) {
 
-            }
         }
 
         Column(
@@ -94,14 +108,35 @@ fun BaseBottomSheet(
                 )
             )
             Spacer(modifier = Modifier.height(16.dp))
-            content(this)
+            Text(
+                text = title,
+                style = MaterialTheme.typography.h5,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colors.onSurface
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = message,
+                style = MaterialTheme.typography.h6,
+                fontWeight = FontWeight.Normal,
+                color = Grey700
+            )
             Spacer(modifier = Modifier.height(16.dp))
-            if(showButtonConfirmation) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+
+            ) {
+                ButtonOutlinedPrimary(
+                    text = textCancel,
+                    fullWidth = false,
+                    modifier = Modifier.width(buttonWidth)
+                )
                 ButtonPrimary(
                     text = textConfirmation,
-                    enabled = enableConfirmation,
-                    fullWidth = true,
-                    onClick = onConfirm
+                    fullWidth = false,
+                    modifier = Modifier.width(buttonWidth)
                 )
             }
         }
@@ -112,8 +147,13 @@ fun BaseBottomSheet(
 
 @Preview
 @Composable
-fun PreviewBaseBottomSheet() {
+fun PreviewBottomSheetConfirmation() {
     BudgetKuTheme {
-        BaseBottomSheet()
+        BottomSheetConfirmation(
+            title = "Yakin hapus transaski ini?",
+            message = "Data transaksi yang telah kamu isi akan hilang dari catatan transaksi kamu",
+            textConfirmation = "Hapus",
+            textCancel = "Batal"
+        )
     }
 }

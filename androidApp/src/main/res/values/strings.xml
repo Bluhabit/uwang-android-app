@@ -34,6 +34,10 @@
 
     <string name="text_input_pin">Masukkan PIN</string>
     <string name="label_forgotpin_inputpin">Lupa PIN?</string>
+    <string name="text_create_pin">Buat kode PIN kamu</string>
+    <string name="title_create_pin_success">PIN Berhasil dibuat</string>
+    <string name="subtitle_create_pin_success">Gunakan catat keuangan kamu lebih aman dan mudah dengan Budgetku!</string>
+    <string name="button_success_pin">Oke</string>
     <string name="text_button_numpad_1">1</string>
     <string name="text_button_numpad_2">2</string>
     <string name="text_button_numpad_3">3</string>
@@ -201,6 +205,19 @@
     <string name="subtitle_error_password_not_identical_change_password">Password harus sama dengan password baru</string>
     <string name="subtitle_error_password_empty_change_password">Password tidak boleh kosong</string>
     <string name="subtitle_error_password_length_change_password">Password harus 8 karakter atau lebih</string>
+    <string name="text_title_delete_confirmation_transaction">Yakin hapus transaski ini?</string>
+    <string name="text_message_delete_confirmation_transaction">Data transaksi yang telah kamu isi akan hilang dari catatan transaksi kamu</string>
+    <string name="text_button_confirm_delete_transaction">Hapus</string>
+    <string name="text_button_cancel_delete_transaction">Batal</string>
+    <string name="text_title_label_detail_transaction">Rincian Transaksi</string>
+    <string name="text_label_account_source_detail_transaction">Sumber akun</string>
+    <string name="text_label_transaction_date_detail_transaction">Tanggal Transaksi</string>
+    <string name="text_label_transaction_category_detail_transaction">Kategory</string>
+    <string name="text_label_transaction_type_detail_transaction">Jenis</string>
+    <string name="text_label_total_amount_detail_transaction">Total</string>
+    <string name="text_button_share_transaction_detail_transaction">Bagikan Transaksi ini</string>
+    <string name="text_button_detele_transaction_detail_transaction">Hapus Transaksi</string>
+    <string name="text_title_detail_transaction">Detail Transaksi</string>
     <string name="text_title_dashboard_community">Komunitas</string>
     <string name="text_tab_feed">Feeds</string>
     <string name="text_tab_article">Article</string>
