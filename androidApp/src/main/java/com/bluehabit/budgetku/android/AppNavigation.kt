@@ -23,6 +23,7 @@ import com.bluehabit.budgetku.android.feature.dashboard.budget.routeBudget
 import com.bluehabit.budgetku.android.feature.dashboard.community.routeCommunity
 import com.bluehabit.budgetku.android.feature.dashboard.home.routeHome
 import com.bluehabit.budgetku.android.feature.dashboard.report.routeReport
+import com.bluehabit.budgetku.android.feature.detailTransaction.routeDetailTransaction
 import com.bluehabit.budgetku.android.feature.onboarding.routeOnboard
 import com.bluehabit.budgetku.android.feature.resultCreateBudget.routeResultCreateBudget
 import com.bluehabit.budgetku.android.feature.splashScreen.Splash
@@ -87,6 +88,9 @@ fun AppNavigation(
         )
         routeCreateTransaction(
 
+            state = applicationState
+        )
+        routeDetailTransaction(
             state = applicationState
         )
     }
