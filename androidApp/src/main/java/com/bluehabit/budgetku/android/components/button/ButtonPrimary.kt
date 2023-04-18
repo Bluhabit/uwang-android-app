@@ -5,14 +5,13 @@
  * Proprietary and confidential
  */
 
-package com.bluehabit.budgetku.android.components
+package com.bluehabit.budgetku.android.components.button
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -22,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import com.bluehabit.budgetku.android.base.BaseMainApp
 
 @Composable
-fun ButtonOutlinedPrimary(
+fun ButtonPrimary(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     text: String,
@@ -31,36 +30,28 @@ fun ButtonOutlinedPrimary(
 ) {
     val properties = if (fullWidth) modifier.fillMaxWidth() else modifier
 
-    OutlinedButton(
+    Button(
         enabled = enabled,
         onClick = onClick,
         modifier = properties
             .fillMaxWidth()
             .height(45.dp),
         shape = MaterialTheme.shapes.large,
-        colors = ButtonDefaults.outlinedButtonColors(
-            backgroundColor = MaterialTheme.colors.surface,
-            contentColor = MaterialTheme.colors.primary
-        ),
-        border = BorderStroke(
-            width = 1.dp,
-            color=MaterialTheme.colors.primary
-        )
+        colors = ButtonDefaults.buttonColors()
     ) {
         Text(
             text = text,
             style = MaterialTheme.typography.button,
-            fontWeight = FontWeight.Medium,
-            color = MaterialTheme.colors.primary
+            fontWeight = FontWeight.Medium
         )
     }
 }
 
 @Preview
 @Composable
-fun PreviewBButtonOutlinedPrimary() {
+fun PreviewButtonPrimary() {
     BaseMainApp {
-        ButtonOutlinedPrimary(
+        ButtonPrimary(
             text = "Continue"
         )
     }

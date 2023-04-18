@@ -16,6 +16,7 @@ import androidx.navigation.compose.composable
 import com.bluehabit.budgetku.android.ApplicationState
 import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.base.UIWrapper
+import com.bluehabit.budgetku.android.feature.createAccount.screen.ScreenInputAccount
 import com.bluehabit.budgetku.android.feature.createAccount.screen.ScreenMainCreateAccount
 import com.bluehabit.budgetku.android.feature.createBudget.components.ScreenNumPad
 import java.math.BigDecimal
@@ -42,24 +43,15 @@ internal fun ScreenCreateAccount(
 
     }
 
-
     when (state.screenType) {
         ScreenType.INPUT_AMOUNT -> ScreenNumPad(
             value = "",
             onChange = {},
             onDismiss = {
-                commit {
-                    copy(
-                        screenType = ScreenType.MAIN
-                    )
-                }
+                commit { copy(screenType = ScreenType.MAIN) }
             },
             onSubmit = {
-                commit {
-                    copy(
-                        screenType = ScreenType.MAIN
-                    )
-                }
+                commit { copy(screenType = ScreenType.MAIN) }
             },
             onRemove = {},
             onClear = {}
@@ -70,25 +62,18 @@ internal fun ScreenCreateAccount(
             amount = BigDecimal(1_000_000),
             onSubmit = {},
             onInputAmount = {
-                commit {
-                    copy(
-                        screenType = ScreenType.INPUT_AMOUNT
-                    )
-                }
+                commit { copy(screenType = ScreenType.INPUT_AMOUNT) }
             },
             onInputAccount = {
-                commit {
-                    copy(
-                        screenType = ScreenType.SELECT_ACCOUNT
-                    )
-                }
+                commit { copy(screenType = ScreenType.SELECT_ACCOUNT) }
             },
             onSubscribe = {}
         )
-
-        ScreenType.SELECT_ACCOUNT -> {
-
-        }
+        ScreenType.SELECT_ACCOUNT -> ScreenInputAccount(
+            onSelect = {
+                commit { copy(screenType = ScreenType.SELECT_ACCOUNT) }
+            }
+        )
     }
 
 

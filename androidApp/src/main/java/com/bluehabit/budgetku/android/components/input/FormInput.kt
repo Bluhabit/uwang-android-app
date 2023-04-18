@@ -5,7 +5,7 @@
  * Proprietary and confidential
  */
 
-package com.bluehabit.budgetku.android.components
+package com.bluehabit.budgetku.android.components.input
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
