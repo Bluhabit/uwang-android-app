@@ -5,11 +5,10 @@
  * Proprietary and confidential
  */
 
-package com.bluehabit.budgetku.android.feature.auth.inputPin
+package com.bluehabit.budgetku.android.feature.auth.createPin
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -22,8 +21,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -40,26 +43,25 @@ import com.bluehabit.budgetku.android.R
 import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.base.UIWrapper
 import com.bluehabit.budgetku.android.ui.Blue50
-import com.bluehabit.budgetku.android.ui.Blue800
 import com.bluehabit.budgetku.android.ui.Grey100
 import com.bluehabit.budgetku.android.ui.Grey900
 
-object InputPin {
-    const val routeName = "InputPin"
+object CreatePin {
+    const val routeName = "CreatePin"
 }
 
-fun NavGraphBuilder.routeInputPin(
+fun NavGraphBuilder.routeCreatePin(
     state: ApplicationState,
 ) {
-    composable(InputPin.routeName) {
-        ScreenInputPin(appState = state)
+    composable(CreatePin.routeName) {
+        ScreenCreatePin(appState = state)
     }
 }
 
 @Composable
-internal fun ScreenInputPin(
+internal fun ScreenCreatePin(
     appState: ApplicationState,
-) = UIWrapper<InputPinViewModel>(appState = appState) {
+) = UIWrapper<CreatePinViewModel>(appState = appState) {
 
     Column(
         modifier = Modifier
@@ -68,29 +70,29 @@ internal fun ScreenInputPin(
                 start = 20.dp,
                 end = 20.dp,
                 top = 20.dp,
-                bottom = 32.dp,
-            ),
-        verticalArrangement = Arrangement.SpaceBetween,
-
-        ) {
+                bottom = 20.dp
+            )
+    ) {
+        TopAppBar(
+            backgroundColor = MaterialTheme.colors.surface,
+            navigationIcon = {
+                Icon(imageVector = Icons.Outlined.ArrowBack, contentDescription = "")
+            },
+            title = {},
+            elevation = 0.dp
+        )
         Column(
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.logo_budgetku_full),
-                contentDescription = "",
-                modifier = Modifier.size(104.dp)
-            )
+            Spacer(modifier = Modifier.height(45.dp))
 
-            Spacer(modifier = Modifier.height(1.dp))
-
-            // Text "Masukkan PIN"
+            //Text "Buat kode PIN kamu"
             Text(
-                text = stringResource(R.string.text_input_pin),
+                text = stringResource(R.string.text_create_pin),
                 color = Grey900,
                 style = MaterialTheme.typography.h5,
-                fontWeight = FontWeight.Bold,
+                fontWeight = FontWeight.Bold
             )
 
             Spacer(modifier = Modifier.height(24.dp))
@@ -143,28 +145,16 @@ internal fun ScreenInputPin(
                 )
             }
 
-            Spacer(modifier = Modifier.height(32.dp))
+            Spacer(modifier = Modifier.height(80.dp))
 
-            Text(
-                text = stringResource(R.string.label_forgotpin_inputpin),
-                color = Blue800,
-                style = MaterialTheme.typography.button,
-                fontWeight = FontWeight.Medium,
-                modifier = Modifier.clickable {
-                    // Aksi yang dilakukan ketika teks "Lupa PIN" diklik
-                    // Contoh: Navigasi ke halaman Lupa PIN
-                }
-            )
-
-            Spacer(modifier = Modifier.height(31.dp))
             Column(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
                 Row(
-                    verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Box(
@@ -203,19 +193,21 @@ internal fun ScreenInputPin(
                             .clip(CircleShape)
                             .background(Grey100)
                     ) {
-                            Text(
-                                text = stringResource(R.string.text_button_numpad_3),
-                                color = Grey900,
-                                style = MaterialTheme.typography.h5,
-                                fontWeight = FontWeight.Bold,
-                                modifier = Modifier.align(Alignment.Center)
-                            )
-                        }
+                        Text(
+                            text = stringResource(R.string.text_button_numpad_3),
+                            color = Grey900,
+                            style = MaterialTheme.typography.h5,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier.align(Alignment.Center)
+                        )
+                    }
                 }
+
                 Spacer(modifier = Modifier.height(72.dp))
+
                 Row(
-                    verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Box(
@@ -263,10 +255,12 @@ internal fun ScreenInputPin(
                         )
                     }
                 }
+
                 Spacer(modifier = Modifier.height(72.dp))
+
                 Row(
-                    verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Box(
@@ -314,11 +308,15 @@ internal fun ScreenInputPin(
                         )
                     }
                 }
+
                 Spacer(modifier = Modifier.height(72.dp))
+
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.End,
-                    modifier = Modifier.fillMaxWidth() .padding(horizontal = 48.dp)
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 48.dp)
                 ) {
                     Box(
                         modifier = Modifier
@@ -342,14 +340,15 @@ internal fun ScreenInputPin(
                     )
                 }
             }
+
         }
     }
 }
 
 @Preview
 @Composable
-fun PreviewScreenInputPin() {
+fun PreviewScreenCreatePin() {
     BaseMainApp {
-        ScreenInputPin(it)
+        ScreenCreatePin(it)
     }
 }
