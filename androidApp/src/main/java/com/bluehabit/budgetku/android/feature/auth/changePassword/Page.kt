@@ -35,8 +35,8 @@ import com.bluehabit.budgetku.android.KeyboardState
 import com.bluehabit.budgetku.android.R
 import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.base.UIWrapper
-import com.bluehabit.budgetku.android.components.ButtonPrimary
-import com.bluehabit.budgetku.android.components.FormInputPassword
+import com.bluehabit.budgetku.android.components.button.ButtonPrimary
+import com.bluehabit.budgetku.android.components.input.FormInputPassword
 import com.bluehabit.budgetku.android.rememberApplicationState
 
 object ChangePassword {

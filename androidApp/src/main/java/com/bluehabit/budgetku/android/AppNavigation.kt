@@ -17,12 +17,14 @@ import com.bluehabit.budgetku.android.feature.auth.createNewPassword.routeCreate
 import com.bluehabit.budgetku.android.feature.auth.resetPassword.routeResetPassword
 import com.bluehabit.budgetku.android.feature.auth.signIn.routeSignIn
 import com.bluehabit.budgetku.android.feature.auth.signUp.routeSignUp
+import com.bluehabit.budgetku.android.feature.createAccount.routeCreateAccount
 import com.bluehabit.budgetku.android.feature.createBudget.routeCreateBudget
 import com.bluehabit.budgetku.android.feature.createTransaction.routeCreateTransaction
 import com.bluehabit.budgetku.android.feature.dashboard.budget.routeBudget
 import com.bluehabit.budgetku.android.feature.dashboard.community.routeCommunity
 import com.bluehabit.budgetku.android.feature.dashboard.home.routeHome
 import com.bluehabit.budgetku.android.feature.dashboard.report.routeReport
+import com.bluehabit.budgetku.android.feature.listAccount.routeListAccount
 import com.bluehabit.budgetku.android.feature.onboarding.routeOnboard
 import com.bluehabit.budgetku.android.feature.resultCreateBudget.routeResultCreateBudget
 import com.bluehabit.budgetku.android.feature.splashScreen.Splash
@@ -86,7 +88,12 @@ fun AppNavigation(
             state = applicationState
         )
         routeCreateTransaction(
-
+            state = applicationState
+        )
+        routeCreateAccount(
+            state = applicationState
+        )
+        routeListAccount(
             state = applicationState
         )
     }

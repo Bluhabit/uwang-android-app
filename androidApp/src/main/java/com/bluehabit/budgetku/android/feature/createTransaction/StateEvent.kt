@@ -20,7 +20,6 @@ enum class CreateTransactionBottomSheetType {
 @Parcelize
 data class CreateTransactionState(
     val step: Int = 1,
-    val percentage: Float = 0.15f,
     val bottomSheetType: CreateTransactionBottomSheetType = CreateTransactionBottomSheetType.CATEGORY
 ) : Parcelable
 

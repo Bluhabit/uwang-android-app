@@ -5,13 +5,14 @@
  * Proprietary and confidential
  */
 
-package com.bluehabit.budgetku.android.components
+package com.bluehabit.budgetku.android.components.button
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -21,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import com.bluehabit.budgetku.android.base.BaseMainApp
 
 @Composable
-fun ButtonPrimary(
+fun ButtonOutlinedPrimary(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     text: String,
@@ -30,28 +31,36 @@ fun ButtonPrimary(
 ) {
     val properties = if (fullWidth) modifier.fillMaxWidth() else modifier
 
-    Button(
+    OutlinedButton(
         enabled = enabled,
         onClick = onClick,
         modifier = properties
             .fillMaxWidth()
             .height(45.dp),
         shape = MaterialTheme.shapes.large,
-        colors = ButtonDefaults.buttonColors()
+        colors = ButtonDefaults.outlinedButtonColors(
+            backgroundColor = MaterialTheme.colors.surface,
+            contentColor = MaterialTheme.colors.primary
+        ),
+        border = BorderStroke(
+            width = 1.dp,
+            color=MaterialTheme.colors.primary
+        )
     ) {
         Text(
             text = text,
             style = MaterialTheme.typography.button,
-            fontWeight = FontWeight.Medium
+            fontWeight = FontWeight.Medium,
+            color = MaterialTheme.colors.primary
         )
     }
 }
 
 @Preview
 @Composable
-fun PreviewButtonPrimary() {
+fun PreviewBButtonOutlinedPrimary() {
     BaseMainApp {
-        ButtonPrimary(
+        ButtonOutlinedPrimary(
             text = "Continue"
         )
     }

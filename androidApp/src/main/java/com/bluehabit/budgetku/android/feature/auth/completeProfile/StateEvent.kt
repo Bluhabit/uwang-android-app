@@ -8,7 +8,7 @@
 package com.bluehabit.budgetku.android.feature.auth.completeProfile
 
 import android.os.Parcelable
-import com.bluehabit.budgetku.android.components.Gender
+import com.bluehabit.budgetku.android.components.bottomSheet.Gender
 import kotlinx.parcelize.Parcelize
 import java.time.LocalDate
 import javax.annotation.concurrent.Immutable
@@ -19,7 +19,7 @@ data class CompleteProfileState(
     val contentBottomSheet: String = "",
     val fullName:String="",
     val dateOfBirth: LocalDate? = null,
-    val gender:Gender?=null
+    val gender: Gender?=null
 ) : Parcelable
 
 sealed class CompleteProfileEvent {
