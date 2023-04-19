@@ -14,7 +14,7 @@ import javax.annotation.concurrent.Immutable
 @Immutable
 @Parcelize
 data class ListAccountState(
-    val a: String = ""
+    val tab: Int = 0
 ) : Parcelable
 
 @Immutable
