@@ -105,12 +105,12 @@ fun PopularBudgetCategory(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Text(
-            text = "3 Kategori Terpopuler",
+            text = stringResource(id = R.string.text_popular_category),
             style = MaterialTheme.typography.h5,
             fontWeight = FontWeight.Bold,
         )
         Text(
-            text = "Kategori & sub kategori yang paling sering dipakai",
+            text = stringResource(id = R.string.text_sub_popular_category),
             style = MaterialTheme.typography.subtitle1,
             fontWeight = FontWeight.Normal,
         )
@@ -258,7 +258,9 @@ fun ItemBudgetSubCategoryContent(
                         .background(Color(0xFFF5F5F5))
                 ) {
                     Image(
-                        modifier = Modifier.size(24.dp).align(Alignment.Center),
+                        modifier = Modifier
+                            .size(24.dp)
+                            .align(Alignment.Center),
                         imageVector = ImageVector.vectorResource(id = it.icon),
                         contentDescription = "",
                     )
@@ -271,80 +273,3 @@ fun ItemBudgetSubCategoryContent(
         }
     }
 }
-
-//@Preview
-//@Composable
-//fun PreviewBottomSheetAddBudgetCategory() {
-//    BudgetKuTheme {
-//        BottomSheetAddBudgetCategory(
-//            onSearch = {},
-//            budgetCategories = listOf(
-//                BudgetCategory(
-//                    title = "3 Kategori Terpopuler",
-//                    subtitle = "Kategori & sub kategori yang paling sering dipakai",
-//                    categories = listOf(
-//                        ItemBudgetCategory(
-//                            title = "Makanan & Minuman",
-//                            icon = R.drawable.icon_food,
-//                        ),
-//                        ItemBudgetCategory(
-//                            title = "Kebutuhan Rumah",
-//                            icon = R.drawable.icon_house
-//                        ),
-//                        ItemBudgetCategory(
-//                            title = "Tagihan & Utilitas",
-//                            icon = R.drawable.icon_bill
-//                        )
-//                    )
-//                ),
-//                BudgetCategory(
-//                    subtitle = "Kebutuhan sehari-hari",
-//                    categories = listOf(
-//                        ItemBudgetCategory(
-//                            title = "Makanan & Minuman",
-//                            icon = R.drawable.icon_food,
-//                            subCategories = listOf(
-//                                ItemBudgetSubCategory(
-//                                    title = "Restoran",
-//                                    icon = R.drawable.icon_restaurant
-//                                ),
-//                                ItemBudgetSubCategory(
-//                                    title = "Food Delivery",
-//                                    icon = R.drawable.icon_restaurant
-//                                ),
-//                                ItemBudgetSubCategory(
-//                                    title = "Coffee Shop",
-//                                    icon = R.drawable.icon_restaurant
-//                                ),
-//                                ItemBudgetSubCategory(
-//                                    title = "Fast Food",
-//                                    icon = R.drawable.icon_restaurant
-//                                ),
-//                            )
-//                        ),
-//                        ItemBudgetCategory(
-//                            title = "Bensin",
-//                            icon = R.drawable.icon_bus
-//                        )
-//                    )
-//                ),
-//                BudgetCategory(
-//                    subtitle = "Kebutuhan rumah tangga",
-//                    categories = listOf(
-//                        ItemBudgetCategory(
-//                            title = "Kebutuhan Rumah",
-//                            icon = R.drawable.icon_house
-//                        ),
-//                        ItemBudgetCategory(
-//                            title = "Tagihan & Utilitas",
-//                            icon = R.drawable.icon_bill
-//                        )
-//                    )
-//                ),
-//            ),
-//            onCategorySelected = {
-//
-//            },
-//        )
-//    }
-//}

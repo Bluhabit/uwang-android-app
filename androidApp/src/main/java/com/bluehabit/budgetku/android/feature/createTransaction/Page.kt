@@ -87,59 +87,59 @@ internal fun ScreenCreateTransaction(
                         },
                         popularBudgetCategories = listOf(
                             ItemBudgetCategory(
-                                title = "Makanan & Minuman",
+                                title = stringResource(id = R.string.text_category_food_drink),
                                 icon = R.drawable.icon_food,
                             ),
                             ItemBudgetCategory(
-                                title = "Kebutuhan Rumah",
+                                title = stringResource(id = R.string.text_category_house),
                                 icon = R.drawable.icon_house
                             ),
                             ItemBudgetCategory(
-                                title = "Tagihan & Utilitas",
+                                title = stringResource(id = R.string.text_category_bill),
                                 icon = R.drawable.icon_bill
                             )
                         ),
                         budgetCategories = listOf(
                             BudgetCategory(
-                                title = "Kebutuhan sehari-hari",
+                                title = stringResource(id = R.string.text_category_everyday_needs),
                                 categories = listOf(
                                     ItemBudgetCategory(
-                                        title = "Makanan & Minuman",
+                                        title = stringResource(id = R.string.text_category_food_drink),
                                         icon = R.drawable.icon_food,
                                         subCategories = listOf(
                                             ItemBudgetSubCategory(
-                                                title = "Restoran",
+                                                title = stringResource(id = R.string.text_category_restaurant),
                                                 icon = R.drawable.icon_restaurant
                                             ),
                                             ItemBudgetSubCategory(
-                                                title = "Food Delivery",
+                                                title = stringResource(id = R.string.text_category_food_delivery),
                                                 icon = R.drawable.icon_food_delivery
                                             ),
                                             ItemBudgetSubCategory(
-                                                title = "Coffee Shop",
+                                                title = stringResource(id = R.string.text_category_coffee_shop),
                                                 icon = R.drawable.icon_coffee
                                             ),
                                             ItemBudgetSubCategory(
-                                                title = "Fast Food",
+                                                title = stringResource(id = R.string.text_category_fast_food),
                                                 icon = R.drawable.icon_fast_food
                                             ),
                                         )
                                     ),
                                     ItemBudgetCategory(
-                                        title = "Bensin",
+                                        title = stringResource(id = R.string.text_category_fuel),
                                         icon = R.drawable.icon_bus
                                     )
                                 )
                             ),
                             BudgetCategory(
-                                title = "Kebutuhan rumah tangga",
+                                title = stringResource(id = R.string.text_category_house_needs),
                                 categories = listOf(
                                     ItemBudgetCategory(
-                                        title = "Kebutuhan Rumah",
+                                        title = stringResource(id = R.string.text_category_house),
                                         icon = R.drawable.icon_house
                                     ),
                                     ItemBudgetCategory(
-                                        title = "Tagihan & Utilitas",
+                                        title = stringResource(id = R.string.text_category_bill),
                                         icon = R.drawable.icon_bill
                                     )
                                 )
