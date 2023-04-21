@@ -122,7 +122,10 @@ internal fun ScreenListAccount(
                         color = MaterialTheme.colors.onSurface
                     )
                     Spacer(modifier = Modifier.height(8.dp))
-                    Icon(imageVector = Icons.Outlined.Info, contentDescription = "")
+                    Icon(
+                        imageVector = Icons.Outlined.Info,
+                        contentDescription = ""
+                    )
                 }
                 Spacer(modifier = Modifier.height(10.dp))
                 Text(
