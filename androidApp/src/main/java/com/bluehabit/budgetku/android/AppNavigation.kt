@@ -18,6 +18,7 @@ import com.bluehabit.budgetku.android.feature.auth.resetPassword.routeResetPassw
 import com.bluehabit.budgetku.android.feature.auth.signIn.routeSignIn
 import com.bluehabit.budgetku.android.feature.auth.signUp.routeSignUp
 import com.bluehabit.budgetku.android.feature.createAccount.routeCreateAccount
+import com.bluehabit.budgetku.android.feature.createAccountSaving.routeCreateAccountSaving
 import com.bluehabit.budgetku.android.feature.createBudget.routeCreateBudget
 import com.bluehabit.budgetku.android.feature.createTransaction.routeCreateTransaction
 import com.bluehabit.budgetku.android.feature.dashboard.budget.routeBudget
@@ -78,7 +79,6 @@ fun AppNavigation(
         routeResultCreateBudget(
             state = applicationState
         )
-
         routeResetPassword(
             state = applicationState
         )
@@ -99,6 +99,9 @@ fun AppNavigation(
             state = applicationState
         )
         routeDetailTransaction(
+            state = applicationState
+        )
+        routeCreateAccountSaving(
             state = applicationState
         )
     }

@@ -32,13 +32,14 @@ fun FormInput(
     value: String = "",
     label: String = "",
     placeholder: String = "",
-    leadingIcon: (@Composable ()->Unit)?=null,
-    error:Boolean=false,
-    errorMessage:String="",
+    leadingIcon: (@Composable () -> Unit)? = null,
+    trailingIcon: (@Composable () -> Unit)? = null,
+    error: Boolean = false,
+    errorMessage: String = "",
     clickable: Boolean = false,
-    keyboardActions: KeyboardActions= KeyboardActions(),
-    keyboardOptions: KeyboardOptions= KeyboardOptions(),
-    onChange:(String)->Unit={},
+    keyboardActions: KeyboardActions = KeyboardActions(),
+    keyboardOptions: KeyboardOptions = KeyboardOptions(),
+    onChange: (String) -> Unit = {},
     onClick: () -> Unit = {}
 ) {
     Column(
@@ -54,8 +55,8 @@ fun FormInput(
         OutlinedTextField(
             value = value,
             onValueChange = onChange,
-            isError=error,
-            enabled=!clickable,
+            isError = error,
+            enabled = !clickable,
             modifier = Modifier
                 .fillMaxWidth()
                 .clickable(
@@ -75,12 +76,13 @@ fun FormInput(
                     fontWeight = FontWeight.Normal
                 )
             },
-            leadingIcon=leadingIcon,
+            trailingIcon = trailingIcon,
+            leadingIcon = leadingIcon,
             keyboardOptions = keyboardOptions,
             keyboardActions = keyboardActions,
             textStyle = MaterialTheme.typography.subtitle2,
         )
-        if(error){
+        if (error) {
             Spacer(modifier = Modifier.height(6.dp))
             Text(
                 text = errorMessage,
@@ -88,7 +90,7 @@ fun FormInput(
                 fontWeight = FontWeight.Normal,
                 color = MaterialTheme.colors.error
             )
-        }else{
+        } else {
             Spacer(modifier = Modifier.height(16.dp))
         }
     }
