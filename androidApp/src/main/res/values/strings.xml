@@ -70,5 +70,11 @@
     <string name="text_button_register_signup">Daftar</string>
     <string name="label_or_signup">Atau</string>
     <string name="text_button_signin_with_google_signup">Daftar dengan Google</string>
+    <string name="text_title_email_check">Logo_email</string>
+    <string name="text_complete_verify_email_check">Verifikasi Email Berhasil</string>
+    <string name="text_message_email_check">Selamat! Email kamu berhasil terverifikasi. Waktunya memulai perjalanan keuangan bersama Budgetku</string>
+    <string name="text_button_complete_profile_email_check">Lengkapi Data Akun</string>
+    <string name="text_veriry_email_waiting_email">Memverifikasi Link Email Kamu...</string>
+    <string name="text_message_waiting_email">Tunggu beberapa saat, kami sedang memastikan link verifikasi sesuai</string>
 
 </resources>
