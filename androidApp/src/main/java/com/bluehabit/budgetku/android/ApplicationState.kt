@@ -8,6 +8,8 @@
 package com.bluehabit.budgetku.android
 
 import android.content.Context
+import android.graphics.Rect
+import android.view.ViewTreeObserver
 import androidx.compose.material.ModalBottomSheetState
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.Snackbar
@@ -17,13 +19,16 @@ import androidx.compose.material.SnackbarHostState
 import androidx.compose.material.SnackbarResult
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalView
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.bluehabit.budgetku.android.base.EventListener
@@ -48,13 +53,18 @@ class CreateSnackbarContent(
     }
 }
 
+enum class KeyboardState {
+    Opened, Closed
+}
+
 
 class ApplicationState internal constructor(
     val router: NavHostController,
     val bottomSheetState: ModalBottomSheetState,
     val scope: CoroutineScope,
     val event: EventListener,
-    val context: Context
+    val context: Context,
+    val keyboardState: KeyboardState
 ) {
 
 
@@ -121,6 +131,16 @@ class ApplicationState internal constructor(
 
     }
 
+    @Composable
+    fun showTopAppBar() {
+        LaunchedEffect(key1 = this, block = {
+            if (!showTopAppBar) {
+                showTopAppBar = true
+            }
+        })
+    }
+
+
     fun showSnackbar(message: String) {
         runSuspend {
             snackbarHostState.showSnackbar(message)
@@ -147,7 +167,7 @@ class ApplicationState internal constructor(
 
     fun showSnackbar(message: String, actionLabel: String, onAction: () -> Unit = {}) {
         runSuspend {
-            when(snackbarHostState.showSnackbar(message, actionLabel = actionLabel, duration = SnackbarDuration.Indefinite)){
+            when (snackbarHostState.showSnackbar(message, actionLabel = actionLabel, duration = SnackbarDuration.Indefinite)) {
                 SnackbarResult.Dismissed -> Unit
                 SnackbarResult.ActionPerformed -> onAction()
             }
@@ -167,18 +187,47 @@ fun rememberApplicationState(
 ): ApplicationState {
     val state = rememberModalBottomSheetState(
         initialValue = ModalBottomSheetValue.Hidden,
+        skipHalfExpanded = true,
         confirmValueChange = {
             event.changeBottomSheetState(it)
             true
         }
     )
+    val keyboardState by rememberKeyboardState()
     return remember {
         ApplicationState(
             router,
             state,
             scope,
             event,
-            context
+            context,
+            keyboardState
         )
     }
+}
+
+@Composable
+fun rememberKeyboardState(): State<KeyboardState> {
+    val keyboardState = remember { mutableStateOf(KeyboardState.Closed) }
+    val view = LocalView.current
+    DisposableEffect(view) {
+        val onGlobalListener = ViewTreeObserver.OnGlobalLayoutListener {
+            val rect = Rect()
+            view.getWindowVisibleDisplayFrame(rect)
+            val screenHeight = view.rootView.height
+            val keypadHeight = screenHeight - rect.bottom
+            keyboardState.value = if (keypadHeight > screenHeight * 0.15) {
+                KeyboardState.Opened
+            } else {
+                KeyboardState.Closed
+            }
+        }
+        view.viewTreeObserver.addOnGlobalLayoutListener(onGlobalListener)
+
+        onDispose {
+            view.viewTreeObserver.removeOnGlobalLayoutListener(onGlobalListener)
+        }
+    }
+
+    return keyboardState
 }

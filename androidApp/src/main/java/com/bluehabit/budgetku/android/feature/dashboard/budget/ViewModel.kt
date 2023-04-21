@@ -7,13 +7,13 @@
 
 package com.bluehabit.budgetku.android.feature.dashboard.budget
 
-import com.bluehabit.budgetku.android.base.BaseViewModel
+import com.bluehabit.budgetku.android.base.BaseViewModelData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class BudgetViewModel @Inject constructor(
-) : BaseViewModel<BudgetState, BudgetEvent>(BudgetState()) {
+) : BaseViewModelData<BudgetState, BudgetDataState, BudgetEvent>(BudgetState(), BudgetDataState()) {
     init {
         handleActions()
     }

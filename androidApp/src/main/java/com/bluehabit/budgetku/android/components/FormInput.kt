@@ -7,6 +7,7 @@
 
 package com.bluehabit.budgetku.android.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -31,11 +32,14 @@ fun FormInput(
     value: String = "",
     label: String = "",
     placeholder: String = "",
+    leadingIcon: (@Composable ()->Unit)?=null,
     error:Boolean=false,
     errorMessage:String="",
+    clickable: Boolean = false,
     keyboardActions: KeyboardActions= KeyboardActions(),
     keyboardOptions: KeyboardOptions= KeyboardOptions(),
-    onChange:(String)->Unit={}
+    onChange:(String)->Unit={},
+    onClick: () -> Unit = {}
 ) {
     Column(
         modifier = Modifier.fillMaxWidth(),
@@ -51,7 +55,13 @@ fun FormInput(
             value = value,
             onValueChange = onChange,
             isError=error,
-            modifier = Modifier.fillMaxWidth(),
+            enabled=!clickable,
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable(
+                    enabled = clickable,
+                    onClick = onClick
+                ),
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 backgroundColor = Color(0xFFFAFAFA),
                 unfocusedBorderColor = Color(0xFFFAFAFA),
@@ -65,6 +75,7 @@ fun FormInput(
                     fontWeight = FontWeight.Normal
                 )
             },
+            leadingIcon=leadingIcon,
             keyboardOptions = keyboardOptions,
             keyboardActions = keyboardActions,
             textStyle = MaterialTheme.typography.subtitle2,

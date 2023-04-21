@@ -36,11 +36,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.bluehabit.budgetku.android.ApplicationState
 import com.bluehabit.budgetku.android.R
+import com.bluehabit.budgetku.android.ApplicationState
 import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.base.UIWrapper
-import com.bluehabit.budgetku.android.components.BottomSheetDatePicker
+import com.bluehabit.budgetku.android.components.BottomSheetSpinnerDatePicker
 import com.bluehabit.budgetku.android.components.BottomSheetGenderPicker
 import com.bluehabit.budgetku.android.components.ButtonPrimary
 import com.bluehabit.budgetku.android.components.FormInput
@@ -78,17 +78,17 @@ internal fun ScreenCompleteProfile(
         setupBottomSheet {
             when (state.contentBottomSheet) {
                 "DatePicker" -> {
-                   BottomSheetDatePicker(
-                       title = stringResource(R.string.title_picker_date_of_birth_bottom_sheet),
-                       textButtonConfirmation = stringResource(R.string.text_button_confirmation_date_of_birth_bottom_sheet),
-                       onDismiss = {
-                           hideBottomSheet()
-                       },
-                       onConfirm = {
-                           commit { copy(dateOfBirth = it) }
-                           hideBottomSheet()
-                       }
-                   )
+                    BottomSheetSpinnerDatePicker(
+                        title = stringResource(R.string.title_picker_date_of_birth_bottom_sheet),
+                        textButtonConfirmation = stringResource(R.string.text_button_confirmation_date_of_birth_bottom_sheet),
+                        onDismiss = {
+                            hideBottomSheet()
+                        },
+                        onConfirm = {
+                            commit { copy(dateOfBirth = it) }
+                            hideBottomSheet()
+                        }
+                    )
                 }
 
                 else -> {
@@ -152,7 +152,7 @@ internal fun ScreenCompleteProfile(
             )
             Spacer(modifier = Modifier.height(20.dp))
             FormInputWithIcon(
-                value = if(state.dateOfBirth == null) "" else state.dateOfBirth.toString(),
+                value = if (state.dateOfBirth == null) "" else state.dateOfBirth.toString(),
                 label = stringResource(R.string.label_input_date_of_birth_complete_profile),
                 placeholder = stringResource(R.string.placeholder_input_date_of_birth_complete_profile),
                 clickable = true,
@@ -164,13 +164,13 @@ internal fun ScreenCompleteProfile(
                     Icon(
                         imageVector = Icons.Outlined.DateRange,
                         contentDescription = "",
-                        tint = if(state.dateOfBirth == null) Color.LightGray else MaterialTheme.colors.primary
+                        tint = if (state.dateOfBirth == null) Color.LightGray else MaterialTheme.colors.primary
                     )
                 }
             )
             Spacer(modifier = Modifier.height(20.dp))
             FormInputWithIcon(
-                value = if(state.gender == null) "" else stringResource(state.gender!!.label),
+                value = if (state.gender == null) "" else stringResource(state.gender!!.label),
                 label = stringResource(R.string.label_input_gender_complete_profile),
                 placeholder = stringResource(R.string.placeholder_input_gender_complete_profile),
                 clickable = true,
@@ -182,7 +182,7 @@ internal fun ScreenCompleteProfile(
                     Icon(
                         imageVector = Icons.Outlined.KeyboardArrowDown,
                         contentDescription = "",
-                        tint= if(state.gender == null) Color.LightGray else MaterialTheme.colors.primary
+                        tint = if (state.gender == null) Color.LightGray else MaterialTheme.colors.primary
                     )
                 }
             )
@@ -205,8 +205,10 @@ fun PreviewScreenCompleteProfile() {
             TopAppBar(
                 backgroundColor = MaterialTheme.colors.surface,
                 navigationIcon = {
-                    Icon(imageVector = Icons.Outlined.ArrowBack,
-                        contentDescription = "")
+                    Icon(
+                        imageVector = Icons.Outlined.ArrowBack,
+                        contentDescription = ""
+                    )
                 },
                 title = {},
                 elevation = 0.dp

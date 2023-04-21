@@ -17,5 +17,12 @@ data class BudgetState(
     val a: String = ""
 ) : Parcelable
 
+@Immutable
+@Parcelize
+data class BudgetDataState(
+    val currentMonth: String = "April 2023",
+    val hasBudget:Boolean=true
+) : Parcelable
+
 sealed class BudgetEvent {
 }
