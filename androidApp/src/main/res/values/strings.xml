@@ -163,6 +163,23 @@
     <string name="text_sub_title_like_create_transaction">Kamu suka tambah budget?</string>
     <string name="text_button_choose_category_budget">Pilih</string>
 
+    <!--    budget category-->
+    <string name="title_budget_category_bottom_sheet">Kategori</string>
+    <string name="placeholder_search_budget_category_bottom_sheet">Cari </string>
+    <string name="text_popular_category">3 Kategori Terpopuler</string>
+    <string name="text_sub_popular_category">Kategori &amp; sub kategori yang paling sering dipakai</string>
+    <string name="text_category_food_drink">Makanan &amp; Minuman</string>
+    <string name="text_category_house">Kebutuhan Rumah</string>
+    <string name="text_category_bill">Tagihan &amp; Utilitas</string>
+    <string name="text_category_everyday_needs">Kebutuhan sehari-hari</string>
+    <string name="text_category_restaurant">Restoran</string>
+    <string name="text_category_food_delivery">Food Delivery</string>
+    <string name="text_category_coffee_shop">Coffee Shop</string>
+    <string name="text_category_fast_food">Fast Food</string>
+    <string name="text_category_fuel">Bensin</string>
+    <string name="text_category_house_needs">Kebutuhan rumah tangga</string>
+    <!--    end budget category-->
+
     <!--   reset password -->
     <string name="title_send_link_to_email_for_reset_password">Reset Password</string>
     <string name="detail_send_link_to_email_for_reset_password">Masukkan email yang terhubung dengan akun kamu. Kami akan mengirim email intruksi untuk mereset password kamu.</string>
