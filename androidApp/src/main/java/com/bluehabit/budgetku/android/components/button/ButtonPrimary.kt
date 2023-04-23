@@ -15,8 +15,10 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.bluehabit.budgetku.android.base.BaseMainApp
 
@@ -25,7 +27,9 @@ fun ButtonPrimary(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     text: String,
+    textStyle: TextStyle = MaterialTheme.typography.button,
     fullWidth: Boolean = true,
+    height: Dp = 45.dp,
     onClick: () -> Unit = {}
 ) {
     val properties = if (fullWidth) modifier.fillMaxWidth() else modifier
@@ -34,14 +38,13 @@ fun ButtonPrimary(
         enabled = enabled,
         onClick = onClick,
         modifier = properties
-            .fillMaxWidth()
-            .height(45.dp),
+            .height(height),
         shape = MaterialTheme.shapes.large,
         colors = ButtonDefaults.buttonColors()
     ) {
         Text(
             text = text,
-            style = MaterialTheme.typography.button,
+            style = textStyle,
             fontWeight = FontWeight.Medium
         )
     }

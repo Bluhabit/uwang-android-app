@@ -20,6 +20,7 @@ import com.bluehabit.budgetku.android.feature.auth.signUp.routeSignUp
 import com.bluehabit.budgetku.android.feature.createAccount.routeCreateAccount
 import com.bluehabit.budgetku.android.feature.createAccountSaving.routeCreateAccountSaving
 import com.bluehabit.budgetku.android.feature.createBudget.routeCreateBudget
+import com.bluehabit.budgetku.android.feature.createPost.routeCreatePost
 import com.bluehabit.budgetku.android.feature.createTransaction.routeCreateTransaction
 import com.bluehabit.budgetku.android.feature.dashboard.budget.routeBudget
 import com.bluehabit.budgetku.android.feature.dashboard.community.routeCommunity
@@ -113,6 +114,9 @@ fun AppNavigation(
             state = applicationState
         )
         routeEditTransaction(
+            state = applicationState
+        )
+        routeCreatePost(
             state = applicationState
         )
     }
