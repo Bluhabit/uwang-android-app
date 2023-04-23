@@ -101,7 +101,6 @@ fun ScreenInputAmountBudget(
                             fontWeight = FontWeight.Medium
                         )
                     },
-                    clickable = true,
                     onClick = onInputAmount
                 )
 

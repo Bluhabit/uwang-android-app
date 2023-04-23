@@ -30,21 +30,18 @@ import androidx.compose.ui.unit.dp
 import com.bluehabit.budgetku.android.R
 import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.components.bottomSheet.BaseBottomSheet
-import com.bluehabit.budgetku.android.components.bottomSheet.Gender
 import com.bluehabit.budgetku.android.ui.Grey900
 
 @Composable
-fun VerificationEmailPopUp(
+fun BottomSheetConfirmationEmail(
     title: String = "",
     onDismiss: () -> Unit = {},
-    onConfirm: (Gender) -> Unit = {}
+    onConfirm: () -> Unit = {}
 ) {
 
     BaseBottomSheet(
         onDismiss = onDismiss,
-        onConfirm = {
-
-        },
+        onConfirm = onConfirm,
         textConfirmation = "Verifikasi Sekarang",
         enableConfirmation = true
     ) {
@@ -107,7 +104,7 @@ fun VerificationEmailPopUp(
 @Composable
 fun PreviewContentBottomSheetSignUp() {
     BaseMainApp {
-        VerificationEmailPopUp()
+        BottomSheetConfirmationEmail()
     }
 }
 

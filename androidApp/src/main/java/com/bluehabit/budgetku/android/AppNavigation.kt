@@ -13,6 +13,7 @@ import com.bluehabit.budgetku.android.feature.auth.changePassword.routeChangePas
 import com.bluehabit.budgetku.android.feature.auth.checkEmailResetPassword.routeCheckEmailResetPassword
 import com.bluehabit.budgetku.android.feature.auth.completeProfile.routeCompleteProfile
 import com.bluehabit.budgetku.android.feature.auth.createNewPassword.routeCreateNewPassword
+import com.bluehabit.budgetku.android.feature.auth.emailVerification.routeEmailVerification
 import com.bluehabit.budgetku.android.feature.auth.inputPin.routeInputPin
 import com.bluehabit.budgetku.android.feature.auth.resetPassword.routeResetPassword
 import com.bluehabit.budgetku.android.feature.auth.signIn.routeSignIn
@@ -117,6 +118,9 @@ fun AppNavigation(
             state = applicationState
         )
         routeCreatePost(
+            state = applicationState
+        )
+        routeEmailVerification(
             state = applicationState
         )
     }

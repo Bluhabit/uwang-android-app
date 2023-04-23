@@ -45,6 +45,7 @@ import com.bluehabit.budgetku.android.components.bottomSheet.BottomSheetGenderPi
 import com.bluehabit.budgetku.android.components.button.ButtonPrimary
 import com.bluehabit.budgetku.android.components.input.FormInput
 import com.bluehabit.budgetku.android.components.input.FormInputWithIcon
+import com.bluehabit.budgetku.android.feature.dashboard.home.Home
 
 object CompleteProfile {
     const val routeName = "CompleteProfile"
@@ -157,6 +158,7 @@ internal fun ScreenCompleteProfile(
                 placeholder = stringResource(R.string.placeholder_input_date_of_birth_complete_profile),
                 clickable = true,
                 onClick = {
+                    hideKeyboard()
                     commit { copy(contentBottomSheet = "DatePicker") }
                     showBottomSheet()
                 },
@@ -175,6 +177,7 @@ internal fun ScreenCompleteProfile(
                 placeholder = stringResource(R.string.placeholder_input_gender_complete_profile),
                 clickable = true,
                 onClick = {
+                    hideKeyboard()
                     commit { copy(contentBottomSheet = "GenderPicker") }
                     showBottomSheet()
                 },
@@ -192,7 +195,7 @@ internal fun ScreenCompleteProfile(
             enabled = (state.fullName.isNotEmpty() && state.dateOfBirth != null && state.gender != null),
             text = stringResource(R.string.text_button_confirmation_complete_profile)
         ) {
-
+            navigateAndReplaceAll(Home.routeName)
         }
     }
 }

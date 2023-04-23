@@ -49,7 +49,9 @@ import com.bluehabit.budgetku.android.feature.dashboard.budget.components.CardEm
 import com.bluehabit.budgetku.android.feature.dashboard.budget.components.CardEmptyTransactionBudget
 import com.bluehabit.budgetku.android.feature.dashboard.budget.components.CardSummaryBudget
 import com.bluehabit.budgetku.android.components.DashboardBottomNavigationMenu
+import com.bluehabit.budgetku.android.feature.createAccount.CreateAccount
 import com.bluehabit.budgetku.android.feature.createBudget.CreateBudget
+import com.bluehabit.budgetku.android.feature.createTransaction.CreateTransaction
 import com.bluehabit.budgetku.android.feature.dashboard.budget.components.ItemExpensesCategoryBudget
 import com.bluehabit.budgetku.android.feature.dashboard.budget.components.ItemTipsBudgetEmpty
 import com.bluehabit.budgetku.android.feature.dashboard.budget.components.ItemTipsBudgetSuccess
@@ -75,16 +77,21 @@ internal fun ScreenBudget(
 ) = UIWrapper<BudgetViewModel>(appState = appState) {
     val dataState by uiDataState.collectAsState()
     with(appState) {
+        hideTopAppBar()
         setupBottomSheet {
             BottomSheetAddBudgetTransaction(
                 onDismiss = {
                     hideBottomSheet()
                 },
-                onAddAccount = {},
-                onAddTransaction = {},
+                onAddAccount = {
+                    navigateSingleTop(CreateAccount.routeName)
+                },
+                onAddTransaction = {
+                    navigateSingleTop(CreateTransaction.routeName)
+                },
                 onAddBudget = {
                     hideBottomSheet()
-                    navigate(CreateBudget.routeName)
+                    navigateSingleTop(CreateBudget.routeName)
                 },
                 onAddTransfer = {},
             )

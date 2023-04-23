@@ -53,7 +53,9 @@ import com.bluehabit.budgetku.android.components.ContentItemFeedTemplate
 import com.bluehabit.budgetku.android.components.DashboardBottomNavigationMenu
 import com.bluehabit.budgetku.android.components.ItemArticle
 import com.bluehabit.budgetku.android.components.ItemFeed
+import com.bluehabit.budgetku.android.feature.createAccount.CreateAccount
 import com.bluehabit.budgetku.android.feature.createBudget.CreateBudget
+import com.bluehabit.budgetku.android.feature.createTransaction.CreateTransaction
 import com.bluehabit.budgetku.android.ui.Grey50
 import com.bluehabit.budgetku.android.ui.Grey500
 import com.bluehabit.budgetku.android.ui.Grey900
@@ -95,11 +97,15 @@ internal fun ScreenCommunity(
                 onDismiss = {
                     hideBottomSheet()
                 },
-                onAddAccount = {},
-                onAddTransaction = {},
+                onAddAccount = {
+                    navigateSingleTop(CreateAccount.routeName)
+                },
+                onAddTransaction = {
+                    navigateSingleTop(CreateTransaction.routeName)
+                },
                 onAddBudget = {
                     hideBottomSheet()
-                    navigate(CreateBudget.routeName)
+                    navigateSingleTop(CreateBudget.routeName)
                 },
                 onAddTransfer = {},
             )

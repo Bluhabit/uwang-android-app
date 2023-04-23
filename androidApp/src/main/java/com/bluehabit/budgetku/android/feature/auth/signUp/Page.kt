@@ -48,6 +48,9 @@ import com.bluehabit.budgetku.android.components.button.ButtonGoogle
 import com.bluehabit.budgetku.android.components.button.ButtonPrimary
 import com.bluehabit.budgetku.android.components.input.FormInput
 import com.bluehabit.budgetku.android.components.IconWithAction
+import com.bluehabit.budgetku.android.components.BottomSheetConfirmationEmail
+import com.bluehabit.budgetku.android.feature.auth.emailVerification.EmailVerification
+import com.bluehabit.budgetku.android.feature.auth.resetPassword.ResetPassword
 import com.bluehabit.budgetku.android.rememberApplicationState
 import com.bluehabit.budgetku.android.ui.Grey700
 
@@ -76,7 +79,16 @@ internal fun ScreenSignUp(
         onResult = { dispatch(SignUpEvent.SignUpWithGoogle(it)) }
     )
 
-
+    with(appState) {
+        setupBottomSheet {
+            BottomSheetConfirmationEmail(
+                onConfirm = {
+                    hideBottomSheet()
+                    navigateAndReplaceAll(EmailVerification.routeName)
+                }
+            )
+        }
+    }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -118,9 +130,12 @@ internal fun ScreenSignUp(
                     color = MaterialTheme.colors.primary,
                     style = MaterialTheme.typography.subtitle1,
                     fontWeight = FontWeight.Bold,
-                    modifier = Modifier.clickable {
-                    
-                    }
+                    modifier = Modifier.clickable(
+                        enabled = true,
+                        onClick = {
+                            navigateUp()
+                        }
+                    )
                 )
             }
         }
@@ -157,16 +172,22 @@ internal fun ScreenSignUp(
                     color = MaterialTheme.colors.primary,
                     style = MaterialTheme.typography.subtitle1,
                     fontWeight = FontWeight.Bold,
-                    modifier = Modifier.clickable {
-
-                    }
+                    modifier = Modifier.clickable(
+                        enabled = true,
+                        onClick = {
+                            navigateSingleTop(ResetPassword.routeName)
+                        }
+                    )
                 )
             }
 
             Spacer(modifier = Modifier.height(40.dp))
             ButtonPrimary(
                 text = stringResource(R.string.text_button_register_signup),
-                onClick = { launcher.launch(1) },
+                onClick = {
+                    hideKeyboard()
+                    showBottomSheet()
+                },
             )
             Spacer(modifier = Modifier.height(40.dp))
             Row(

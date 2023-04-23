@@ -44,7 +44,10 @@ import com.bluehabit.budgetku.android.components.HeaderSectionDashboardHome
 import com.bluehabit.budgetku.android.components.ItemAccount
 import com.bluehabit.budgetku.android.components.ItemTransaction
 import com.bluehabit.budgetku.android.components.ItemTutorial
+import com.bluehabit.budgetku.android.feature.createAccount.CreateAccount
 import com.bluehabit.budgetku.android.feature.createBudget.CreateBudget
+import com.bluehabit.budgetku.android.feature.createTransaction.CreateTransaction
+import com.bluehabit.budgetku.android.feature.listAccount.ListAccount
 import com.bluehabit.budgetku.android.rememberApplicationState
 import java.math.BigDecimal
 
@@ -73,16 +76,21 @@ internal fun ScreenHome(
 
 
     with(appState) {
+        hideTopAppBar()
         setupBottomSheet {
             BottomSheetAddBudgetTransaction(
                 onDismiss = {
                     hideBottomSheet()
                 },
-                onAddAccount = {},
-                onAddTransaction = {},
+                onAddAccount = {
+                    navigateSingleTop(CreateAccount.routeName)
+                },
+                onAddTransaction = {
+                    navigateSingleTop(CreateTransaction.routeName)
+                },
                 onAddBudget = {
                     hideBottomSheet()
-                    navigate(CreateBudget.routeName)
+                    navigateSingleTop(CreateBudget.routeName)
                 },
                 onAddTransfer = {},
             )
@@ -133,7 +141,10 @@ internal fun ScreenHome(
                         items(3) {
                             ItemAccount(
                                 accountBalance = BigDecimal(100_000_000),
-                                accountBankName = "Bank Jago"
+                                accountBankName = "Bank Jago",
+                                onClick = {
+                                    navigateSingleTop(ListAccount.routeName)
+                                }
                             )
                         }
                     })

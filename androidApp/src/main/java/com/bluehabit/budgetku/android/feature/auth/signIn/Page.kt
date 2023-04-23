@@ -9,6 +9,7 @@ package com.bluehabit.budgetku.android.feature.auth.signIn
 
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -42,6 +43,8 @@ import com.bluehabit.budgetku.android.components.button.ButtonGoogle
 import com.bluehabit.budgetku.android.components.button.ButtonPrimary
 import com.bluehabit.budgetku.android.components.input.FormInput
 import com.bluehabit.budgetku.android.components.input.FormInputPassword
+import com.bluehabit.budgetku.android.feature.auth.resetPassword.ResetPassword
+import com.bluehabit.budgetku.android.feature.auth.signUp.SignUp
 import com.bluehabit.budgetku.android.rememberApplicationState
 import com.bluehabit.budgetku.android.ui.Blue800
 import com.bluehabit.budgetku.android.ui.Grey500
@@ -111,7 +114,13 @@ internal fun ScreenSignIn(appState: ApplicationState) = UIWrapper<SignInViewMode
                         text = stringResource(R.string.label_register_here),
                         style = MaterialTheme.typography.subtitle1,
                         fontWeight = FontWeight.Bold,
-                        color = Blue800
+                        color = Blue800,
+                        modifier = Modifier.clickable(
+                            enabled = true,
+                            onClick = {
+                                navigateSingleTop(SignUp.routeName)
+                            }
+                        )
                     )
                 }
             }
@@ -124,7 +133,7 @@ internal fun ScreenSignIn(appState: ApplicationState) = UIWrapper<SignInViewMode
                     errorMessage = stringResource(R.string.email_not_valid),
                     onChange = {
                         dispatch(SignInEvent.OnEmailChange(it))
-                    },
+                    }
                 )
                 FormInputPassword(
                     placeholder = stringResource(R.string.input_your_password),
@@ -146,7 +155,13 @@ internal fun ScreenSignIn(appState: ApplicationState) = UIWrapper<SignInViewMode
                         text = stringResource(R.string.forgot_password),
                         style = MaterialTheme.typography.subtitle1,
                         fontWeight = FontWeight.Bold,
-                        color = Blue800
+                        color = Blue800,
+                        modifier = Modifier.clickable(
+                            enabled = true,
+                            onClick = {
+                                navigateSingleTop(ResetPassword.routeName)
+                            }
+                        )
                     )
                 }
             }
