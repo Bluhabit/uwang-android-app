@@ -5,42 +5,50 @@
  * Proprietary and confidential
  */
 
-package com.bluehabit.budgetku.android.components
+package com.bluehabit.budgetku.android.components.input
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.bluehabit.budgetku.android.R
 import com.bluehabit.budgetku.android.base.BaseMainApp
 
 @Composable
-fun FormInput(
+fun FormInputPassword(
     value: String = "",
     label: String = "",
     placeholder: String = "",
-    leadingIcon: (@Composable ()->Unit)?=null,
-    error:Boolean=false,
-    errorMessage:String="",
-    clickable: Boolean = false,
-    keyboardActions: KeyboardActions= KeyboardActions(),
-    keyboardOptions: KeyboardOptions= KeyboardOptions(),
-    onChange:(String)->Unit={},
-    onClick: () -> Unit = {}
+    error: Boolean = false,
+    errorMessage: String = "",
+    keyboardActions: KeyboardActions = KeyboardActions(),
+    keyboardOptions: KeyboardOptions = KeyboardOptions(),
+    onChange: (String) -> Unit = {}
 ) {
+    var visible by remember {
+        mutableStateOf(false)
+    }
     Column(
         modifier = Modifier.fillMaxWidth(),
     ) {
@@ -54,19 +62,13 @@ fun FormInput(
         OutlinedTextField(
             value = value,
             onValueChange = onChange,
-            isError=error,
-            enabled=!clickable,
-            modifier = Modifier
-                .fillMaxWidth()
-                .clickable(
-                    enabled = clickable,
-                    onClick = onClick
-                ),
+            modifier = Modifier.fillMaxWidth(),
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 backgroundColor = Color(0xFFFAFAFA),
                 unfocusedBorderColor = Color(0xFFFAFAFA),
                 focusedBorderColor = MaterialTheme.colors.primary,
                 textColor = MaterialTheme.colors.onSurface,
+                disabledTextColor = MaterialTheme.colors.onSurface
             ),
             placeholder = {
                 Text(
@@ -75,12 +77,24 @@ fun FormInput(
                     fontWeight = FontWeight.Normal
                 )
             },
-            leadingIcon=leadingIcon,
+            isError = error,
             keyboardOptions = keyboardOptions,
             keyboardActions = keyboardActions,
+            trailingIcon = {
+                Icon(
+                    painter = painterResource(id = if (visible) R.drawable.eye_open else R.drawable.eye_close),
+                    contentDescription = "",
+                    tint = if (visible) MaterialTheme.colors.primary
+                    else MaterialTheme.colors.onSurface,
+                    modifier = Modifier.clickable {
+                        visible = !visible
+                    }
+                )
+            },
             textStyle = MaterialTheme.typography.subtitle2,
+            visualTransformation = if (visible) VisualTransformation.None else PasswordVisualTransformation()
         )
-        if(error){
+        if (error) {
             Spacer(modifier = Modifier.height(6.dp))
             Text(
                 text = errorMessage,
@@ -88,7 +102,7 @@ fun FormInput(
                 fontWeight = FontWeight.Normal,
                 color = MaterialTheme.colors.error
             )
-        }else{
+        } else {
             Spacer(modifier = Modifier.height(16.dp))
         }
     }
@@ -96,19 +110,8 @@ fun FormInput(
 
 @Preview
 @Composable
-fun PreviewFormInput() {
+fun PreviewFormInputPassword() {
     BaseMainApp {
-        Column(
-            modifier = Modifier.padding(
-                horizontal = 20.dp
-            )
-        ) {
-
-            FormInput()
-            FormInput(
-                error = true,
-                errorMessage = "Ini Error"
-            )
-        }
+        FormInputPassword()
     }
 }

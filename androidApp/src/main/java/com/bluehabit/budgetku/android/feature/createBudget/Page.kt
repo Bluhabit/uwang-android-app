@@ -28,7 +28,7 @@ import com.bluehabit.budgetku.android.ApplicationState
 import com.bluehabit.budgetku.android.R
 import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.base.UIWrapper
-import com.bluehabit.budgetku.android.feature.createBudget.components.ScreenNumPad
+import com.bluehabit.budgetku.android.components.ScreenNumPad
 import com.bluehabit.budgetku.android.feature.createBudget.components.ScreenInputAmountBudget
 import com.bluehabit.budgetku.android.feature.resultCreateBudget.ResultCreateBudget
 import com.google.accompanist.pager.HorizontalPager

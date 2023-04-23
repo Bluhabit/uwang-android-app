@@ -38,8 +38,8 @@ import androidx.compose.ui.unit.dp
 import com.bluehabit.budgetku.android.R
 import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.components.AnnotationTextItem
-import com.bluehabit.budgetku.android.components.ButtonPrimary
-import com.bluehabit.budgetku.android.components.FormInput
+import com.bluehabit.budgetku.android.components.button.ButtonPrimary
+import com.bluehabit.budgetku.android.components.input.FormInput
 import com.bluehabit.budgetku.android.components.TextWithAction
 import com.bluehabit.budgetku.android.ui.Grey100
 import com.bluehabit.budgetku.android.ui.Grey300

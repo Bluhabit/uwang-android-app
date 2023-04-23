@@ -7,48 +7,17 @@
 
 package com.bluehabit.budgetku.android.feature.editTransaction
 
-import com.bluehabit.budgetku.android.base.BaseViewModel
+import com.bluehabit.budgetku.android.base.BaseViewModelData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class EditTransactionViewModel @Inject constructor(
-
-) : BaseViewModel<EditTransactionState, EditTransactionEvent>(EditTransactionState()) {
-
+) : BaseViewModelData<EditTransactionState, EditTransactionDataState, EditTransactionEvent>(EditTransactionState(), EditTransactionDataState()) {
     init {
         handleActions()
     }
 
-    override fun handleActions() = onEvent {
-        when(it) {
-            is EditTransactionEvent.EditAccount -> {
-                hideBottomSheet()
-                commit { copy(bottomSheetType = EditTransactionBottomSheetType.ACCOUNT) }
-                showBottomSheet()
-            }
-            is EditTransactionEvent.EditCategory -> {
-                hideBottomSheet()
-                commit { copy(bottomSheetType = EditTransactionBottomSheetType.CATEGORY) }
-                showBottomSheet()
-            }
-            is EditTransactionEvent.EditDate -> {
-                hideBottomSheet()
-                commit { copy(bottomSheetType = EditTransactionBottomSheetType.DATE) }
-                showBottomSheet()
-            }
-            is EditTransactionEvent.EditNote -> {
-                commit { copy(bottomSheetType = EditTransactionBottomSheetType.NOTE) }
-            }
-            is EditTransactionEvent.EditValue -> {
-                hideBottomSheet()
-                commit { copy(bottomSheetType = EditTransactionBottomSheetType.VALUE) }
-                showBottomSheet()
-            }
-            is EditTransactionEvent.SaveChanges -> {
-
-            }
-        }
-    }
+    override fun handleActions() = onEvent {}
 
 }

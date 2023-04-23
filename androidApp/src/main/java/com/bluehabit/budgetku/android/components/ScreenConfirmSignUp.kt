@@ -32,6 +32,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bluehabit.budgetku.android.R
 import com.bluehabit.budgetku.android.base.BaseMainApp
+import com.bluehabit.budgetku.android.components.bottomSheet.Gender
+import com.bluehabit.budgetku.android.components.button.ButtonPrimary
 import com.bluehabit.budgetku.android.ui.Grey900
 
 @Composable
@@ -49,10 +51,12 @@ fun VerificationEmailCheck(
     )
     {
         Spacer(modifier = Modifier.height(190.dp))
-        Column( modifier = Modifier
-            .fillMaxWidth(),
+        Column(
+            modifier = Modifier
+                .fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center) {
+            verticalArrangement = Arrangement.Center
+        ) {
             Image(
                 painter = painterResource(R.drawable.email_check),
                 contentDescription = stringResource(R.string.text_title_email_check),
@@ -63,13 +67,13 @@ fun VerificationEmailCheck(
             Text(
                 text = stringResource(R.string.text_complete_verify_email_check),
                 style = MaterialTheme.typography.h4,
-                textAlign= TextAlign.Center,
+                textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Bold,
                 color = Grey900
             )
             Spacer(modifier = Modifier.height(14.dp))
             Text(
-                textAlign= TextAlign.Center,
+                textAlign = TextAlign.Center,
                 modifier = Modifier.fillMaxWidth(),
                 text = buildAnnotatedString {
                     withStyle(
@@ -87,7 +91,7 @@ fun VerificationEmailCheck(
         }
         ButtonPrimary(
             text = stringResource(R.string.text_button_complete_profile_email_check)
-                    )
+        )
     }
 }
 

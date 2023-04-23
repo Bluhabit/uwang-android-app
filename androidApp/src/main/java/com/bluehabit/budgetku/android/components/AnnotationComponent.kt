@@ -37,9 +37,10 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluehabit.budgetku.android.base.BaseMainApp
+import com.bluehabit.budgetku.android.base.extensions.appendButton
 
-sealed class AnnotationTextItem(var text: String, style: TextStyle = TextStyle.Default) {
-    data class Text(var label: String, var style: TextStyle = TextStyle.Default) : AnnotationTextItem(label, style)
+sealed class AnnotationTextItem(var text: String) {
+    data class Text(var label: String, var style: TextStyle = TextStyle.Default) : AnnotationTextItem(label)
     data class Button(var label: String, val underline: Boolean = false) : AnnotationTextItem(label)
 }
 
@@ -51,36 +52,18 @@ fun CheckBoxWithAction(
     onTextClick: (Int) -> Unit = {}
 ) {
     val annotates = buildAnnotatedString {
+
         labels.forEachIndexed { index, data ->
             when (data) {
-                is AnnotationTextItem.Button -> {
-                    append(" ")
-                    pushStringAnnotation(
-                        tag = "text_${index}",
-                        annotation = "text_${index}"
-                    )
-                    withStyle(
-                        style = SpanStyle(
-                            color = MaterialTheme.colors.primary,
-                            textDecoration = if (data.underline) TextDecoration.Underline
-                            else TextDecoration.None
-                        )
-                    ) {
-                        append(data.text)
-                    }
-                    pop()
-                }
+                is AnnotationTextItem.Button -> appendButton(
+                    text = data.text,
+                    textColor = MaterialTheme.colors.primary,
+                    decoration = if (data.underline) TextDecoration.Underline
+                    else TextDecoration.None,
+                    tag = "text_$index"
+                )
 
-                is AnnotationTextItem.Text -> {
-                    append(" ")
-                    withStyle(
-                        style = SpanStyle(
-                            color = MaterialTheme.colors.onBackground,
-                        )
-                    ) {
-                        append(data.text)
-                    }
-                }
+                is AnnotationTextItem.Text -> append(data.text)
             }
         }
     }
@@ -138,34 +121,15 @@ fun IconWithAction(
     val annotates = buildAnnotatedString {
         labels.forEachIndexed { index, data ->
             when (data) {
-                is AnnotationTextItem.Button -> {
-                    append(" ")
-                    pushStringAnnotation(
-                        tag = "text_${index}",
-                        annotation = "text_${index}"
-                    )
-                    withStyle(
-                        style = SpanStyle(
-                            color = MaterialTheme.colors.primary,
-                            textDecoration = if (data.underline) TextDecoration.Underline
-                            else TextDecoration.None
-                        )
-                    ) {
-                        append(data.text)
-                    }
-                    pop()
-                }
+                is AnnotationTextItem.Button -> appendButton(
+                    text = data.text,
+                    textColor = MaterialTheme.colors.primary,
+                    decoration = if (data.underline) TextDecoration.Underline
+                    else TextDecoration.None,
+                    tag = "text_$index"
+                )
 
-                is AnnotationTextItem.Text -> {
-                    append(" ")
-                    withStyle(
-                        style = SpanStyle(
-                            color = MaterialTheme.colors.onBackground,
-                        )
-                    ) {
-                        append(data.text)
-                    }
-                }
+                is AnnotationTextItem.Text -> append(data.text)
             }
         }
     }
@@ -212,34 +176,15 @@ fun TextWithAction(
     val annotates = buildAnnotatedString {
         labels.forEachIndexed { index, data ->
             when (data) {
-                is AnnotationTextItem.Button -> {
-                    append(" ")
-                    pushStringAnnotation(
-                        tag = "text_${index}",
-                        annotation = "text_${index}"
-                    )
-                    withStyle(
-                        style = SpanStyle(
-                            color = MaterialTheme.colors.primary,
-                            textDecoration = if (data.underline) TextDecoration.Underline
-                            else TextDecoration.None
-                        )
-                    ) {
-                        append(data.text)
-                    }
-                    pop()
-                }
+                is AnnotationTextItem.Button -> appendButton(
+                    text = data.text,
+                    textColor = MaterialTheme.colors.primary,
+                    decoration = if (data.underline) TextDecoration.Underline
+                    else TextDecoration.None,
+                    tag = "text_$index"
+                )
 
-                is AnnotationTextItem.Text -> {
-                    append(" ")
-                    withStyle(
-                        style = SpanStyle(
-                            color = MaterialTheme.colors.onBackground,
-                        )
-                    ) {
-                        append(data.text)
-                    }
-                }
+                is AnnotationTextItem.Text -> append(data.text)
             }
         }
     }

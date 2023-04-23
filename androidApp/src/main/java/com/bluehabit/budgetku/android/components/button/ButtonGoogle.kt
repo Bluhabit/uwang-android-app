@@ -5,7 +5,7 @@
  * Proprietary and confidential
  */
 
-package com.bluehabit.budgetku.android.components
+package com.bluehabit.budgetku.android.components.button
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement

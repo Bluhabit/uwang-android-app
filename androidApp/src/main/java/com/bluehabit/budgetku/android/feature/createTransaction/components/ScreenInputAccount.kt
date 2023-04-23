@@ -36,7 +36,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluehabit.budgetku.android.R
 import com.bluehabit.budgetku.android.base.BaseMainApp
-import com.bluehabit.budgetku.android.components.ButtonOutlinedPrimary
+import com.bluehabit.budgetku.android.components.button.ButtonOutlinedPrimary
 import com.bluehabit.budgetku.android.components.ItemAccount
 import com.bluehabit.budgetku.android.ui.Grey100
 import com.bluehabit.budgetku.android.ui.Yellow600

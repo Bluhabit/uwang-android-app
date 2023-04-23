@@ -44,7 +44,7 @@ import com.bluehabit.budgetku.android.base.UIWrapper
 import com.bluehabit.budgetku.android.base.extensions.bottomNavigationListener
 import com.bluehabit.budgetku.android.base.extensions.navigateSingleTop
 import com.bluehabit.budgetku.android.base.listener.BottomNavigationListener
-import com.bluehabit.budgetku.android.components.BottomSheetAddBudgetTransaction
+import com.bluehabit.budgetku.android.components.bottomSheet.BottomSheetAddBudgetTransaction
 import com.bluehabit.budgetku.android.feature.dashboard.budget.components.CardEmptyBudget
 import com.bluehabit.budgetku.android.feature.dashboard.budget.components.CardEmptyTransactionBudget
 import com.bluehabit.budgetku.android.feature.dashboard.budget.components.CardSummaryBudget
