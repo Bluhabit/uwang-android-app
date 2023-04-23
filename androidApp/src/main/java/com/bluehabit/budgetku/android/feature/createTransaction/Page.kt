@@ -26,12 +26,16 @@ import com.bluehabit.budgetku.android.ApplicationState
 import com.bluehabit.budgetku.android.R
 import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.base.UIWrapper
-import com.bluehabit.budgetku.android.components.bottomSheet.BottomSheetDatePicker
+import com.bluehabit.budgetku.android.components.BottomSheetAddBudgetCategory
+import com.bluehabit.budgetku.android.components.BudgetCategory
 import com.bluehabit.budgetku.android.components.HeaderStepWithProgress
+import com.bluehabit.budgetku.android.components.ItemBudgetCategory
+import com.bluehabit.budgetku.android.components.ItemBudgetSubCategory
 import com.bluehabit.budgetku.android.components.ScreenInputFeedback
 import com.bluehabit.budgetku.android.components.ScreenInputSuccess
-import com.bluehabit.budgetku.android.feature.createTransaction.CreateTransactionBottomSheetType.DATE_PICKER
+import com.bluehabit.budgetku.android.components.bottomSheet.BottomSheetDatePicker
 import com.bluehabit.budgetku.android.feature.createTransaction.CreateTransactionBottomSheetType.CATEGORY
+import com.bluehabit.budgetku.android.feature.createTransaction.CreateTransactionBottomSheetType.DATE_PICKER
 import com.bluehabit.budgetku.android.feature.createTransaction.components.ScreenInputAccount
 import com.bluehabit.budgetku.android.feature.createTransaction.components.ScreenInputAmount
 import com.bluehabit.budgetku.android.feature.createTransaction.components.ScreenInputDateTransaction
@@ -62,7 +66,78 @@ internal fun ScreenCreateTransaction(
 
         setupBottomSheet {
             when (state.bottomSheetType) {
-                CATEGORY -> {}
+                CATEGORY -> {
+                    BottomSheetAddBudgetCategory(
+                        onDismiss = { hideBottomSheet() },
+                        onSearch = {
+
+                        },
+                        popularBudgetCategories = listOf(
+                            ItemBudgetCategory(
+                                title = stringResource(id = R.string.text_category_food_drink),
+                                icon = R.drawable.icon_food,
+                            ),
+                            ItemBudgetCategory(
+                                title = stringResource(id = R.string.text_category_house),
+                                icon = R.drawable.icon_house
+                            ),
+                            ItemBudgetCategory(
+                                title = stringResource(id = R.string.text_category_bill),
+                                icon = R.drawable.icon_bill
+                            )
+                        ),
+                        budgetCategories = listOf(
+                            BudgetCategory(
+                                title = stringResource(id = R.string.text_category_everyday_needs),
+                                categories = listOf(
+                                    ItemBudgetCategory(
+                                        title = stringResource(id = R.string.text_category_food_drink),
+                                        icon = R.drawable.icon_food,
+                                        subCategories = listOf(
+                                            ItemBudgetSubCategory(
+                                                title = stringResource(id = R.string.text_category_restaurant),
+                                                icon = R.drawable.icon_restaurant
+                                            ),
+                                            ItemBudgetSubCategory(
+                                                title = stringResource(id = R.string.text_category_food_delivery),
+                                                icon = R.drawable.icon_food_delivery
+                                            ),
+                                            ItemBudgetSubCategory(
+                                                title = stringResource(id = R.string.text_category_coffee_shop),
+                                                icon = R.drawable.icon_coffee
+                                            ),
+                                            ItemBudgetSubCategory(
+                                                title = stringResource(id = R.string.text_category_fast_food),
+                                                icon = R.drawable.icon_fast_food
+                                            ),
+                                        )
+                                    ),
+                                    ItemBudgetCategory(
+                                        title = stringResource(id = R.string.text_category_fuel),
+                                        icon = R.drawable.icon_bus
+                                    )
+                                )
+                            ),
+                            BudgetCategory(
+                                title = stringResource(id = R.string.text_category_house_needs),
+                                categories = listOf(
+                                    ItemBudgetCategory(
+                                        title = stringResource(id = R.string.text_category_house),
+                                        icon = R.drawable.icon_house
+                                    ),
+                                    ItemBudgetCategory(
+                                        title = stringResource(id = R.string.text_category_bill),
+                                        icon = R.drawable.icon_bill
+                                    )
+                                )
+                            ),
+                        ),
+                        onCategorySelected = {
+                            showSnackbar(it)
+                            hideBottomSheet()
+                        },
+                    )
+                }
                 DATE_PICKER -> {
                     BottomSheetDatePicker(
                         onSubmit = {
@@ -116,7 +191,8 @@ internal fun ScreenCreateTransaction(
                 transactionName = "",
                 onChange = {},
                 onSelectCategory = {
-                    dispatch(CreateTransactionEvent.NexPage)
+                    dispatch(CreateTransactionEvent.ChangeBottomSheet(CATEGORY))
+                    showBottomSheet()
                 },
             )
 
