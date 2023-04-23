@@ -45,12 +45,14 @@ fun FormInput(
     Column(
         modifier = Modifier.fillMaxWidth(),
     ) {
-        Text(
-            text = label,
-            style = MaterialTheme.typography.subtitle2,
-            fontWeight = FontWeight.Normal,
-            color = MaterialTheme.colors.onSurface
-        )
+        if (label.isNotEmpty()) {
+            Text(
+                text = label,
+                style = MaterialTheme.typography.subtitle2,
+                fontWeight = FontWeight.Normal,
+                color = MaterialTheme.colors.onSurface
+            )
+        }
         Spacer(modifier = Modifier.height(6.dp))
         OutlinedTextField(
             value = value,

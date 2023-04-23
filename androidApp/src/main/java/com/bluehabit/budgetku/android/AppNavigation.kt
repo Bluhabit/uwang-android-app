@@ -27,6 +27,7 @@ import com.bluehabit.budgetku.android.feature.dashboard.home.routeHome
 import com.bluehabit.budgetku.android.feature.dashboard.report.routeReport
 import com.bluehabit.budgetku.android.feature.listAccount.routeListAccount
 import com.bluehabit.budgetku.android.feature.detailTransaction.routeDetailTransaction
+import com.bluehabit.budgetku.android.feature.editTransaction.routeEditTransaction
 import com.bluehabit.budgetku.android.feature.onboarding.routeOnboard
 import com.bluehabit.budgetku.android.feature.resultCreateBudget.routeResultCreateBudget
 import com.bluehabit.budgetku.android.feature.splashScreen.Splash
@@ -102,6 +103,9 @@ fun AppNavigation(
             state = applicationState
         )
         routeCreateAccountSaving(
+            state = applicationState
+        )
+        routeEditTransaction(
             state = applicationState
         )
     }
