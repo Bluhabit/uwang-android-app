@@ -8,7 +8,7 @@
 <resources>
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent rhoncus lectus fringilla dui varius pharetra nec eget nunc. Suspendisse a feugiat quam, a efficitur libero.Quisque ultricies mauris non nisi ullamcorper feugiat.Vestibulum ac lacinia erat, ut imperdiet dui. Nam ac orci eget velit facilisis interdum. Etiam lectus ipsum, finibus a tellus eget, laoreet sollicitudin purus. Suspendisse ac magna quam. Mauris dapibus, augue eget cursus auctor, est velit porta nibh, a congue urna odio nec turpis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aenean et quam ex. Maecenas non pellentesque ex, a accumsan leo. Sed mollis leo ipsum, a suscipit quam pellentesque at.\n
-        Pellentesque condimentum sodales lectus in fermentum. Vestibulum cursus quis enim fringilla facilisis. Ut tellus eros, laoreet vitae ex a, tempor lacinia neque. In vestibulum arcu risus, in cursus metus malesuada ut. Mauris eget placerat quam. Donec vitae accumsan nibh, eu varius lectus. Vivamus ut urna lobortis, vehicula mi a, dapibus nisl. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam ac quam venenatis, lacinia turpis at, molestie velit. Nullam porta est eget ipsum varius pulvinar ut eget ante. Donec lorem ex, rhoncus sed ipsum in, semper accumsan purus. Donec sed efficitur metus, quis ullamcorper mauris. Aliquam nec vehicula felis, vitae aliquam nunc. Curabitur lobortis a erat pellentesque pellentesque. Fusce eu massa dolor. Aliquam nec bibendum risus, eu iaculis erat. \n
+        Pellentesque condimentum sodales lectus in fermentum. Vestibulum cursus quis enim fringilla facilisis. Ut tellus eros, laoreet vitae ex a, tempor lacinia neque. In vestibulum arcu risus, in cursus metus malesuada ut. Mauris eget placerat quam. Donec vitae accumsan nibh, eu varius lectus. Vivamus ut urna lobortis, vehicula mi a, dapibus nisl. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam ac quam venenatis, lacinia turpis at, molestie velit. Nullam porta est eget ipsum varius pulvinar ut eget ante. Donec lorem ex, rhoncus sed ipsum in, semper accumsan purus. Donec sed efficitur metus, quis ullamcorper mauris. Aliquam nec vehicula felis, vitae aliquam nunc. Curabitur lobortis a erat pellentesque. Fusce eu massa dolor. Aliquam nec bibendum risus, eu iaculis erat. \n
     </string>
     <string name="onboard_title_1">Nabung Semakin Mudah</string>
     <string name="onboard_title_2">Lacak Pengeluaran</string>
@@ -152,7 +152,7 @@
     <string name="text_complete_verify_email_check">Verifikasi Email Berhasil</string>
     <string name="text_message_email_check">Selamat! Email kamu berhasil terverifikasi. Waktunya memulai perjalanan keuangan bersama Budgetku</string>
     <string name="text_button_complete_profile_email_check">Lengkapi Data Akun</string>
-    <string name="text_veriry_email_waiting_email">Memverifikasi Link Email Kamu...</string>
+    <string name="text_veriry_email_waiting_email">Memverifikasi Link Email Kamu…</string>
     <string name="text_message_waiting_email">Tunggu beberapa saat, kami sedang memastikan link verifikasi sesuai</string>
     <string name="text_title_input_accoun_create_transaction">Mau pakai akun yang mana buat %1$s kamu?</string>
     <string name="text_title_description_tips_create_another_account_create_transaction">Kamu juga bisa tambah akun rekening lainnya dan bisa langsung dipakai transaksi</string>
@@ -276,4 +276,17 @@
     <string name="text_save_edit_transaction">Simpan</string>
     <string name="text_input_value_transaction">Input Nominal</string>
     <!--    end edit transaction-->
+
+    <!--    create post-->
+    <string name="text_button_submit_create_post">Posting</string>
+    <string name="text_bottom_sheet_title_create_post">Pilih Audiens</string>
+    <string name="text_bottom_sheet_reset_create_post">Reset</string>
+    <string name="text_bottom_sheet_public_create_post">Publik</string>
+    <string name="text_bottom_sheet_only_follow_create_post">Hanya orang yang diikuti</string>
+    <string name="text_bottom_sheet_only_mention_create_post">Hanya orang yang disebutkan</string>
+    <string name="text_bottom_sheet_only_me_create_post">Hanya saya</string>
+    <string name="text_content_placeholder_create_post">Tulis ide kamu di sini…</string>
+    <string name="text_button_select_audience_create_post">Pilih</string>
+    <!--    end create post-->
+
 </resources>
