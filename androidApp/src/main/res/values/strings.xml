@@ -153,7 +153,7 @@
     <string name="text_button_add_more_transaction_create_transaction">Tambah Lagi</string>
     <string name="text_button_save_transaction_create_transaction">Simpan</string>
     <string name="text_title_input_transaction_name_create_transaction">Transaksi kamu buat apa nih?</string>
-    <string name="text_placeholder_transaction_name_create_transaction">Tulis nama transaksi disini...</string>
+    <string name="text_placeholder_transaction_name_create_transaction">Tulis nama transaksi disini…</string>
     <string name="text_input_input_category_create_transaction">Pilih Kategori transaksi</string>
     <string name="text_title_input_transaction_type_create_transaction">Untuk apa transaksi kamu, apakah pengeluaran atau pemasukan?</string>
     <string name="text_transaction_type_income">Pemasukan</string>
@@ -241,4 +241,20 @@
     <string name="text_tab_academy">Academy</string>
     <!--    end change password-->
 
+    <!--    bottom sheet select account-->
+    <string name="text_bottom_sheet_account">Akun</string>
+    <string name="text_bottom_sheet_account_confirm">Simpan</string>
+    <string name="text_bank_bca">Bank BCA</string>
+    <string name="text_bank_jago">Bank Jago</string>
+    <!--    end bottom sheet select account-->
+
+    <!--    edit transaction-->
+    <string name="text_topbar_edit_transaction">Edit Transaksi</string>
+    <string name="text_title_edit_transaction">Transaksi</string>
+    <string name="text_detail_edit_transaction">Detail Transaksi</string>
+    <string name="text_credit_edit_transaction">Pemasukan</string>
+    <string name="text_debit_edit_transaction">Pengeluaran</string>
+    <string name="text_save_edit_transaction">Simpan</string>
+    <string name="text_input_value_transaction">Input Nominal</string>
+    <!--    end edit transaction-->
 </resources>
