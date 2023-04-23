@@ -5,7 +5,7 @@
  * Proprietary and confidential
  */
 
-package com.bluehabit.budgetku.android.components
+package com.bluehabit.budgetku.android.feature.auth.emailVerification.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -32,10 +32,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bluehabit.budgetku.android.R
 import com.bluehabit.budgetku.android.base.BaseMainApp
+import com.bluehabit.budgetku.android.components.button.ButtonPrimary
 import com.bluehabit.budgetku.android.ui.Grey900
 
 @Composable
-fun VerificationWaitingEmail(
+fun ScreenVerificationSuccess(
     title: String = "",
     onDismiss: () -> Unit = {},
     onConfirm: () -> Unit = {}
@@ -49,27 +50,29 @@ fun VerificationWaitingEmail(
     )
     {
         Spacer(modifier = Modifier.height(190.dp))
-        Column( modifier = Modifier
-            .fillMaxWidth(),
+        Column(
+            modifier = Modifier
+                .fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center) {
+            verticalArrangement = Arrangement.Center
+        ) {
             Image(
-                painter = painterResource(R.drawable.arrow_email),
+                painter = painterResource(R.drawable.email_check),
                 contentDescription = stringResource(R.string.text_title_email_check),
                 modifier = Modifier.size(130.dp),
 
                 )
-            Spacer(modifier = Modifier.height(15.dp))
+            Spacer(modifier = Modifier.height(20.dp))
             Text(
-                text = stringResource(R.string.text_veriry_email_waiting_email),
+                text = stringResource(R.string.text_complete_verify_email_check),
                 style = MaterialTheme.typography.h4,
-                textAlign= TextAlign.Center,
+                textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Bold,
                 color = Grey900
             )
             Spacer(modifier = Modifier.height(14.dp))
             Text(
-                textAlign= TextAlign.Center,
+                textAlign = TextAlign.Center,
                 modifier = Modifier.fillMaxWidth(),
                 text = buildAnnotatedString {
                     withStyle(
@@ -79,19 +82,24 @@ fun VerificationWaitingEmail(
                             fontSize = 14.sp
                         ),
                     ) {
-                        append(stringResource(R.string.text_message_waiting_email))
+                        append(stringResource(R.string.text_message_email_check))
                     }
                 },
             )
             Spacer(modifier = Modifier.height(270.dp))
+        }
+        ButtonPrimary(
+            text = stringResource(R.string.text_button_complete_profile_email_check)
+        ){
+            onConfirm()
         }
     }
 }
 
 @Preview
 @Composable
-fun PreviewScreenVerifyEmail() {
+fun PreviewScreenVerificationSuccess() {
     BaseMainApp {
-        VerificationWaitingEmail()
+        ScreenVerificationSuccess()
     }
 }

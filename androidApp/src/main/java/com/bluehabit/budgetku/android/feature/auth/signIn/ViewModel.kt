@@ -9,10 +9,10 @@ package com.bluehabit.budgetku.android.feature.auth.signIn
 
 import android.util.Patterns
 import com.bluehabit.budgetku.android.base.BaseViewModel
+import com.bluehabit.budgetku.android.feature.dashboard.home.Home
 import com.bluehabit.budgetku.data.domain.auth.SignInWIthGoogleUseCase
 import com.bluehabit.budgetku.data.domain.auth.SignInWithEmailUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 @HiltViewModel
@@ -32,9 +32,11 @@ class SignInViewModel @Inject constructor(
             email.isEmpty() || password.isEmpty() -> {
                 commit { copy(emailIsError = email.isEmpty(), passwordIsError = password.isEmpty()) }
             }
+
             !Patterns.EMAIL_ADDRESS.matcher(email).matches() -> {
                 commit { copy(emailIsError = true) }
             }
+
             else -> valid(email, password)
         }
     }
@@ -42,11 +44,13 @@ class SignInViewModel @Inject constructor(
     override fun handleActions() = onEvent {
         when (it) {
             SignInEvent.SignInWithEmail -> validateData { email, password ->
-                signInWithEmailUseCase(email, password).onEach(
-                    loading = { showSnackbar("Loading") },
-                    error = ::showSnackbar,
-                    success = { showSnackbar(userProfile.userFullName) }
-                )
+
+                navigateAndReplaceAll(Home.routeName)
+//                signInWithEmailUseCase(email, password).onEach(
+//                    loading = { showSnackbar("Loading") },
+//                    error = ::showSnackbar,
+//                    success = { showSnackbar(userProfile.userFullName) }
+//                )
             }
 
             is SignInEvent.OnEmailChange -> commit {
@@ -56,14 +60,18 @@ class SignInViewModel @Inject constructor(
                 )
             }
 
-            is SignInEvent.OnPasswordChange -> commit { copy(password = it.password, passwordIsError = it.password.isEmpty()) }
+            is SignInEvent.OnPasswordChange -> commit {
+                copy(password = it.password, passwordIsError = it.password.isEmpty())
+            }
 
             is SignInEvent.SignInWithGoogle ->
-                signInWIthGoogleUseCase(it.result?.await()?.idToken).onEach(
-                    loading = { showSnackbar("Loading") },
-                    error = ::showSnackbar,
-                    success = { showSnackbar(userProfile.userFullName) }
-                )
+                navigateAndReplaceAll(Home.routeName)
+
+//                signInWIthGoogleUseCase(it.result?.await()?.idToken).onEach(
+//                    loading = { showSnackbar("Loading") },
+//                    error = ::showSnackbar,
+//                    success = { showSnackbar(userProfile.userFullName) }
+//                )
         }
     }
 }

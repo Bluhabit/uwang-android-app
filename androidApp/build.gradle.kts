@@ -155,6 +155,8 @@ dependencies {
         releaseApi(release)
     }
 
+    implementation(libs.mp.android.chart)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)

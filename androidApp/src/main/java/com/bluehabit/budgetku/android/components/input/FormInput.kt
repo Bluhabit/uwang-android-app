@@ -36,7 +36,71 @@ fun FormInput(
     trailingIcon: (@Composable () -> Unit)? = null,
     error: Boolean = false,
     errorMessage: String = "",
-    clickable: Boolean = false,
+    keyboardActions: KeyboardActions = KeyboardActions(),
+    keyboardOptions: KeyboardOptions = KeyboardOptions(),
+    onChange: (String) -> Unit = {}
+) {
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+    ) {
+        if (label.isNotEmpty()) {
+            Text(
+                text = label,
+                style = MaterialTheme.typography.subtitle2,
+                fontWeight = FontWeight.Normal,
+                color = MaterialTheme.colors.onSurface
+            )
+        }
+        Spacer(modifier = Modifier.height(6.dp))
+        OutlinedTextField(
+            value = value,
+            onValueChange = onChange,
+            isError = error,
+            enabled = true,
+            modifier = Modifier
+                .fillMaxWidth(),
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                backgroundColor = Color(0xFFFAFAFA),
+                unfocusedBorderColor = Color(0xFFFAFAFA),
+                focusedBorderColor = MaterialTheme.colors.primary,
+                textColor = MaterialTheme.colors.onSurface,
+            ),
+            placeholder = {
+                Text(
+                    text = placeholder,
+                    style = MaterialTheme.typography.subtitle2,
+                    fontWeight = FontWeight.Normal
+                )
+            },
+            trailingIcon = trailingIcon,
+            leadingIcon = leadingIcon,
+            keyboardOptions = keyboardOptions,
+            keyboardActions = keyboardActions,
+            textStyle = MaterialTheme.typography.subtitle2,
+        )
+        if (error) {
+            Spacer(modifier = Modifier.height(6.dp))
+            Text(
+                text = errorMessage,
+                style = MaterialTheme.typography.subtitle2,
+                fontWeight = FontWeight.Normal,
+                color = MaterialTheme.colors.error
+            )
+        } else {
+            Spacer(modifier = Modifier.height(16.dp))
+        }
+    }
+}
+
+@Composable
+fun FormInput(
+    value: String = "",
+    label: String = "",
+    placeholder: String = "",
+    leadingIcon: (@Composable () -> Unit)? = null,
+    trailingIcon: (@Composable () -> Unit)? = null,
+    error: Boolean = false,
+    errorMessage: String = "",
     keyboardActions: KeyboardActions = KeyboardActions(),
     keyboardOptions: KeyboardOptions = KeyboardOptions(),
     onChange: (String) -> Unit = {},
@@ -58,11 +122,11 @@ fun FormInput(
             value = value,
             onValueChange = onChange,
             isError = error,
-            enabled = !clickable,
+            enabled = false,
             modifier = Modifier
                 .fillMaxWidth()
                 .clickable(
-                    enabled = clickable,
+                    enabled = true,
                     onClick = onClick
                 ),
             colors = TextFieldDefaults.outlinedTextFieldColors(
@@ -97,7 +161,6 @@ fun FormInput(
         }
     }
 }
-
 @Preview
 @Composable
 fun PreviewFormInput() {
