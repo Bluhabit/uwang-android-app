@@ -5,13 +5,14 @@
  * Proprietary and confidential
  */
 
-package com.bluehabit.budgetku.android.components
+package com.bluehabit.budgetku.android.components.input
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.MaterialTheme
@@ -27,14 +28,15 @@ import androidx.compose.ui.unit.dp
 import com.bluehabit.budgetku.android.base.BaseMainApp
 
 @Composable
-fun FormInputWithIcon(
+fun FormInput(
     value: String = "",
     label: String = "",
     placeholder: String = "",
-    icon: @Composable (() -> Unit)? = null,
+    leadingIcon: (@Composable () -> Unit)? = null,
+    trailingIcon: (@Composable () -> Unit)? = null,
+    error: Boolean = false,
+    errorMessage: String = "",
     clickable: Boolean = false,
-    error:Boolean=false,
-    errorMessage:String="",
     keyboardActions: KeyboardActions = KeyboardActions(),
     keyboardOptions: KeyboardOptions = KeyboardOptions(),
     onChange: (String) -> Unit = {},
@@ -43,18 +45,20 @@ fun FormInputWithIcon(
     Column(
         modifier = Modifier.fillMaxWidth(),
     ) {
-        Text(
-            text = label,
-            style = MaterialTheme.typography.subtitle2,
-            fontWeight = FontWeight.Normal,
-            color = MaterialTheme.colors.onSurface
-        )
+        if (label.isNotEmpty()) {
+            Text(
+                text = label,
+                style = MaterialTheme.typography.subtitle2,
+                fontWeight = FontWeight.Normal,
+                color = MaterialTheme.colors.onSurface
+            )
+        }
         Spacer(modifier = Modifier.height(6.dp))
         OutlinedTextField(
             value = value,
-            readOnly = clickable,
-            enabled=!clickable,
             onValueChange = onChange,
+            isError = error,
+            enabled = !clickable,
             modifier = Modifier
                 .fillMaxWidth()
                 .clickable(
@@ -66,9 +70,7 @@ fun FormInputWithIcon(
                 unfocusedBorderColor = Color(0xFFFAFAFA),
                 focusedBorderColor = MaterialTheme.colors.primary,
                 textColor = MaterialTheme.colors.onSurface,
-                disabledTextColor = MaterialTheme.colors.onSurface
             ),
-            isError=error,
             placeholder = {
                 Text(
                     text = placeholder,
@@ -76,12 +78,13 @@ fun FormInputWithIcon(
                     fontWeight = FontWeight.Normal
                 )
             },
+            trailingIcon = trailingIcon,
+            leadingIcon = leadingIcon,
             keyboardOptions = keyboardOptions,
             keyboardActions = keyboardActions,
-            trailingIcon = icon,
-            textStyle = MaterialTheme.typography.subtitle2
+            textStyle = MaterialTheme.typography.subtitle2,
         )
-        if(error){
+        if (error) {
             Spacer(modifier = Modifier.height(6.dp))
             Text(
                 text = errorMessage,
@@ -89,7 +92,7 @@ fun FormInputWithIcon(
                 fontWeight = FontWeight.Normal,
                 color = MaterialTheme.colors.error
             )
-        }else{
+        } else {
             Spacer(modifier = Modifier.height(16.dp))
         }
     }
@@ -97,8 +100,19 @@ fun FormInputWithIcon(
 
 @Preview
 @Composable
-fun PreviewFormInputWithIcon() {
+fun PreviewFormInput() {
     BaseMainApp {
-        FormInputWithIcon()
+        Column(
+            modifier = Modifier.padding(
+                horizontal = 20.dp
+            )
+        ) {
+
+            FormInput()
+            FormInput(
+                error = true,
+                errorMessage = "Ini Error"
+            )
+        }
     }
 }

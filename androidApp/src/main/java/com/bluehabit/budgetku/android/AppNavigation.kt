@@ -17,6 +17,8 @@ import com.bluehabit.budgetku.android.feature.auth.inputPin.routeInputPin
 import com.bluehabit.budgetku.android.feature.auth.resetPassword.routeResetPassword
 import com.bluehabit.budgetku.android.feature.auth.signIn.routeSignIn
 import com.bluehabit.budgetku.android.feature.auth.signUp.routeSignUp
+import com.bluehabit.budgetku.android.feature.createAccount.routeCreateAccount
+import com.bluehabit.budgetku.android.feature.createAccountSaving.routeCreateAccountSaving
 import com.bluehabit.budgetku.android.feature.createBudget.routeCreateBudget
 import com.bluehabit.budgetku.android.feature.createTransaction.routeCreateTransaction
 import com.bluehabit.budgetku.android.feature.dashboard.budget.routeBudget
@@ -25,10 +27,11 @@ import com.bluehabit.budgetku.android.feature.dashboard.home.routeHome
 import com.bluehabit.budgetku.android.feature.dashboard.report.routeReport
 import com.bluehabit.budgetku.android.feature.detailTransaction.routeDetailTransaction
 import com.bluehabit.budgetku.android.feature.editTransaction.routeEditTransaction
+import com.bluehabit.budgetku.android.feature.listAccount.routeListAccount
 import com.bluehabit.budgetku.android.feature.onboarding.routeOnboard
 import com.bluehabit.budgetku.android.feature.resultCreateBudget.routeResultCreateBudget
+import com.bluehabit.budgetku.android.feature.splashScreen.Splash
 import com.bluehabit.budgetku.android.feature.splashScreen.routeSplash
-import com.bluehabit.budgetku.android.feature.tutorialBudget.TutorialBudget
 import com.bluehabit.budgetku.android.feature.tutorialBudget.routeTutorialBudget
 
 @Composable
@@ -37,7 +40,7 @@ fun AppNavigation(
 ) {
     NavHost(
         navController = applicationState.router,
-        startDestination = TutorialBudget.routeName
+        startDestination = Splash.routeName
     ) {
         routeSplash(
             state = applicationState
@@ -78,7 +81,6 @@ fun AppNavigation(
         routeResultCreateBudget(
             state = applicationState
         )
-
         routeResetPassword(
             state = applicationState
         )
@@ -94,7 +96,20 @@ fun AppNavigation(
         routeTutorialBudget(
             state = applicationState
         )
+        routeCreateAccount(
+            state = applicationState
+        )
+        routeListAccount(
+
+            state = applicationState
+        )
         routeDetailTransaction(
+            state = applicationState
+        )
+        routeEditTransaction(
+            state = applicationState
+        )
+        routeCreateAccountSaving(
             state = applicationState
         )
         routeEditTransaction(

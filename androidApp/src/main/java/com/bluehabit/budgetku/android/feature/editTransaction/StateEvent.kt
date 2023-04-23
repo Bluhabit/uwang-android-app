@@ -11,26 +11,29 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 import javax.annotation.concurrent.Immutable
 
-enum class EditTransactionBottomSheetType {
-    VALUE, NOTE, CATEGORY, ACCOUNT, DATE
+enum class BottomSheetTypeEditTransaction {
+    DATE,
+    CATEGORY,
+    ACCOUNT
+}
+
+enum class ScreenType {
+    NUMPAD,
+    MAIN
 }
 
 @Immutable
 @Parcelize
 data class EditTransactionState(
-    val value: String = "",
-    val category: Pair<Int, String> = Pair(0, ""),
-    val note: String = "",
-    val account: Pair<Int, String> = Pair(0, ""),
-    val date: Pair<Int, String> = Pair(0, ""),
-    val bottomSheetType: EditTransactionBottomSheetType = EditTransactionBottomSheetType.VALUE
+    val bottomSheetType: BottomSheetTypeEditTransaction = BottomSheetTypeEditTransaction.ACCOUNT,
+    val screenType: ScreenType = ScreenType.MAIN
+) : Parcelable
+
+@Immutable
+@Parcelize
+data class EditTransactionDataState(
+    val a: String = ""
 ) : Parcelable
 
 sealed interface EditTransactionEvent {
-    object EditValue : EditTransactionEvent
-    object EditCategory: EditTransactionEvent
-    object EditNote: EditTransactionEvent
-    object EditAccount: EditTransactionEvent
-    object EditDate: EditTransactionEvent
-    object SaveChanges: EditTransactionEvent
 }

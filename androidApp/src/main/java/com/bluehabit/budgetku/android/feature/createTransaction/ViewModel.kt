@@ -34,23 +34,7 @@ class CreateTransactionViewModel @Inject constructor(
             } else step
         }
 
-        val percentage = when (page) {
-            1 -> 0.15f
-            2 -> 0.35f
-            3 -> 0.45f
-            4 -> 0.6f
-            5 -> 0.7f
-            6 -> 0.8f
-            7 -> 1f
-            else -> 0f
-        }
-
-        commit {
-            copy(
-                step = page,
-                percentage = percentage
-            )
-        }
+        commit { copy(step = page) }
 
     }
 

@@ -34,13 +34,11 @@ import com.bluehabit.budgetku.android.R
 import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.ui.Grey900
 
-class ScreenVerifyEmail {
-}
 @Composable
 fun VerificationWaitingEmail(
     title: String = "",
     onDismiss: () -> Unit = {},
-    onConfirm: (Gender) -> Unit = {}
+    onConfirm: () -> Unit = {}
 ) {
 
     Column(
