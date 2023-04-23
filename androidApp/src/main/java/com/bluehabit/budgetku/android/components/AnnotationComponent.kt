@@ -22,21 +22,25 @@ import androidx.compose.material.Checkbox
 import androidx.compose.material.CheckboxDefaults
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.base.extensions.appendButton
 
 sealed class AnnotationTextItem(var text: String) {
-    data class Text(var label: String) : AnnotationTextItem(label)
+    data class Text(var label: String, var style: TextStyle = TextStyle.Default) : AnnotationTextItem(label)
     data class Button(var label: String, val underline: Boolean = false) : AnnotationTextItem(label)
 }
 
@@ -204,6 +208,33 @@ fun TextWithAction(
         }
     )
 
+}
+
+@Composable
+fun TextAnnotationWithStyle(
+    labels: List<AnnotationTextItem> = listOf(),
+) {
+    val annotates = buildAnnotatedString {
+        labels.forEachIndexed { _, data ->
+            when (data) {
+                is AnnotationTextItem.Text -> {
+                    append(" ")
+                    withStyle(
+                        style = SpanStyle(
+                            color = data.style.color,
+                        )
+                    ) {
+                        append(data.text)
+                    }
+                }
+                else -> Unit
+            }
+        }
+    }
+    Text(
+        text = annotates,
+        style = MaterialTheme.typography.subtitle1,
+    )
 }
 
 @Preview

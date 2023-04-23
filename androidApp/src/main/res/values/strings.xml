@@ -6,6 +6,10 @@
   -->
 
 <resources>
+    <string name="lorem_ipsum">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent rhoncus lectus fringilla dui varius pharetra nec eget nunc. Suspendisse a feugiat quam, a efficitur libero.Quisque ultricies mauris non nisi ullamcorper feugiat.Vestibulum ac lacinia erat, ut imperdiet dui. Nam ac orci eget velit facilisis interdum. Etiam lectus ipsum, finibus a tellus eget, laoreet sollicitudin purus. Suspendisse ac magna quam. Mauris dapibus, augue eget cursus auctor, est velit porta nibh, a congue urna odio nec turpis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aenean et quam ex. Maecenas non pellentesque ex, a accumsan leo. Sed mollis leo ipsum, a suscipit quam pellentesque at.\n
+        Pellentesque condimentum sodales lectus in fermentum. Vestibulum cursus quis enim fringilla facilisis. Ut tellus eros, laoreet vitae ex a, tempor lacinia neque. In vestibulum arcu risus, in cursus metus malesuada ut. Mauris eget placerat quam. Donec vitae accumsan nibh, eu varius lectus. Vivamus ut urna lobortis, vehicula mi a, dapibus nisl. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam ac quam venenatis, lacinia turpis at, molestie velit. Nullam porta est eget ipsum varius pulvinar ut eget ante. Donec lorem ex, rhoncus sed ipsum in, semper accumsan purus. Donec sed efficitur metus, quis ullamcorper mauris. Aliquam nec vehicula felis, vitae aliquam nunc. Curabitur lobortis a erat pellentesque pellentesque. Fusce eu massa dolor. Aliquam nec bibendum risus, eu iaculis erat. \n
+    </string>
     <string name="onboard_title_1">Nabung Semakin Mudah</string>
     <string name="onboard_title_2">Lacak Pengeluaran</string>
     <string name="onboard_title_3">Keamanan Terjamin</string>
@@ -144,6 +148,12 @@
     <string name="text_button_register_signup">Daftar</string>
     <string name="label_or_signup">Atau</string>
     <string name="text_button_signin_with_google_signup">Daftar dengan Google</string>
+    <string name="text_title_email_check">Logo_email</string>
+    <string name="text_complete_verify_email_check">Verifikasi Email Berhasil</string>
+    <string name="text_message_email_check">Selamat! Email kamu berhasil terverifikasi. Waktunya memulai perjalanan keuangan bersama Budgetku</string>
+    <string name="text_button_complete_profile_email_check">Lengkapi Data Akun</string>
+    <string name="text_veriry_email_waiting_email">Memverifikasi Link Email Kamu...</string>
+    <string name="text_message_waiting_email">Tunggu beberapa saat, kami sedang memastikan link verifikasi sesuai</string>
     <string name="text_title_input_accoun_create_transaction">Mau pakai akun yang mana buat %1$s kamu?</string>
     <string name="text_title_description_tips_create_another_account_create_transaction">Kamu juga bisa tambah akun rekening lainnya dan bisa langsung dipakai transaksi</string>
     <string name="text_button_add_account_create_transaction">Tambah Rekening Disini</string>
@@ -153,7 +163,7 @@
     <string name="text_button_add_more_transaction_create_transaction">Tambah Lagi</string>
     <string name="text_button_save_transaction_create_transaction">Simpan</string>
     <string name="text_title_input_transaction_name_create_transaction">Transaksi kamu buat apa nih?</string>
-    <string name="text_placeholder_transaction_name_create_transaction">Tulis nama transaksi disini...</string>
+    <string name="text_placeholder_transaction_name_create_transaction">Tulis nama transaksi disini…</string>
     <string name="text_input_input_category_create_transaction">Pilih Kategori transaksi</string>
     <string name="text_title_input_transaction_type_create_transaction">Untuk apa transaksi kamu, apakah pengeluaran atau pemasukan?</string>
     <string name="text_transaction_type_income">Pemasukan</string>
@@ -162,6 +172,23 @@
     <string name="text_title_feedback_create_transaction">Wow, apa sih yang bikin kamu suka tambah transaksi</string>
     <string name="text_sub_title_like_create_transaction">Kamu suka tambah budget?</string>
     <string name="text_button_choose_category_budget">Pilih</string>
+
+    <!--    budget category-->
+    <string name="title_budget_category_bottom_sheet">Kategori</string>
+    <string name="placeholder_search_budget_category_bottom_sheet">Cari </string>
+    <string name="text_popular_category">3 Kategori Terpopuler</string>
+    <string name="text_sub_popular_category">Kategori &amp; sub kategori yang paling sering dipakai</string>
+    <string name="text_category_food_drink">Makanan &amp; Minuman</string>
+    <string name="text_category_house">Kebutuhan Rumah</string>
+    <string name="text_category_bill">Tagihan &amp; Utilitas</string>
+    <string name="text_category_everyday_needs">Kebutuhan sehari-hari</string>
+    <string name="text_category_restaurant">Restoran</string>
+    <string name="text_category_food_delivery">Food Delivery</string>
+    <string name="text_category_coffee_shop">Coffee Shop</string>
+    <string name="text_category_fast_food">Fast Food</string>
+    <string name="text_category_fuel">Bensin</string>
+    <string name="text_category_house_needs">Kebutuhan rumah tangga</string>
+    <!--    end budget category-->
 
     <!--   reset password -->
     <string name="title_send_link_to_email_for_reset_password">Reset Password</string>
@@ -189,7 +216,7 @@
     <string name="open_email_check_email_reset_password">Buka Aplikasi Email</string>
     <string name="try_another_email_check_email_reset_password">Coba Email lainnya</string>
     <!--   check email for reset password -->
-    
+
     <!--    change password-->
     <string name="title_change_password">Ubah Password</string>
     <string name="subtitle_change_password">Password baru kamu harus berbeda dengan yang sebelumnya digunakan.</string>
@@ -205,6 +232,15 @@
     <string name="subtitle_error_password_not_identical_change_password">Password harus sama dengan password baru</string>
     <string name="subtitle_error_password_empty_change_password">Password tidak boleh kosong</string>
     <string name="subtitle_error_password_length_change_password">Password harus 8 karakter atau lebih</string>
+    <string name="title_tutorial_budget">Kenalan Sama Budget</string>
+    <string name="explanation_is_helpfull">Penjelasan ini cukup membantu?</string>
+    <string name="what_is_budget">Apa itu fitur Budget?</string>
+    <string name="desc_1">Fitur ini bantu kamu pantau</string>
+    <string name="desc_2">Rencana Anggaran</string>
+    <string name="desc_3">biar nggak overspending</string>
+    <string name="how_to_create_budget">Gimana cara bikin budget?</string>
+    <string name="how_to_evaluation_budget">Gimana cara evaluasi Budget?</string>
+    <string name="understand">Oke,Paham!</string>
     <string name="text_title_delete_confirmation_transaction">Yakin hapus transaski ini?</string>
     <string name="text_message_delete_confirmation_transaction">Data transaksi yang telah kamu isi akan hilang dari catatan transaksi kamu</string>
     <string name="text_button_confirm_delete_transaction">Hapus</string>
@@ -223,4 +259,21 @@
     <string name="text_tab_article">Article</string>
     <string name="text_tab_academy">Academy</string>
     <!--    end change password-->
+
+    <!--    bottom sheet select account-->
+    <string name="text_bottom_sheet_account">Akun</string>
+    <string name="text_bottom_sheet_account_confirm">Simpan</string>
+    <string name="text_bank_bca">Bank BCA</string>
+    <string name="text_bank_jago">Bank Jago</string>
+    <!--    end bottom sheet select account-->
+
+    <!--    edit transaction-->
+    <string name="text_topbar_edit_transaction">Edit Transaksi</string>
+    <string name="text_title_edit_transaction">Transaksi</string>
+    <string name="text_detail_edit_transaction">Detail Transaksi</string>
+    <string name="text_credit_edit_transaction">Pemasukan</string>
+    <string name="text_debit_edit_transaction">Pengeluaran</string>
+    <string name="text_save_edit_transaction">Simpan</string>
+    <string name="text_input_value_transaction">Input Nominal</string>
+    <!--    end edit transaction-->
 </resources>

@@ -7,7 +7,11 @@
 
 package com.bluehabit.budgetku.android.feature.editTransaction.components
 
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -29,14 +33,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluehabit.budgetku.android.R
 import com.bluehabit.budgetku.android.base.BaseMainApp
+import com.bluehabit.budgetku.android.components.DottedLine
 import com.bluehabit.budgetku.android.components.button.ButtonOutlinedPrimary
-import com.bluehabit.budgetku.android.components.input.FormInput
+import com.bluehabit.budgetku.android.ui.Blue800
+import com.bluehabit.budgetku.android.ui.Grey300
 
 @Composable
 fun ScreenMainEditTransaction() {
@@ -45,7 +52,7 @@ fun ScreenMainEditTransaction() {
         .resources
         .displayMetrics.widthPixels.dp /
             LocalDensity.current.density
-    val cardWidth = (currentWidth / 2) - 40.dp
+    val cardWidth = (currentWidth / 2) - 50.dp
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -62,6 +69,7 @@ fun ScreenMainEditTransaction() {
                 .padding(
                     horizontal = 20.dp
                 )
+
         ) {
             Column(
                 modifier = Modifier
@@ -71,136 +79,145 @@ fun ScreenMainEditTransaction() {
                         MaterialTheme.colors.surface
                     )
                     .padding(
-                        all = 16.dp
+                        vertical = 20.dp
                     )
             ) {
-                Text(
-                    text = "Transaksi",
-                    style = MaterialTheme.typography.h6,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colors.onSurface
-                )
-
-                Spacer(modifier = Modifier.height(16.dp))
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(
+                            horizontal = 20.dp,
+                        )
                 ) {
-                    Row(
-                        modifier = Modifier
-                            .width(cardWidth)
-                            .clip(MaterialTheme.shapes.small)
-                            .background(Color(0xFF1952CE))
-                            .padding(
-                                vertical = 8.dp
-                            )
-                            .height(50.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.Center
-                    ) {
+                    Text(
+                        text = "Transaksi",
+                        style = MaterialTheme.typography.h6,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colors.onSurface
+                    )
 
-                        Icon(
-                            painter = painterResource(id = R.drawable.arrow_long_circle_up),
-                            contentDescription = "",
-                            tint = Color(0xFF57C45C)
-                        )
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Text(
-                            text = "Pemasukan",
-                            style = MaterialTheme.typography.subtitle1,
-                            fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colors.onPrimary,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis
-                        )
-                    }
+                    Spacer(modifier = Modifier.height(16.dp))
                     Row(
-                        modifier = Modifier
-                            .width(cardWidth)
-                            .clip(MaterialTheme.shapes.small)
-                            .background(Color(0xFF1952CE))
-                            .padding(
-                                vertical = 8.dp
-                            )
-                            .height(50.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.Center
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.arrow_long_circle_down),
-                            contentDescription = "",
-                            tint = Color(0xFFFE3419)
-                        )
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Text(
-                            text = "Pengeluaran",
-                            style = MaterialTheme.typography.subtitle1,
-                            fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colors.onPrimary,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis
-                        )
+                        Row(
+                            modifier = Modifier
+                                .width(cardWidth)
+                                .height(50.dp)
+                                .clip(MaterialTheme.shapes.small)
+                                .border(
+                                    width = 1.dp,
+                                    shape = MaterialTheme.shapes.medium,
+                                    color = Grey300
+                                )
+                                .background(MaterialTheme.colors.surface)
+                                .padding(
+                                    vertical = 8.dp
+                                ),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.Center
+                        ) {
+
+                            Icon(
+                                painter = painterResource(id = R.drawable.arrow_long_circle_up),
+                                contentDescription = "",
+                                tint = Color(0xFF57C45C)
+                            )
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text(
+                                text = "Pemasukan",
+                                style = MaterialTheme.typography.subtitle1,
+                                fontWeight = FontWeight.Bold,
+                                color = MaterialTheme.colors.onSurface,
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis
+                            )
+                        }
+                        Row(
+                            modifier = Modifier
+                                .width(cardWidth)
+                                .height(50.dp)
+                                .clip(MaterialTheme.shapes.small)
+                                .background(Blue800)
+                                .padding(
+                                    vertical = 8.dp
+                                ),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.Center
+                        ) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.arrow_long_circle_down),
+                                contentDescription = "",
+                                tint = Color(0xFFFE3419)
+                            )
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text(
+                                text = "Pengeluaran",
+                                style = MaterialTheme.typography.subtitle1,
+                                fontWeight = FontWeight.Bold,
+                                color = MaterialTheme.colors.onPrimary,
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis
+                            )
+                        }
                     }
+                    Spacer(modifier = Modifier.height(16.dp))
                 }
-                Spacer(modifier = Modifier.height(30.dp))
-                Text(
-                    text = "Detail Transaksi",
-                    style = MaterialTheme.typography.h6,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colors.onSurface
-                )
-                FormInput(
-                    clickable = true,
-                    leadingIcon = {
-                        Text(text = "Rp")
-                    },
-                    value = "50.000"
-                )
-                FormInput(
-                    clickable = true,
-                    leadingIcon = {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_like),
-                            contentDescription = ""
+                DottedLine()
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(
+                            horizontal = 20.dp
                         )
-                    },
-                    value = "Makanan & Minuman"
-                )
-                FormInput(
-                    clickable = true,
-                    leadingIcon = {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_like),
-                            contentDescription = ""
-                        )
-                    },
-                    value = "Jajan Go Food"
-                )
-                FormInput(
-                    clickable = true,
-                    leadingIcon = {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_like),
-                            contentDescription = ""
-                        )
-                    },
-                    value = "Bank BCA"
-                )
-                FormInput(
-                    clickable = true,
-                    leadingIcon = {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_like),
-                            contentDescription = ""
-                        )
-                    },
-                    value = "8 April 2023"
-                )
+                ) {
+                    Spacer(modifier = Modifier.height(30.dp))
+                    Text(
+                        text = "Detail Transaksi",
+                        style = MaterialTheme.typography.h6,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colors.onSurface
+                    )
+                    Spacer(modifier = Modifier.height(10.dp))
+                    ItemEditTransactionDetail(
+                        icon = R.drawable.ic_rp,
+                        value = "50.000",
+                        onClick = {}
+                    )
+                    Spacer(modifier = Modifier.height(10.dp))
+                    ItemEditTransactionDetail(
+                        icon = R.drawable.ic_food,
+                        value = "Makanan & Minuman",
+                        isExpandable = true,
+                        onClick = {},
+                    )
+                    Spacer(modifier = Modifier.height(10.dp))
+                    ItemEditTransactionDetail(
+                        icon = R.drawable.ic_pencil,
+                        value = "Jajan Gofood",
+                        onClick = {},
+                    )
+                    Spacer(modifier = Modifier.height(10.dp))
+                    ItemEditTransactionDetail(
+                        icon = R.drawable.ic_bca,
+                        value = stringResource(id = R.string.text_bank_bca),
+                        isExpandable = true,
+                        onClick = {},
+                    )
+                    Spacer(modifier = Modifier.height(10.dp))
+                    ItemEditTransactionDetail(
+                        icon = R.drawable.ic_calendar,
+                        value = "8 April 2023",
+                        isExpandable = true,
+                        onClick = {},
+                    )
+
+                }
             }
 
         }
-
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -219,6 +236,45 @@ fun ScreenMainEditTransaction() {
             ButtonOutlinedPrimary(text = "simpan")
         }
 
+    }
+}
+
+@Composable
+fun ItemEditTransactionDetail(
+    icon: Int = 0,
+    value: String = "",
+    isExpandable: Boolean = false,
+    onClick: () -> Unit = {},
+) {
+    Row(
+        modifier = Modifier
+            .clip(RoundedCornerShape(8.dp))
+            .clickable { onClick() }
+            .background(Color(0xFFfafafa))
+            .border(
+                BorderStroke(1.5.dp, Color(0xFFe0e0e0)),
+                RoundedCornerShape(8.dp)
+            )
+            .padding(16.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Image(
+            painter = painterResource(id = icon),
+            contentDescription = ""
+        )
+        Text(
+            modifier = Modifier.weight(1f),
+            text = value,
+            style = MaterialTheme.typography.subtitle1,
+            fontWeight = FontWeight.Medium
+        )
+        if (isExpandable) {
+            Image(
+                painter = painterResource(id = R.drawable.ic_arrow_short_down),
+                contentDescription = ""
+            )
+        }
     }
 }
 
