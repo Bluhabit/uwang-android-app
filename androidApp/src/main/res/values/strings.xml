@@ -6,6 +6,10 @@
   -->
 
 <resources>
+    <string name="lorem_ipsum">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent rhoncus lectus fringilla dui varius pharetra nec eget nunc. Suspendisse a feugiat quam, a efficitur libero.Quisque ultricies mauris non nisi ullamcorper feugiat.Vestibulum ac lacinia erat, ut imperdiet dui. Nam ac orci eget velit facilisis interdum. Etiam lectus ipsum, finibus a tellus eget, laoreet sollicitudin purus. Suspendisse ac magna quam. Mauris dapibus, augue eget cursus auctor, est velit porta nibh, a congue urna odio nec turpis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aenean et quam ex. Maecenas non pellentesque ex, a accumsan leo. Sed mollis leo ipsum, a suscipit quam pellentesque at.\n
+        Pellentesque condimentum sodales lectus in fermentum. Vestibulum cursus quis enim fringilla facilisis. Ut tellus eros, laoreet vitae ex a, tempor lacinia neque. In vestibulum arcu risus, in cursus metus malesuada ut. Mauris eget placerat quam. Donec vitae accumsan nibh, eu varius lectus. Vivamus ut urna lobortis, vehicula mi a, dapibus nisl. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam ac quam venenatis, lacinia turpis at, molestie velit. Nullam porta est eget ipsum varius pulvinar ut eget ante. Donec lorem ex, rhoncus sed ipsum in, semper accumsan purus. Donec sed efficitur metus, quis ullamcorper mauris. Aliquam nec vehicula felis, vitae aliquam nunc. Curabitur lobortis a erat pellentesque pellentesque. Fusce eu massa dolor. Aliquam nec bibendum risus, eu iaculis erat. \n
+    </string>
     <string name="onboard_title_1">Nabung Semakin Mudah</string>
     <string name="onboard_title_2">Lacak Pengeluaran</string>
     <string name="onboard_title_3">Keamanan Terjamin</string>
@@ -228,6 +232,15 @@
     <string name="subtitle_error_password_not_identical_change_password">Password harus sama dengan password baru</string>
     <string name="subtitle_error_password_empty_change_password">Password tidak boleh kosong</string>
     <string name="subtitle_error_password_length_change_password">Password harus 8 karakter atau lebih</string>
+    <string name="title_tutorial_budget">Kenalan Sama Budget</string>
+    <string name="explanation_is_helpfull">Penjelasan ini cukup membantu?</string>
+    <string name="what_is_budget">Apa itu fitur Budget?</string>
+    <string name="desc_1">Fitur ini bantu kamu pantau</string>
+    <string name="desc_2">Rencana Anggaran</string>
+    <string name="desc_3">biar nggak overspending</string>
+    <string name="how_to_create_budget">Gimana cara bikin budget?</string>
+    <string name="how_to_evaluation_budget">Gimana cara evaluasi Budget?</string>
+    <string name="understand">Oke,Paham!</string>
     <string name="text_title_delete_confirmation_transaction">Yakin hapus transaski ini?</string>
     <string name="text_message_delete_confirmation_transaction">Data transaksi yang telah kamu isi akan hilang dari catatan transaksi kamu</string>
     <string name="text_button_confirm_delete_transaction">Hapus</string>
