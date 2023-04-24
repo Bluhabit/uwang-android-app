@@ -49,8 +49,8 @@ import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.base.UIWrapper
 import com.bluehabit.budgetku.android.base.extensions.formatToRupiah
 import com.bluehabit.budgetku.android.components.BottomSheetConfirmation
-import com.bluehabit.budgetku.android.components.ButtonOutlinedPrimary
 import com.bluehabit.budgetku.android.components.DottedLine
+import com.bluehabit.budgetku.android.components.button.ButtonOutlinedPrimary
 import com.bluehabit.budgetku.android.ui.Grey100
 import com.bluehabit.budgetku.android.ui.Grey700
 

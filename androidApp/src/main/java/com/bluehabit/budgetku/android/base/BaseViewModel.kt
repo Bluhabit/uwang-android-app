@@ -29,10 +29,12 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.consumeAsFlow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -44,7 +46,14 @@ abstract class BaseViewModel<State : Parcelable, Action>(
     }
 
     private val _uiState: MutableStateFlow<State> = MutableStateFlow(initialState)
-    val uiState get() = _uiState.asStateFlow()
+    /**
+     * 5000 ms just tricky way to avoid reset state while screen rotate
+     * **/
+    val uiState get() = _uiState.asStateFlow().stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000L),
+        initialValue = initialState
+    )
 
     private val action = Channel<Action>(Channel.UNLIMITED)
 
@@ -149,7 +158,6 @@ abstract class BaseViewModel<State : Parcelable, Action>(
 
     override fun onCleared() {
         super.onCleared()
-
         action.cancel()
         _uiState.tryEmit(initialState)
         async { currentCoroutineContext().cancel() }
@@ -161,7 +169,11 @@ abstract class BaseViewModelData<State : Parcelable, DataState : Parcelable, Act
     private val initialData: DataState
 ) : BaseViewModel<State, Action>(initialState) {
     private val _uiDataState: MutableStateFlow<DataState> = MutableStateFlow(initialData)
-    val uiDataState get() = _uiDataState.asStateFlow()
+    val uiDataState get() = _uiDataState.asStateFlow().stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000L),
+        initialValue = initialData
+    )
 
     protected inline fun asyncWithData(crossinline block: suspend DataState.() -> Unit) =
         with(viewModelScope) {

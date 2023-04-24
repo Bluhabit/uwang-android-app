@@ -36,8 +36,8 @@ import com.bluehabit.budgetku.android.ApplicationState
 import com.bluehabit.budgetku.android.R
 import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.base.UIWrapper
-import com.bluehabit.budgetku.android.components.ButtonOutlinedPrimary
-import com.bluehabit.budgetku.android.components.ButtonPrimary
+import com.bluehabit.budgetku.android.components.button.ButtonOutlinedPrimary
+import com.bluehabit.budgetku.android.components.button.ButtonPrimary
 import com.bluehabit.budgetku.android.rememberApplicationState
 
 object CheckEmailResetPassword {
