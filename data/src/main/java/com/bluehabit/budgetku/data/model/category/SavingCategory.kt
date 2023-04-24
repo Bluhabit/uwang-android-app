@@ -7,8 +7,6 @@
 
 package com.bluehabit.budgetku.data.model.category
 
-import com.bluehabit.budgetku.data.R
-
 data class SavingCategory(
     val categoryName:String,
     val icon:Int

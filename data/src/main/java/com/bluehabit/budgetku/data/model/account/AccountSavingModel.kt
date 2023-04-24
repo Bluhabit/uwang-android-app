@@ -7,7 +7,6 @@
 
 package com.bluehabit.budgetku.data.model.account
 
-import java.math.BigDecimal
 import java.time.LocalDateTime
 
 data class AccountSavingModel(
