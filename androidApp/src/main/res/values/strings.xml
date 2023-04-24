@@ -32,6 +32,7 @@
     <string name="text_button_confirmation_date_of_birth_bottom_sheet">Pilih</string>
     <string name="text_button_confirmation_gender_bottom_sheet">Pilih</string>
 
+<!--    Input PIN dan Create PIN-->
     <string name="text_input_pin">Masukkan PIN</string>
     <string name="label_forgotpin_inputpin">Lupa PIN?</string>
     <string name="text_create_pin">Buat kode PIN kamu</string>
@@ -48,7 +49,7 @@
     <string name="text_button_numpad_8">8</string>
     <string name="text_button_numpad_9">9</string>
     <string name="text_button_numpad_0">0</string>
-
+    <!--    end Input PIN dan Create PIN-->
 
     <!--    dashboard -->
     <string name="label_nav_community_dashboard">Komunitas</string>
@@ -223,4 +224,14 @@
     <string name="text_tab_article">Article</string>
     <string name="text_tab_academy">Academy</string>
     <!--    end change password-->
+
+<!--    screen filter feed-->
+    <string name="button_text_choose">Pilih</string>
+    <string name="title_filter_post">Filter Postingan</string>
+    <string name="button_reset">Reset</string>
+    <string name="subtitle_trending">Trending</string>
+    <string name="subtitle_followed">Followed</string>
+    <string name="subtitle_allin">Semua</string>
+    <string name="subtitle_new">Terbaru</string>
+<!--    end screen filter feed-->
 </resources>
