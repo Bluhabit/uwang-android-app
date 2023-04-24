@@ -34,7 +34,7 @@ fun BottomSheetSortBudgetTransaction(
         showButtonConfirmation = false,
         onDismiss = onDismiss,
         onConfirm = {},
-        content = {
+        content = {2
             Text(
                 text = stringResource(R.string.text_title_bottom_sheet_sort_budget_transaction),
                 style = MaterialTheme.typography.h5,
