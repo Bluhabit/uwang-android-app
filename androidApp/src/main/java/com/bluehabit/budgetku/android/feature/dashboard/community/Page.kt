@@ -47,7 +47,7 @@ import com.bluehabit.budgetku.android.base.UIWrapper
 import com.bluehabit.budgetku.android.base.extensions.bottomNavigationListener
 import com.bluehabit.budgetku.android.base.extensions.navigateSingleTop
 import com.bluehabit.budgetku.android.base.listener.BottomNavigationListener
-import com.bluehabit.budgetku.android.components.BottomSheetAddBudgetTransaction
+import com.bluehabit.budgetku.android.components.bottomSheet.BottomSheetAddBudgetTransaction
 import com.bluehabit.budgetku.android.components.ContentFeedTemplateModel
 import com.bluehabit.budgetku.android.components.ContentItemFeedTemplate
 import com.bluehabit.budgetku.android.components.DashboardBottomNavigationMenu

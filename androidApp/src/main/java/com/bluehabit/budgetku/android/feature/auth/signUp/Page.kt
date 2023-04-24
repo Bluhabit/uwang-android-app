@@ -20,7 +20,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.Button
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -45,9 +44,9 @@ import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.base.UIWrapper
 import com.bluehabit.budgetku.android.base.contract.GoogleAuthContract
 import com.bluehabit.budgetku.android.components.AnnotationTextItem
-import com.bluehabit.budgetku.android.components.ButtonGoogle
-import com.bluehabit.budgetku.android.components.ButtonPrimary
-import com.bluehabit.budgetku.android.components.FormInput
+import com.bluehabit.budgetku.android.components.button.ButtonGoogle
+import com.bluehabit.budgetku.android.components.button.ButtonPrimary
+import com.bluehabit.budgetku.android.components.input.FormInput
 import com.bluehabit.budgetku.android.components.IconWithAction
 import com.bluehabit.budgetku.android.rememberApplicationState
 import com.bluehabit.budgetku.android.ui.Grey700

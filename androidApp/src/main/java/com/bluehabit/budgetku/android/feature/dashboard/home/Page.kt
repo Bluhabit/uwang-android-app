@@ -33,7 +33,7 @@ import com.bluehabit.budgetku.android.base.extensions.bottomNavigationListener
 import com.bluehabit.budgetku.android.base.extensions.gridItems
 import com.bluehabit.budgetku.android.base.extensions.navigateSingleTop
 import com.bluehabit.budgetku.android.base.listener.BottomNavigationListener
-import com.bluehabit.budgetku.android.components.BottomSheetAddBudgetTransaction
+import com.bluehabit.budgetku.android.components.bottomSheet.BottomSheetAddBudgetTransaction
 import com.bluehabit.budgetku.android.components.CardArticleGrid
 import com.bluehabit.budgetku.android.components.CardChallengeBudgeting
 import com.bluehabit.budgetku.android.components.CardMonthlyBudget
