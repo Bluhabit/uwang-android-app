@@ -14,6 +14,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -31,6 +32,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -44,128 +46,148 @@ import com.bluehabit.budgetku.android.ui.Grey300
 import com.bluehabit.budgetku.android.ui.Grey700
 import com.bluehabit.budgetku.android.ui.Pink500
 
+data class ChallengeModel(
+    val title:String,
+    val message:String,
+    val progress:Float,
+    val totalPoints:Int,
+    val targetPoints:Int,
+    val color: Color,
+    val textColor: Color,
+    val image:Int
+)
+
+
 @Composable
 fun CardChallengeBudgeting(
     title: String = "",
     message: String = "",
     point: Int = 0,
     pointTarget: Int = 0,
+    progress:Float=0f,
+    color: Color= Color.Green,
+    textColor: Color= MaterialTheme.colors.onPrimary,
     image: Int = 0,
     clickable: Boolean = true,
+    margin:PaddingValues= PaddingValues(),
     onClick: () -> Unit = {}
 ) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(MaterialTheme.shapes.medium)
-            .border(
-                width = 1.dp,
-                color = Grey300,
-                shape = MaterialTheme.shapes.medium
-            )
+    Box(
+        modifier = Modifier.padding(margin)
     ) {
-        Box(
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(
-                    Pink500
-                )
-                .padding(
-                    vertical = 16.dp,
+                .clip(MaterialTheme.shapes.medium)
+                .border(
+                    width = 1.dp,
+                    color = Grey300,
+                    shape = MaterialTheme.shapes.medium
                 )
         ) {
-            Column(
+            Box(
                 modifier = Modifier
-                    .align(Alignment.TopStart)
-                    .fillMaxWidth(
-                        fraction = 0.7f
+                    .fillMaxWidth()
+                    .background(
+                        color
+                    )
+                    .padding(
+                        vertical = 16.dp,
+                    )
+            ) {
+                Column(
+                    modifier = Modifier
+                        .align(Alignment.TopStart)
+                        .fillMaxWidth(
+                            fraction = 0.8f
+                        )
+                        .padding(
+                            horizontal = 16.dp,
+                            vertical = 16.dp
+                        )
+                ) {
+                    Text(
+                        text = title,
+                        style = MaterialTheme.typography.h6,
+                        fontWeight = FontWeight.Bold,
+                        color = textColor,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                    Text(
+                        text = message,
+                        style = MaterialTheme.typography.subtitle2,
+                        fontWeight = FontWeight.Normal,
+                        color = textColor,
+                        softWrap = true
+                    )
+                }
+                Image(
+                    painter = painterResource(id = image),
+                    contentDescription = "",
+                    modifier = Modifier
+                        .size(100.dp)
+                        .align(Alignment.BottomEnd)
+                )
+
+            }
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(
+                        horizontal = 16.dp,
+                        vertical = 16.dp
+                    ),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+
+                LinearProgressIndicator(
+                    progress = progress,
+                    modifier = Modifier
+                        .fillMaxWidth(
+                            fraction = 0.6f
+                        )
+                        .height(16.dp),
+                    backgroundColor = Grey300,
+                    color = color,
+                    strokeCap = StrokeCap.Round
+                )
+
+                Text(
+                    text = stringResource(id = R.string.text_label_points_dashboard_home, point.toString(), pointTarget.toString()),
+                    style = MaterialTheme.typography.body1,
+                    fontWeight = FontWeight.Medium,
+                    color = Grey700
+                )
+            }
+            Divider()
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable(
+                        enabled = clickable,
+                        onClick = onClick
                     )
                     .padding(
                         horizontal = 16.dp,
                         vertical = 16.dp
-                    )
+                    ),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = title,
-                    style = MaterialTheme.typography.h6,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colors.onPrimary,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
+                    text = stringResource(R.string.text_button_show_challenge_card_challenge_budgeting),
+                    style = MaterialTheme.typography.subtitle1,
+                    fontWeight = FontWeight.Medium,
+                    color = Grey700
                 )
-                Text(
-                    text = message,
-                    style = MaterialTheme.typography.subtitle2,
-                    fontWeight = FontWeight.Normal,
-                    color = MaterialTheme.colors.onPrimary,
-                    softWrap = true
+                Icon(
+                    imageVector = Icons.Outlined.KeyboardArrowRight,
+                    contentDescription = ""
                 )
             }
-            Image(
-                painter = painterResource(id = image),
-                contentDescription = "",
-                modifier = Modifier
-                    .size(100.dp)
-                    .align(Alignment.BottomEnd)
-            )
-
-        }
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(
-                    horizontal = 16.dp,
-                    vertical = 16.dp
-                ),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-
-            LinearProgressIndicator(
-                progress = 0.5f,
-                modifier = Modifier
-                    .fillMaxWidth(
-                        fraction = 0.6f
-                    )
-                    .height(16.dp),
-                backgroundColor = Grey300,
-                color = Pink500,
-                strokeCap = StrokeCap.Round
-            )
-
-            Text(
-                text = stringResource(id = R.string.text_label_points_dashboard_home, point.toString(), pointTarget.toString()),
-                style = MaterialTheme.typography.body1,
-                fontWeight = FontWeight.Medium,
-                color = Grey700
-            )
-        }
-        Divider()
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .clickable(
-                    enabled = clickable,
-                    onClick = onClick
-                )
-                .padding(
-                    horizontal = 16.dp,
-                    vertical = 16.dp
-                ),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                text = stringResource(R.string.text_button_show_challenge_card_challenge_budgeting),
-                style = MaterialTheme.typography.subtitle1,
-                fontWeight = FontWeight.Medium,
-                color = Grey700
-            )
-            Icon(
-                imageVector = Icons.Outlined.KeyboardArrowRight,
-                contentDescription = ""
-            )
         }
     }
 }
@@ -184,6 +206,8 @@ fun PreviewCardChallengeBudgeting() {
                         image = R.drawable.ic_dummy_challenge,
                         point = 1823,
                         pointTarget = 2000,
+                        color = Pink500,
+                        progress = 0.4f,
                         onClick = {}
                     )
                 }

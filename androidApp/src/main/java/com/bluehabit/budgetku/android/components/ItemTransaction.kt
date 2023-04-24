@@ -45,8 +45,7 @@ fun ItemTransaction(
     transactionDate: String = "",
     transactionCategoryName: String = "",
     transactionAmount: String = "",
-    transactionType: String = "",
-    color: Color = Color.Green,
+    isExpenses: Boolean = false,
     clickable: Boolean = true,
     onClick: () -> Unit = {}
 ) {
@@ -118,11 +117,11 @@ fun ItemTransaction(
                     text = transactionAmount,
                     style = MaterialTheme.typography.h6,
                     fontWeight = FontWeight.Medium,
-                    color = color
+                    color = if(isExpenses) Color.Red else Color(0xFF57C45C)
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = transactionType,
+                    text = if(isExpenses) "Uang Keluar" else "Uang Masuk",
                     style = MaterialTheme.typography.subtitle1,
                     fontWeight = FontWeight.Normal,
                     color = Grey700
@@ -146,8 +145,7 @@ fun PreviewItemTransaction() {
                     transactionCategoryName = "Makanan",
                     transactionDate = "1 April 2023",
                     transactionAmount = "+Rp90.000",
-                    transactionType = "Uang Masuk",
-                    color = Color(0xFF57C45C)
+                    isExpenses = false
                 )
             }
         })

@@ -33,8 +33,8 @@ fun FormInputWithIcon(
     placeholder: String = "",
     icon: @Composable (() -> Unit)? = null,
     clickable: Boolean = false,
-    error:Boolean=false,
-    errorMessage:String="",
+    error: Boolean = false,
+    errorMessage: String = "",
     keyboardActions: KeyboardActions = KeyboardActions(),
     keyboardOptions: KeyboardOptions = KeyboardOptions(),
     onChange: (String) -> Unit = {},
@@ -53,7 +53,7 @@ fun FormInputWithIcon(
         OutlinedTextField(
             value = value,
             readOnly = clickable,
-            enabled=!clickable,
+            enabled = !clickable,
             onValueChange = onChange,
             modifier = Modifier
                 .fillMaxWidth()
@@ -68,7 +68,7 @@ fun FormInputWithIcon(
                 textColor = MaterialTheme.colors.onSurface,
                 disabledTextColor = MaterialTheme.colors.onSurface
             ),
-            isError=error,
+            isError = error,
             placeholder = {
                 Text(
                     text = placeholder,
@@ -81,17 +81,15 @@ fun FormInputWithIcon(
             trailingIcon = icon,
             textStyle = MaterialTheme.typography.subtitle2
         )
-        if(error){
-            Spacer(modifier = Modifier.height(6.dp))
-            Text(
-                text = errorMessage,
-                style = MaterialTheme.typography.subtitle2,
-                fontWeight = FontWeight.Normal,
-                color = MaterialTheme.colors.error
-            )
-        }else{
-            Spacer(modifier = Modifier.height(16.dp))
-        }
+
+        Text(
+            text = errorMessage,
+            style = MaterialTheme.typography.subtitle2,
+            fontWeight = FontWeight.Normal,
+            color = if (error) MaterialTheme.colors.error else Color.Transparent
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+
     }
 }
 

@@ -36,16 +36,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.bluehabit.budgetku.android.R
 import com.bluehabit.budgetku.android.ApplicationState
+import com.bluehabit.budgetku.android.R
 import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.base.UIWrapper
-import com.bluehabit.budgetku.android.components.bottomSheet.BottomSheetSpinnerDatePicker
 import com.bluehabit.budgetku.android.components.bottomSheet.BottomSheetGenderPicker
+import com.bluehabit.budgetku.android.components.bottomSheet.BottomSheetSpinnerDatePicker
 import com.bluehabit.budgetku.android.components.button.ButtonPrimary
 import com.bluehabit.budgetku.android.components.input.FormInput
 import com.bluehabit.budgetku.android.components.input.FormInputWithIcon
-import com.bluehabit.budgetku.android.feature.dashboard.home.Home
+import com.bluehabit.budgetku.android.feature.auth.createNewPassword.CreateNewPassword
 
 object CompleteProfile {
     const val routeName = "CompleteProfile"
@@ -195,7 +195,7 @@ internal fun ScreenCompleteProfile(
             enabled = (state.fullName.isNotEmpty() && state.dateOfBirth != null && state.gender != null),
             text = stringResource(R.string.text_button_confirmation_complete_profile)
         ) {
-            navigateAndReplaceAll(Home.routeName)
+            navigateAndReplaceAll(CreateNewPassword.routeName)
         }
     }
 }

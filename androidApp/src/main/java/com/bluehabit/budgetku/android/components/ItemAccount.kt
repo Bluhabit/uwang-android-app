@@ -43,6 +43,7 @@ import java.math.BigDecimal
 
 @Composable
 fun ItemAccount(
+    icon:Int=R.drawable.ic_jago,
     accountBankName: String = "",
     accountBalance: BigDecimal = BigDecimal.ZERO,
     selected: Boolean = false,
@@ -80,7 +81,7 @@ fun ItemAccount(
                 .background(Color.White)
         ) {
             Image(
-                painter = painterResource(id = R.drawable.ic_jago),
+                painter = painterResource(id = icon),
                 contentDescription = "",
                 modifier = Modifier
                     .fillMaxSize()

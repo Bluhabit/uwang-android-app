@@ -98,7 +98,7 @@ fun ItemTipsBudgetSuccess(
                         painter = painterResource(id = R.drawable.ic_money_setting),
                         contentDescription = "",
                         modifier = Modifier
-                            .fillMaxWidth()
+                            .size(20.dp)
                             .align(Alignment.Center)
                     )
                 }

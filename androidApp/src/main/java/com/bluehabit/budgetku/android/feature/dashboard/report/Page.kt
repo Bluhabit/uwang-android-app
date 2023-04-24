@@ -7,6 +7,11 @@
 
 package com.bluehabit.budgetku.android.feature.dashboard.report
 
+//import com.bluehabit.budgetku.android.components.chart.PieChart
+
+import android.graphics.Color
+import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -18,6 +23,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.ChipDefaults
+import androidx.compose.material.Divider
 import androidx.compose.material.FilterChip
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
@@ -33,6 +39,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.bluehabit.budgetku.android.ApplicationState
@@ -44,13 +51,22 @@ import com.bluehabit.budgetku.android.base.extensions.navigateSingleTop
 import com.bluehabit.budgetku.android.base.listener.BottomNavigationListener
 import com.bluehabit.budgetku.android.components.DashboardBottomNavigationMenu
 import com.bluehabit.budgetku.android.components.bottomSheet.BottomSheetAddBudgetTransaction
-import com.bluehabit.budgetku.android.components.chart.PieChart
 import com.bluehabit.budgetku.android.feature.createAccount.CreateAccount
 import com.bluehabit.budgetku.android.feature.createBudget.CreateBudget
 import com.bluehabit.budgetku.android.feature.createTransaction.CreateTransaction
 import com.bluehabit.budgetku.android.ui.Grey200
 import com.bluehabit.budgetku.android.ui.Grey300
 import com.bluehabit.budgetku.android.ui.Grey500
+import com.github.mikephil.charting.charts.BarChart
+import com.github.mikephil.charting.charts.PieChart
+import com.github.mikephil.charting.components.Legend
+import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.data.BarData
+import com.github.mikephil.charting.data.BarDataSet
+import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.data.PieData
+import com.github.mikephil.charting.data.PieDataSet
+import com.github.mikephil.charting.data.PieEntry
 
 
 object Report {
@@ -79,9 +95,11 @@ internal fun ScreenReport(
                     hideBottomSheet()
                 },
                 onAddAccount = {
+                    hideBottomSheet()
                     navigateSingleTop(CreateAccount.routeName)
                 },
                 onAddTransaction = {
+                    hideBottomSheet()
                     navigateSingleTop(CreateTransaction.routeName)
                 },
                 onAddBudget = {
@@ -114,11 +132,21 @@ internal fun ScreenReport(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.Start
             ) {
-                Text(text = "Bagaimana alokasi Keuanganmu?")
-                Row(
-                    modifier = Modifier.fillMaxWidth().padding(
+                Text(
+                    text = "Bagaimana alokasi Keuanganmu?",
+                    style = MaterialTheme.typography.h6,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colors.onSurface,
+                    modifier = Modifier.padding(
                         horizontal = 20.dp
-                    ),
+                    )
+                )
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(
+                            horizontal = 20.dp
+                        ),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
@@ -165,71 +193,177 @@ internal fun ScreenReport(
                         contentDescription = ""
                     )
                 }
-//                AndroidView(factory = {
-//                    PieChart(it).apply {
-//                        val pieEntries = mutableListOf<PieEntry>()
-//
-//                        val label="Type"
-//
-//                        //init data
-//                        val typeAmountMap: MutableMap<String, Int> = HashMap()
-//                        typeAmountMap["Toys"] = 200
-//                        typeAmountMap["Snacks"] = 230
-//                        typeAmountMap["Clothes"] = 100
-//                        typeAmountMap["Stationary"] = 500
-//                        typeAmountMap["Phone"] = 50
-//
-//                        //init color
-//                        val colors = ArrayList<Int>()
-//                        colors.add(Color.parseColor("#304567"))
-//                        colors.add(Color.parseColor("#309967"))
-//                        colors.add(Color.parseColor("#476567"))
-//                        colors.add(Color.parseColor("#890567"))
-//                        colors.add(Color.parseColor("#a35567"))
-//                        colors.add(Color.parseColor("#ff5f67"))
-//                        colors.add(Color.parseColor("#3ca567"))
-//
-//                        //input data and fit into pieChart
-//                        for (type in typeAmountMap.keys) {
-//                            pieEntries.add(PieEntry(typeAmountMap[type]?.toFloat() ?: 0f, type))
-//                        }
-//
-//                        //collecting the entries with label name
-//                        //collecting the entries with label name
-//                        val pieDataSet = PieDataSet(pieEntries, label)
-//                        //setting text size of the value
-//                        //setting text size of the value
-//                        pieDataSet.valueTextSize = 12f
-//                        //providing color list for coloring different entries
-//                        //providing color list for coloring different entries
-//                        pieDataSet.colors = colors
-//                        //grouping the data set from entry to chart
-//                        //grouping the data set from entry to chart
-//                        val pieData = PieData(pieDataSet)
-//                        //showing the value of the entries, default true if not set
-//                        //showing the value of the entries, default true if not set
-//                        pieData.setDrawValues(true)
-//
-//                        data = pieData
-//                        invalidate()
-//                    }
-//                })
+                AndroidView(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(320.dp),
+                    factory = {
+                        PieChart(it).apply {
+                            layoutParams = LinearLayout.LayoutParams(
+                                // on below line we are specifying layout
+                                // params as MATCH PARENT for height and width.
+                                ViewGroup.LayoutParams.MATCH_PARENT,
+                                ViewGroup.LayoutParams.MATCH_PARENT,
+                            )
+                            // on below line we are setting description
+                            // enables for our pie chart.
+                            this.description.isEnabled = false
 
-                PieChart(
-                    modifier = Modifier.padding(
-                        horizontal = 20.dp
-                    ),
-                    progress = listOf(
-                        60f,
-                        40f
-                    ),
-                    colors = listOf(
-                        androidx.compose.ui.graphics.Color.Blue,
-                        androidx.compose.ui.graphics.Color.Cyan
-                    ),
-                    isDonut = true
+                            // on below line we are setting draw hole
+                            // to false not to draw hole in pie chart
+                            this.isDrawHoleEnabled = true
+
+                            // on below line we are enabling legend.
+                            this.legend.isEnabled = true
+
+                            // on below line we are specifying
+                            // text size for our legend.
+                            this.legend.textSize = 14F
+
+                            // on below line we are specifying
+                            // alignment for our legend.
+                            this.legend.horizontalAlignment =
+                                Legend.LegendHorizontalAlignment.CENTER
+
+
+                        }
+
+                    },
+                    update = {
+                        val pieEntries = mutableListOf<PieEntry>()
+
+                        //init data
+                        val typeAmountMap: MutableMap<String, Int> = HashMap()
+                        typeAmountMap["Makanan Dan Minuman"] = 150
+                        typeAmountMap["Tagihan"] = 90
+                        typeAmountMap["Transportasi"] = 300
+
+                        //init color
+                        val colors = ArrayList<Int>()
+                        colors.add(Color.parseColor("#35DC86"))
+                        colors.add(Color.parseColor("#48ACFF"))
+                        colors.add(Color.parseColor("#FECC33"))
+
+                        //input data and fit into pieChart
+                        for (type in typeAmountMap.keys) {
+                            pieEntries.add(PieEntry(typeAmountMap[type]?.toFloat() ?: 0f, type))
+                        }
+
+                        //collecting the entries with label name
+                        //collecting the entries with label name
+                        val pieDataSet = PieDataSet(pieEntries, "")
+                        //setting text size of the value
+                        //setting text size of the value
+                        pieDataSet.valueTextSize = 12f
+                        //providing color list for coloring different entries
+                        //providing color list for coloring different entries
+                        pieDataSet.colors = colors
+                        //grouping the data set from entry to chart
+                        //grouping the data set from entry to chart
+                        val pieData = PieData(pieDataSet)
+                        //showing the value of the entries, default true if not set
+                        //showing the value of the entries, default true if not set
+                        pieData.setDrawValues(true)
+
+                        it.data = pieData
+                        it.centerText = "Rp1.800.00";
+                        it.setCenterTextSize(14f);
+                        it.setCenterTextColor(Color.BLUE);
+                        it.invalidate()
+                    }
                 )
+                Spacer(modifier = Modifier.height(10.dp))
+                Divider()
+                Spacer(modifier = Modifier.height(16.dp))
             }
+
+        }
+        item {
+            Text(
+                text = "Profil Arus Kas Kamu",
+                style = MaterialTheme.typography.h6,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colors.onSurface,
+                modifier = Modifier.padding(
+                    horizontal = 20.dp
+                )
+            )
+            AndroidView(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(320.dp),
+                factory = {
+                    BarChart(it).apply {
+                        layoutParams = LinearLayout.LayoutParams(
+                            // on below line we are specifying layout
+                            // params as MATCH PARENT for height and width.
+                            ViewGroup.LayoutParams.MATCH_PARENT,
+                            ViewGroup.LayoutParams.MATCH_PARENT,
+                        )
+                        axisRight.apply {
+                            setDrawGridLines(false)
+                            setDrawAxisLine(false)
+                            setDrawLabels(false)
+
+                            textColor = Color.DKGRAY
+                        }
+                        axisLeft.apply {
+                            setDrawGridLines(false)
+                            setDrawAxisLine(false)
+                            setDrawLabels(true)
+
+                            spaceTop = 4f
+
+                            textColor = Color.DKGRAY
+                        }
+                        xAxis.apply {
+                            axisMaximum = 7f
+                            setDrawLabels(true)
+                            setDrawGridLines(false)
+                            setDrawAxisLine(true)
+                            position= XAxis.XAxisPosition.BOTTOM
+                            textColor =  Color.DKGRAY
+                        }
+
+                        legend.apply {
+                            textColor =  Color.DKGRAY
+                        }
+                        description.apply {
+                            textColor =  Color.DKGRAY
+                        }
+
+                    }
+
+                },
+                update = {
+                    val valueList = ArrayList<Double>()
+                    val entries = ArrayList<BarEntry>()
+                    val title = "Title"
+
+                    //input data
+
+                    //input data
+                    for (i in 0..5) {
+                        valueList.add(i * 100.1)
+                    }
+
+                    //fit the data into a bar
+
+                    //fit the data into a bar
+                    for (i in valueList.indices) {
+                        val barEntry = BarEntry(i.toFloat(), valueList[i].toFloat())
+                        entries.add(barEntry)
+                    }
+
+                    val barDataSet = BarDataSet(entries, title)
+
+                    val data = BarData(barDataSet)
+                    it.data = data
+                    it.invalidate()
+                }
+            )
+            Spacer(modifier = Modifier.height(10.dp))
+            Divider()
         }
     })
 }

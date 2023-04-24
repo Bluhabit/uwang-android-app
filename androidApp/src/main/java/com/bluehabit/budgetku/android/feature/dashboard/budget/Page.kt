@@ -8,6 +8,7 @@
 package com.bluehabit.budgetku.android.feature.dashboard.budget
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -49,12 +50,14 @@ import com.bluehabit.budgetku.android.feature.dashboard.budget.components.CardEm
 import com.bluehabit.budgetku.android.feature.dashboard.budget.components.CardEmptyTransactionBudget
 import com.bluehabit.budgetku.android.feature.dashboard.budget.components.CardSummaryBudget
 import com.bluehabit.budgetku.android.components.DashboardBottomNavigationMenu
+import com.bluehabit.budgetku.android.components.bottomSheet.BottomSheetSortBudgetTransaction
 import com.bluehabit.budgetku.android.feature.createAccount.CreateAccount
 import com.bluehabit.budgetku.android.feature.createBudget.CreateBudget
 import com.bluehabit.budgetku.android.feature.createTransaction.CreateTransaction
 import com.bluehabit.budgetku.android.feature.dashboard.budget.components.ItemExpensesCategoryBudget
 import com.bluehabit.budgetku.android.feature.dashboard.budget.components.ItemTipsBudgetEmpty
 import com.bluehabit.budgetku.android.feature.dashboard.budget.components.ItemTipsBudgetSuccess
+import com.bluehabit.budgetku.android.feature.tutorialBudget.TutorialBudget
 import com.bluehabit.budgetku.android.ui.Blue800
 import com.bluehabit.budgetku.android.ui.Grey500
 import java.math.BigDecimal
@@ -76,25 +79,37 @@ internal fun ScreenBudget(
     appState: ApplicationState,
 ) = UIWrapper<BudgetViewModel>(appState = appState) {
     val dataState by uiDataState.collectAsState()
+    val state by uiState.collectAsState()
     with(appState) {
         hideTopAppBar()
         setupBottomSheet {
-            BottomSheetAddBudgetTransaction(
-                onDismiss = {
-                    hideBottomSheet()
-                },
-                onAddAccount = {
-                    navigateSingleTop(CreateAccount.routeName)
-                },
-                onAddTransaction = {
-                    navigateSingleTop(CreateTransaction.routeName)
-                },
-                onAddBudget = {
-                    hideBottomSheet()
-                    navigateSingleTop(CreateBudget.routeName)
-                },
-                onAddTransfer = {},
-            )
+            when (state.bottomSheetType) {
+                BottomSheetBudget.FAB -> BottomSheetAddBudgetTransaction(
+                    onDismiss = {
+                        hideBottomSheet()
+                    },
+                    onAddAccount = {
+                        hideBottomSheet()
+                        navigateSingleTop(CreateAccount.routeName)
+                    },
+                    onAddTransaction = {
+                        hideBottomSheet()
+                        navigateSingleTop(CreateTransaction.routeName)
+                    },
+                    onAddBudget = {
+                        hideBottomSheet()
+                        navigateSingleTop(CreateBudget.routeName)
+                    },
+                    onAddTransfer = {},
+                )
+
+                BottomSheetBudget.SORT -> BottomSheetSortBudgetTransaction(
+                    onDismiss = {
+                        hideBottomSheet()
+                    }
+                )
+            }
+
         }
         bottomNavigationListener(object : BottomNavigationListener {
             override fun onRefresh(item: DashboardBottomNavigationMenu) {
@@ -107,6 +122,9 @@ internal fun ScreenBudget(
             }
 
             override fun onFab() {
+                commit {
+                    copy(bottomSheetType = BottomSheetBudget.FAB)
+                }
                 showBottomSheet()
             }
 
@@ -166,11 +184,18 @@ internal fun ScreenBudget(
                             budgetUsed = BigDecimal(1_000_000),
                             usage = "40%",
                             onEdit = {
-
+                                navigateSingleTop(CreateBudget.routeName)
                             }
                         )
                     } else {
-                        CardEmptyBudget()
+                        CardEmptyBudget(
+                            onCreateNewBudget = {
+                                navigateSingleTop(CreateBudget.routeName)
+                            },
+                            onHelpClick = {
+                                navigateSingleTop(TutorialBudget.routeName)
+                            }
+                        )
                     }
 
                 }
@@ -210,7 +235,16 @@ internal fun ScreenBudget(
                         Icon(
                             painter = painterResource(id = R.drawable.ic_sort_dashboard_budget),
                             contentDescription = "",
-                            tint = Grey500
+                            tint = Grey500,
+                            modifier = Modifier.clickable(
+                                enabled = true,
+                                onClick = {
+                                    commit {
+                                        copy(bottomSheetType = BottomSheetBudget.SORT)
+                                    }
+                                    showBottomSheet()
+                                }
+                            )
                         )
                     }
                 }

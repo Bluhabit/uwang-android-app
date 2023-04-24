@@ -21,6 +21,31 @@ class CreateAccountSavingViewModel @Inject constructor(
         handleActions()
     }
 
-    override fun handleActions() = onEvent {}
+    private fun onNext() = asyncWithState {
+        if (screenType < 4) {
+            commit {
+                copy(
+                    screenType = screenType + 1
+                )
+            }
+        }
+    }
+
+    private fun onPrev() = asyncWithState {
+        if (screenType > 0) {
+            commit {
+                copy(
+                    screenType = screenType - 1
+                )
+            }
+        }
+    }
+
+    override fun handleActions() = onEvent {
+        when (it) {
+            CreateAccountSavingEvent.Next -> onNext()
+            CreateAccountSavingEvent.Prev -> onPrev()
+        }
+    }
 
 }

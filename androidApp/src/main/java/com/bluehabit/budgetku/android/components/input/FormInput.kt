@@ -21,6 +21,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -78,17 +79,13 @@ fun FormInput(
             keyboardActions = keyboardActions,
             textStyle = MaterialTheme.typography.subtitle2,
         )
-        if (error) {
-            Spacer(modifier = Modifier.height(6.dp))
-            Text(
-                text = errorMessage,
-                style = MaterialTheme.typography.subtitle2,
-                fontWeight = FontWeight.Normal,
-                color = MaterialTheme.colors.error
-            )
-        } else {
-            Spacer(modifier = Modifier.height(16.dp))
-        }
+        Text(
+            text = errorMessage,
+            style = MaterialTheme.typography.subtitle2,
+            fontWeight = FontWeight.Normal,
+            color = if (error) MaterialTheme.colors.error else Color.Transparent
+        )
+        Spacer(modifier = Modifier.height(8.dp))
     }
 }
 
@@ -125,6 +122,7 @@ fun FormInput(
             enabled = false,
             modifier = Modifier
                 .fillMaxWidth()
+                .clip(MaterialTheme.shapes.small)
                 .clickable(
                     enabled = true,
                     onClick = onClick
@@ -148,19 +146,15 @@ fun FormInput(
             keyboardActions = keyboardActions,
             textStyle = MaterialTheme.typography.subtitle2,
         )
-        if (error) {
-            Spacer(modifier = Modifier.height(6.dp))
-            Text(
-                text = errorMessage,
-                style = MaterialTheme.typography.subtitle2,
-                fontWeight = FontWeight.Normal,
-                color = MaterialTheme.colors.error
-            )
-        } else {
-            Spacer(modifier = Modifier.height(16.dp))
-        }
+        Text(
+            text = errorMessage,
+            style = MaterialTheme.typography.subtitle2,
+            fontWeight = FontWeight.Normal,
+            color = if (error) MaterialTheme.colors.error else Color.Transparent
+        )
     }
 }
+
 @Preview
 @Composable
 fun PreviewFormInput() {

@@ -21,6 +21,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.LinearProgressIndicator
@@ -47,7 +48,14 @@ import com.bluehabit.budgetku.android.ui.Grey700
 
 @Composable
 fun CardItemAccountSaving(
-    margin: PaddingValues = PaddingValues()
+    margin: PaddingValues = PaddingValues(),
+    icon: Int = R.drawable.ic_dummy_saving,
+    accountIcon: Int = R.drawable.ic_jago,
+    accountName: String = "",
+    dueDate: String = "",
+    targetSaving: String = "",
+    totalSaving: String = "",
+    progress: Float = 0f
 ) {
     Column(
         modifier = Modifier
@@ -82,24 +90,28 @@ fun CardItemAccountSaving(
                             .size(30.dp)
                             .clip(CircleShape)
                             .background(Grey300)
+                            .padding(
+                                all = 2.dp
+                            )
                     ) {
                         Image(
-                            painter = painterResource(id = R.drawable.ic_jago),
+                            painter = painterResource(id = icon),
                             contentDescription = "",
                             modifier = Modifier
                                 .fillMaxSize()
                                 .clip(CircleShape),
                         )
                     }
+                    Spacer(modifier = Modifier.width(8.dp))
                     Column {
                         Text(
-                            text = "Motor baru",
+                            text = accountName,
                             style = MaterialTheme.typography.subtitle1,
                             fontWeight = FontWeight.Bold,
                             color = MaterialTheme.colors.onSurface
                         )
                         Text(
-                            text = "Target tercapa 13 April 2023",
+                            text = "Target tercapai $dueDate",
                             style = MaterialTheme.typography.subtitle2,
                             fontWeight = FontWeight.Normal,
                             color = Grey700
@@ -113,7 +125,7 @@ fun CardItemAccountSaving(
                         .background(Color.White)
                 ) {
                     Image(
-                        painter = painterResource(id = R.drawable.ic_jago),
+                        painter = painterResource(id = accountIcon),
                         contentDescription = "",
                         modifier = Modifier
                             .fillMaxSize()
@@ -124,7 +136,7 @@ fun CardItemAccountSaving(
             }
             Spacer(modifier = Modifier.height(10.dp))
             LinearProgressIndicator(
-                progress = 0.5f,
+                progress = progress,
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(8.dp),
@@ -144,13 +156,13 @@ fun CardItemAccountSaving(
                             color = MaterialTheme.colors.onSurface
                         )
                     ) {
-                        append("Rp4jt")
+                        append(totalSaving)
                     }
                     append(" ")
                     append("terkumpul")
                 })
                 Text(
-                    text = "dari Rp30Jt",
+                    text = "dari $targetSaving",
                     style = MaterialTheme.typography.subtitle2,
                     fontWeight = FontWeight.Normal,
                     color = MaterialTheme.colors.onSurface

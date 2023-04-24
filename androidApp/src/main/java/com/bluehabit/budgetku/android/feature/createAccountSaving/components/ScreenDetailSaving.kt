@@ -33,7 +33,12 @@ import com.bluehabit.budgetku.android.components.input.FormInput
 import com.bluehabit.budgetku.android.ui.Grey100
 
 @Composable
-fun ScreenDetailSaving() {
+fun ScreenDetailSaving(
+    amount: String = "",
+    target: String = "",
+    onAddAmount: () -> Unit = {},
+    onSelectTarget: (String) -> Unit = {}
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -55,11 +60,14 @@ fun ScreenDetailSaving() {
         FormInput(
             label = "Jumlah dana darurat yang dipersiapkan",
             placeholder = "0",
+            value = amount,
             leadingIcon = {
                 Text(
                     text = "Rp"
                 )
-            }
+            },
+            onClick = onAddAmount
+
         )
 
         Column(
@@ -91,10 +99,14 @@ fun ScreenDetailSaving() {
         FormInput(
             label = "Kapan kamu ingin mencapai ini?",
             placeholder = "0",
+            value = target,
             trailingIcon = {
                 Text(
                     text = "Bulan"
                 )
+            },
+            onClick = {
+
             }
         )
         ItemButtonGroup(
@@ -103,7 +115,11 @@ fun ScreenDetailSaving() {
                 "24",
                 "48",
                 "60"
-            )
+            ),
+            selected = target,
+            onClick = {
+                onSelectTarget(it)
+            }
         )
 
 

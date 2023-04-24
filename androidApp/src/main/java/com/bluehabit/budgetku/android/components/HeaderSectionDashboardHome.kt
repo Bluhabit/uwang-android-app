@@ -7,6 +7,7 @@
 
 package com.bluehabit.budgetku.android.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -28,8 +29,8 @@ import com.bluehabit.budgetku.android.ui.Grey500
 
 @Composable
 fun HeaderSectionDashboardHome(
-    title:String="",
-    onClick:()->Unit={}
+    title: String = "",
+    onClick: () -> Unit = {}
 ) {
     Column(
         modifier = Modifier
@@ -56,7 +57,11 @@ fun HeaderSectionDashboardHome(
             Icon(
                 imageVector = Icons.Outlined.KeyboardArrowRight,
                 contentDescription = "",
-                tint = Grey500
+                tint = Grey500,
+                modifier = Modifier.clickable(
+                    enabled = true,
+                    onClick = onClick
+                )
             )
         }
     }

@@ -8,18 +8,16 @@
 package com.bluehabit.budgetku.android.feature.dashboard.home
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -30,6 +28,7 @@ import com.bluehabit.budgetku.android.ApplicationState
 import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.base.UIWrapper
 import com.bluehabit.budgetku.android.base.extensions.bottomNavigationListener
+import com.bluehabit.budgetku.android.base.extensions.formatToRupiah
 import com.bluehabit.budgetku.android.base.extensions.gridItems
 import com.bluehabit.budgetku.android.base.extensions.navigateSingleTop
 import com.bluehabit.budgetku.android.base.listener.BottomNavigationListener
@@ -47,9 +46,9 @@ import com.bluehabit.budgetku.android.components.ItemTutorial
 import com.bluehabit.budgetku.android.feature.createAccount.CreateAccount
 import com.bluehabit.budgetku.android.feature.createBudget.CreateBudget
 import com.bluehabit.budgetku.android.feature.createTransaction.CreateTransaction
+import com.bluehabit.budgetku.android.feature.dashboard.budget.Budget
 import com.bluehabit.budgetku.android.feature.listAccount.ListAccount
 import com.bluehabit.budgetku.android.rememberApplicationState
-import java.math.BigDecimal
 
 object Home {
     const val routeName = "Home"
@@ -83,9 +82,11 @@ internal fun ScreenHome(
                     hideBottomSheet()
                 },
                 onAddAccount = {
+                    hideBottomSheet()
                     navigateSingleTop(CreateAccount.routeName)
                 },
                 onAddTransaction = {
+                    hideBottomSheet()
                     navigateSingleTop(CreateTransaction.routeName)
                 },
                 onAddBudget = {
@@ -126,10 +127,11 @@ internal fun ScreenHome(
             }
             item {
                 HeaderSectionDashboardHome(
-                    title = stringResource(R.string.title_section_list_account_dashboard_home)
-                ) {
-
-                }
+                    title = stringResource(R.string.title_section_list_account_dashboard_home),
+                    onClick = {
+                        navigateSingleTop(ListAccount.routeName)
+                    }
+                )
             }
             item {
                 LazyRow(
@@ -138,10 +140,11 @@ internal fun ScreenHome(
                         item {
                             Spacer(modifier = Modifier.width(4.dp))
                         }
-                        items(3) {
+                        items(dataState.accounts) {
                             ItemAccount(
-                                accountBalance = BigDecimal(100_000_000),
-                                accountBankName = "Bank Jago",
+                                icon = it.icon,
+                                accountBalance = it.accountBalance,
+                                accountBankName = it.accountName,
                                 onClick = {
                                     navigateSingleTop(ListAccount.routeName)
                                 }
@@ -151,10 +154,11 @@ internal fun ScreenHome(
             }
             item {
                 HeaderSectionDashboardHome(
-                    title = stringResource(R.string.title_section_monthly_budgeting_dashboard_home)
-                ) {
-
-                }
+                    title = stringResource(R.string.title_section_monthly_budgeting_dashboard_home),
+                    onClick = {
+                        navigateSingleTop(Budget.routeName)
+                    }
+                )
             }
             item {
                 CardMonthlyBudget(
@@ -162,57 +166,57 @@ internal fun ScreenHome(
                     usedAmount = dataState.usedAmount,
                     totalBudget = dataState.totalBudget,
                     score = dataState.score,
-                    transactions = dataState.transactions
+                    transactions = dataState.latestTransaction
                 )
             }
             item {
                 HeaderSectionDashboardHome(
-                    title = stringResource(R.string.title_section_new_transaction_dashboard_home)
-                ) {
-
-                }
+                    title = stringResource(R.string.title_section_new_transaction_dashboard_home),
+                    onClick = {}
+                )
             }
-            items(3) {
+            items(dataState.transactions) {
                 ItemTransaction(
-                    transactionName = "McDonald",
-                    transactionAccountName = "Bank BCA",
-                    transactionCategoryName = "Makanan",
-                    transactionDate = "1 April 2023",
-                    transactionAmount = "+Rp90.000",
-                    transactionType = "Uang Masuk",
-                    color = Color(0xFF57C45C)
+                    transactionName = it.transactionName,
+                    transactionAccountName = it.transactionAccountName,
+                    transactionCategoryName = it.transactionCategory,
+                    transactionDate = it.transactionDate.toString(),
+                    transactionAmount = stringResource(
+                        if (it.isTransactionExpenses) R.string.text_expenses else R.string.text_income,
+                        it.transactionAmount.formatToRupiah()
+                    ),
+                    isExpenses = it.isTransactionExpenses
                 )
             }
             item {
                 HeaderSectionDashboardHome(
-                    title = stringResource(R.string.title_section_challenge_dashboard_home)
-                ) {
-
-                }
+                    title = stringResource(R.string.title_section_challenge_dashboard_home),
+                    onClick = {}
+                )
             }
-            items(2) {
-                Box(
-                    modifier = Modifier.padding(
+            items(dataState.challenge) {
+                CardChallengeBudgeting(
+                    title = it.title,
+                    message = it.message,
+                    image = it.image,
+                    point = it.totalPoints,
+                    pointTarget = it.targetPoints,
+                    color = it.color,
+                    textColor = it.textColor,
+                    progress = it.progress,
+                    margin = PaddingValues(
                         horizontal = 20.dp,
                         vertical = 8.dp
-                    )
-                ) {
-                    CardChallengeBudgeting(
-                        title = "Follow the money trail",
-                        message = "Answer question on budgeting and savings",
-                        image = R.drawable.ic_dummy_challenge,
-                        point = 1823,
-                        pointTarget = 2000,
-                        onClick = {}
-                    )
-                }
+                    ),
+                    onClick = {}
+                )
+
             }
             item {
                 HeaderSectionDashboardHome(
-                    title = stringResource(R.string.title_section_tutorial_dashboard_home)
-                ) {
-
-                }
+                    title = stringResource(R.string.title_section_tutorial_dashboard_home),
+                    onClick = {}
+                )
             }
             item {
                 LazyRow(
@@ -221,10 +225,10 @@ internal fun ScreenHome(
                         item {
                             Spacer(modifier = Modifier.width(4.dp))
                         }
-                        items(3) {
+                        items(dataState.tutorial) {
                             ItemTutorial(
-                                title = "Cara Transaksi di Budgetku ",
-                                image = R.drawable.ic_tutorial
+                                title = it.title,
+                                image = it.image
                             )
                         }
                     }
@@ -238,21 +242,19 @@ internal fun ScreenHome(
                 }
             }
             gridItems(
-                4,
+                dataState.articles,
                 columnCount = 2,
                 horizontalArrangement = Arrangement.spacedBy(16.dp),
                 paddingValues = PaddingValues(
                     horizontal = 20.dp
                 )
             ) {
-
                 CardArticleGrid(
-                    title = "Cerdas Finansial",
-                    message = "Yuk melek finansial bersama Budgetku.Tersedia course keuangan untuku",
-                    image = R.drawable.ic_dummy_article,
+                    title = it.title,
+                    message = it.body,
+                    image = it.image,
                     onClick = {}
                 )
-
             }
         }
     )

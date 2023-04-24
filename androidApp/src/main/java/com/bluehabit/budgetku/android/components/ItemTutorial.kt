@@ -103,7 +103,7 @@ fun PreviewItemTutorial() {
                 items(3) {
                     ItemTutorial(
                         title="Cara Transaksi di Budgetku ",
-                        image = R.drawable.ic_tutorial
+                        image = R.drawable.ic_dummy_tutorial
                     )
                 }
             }

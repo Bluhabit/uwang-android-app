@@ -10,6 +10,7 @@ package com.bluehabit.budgetku.android.components
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -35,11 +36,22 @@ import com.bluehabit.budgetku.android.ui.Grey300
 import com.bluehabit.budgetku.android.ui.Grey900
 
 @Composable
-fun CardItemCategory() {
+fun CardItemCategory(
+    icon: Int = R.drawable.ic_dummy_saving,
+    categoryName: String = "",
+    selected: Boolean = false,
+    onClick: () -> Unit = {}
+) {
     Column(
         modifier = Modifier
             .clip(MaterialTheme.shapes.small)
-            .background(Grey200)
+            .clickable(
+                enabled = true,
+                onClick = onClick
+            )
+            .background(
+                if (selected) MaterialTheme.colors.primary else Grey200
+            )
             .border(
                 width = 1.dp,
                 shape = MaterialTheme.shapes.small,
@@ -52,12 +64,12 @@ fun CardItemCategory() {
         verticalArrangement = Arrangement.Center
     ) {
         Image(
-            painter = painterResource(id = R.drawable.ic_dummy_category),
+            painter = painterResource(id = icon),
             contentDescription = ""
         )
         Spacer(modifier = Modifier.height(8.dp))
         Text(
-            text = "Liburan",
+            text = categoryName,
             style = MaterialTheme.typography.subtitle1,
             fontWeight = FontWeight.Medium,
             color = Grey900

@@ -108,7 +108,7 @@ fun HeaderDashboardHome(
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.width(8.dp))
             Icon(
                 painter = painterResource(
                     id = if (showBalance) R.drawable.eye_open
@@ -125,7 +125,9 @@ fun HeaderDashboardHome(
         }
         Spacer(modifier = Modifier.height(9.dp))
         Text(
-            text = remainingBalance.formatToRupiah(),
+            text = remainingBalance.formatToRupiah(
+                showBalance
+            ),
             style = MaterialTheme.typography.h4,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colors.onPrimary,
@@ -168,7 +170,7 @@ fun HeaderDashboardHome(
                 }
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = income.formatToRupiah(),
+                    text = income.formatToRupiah(showBalance),
                     style = MaterialTheme.typography.subtitle1,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colors.onPrimary,
@@ -206,7 +208,7 @@ fun HeaderDashboardHome(
                 }
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = expenses.formatToRupiah(),
+                    text = expenses.formatToRupiah(showBalance),
                     style = MaterialTheme.typography.subtitle1,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colors.onPrimary,

@@ -7,13 +7,13 @@
 
 package com.bluehabit.budgetku.android.feature.dashboard.community
 
-import com.bluehabit.budgetku.android.base.BaseViewModel
+import com.bluehabit.budgetku.android.base.BaseViewModelData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class CommunityViewModel @Inject constructor(
-) : BaseViewModel<CommunityState, CommunityEvent>(CommunityState()) {
+) : BaseViewModelData<CommunityState,CommunityDataState, CommunityEvent>(CommunityState(),CommunityDataState()) {
     init {
         handleActions()
     }

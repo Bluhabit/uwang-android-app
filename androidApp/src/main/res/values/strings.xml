@@ -298,6 +298,8 @@
     <string name="text_bottom_sheet_only_me_create_post">Hanya saya</string>
     <string name="text_content_placeholder_create_post">Tulis ide kamu di sini…</string>
     <string name="text_button_select_audience_create_post">Pilih</string>
+    <string name="text_income">+%1$s</string>
+    <string name="text_expenses">-%1$s</string>
     <!--    end create post-->
 
 </resources>

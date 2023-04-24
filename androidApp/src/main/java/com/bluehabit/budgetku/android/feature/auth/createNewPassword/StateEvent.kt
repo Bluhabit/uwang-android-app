@@ -24,8 +24,7 @@ data class CreateNewPasswordState(
 ) : Parcelable
 
 sealed class CreateNewPasswordEvent {
-    object ValidatePassword : CreateNewPasswordEvent()
-    object ValidateConfirmPassword: CreateNewPasswordEvent()
-    object HandleButtonSaveChanges: CreateNewPasswordEvent()
-    class ChangeToNewPassword(var password: String): CreateNewPasswordEvent()
+
+    object Submit:CreateNewPasswordEvent()
+
 }

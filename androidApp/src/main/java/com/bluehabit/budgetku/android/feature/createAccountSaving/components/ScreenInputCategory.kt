@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -25,9 +26,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.components.CardItemCategory
+import com.bluehabit.budgetku.data.model.category.SavingCategory
 
 @Composable
-fun ScreenInputCategory() {
+fun ScreenInputCategory(
+    selected: Int = 0,
+    categories: List<SavingCategory> = listOf(),
+    onSelected: (Int) -> Unit = {}
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -57,8 +63,15 @@ fun ScreenInputCategory() {
             verticalArrangement = Arrangement.spacedBy(16.dp),
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             content = {
-                items(12) {
-                    CardItemCategory()
+                itemsIndexed(categories) { index, item ->
+                    CardItemCategory(
+                        icon = item.icon,
+                        categoryName = item.categoryName,
+                        selected = selected == index,
+                        onClick = {
+                            onSelected(index)
+                        }
+                    )
                 }
             }
         )

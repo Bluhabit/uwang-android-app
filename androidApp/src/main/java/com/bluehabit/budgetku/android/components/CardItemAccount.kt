@@ -12,12 +12,14 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.MaterialTheme
@@ -33,60 +35,103 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluehabit.budgetku.android.R
 import com.bluehabit.budgetku.android.base.BaseMainApp
+import com.bluehabit.budgetku.android.base.extensions.formatToRupiah
 import com.bluehabit.budgetku.android.ui.Grey300
+import com.bluehabit.budgetku.android.ui.Grey500
 import com.bluehabit.budgetku.android.ui.Grey700
+import java.math.BigDecimal
 
 @Composable
-fun CardItemAccount() {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(
-                MaterialTheme.shapes.small
-            )
-            .border(
-                width = 1.dp,
-                shape = MaterialTheme.shapes.small,
-                color = Grey300
-            )
-            .padding(
-                all = 16.dp
-            ),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
+fun CardItemAccount(
+    margin: PaddingValues = PaddingValues(),
+    icon: Int = R.drawable.ic_jago,
+    accountName: String = "",
+    accountBalance: BigDecimal = BigDecimal.ZERO,
+    hasSaving: Boolean = false,
+    savingIcon: Int = R.drawable.ic_dummy_saving,
+    savingName: String = ""
+) {
+    Column(
+        modifier = Modifier.padding(
+            margin
+        )
     ) {
+
         Row(
-            modifier = Modifier,
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Start
-        ) {
-            Box(
-                modifier = Modifier
-                    .size(30.dp)
-                    .clip(CircleShape)
-                    .background(Color.White)
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.ic_jago),
-                    contentDescription = "",
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .clip(CircleShape),
+            modifier = Modifier
+                .fillMaxWidth()
+                .clip(
+                    MaterialTheme.shapes.small
                 )
+                .border(
+                    width = 1.dp,
+                    shape = MaterialTheme.shapes.small,
+                    color = Grey300
+                )
+                .padding(
+                    all = 16.dp
+                ),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Row(
+                modifier = Modifier,
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Start
+            ) {
+                Box(
+                    modifier = Modifier
+                        .size(40.dp)
+                        .clip(CircleShape)
+                        .background(Color.White)
+                ) {
+                    Image(
+                        painter = painterResource(id = icon),
+                        contentDescription = "",
+                        modifier = Modifier
+                            .align(Alignment.Center)
+                            .size(20.dp)
+                            .clip(CircleShape),
+                    )
+                    if (hasSaving) {
+                        Image(
+                            painter = painterResource(id = savingIcon),
+                            contentDescription = "",
+                            modifier = Modifier
+                                .align(Alignment.BottomEnd)
+                                .size(
+                                    18.dp
+                                )
+                                .clip(CircleShape),
+                        )
+                    }
+                }
+                Spacer(modifier = Modifier.width(8.dp))
+                Column {
+                    Text(
+                        text = accountName,
+                        style = MaterialTheme.typography.subtitle1,
+                        fontWeight = FontWeight.Medium,
+                        color = Grey700
+                    )
+                    if (hasSaving) {
+                        Text(
+                            text = savingName,
+                            style = MaterialTheme.typography.subtitle2,
+                            fontWeight = FontWeight.Medium,
+                            color = Grey500
+                        )
+                    }
+                }
+
             }
             Text(
-                text = "Cash",
-                style = MaterialTheme.typography.subtitle1,
-                fontWeight = FontWeight.Medium,
-                color = Grey700
+                text = accountBalance.formatToRupiah(),
+                style = MaterialTheme.typography.h6,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colors.onSurface
             )
         }
-        Text(
-            text = "Rp1.000.000",
-            style = MaterialTheme.typography.h6,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colors.onSurface
-        )
     }
 }
 
