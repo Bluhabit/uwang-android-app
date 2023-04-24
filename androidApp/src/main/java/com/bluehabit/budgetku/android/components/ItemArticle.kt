@@ -39,6 +39,7 @@ fun ItemArticle(
     title: String = "",
     createdAt: String = "",
     likes: Int = 0,
+    image:Int=R.drawable.ic_dummy_article_4
 ) {
     Column(
         modifier = Modifier.fillMaxWidth()
@@ -73,7 +74,7 @@ fun ItemArticle(
 
             }
             Image(
-                painter = painterResource(id = R.drawable.ic_dummy_article),
+                painter = painterResource(id = image),
                 contentDescription = "",
                 modifier = Modifier
                     .clip(MaterialTheme.shapes.medium)

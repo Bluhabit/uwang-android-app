@@ -7,7 +7,6 @@
 
 package com.bluehabit.budgetku.android.feature.tutorialBudget
 
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -26,7 +25,6 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -63,12 +61,10 @@ fun NavGraphBuilder.routeTutorialBudget(
     }
 }
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 internal fun ScreenTutorialBudget(
     appState: ApplicationState
 ) = UIWrapper<TutorialBudgetViewModel>(appState = appState) {
-    val state by uiState.collectAsState()
     var expandedFirst by remember { mutableStateOf(false) }
     var expandedSecond by remember { mutableStateOf(false) }
     LazyColumn(content = {
@@ -191,7 +187,7 @@ internal fun ScreenTutorialBudget(
         }
         item {
             BottomAppTutorialBudget {
-
+                navigateUp()
             }
         }
     })

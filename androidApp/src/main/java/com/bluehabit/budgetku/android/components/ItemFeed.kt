@@ -10,6 +10,7 @@ package com.bluehabit.budgetku.android.components
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -42,7 +43,7 @@ import com.bluehabit.budgetku.android.ui.Grey300
 import com.bluehabit.budgetku.android.ui.Grey500
 import com.bluehabit.budgetku.android.ui.Grey700
 import com.bluehabit.budgetku.android.ui.Grey900
-import java.math.BigDecimal
+import com.bluehabit.budgetku.data.model.post.ContentBudgetingPostModel
 
 @Composable
 fun ItemFeed(
@@ -50,14 +51,20 @@ fun ItemFeed(
     createdAt: String = "",
     comments: Int = 0,
     likes: Int = 0,
-    verified:Boolean=false,
+    verified: Boolean = false,
+    onClick: () -> Unit = {},
     onComment: () -> Unit = {},
     onLike: () -> Unit = {},
     onShare: () -> Unit = {},
     content: @Composable () -> Unit = {}
 ) {
     Column(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(
+                enabled = true,
+                onClick = onClick
+            ),
     ) {
         Row(
             modifier = Modifier
@@ -84,7 +91,7 @@ fun ItemFeed(
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colors.onSurface
                     )
-                    if(verified) {
+                    if (verified) {
                         Spacer(modifier = Modifier.width(8.dp))
                         Icon(
                             painter = painterResource(id = R.drawable.ic_verified_check_bold),
@@ -134,7 +141,11 @@ fun ItemFeed(
                     Icon(
                         painter = painterResource(id = R.drawable.ic_comment),
                         contentDescription = "",
-                        tint = Grey500
+                        tint = Grey500,
+                        modifier = Modifier.clickable(
+                            enabled = true,
+                            onClick = onComment
+                        )
                     )
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(
@@ -154,7 +165,11 @@ fun ItemFeed(
                     Icon(
                         painter = painterResource(id = R.drawable.ic_like),
                         contentDescription = "",
-                        tint = Grey500
+                        tint = Grey500,
+                        modifier = Modifier.clickable(
+                            enabled = true,
+                            onClick = onLike
+                        )
                     )
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(
@@ -169,7 +184,11 @@ fun ItemFeed(
             Icon(
                 painter = painterResource(id = R.drawable.ic_share_feed),
                 contentDescription = "",
-                tint = Grey500
+                tint = Grey500,
+                modifier = Modifier.clickable(
+                    enabled = true,
+                    onClick = onShare
+                )
             )
         }
         Spacer(modifier = Modifier.height(16.dp))
@@ -184,7 +203,8 @@ fun ItemFeed(
     body: String = "",
     comments: Int = 0,
     likes: Int = 0,
-    verified: Boolean=false,
+    verified: Boolean = false,
+    onClick: () -> Unit={},
     onComment: () -> Unit = {},
     onLike: () -> Unit = {},
     onShare: () -> Unit = {},
@@ -195,6 +215,7 @@ fun ItemFeed(
         comments,
         likes,
         verified,
+        onClick,
         onComment,
         onLike,
         onShare
@@ -208,15 +229,10 @@ fun ItemFeed(
     }
 }
 
-data class ContentFeedTemplateModel(
-    val name: String = "",
-    val allocation: String = "",
-    val amount: BigDecimal = BigDecimal.ZERO
-)
 
 @Composable
 fun ContentItemFeedTemplate(
-    items: List<ContentFeedTemplateModel> = listOf()
+    items: List<ContentBudgetingPostModel> = listOf()
 ) {
     Column(
         modifier = Modifier
@@ -247,7 +263,7 @@ fun ContentItemFeedTemplate(
                     )
                 ) {
                     Image(
-                        painter = painterResource(id = R.drawable.ic_dummy_food),
+                        painter = painterResource(id = feed.icon),
                         contentDescription = "",
                         modifier = Modifier.size(20.dp),
                     )

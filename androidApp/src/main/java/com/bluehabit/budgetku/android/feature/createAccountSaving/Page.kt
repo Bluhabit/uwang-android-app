@@ -7,6 +7,7 @@
 
 package com.bluehabit.budgetku.android.feature.createAccountSaving
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -31,6 +32,7 @@ import com.bluehabit.budgetku.android.components.ScreenInputFeedback
 import com.bluehabit.budgetku.android.components.ScreenInputSuccess
 import com.bluehabit.budgetku.android.components.ScreenNumPad
 import com.bluehabit.budgetku.android.components.button.ButtonPrimary
+import com.bluehabit.budgetku.android.feature.createAccount.CreateAccount
 import com.bluehabit.budgetku.android.feature.createAccountSaving.components.ScreenDetailSaving
 import com.bluehabit.budgetku.android.feature.createAccountSaving.components.ScreenInputCategory
 import com.bluehabit.budgetku.android.feature.createAccountSaving.components.ScreenInputGoalsName
@@ -54,10 +56,15 @@ internal fun ScreenCreateAccountSaving(
 ) = UIWrapper<CreateAccountSavingViewModel>(appState = appState) {
 
     val state by uiState.collectAsState()
-    with(appState){
+    val dataState by uiDataState.collectAsState()
+
+    with(appState) {
         setupBottomSheet {
             BottomSheetCalculateEmergencyFund()
         }
+    }
+    BackHandler {
+        dispatch(CreateAccountSavingEvent.Prev)
     }
 
 
@@ -78,25 +85,118 @@ internal fun ScreenCreateAccountSaving(
 
         ) {
             when (state.screenType) {
-                ScreenTypeCreateAccountSaving.INPUT_CATEGORY -> ScreenInputCategory()
-                ScreenTypeCreateAccountSaving.INPUT_PURPOSE -> ScreenInputGoalsName()
-                ScreenTypeCreateAccountSaving.INPUT_ACCOUNT -> ScreenInputSavingAccount()
-                ScreenTypeCreateAccountSaving.INPUT_DETAIL -> ScreenDetailSaving()
-                ScreenTypeCreateAccountSaving.INPUT_AMOUNT -> ScreenNumPad()
-                ScreenTypeCreateAccountSaving.INPUT_RESULT -> ScreenInputSuccess()
-                ScreenTypeCreateAccountSaving.INPUT_FEEDBACK -> ScreenInputFeedback()
+                0 -> ScreenInputCategory(
+                    categories = dataState.categories,
+                    selected = state.selectedCategory,
+                    onSelected = {
+                        commit {
+                            copy(
+                                selectedCategory = it
+                            )
+                        }
+                    }
+                )
+
+                1 -> ScreenInputGoalsName(
+                    value = state.savingPurpose,
+                    onChange = {
+                        commit {
+                            copy(
+                                savingPurpose = it
+                            )
+                        }
+                    }
+                )
+
+                2 -> ScreenInputSavingAccount(
+                    accounts = dataState.accounts,
+                    selected = state.selectedAccount,
+                    onSelectedAccount = {
+                        commit {
+                            copy(
+                                selectedAccount = it
+                            )
+                        }
+                    },
+                    onAddAccount = {
+                        navigateSingleTop(CreateAccount.routeName)
+                    }
+                )
+
+                3 -> ScreenDetailSaving(
+                    target = state.target,
+                    amount = state.amount.toString(),
+                    onAddAmount = {
+                        commit {
+                            copy(
+                                screenType = 6
+                            )
+                        }
+                    },
+                    onSelectTarget = {
+                        commit {
+                            copy(
+                                target = it
+                            )
+                        }
+                    },
+                )
+
+                4 -> ScreenInputSuccess(
+                    title = "Yay, berhasil tambah tabungan!",
+                    subtitle = "Kamu suka tambah tabungan?",
+                    onSubmit = {
+                        commit {
+                            copy(
+                                screenType = 5
+                            )
+                        }
+                    },
+                    onDismiss = {
+                        navigateUp()
+                    }
+                )
+
+                5 -> ScreenInputFeedback(
+                    title = "Wow, apa sih yang bikin kamu suka sama tabungan?",
+                    onSubmit = {
+                        navigateUp()
+                    },
+                    onDismiss = {
+                        navigateUp()
+                    }
+                )
+
+                6 -> ScreenNumPad(
+                    value = "0",
+                    onChange = {},
+                    onSubmit = {},
+                    onClear = {},
+                    onRemove = {},
+                    onDismiss = {
+                        commit {
+                            copy(
+                                screenType = 3
+                            )
+                        }
+                    }
+                )
             }
         }
 
-        if (state.screenType.step in 0..3) {
+        if (state.screenType in 0..3) {
             HeaderStepWithProgress(
                 modifier = Modifier
                     .fillMaxWidth()
                     .align(Alignment.TopCenter),
                 total = 4,
-                progress = 1,
-                onClose = {},
-                onBackPress = {}
+                progress = state.screenType,
+                onClose = {
+                    navigateUp()
+                },
+                onBackPress = {
+                    dispatch(CreateAccountSavingEvent.Prev)
+                }
             )
 
             Row(
@@ -109,6 +209,7 @@ internal fun ScreenCreateAccountSaving(
                 ButtonPrimary(
                     text = "Lanjut"
                 ) {
+                    dispatch(CreateAccountSavingEvent.Next)
 
                 }
             }

@@ -117,9 +117,6 @@ internal fun ScreenCreateNewPassword(appState: ApplicationState) = UIWrapper<Cre
                 errorMessage = state.errorInputPassword,
                 onChange = {
                     commit { copy(password = it) }
-                    dispatch(CreateNewPasswordEvent.ValidatePassword)
-                    dispatch(CreateNewPasswordEvent.ValidateConfirmPassword)
-                    dispatch(CreateNewPasswordEvent.HandleButtonSaveChanges)
                 }
             )
             FormInputPassword(
@@ -130,17 +127,14 @@ internal fun ScreenCreateNewPassword(appState: ApplicationState) = UIWrapper<Cre
                 errorMessage = state.errorConfirmPassword,
                 onChange = {
                     commit { copy(confirmPassword = it) }
-                    dispatch(CreateNewPasswordEvent.ValidatePassword)
-                    dispatch(CreateNewPasswordEvent.ValidateConfirmPassword)
-                    dispatch(CreateNewPasswordEvent.HandleButtonSaveChanges)
                 }
             )
         }
 
         ButtonPrimary(
             text = stringResource(id = R.string.text_button_save_new_password),
-            enabled = state.isButtonEnabled,
-            onClick = { dispatch(CreateNewPasswordEvent.ChangeToNewPassword(state.password)) }
+            enabled = (state.password.isNotEmpty() && state.confirmPassword.isNotEmpty()),
+            onClick = { dispatch(CreateNewPasswordEvent.Submit) }
         )
 
     }

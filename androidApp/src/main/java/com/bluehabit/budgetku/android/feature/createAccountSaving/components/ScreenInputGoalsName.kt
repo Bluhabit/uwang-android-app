@@ -23,7 +23,10 @@ import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.components.input.FormInput
 
 @Composable
-fun ScreenInputGoalsName() {
+fun ScreenInputGoalsName(
+    value: String = "",
+    onChange: (String) -> Unit = {}
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -39,7 +42,8 @@ fun ScreenInputGoalsName() {
         )
         Spacer(modifier = Modifier.height(16.dp))
         FormInput(
-            placeholder = "Masukkan nama tujuan kamu"
+            placeholder = "Masukkan nama tujuan kamu",
+            onChange = onChange
         )
 
     }

@@ -11,8 +11,11 @@ import java.math.BigDecimal
 import java.text.NumberFormat
 import java.util.Locale
 
-fun BigDecimal.formatToRupiah(): String {
-    val format = NumberFormat.getCurrencyInstance(Locale("id","ID"))
-    format.maximumFractionDigits =0
-    return format.format(this)
+fun BigDecimal.formatToRupiah(show:Boolean=true): String {
+    return if(show) {
+        val format = NumberFormat.getCurrencyInstance(Locale("id", "ID"))
+        format.maximumFractionDigits = 0
+        format.format(this)
+    }
+    else "Rp*********"
 }

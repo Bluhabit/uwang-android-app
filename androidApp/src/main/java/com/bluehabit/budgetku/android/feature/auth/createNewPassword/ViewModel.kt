@@ -9,6 +9,7 @@ package com.bluehabit.budgetku.android.feature.auth.createNewPassword
 
 import com.bluehabit.budgetku.android.R
 import com.bluehabit.budgetku.android.base.BaseViewModel
+import com.bluehabit.budgetku.android.feature.dashboard.home.Home
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -21,57 +22,58 @@ class CreateNewPasswordViewModel @Inject constructor(
         handleActions()
     }
 
-    private fun validateInputPassword(
-        valid: suspend (Boolean, String) -> Unit
-    ) = asyncWithState {
+    private fun validate(valid: suspend (Boolean) -> Unit) = asyncWithState {
         when {
-            password.isEmpty() -> valid(false, getString(R.string.subtitle_error_password_empty))
-            password.length < 8 -> valid(false, getString(R.string.subtitle_error_password_length))
-            else -> valid(true, "")
+            password.isEmpty() -> {
+                commit {
+                    copy(
+                        isInputPasswordError = true,
+                        errorInputPassword = getString(R.string.subtitle_error_password_empty)
+                    )
+                }
+                valid(false)
+            }
+
+            password.length < 8 -> {
+                commit {
+                    copy(
+                        isInputPasswordError = true,
+                        errorInputPassword = getString(R.string.subtitle_error_password_length)
+                    )
+                }
+                valid(false)
+            }
+
+            confirmPassword != password -> {
+                commit {
+                    copy(
+                        isInputPasswordError = true,
+                        errorConfirmPassword = getString(R.string.subtitle_error_password_not_identical)
+                    )
+                }
+                valid(false)
+            }
+
+            confirmPassword.isEmpty() -> {
+                commit {
+                    copy(
+                        isInputPasswordError = true,
+                        errorConfirmPassword = getString(R.string.subtitle_error_password_empty)
+                    )
+                }
+            }
+            else -> valid(true)
         }
     }
 
-    private fun validateConfirmPassword(
-        valid: suspend (Boolean, String) -> Unit
-    ) = asyncWithState {
-        when {
-            confirmPassword != password -> valid(false, getString(R.string.subtitle_error_password_not_identical))
-            confirmPassword.isEmpty() -> valid(false, getString(R.string.subtitle_error_password_empty))
-            else -> valid(true, "")
-        }
-    }
 
-    private fun handleButtonSave(
-        callback: suspend (Boolean) -> Unit
-    ) = asyncWithState {
-        when {
-            !isInputPasswordError && !isConfirmPasswordError -> callback(true)
-        }
-    }
 
     override fun handleActions() = onEvent {
         when (it) {
-            is CreateNewPasswordEvent.ValidatePassword -> validateInputPassword { isValid, errorMessage ->
-                commit {
-                    copy(
-                        isInputPasswordError = !isValid,
-                        errorInputPassword = errorMessage,
-                    )
+            CreateNewPasswordEvent.Submit -> validate {
+                if(it){
+                    navigateSingleTop(Home.routeName)
                 }
-            }
-            is CreateNewPasswordEvent.ValidateConfirmPassword -> validateConfirmPassword { isValid, errorMessage ->
-                commit {
-                    copy(
-                        isConfirmPasswordError = !isValid,
-                        errorConfirmPassword = errorMessage,
-                    )
-                }
-            }
-            is CreateNewPasswordEvent.HandleButtonSaveChanges -> handleButtonSave {
-                commit { copy(isButtonEnabled = it) }
-            }
-            is CreateNewPasswordEvent.ChangeToNewPassword -> {
-                showSnackbar("Change password to ${it.password}")
             }
         }
     }

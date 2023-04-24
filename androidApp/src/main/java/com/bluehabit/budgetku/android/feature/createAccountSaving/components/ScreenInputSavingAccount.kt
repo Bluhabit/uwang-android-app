@@ -8,6 +8,7 @@
 package com.bluehabit.budgetku.android.feature.createAccountSaving.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -19,6 +20,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Divider
 import androidx.compose.material.Icon
@@ -36,17 +38,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluehabit.budgetku.android.R
 import com.bluehabit.budgetku.android.base.BaseMainApp
-import com.bluehabit.budgetku.android.components.button.ButtonOutlinedPrimary
 import com.bluehabit.budgetku.android.components.ItemAccount
+import com.bluehabit.budgetku.android.components.button.ButtonOutlinedPrimary
 import com.bluehabit.budgetku.android.ui.Grey100
+import com.bluehabit.budgetku.android.ui.Grey300
 import com.bluehabit.budgetku.android.ui.Yellow600
-import java.math.BigDecimal
+import com.bluehabit.budgetku.data.model.account.AccountModel
 
 @Composable
 fun ScreenInputSavingAccount(
-    transactionType: String = "",
-    selectedAccount: String = "",
-    onSelectedAccount: () -> Unit = {},
+    selected:Int=0,
+    accounts:List<AccountModel> = listOf(),
+    onSelectedAccount: (Int) -> Unit = {},
     onAddAccount: () -> Unit = {}
 ) {
     Column(
@@ -60,11 +63,14 @@ fun ScreenInputSavingAccount(
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(
-                text = stringResource(R.string.text_title_input_accoun_create_transaction, transactionType),
+                text = "Mau pakai akun yang mana?",
                 style = MaterialTheme.typography.h5,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Start,
-                color = MaterialTheme.colors.onSurface
+                color = MaterialTheme.colors.onSurface,
+                modifier = Modifier.padding(
+                    horizontal = 20.dp
+                )
             )
             Spacer(modifier = Modifier.height(20.dp))
             LazyRow(
@@ -73,13 +79,13 @@ fun ScreenInputSavingAccount(
                     item {
                         Spacer(modifier = Modifier.width(20.dp))
                     }
-                    items(3) {
+                    itemsIndexed(accounts) {index,account->
                         ItemAccount(
-                            selected = it == 1,
-                            accountBankName = "Bank BCA",
-                            accountBalance = BigDecimal(1_000),
+                            selected = selected == index,
+                            accountBankName = account.accountName,
+                            accountBalance = account.accountBalance,
                             onClick = {
-                                onSelectedAccount()
+                                onSelectedAccount(index)
                             }
                         )
                     }
@@ -100,6 +106,11 @@ fun ScreenInputSavingAccount(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clip(MaterialTheme.shapes.medium)
+                    .border(
+                        width = 1.dp,
+                        shape = MaterialTheme.shapes.medium,
+                        color = Grey300
+                    )
                     .background(MaterialTheme.colors.surface)
             ) {
                 Row(

@@ -21,9 +21,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.Close
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.derivedStateOf
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -45,11 +42,7 @@ fun HeaderStepWithProgress(
     onBackPress: () -> Unit = {},
     onClose: () -> Unit = {}
 ) {
-    val percentage by remember {
-        derivedStateOf {
-            ((progress.toFloat() / total) * 100) / 100
-        }
-    }
+
     Row(
         modifier = modifier
             .padding(
@@ -70,7 +63,7 @@ fun HeaderStepWithProgress(
             )
         )
         LinearProgressIndicator(
-            progress = percentage,
+            progress = ((progress.toFloat() / total) * 100) / 100,
             modifier = Modifier
                 .fillMaxWidth(
                     fraction = 0.7f

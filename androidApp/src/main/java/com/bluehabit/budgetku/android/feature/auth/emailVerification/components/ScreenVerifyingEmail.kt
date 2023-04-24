@@ -11,6 +11,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -35,41 +36,40 @@ import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.ui.Grey900
 
 @Composable
-fun ScreenVerifyingEmail(
-    title: String = "",
-    onDismiss: () -> Unit = {},
-    onConfirm: () -> Unit = {}
-) {
+fun ScreenVerifyingEmail() {
 
     Column(
-        modifier = Modifier.padding(
-            horizontal = 20.dp,
-            vertical = 20.dp
-        )
-    )
-    {
-        Spacer(modifier = Modifier.height(190.dp))
-        Column( modifier = Modifier
-            .fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(
+                horizontal = 20.dp,
+                vertical = 20.dp
+            ),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center) {
+            verticalArrangement = Arrangement.Center
+        ) {
             Image(
                 painter = painterResource(R.drawable.arrow_email),
                 contentDescription = stringResource(R.string.text_title_email_check),
-                modifier = Modifier.size(130.dp),
-
-                )
+                modifier = Modifier.size(130.dp)
+            )
             Spacer(modifier = Modifier.height(15.dp))
             Text(
                 text = stringResource(R.string.text_veriry_email_waiting_email),
                 style = MaterialTheme.typography.h4,
-                textAlign= TextAlign.Center,
+                textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Bold,
                 color = Grey900
             )
             Spacer(modifier = Modifier.height(14.dp))
             Text(
-                textAlign= TextAlign.Center,
+                textAlign = TextAlign.Center,
                 modifier = Modifier.fillMaxWidth(),
                 text = buildAnnotatedString {
                     withStyle(
@@ -83,7 +83,6 @@ fun ScreenVerifyingEmail(
                     }
                 },
             )
-            Spacer(modifier = Modifier.height(270.dp))
         }
     }
 }

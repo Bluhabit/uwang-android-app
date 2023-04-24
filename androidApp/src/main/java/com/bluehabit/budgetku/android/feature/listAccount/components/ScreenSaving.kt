@@ -12,9 +12,14 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -29,10 +34,15 @@ import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.components.CardItemAccountSaving
 import com.bluehabit.budgetku.android.components.Tips
 import com.bluehabit.budgetku.android.ui.Grey200
+import com.bluehabit.budgetku.data.model.account.AccountSavingModel
 
 @Composable
-fun ScreenSaving() {
+fun ScreenSaving(
+    state: LazyListState = rememberLazyListState(),
+    savings: List<AccountSavingModel> = listOf()
+) {
     LazyColumn(
+        state = state,
         verticalArrangement = Arrangement.spacedBy(16.dp),
         content = {
             item {
@@ -56,11 +66,18 @@ fun ScreenSaving() {
                     )
                 }
             }
-            items(3) {
+            items(savings) {
                 CardItemAccountSaving(
                     margin = PaddingValues(
                         horizontal = 20.dp
-                    )
+                    ),
+                    accountIcon = it.accountIcon,
+                    icon = it.icon,
+                    accountName = it.savingName,
+                    dueDate = it.target.toString(),
+                    targetSaving = it.targetBalance,
+                    totalSaving = it.totalBalance,
+                    progress = it.progress
                 )
             }
             item {
@@ -71,11 +88,13 @@ fun ScreenSaving() {
                 ) {
                     Tips(
                         title = "Tips",
-                        message = "Dengan hubungkan akun finansial budgetku bisa" +
-                                " analisa keuanganmu lebih lengkap, " +
-                                "bantu kamu atur budget dan capai target keuanganmu dengan mudah!"
+                        message = "Sedikit demi sedikit lama-lama jadi bukit, mulai " +
+                                "menabung setiap hari atau setiap bulan untuk capai target keuanganmu!"
                     )
                 }
+            }
+            item {
+                Spacer(modifier = Modifier.height(50.dp))
             }
         }
     )
