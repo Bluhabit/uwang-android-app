@@ -47,7 +47,9 @@ import com.bluehabit.budgetku.android.feature.createAccount.CreateAccount
 import com.bluehabit.budgetku.android.feature.createBudget.CreateBudget
 import com.bluehabit.budgetku.android.feature.createTransaction.CreateTransaction
 import com.bluehabit.budgetku.android.feature.dashboard.budget.Budget
+import com.bluehabit.budgetku.android.feature.detailTransaction.DetailTransaction
 import com.bluehabit.budgetku.android.feature.listAccount.ListAccount
+import com.bluehabit.budgetku.android.feature.listTransaction.ListTransaction
 import com.bluehabit.budgetku.android.rememberApplicationState
 
 object Home {
@@ -172,7 +174,9 @@ internal fun ScreenHome(
             item {
                 HeaderSectionDashboardHome(
                     title = stringResource(R.string.title_section_new_transaction_dashboard_home),
-                    onClick = {}
+                    onClick = {
+                        navigateSingleTop(ListTransaction.routeName)
+                    }
                 )
             }
             items(dataState.transactions) {
@@ -185,7 +189,10 @@ internal fun ScreenHome(
                         if (it.isTransactionExpenses) R.string.text_expenses else R.string.text_income,
                         it.transactionAmount.formatToRupiah()
                     ),
-                    isExpenses = it.isTransactionExpenses
+                    isExpenses = it.isTransactionExpenses,
+                    onClick = {
+                        navigateSingleTop(DetailTransaction.routeName)
+                    }
                 )
             }
             item {
