@@ -203,7 +203,7 @@ internal fun ScreenEditProfile(
             )
         }
 
-        ButtonPrimary(text = "Simpan"){
+        ButtonPrimary(text = "Simpan") {
             navigateUp()
         }
 
@@ -220,6 +220,7 @@ fun TopAppBarEditProfile() {
             Icon(imageVector = Icons.Outlined.ArrowBack, contentDescription = "")
         },
         backgroundColor = MaterialTheme.colors.surface,
+        elevation = 0.dp
     )
 }
 
