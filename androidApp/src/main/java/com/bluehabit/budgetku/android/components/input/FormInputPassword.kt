@@ -92,7 +92,8 @@ fun FormInputPassword(
                 )
             },
             textStyle = MaterialTheme.typography.subtitle2,
-            visualTransformation = if (visible) VisualTransformation.None else PasswordVisualTransformation()
+            visualTransformation = if (visible) VisualTransformation.None else PasswordVisualTransformation(),
+            singleLine = true
         )
 
         Text(
@@ -101,7 +102,6 @@ fun FormInputPassword(
             fontWeight = FontWeight.Normal,
             color = if (error) MaterialTheme.colors.error else Color.Transparent
         )
-        Spacer(modifier = Modifier.height(8.dp))
 
     }
 }

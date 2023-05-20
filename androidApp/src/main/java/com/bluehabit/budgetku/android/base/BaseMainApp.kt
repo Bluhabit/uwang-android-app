@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.FabPosition
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.FloatingActionButtonDefaults
@@ -76,6 +77,12 @@ fun BaseMainApp(
                     }
                 },
                 sheetState = appState.bottomSheetState,
+                sheetShape = RoundedCornerShape(
+                    topEnd = 18.dp,
+                    topStart = 18.dp,
+                    bottomEnd = 0.dp,
+                    bottomStart = 0.dp
+                )
             ) {
                 Scaffold(
                     topBar = {

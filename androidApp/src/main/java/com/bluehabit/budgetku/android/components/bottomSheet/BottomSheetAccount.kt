@@ -5,7 +5,7 @@
  * Proprietary and confidential
  */
 
-package com.bluehabit.budgetku.android.components
+package com.bluehabit.budgetku.android.components.bottomSheet
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -34,7 +34,6 @@ import androidx.compose.ui.unit.dp
 import com.bluehabit.budgetku.android.R
 import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.base.extensions.formatToRupiah
-import com.bluehabit.budgetku.android.components.bottomSheet.BaseBottomSheet
 import com.bluehabit.budgetku.android.ui.Grey300
 import com.bluehabit.budgetku.android.ui.Grey700
 import java.math.BigDecimal

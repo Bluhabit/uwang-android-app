@@ -68,9 +68,10 @@ fun BottomSheetSpinnerDatePicker(
         )
         Column(
             modifier = Modifier.fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.Start
         ){
             WheelDatePicker(
+                modifier=Modifier.fillMaxWidth(),
                 startDate = selected ?: LocalDate.now(),
                 onSnappedDate = {
                     selected = it

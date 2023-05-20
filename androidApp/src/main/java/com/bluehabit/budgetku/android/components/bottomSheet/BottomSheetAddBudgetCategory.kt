@@ -5,7 +5,7 @@
  * Proprietary and confidential
  */
 
-package com.bluehabit.budgetku.android.components
+package com.bluehabit.budgetku.android.components.bottomSheet
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
@@ -41,7 +41,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.bluehabit.budgetku.android.R
-import com.bluehabit.budgetku.android.components.bottomSheet.BaseBottomSheet
 
 data class BudgetCategory(
     val title: String = "",

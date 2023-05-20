@@ -203,7 +203,7 @@ fun PreviewCardChallengeBudgeting() {
                     CardChallengeBudgeting(
                         title = "Follow the money trail",
                         message = "Answer",
-                        image = R.drawable.ic_dummy_challenge,
+                        image = com.bluehabit.budgetku.data.R.drawable.ic_dummy_challenge,
                         point = 1823,
                         pointTarget = 2000,
                         color = Pink500,

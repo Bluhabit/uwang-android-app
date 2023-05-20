@@ -5,7 +5,7 @@
  * Proprietary and confidential
  */
 
-package com.bluehabit.budgetku.android.components
+package com.bluehabit.budgetku.android.components.bottomSheet
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -24,7 +24,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluehabit.budgetku.android.base.BaseMainApp
-import com.bluehabit.budgetku.android.components.bottomSheet.BaseBottomSheet
+import com.bluehabit.budgetku.android.components.ItemButtonGroup
 import com.bluehabit.budgetku.android.components.input.FormInput
 import com.bluehabit.budgetku.android.ui.Grey300
 

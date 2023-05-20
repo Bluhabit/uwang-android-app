@@ -5,7 +5,7 @@
  * Proprietary and confidential
  */
 
-package com.bluehabit.budgetku.android.components
+package com.bluehabit.budgetku.android.components.bottomSheet
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -29,7 +29,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluehabit.budgetku.android.R
 import com.bluehabit.budgetku.android.base.BaseMainApp
-import com.bluehabit.budgetku.android.components.bottomSheet.BaseBottomSheet
 import com.bluehabit.budgetku.android.ui.Grey900
 
 @Composable
@@ -70,7 +69,7 @@ fun BottomSheetConfirmationEmail(
                     withStyle(
                         style = SpanStyle(
                             fontStyle = MaterialTheme.typography.subtitle1.fontStyle,
-                            fontWeight = FontWeight.Medium
+                            fontWeight = FontWeight.Normal
                         ),
                     ) {
                         append("Kami baru saja mengirim link verifikasi ke email ")
@@ -87,13 +86,14 @@ fun BottomSheetConfirmationEmail(
                     withStyle(
                         style = SpanStyle(
                             fontStyle = MaterialTheme.typography.subtitle1.fontStyle,
-                            fontWeight = FontWeight.Medium,
+                            fontWeight = FontWeight.Normal,
                         ),
                     ) {
                         append("Cek email kamu dan klik button verifikasi yang diberikan.")
                     }
 
                 },
+
             )
             Spacer(modifier = Modifier.height(20.dp))
         }

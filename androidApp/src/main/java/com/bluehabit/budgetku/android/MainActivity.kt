@@ -30,12 +30,8 @@ class MainActivity : ComponentActivity() {
             appState = rememberApplicationState(
                 event = eventListener
             )
-            val localConfig = LocalConfiguration.current
             LaunchedEffect(key1 = appState.router, block = {
-                appState.listenChanges(
-                    ctx = this@MainActivity,
-                    config = localConfig
-                )
+                appState.listenChanges()
             })
             BaseMainApp(appState = appState) {
                 AppNavigation(applicationState = it)
@@ -47,7 +43,7 @@ class MainActivity : ComponentActivity() {
     private fun listenFromChild() {
         eventListener.addOnEventListener(object : ToAppStateEventListener {
             override fun onEvent(eventName: String) {
-                TODO("Not yet implemented")
+                TODO("Not yet implemented ")
             }
 
             override fun exit() {

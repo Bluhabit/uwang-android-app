@@ -28,6 +28,7 @@ import com.bluehabit.budgetku.android.feature.dashboard.community.routeCommunity
 import com.bluehabit.budgetku.android.feature.dashboard.home.routeHome
 import com.bluehabit.budgetku.android.feature.dashboard.report.routeReport
 import com.bluehabit.budgetku.android.feature.detailTransaction.routeDetailTransaction
+import com.bluehabit.budgetku.android.feature.editProfile.routeEditProfile
 import com.bluehabit.budgetku.android.feature.editTransaction.routeEditTransaction
 import com.bluehabit.budgetku.android.feature.listAccount.routeListAccount
 import com.bluehabit.budgetku.android.feature.listTransaction.routeListTransaction
@@ -103,7 +104,9 @@ fun AppNavigation(
             state = applicationState
         )
         routeListAccount(
-
+            state = applicationState
+        )
+        routeEditProfile(
             state = applicationState
         )
         routeDetailTransaction(

@@ -39,6 +39,7 @@ fun FormInputSearch(
             Text(text = placeholder)
         },
         maxLines = 1,
+        singleLine = true,
         shape = MaterialTheme.shapes.large,
         enabled = true,
         textStyle = MaterialTheme.typography.subtitle2,

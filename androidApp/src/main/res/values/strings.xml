@@ -141,7 +141,7 @@
     <string name="text_button_signinhere_signup">Login disini</string>
     <string name="textbutton_privacyandpolice_signup">Syarat dan Ketentuan</string>
     <string name="label_agreement_signup">Dengan mendaftar, saya menyetujui</string>
-    <string name="label_serta_signup">serta</string>
+    <string name="label_serta_signup"> dan</string>
     <string name="textbutton_termsprivated_signup">Kebijakan Privasi</string>
     <string name="logo_budgetku_signup">Logo Budgetku Full</string>
     <string name="label_register_newaccount_signup">Daftar Akun Baru</string>

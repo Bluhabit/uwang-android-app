@@ -40,7 +40,7 @@ internal fun ScreenEmailVerification(
 ) = UIWrapper<EmailVerificationViewModel>(appState = appState) {
     val state by uiState.collectAsState()
     LaunchedEffect(key1 = this, block = {
-        delay(1000)
+        delay(3000)
         commit {
             copy(
                 isLoading = false

@@ -76,7 +76,7 @@ fun ScreenAccount(
                     icon = it.icon,
                     hasSaving = it.connectedSaving != null,
                     savingName = it.connectedSaving?.savingName.orEmpty(),
-                    savingIcon = it.connectedSaving?.icon ?: R.drawable.ic_dummy_saving
+                    savingIcon = it.connectedSaving?.icon ?: com.bluehabit.budgetku.data.R.drawable.ic_dummy_saving
 
                 )
 

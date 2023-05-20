@@ -26,11 +26,11 @@ import com.bluehabit.budgetku.android.ApplicationState
 import com.bluehabit.budgetku.android.R
 import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.base.UIWrapper
-import com.bluehabit.budgetku.android.components.BottomSheetAddBudgetCategory
-import com.bluehabit.budgetku.android.components.BudgetCategory
+import com.bluehabit.budgetku.android.components.bottomSheet.BottomSheetAddBudgetCategory
+import com.bluehabit.budgetku.android.components.bottomSheet.BudgetCategory
 import com.bluehabit.budgetku.android.components.HeaderStepWithProgress
-import com.bluehabit.budgetku.android.components.ItemBudgetCategory
-import com.bluehabit.budgetku.android.components.ItemBudgetSubCategory
+import com.bluehabit.budgetku.android.components.bottomSheet.ItemBudgetCategory
+import com.bluehabit.budgetku.android.components.bottomSheet.ItemBudgetSubCategory
 import com.bluehabit.budgetku.android.components.ScreenInputFeedback
 import com.bluehabit.budgetku.android.components.ScreenInputSuccess
 import com.bluehabit.budgetku.android.components.bottomSheet.BottomSheetDatePicker

@@ -52,43 +52,43 @@ data class CreateAccountSavingDataState(
     val categories: @RawValue List<SavingCategory> = listOf(
         SavingCategory(
             categoryName = "Belanja",
-            icon = R.drawable.ic_dummy_saving
+            icon = com.bluehabit.budgetku.data.R.drawable.ic_dummy_saving
         ),
         SavingCategory(
             categoryName = "Liburan",
-            icon = R.drawable.ic_dummy_saving
+            icon = com.bluehabit.budgetku.data.R.drawable.ic_dummy_saving
         ),
         SavingCategory(
             categoryName = "Rumah",
-            icon = R.drawable.ic_dummy_saving
+            icon = com.bluehabit.budgetku.data.R.drawable.ic_dummy_saving
         ),
         SavingCategory(
             categoryName = "Menikah",
-            icon = R.drawable.ic_dummy_saving
+            icon = com.bluehabit.budgetku.data.R.drawable.ic_dummy_saving
         ),
         SavingCategory(
             categoryName = "Pendidikan",
-            icon = R.drawable.ic_dummy_saving
+            icon =com.bluehabit.budgetku.data.R.drawable.ic_dummy_saving
         ),
         SavingCategory(
             categoryName = "Dana Darurat",
-            icon = R.drawable.ic_dummy_saving
+            icon = com.bluehabit.budgetku.data.R.drawable.ic_dummy_saving
         ),
         SavingCategory(
             categoryName = "Kendaraan",
-            icon = R.drawable.ic_dummy_saving
+            icon = com.bluehabit.budgetku.data.R.drawable.ic_dummy_saving
         ),
         SavingCategory(
             categoryName = "Pinjaman",
-            icon = R.drawable.ic_dummy_saving
+            icon = com.bluehabit.budgetku.data.R.drawable.ic_dummy_saving
         ),
         SavingCategory(
             categoryName = "Kredit",
-            icon = R.drawable.ic_dummy_saving
+            icon = com.bluehabit.budgetku.data.R.drawable.ic_dummy_saving
         ),
         SavingCategory(
             categoryName = "Investasi",
-            icon = R.drawable.ic_dummy_saving
+            icon = com.bluehabit.budgetku.data.R.drawable.ic_dummy_saving
         )
     )
 ) : Parcelable

@@ -283,7 +283,7 @@ fun ContentCreatePost(
             modifier = Modifier
                 .size(335.dp)
                 .clip(RoundedCornerShape(16.dp)),
-            painter = painterResource(id = R.drawable.dummy_post_pic),
+            painter = painterResource(id = com.bluehabit.budgetku.data.R.drawable.dummy_post_pic),
             contentDescription = ""
         )
 

@@ -79,7 +79,8 @@ fun FormInputWithIcon(
             keyboardOptions = keyboardOptions,
             keyboardActions = keyboardActions,
             trailingIcon = icon,
-            textStyle = MaterialTheme.typography.subtitle2
+            textStyle = MaterialTheme.typography.subtitle2,
+            singleLine = true
         )
 
         Text(
@@ -88,7 +89,6 @@ fun FormInputWithIcon(
             fontWeight = FontWeight.Normal,
             color = if (error) MaterialTheme.colors.error else Color.Transparent
         )
-        Spacer(modifier = Modifier.height(8.dp))
 
     }
 }

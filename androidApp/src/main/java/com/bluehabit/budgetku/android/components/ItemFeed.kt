@@ -76,7 +76,7 @@ fun ItemFeed(
             horizontalArrangement = Arrangement.Start
         ) {
             Image(
-                painter = painterResource(id = R.drawable.dummy_avatar),
+                painter = painterResource(id = com.bluehabit.budgetku.data.R.drawable.dummy_avatar),
                 contentDescription = "",
                 modifier = Modifier
                     .size(48.dp)

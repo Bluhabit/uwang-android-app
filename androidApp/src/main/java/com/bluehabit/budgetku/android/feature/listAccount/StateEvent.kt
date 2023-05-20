@@ -43,7 +43,7 @@ data class ListAccountDataState(
             accountName = "Bank Jago",
             accountBalance = BigDecimal(500_000),
             connectedSaving = AccountSavingModel(
-                icon =R.drawable.ic_dummy_saving,
+                icon =com.bluehabit.budgetku.data.R.drawable.ic_dummy_saving,
                 accountIcon =  R.drawable.ic_jago,
                 target = LocalDateTime.now(),
                 savingName = "Motor Baru",
@@ -55,7 +55,7 @@ data class ListAccountDataState(
     ),
     val savingAccounts: @RawValue List<AccountSavingModel> = listOf(
         AccountSavingModel(
-            icon =R.drawable.ic_dummy_saving,
+            icon =com.bluehabit.budgetku.data.R.drawable.ic_dummy_saving,
             accountIcon =  R.drawable.ic_jago,
             target = LocalDateTime.now(),
             savingName = "Motor Baru",
@@ -64,7 +64,7 @@ data class ListAccountDataState(
             progress = 0.5f
         ),
         AccountSavingModel(
-            icon =R.drawable.ic_dummy_saving,
+            icon =com.bluehabit.budgetku.data.R.drawable.ic_dummy_saving,
             accountIcon = R.drawable.ic_bca,
             target = LocalDateTime.now(),
             savingName = "Motor Baru",

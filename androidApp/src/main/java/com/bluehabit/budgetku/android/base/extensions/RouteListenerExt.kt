@@ -12,10 +12,7 @@ import android.content.res.Configuration
 import com.bluehabit.budgetku.android.ApplicationState
 import com.bluehabit.budgetku.android.components.menus
 
-fun ApplicationState.listenChanges(
-    ctx: Context,
-    config: Configuration
-) = this.router.addOnDestinationChangedListener { _, destination, _ ->
+fun ApplicationState.listenChanges() = this.router.addOnDestinationChangedListener { _, destination, _ ->
     currentRoute = destination.route.orEmpty()
     if (currentRoute in menus.map { it.route }) showBottomBar()
     else hideBottomBar()
