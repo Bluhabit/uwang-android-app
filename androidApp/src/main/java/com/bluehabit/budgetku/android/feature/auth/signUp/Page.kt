@@ -48,7 +48,7 @@ import com.bluehabit.budgetku.android.components.button.ButtonGoogle
 import com.bluehabit.budgetku.android.components.button.ButtonPrimary
 import com.bluehabit.budgetku.android.components.input.FormInput
 import com.bluehabit.budgetku.android.components.IconWithAction
-import com.bluehabit.budgetku.android.components.BottomSheetConfirmationEmail
+import com.bluehabit.budgetku.android.components.bottomSheet.BottomSheetConfirmationEmail
 import com.bluehabit.budgetku.android.feature.auth.emailVerification.EmailVerification
 import com.bluehabit.budgetku.android.feature.auth.resetPassword.ResetPassword
 import com.bluehabit.budgetku.android.rememberApplicationState
@@ -142,9 +142,12 @@ internal fun ScreenSignUp(
 
         Column(
             modifier = Modifier
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .padding(
+                    top = 40.dp
+                ),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Top
         ) {
             FormInput(
                 value = state.fullName,
@@ -161,7 +164,7 @@ internal fun ScreenSignUp(
                     imeAction = ImeAction.Next
                 ),
             )
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(24.dp))
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.End,

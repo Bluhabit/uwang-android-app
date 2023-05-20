@@ -48,7 +48,7 @@ fun CardItemAccount(
     accountName: String = "",
     accountBalance: BigDecimal = BigDecimal.ZERO,
     hasSaving: Boolean = false,
-    savingIcon: Int = R.drawable.ic_dummy_saving,
+    savingIcon: Int = com.bluehabit.budgetku.data.R.drawable.ic_dummy_saving,
     savingName: String = ""
 ) {
     Column(

@@ -78,6 +78,7 @@ fun FormInput(
             keyboardOptions = keyboardOptions,
             keyboardActions = keyboardActions,
             textStyle = MaterialTheme.typography.subtitle2,
+            singleLine = true
         )
         Text(
             text = errorMessage,
@@ -85,7 +86,6 @@ fun FormInput(
             fontWeight = FontWeight.Normal,
             color = if (error) MaterialTheme.colors.error else Color.Transparent
         )
-        Spacer(modifier = Modifier.height(8.dp))
     }
 }
 

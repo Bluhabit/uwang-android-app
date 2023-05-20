@@ -7,10 +7,12 @@
 
 package com.bluehabit.budgetku.android.feature.auth.completeProfile
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
@@ -129,66 +131,72 @@ internal fun ScreenCompleteProfile(
                 style = MaterialTheme.typography.subtitle1,
                 fontWeight = FontWeight.Normal
             )
-            Spacer(modifier = Modifier.height(20.dp))
-            FormInput(
-                value = state.fullName,
-                label = stringResource(R.string.label_input_full_name),
-                placeholder = stringResource(R.string.placeholder_input_full_name),
-                onChange = {
-                    commit {
-                        copy(
-                            fullName = it
-                        )
-                    }
-                },
-                keyboardActions = KeyboardActions(
-                    onNext = {
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.Start,
+                verticalArrangement = Arrangement.Top
+            ) {
+                Spacer(modifier = Modifier.height(24.dp))
+                FormInput(
+                    value = state.fullName,
+                    label = stringResource(R.string.label_input_full_name),
+                    placeholder = stringResource(R.string.placeholder_input_full_name),
+                    onChange = {
+                        commit {
+                            copy(
+                                fullName = it
+                            )
+                        }
+                    },
+                    keyboardActions = KeyboardActions(
+                        onNext = {
+                            commit { copy(contentBottomSheet = "DatePicker") }
+                            showBottomSheet()
+                        }
+                    ),
+                    keyboardOptions = KeyboardOptions(
+                        imeAction = ImeAction.Next
+                    )
+                )
+                Spacer(modifier = Modifier.height(24.dp))
+                FormInputWithIcon(
+                    value = if (state.dateOfBirth == null) "" else state.dateOfBirth.toString(),
+                    label = stringResource(R.string.label_input_date_of_birth_complete_profile),
+                    placeholder = stringResource(R.string.placeholder_input_date_of_birth_complete_profile),
+                    clickable = true,
+                    onClick = {
+                        hideKeyboard()
                         commit { copy(contentBottomSheet = "DatePicker") }
                         showBottomSheet()
+                    },
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Outlined.DateRange,
+                            contentDescription = "",
+                            tint = if (state.dateOfBirth == null) Color.LightGray else MaterialTheme.colors.primary
+                        )
                     }
-                ),
-                keyboardOptions = KeyboardOptions(
-                    imeAction = ImeAction.Next
                 )
-            )
-            Spacer(modifier = Modifier.height(20.dp))
-            FormInputWithIcon(
-                value = if (state.dateOfBirth == null) "" else state.dateOfBirth.toString(),
-                label = stringResource(R.string.label_input_date_of_birth_complete_profile),
-                placeholder = stringResource(R.string.placeholder_input_date_of_birth_complete_profile),
-                clickable = true,
-                onClick = {
-                    hideKeyboard()
-                    commit { copy(contentBottomSheet = "DatePicker") }
-                    showBottomSheet()
-                },
-                icon = {
-                    Icon(
-                        imageVector = Icons.Outlined.DateRange,
-                        contentDescription = "",
-                        tint = if (state.dateOfBirth == null) Color.LightGray else MaterialTheme.colors.primary
-                    )
-                }
-            )
-            Spacer(modifier = Modifier.height(20.dp))
-            FormInputWithIcon(
-                value = if (state.gender == null) "" else stringResource(state.gender!!.label),
-                label = stringResource(R.string.label_input_gender_complete_profile),
-                placeholder = stringResource(R.string.placeholder_input_gender_complete_profile),
-                clickable = true,
-                onClick = {
-                    hideKeyboard()
-                    commit { copy(contentBottomSheet = "GenderPicker") }
-                    showBottomSheet()
-                },
-                icon = {
-                    Icon(
-                        imageVector = Icons.Outlined.KeyboardArrowDown,
-                        contentDescription = "",
-                        tint = if (state.gender == null) Color.LightGray else MaterialTheme.colors.primary
-                    )
-                }
-            )
+                Spacer(modifier = Modifier.height(24.dp))
+                FormInputWithIcon(
+                    value = if (state.gender == null) "" else stringResource(state.gender!!.label),
+                    label = stringResource(R.string.label_input_gender_complete_profile),
+                    placeholder = stringResource(R.string.placeholder_input_gender_complete_profile),
+                    clickable = true,
+                    onClick = {
+                        hideKeyboard()
+                        commit { copy(contentBottomSheet = "GenderPicker") }
+                        showBottomSheet()
+                    },
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Outlined.KeyboardArrowDown,
+                            contentDescription = "",
+                            tint = if (state.gender == null) Color.LightGray else MaterialTheme.colors.primary
+                        )
+                    }
+                )
+            }
         }
         ButtonPrimary(
             modifier = Modifier.align(Alignment.BottomCenter),

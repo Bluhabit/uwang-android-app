@@ -21,8 +21,8 @@ data class SignUpState(
     val password:String=""
 ) : Parcelable
 
-sealed class SignUpEvent{
+sealed interface SignUpEvent{
 
-    object SignUpWithEmail: SignUpEvent()
-    class SignUpWithGoogle(var result: Task<GoogleSignInAccount>?): SignUpEvent()
+    object SignUpWithEmail: SignUpEvent
+    class SignUpWithGoogle(var result: Task<GoogleSignInAccount>?): SignUpEvent
 }

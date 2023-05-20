@@ -49,7 +49,7 @@ import com.bluehabit.budgetku.android.ui.Grey700
 @Composable
 fun CardItemAccountSaving(
     margin: PaddingValues = PaddingValues(),
-    icon: Int = R.drawable.ic_dummy_saving,
+    icon: Int = com.bluehabit.budgetku.data.R.drawable.ic_dummy_saving,
     accountIcon: Int = R.drawable.ic_jago,
     accountName: String = "",
     dueDate: String = "",

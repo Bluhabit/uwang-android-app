@@ -68,7 +68,7 @@ fun ItemTransaction(
             verticalAlignment = Alignment.Top
         ) {
             Image(
-                painter = painterResource(id = R.drawable.ic_dummy_food),
+                painter = painterResource(id = com.bluehabit.budgetku.data.R.drawable.ic_dummy_food),
                 contentDescription = "",
                 modifier = Modifier.size(40.dp)
             )

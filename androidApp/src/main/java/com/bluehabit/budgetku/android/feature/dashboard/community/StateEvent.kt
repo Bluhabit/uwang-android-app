@@ -38,56 +38,56 @@ data class CommunityDataState(
         PostModel(
             displayName = "Devianrahmani",
             date = LocalDateTime.now(),
-            avatar = R.drawable.dummy_avatar,
+            avatar = com.bluehabit.budgetku.data.R.drawable.dummy_avatar,
             body = "Inget selalu bedakan pengeluaran antara kebutuhan dan keinginan. Jangan lupa juga buat selalu catet" +
                     " pengeluaran biar kakak tau tuh alokasi keuangan selama satu bulan itu kemana aja.",
             comments = 12,
             likes = 321,
             content = listOf(),
-            mimeContent = R.drawable.dummy_image_post,
+            mimeContent = com.bluehabit.budgetku.data.R.drawable.dummy_image_post,
             postType = 1
         ),
         PostModel(
             displayName = "KholodFahmi",
             date = LocalDateTime.now(),
-            avatar = R.drawable.dummy_avatar_female,
+            avatar = com.bluehabit.budgetku.data.R.drawable.dummy_avatar,
             body = "Hi! kembali lagi dengan Albon nih, seperti biasa sekarang mau share template alokasi keuangan untuk kamu pakai." +
                     " Bagian yang Rp5.000.000 nih!",
             comments = 12,
             likes = 321,
             content = listOf(
                 ContentBudgetingPostModel(
-                    icon = R.drawable.ic_dummy_food,
+                    icon =com.bluehabit.budgetku.data.R.drawable.ic_dummy_food,
                     name = "Living",
                     allocation = "Alokasi 60%",
                     amount = BigDecimal(3_000_000)
                 ),
                 ContentBudgetingPostModel(
-                    icon = R.drawable.ic_dummy_challenge,
+                    icon = com.bluehabit.budgetku.data.R.drawable.ic_dummy_challenge,
                     name = "Saving",
                     allocation = "Alokasi 30%",
                     amount = BigDecimal(1_500_000)
                 ),
                 ContentBudgetingPostModel(
-                    icon = R.drawable.ic_dummy_category,
+                    icon = com.bluehabit.budgetku.data.R.drawable.ic_dummy_category,
                     name = "Playing",
                     allocation = "Alokasi 10%",
                     amount = BigDecimal(500_000)
                 )
             ),
-            mimeContent = R.drawable.dummy_image_post,
+            mimeContent = com.bluehabit.budgetku.data.R.drawable.dummy_image_post,
             postType = 2
         ),
         PostModel(
             displayName = "Aisyah alqa",
             date = LocalDateTime.now(),
-            avatar = R.drawable.dummy_avatar_female,
+            avatar = com.bluehabit.budgetku.data.R.drawable.dummy_avatar,
             body = "Tau gak sih kamu? Promo di market place itu bikin kamu boncos loh. " +
                     "Walaupun ngerasa banyak kupon yang gak kepake tapi giliran kepake jadi tambah boncos wkwkw.",
             comments = 12,
             likes = 321,
             content = listOf(),
-            mimeContent = R.drawable.dummy_image_post,
+            mimeContent = com.bluehabit.budgetku.data.R.drawable.dummy_image_post,
             postType = 3
         )
     ),
@@ -95,28 +95,28 @@ data class CommunityDataState(
         ArticleModel(
             title = "Pusat Bantuan",
             body = "Punya kendala atau pertanyyan terkait Budgetku? kamu bisa kirim di sini",
-            image = R.drawable.ic_dummy_article,
+            image = com.bluehabit.budgetku.data.R.drawable.ic_dummy_article,
             date = LocalDateTime.now(),
             likes = 200
         ),
         ArticleModel(
             title = "Cerdas Finansial",
             body = "Yuk melek finansial bersama Budgetku. Tersedia course keuangan untukmu",
-            image = R.drawable.ic_dummy_article_2,
+            image = com.bluehabit.budgetku.data.R.drawable.ic_dummy_article_2,
             date = LocalDateTime.now(),
             likes = 200
         ),
         ArticleModel(
             title = "Promo & Hadiah",
             body = "Yuk cek berbagai promo menarik di aplikasi Budgetku Sekarang!",
-            image = R.drawable.ic_dummy_article_3,
+            image =com.bluehabit.budgetku.data.R.drawable.ic_dummy_article_3,
             date = LocalDateTime.now(),
             likes = 200
         ),
         ArticleModel(
             title = "Tips Keuangan",
             body = "Bingung ngatur budget? disini kamu bisa tahu tips ngatur keuangan",
-            image = R.drawable.ic_dummy_article_4,
+            image =com.bluehabit.budgetku.data.R.drawable.ic_dummy_article_4,
             date = LocalDateTime.now(),
             likes = 200
         )

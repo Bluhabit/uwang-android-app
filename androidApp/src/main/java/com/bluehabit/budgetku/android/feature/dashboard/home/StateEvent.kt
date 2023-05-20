@@ -107,7 +107,7 @@ data class HomeDataState(
             targetPoints = 2000,
             color = Pink500,
             textColor= Color.White,
-            image = R.drawable.ic_dummy_challenge,
+            image = com.bluehabit.budgetku.data.R.drawable.ic_dummy_challenge,
         ),
         ChallengeModel(
             title = "Investore Extraoordinaire",
@@ -117,49 +117,49 @@ data class HomeDataState(
             targetPoints = 2000,
             color = Yellow500,
             textColor= Grey900,
-            image = R.drawable.ic_dummy_challenge_2,
+            image = com.bluehabit.budgetku.data.R.drawable.ic_dummy_challenge_2,
         )
     ),
     val tutorial: @RawValue List<TutorialBudgetModel> = listOf(
         TutorialBudgetModel(
             title = "Cara Transaksi di Budgetku",
-            image = R.drawable.ic_dummy_tutorial
+            image = com.bluehabit.budgetku.data.R.drawable.ic_dummy_tutorial
         ),
         TutorialBudgetModel(
             title = "Cara Atur Anggran",
-            image = R.drawable.ic_dummy_tutorial_2
+            image =com.bluehabit.budgetku.data.R.drawable.ic_dummy_tutorial_2
         ),
         TutorialBudgetModel(
             title = "Cara Buat Tujuan",
-            image = R.drawable.ic_dummy_tutorial_3
+            image = com.bluehabit.budgetku.data.R.drawable.ic_dummy_tutorial_3
         )
     ),
     val articles: @RawValue List<ArticleModel> = listOf(
         ArticleModel(
             title = "Pusat Bantuan",
             body = "Punya kendala atau pertanyyan terkait Budgetku? kamu bisa kirim di sini",
-            image = R.drawable.ic_dummy_article,
+            image = com.bluehabit.budgetku.data.R.drawable.ic_dummy_article,
             date = LocalDateTime.now(),
             likes = 200
         ),
         ArticleModel(
             title = "Cerdas Finansial",
             body = "Yuk melek finansial bersama Budgetku. Tersedia course keuangan untukmu",
-            image = R.drawable.ic_dummy_article_2,
+            image = com.bluehabit.budgetku.data.R.drawable.ic_dummy_article_2,
             date = LocalDateTime.now(),
             likes = 200
         ),
         ArticleModel(
             title = "Promo & Hadiah",
             body = "Yuk cek berbagai promo menarik di aplikasi Budgetku Sekarang!",
-            image = R.drawable.ic_dummy_article_3,
+            image = com.bluehabit.budgetku.data.R.drawable.ic_dummy_article_3,
             date = LocalDateTime.now(),
             likes = 200
         ),
         ArticleModel(
             title = "Tips Keuangan",
             body = "Bingung ngatur budget? disini kamu bisa tahu tips ngatur keuangan",
-            image = R.drawable.ic_dummy_article_4,
+            image = com.bluehabit.budgetku.data.R.drawable.ic_dummy_article_4,
             date = LocalDateTime.now(),
             likes = 200
         )

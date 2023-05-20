@@ -11,6 +11,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -88,7 +89,7 @@ fun HeaderDashboardHome(
             )
             Spacer(modifier = Modifier.width(10.dp))
             Image(
-                painter = painterResource(id = R.drawable.dummy_avatar),
+                painter = painterResource(id = com.bluehabit.budgetku.data.R.drawable.dummy_avatar),
                 contentDescription = "",
                 modifier = Modifier
                     .size(30.dp)
@@ -153,11 +154,11 @@ fun HeaderDashboardHome(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Row {
-                    Icon(
+                    Image(
                         painter = painterResource(id = R.drawable.arrow_long_circle_up),
-                        contentDescription = "",
-                        tint = Color(0xFF57C45C)
+                        contentDescription = ""
                     )
+
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(
                         text = stringResource(R.string.text_title_income_dashboard_home),
@@ -191,10 +192,9 @@ fun HeaderDashboardHome(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Row {
-                    Icon(
+                    Image(
                         painter = painterResource(id = R.drawable.arrow_long_circle_down),
-                        contentDescription = "",
-                        tint = Color(0xFFFE3419)
+                        contentDescription = ""
                     )
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(

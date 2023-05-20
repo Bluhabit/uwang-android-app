@@ -232,7 +232,7 @@ fun CardMonthlyBudget(
                         ) {
                             Row {
                                 Image(
-                                    painter = painterResource(id = R.drawable.ic_dummy_food),
+                                    painter = painterResource(id = com.bluehabit.budgetku.data.R.drawable.ic_dummy_food),
                                     contentDescription = "",
                                     modifier = Modifier.size(20.dp)
                                 )

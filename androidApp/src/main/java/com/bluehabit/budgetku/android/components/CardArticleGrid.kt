@@ -155,7 +155,7 @@ fun PreviewCardArticleGrid() {
                 CardArticleGrid(
                     title = "Cerdas Finansial",
                     message = "Yuk melek finansial bersama Budgetku.Tersedia course keuangan untuku",
-                    image = R.drawable.ic_dummy_article,
+                    image = com.bluehabit.budgetku.data.R.drawable.ic_dummy_article,
                     onClick = {}
                 )
 

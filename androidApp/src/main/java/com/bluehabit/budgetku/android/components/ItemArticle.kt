@@ -39,7 +39,7 @@ fun ItemArticle(
     title: String = "",
     createdAt: String = "",
     likes: Int = 0,
-    image:Int=R.drawable.ic_dummy_article_4
+    image:Int=com.bluehabit.budgetku.data.R.drawable.ic_dummy_article_4
 ) {
     Column(
         modifier = Modifier.fillMaxWidth()

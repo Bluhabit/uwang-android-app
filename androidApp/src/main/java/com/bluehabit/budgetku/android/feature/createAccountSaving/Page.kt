@@ -26,7 +26,7 @@ import androidx.navigation.compose.composable
 import com.bluehabit.budgetku.android.ApplicationState
 import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.base.UIWrapper
-import com.bluehabit.budgetku.android.components.BottomSheetCalculateEmergencyFund
+import com.bluehabit.budgetku.android.components.bottomSheet.BottomSheetCalculateEmergencyFund
 import com.bluehabit.budgetku.android.components.HeaderStepWithProgress
 import com.bluehabit.budgetku.android.components.ScreenInputFeedback
 import com.bluehabit.budgetku.android.components.ScreenInputSuccess

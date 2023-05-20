@@ -130,7 +130,7 @@ fun PreviewItemTransactionBudget() {
                 ItemExpensesCategoryBudget(
                     amount = BigDecimal(1_000_000),
                     categoryName = "Makan&Minum",
-                    categoryImage = R.drawable.ic_dummy_food,
+                    categoryImage = com.bluehabit.budgetku.data.R.drawable.ic_dummy_food,
                     usage = "50%"
                 )
             }

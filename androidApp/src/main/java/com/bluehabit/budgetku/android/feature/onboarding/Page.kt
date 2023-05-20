@@ -135,6 +135,7 @@ internal fun ScreenOnboard(
                         style = MaterialTheme.typography.h4,
                         fontWeight = FontWeight.Bold
                     )
+                    Spacer(modifier = Modifier.height(26.dp))
                     Text(
                         text = stringResource(id = Onboard.subtitle[it]),
                         modifier = Modifier.fillMaxWidth(),

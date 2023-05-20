@@ -12,6 +12,7 @@ import androidx.compose.runtime.remember
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.bluehabit.budgetku.android.ApplicationState
 
+
 //Wrapper for page composable
 //direct inject ViewModel to content,
 @Composable
@@ -30,3 +31,4 @@ inline fun <reified VM : BaseViewModel<*, *>> UIWrapper(
     }).also { it.setAppState(appState) }
     content(vm)
 }
+

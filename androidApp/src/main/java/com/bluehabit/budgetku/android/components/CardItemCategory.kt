@@ -37,7 +37,7 @@ import com.bluehabit.budgetku.android.ui.Grey900
 
 @Composable
 fun CardItemCategory(
-    icon: Int = R.drawable.ic_dummy_saving,
+    icon: Int = com.bluehabit.budgetku.data.R.drawable.ic_dummy_saving,
     categoryName: String = "",
     selected: Boolean = false,
     onClick: () -> Unit = {}

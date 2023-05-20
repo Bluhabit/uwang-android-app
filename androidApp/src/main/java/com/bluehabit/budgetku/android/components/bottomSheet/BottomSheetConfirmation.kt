@@ -5,7 +5,7 @@
  * Proprietary and confidential
  */
 
-package com.bluehabit.budgetku.android.components
+package com.bluehabit.budgetku.android.components.bottomSheet
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
