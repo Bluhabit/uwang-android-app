@@ -11,7 +11,6 @@ import android.os.Parcelable
 import com.bluehabit.budgetku.data.model.CommentModel
 import com.bluehabit.budgetku.data.model.post.PostModel
 import com.bluehabit.budgetku.data.remote.dummy.dummyComment
-import com.bluehabit.budgetku.data.remote.dummy.dummyDetailPost
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
 import javax.annotation.concurrent.Immutable
