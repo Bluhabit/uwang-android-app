@@ -145,6 +145,7 @@ fun FormInput(
             keyboardOptions = keyboardOptions,
             keyboardActions = keyboardActions,
             textStyle = MaterialTheme.typography.subtitle2,
+            singleLine = true
         )
         Text(
             text = errorMessage,

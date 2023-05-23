@@ -8,14 +8,22 @@
 package com.bluehabit.budgetku.android.base.extensions
 
 import java.math.BigDecimal
+import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.Locale
 
-fun BigDecimal.formatToRupiah(show:Boolean=true): String {
-    return if(show) {
+fun BigDecimal.formatToRupiah(show: Boolean = true): String {
+    return if (show) {
         val format = NumberFormat.getCurrencyInstance(Locale("id", "ID"))
         format.maximumFractionDigits = 0
         format.format(this)
-    }
-    else "Rp*********"
+    } else "Rp*********"
 }
+
+fun BigDecimal.formatDecimal(): String = try {
+    val decimalFormat = DecimalFormat("#,###")
+    decimalFormat.format(this)
+} catch (e: Exception) {
+    ""
+}
+

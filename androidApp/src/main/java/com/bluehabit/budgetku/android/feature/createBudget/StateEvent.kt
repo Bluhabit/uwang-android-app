@@ -14,7 +14,8 @@ import javax.annotation.concurrent.Immutable
 @Immutable
 @Parcelize
 data class CreateBudgetState(
-    val a: String = ""
+    val nominal: String = "",
+    val tempNominal: String = ""
 ) : Parcelable
 
 @Immutable
@@ -23,5 +24,8 @@ data class CreateBudgetDataState(
     val a: String = ""
 ) : Parcelable
 
-sealed class CreateBudgetEvent {
+sealed interface CreateBudgetEvent {
+    data class Input(val nominal:String):CreateBudgetEvent
+    object Clear:CreateBudgetEvent
+    object Remove:CreateBudgetEvent
 }
