@@ -7,9 +7,17 @@
 
 package com.bluehabit.budgetku.android.feature.createBudget
 
+import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
@@ -18,6 +26,7 @@ import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -31,6 +40,7 @@ import com.bluehabit.budgetku.android.R
 import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.base.UIWrapper
 import com.bluehabit.budgetku.android.components.ScreenNumPad
+import com.bluehabit.budgetku.android.components.bottomSheet.BottomSheetConfirmation
 import com.bluehabit.budgetku.android.feature.createBudget.components.ScreenInputAmountBudget
 import com.bluehabit.budgetku.android.feature.resultCreateBudget.ResultCreateBudget
 import com.google.accompanist.pager.HorizontalPager
@@ -53,90 +63,110 @@ internal fun ScreenCreateBudget(
     appState: ApplicationState,
 ) = UIWrapper<CreateBudgetViewModel>(appState = appState) {
     val state by uiState.collectAsState()
-    val pagerState = rememberPagerState(
-        initialPage = 0
-    )
+
     with(appState) {
         setupTopAppBar {
-            TopAppBar(
-                elevation = 0.dp,
-                navigationIcon = {
-                    Icon(
-                        imageVector = Icons.Outlined.ArrowBack,
-                        contentDescription = "",
-                        modifier = Modifier.clickable {
-                            navigateUp()
-                        }
-                    )
+            TopAppbarCreateBudget {
+                navigateUp()
+            }
+        }
+        setupBottomSheet {
+            BottomSheetConfirmation(
+                title = "Yakin membatalkan perubahan?",
+                message = "Data yang sudah kamu ubah belum tersimpan dan akan hilang.",
+                textConfirmation = "Yakin",
+                textCancel = "Batal",
+                onDismiss = {
+                    hideBottomSheet()
                 },
-                title = {
-                    Text(
-                        text = stringResource(R.string.text_title_page_create_budget),
-                        style = MaterialTheme.typography.h6,
-                        fontWeight = FontWeight.Bold,
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier.fillMaxWidth()
-                    )
+                onConfirm = {
+                    hideBottomSheet()
+                    navigateUp()
                 }
             )
         }
     }
 
-    HorizontalPager(
-        count = 2,
-        state = pagerState,
-        userScrollEnabled = false
-    ) {
-        when (it) {
-            0 -> {
-                appState.showTopAppBar()
-                ScreenInputAmountBudget(
-                    amount = state.nominal,
-                    onInputAmount = {
-                        runSuspend {
-                            pagerState.scrollToPage(
-                                page = 1
-                            )
-                        }
-
-                    },
-                    onSubmit = {
-                        navigateAndReplaceAll(ResultCreateBudget.routeName)
-                    }
-                )
-            }
-
-            1 -> {
-                appState.hideTopAppBar()
-                ScreenNumPad(
-                    value = state.nominal,
-                    onChange = {
-                        dispatch(CreateBudgetEvent.Input(it))
-                    },
-                    onSubmit = {
-                        runSuspend {
-                            pagerState.scrollToPage(
-                                page = 0
-                            )
-                        }
-
-                    },
-                    onClear = {
-                        dispatch(CreateBudgetEvent.Clear)
-                    },
-                    onRemove = {
-                        dispatch(CreateBudgetEvent.Remove)
-                    },
-                    onDismiss = {
-                        runSuspend {
-                            pagerState.scrollToPage(
-                                page = 0
-                            )
-                        }
-                    }
-                )
-            }
+    fun onBackPressed() {
+        if (state.step == 1) {
+            showBottomSheet()
         }
+        if (state.step > 1) {
+            dispatch(CreateBudgetEvent.Prev)
+        }
+    }
+    BackHandler {
+        onBackPressed()
+    }
+
+    when (state.step) {
+        1 -> {
+            appState.showTopAppBar()
+            ScreenInputAmountBudget(
+                amount = state.nominal,
+                onInputAmount = {
+                    dispatch(CreateBudgetEvent.Next)
+                },
+                onSubmit = {
+                    navigateAndReplaceAll(ResultCreateBudget.routeName)
+                }
+            )
+        }
+
+        2 -> {
+            appState.hideTopAppBar()
+            ScreenNumPad(
+                value = state.nominal,
+                onChange = {
+                    dispatch(CreateBudgetEvent.Input(it))
+                },
+                onSubmit = {
+                    dispatch(CreateBudgetEvent.Prev)
+
+                },
+                onClear = {
+                    dispatch(CreateBudgetEvent.Clear)
+                },
+                onRemove = {
+                    dispatch(CreateBudgetEvent.Remove)
+                },
+                onDismiss = {
+                    dispatch(CreateBudgetEvent.Prev)
+                }
+            )
+        }
+    }
+
+}
+
+@Composable
+fun TopAppbarCreateBudget(
+    onBackPressed: () -> Unit = {}
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(MaterialTheme.colors.primary)
+            .padding(
+                vertical = 20.dp
+            ),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        IconButton(onClick = onBackPressed) {
+            Icon(
+                imageVector = Icons.Outlined.ArrowBack,
+                contentDescription = "",
+                tint = MaterialTheme.colors.surface
+            )
+        }
+        Text(
+            text = "Atur Total Budget",
+            style = MaterialTheme.typography.h6,
+            fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colors.surface
+        )
+        Spacer(modifier = Modifier.width(8.dp))
     }
 }
 
@@ -146,22 +176,7 @@ internal fun ScreenCreateBudget(
 fun PreviewScreenCreateBudget() {
     BaseMainApp(
         topAppBar = {
-            TopAppBar(
-                elevation = 0.dp,
-                navigationIcon = {
-                    Icon(
-                        imageVector = Icons.Outlined.ArrowBack,
-                        contentDescription = ""
-                    )
-                },
-                title = {
-                    Text(
-                        text = "Atur Total Budget",
-                        style = MaterialTheme.typography.h6,
-                        fontWeight = FontWeight.Bold
-                    )
-                }
-            )
+            TopAppbarCreateBudget()
         }
     ) {
         ScreenCreateBudget(it)

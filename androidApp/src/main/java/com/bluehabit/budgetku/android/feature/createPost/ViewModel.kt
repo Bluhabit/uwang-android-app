@@ -27,10 +27,6 @@ class CreatePostViewModel @Inject constructor(
                     isSubmitEnabled = true
                 )
             }
-
-            is CreatePostEvent.ChangeContentText -> commit {
-                copy(contentText = it.contentText)
-            }
         }
     }
 

@@ -7,6 +7,7 @@
 
 package com.bluehabit.budgetku.android.feature.createAccount.screen
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -17,6 +18,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -37,10 +39,13 @@ import com.bluehabit.budgetku.android.components.alert.Alert
 import com.bluehabit.budgetku.android.components.alert.AlertDefaults
 import com.bluehabit.budgetku.android.components.input.FormInputSearch
 import com.bluehabit.budgetku.android.ui.Blue50
+import com.bluehabit.budgetku.data.model.CategoryFinancialAccountModel
 
 @Composable
 fun ScreenInputAccount(
-    onSelect: () -> Unit = {}
+    accounts:List<CategoryFinancialAccountModel> = listOf(),
+    onSelect: () -> Unit = {},
+    onBackPressed:()->Unit={}
 ) {
     Column(
         modifier = Modifier
@@ -68,7 +73,11 @@ fun ScreenInputAccount(
             ) {
                 Icon(
                     imageVector = Icons.Outlined.ArrowBack,
-                    contentDescription = ""
+                    contentDescription = "",
+                    modifier = Modifier.clickable(
+                        enabled = true,
+                        onClick = onBackPressed
+                    )
                 )
                 Spacer(modifier = Modifier.width(16.dp))
                 Text(
@@ -107,46 +116,11 @@ fun ScreenInputAccount(
                         )
                         Spacer(modifier = Modifier.height(20.dp))
                     }
-                    item {
+                    items(accounts){
                         ItemTemplateAccount(
-                            accountName = "Akun Cash",
-                            accountType = "Manual",
-                            isDivider = true
-                        )
-                    }
-                    item {
-                        ItemTemplateAccount(
-                            accountName = "Bank BCA",
-                            accountType = "Manual",
-                            isDivider = false
-                        )
-                    }
-                    item {
-                        ItemTemplateAccount(
-                            accountName = "E-Wallet Populer",
-                            accountType = "Manual",
-                            isDivider = true
-                        )
-                    }
-                    item {
-                        ItemTemplateAccount(
-                            accountName = "Bank BCA",
-                            accountType = "Manual",
-                            isDivider = false
-                        )
-                    }
-                    item {
-                        ItemTemplateAccount(
-                            accountName = "Bank BCA",
-                            accountType = "Manual",
-                            isDivider = false
-                        )
-                    }
-                    item {
-                        ItemTemplateAccount(
-                            accountName = "Bank BCA",
-                            accountType = "Manual",
-                            isDivider = false
+                            accountName = it.name,
+                            items=it.children,
+                            onSelectedAccount = onSelect
                         )
                     }
                 }

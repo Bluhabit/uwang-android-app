@@ -15,6 +15,6 @@ data class AccountSavingModel(
     val savingName:String,
     val targetBalance:String,
     val totalBalance:String,
-    val target:LocalDateTime,
+    val target:String,
     val progress:Float
 )

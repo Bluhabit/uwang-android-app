@@ -91,15 +91,14 @@ fun CardItemAccountSaving(
                             .clip(CircleShape)
                             .background(Grey300)
                             .padding(
-                                all = 2.dp
+                                all = 6.dp
                             )
                     ) {
                         Image(
                             painter = painterResource(id = icon),
                             contentDescription = "",
                             modifier = Modifier
-                                .fillMaxSize()
-                                .clip(CircleShape),
+                                .fillMaxSize(),
                         )
                     }
                     Spacer(modifier = Modifier.width(8.dp))
@@ -123,13 +122,15 @@ fun CardItemAccountSaving(
                         .size(30.dp)
                         .clip(CircleShape)
                         .background(Color.White)
+                        .padding(
+                            all = 6.dp
+                        )
                 ) {
                     Image(
                         painter = painterResource(id = accountIcon),
                         contentDescription = "",
                         modifier = Modifier
-                            .fillMaxSize()
-                            .clip(CircleShape),
+                            .fillMaxSize(),
                     )
                 }
 

@@ -50,7 +50,8 @@ fun HeaderDashboardHome(
     expenses: BigDecimal = BigDecimal.ZERO,
     income: BigDecimal = BigDecimal.ZERO,
     showBalance: Boolean = true,
-    onShowBalance: (Boolean) -> Unit = {}
+    onShowBalance: (Boolean) -> Unit = {},
+    onShowProfile: () -> Unit = {}
 ) {
 
     val ctx = LocalContext.current
@@ -93,6 +94,10 @@ fun HeaderDashboardHome(
                 modifier = Modifier
                     .size(30.dp)
                     .clip(CircleShape)
+                    .clickable(
+                        enabled = true,
+                        onClick = onShowProfile
+                    )
             )
 
         }

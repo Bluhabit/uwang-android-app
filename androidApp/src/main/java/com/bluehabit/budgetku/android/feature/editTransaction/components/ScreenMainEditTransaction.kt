@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
@@ -33,7 +34,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -41,12 +41,27 @@ import androidx.compose.ui.unit.dp
 import com.bluehabit.budgetku.android.R
 import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.components.DottedLine
+import com.bluehabit.budgetku.android.components.ItemEditTransactionDetail
 import com.bluehabit.budgetku.android.components.button.ButtonOutlinedPrimary
 import com.bluehabit.budgetku.android.ui.Blue800
 import com.bluehabit.budgetku.android.ui.Grey300
 
 @Composable
-fun ScreenMainEditTransaction() {
+fun ScreenMainEditTransaction(
+    isExpenses: Boolean = true,
+    onChangeTransactionType: (Boolean) -> Unit = {},
+    amount: String = "",
+    onInputAmount: () -> Unit = {},
+    transactionDate: String = "",
+    onSelectTransactionDate: () -> Unit = {},
+    categoryName: String = "",
+    categoryIcon: Int = R.drawable.ic_food,
+    onSelectCategory: () -> Unit = {},
+    bankAccountName: String = "",
+    bankAccountIcon: Int = com.bluehabit.budgetku.data.R.drawable.dummy_bank_jago,
+    onSelectAccount: () -> Unit = {},
+    onSubmit:()->Unit={}
+) {
     val ctx = LocalContext.current
     val currentWidth = ctx
         .resources
@@ -107,12 +122,18 @@ fun ScreenMainEditTransaction() {
                                 .width(cardWidth)
                                 .height(50.dp)
                                 .clip(MaterialTheme.shapes.small)
+                                .clickable(
+                                    enabled = true,
+                                    onClick = {
+                                        onChangeTransactionType(false)
+                                    }
+                                )
                                 .border(
                                     width = 1.dp,
                                     shape = MaterialTheme.shapes.medium,
                                     color = Grey300
                                 )
-                                .background(MaterialTheme.colors.surface)
+                                .background(if (isExpenses) MaterialTheme.colors.surface else Blue800)
                                 .padding(
                                     vertical = 8.dp
                                 ),
@@ -140,7 +161,13 @@ fun ScreenMainEditTransaction() {
                                 .width(cardWidth)
                                 .height(50.dp)
                                 .clip(MaterialTheme.shapes.small)
-                                .background(Blue800)
+                                .clickable(
+                                    enabled = true,
+                                    onClick = {
+                                        onChangeTransactionType(true)
+                                    }
+                                )
+                                .background(if (isExpenses) Blue800 else MaterialTheme.colors.surface)
                                 .padding(
                                     vertical = 8.dp
                                 ),
@@ -183,15 +210,15 @@ fun ScreenMainEditTransaction() {
                     Spacer(modifier = Modifier.height(10.dp))
                     ItemEditTransactionDetail(
                         icon = R.drawable.ic_rp,
-                        value = "50.000",
-                        onClick = {}
+                        value = amount,
+                        onClick = onInputAmount
                     )
                     Spacer(modifier = Modifier.height(10.dp))
                     ItemEditTransactionDetail(
-                        icon = R.drawable.ic_food,
-                        value = "Makanan & Minuman",
+                        icon = categoryIcon,
+                        value = categoryName,
                         isExpandable = true,
-                        onClick = {},
+                        onClick = onSelectCategory,
                     )
                     Spacer(modifier = Modifier.height(10.dp))
                     ItemEditTransactionDetail(
@@ -201,17 +228,17 @@ fun ScreenMainEditTransaction() {
                     )
                     Spacer(modifier = Modifier.height(10.dp))
                     ItemEditTransactionDetail(
-                        icon = com.bluehabit.budgetku.data.R.drawable.dummy_bank_jago,
-                        value = stringResource(id = R.string.text_bank_bca),
+                        icon = bankAccountIcon,
+                        value = bankAccountName,
                         isExpandable = true,
-                        onClick = {},
+                        onClick = onSelectAccount,
                     )
                     Spacer(modifier = Modifier.height(10.dp))
                     ItemEditTransactionDetail(
                         icon = R.drawable.ic_calendar,
-                        value = "8 April 2023",
+                        value = transactionDate,
                         isExpandable = true,
-                        onClick = {},
+                        onClick = onSelectTransactionDate,
                     )
 
                 }
@@ -233,48 +260,12 @@ fun ScreenMainEditTransaction() {
                     vertical = 16.dp
                 )
         ) {
-            ButtonOutlinedPrimary(text = "simpan")
-        }
-
-    }
-}
-
-@Composable
-fun ItemEditTransactionDetail(
-    icon: Int = 0,
-    value: String = "",
-    isExpandable: Boolean = false,
-    onClick: () -> Unit = {},
-) {
-    Row(
-        modifier = Modifier
-            .clip(RoundedCornerShape(8.dp))
-            .clickable { onClick() }
-            .background(Color(0xFFfafafa))
-            .border(
-                BorderStroke(1.5.dp, Color(0xFFe0e0e0)),
-                RoundedCornerShape(8.dp)
-            )
-            .padding(16.dp),
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Image(
-            painter = painterResource(id = icon),
-            contentDescription = ""
-        )
-        Text(
-            modifier = Modifier.weight(1f),
-            text = value,
-            style = MaterialTheme.typography.subtitle1,
-            fontWeight = FontWeight.Medium
-        )
-        if (isExpandable) {
-            Image(
-                painter = painterResource(id = R.drawable.ic_arrow_short_down),
-                contentDescription = ""
+            ButtonOutlinedPrimary(
+                text = "simpan",
+                onClick = onSubmit
             )
         }
+
     }
 }
 

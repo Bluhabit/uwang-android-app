@@ -33,7 +33,9 @@ import com.bluehabit.budgetku.android.components.bottomSheet.ItemBudgetCategory
 import com.bluehabit.budgetku.android.components.bottomSheet.ItemBudgetSubCategory
 import com.bluehabit.budgetku.android.components.ScreenInputFeedback
 import com.bluehabit.budgetku.android.components.ScreenInputSuccess
+import com.bluehabit.budgetku.android.components.bottomSheet.BottomSheetConfirmation
 import com.bluehabit.budgetku.android.components.bottomSheet.BottomSheetDatePicker
+import com.bluehabit.budgetku.android.feature.createTransaction.CreateTransactionBottomSheetType.CANCEL_CONFIRMATION
 import com.bluehabit.budgetku.android.feature.createTransaction.CreateTransactionBottomSheetType.CATEGORY
 import com.bluehabit.budgetku.android.feature.createTransaction.CreateTransactionBottomSheetType.DATE_PICKER
 import com.bluehabit.budgetku.android.feature.createTransaction.components.ScreenInputAccount
@@ -42,6 +44,7 @@ import com.bluehabit.budgetku.android.feature.createTransaction.components.Scree
 import com.bluehabit.budgetku.android.feature.createTransaction.components.ScreenInputTransactionNameAndCategory
 import com.bluehabit.budgetku.android.feature.createTransaction.components.ScreenInputTransactionType
 import com.bluehabit.budgetku.android.ui.Blue800
+import kotlinx.coroutines.delay
 
 object CreateTransaction {
     const val routeName = "CreateTransaction"
@@ -156,16 +159,40 @@ internal fun ScreenCreateTransaction(
                         }
                     )
                 }
+
+                CANCEL_CONFIRMATION -> {
+                    BottomSheetConfirmation(
+                        title = "Yakin membatalkan perubahan?",
+                        message = "Data yang sudah kamu ubah belum tersimpan dan akan hilang.",
+                        textConfirmation = "Yakin",
+                        textCancel = "Batal",
+                        onDismiss = {
+                            hideBottomSheet()
+                        },
+                        onConfirm = {
+                            hideBottomSheet()
+                            navigateUp()
+                        }
+                    )
+                }
             }
 
         }
     }
-    BackHandler {
+    fun onBackPressed() {
         if (state.step == 1) {
-            navigateUp()
+            commit {
+                copy(
+                    bottomSheetType = CANCEL_CONFIRMATION
+                )
+            }
+            showBottomSheet()
         } else {
             dispatch(CreateTransactionEvent.PrevPage)
         }
+    }
+    BackHandler {
+        onBackPressed()
     }
 
     Box(
@@ -198,7 +225,10 @@ internal fun ScreenCreateTransaction(
                             isExpenses = it
                         )
                     }
-                    dispatch(CreateTransactionEvent.NexPage)
+                    runSuspend {
+                        delay(500)
+                        dispatch(CreateTransactionEvent.NexPage)
+                    }
                 }
             )
 
@@ -212,7 +242,10 @@ internal fun ScreenCreateTransaction(
                             selectedAccount = it
                         )
                     }
-                    dispatch(CreateTransactionEvent.NexPage)
+                    runSuspend {
+                        delay(500)
+                        dispatch(CreateTransactionEvent.NexPage)
+                    }
                 }
             )
 
@@ -241,7 +274,10 @@ internal fun ScreenCreateTransaction(
                     dispatch(CreateTransactionEvent.AddMoreTransaction)
                 },
                 onSave = {
-                    dispatch(CreateTransactionEvent.NexPage)
+                    runSuspend {
+                        delay(500)
+                        dispatch(CreateTransactionEvent.NexPage)
+                    }
                 }
             )
 
@@ -287,10 +323,17 @@ internal fun ScreenCreateTransaction(
                 onBackPress = {
                     if (state.step > 1) {
                         dispatch(CreateTransactionEvent.PrevPage)
+                    } else {
+                        onBackPressed()
                     }
                 },
                 onClose = {
-                    navigateUp()
+                    commit {
+                        copy(
+                            bottomSheetType = CANCEL_CONFIRMATION
+                        )
+                    }
+                    showBottomSheet()
                 }
             )
         }

@@ -218,22 +218,27 @@ fun TextAnnotationWithStyle(
         labels.forEachIndexed { _, data ->
             when (data) {
                 is AnnotationTextItem.Text -> {
-                    append(" ")
                     withStyle(
                         style = SpanStyle(
                             color = data.style.color,
+                            fontStyle = data.style.fontStyle,
+                            fontWeight = data.style.fontWeight,
+                            fontSize = data.style.fontSize,
+                            fontFamily = data.style.fontFamily,
+                            letterSpacing = data.style.letterSpacing
                         )
                     ) {
                         append(data.text)
                     }
+                    append(" ")
                 }
+
                 else -> Unit
             }
         }
     }
     Text(
         text = annotates,
-        style = MaterialTheme.typography.subtitle1,
     )
 }
 

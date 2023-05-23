@@ -7,7 +7,9 @@
 
 package com.bluehabit.budgetku.android.components
 
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.BottomAppBar
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
@@ -47,6 +49,13 @@ sealed class DashboardBottomNavigationMenu(
         iconInactive = R.drawable.nav_community_inactive
     )
 
+    object MenuMiddle : DashboardBottomNavigationMenu(
+        route = "MIDDLE",
+        name = R.string.label_nav_community_dashboard,
+        iconActive = R.drawable.nav_community_active,
+        iconInactive = R.drawable.nav_community_inactive
+    )
+
     object MenuBudget : DashboardBottomNavigationMenu(
         route = Budget.routeName,
         name = R.string.label_nav_budget_dashboard,
@@ -65,6 +74,7 @@ sealed class DashboardBottomNavigationMenu(
 var menus = listOf(
     DashboardBottomNavigationMenu.MenuHome,
     DashboardBottomNavigationMenu.MenuCommunity,
+    DashboardBottomNavigationMenu.MenuMiddle,
     DashboardBottomNavigationMenu.MenuBudget,
     DashboardBottomNavigationMenu.MenuReport
 )
@@ -82,28 +92,32 @@ fun DashboardBottomNavigation(
         modifier = Modifier.height(65.dp)
     ) {
 
-        menus.forEach {
-            BottomNavigationItem(
-                selected = currentRoute == it.route,
-                selectedContentColor = MaterialTheme.colors.primary,
-                unselectedContentColor = Grey500,
-                onClick = {
-                    if (currentRoute != it.route) onClick(it)
-                    else onRefresh(it)
-                },
-                icon = {
-                    Icon(
-                        painter = painterResource(
-                            id = if (currentRoute == it.route) it.iconActive
-                            else it.iconInactive
-                        ),
-                        contentDescription = stringResource(id = it.name)
-                    )
-                },
-                label = {
-                    Text(text = stringResource(id = it.name))
-                }
-            )
+        menus.forEachIndexed { index, it ->  
+            if(it.route == "MIDDLE"){
+                Spacer(modifier = Modifier.width(40.dp))
+            }else {
+                BottomNavigationItem(
+                    selected = currentRoute == it.route,
+                    selectedContentColor = MaterialTheme.colors.primary,
+                    unselectedContentColor = Grey500,
+                    onClick = {
+                        if (currentRoute != it.route) onClick(it)
+                        else onRefresh(it)
+                    },
+                    icon = {
+                        Icon(
+                            painter = painterResource(
+                                id = if (currentRoute == it.route) it.iconActive
+                                else it.iconInactive
+                            ),
+                            contentDescription = stringResource(id = it.name)
+                        )
+                    },
+                    label = {
+                        Text(text = stringResource(id = it.name))
+                    }
+                )
+            }
         }
     }
 

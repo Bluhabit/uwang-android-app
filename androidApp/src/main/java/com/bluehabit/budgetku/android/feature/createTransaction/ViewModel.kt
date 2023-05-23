@@ -60,7 +60,6 @@ class CreateTransactionViewModel @Inject constructor(
     }
 
     private fun calculatePage(isNext: Boolean) = asyncWithState {
-
         val page = if (isNext) {
             if (step < 7) {
                 step + 1

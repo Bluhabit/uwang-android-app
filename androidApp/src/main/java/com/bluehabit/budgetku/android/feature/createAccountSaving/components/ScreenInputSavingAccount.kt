@@ -81,6 +81,7 @@ fun ScreenInputSavingAccount(
                     }
                     itemsIndexed(accounts) {index,account->
                         ItemAccount(
+                            icon=account.icon,
                             selected = selected == index,
                             accountBankName = account.accountName,
                             accountBalance = account.accountBalance,

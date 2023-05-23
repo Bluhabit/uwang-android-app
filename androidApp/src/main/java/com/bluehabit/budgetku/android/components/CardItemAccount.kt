@@ -84,14 +84,16 @@ fun CardItemAccount(
                         .size(40.dp)
                         .clip(CircleShape)
                         .background(Color.White)
+                        .padding(
+                            all = 6.dp
+                        )
                 ) {
                     Image(
                         painter = painterResource(id = icon),
                         contentDescription = "",
                         modifier = Modifier
                             .align(Alignment.Center)
-                            .size(20.dp)
-                            .clip(CircleShape),
+                            .size(20.dp),
                     )
                     if (hasSaving) {
                         Image(

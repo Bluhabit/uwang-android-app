@@ -8,6 +8,7 @@
 package com.bluehabit.budgetku.android.feature.createPost
 
 import android.net.Uri
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -46,6 +47,7 @@ import androidx.navigation.compose.composable
 import com.bluehabit.budgetku.android.ApplicationState
 import com.bluehabit.budgetku.android.R
 import com.bluehabit.budgetku.android.base.UIWrapper
+import com.bluehabit.budgetku.android.components.bottomSheet.BottomSheetConfirmation
 import com.bluehabit.budgetku.android.components.bottomSheet.BottomSheetSelectPostVisibility
 import com.bluehabit.budgetku.android.components.button.ButtonOutlinedPrimary
 import com.bluehabit.budgetku.android.components.button.ButtonPrimary
@@ -71,23 +73,51 @@ fun NavGraphBuilder.routeCreatePost(
 
 @Composable
 fun ScreenCreatePost(
-    appState : ApplicationState,
+    appState: ApplicationState,
 ) = UIWrapper<CreatePostViewModel>(appState = appState) {
     val state by uiState.collectAsState()
     with(appState) {
+        hideTopAppBar()
         setupBottomSheet {
-            BottomSheetSelectPostVisibility(
-                postVisibility = state.postVisibility,
-                onSubmit = {
-                    dispatch(CreatePostEvent.ChangePostVisibility(it))
-                    hideBottomSheet()
-                },
-                onDismiss = { hideBottomSheet() },
-                onVisibilitySelected = {
-                    dispatch(CreatePostEvent.ChangePostVisibility(it))
+            when (state.bottomSheetType) {
+                CreatePostBottomSheetType.CHANGE_VISIBILITY -> {
+                    BottomSheetSelectPostVisibility(
+                        postVisibility = state.postVisibility,
+                        onSubmit = {
+                            dispatch(CreatePostEvent.ChangePostVisibility(it))
+                            hideBottomSheet()
+                        },
+                        onDismiss = { hideBottomSheet() },
+                        onVisibilitySelected = {
+                            dispatch(CreatePostEvent.ChangePostVisibility(it))
+                        }
+                    )
                 }
+
+                CreatePostBottomSheetType.CANCEL_CONFIRMATION -> BottomSheetConfirmation(
+                    title = "Yakin membatalkan perubahan?",
+                    message = "Data yang sudah kamu ubah belum tersimpan dan akan hilang.",
+                    textConfirmation = "Yakin",
+                    textCancel = "Batal",
+                    onDismiss = {
+                        hideBottomSheet()
+                    },
+                    onConfirm = {
+                        hideBottomSheet()
+                        navigateUp()
+                    }
+                )
+            }
+
+        }
+    }
+    BackHandler {
+        commit {
+            copy(
+                bottomSheetType = CreatePostBottomSheetType.CANCEL_CONFIRMATION
             )
         }
+        showBottomSheet()
     }
     Box(
         modifier = Modifier.fillMaxSize(),
@@ -97,12 +127,31 @@ fun ScreenCreatePost(
                 .background(Color.White)
         ) {
             TopAppBarCreatePost(
-                isSubmitEnabled = state.isSubmitEnabled
+                isSubmitEnabled = state.isSubmitEnabled,
+                onDismiss = {
+                    commit {
+                        copy(
+                            bottomSheetType = CreatePostBottomSheetType.CANCEL_CONFIRMATION
+                        )
+                    }
+                    showBottomSheet()
+                },
+                onSubmit = {
+                    navigateUp()
+                }
             )
             ProfileCreatePost(
                 postVisibility = state.postVisibility,
                 profileName = state.profileName,
-                onChangeVisibility = { showBottomSheet() }
+                onChangeVisibility = {
+                    commit {
+                        copy(
+                            bottomSheetType = CreatePostBottomSheetType.CHANGE_VISIBILITY
+                        )
+                    }
+                    showBottomSheet()
+                    showBottomSheet()
+                }
             )
             LazyColumn(
                 modifier = Modifier
@@ -114,7 +163,11 @@ fun ScreenCreatePost(
                         hintText = stringResource(id = R.string.text_content_placeholder_create_post),
                         contextText = state.contentText,
                         onValueChanged = {
-                            dispatch(CreatePostEvent.ChangeContentText(it))
+                            commit {
+                                copy(
+                                    contentText = it
+                                )
+                            }
                         }
                     )
                 }
@@ -132,13 +185,12 @@ fun ScreenCreatePost(
     }
 
 
-
-
 }
 
 @Composable
 fun TopAppBarCreatePost(
     isSubmitEnabled: Boolean = false,
+    onSubmit: () -> Unit = {},
     onDismiss: () -> Unit = {},
 ) {
     Row(
@@ -160,7 +212,7 @@ fun TopAppBarCreatePost(
             enabled = isSubmitEnabled,
             fullWidth = false,
             height = 33.dp,
-            onClick = {  }
+            onClick = onSubmit
         )
     }
 }
@@ -179,22 +231,22 @@ fun BottomAppBarCreatePost(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Image(
-                modifier = Modifier.clickable {  },
+                modifier = Modifier.clickable { },
                 painter = painterResource(id = R.drawable.ic_image),
                 contentDescription = ""
             )
             Image(
-                modifier = Modifier.clickable {  },
+                modifier = Modifier.clickable { },
                 painter = painterResource(id = R.drawable.ic_attachment),
                 contentDescription = ""
             )
             Image(
-                modifier = Modifier.clickable {  },
+                modifier = Modifier.clickable { },
                 painter = painterResource(id = R.drawable.ic_calculator),
                 contentDescription = ""
             )
             Image(
-                modifier = Modifier.clickable {  },
+                modifier = Modifier.clickable { },
                 painter = painterResource(id = R.drawable.ic_graph),
                 contentDescription = ""
             )
@@ -231,7 +283,7 @@ fun ProfileCreatePost(
                 style = MaterialTheme.typography.subtitle1,
                 fontWeight = FontWeight.Bold
             )
-            val textButton = when(postVisibility) {
+            val textButton = when (postVisibility) {
                 PostVisibility.PUBLIC -> stringResource(id = R.string.text_bottom_sheet_public_create_post)
                 PostVisibility.ONLY_ME -> stringResource(id = R.string.text_bottom_sheet_only_me_create_post)
                 PostVisibility.ONLY_FOLLOWING -> stringResource(id = R.string.text_bottom_sheet_only_follow_create_post)

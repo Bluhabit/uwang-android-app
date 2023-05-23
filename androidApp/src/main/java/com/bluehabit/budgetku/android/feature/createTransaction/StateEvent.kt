@@ -18,7 +18,8 @@ import javax.annotation.concurrent.Immutable
 
 enum class CreateTransactionBottomSheetType {
     CATEGORY,
-    DATE_PICKER
+    DATE_PICKER,
+    CANCEL_CONFIRMATION
 }
 
 @Immutable

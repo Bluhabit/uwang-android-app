@@ -12,6 +12,10 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 import javax.annotation.concurrent.Immutable
 
+enum class CreatePostBottomSheetType{
+    CHANGE_VISIBILITY,
+    CANCEL_CONFIRMATION
+}
 @Immutable
 @Parcelize
 data class CreatePostState(
@@ -21,10 +25,11 @@ data class CreatePostState(
     val profilePicture: Uri = Uri.parse(""), // temporary
     val attachments: List<Uri> = listOf(), // temporary
     val contentText: String = "",
+
+    val bottomSheetType: CreatePostBottomSheetType = CreatePostBottomSheetType.CHANGE_VISIBILITY
 ) : Parcelable
 
 
 sealed class CreatePostEvent {
-    data class ChangeContentText(val contentText: String): CreatePostEvent()
     data class ChangePostVisibility(val postVisibility: PostVisibility): CreatePostEvent()
 }

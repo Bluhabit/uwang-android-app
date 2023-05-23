@@ -7,6 +7,7 @@
 
 package com.bluehabit.budgetku.android.feature.listTransaction
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -86,9 +87,6 @@ internal fun ScreenListTransaction(
             )
         }
     }
-
-
-
     LazyColumn(content = {
         item {
             Column(
@@ -145,10 +143,9 @@ internal fun ScreenListTransaction(
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Row {
-                            Icon(
+                            Image(
                                 painter = painterResource(id = R.drawable.arrow_long_circle_up),
-                                contentDescription = "",
-                                tint = Color(0xFF57C45C)
+                                contentDescription = ""
                             )
                             Spacer(modifier = Modifier.width(8.dp))
                             Text(
@@ -183,10 +180,9 @@ internal fun ScreenListTransaction(
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Row {
-                            Icon(
+                            Image(
                                 painter = painterResource(id = R.drawable.arrow_long_circle_down),
                                 contentDescription = "",
-                                tint = Color(0xFFFE3419)
                             )
                             Spacer(modifier = Modifier.width(8.dp))
                             Text(
@@ -247,7 +243,7 @@ internal fun ScreenListTransaction(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
-                    text = "01 April 2023",
+                    text = "24 Mei 2023",
                     style = MaterialTheme.typography.subtitle1,
                     fontWeight = FontWeight.Medium,
                     color = MaterialTheme.colors.onSurface
@@ -273,7 +269,8 @@ internal fun ScreenListTransaction(
                 isExpenses = it.isTransactionExpenses,
                 onClick = {
                     navigateSingleTop(DetailTransaction.routeName)
-                }
+                },
+                transactionIcon=it.transactionIcon
             )
         }
     })

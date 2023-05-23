@@ -42,6 +42,7 @@ fun ScreenInputGoalsName(
         )
         Spacer(modifier = Modifier.height(16.dp))
         FormInput(
+            value=value,
             placeholder = "Masukkan nama tujuan kamu",
             onChange = onChange
         )

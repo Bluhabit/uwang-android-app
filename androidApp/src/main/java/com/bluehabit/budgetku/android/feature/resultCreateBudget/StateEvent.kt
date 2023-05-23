@@ -14,7 +14,7 @@ import javax.annotation.concurrent.Immutable
 @Immutable
 @Parcelize
 data class ResultCreateBudgetState(
-    val a: String = ""
+    val feedback: String = ""
 ) : Parcelable
 
 @Immutable

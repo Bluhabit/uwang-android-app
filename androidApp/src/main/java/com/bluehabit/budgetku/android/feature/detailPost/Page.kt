@@ -100,7 +100,7 @@ internal fun ScreenDetailPost(
         modifier = Modifier.fillMaxSize()
     ) {
         LazyColumn(content = {
-            item{
+            item {
                 Spacer(modifier = Modifier.height(20.dp))
             }
             item {
@@ -228,7 +228,14 @@ internal fun ScreenDetailPost(
                 ),
         ) {
             FormReplyComment(
-
+                value = state.comment,
+                onChange = {
+                    commit {
+                        copy(
+                            comment = it
+                        )
+                    }
+                }
             )
         }
     }
@@ -236,7 +243,7 @@ internal fun ScreenDetailPost(
 
 @Composable
 fun TopAppBarDetailPost(
-    commentCount:Int=0,
+    commentCount: Int = 0,
     onBackPressed: () -> Unit = {}
 ) {
     TopAppBar(

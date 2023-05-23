@@ -8,6 +8,7 @@
 package com.bluehabit.budgetku.android.feature.createAccountSaving
 
 import android.os.Parcelable
+import com.bluehabit.budgetku.android.feature.createBudget.CreateBudgetEvent
 import com.bluehabit.budgetku.data.model.account.AccountModel
 import com.bluehabit.budgetku.data.model.category.SavingCategory
 import com.bluehabit.budgetku.data.remote.dummy.dummyAccountsHome
@@ -18,16 +19,28 @@ import java.math.BigDecimal
 import javax.annotation.concurrent.Immutable
 
 
+enum class CreateAccountSavingBottomSheetType{
+    EMERGENCY_FUND,
+    CANCEL_CONFIRMATION
+}
 
 @Immutable
 @Parcelize
 data class CreateAccountSavingState(
-    val screenType: Int=0,
+    val screenType: Int=1,
     val selectedCategory:Int=0,
     val savingPurpose:String="",
     val selectedAccount:Int=0,
     val amount:BigDecimal= BigDecimal.ZERO,
-    val target:String="0"
+    val target:String="0",
+
+    val feedback:String="",
+
+    val nominal:String="1,000,000",
+    val tempNominal:String="1000000",
+
+    val bottomSheetType: CreateAccountSavingBottomSheetType = CreateAccountSavingBottomSheetType.EMERGENCY_FUND
+
 ) : Parcelable
 
 @Immutable
@@ -40,4 +53,8 @@ data class CreateAccountSavingDataState(
 sealed interface CreateAccountSavingEvent {
     object Next:CreateAccountSavingEvent
     object Prev:CreateAccountSavingEvent
+
+    data class Input(val nominal:String): CreateAccountSavingEvent
+    object Clear: CreateAccountSavingEvent
+    object Remove: CreateAccountSavingEvent
 }

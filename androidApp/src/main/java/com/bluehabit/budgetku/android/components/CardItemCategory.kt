@@ -72,7 +72,7 @@ fun CardItemCategory(
             text = categoryName,
             style = MaterialTheme.typography.subtitle1,
             fontWeight = FontWeight.Medium,
-            color = Grey900
+            color = if(selected) MaterialTheme.colors.onPrimary else Grey900
         )
 
     }

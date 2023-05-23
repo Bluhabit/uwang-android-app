@@ -49,7 +49,7 @@ import com.bluehabit.budgetku.data.model.post.ContentBudgetingPostModel
 @Composable
 fun ItemFeed(
     userName: String = "",
-    avatar:Int=com.bluehabit.budgetku.data.R.drawable.dummy_avatar_1,
+    avatar: Int = com.bluehabit.budgetku.data.R.drawable.dummy_avatar_1,
     createdAt: String = "",
     comments: Int = 0,
     likes: Int = 0,
@@ -62,11 +62,7 @@ fun ItemFeed(
 ) {
     Column(
         modifier = Modifier
-            .fillMaxWidth()
-            .clickable(
-                enabled = true,
-                onClick = onClick
-            ),
+            .fillMaxWidth(),
     ) {
         Row(
             modifier = Modifier
@@ -78,7 +74,7 @@ fun ItemFeed(
             horizontalArrangement = Arrangement.Start
         ) {
             Image(
-                painter = painterResource(id =avatar),
+                painter = painterResource(id = avatar),
                 contentDescription = "",
                 modifier = Modifier
                     .size(48.dp)
@@ -111,9 +107,14 @@ fun ItemFeed(
             }
         }
         Column(
-            modifier = Modifier.padding(
-                horizontal = 20.dp
-            )
+            modifier = Modifier
+                .clickable(
+                    enabled = true,
+                    onClick = onClick
+                )
+                .padding(
+                    horizontal = 20.dp
+                )
         ) {
             content.invoke()
         }
@@ -201,13 +202,13 @@ fun ItemFeed(
 @Composable
 fun ItemFeed(
     userName: String = "",
-    avatar:Int=com.bluehabit.budgetku.data.R.drawable.dummy_avatar_1,
+    avatar: Int = com.bluehabit.budgetku.data.R.drawable.dummy_avatar_1,
     createdAt: String = "",
     body: String = "",
     comments: Int = 0,
     likes: Int = 0,
     verified: Boolean = false,
-    onClick: () -> Unit={},
+    onClick: () -> Unit = {},
     onComment: () -> Unit = {},
     onLike: () -> Unit = {},
     onShare: () -> Unit = {},

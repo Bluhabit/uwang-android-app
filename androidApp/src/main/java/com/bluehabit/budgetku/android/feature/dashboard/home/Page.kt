@@ -40,7 +40,7 @@ import com.bluehabit.budgetku.android.components.CardMonthlyBudget
 import com.bluehabit.budgetku.android.components.DashboardBottomNavigation
 import com.bluehabit.budgetku.android.components.DashboardBottomNavigationMenu
 import com.bluehabit.budgetku.android.components.HeaderDashboardHome
-import com.bluehabit.budgetku.android.components.HeaderSectionDashboardHome
+import com.bluehabit.budgetku.android.components.HeaderSection
 import com.bluehabit.budgetku.android.components.ItemAccount
 import com.bluehabit.budgetku.android.components.ItemTransaction
 import com.bluehabit.budgetku.android.components.ItemTutorial
@@ -51,6 +51,7 @@ import com.bluehabit.budgetku.android.feature.dashboard.budget.Budget
 import com.bluehabit.budgetku.android.feature.detailTransaction.DetailTransaction
 import com.bluehabit.budgetku.android.feature.listAccount.ListAccount
 import com.bluehabit.budgetku.android.feature.listTransaction.ListTransaction
+import com.bluehabit.budgetku.android.feature.profile.Profile
 import com.bluehabit.budgetku.android.rememberApplicationState
 
 object Home {
@@ -125,11 +126,14 @@ internal fun ScreenHome(
                     expenses = dataState.expenses,
                     income = dataState.income,
                     showBalance = state.showBalance,
-                    onShowBalance = { commit { copy(showBalance = it) } }
+                    onShowBalance = { commit { copy(showBalance = it) } },
+                    onShowProfile = {
+                        navigateSingleTop(Profile.routeName)
+                    }
                 )
             }
             item {
-                HeaderSectionDashboardHome(
+                HeaderSection(
                     title = stringResource(R.string.title_section_list_account_dashboard_home),
                     onClick = {
                         navigateSingleTop(ListAccount.routeName)
@@ -156,7 +160,7 @@ internal fun ScreenHome(
                     })
             }
             item {
-                HeaderSectionDashboardHome(
+                HeaderSection(
                     title = stringResource(R.string.title_section_monthly_budgeting_dashboard_home),
                     onClick = {
                         navigateSingleTop(Budget.routeName)
@@ -173,7 +177,7 @@ internal fun ScreenHome(
                 )
             }
             item {
-                HeaderSectionDashboardHome(
+                HeaderSection(
                     title = stringResource(R.string.title_section_new_transaction_dashboard_home),
                     onClick = {
                         navigateSingleTop(ListTransaction.routeName)
@@ -198,7 +202,7 @@ internal fun ScreenHome(
                 )
             }
             item {
-                HeaderSectionDashboardHome(
+                HeaderSection(
                     title = stringResource(R.string.title_section_challenge_dashboard_home),
                     onClick = {}
                 )
@@ -222,7 +226,7 @@ internal fun ScreenHome(
 
             }
             item {
-                HeaderSectionDashboardHome(
+                HeaderSection(
                     title = stringResource(R.string.title_section_tutorial_dashboard_home),
                     onClick = {}
                 )
@@ -244,7 +248,7 @@ internal fun ScreenHome(
                 )
             }
             item {
-                HeaderSectionDashboardHome(
+                HeaderSection(
                     title = stringResource(R.string.title_section_article_dashboard_home)
                 ) {
 

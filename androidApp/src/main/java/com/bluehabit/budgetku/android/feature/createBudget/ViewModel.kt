@@ -58,12 +58,28 @@ class CreateBudgetViewModel @Inject constructor(
         }
     }
 
+    private fun calculatePage(isNext: Boolean) = asyncWithState {
+        val page = if (isNext) {
+            if (step < 7) {
+                step + 1
+            } else step
+        } else {
+            if (step > 1) {
+                step - 1
+            } else step
+        }
+
+        commit { copy(step = page) }
+
+    }
 
     override fun handleActions() = onEvent { event ->
         when (event) {
             is CreateBudgetEvent.Input -> appendNominal(event.nominal)
             CreateBudgetEvent.Clear -> clearNominal()
             CreateBudgetEvent.Remove -> removeNominal()
+            CreateBudgetEvent.Next -> calculatePage(true)
+            CreateBudgetEvent.Prev -> calculatePage(false)
         }
     }
 

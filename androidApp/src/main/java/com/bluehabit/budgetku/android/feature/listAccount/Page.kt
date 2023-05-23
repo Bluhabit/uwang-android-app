@@ -159,7 +159,9 @@ internal fun ScreenListAccount(
                             selected = state.selectedTab == index,
                             enabled = true,
                             onClick = {
-                                commit { copy(selectedTab = index) }
+                                if(index != ListAccount.tabs.size -1 ){
+                                    commit { copy(selectedTab = index) }
+                                }
                             },
                             colors = ChipDefaults.outlinedFilterChipColors(
                                 backgroundColor = Grey200,
@@ -204,9 +206,12 @@ internal fun ScreenListAccount(
                         vertical = 16.dp
                     )
             ) {
-                ButtonPrimary(text = "Tambah Akun", onClick = {
-                    navigateSingleTop(CreateAccountSaving.routeName)
-                })
+                ButtonPrimary(
+                    text = "Tambah Akun",
+                    onClick = {
+                        navigateSingleTop(CreateAccountSaving.routeName)
+                    }
+                )
             }
         }
     }
