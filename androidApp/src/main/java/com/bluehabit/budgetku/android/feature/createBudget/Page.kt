@@ -16,6 +16,8 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -50,6 +52,7 @@ fun NavGraphBuilder.routeCreateBudget(
 internal fun ScreenCreateBudget(
     appState: ApplicationState,
 ) = UIWrapper<CreateBudgetViewModel>(appState = appState) {
+    val state by uiState.collectAsState()
     val pagerState = rememberPagerState(
         initialPage = 0
     )
@@ -88,7 +91,7 @@ internal fun ScreenCreateBudget(
             0 -> {
                 appState.showTopAppBar()
                 ScreenInputAmountBudget(
-                    amount = "",
+                    amount = state.nominal,
                     onInputAmount = {
                         runSuspend {
                             pagerState.scrollToPage(
@@ -106,16 +109,24 @@ internal fun ScreenCreateBudget(
             1 -> {
                 appState.hideTopAppBar()
                 ScreenNumPad(
-                    value = "",
+                    value = state.nominal,
+                    onChange = {
+                        dispatch(CreateBudgetEvent.Input(it))
+                    },
                     onSubmit = {
                         runSuspend {
                             pagerState.scrollToPage(
                                 page = 0
                             )
                         }
+
                     },
-                    onClear = {},
-                    onRemove = {},
+                    onClear = {
+                        dispatch(CreateBudgetEvent.Clear)
+                    },
+                    onRemove = {
+                        dispatch(CreateBudgetEvent.Remove)
+                    },
                     onDismiss = {
                         runSuspend {
                             pagerState.scrollToPage(

@@ -57,7 +57,7 @@ val buttons = mapOf(
         ),
         ButtonInput(
             "9",
-            "0"
+            "9"
         )
     ),
     "2" to listOf(
@@ -71,7 +71,7 @@ val buttons = mapOf(
         ),
         ButtonInput(
             "6",
-            "06"
+            "6"
         )
     ),
     "3" to listOf(
