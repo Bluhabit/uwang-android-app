@@ -60,6 +60,7 @@ internal fun ScreenCreateTransaction(
     appState: ApplicationState,
 ) = UIWrapper<CreateTransactionViewModel>(appState = appState) {
     val state by uiState.collectAsState()
+    val dataState by uiDataState.collectAsState()
 
     with(appState) {
         hideTopAppBar()
@@ -133,13 +134,23 @@ internal fun ScreenCreateTransaction(
                             ),
                         ),
                         onCategorySelected = {
-                            showSnackbar(it)
                             hideBottomSheet()
+                            dispatch(CreateTransactionEvent.NexPage)
+
                         },
                     )
                 }
+
                 DATE_PICKER -> {
                     BottomSheetDatePicker(
+                        selectedDate = state.transactionDate,
+                        onSelectDay = {
+                            commit {
+                                copy(
+                                    transactionDate = it
+                                )
+                            }
+                        },
                         onSubmit = {
                             hideBottomSheet()
                         }
@@ -151,7 +162,7 @@ internal fun ScreenCreateTransaction(
     }
     BackHandler {
         if (state.step == 1) {
-            //show confirmation
+            navigateUp()
         } else {
             dispatch(CreateTransactionEvent.PrevPage)
         }
@@ -164,32 +175,56 @@ internal fun ScreenCreateTransaction(
     ) {
         when (state.step) {
             1 -> ScreenInputAmount(
-                onClear = {},
-                onRemove = {},
-                onChange = {},
+                amount = state.nominal,
+                onClear = {
+                    dispatch(CreateTransactionEvent.ClearNominal)
+                },
+                onRemove = {
+                    dispatch(CreateTransactionEvent.RemoveNominal)
+                },
+                onChange = {
+                    dispatch(CreateTransactionEvent.Input(it))
+                },
                 onSubmit = {
                     dispatch(CreateTransactionEvent.NexPage)
                 }
             )
 
             2 -> ScreenInputTransactionType(
-                selected = "",
+                selected = stringResource(if (!state.isExpenses) R.string.text_transaction_type_income else R.string.text_transaction_type_expenses),
                 onSelectedType = {
+                    commit {
+                        copy(
+                            isExpenses = it
+                        )
+                    }
                     dispatch(CreateTransactionEvent.NexPage)
                 }
             )
 
             3 -> ScreenInputAccount(
-                transactionType = "",
-                selectedAccount = "",
+                transactionType = stringResource(if (!state.isExpenses) R.string.text_transaction_type_income else R.string.text_transaction_type_expenses),
+                selectedAccount = state.selectedAccount,
+                accounts = dataState.accounts,
                 onSelectedAccount = {
+                    commit {
+                        copy(
+                            selectedAccount = it
+                        )
+                    }
                     dispatch(CreateTransactionEvent.NexPage)
                 }
             )
 
             4 -> ScreenInputTransactionNameAndCategory(
-                transactionName = "",
-                onChange = {},
+                transactionName = state.transactionName,
+                onChange = {
+                    commit {
+                        copy(
+                            transactionName = it
+                        )
+                    }
+                },
                 onSelectCategory = {
                     dispatch(CreateTransactionEvent.ChangeBottomSheet(CATEGORY))
                     showBottomSheet()
@@ -197,12 +232,14 @@ internal fun ScreenCreateTransaction(
             )
 
             5 -> ScreenInputDateTransaction(
-                date = null,
+                date = state.transactionDate,
                 onSelectDate = {
                     dispatch(CreateTransactionEvent.ChangeBottomSheet(DATE_PICKER))
                     showBottomSheet()
                 },
-                onAddMore = {},
+                onAddMore = {
+                    dispatch(CreateTransactionEvent.AddMoreTransaction)
+                },
                 onSave = {
                     dispatch(CreateTransactionEvent.NexPage)
                 }
@@ -218,8 +255,19 @@ internal fun ScreenCreateTransaction(
 
             7 -> ScreenInputFeedback(
                 title = stringResource(R.string.text_title_feedback_create_transaction),
+                feedback = state.feedback,
+                onChange = {
+                    commit {
+                        copy(
+                            feedback = it
+                        )
+                    }
+                },
                 onSubmit = {
-
+                    navigateUp()
+                },
+                onDismiss = {
+                    navigateUp()
                 }
             )
 
@@ -228,7 +276,8 @@ internal fun ScreenCreateTransaction(
 
         if (state.step in 1..5) {
             HeaderStepWithProgress(
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
                     .align(Alignment.TopCenter),
                 iconColor = MaterialTheme.colors.onPrimary,
                 backgroundColor = MaterialTheme.colors.onPrimary,
@@ -241,7 +290,7 @@ internal fun ScreenCreateTransaction(
                     }
                 },
                 onClose = {
-
+                    navigateUp()
                 }
             )
         }

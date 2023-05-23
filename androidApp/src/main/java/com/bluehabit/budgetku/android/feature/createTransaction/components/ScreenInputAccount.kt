@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Divider
 import androidx.compose.material.Icon
@@ -40,13 +41,15 @@ import com.bluehabit.budgetku.android.components.button.ButtonOutlinedPrimary
 import com.bluehabit.budgetku.android.components.ItemAccount
 import com.bluehabit.budgetku.android.ui.Grey100
 import com.bluehabit.budgetku.android.ui.Yellow600
+import com.bluehabit.budgetku.data.model.account.AccountModel
 import java.math.BigDecimal
 
 @Composable
 fun ScreenInputAccount(
     transactionType: String = "",
     selectedAccount: String = "",
-    onSelectedAccount: () -> Unit = {},
+    accounts:List<AccountModel> = listOf(),
+    onSelectedAccount: (String) -> Unit = {},
     onAddAccount: () -> Unit = {}
 ) {
     Column(
@@ -76,13 +79,13 @@ fun ScreenInputAccount(
                     item {
                         Spacer(modifier = Modifier.width(20.dp))
                     }
-                    items(3) {
+                    items(accounts){
                         ItemAccount(
-                            selected = it == 1,
-                            accountBankName = "Bank BCA",
-                            accountBalance = BigDecimal(1_000),
+                            selected = it.id == selectedAccount,
+                            accountBankName = it.accountName,
+                            accountBalance = it.accountBalance,
                             onClick = {
-                                onSelectedAccount()
+                                onSelectedAccount(it.id)
                             }
                         )
                     }

@@ -10,6 +10,7 @@ package com.bluehabit.budgetku.data.model.account
 import java.math.BigDecimal
 
 data class AccountModel(
+    val id:String,
     val icon:Int,
     val accountName:String,
     val accountBalance:BigDecimal,

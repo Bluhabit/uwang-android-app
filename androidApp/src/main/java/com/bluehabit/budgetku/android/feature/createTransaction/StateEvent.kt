@@ -7,8 +7,13 @@
 
 package com.bluehabit.budgetku.android.feature.createTransaction
 
+import android.icu.util.LocaleData
 import android.os.Parcelable
+import com.bluehabit.budgetku.data.model.account.AccountModel
+import com.bluehabit.budgetku.data.remote.dummy.dummyAccountsHome
 import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.RawValue
+import java.time.LocalDate
 import javax.annotation.concurrent.Immutable
 
 enum class CreateTransactionBottomSheetType {
@@ -20,18 +25,32 @@ enum class CreateTransactionBottomSheetType {
 @Parcelize
 data class CreateTransactionState(
     val step: Int = 1,
-    val bottomSheetType: CreateTransactionBottomSheetType = CreateTransactionBottomSheetType.CATEGORY
+    val bottomSheetType: CreateTransactionBottomSheetType = CreateTransactionBottomSheetType.CATEGORY,
+    val nominal:String="",
+    val tempNominal:String="",
+    val isExpenses:Boolean=true,
+    val selectedAccount:String="",
+    val transactionName:String="",
+    val selectedCategory:String="",
+    val transactionDate:LocalDate?=null,
+    //feedback
+    val feedback:String=""
 ) : Parcelable
 
 @Immutable
 @Parcelize
 data class CreateTransactionDataState(
-    val a: String = ""
+    val accounts:@RawValue List<AccountModel> = dummyAccountsHome
 ) : Parcelable
 
 sealed interface CreateTransactionEvent {
+    object AddMoreTransaction : CreateTransactionEvent
     object NexPage : CreateTransactionEvent
     object PrevPage : CreateTransactionEvent
 
     data class ChangeBottomSheet(val bottomSheetType: CreateTransactionBottomSheetType) : CreateTransactionEvent
+
+    object ClearNominal:CreateTransactionEvent
+    object RemoveNominal:CreateTransactionEvent
+    data class Input(val nominal:String):CreateTransactionEvent
 }
