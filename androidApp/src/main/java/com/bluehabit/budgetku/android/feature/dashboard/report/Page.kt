@@ -7,7 +7,6 @@
 
 package com.bluehabit.budgetku.android.feature.dashboard.report
 
-//import com.bluehabit.budgetku.android.components.chart.PieChart
 
 import android.graphics.Color
 import android.view.ViewGroup
@@ -150,42 +149,44 @@ internal fun ScreenReport(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    FilterChip(
-                        selected = true,
-                        enabled = true,
-                        onClick = {
-                        },
-                        colors = ChipDefaults.outlinedFilterChipColors(
-                            backgroundColor = Grey200,
-                            contentColor = Grey500,
-                            selectedBackgroundColor = MaterialTheme.colors.primary,
-                            selectedContentColor = MaterialTheme.colors.onPrimary
-                        )
-                    ) {
-                        Text(
-                            text = "Pemasukkan"
-                        )
-                    }
-                    Spacer(modifier = Modifier.width(8.dp))
-                    FilterChip(
-                        selected = false,
-                        enabled = true,
-                        onClick = {
-                        },
-                        colors = ChipDefaults.outlinedFilterChipColors(
-                            backgroundColor = Grey200,
-                            contentColor = Grey500,
-                            selectedBackgroundColor = MaterialTheme.colors.primary,
-                            selectedContentColor = MaterialTheme.colors.onPrimary
-                        ),
-                        border = BorderStroke(
-                            width = 1.dp,
-                            color = Grey300
-                        )
-                    ) {
-                        Text(
-                            text = "Pemasukkan"
-                        )
+                    Row {
+                        FilterChip(
+                            selected = true,
+                            enabled = true,
+                            onClick = {
+                            },
+                            colors = ChipDefaults.outlinedFilterChipColors(
+                                backgroundColor = Grey200,
+                                contentColor = Grey500,
+                                selectedBackgroundColor = MaterialTheme.colors.primary,
+                                selectedContentColor = MaterialTheme.colors.onPrimary
+                            )
+                        ) {
+                            Text(
+                                text = "Pemasukkan"
+                            )
+                        }
+                        Spacer(modifier = Modifier.width(8.dp))
+                        FilterChip(
+                            selected = false,
+                            enabled = true,
+                            onClick = {
+                            },
+                            colors = ChipDefaults.outlinedFilterChipColors(
+                                backgroundColor = Grey200,
+                                contentColor = Grey500,
+                                selectedBackgroundColor = MaterialTheme.colors.primary,
+                                selectedContentColor = MaterialTheme.colors.onPrimary
+                            ),
+                            border = BorderStroke(
+                                width = 1.dp,
+                                color = Grey300
+                            )
+                        ) {
+                            Text(
+                                text = "Pemasukkan"
+                            )
+                        }
                     }
 
                     Icon(
@@ -234,7 +235,7 @@ internal fun ScreenReport(
 
                         //init data
                         val typeAmountMap: MutableMap<String, Int> = HashMap()
-                        typeAmountMap["Makanan Dan Minuman"] = 150
+                        typeAmountMap["Makan"] = 150
                         typeAmountMap["Tagihan"] = 90
                         typeAmountMap["Transportasi"] = 300
 
