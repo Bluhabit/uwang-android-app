@@ -7,9 +7,11 @@
 
 package com.bluehabit.budgetku.android.base.extensions
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
+import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
@@ -17,6 +19,7 @@ import androidx.compose.ui.geometry.isSimple
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Outline
+import androidx.compose.ui.graphics.Paint
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.RectangleShape
@@ -24,9 +27,56 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.clipRect
+import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.graphics.drawscope.withTransform
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.debugInspectorInfo
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
+
+/**
+ * `Extension for colored shadow in card`
+ * Author PT Cexup Telemedicine
+ * Created by Trian Damai
+ * 04/09/2021
+ */
+@SuppressLint("UnnecessaryComposedModifier")
+fun Modifier.coloredShadow(
+    color: Color,
+    alpha: Float = 0.2f,
+    borderRadius: Dp = 0.dp,
+    shadowRadius: Dp = 20.dp,
+    offsetY: Dp = 0.dp,
+    offsetX: Dp = 0.dp
+) = composed {
+
+    val shadowColor = color.copy(alpha = alpha).toArgb()
+    val transparent = color.copy(alpha= 0f).toArgb()
+
+    this.drawBehind {
+        this.drawIntoCanvas {
+            val paint = Paint()
+            val frameworkPaint = paint.asFrameworkPaint()
+            frameworkPaint.color = transparent
+
+            frameworkPaint.setShadowLayer(
+                shadowRadius.toPx(),
+                offsetX.toPx(),
+                offsetY.toPx(),
+                shadowColor
+            )
+            it.drawRoundRect(
+                0f,
+                0f,
+                this.size.width,
+                this.size.height,
+                borderRadius.toPx(),
+                borderRadius.toPx(),
+                paint
+            )
+        }
+    }
+}
 
 /**
  * Modify element to add border with appearance specified with a [border] and a [shape], pad the
@@ -65,7 +115,6 @@ fun Modifier.dashedBorder(width: Dp, color: Color, shape: Shape = RectangleShape
  * @param brush brush to paint the border with
  * @param shape shape of the border
  */
-@SuppressWarnings("CyclomaticComplexMethod")
 fun Modifier.dashedBorder(width: Dp, brush: Brush, shape: Shape, on: Dp, off: Dp): Modifier =
     composed(
         factory = {

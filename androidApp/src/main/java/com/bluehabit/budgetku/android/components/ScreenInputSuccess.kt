@@ -70,11 +70,7 @@ fun ScreenInputSuccess(
         if(showCloseButton) {
             IconButton(
                 modifier = Modifier
-                    .align(Alignment.TopEnd)
-                    .padding(
-                        top = 30.dp,
-                        end = 30.dp
-                    ),
+                    .align(Alignment.TopEnd),
                 onClick = onDismiss
             ) {
                 Icon(

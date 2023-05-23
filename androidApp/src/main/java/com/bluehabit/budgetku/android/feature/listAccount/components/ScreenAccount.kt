@@ -12,7 +12,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
@@ -66,7 +68,6 @@ fun ScreenAccount(
                 }
             }
             items(accounts) {
-
                 CardItemAccount(
                     margin = PaddingValues(
                         horizontal = 20.dp
@@ -94,6 +95,9 @@ fun ScreenAccount(
                                 "bantu kamu atur budget dan capai target keuanganmu dengan mudah!"
                     )
                 }
+            }
+            item {
+                Spacer(modifier = Modifier.height(50.dp))
             }
         }
     )

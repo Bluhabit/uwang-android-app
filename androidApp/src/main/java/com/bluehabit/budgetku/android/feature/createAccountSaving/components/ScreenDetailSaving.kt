@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -37,7 +38,8 @@ fun ScreenDetailSaving(
     amount: String = "",
     target: String = "",
     onAddAmount: () -> Unit = {},
-    onSelectTarget: (String) -> Unit = {}
+    onSelectTarget: (String) -> Unit = {},
+    onShowBottomSheet:()->Unit={}
 ) {
     Column(
         modifier = Modifier
@@ -79,7 +81,7 @@ fun ScreenDetailSaving(
                     all = 16.dp
                 )
         ) {
-            Text(
+            ClickableText(
                 text = buildAnnotatedString {
                     append(
                         "Belum tahu jumlah dana daruratmu? ",
@@ -90,7 +92,10 @@ fun ScreenDetailSaving(
                         decoration = TextDecoration.Underline
                     )
                 },
-                style = MaterialTheme.typography.subtitle2
+                style = MaterialTheme.typography.subtitle2,
+                onClick = {
+                    onShowBottomSheet()
+                }
             )
         }
 

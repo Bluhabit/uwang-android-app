@@ -8,6 +8,7 @@
 package com.bluehabit.budgetku.android.feature.editProfile
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -70,7 +71,11 @@ internal fun ScreenEditProfile(
     val dataState by uiDataState.collectAsState()
     with(appState) {
         setupTopAppBar {
-            TopAppBarEditProfile()
+            TopAppBarEditProfile(
+                onBackPressed = {
+                    navigateUp()
+                }
+            )
         }
         setupBottomSheet {
             when (state.bottomSheetType) {
@@ -82,6 +87,7 @@ internal fun ScreenEditProfile(
                 )
 
                 "dateOfBirth" -> BottomSheetSpinnerDatePicker(
+                    title = "Ubah Tanggal lahir",
                     onDismiss = {
                         hideBottomSheet()
                     },
@@ -92,7 +98,8 @@ internal fun ScreenEditProfile(
                             )
                         }
                         hideBottomSheet()
-                    }
+                    },
+                    textButtonConfirmation = "Simpan"
                 )
 
                 else -> BottomSheetGenderPicker(
@@ -100,7 +107,7 @@ internal fun ScreenEditProfile(
                         hideBottomSheet()
                     },
                     onConfirm = {
-
+                        hideBottomSheet()
                     }
                 )
             }
@@ -210,13 +217,22 @@ internal fun ScreenEditProfile(
 }
 
 @Composable
-fun TopAppBarEditProfile() {
+fun TopAppBarEditProfile(
+    onBackPressed: () -> Unit = {}
+) {
     TopAppBar(
         title = {
             Text(text = "Edit Profile")
         },
         navigationIcon = {
-            Icon(imageVector = Icons.Outlined.ArrowBack, contentDescription = "")
+            Icon(
+                imageVector = Icons.Outlined.ArrowBack,
+                contentDescription = "",
+                modifier = Modifier.clickable(
+                    enabled = true,
+                    onClick = onBackPressed
+                )
+            )
         },
         backgroundColor = MaterialTheme.colors.surface,
         elevation = 0.dp

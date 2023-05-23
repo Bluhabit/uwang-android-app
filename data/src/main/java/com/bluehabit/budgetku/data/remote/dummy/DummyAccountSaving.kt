@@ -13,21 +13,21 @@ import java.time.LocalDateTime
 
 val dummyAcountSaving: List<AccountSavingModel> = listOf(
     AccountSavingModel(
-        icon = R.drawable.ic_dummy_saving,
+        icon = R.drawable.dummy_category_kendaraan,
         accountIcon = R.drawable.dummy_bank_jago,
-        target = LocalDateTime.now(),
+        target = "14 Januari 2023",
         savingName = "Motor Baru",
-        targetBalance = "Rp30Jt",
-        totalBalance = "Rp4Jt",
+        targetBalance = "Rp25Jt",
+        totalBalance = "Rp10Jt",
         progress = 0.5f
     ),
     AccountSavingModel(
-        icon = R.drawable.ic_dummy_saving,
+        icon = R.drawable.dummy_category_dana_darurat,
         accountIcon = R.drawable.dummy_bank_jago,
-        target = LocalDateTime.now(),
-        savingName = "Motor Baru",
-        targetBalance = "Rp15Jt",
-        totalBalance = "Rp4Jt",
-        progress = 0.4f
+        target = "23 November 2024",
+        savingName = "Dana Mendesak",
+        targetBalance = "Rp5Jt",
+        totalBalance = "Rp10Jt",
+        progress = 0.6f
     )
 )

@@ -58,6 +58,7 @@ import com.bluehabit.budgetku.android.feature.createTransaction.CreateTransactio
 import com.bluehabit.budgetku.android.feature.dashboard.budget.components.ItemExpensesCategoryBudget
 import com.bluehabit.budgetku.android.feature.dashboard.budget.components.ItemTipsBudgetEmpty
 import com.bluehabit.budgetku.android.feature.dashboard.budget.components.ItemTipsBudgetSuccess
+import com.bluehabit.budgetku.android.feature.detailTransaction.DetailTransaction
 import com.bluehabit.budgetku.android.feature.tutorialBudget.TutorialBudget
 import com.bluehabit.budgetku.android.ui.Blue800
 import com.bluehabit.budgetku.android.ui.Grey500
@@ -262,7 +263,10 @@ internal fun ScreenBudget(
                         amount = it.amount,
                         categoryName = it.categoryName,
                         categoryImage = it.categoryImage,
-                        usage = it.usage
+                        usage = it.usage,
+                        onClick = {
+                           // navigateSingleTop(DetailTransaction.routeName)
+                        }
                     )
                 }
             }

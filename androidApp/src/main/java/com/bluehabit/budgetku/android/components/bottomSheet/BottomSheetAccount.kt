@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -36,23 +37,34 @@ import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.base.extensions.formatToRupiah
 import com.bluehabit.budgetku.android.ui.Grey300
 import com.bluehabit.budgetku.android.ui.Grey700
+import com.bluehabit.budgetku.data.model.account.AccountModel
 import java.math.BigDecimal
 
 @Composable
-fun BottomSheetAccount() {
+fun BottomSheetAccount(
+    selectedAccount:String="",
+    accounts:List<AccountModel> = listOf(),
+    onSelectedAccount:(AccountModel) -> Unit={},
+    onSubmit:()->Unit={}
+) {
     BaseBottomSheet(
-        textConfirmation = "Simpan"
+        textConfirmation = "Simpan",
+        onConfirm = onSubmit
     ) {
         LazyColumn(
             verticalArrangement = Arrangement.spacedBy(
                 16.dp
             ),
             content = {
-                items(3) {
+                items(accounts) {
                     ItemBottomSheetAccount(
-                        selected = it == 0,
-                        accountBankName = "Bank BCA",
-                        balance = BigDecimal(10_000_000)
+                        selected = selectedAccount == it.id,
+                        accountBankName = it.accountName,
+                        accountBankIcon=it.icon,
+                        balance = it.accountBalance,
+                        onClick = {
+                            onSelectedAccount(it)
+                        }
                     )
                 }
             }
@@ -64,6 +76,7 @@ fun BottomSheetAccount() {
 fun ItemBottomSheetAccount(
     selected: Boolean = false,
     accountBankName: String = "",
+    accountBankIcon: Int = com.bluehabit.budgetku.data.R.drawable.dummy_bank_jago,
     balance: BigDecimal = BigDecimal.ZERO,
     onClick: () -> Unit = {}
 ) {
@@ -97,7 +110,7 @@ fun ItemBottomSheetAccount(
                     .background(Color.White)
             ) {
                 Image(
-                    painter = painterResource(id = com.bluehabit.budgetku.data.R.drawable.dummy_bank_jago),
+                    painter = painterResource(id = accountBankIcon),
                     contentDescription = "",
                     modifier = Modifier
                         .fillMaxSize()

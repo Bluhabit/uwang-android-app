@@ -28,8 +28,9 @@ import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.ui.Grey500
 
 @Composable
-fun HeaderSectionDashboardHome(
+fun HeaderSection(
     title: String = "",
+    showArrow:Boolean=true,
     onClick: () -> Unit = {}
 ) {
     Column(
@@ -54,23 +55,25 @@ fun HeaderSectionDashboardHome(
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colors.onSurface
             )
-            Icon(
-                imageVector = Icons.Outlined.KeyboardArrowRight,
-                contentDescription = "",
-                tint = Grey500,
-                modifier = Modifier.clickable(
-                    enabled = true,
-                    onClick = onClick
+            if(showArrow) {
+                Icon(
+                    imageVector = Icons.Outlined.KeyboardArrowRight,
+                    contentDescription = "",
+                    tint = Grey500,
+                    modifier = Modifier.clickable(
+                        enabled = true,
+                        onClick = onClick
+                    )
                 )
-            )
+            }
         }
     }
 }
 
 @Preview
 @Composable
-fun PreviewHeaderSectionDashboardHome() {
+fun PreviewHeaderSection() {
     BaseMainApp {
-        HeaderSectionDashboardHome()
+        HeaderSection()
     }
 }

@@ -8,6 +8,8 @@
 package com.bluehabit.budgetku.android.feature.resultCreateBudget
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavGraphBuilder
@@ -38,6 +40,7 @@ fun NavGraphBuilder.routeResultCreateBudget(
 internal fun ScreenResultCreateBudget(
     appState: ApplicationState,
 ) = UIWrapper<ResultCreateBudgetViewModel>(appState = appState) {
+    val state by uiState.collectAsState()
     val pagesState = rememberPagerState(
         initialPage = 0
     )
@@ -73,8 +76,14 @@ internal fun ScreenResultCreateBudget(
             1 -> {
                 ScreenInputFeedback(
                     title = stringResource(R.string.text_title_like_feedback),
-                    feedback = "",
-                    onChange = {},
+                    feedback = state.feedback,
+                    onChange = {
+                        commit {
+                            copy(
+                                feedback = it
+                            )
+                        }
+                    },
                     onSubmit = {
                         navigateAndReplaceAll(Home.routeName)
                     },

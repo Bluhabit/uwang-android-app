@@ -32,7 +32,7 @@ val dummyAccountsHome : List<AccountModel> = listOf(
     ),
     AccountModel(
         id="004",
-        icon = R.drawable.dummy_bank_jago,
+        icon = R.drawable.dummy_category_dana_darurat,
         accountName = "Cash",
         accountBalance = BigDecimal(500_000)
     ),

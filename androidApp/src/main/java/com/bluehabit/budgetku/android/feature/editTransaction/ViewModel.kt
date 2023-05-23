@@ -8,6 +8,7 @@
 package com.bluehabit.budgetku.android.feature.editTransaction
 
 import com.bluehabit.budgetku.android.base.BaseViewModelData
+import com.bluehabit.budgetku.android.base.extensions.formatDecimal
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -18,6 +19,49 @@ class EditTransactionViewModel @Inject constructor(
         handleActions()
     }
 
-    override fun handleActions() = onEvent {}
+    private fun appendNominal(nominal: String) = asyncWithState {
+        if (nominal == "0" || nominal == "000") {
+            if (tempNominal.isEmpty()) return@asyncWithState
+        }
+        var currentNominal = tempNominal
+        currentNominal += nominal
+        commit {
+            copy(
+                tempNominal = currentNominal,
+                nominal = currentNominal.toBigDecimal().formatDecimal()
+            )
+        }
+    }
+
+    private fun removeNominal() = asyncWithState {
+        if (tempNominal.isNotEmpty()) {
+            var currentNominal = if (tempNominal.length == 1) "" else tempNominal.dropLast(1)
+
+            commit {
+                copy(
+                    tempNominal = currentNominal,
+                    nominal = if (currentNominal.isEmpty()) "" else currentNominal.toBigDecimal().formatDecimal()
+                )
+            }
+        }
+    }
+
+    private fun clearNominal() = asyncWithState {
+        var currentNominal = ""
+        commit {
+            copy(
+                tempNominal = currentNominal,
+                nominal = currentNominal
+            )
+        }
+    }
+
+    override fun handleActions() = onEvent { event ->
+        when (event) {
+            EditTransactionEvent.ClearNominal -> clearNominal()
+            is EditTransactionEvent.InputNominal -> appendNominal(event.nominal)
+            EditTransactionEvent.RemoveNominal -> removeNominal()
+        }
+    }
 
 }

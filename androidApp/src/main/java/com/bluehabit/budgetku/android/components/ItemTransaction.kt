@@ -46,7 +46,7 @@ fun ItemTransaction(
     transactionDate: String = "",
     transactionCategoryName: String = "",
     transactionAmount: String = "",
-    transactionIcon:Int = com.bluehabit.budgetku.data.R.drawable.ic_dummy_food,
+    transactionIcon: Int = com.bluehabit.budgetku.data.R.drawable.ic_dummy_food,
     isExpenses: Boolean = false,
     clickable: Boolean = true,
     onClick: () -> Unit = {}
@@ -56,7 +56,8 @@ fun ItemTransaction(
             .fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
-    ) { Row(
+    ) {
+        Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .clickable(enabled = clickable, onClick = onClick)
@@ -69,51 +70,56 @@ fun ItemTransaction(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.Top
         ) {
-            Image(
-                painter = painterResource(id =transactionIcon),
-                contentDescription = "",
-                modifier = Modifier.size(40.dp)
-            )
-            Column {
-                Text(
-                    text = transactionName,
-                    style = MaterialTheme.typography.h6,
-                    fontWeight = FontWeight.Medium,
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Image(
+                    painter = painterResource(id = transactionIcon),
+                    contentDescription = "",
+                    modifier = Modifier.size(40.dp)
                 )
-                Spacer(modifier = Modifier.height(8.dp))
-                Text(
-                    text = transactionAccountName,
-                    style = MaterialTheme.typography.subtitle1,
-                    fontWeight = FontWeight.Normal,
-                    color = Grey700
-                )
-                Spacer(modifier = Modifier.height(10.dp))
-                Row(
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
+                Spacer(modifier = Modifier.width(16.dp))
+                Column {
                     Text(
-                        text = transactionDate,
+                        text = transactionName,
+                        style = MaterialTheme.typography.h6,
+                        fontWeight = FontWeight.Medium,
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(
+                        text = transactionAccountName,
                         style = MaterialTheme.typography.subtitle1,
                         fontWeight = FontWeight.Normal,
                         color = Grey700
                     )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Box(
-                        modifier = Modifier
-                            .size(4.dp)
-                            .clip(CircleShape)
-                            .background(Grey300)
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(
-                        text = transactionCategoryName,
-                        style = MaterialTheme.typography.subtitle1,
-                        fontWeight = FontWeight.Normal,
-                        color = Grey700
-                    )
+                    Spacer(modifier = Modifier.height(10.dp))
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = transactionDate,
+                            style = MaterialTheme.typography.subtitle1,
+                            fontWeight = FontWeight.Normal,
+                            color = Grey700
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Box(
+                            modifier = Modifier
+                                .size(4.dp)
+                                .clip(CircleShape)
+                                .background(Grey300)
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(
+                            text = transactionCategoryName,
+                            style = MaterialTheme.typography.subtitle1,
+                            fontWeight = FontWeight.Normal,
+                            color = Grey700
+                        )
+
+                    }
 
                 }
-
             }
 
             Column {
@@ -121,11 +127,11 @@ fun ItemTransaction(
                     text = transactionAmount,
                     style = MaterialTheme.typography.h6,
                     fontWeight = FontWeight.Medium,
-                    color = if(isExpenses) Color.Red else Color(0xFF57C45C)
+                    color = if (isExpenses) Color.Red else Color(0xFF57C45C)
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = if(isExpenses) "Uang Keluar" else "Uang Masuk",
+                    text = if (isExpenses) "Uang Keluar" else "Uang Masuk",
                     style = MaterialTheme.typography.subtitle1,
                     fontWeight = FontWeight.Normal,
                     color = Grey700

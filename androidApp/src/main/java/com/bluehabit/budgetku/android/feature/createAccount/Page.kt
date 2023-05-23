@@ -7,6 +7,7 @@
 
 package com.bluehabit.budgetku.android.feature.createAccount
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -19,6 +20,8 @@ import com.bluehabit.budgetku.android.base.UIWrapper
 import com.bluehabit.budgetku.android.feature.createAccount.screen.ScreenInputAccount
 import com.bluehabit.budgetku.android.feature.createAccount.screen.ScreenMainCreateAccount
 import com.bluehabit.budgetku.android.components.ScreenNumPad
+import com.bluehabit.budgetku.android.components.bottomSheet.BottomSheetConfirmation
+import com.bluehabit.budgetku.android.feature.listAccount.ListAccount
 import java.math.BigDecimal
 
 object CreateAccount {
@@ -38,40 +41,83 @@ internal fun ScreenCreateAccount(
     appState: ApplicationState,
 ) = UIWrapper<CreateAccountViewModel>(appState = appState) {
     val state by uiState.collectAsState()
+    val dataState by uiDataState.collectAsState()
 
     with(appState) {
-
+        hideTopAppBar()
+        setupBottomSheet {
+            BottomSheetConfirmation(
+                title = "Yakin membatalkan perubahan?",
+                message = "Data yang sudah kamu ubah belum tersimpan dan akan hilang.",
+                textConfirmation = "Yakin",
+                textCancel = "Batal",
+                onDismiss = {
+                    hideBottomSheet()
+                },
+                onConfirm = {
+                    hideBottomSheet()
+                    navigateUp()
+                }
+            )
+        }
+    }
+    
+    fun backPressed(){
+        when (state.screenType) {
+            ScreenType.INPUT_AMOUNT -> commit { copy(screenType = ScreenType.MAIN) }
+            ScreenType.MAIN -> showBottomSheet()
+            ScreenType.SELECT_ACCOUNT -> commit { copy(screenType = ScreenType.MAIN) }
+        }
     }
 
+    BackHandler {
+        backPressed()
+    }
     when (state.screenType) {
         ScreenType.INPUT_AMOUNT -> ScreenNumPad(
-            value = "",
-            onChange = {},
+            value = state.nominal,
+            onChange = {
+                dispatch(CreateAccountEvent.InputNominal(it))
+            },
+            onRemove = {
+                dispatch(CreateAccountEvent.RemoveNominal)
+            },
+            onClear = {
+                dispatch(CreateAccountEvent.ClearNominal)
+            },
             onDismiss = {
                 commit { copy(screenType = ScreenType.MAIN) }
             },
             onSubmit = {
                 commit { copy(screenType = ScreenType.MAIN) }
-            },
-            onRemove = {},
-            onClear = {}
+            }
         )
 
         ScreenType.MAIN -> ScreenMainCreateAccount(
-            selectedAccount = "Bank BCA",
-            amount = BigDecimal(1_000_000),
-            onSubmit = {},
+            selectedAccount = "Bank Jago",
+            amount = state.nominal,
+            onSubmit = {
+                navigateUp()
+            },
             onInputAmount = {
                 commit { copy(screenType = ScreenType.INPUT_AMOUNT) }
             },
             onInputAccount = {
                 commit { copy(screenType = ScreenType.SELECT_ACCOUNT) }
             },
-            onSubscribe = {}
+            onSubscribe = {},
+            onBackPressed = {
+                backPressed()
+            }
         )
+
         ScreenType.SELECT_ACCOUNT -> ScreenInputAccount(
+            accounts = dataState.financialAccount,
             onSelect = {
-                commit { copy(screenType = ScreenType.SELECT_ACCOUNT) }
+                commit { copy(screenType = ScreenType.MAIN) }
+            },
+            onBackPressed = {
+                commit { copy(screenType = ScreenType.MAIN) }
             }
         )
     }

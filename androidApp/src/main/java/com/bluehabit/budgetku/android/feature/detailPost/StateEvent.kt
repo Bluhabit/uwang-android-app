@@ -19,7 +19,7 @@ import javax.annotation.concurrent.Immutable
 @Immutable
 @Parcelize
 data class DetailPostState(
-    val a: String = ""
+    val comment: String = ""
 ) : Parcelable
 
 @Immutable

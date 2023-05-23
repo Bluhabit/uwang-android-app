@@ -51,6 +51,7 @@ import com.bluehabit.budgetku.android.base.extensions.formatToRupiah
 import com.bluehabit.budgetku.android.components.bottomSheet.BottomSheetConfirmation
 import com.bluehabit.budgetku.android.components.DottedLine
 import com.bluehabit.budgetku.android.components.button.ButtonOutlinedPrimary
+import com.bluehabit.budgetku.android.feature.editTransaction.EditTransaction
 import com.bluehabit.budgetku.android.ui.Grey100
 import com.bluehabit.budgetku.android.ui.Grey700
 
@@ -76,7 +77,14 @@ internal fun ScreenDetailTransaction(
 
     with(appState) {
         setupTopAppBar {
-
+            TopAppBarDetailTransaction(
+                onBackPressed = {
+                    navigateUp()
+                },
+                onEdit = {
+                    navigateSingleTop(EditTransaction.routeName)
+                }
+            )
         }
 
         setupBottomSheet {
@@ -87,7 +95,14 @@ internal fun ScreenDetailTransaction(
                         title = stringResource(R.string.text_title_delete_confirmation_transaction),
                         message = stringResource(R.string.text_message_delete_confirmation_transaction),
                         textConfirmation = stringResource(R.string.text_button_confirm_delete_transaction),
-                        textCancel = stringResource(R.string.text_button_cancel_delete_transaction)
+                        textCancel = stringResource(R.string.text_button_cancel_delete_transaction),
+                        onDismiss = {
+                            hideBottomSheet()
+                        },
+                        onConfirm = {
+                            hideBottomSheet()
+                            navigateUp()
+                        }
                     )
                 }
             }
@@ -208,7 +223,14 @@ internal fun ScreenDetailTransaction(
         ) {
             ButtonOutlinedPrimary(text = stringResource(R.string.text_button_share_transaction_detail_transaction))
             TextButton(
-                onClick = { /*TODO*/ },
+                onClick = {
+                    commit {
+                        copy(
+                            bottomSheetType = DetailTransactionBottomSheetType.DELETE_CONFIRMATION
+                        )
+                    }
+                    showBottomSheet()
+                },
                 modifier = Modifier.clip(MaterialTheme.shapes.large)
             ) {
                 Text(
@@ -252,6 +274,9 @@ fun ItemDetailTransaction(
                 Box(
                     modifier = Modifier
                         .size(30.dp)
+                        .padding(
+                            all = 6.dp
+                        )
                         .clip(CircleShape)
                         .background(Color.White)
                 ) {
@@ -259,8 +284,7 @@ fun ItemDetailTransaction(
                         painter = painterResource(id = image),
                         contentDescription = "",
                         modifier = Modifier
-                            .fillMaxSize()
-                            .clip(CircleShape),
+                            .fillMaxSize(),
                     )
                 }
             }
@@ -276,7 +300,10 @@ fun ItemDetailTransaction(
 }
 
 @Composable
-fun TopAppBarDetailTransaction() {
+fun TopAppBarDetailTransaction(
+    onBackPressed: () -> Unit = {},
+    onEdit: () -> Unit = {}
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -284,7 +311,7 @@ fun TopAppBarDetailTransaction() {
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        IconButton(onClick = { /*TODO*/ }) {
+        IconButton(onClick = onBackPressed) {
             Icon(
                 painter = painterResource(id = R.drawable.arrow_long_left),
                 contentDescription = ""
@@ -296,7 +323,7 @@ fun TopAppBarDetailTransaction() {
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colors.onSurface
         )
-        IconButton(onClick = { /*TODO*/ }) {
+        IconButton(onClick = onEdit) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_edit),
                 contentDescription = ""

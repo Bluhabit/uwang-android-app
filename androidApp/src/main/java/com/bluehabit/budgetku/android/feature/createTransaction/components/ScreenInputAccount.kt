@@ -81,6 +81,7 @@ fun ScreenInputAccount(
                     }
                     items(accounts){
                         ItemAccount(
+                            icon=it.icon,
                             selected = it.id == selectedAccount,
                             accountBankName = it.accountName,
                             accountBalance = it.accountBalance,

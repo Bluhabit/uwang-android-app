@@ -40,6 +40,7 @@ fun BaseBottomSheet(
     enableConfirmation: Boolean = true,
     showButtonConfirmation:Boolean=true,
     showLineHeader: Boolean = true,
+    showCloseButton: Boolean = true,
     onDismiss: () -> Unit = {},
     onConfirm: () -> Unit = {},
     content: @Composable ColumnScope.() -> Unit = {}
@@ -66,9 +67,7 @@ fun BaseBottomSheet(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceBetween
     ) {
-        if (
-            showLineHeader
-        ) {
+        if (showLineHeader) {
             Box(
                 modifier = Modifier
                     .width(50.dp)
@@ -85,14 +84,16 @@ fun BaseBottomSheet(
             horizontalAlignment = Alignment.Start,
             verticalArrangement = Arrangement.SpaceBetween
         ) {
-            Icon(
-                imageVector = Icons.Outlined.Clear,
-                contentDescription = "",
-                modifier = Modifier.clickable(
-                    enabled = true,
-                    onClick = onDismiss
+            if(showCloseButton) {
+                Icon(
+                    imageVector = Icons.Outlined.Clear,
+                    contentDescription = "",
+                    modifier = Modifier.clickable(
+                        enabled = true,
+                        onClick = onDismiss
+                    )
                 )
-            )
+            }
             Spacer(modifier = Modifier.height(16.dp))
             content(this)
             Spacer(modifier = Modifier.height(16.dp))

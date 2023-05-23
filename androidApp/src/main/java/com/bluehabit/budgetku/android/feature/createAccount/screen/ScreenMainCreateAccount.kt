@@ -40,6 +40,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluehabit.budgetku.android.R
 import com.bluehabit.budgetku.android.base.BaseMainApp
+import com.bluehabit.budgetku.android.components.CardUpgradeToPremium
 import com.bluehabit.budgetku.android.components.button.ButtonPrimary
 import com.bluehabit.budgetku.android.ui.Grey100
 import com.bluehabit.budgetku.android.ui.Grey300
@@ -51,11 +52,12 @@ import java.math.BigDecimal
 @Composable
 fun ScreenMainCreateAccount(
     selectedAccount: String = "",
-    amount: BigDecimal = BigDecimal.ZERO,
+    amount: String = "",
     onSubscribe: () -> Unit = {},
     onSubmit: () -> Unit = {},
     onInputAmount: () -> Unit = {},
-    onInputAccount: () -> Unit = {}
+    onInputAccount: () -> Unit = {},
+    onBackPressed:()->Unit={}
 ) {
     Column(
         modifier = Modifier
@@ -84,7 +86,11 @@ fun ScreenMainCreateAccount(
             ) {
                 Icon(
                     imageVector = Icons.Outlined.ArrowBack,
-                    contentDescription = ""
+                    contentDescription = "",
+                    modifier = Modifier.clickable(
+                        enabled = true,
+                        onClick =onBackPressed
+                    )
                 )
                 Spacer(modifier = Modifier.width(16.dp))
                 Text(
@@ -150,6 +156,9 @@ fun ScreenMainCreateAccount(
                                     .size(30.dp)
                                     .clip(CircleShape)
                                     .background(Color.White)
+                                    .padding(
+                                        all=6.dp
+                                    )
                             ) {
                                 Image(
                                     painter = painterResource(id = com.bluehabit.budgetku.data.R.drawable.dummy_bank_jago),
@@ -223,64 +232,11 @@ fun ScreenMainCreateAccount(
                     }
                 }
                 Spacer(modifier = Modifier.height(30.dp))
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clip(MaterialTheme.shapes.small)
-                        .border(
-                            width = 1.dp,
-                            shape = MaterialTheme.shapes.small,
-                            color = Grey300
-                        )
-                        .padding(
-                            all = 16.dp
-                        ),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Column(
-                        modifier = Modifier.fillMaxWidth(
-                            fraction = 0.7f
-                        ),
-                        horizontalAlignment = Alignment.Start,
-                        verticalArrangement = Arrangement.Center
-                    ) {
-                        Text(
-                            text = "Budgetku Premium bisa tambah akun lebih fleksibel, dan sesuai dengan keinginanmu loh!",
-                            style = MaterialTheme.typography.body2,
-                            fontWeight = FontWeight.Normal,
-                            color = MaterialTheme.colors.onSurface
-                        )
-                        Spacer(modifier = Modifier.height(16.dp))
-                        Column(
-                            modifier = Modifier
-                                .clip(MaterialTheme.shapes.large)
-                                .clickable(
-                                    enabled = true,
-                                    onClick = onSubscribe
-                                )
-                                .background(Yellow800)
-                                .padding(
-                                    horizontal = 16.dp,
-                                    vertical = 8.dp
-                                )
-                        ) {
-                            Text(
-                                text = "Langganan Sekarang",
-                                style = MaterialTheme.typography.button,
-                                fontWeight = FontWeight.Medium,
-                                color = MaterialTheme.colors.onPrimary
-                            )
-                        }
+                CardUpgradeToPremium(
+                    onClick = {
+
                     }
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_create_account_illustration),
-                        contentDescription = "",
-                        modifier = Modifier.size(
-                            80.dp
-                        )
-                    )
-                }
+                )
             }
         }
         ButtonPrimary(text = "Simpan", onClick = onSubmit)
@@ -294,7 +250,7 @@ fun PreviewScreenMainCreateAccount() {
     BaseMainApp {
         ScreenMainCreateAccount(
             selectedAccount = "Bank BCA",
-            amount = BigDecimal(1_000_000)
+            amount = "1,000"
         )
     }
 }
