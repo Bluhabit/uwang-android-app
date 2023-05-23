@@ -8,6 +8,7 @@
 package com.bluehabit.budgetku.android.feature.createTransaction
 
 import com.bluehabit.budgetku.android.base.BaseViewModelData
+import com.bluehabit.budgetku.android.base.extensions.formatDecimal
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -21,6 +22,42 @@ class CreateTransactionViewModel @Inject constructor(
         handleActions()
     }
 
+    private fun appendNominal(nominal: String) = asyncWithState {
+        if (nominal == "0" || nominal == "000") {
+            if (tempNominal.isEmpty()) return@asyncWithState
+        }
+        var currentNominal = tempNominal
+        currentNominal += nominal
+        commit {
+            copy(
+                tempNominal = currentNominal,
+                nominal = currentNominal.toBigDecimal().formatDecimal()
+            )
+        }
+    }
+
+    private fun removeNominal() = asyncWithState {
+        if (tempNominal.isNotEmpty()) {
+            var currentNominal = if (tempNominal.length == 1) "" else tempNominal.dropLast(1)
+
+            commit {
+                copy(
+                    tempNominal = currentNominal,
+                    nominal = if (currentNominal.isEmpty()) "" else currentNominal.toBigDecimal().formatDecimal()
+                )
+            }
+        }
+    }
+
+    private fun clearNominal() = asyncWithState {
+        var currentNominal = ""
+        commit {
+            copy(
+                tempNominal = currentNominal,
+                nominal = currentNominal
+            )
+        }
+    }
 
     private fun calculatePage(isNext: Boolean) = asyncWithState {
 
@@ -46,6 +83,24 @@ class CreateTransactionViewModel @Inject constructor(
                 copy(
                     bottomSheetType = it.bottomSheetType
                 )
+            }
+
+            CreateTransactionEvent.ClearNominal -> clearNominal()
+            is CreateTransactionEvent.Input -> appendNominal(it.nominal)
+            CreateTransactionEvent.RemoveNominal -> removeNominal()
+            CreateTransactionEvent.AddMoreTransaction -> async {
+                commit {
+                    copy(
+                        step = 1,
+                        transactionDate = null,
+                        selectedAccount = "",
+                        selectedCategory = "",
+                        isExpenses = true,
+                        tempNominal = "",
+                        nominal = "",
+                        transactionName = ""
+                    )
+                }
             }
         }
     }
