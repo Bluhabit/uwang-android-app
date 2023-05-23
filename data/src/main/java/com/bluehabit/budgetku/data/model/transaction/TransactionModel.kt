@@ -13,8 +13,9 @@ import java.time.LocalDate
 data class TransactionModel(
     val transactionName:String,
     val transactionAccountName:String,
-    val transactionDate:LocalDate,
+    val transactionDate:String,
     val transactionCategory:String,
     val isTransactionExpenses:Boolean,
-    val transactionAmount:BigDecimal
+    val transactionAmount:BigDecimal,
+    val transactionIcon:Int
 )

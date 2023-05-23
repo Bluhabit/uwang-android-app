@@ -25,8 +25,10 @@ import com.bluehabit.budgetku.android.feature.createPost.routeCreatePost
 import com.bluehabit.budgetku.android.feature.createTransaction.routeCreateTransaction
 import com.bluehabit.budgetku.android.feature.dashboard.budget.routeBudget
 import com.bluehabit.budgetku.android.feature.dashboard.community.routeCommunity
+import com.bluehabit.budgetku.android.feature.dashboard.home.Home
 import com.bluehabit.budgetku.android.feature.dashboard.home.routeHome
 import com.bluehabit.budgetku.android.feature.dashboard.report.routeReport
+import com.bluehabit.budgetku.android.feature.detailPost.routeDetailPost
 import com.bluehabit.budgetku.android.feature.detailTransaction.routeDetailTransaction
 import com.bluehabit.budgetku.android.feature.editProfile.routeEditProfile
 import com.bluehabit.budgetku.android.feature.editTransaction.routeEditTransaction
@@ -44,7 +46,7 @@ fun AppNavigation(
 ) {
     NavHost(
         navController = applicationState.router,
-        startDestination = Splash.routeName
+        startDestination = Home.routeName
     ) {
         routeSplash(
             state = applicationState
@@ -128,6 +130,9 @@ fun AppNavigation(
             state = applicationState
         )
         routeListTransaction(
+            state = applicationState
+        )
+        routeDetailPost(
             state = applicationState
         )
     }

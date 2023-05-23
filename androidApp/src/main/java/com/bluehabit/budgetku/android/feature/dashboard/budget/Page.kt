@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
@@ -256,12 +257,12 @@ internal fun ScreenBudget(
             }
 
             if (dataState.hasBudget) {
-                items(3) {
+                items(dataState.expensesCategory) {
                     ItemExpensesCategoryBudget(
-                        amount = BigDecimal(1_000_000),
-                        categoryName = "Makan&Minum",
-                        categoryImage = com.bluehabit.budgetku.data.R.drawable.ic_dummy_food,
-                        usage = "50%"
+                        amount = it.amount,
+                        categoryName = it.categoryName,
+                        categoryImage = it.categoryImage,
+                        usage = it.usage
                     )
                 }
             }

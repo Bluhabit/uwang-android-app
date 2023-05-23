@@ -16,13 +16,14 @@ import javax.annotation.concurrent.Immutable
 @Immutable
 @Parcelize
 data class SignUpState(
-    val fullName:String="",
     val email:String="",
-    val password:String=""
+    val password:String="",
+    val isEmailValid:Boolean=true,
+    val errorMessage:String=""
 ) : Parcelable
 
 sealed interface SignUpEvent{
 
-    object SignUpWithEmail: SignUpEvent
+    object Submit: SignUpEvent
     class SignUpWithGoogle(var result: Task<GoogleSignInAccount>?): SignUpEvent
 }

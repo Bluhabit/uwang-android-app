@@ -18,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -33,7 +34,7 @@ import com.bluehabit.budgetku.android.base.extensions.gridItems
 import com.bluehabit.budgetku.android.base.extensions.navigateSingleTop
 import com.bluehabit.budgetku.android.base.listener.BottomNavigationListener
 import com.bluehabit.budgetku.android.components.bottomSheet.BottomSheetAddBudgetTransaction
-import com.bluehabit.budgetku.android.components.CardArticleGrid
+import com.bluehabit.budgetku.android.components.ItemArticleGrid
 import com.bluehabit.budgetku.android.components.CardChallengeBudgeting
 import com.bluehabit.budgetku.android.components.CardMonthlyBudget
 import com.bluehabit.budgetku.android.components.DashboardBottomNavigation
@@ -118,7 +119,7 @@ internal fun ScreenHome(
         content = {
             item {
                 HeaderDashboardHome(
-                    displayName = dataState.displayName,
+                    displayName = dataState.profile.fullName,
                     currentMonth = dataState.currentMonth,
                     remainingBalance = dataState.remainingBalance,
                     expenses = dataState.expenses,
@@ -184,11 +185,12 @@ internal fun ScreenHome(
                     transactionName = it.transactionName,
                     transactionAccountName = it.transactionAccountName,
                     transactionCategoryName = it.transactionCategory,
-                    transactionDate = it.transactionDate.toString(),
+                    transactionDate = it.transactionDate,
                     transactionAmount = stringResource(
                         if (it.isTransactionExpenses) R.string.text_expenses else R.string.text_income,
                         it.transactionAmount.formatToRupiah()
                     ),
+                    transactionIcon=it.transactionIcon,
                     isExpenses = it.isTransactionExpenses,
                     onClick = {
                         navigateSingleTop(DetailTransaction.routeName)
@@ -208,8 +210,8 @@ internal fun ScreenHome(
                     image = it.image,
                     point = it.totalPoints,
                     pointTarget = it.targetPoints,
-                    color = it.color,
-                    textColor = it.textColor,
+                    color = Color(it.color),
+                    textColor = Color(it.textColor),
                     progress = it.progress,
                     margin = PaddingValues(
                         horizontal = 20.dp,
@@ -256,7 +258,7 @@ internal fun ScreenHome(
                     horizontal = 20.dp
                 )
             ) {
-                CardArticleGrid(
+                ItemArticleGrid(
                     title = it.title,
                     message = it.body,
                     image = it.image,

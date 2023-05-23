@@ -9,6 +9,7 @@ package com.bluehabit.budgetku.android.feature.listTransaction
 
 import android.os.Parcelable
 import com.bluehabit.budgetku.data.model.transaction.TransactionModel
+import com.bluehabit.budgetku.data.remote.dummy.dummyTransactions
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
 import java.math.BigDecimal
@@ -27,32 +28,7 @@ data class ListTransactionDataState(
     val balance: BigDecimal = BigDecimal(2_000_000),
     val income:BigDecimal = BigDecimal(1_000_000),
     val expenses:BigDecimal = BigDecimal(8_000_000),
-    val transactions: @RawValue List<TransactionModel> = listOf(
-        TransactionModel(
-            transactionName = "McDonald",
-            isTransactionExpenses = false,
-            transactionAmount = BigDecimal(90_000),
-            transactionDate = LocalDate.now(),
-            transactionAccountName = "Bank BCA",
-            transactionCategory = "Makanan"
-        ),
-        TransactionModel(
-            transactionName = "Listrik",
-            isTransactionExpenses = true,
-            transactionAmount = BigDecimal(100_000),
-            transactionDate = LocalDate.now(),
-            transactionAccountName = "Bank Jago",
-            transactionCategory = "Utilitas"
-        ),
-        TransactionModel(
-            transactionName = "KFC",
-            isTransactionExpenses = false,
-            transactionAmount = BigDecimal(10_000),
-            transactionDate = LocalDate.now(),
-            transactionAccountName = "Bank Jago",
-            transactionCategory = "Makanan"
-        )
-    ),
+    val transactions: @RawValue List<TransactionModel> = dummyTransactions,
 ) : Parcelable
 
 sealed interface ListTransactionEvent {

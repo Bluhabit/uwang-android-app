@@ -8,7 +8,10 @@
 package com.bluehabit.budgetku.android.feature.dashboard.budget
 
 import android.os.Parcelable
+import com.bluehabit.budgetku.data.model.ExpensesBudgetCategory
+import com.bluehabit.budgetku.data.remote.dummy.dummyBudgetCategory
 import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.RawValue
 import javax.annotation.concurrent.Immutable
 
 enum class BottomSheetBudget {
@@ -26,7 +29,8 @@ data class BudgetState(
 @Parcelize
 data class BudgetDataState(
     val currentMonth: String = "April 2023",
-    val hasBudget: Boolean = true
+    val hasBudget: Boolean = true,
+    val expensesCategory: @RawValue List<ExpensesBudgetCategory> = dummyBudgetCategory
 ) : Parcelable
 
 sealed class BudgetEvent {

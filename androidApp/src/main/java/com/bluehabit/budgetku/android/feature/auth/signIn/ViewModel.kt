@@ -12,6 +12,7 @@ import com.bluehabit.budgetku.android.base.BaseViewModel
 import com.bluehabit.budgetku.android.feature.dashboard.home.Home
 import com.bluehabit.budgetku.data.domain.auth.SignInWIthGoogleUseCase
 import com.bluehabit.budgetku.data.domain.auth.SignInWithEmailUseCase
+import com.bluehabit.budgetku.data.remote.dummy.dummyUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -28,6 +29,7 @@ class SignInViewModel @Inject constructor(
     private fun validateData(
         valid: suspend (String, String) -> Unit
     ) = asyncWithState {
+        hideKeyboard()
         when {
             email.isEmpty() || password.isEmpty() -> {
                 commit { copy(emailIsError = email.isEmpty(), passwordIsError = password.isEmpty()) }
@@ -35,6 +37,9 @@ class SignInViewModel @Inject constructor(
 
             !Patterns.EMAIL_ADDRESS.matcher(email).matches() -> {
                 commit { copy(emailIsError = true) }
+            }
+            email != dummyUser.email && password != dummyUser.password ->{
+                showSnackbar("Akun tidak ditemukan")
             }
 
             else -> valid(email, password)

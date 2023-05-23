@@ -156,7 +156,7 @@ internal fun ScreenDetailTransaction(
             ItemDetailTransaction(
                 label = stringResource(R.string.text_label_account_source_detail_transaction),
                 value = dataState.transactionAccountName,
-                image = R.drawable.ic_jago
+                image = com.bluehabit.budgetku.data.R.drawable.dummy_bank_jago
             )
             ItemDetailTransaction(
                 label = stringResource(R.string.text_label_transaction_date_detail_transaction),

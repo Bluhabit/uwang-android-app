@@ -37,14 +37,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.bluehabit.budgetku.android.R
 import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.base.extensions.gridItems
 import com.bluehabit.budgetku.android.ui.Grey300
 import com.bluehabit.budgetku.android.ui.Grey700
 
 @Composable
-fun CardArticleGrid(
+fun ItemArticleGrid(
     title: String = "",
     message: String = "",
     image: Int = 0,
@@ -83,7 +82,6 @@ fun CardArticleGrid(
                     .height(100.dp),
                 contentScale = ContentScale.FillWidth
             )
-            Spacer(modifier = Modifier.height(16.dp))
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -152,7 +150,7 @@ fun PreviewCardArticleGrid() {
                 )
             ) {
 
-                CardArticleGrid(
+                ItemArticleGrid(
                     title = "Cerdas Finansial",
                     message = "Yuk melek finansial bersama Budgetku.Tersedia course keuangan untuku",
                     image = com.bluehabit.budgetku.data.R.drawable.ic_dummy_article,

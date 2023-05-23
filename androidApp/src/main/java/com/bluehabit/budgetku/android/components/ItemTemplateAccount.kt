@@ -70,7 +70,7 @@ fun ItemTemplateAccount(
                         .background(Color.White)
                 ) {
                     Image(
-                        painter = painterResource(id = R.drawable.ic_jago),
+                        painter = painterResource(id = com.bluehabit.budgetku.data.R.drawable.dummy_bank_jago),
                         contentDescription = "",
                         modifier = Modifier
                             .fillMaxSize()

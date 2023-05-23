@@ -35,6 +35,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -58,9 +59,11 @@ import com.bluehabit.budgetku.android.feature.createAccount.CreateAccount
 import com.bluehabit.budgetku.android.feature.createBudget.CreateBudget
 import com.bluehabit.budgetku.android.feature.createPost.CreatePost
 import com.bluehabit.budgetku.android.feature.createTransaction.CreateTransaction
+import com.bluehabit.budgetku.android.feature.detailPost.DetailPost
 import com.bluehabit.budgetku.android.ui.Grey50
 import com.bluehabit.budgetku.android.ui.Grey500
 import com.bluehabit.budgetku.android.ui.Grey900
+import com.bluehabit.budgetku.data.model.post.PostType
 
 object Community {
     const val routeName = "Community"
@@ -88,7 +91,7 @@ internal fun ScreenCommunity(
                 onCreatePost = {
                     navigateSingleTop(CreatePost.routeName)
                 },
-                onSelect = {
+                onSelectTab = {
                     commit {
                         copy(
                             selectedTab = it
@@ -185,14 +188,14 @@ internal fun ScreenCommunity(
                         item {
                             Spacer(modifier = Modifier.width(16.dp))
                         }
-                        items(dataState.tabs.size) {
+                        items(dataState.categories.size) {
                             FilterChip(
-                                selected = state.selectedTab == it,
+                                selected = state.selectedCategory == it,
                                 onClick = {
-                                    commit { copy(selectedTab = it) }
+                                    commit { copy(selectedCategory = it) }
                                 },
                             ) {
-                                Text(text = dataState.tabs[it])
+                                Text(text = dataState.categories[it])
                             }
                         }
                     }
@@ -211,20 +214,22 @@ internal fun ScreenCommunity(
             if (state.selectedTab == 0) {
                 items(dataState.posts) {
                     when (it.postType) {
-                        1 -> ItemFeed(
+                        PostType.TEXT -> ItemFeed(
                             userName = it.displayName,
-                            createdAt = it.date.toString(),
+                            avatar=it.avatar,
+                            createdAt = it.date,
                             body = it.body,
                             comments = it.comments,
                             likes = it.likes,
                             onClick = {
-
+                                navigate(DetailPost.routeName,"INIID")
                             }
                         )
 
-                        2 -> ItemFeed(
+                        PostType.BUDGETING_TEMPLATE ->ItemFeed(
                             userName = it.displayName,
-                            createdAt = it.date.toString(),
+                            avatar=it.avatar,
+                            createdAt = it.date,
                             comments = it.comments,
                             likes = it.likes,
                             content = {
@@ -233,13 +238,14 @@ internal fun ScreenCommunity(
                                 )
                             },
                             onClick = {
-
+                                navigate(DetailPost.routeName,"INIID")
                             }
                         )
 
-                        3 -> ItemFeed(
+                        PostType.IMAGE -> ItemFeed(
                             userName = it.displayName,
-                            createdAt = it.date.toString(),
+                            avatar=it.avatar,
+                            createdAt = it.date,
                             comments = it.comments,
                             likes = it.likes,
                             content = {
@@ -253,11 +259,12 @@ internal fun ScreenCommunity(
                                 Image(
                                     painter = painterResource(id = it.mimeContent),
                                     contentDescription = "",
-                                    modifier = Modifier.fillMaxWidth()
+                                    modifier = Modifier.fillMaxWidth(),
+                                    contentScale = ContentScale.FillWidth
                                 )
                             },
                             onClick = {
-
+                                navigate(DetailPost.routeName,"INIID")
                             }
                         )
 
@@ -270,7 +277,7 @@ internal fun ScreenCommunity(
                 items(dataState.articles) {
                     ItemArticle(
                         title = it.title,
-                        createdAt = it.date.toString(),
+                        createdAt = it.date,
                         likes = it.likes,
                         image = it.image
                     )
@@ -284,7 +291,7 @@ internal fun ScreenCommunity(
 fun TopAppBarDashboardCommunity(
     selected: Int = 0,
     onCreatePost: () -> Unit = {},
-    onSelect: (Int) -> Unit = {}
+    onSelectTab:(Int)->Unit = {}
 ) {
     Column(
         modifier = Modifier
@@ -336,7 +343,7 @@ fun TopAppBarDashboardCommunity(
         ) {
             Tab(
                 selected = true,
-                onClick = { onSelect(0) },
+                onClick = { onSelectTab(0) },
                 unselectedContentColor = Grey500,
                 text = {
                     Text(text = stringResource(R.string.text_tab_feed))
@@ -344,7 +351,7 @@ fun TopAppBarDashboardCommunity(
             )
             Tab(
                 selected = false,
-                onClick = { onSelect(1) },
+                onClick = { onSelectTab(1) },
                 unselectedContentColor = Grey500,
                 text = {
                     Text(text = stringResource(R.string.text_tab_article))
@@ -353,7 +360,7 @@ fun TopAppBarDashboardCommunity(
             Tab(
                 selected = false,
                 onClick = {
-                    onSelect(2)
+                    onSelectTab(2)
                 },
                 unselectedContentColor = Grey500,
                 text = {
