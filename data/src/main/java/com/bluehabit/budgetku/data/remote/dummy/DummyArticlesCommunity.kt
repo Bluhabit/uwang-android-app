@@ -7,7 +7,6 @@
 
 package com.bluehabit.budgetku.data.remote.dummy
 
-import com.bluehabit.budgetku.data.R
 import com.bluehabit.budgetku.data.model.article.ArticleModel
 
 val dummyArticlesCommunity: List<ArticleModel> = listOf(
