@@ -69,7 +69,10 @@ fun ScreenInputAccount(
                 style = MaterialTheme.typography.h5,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center,
-                color = MaterialTheme.colors.onPrimary
+                color = MaterialTheme.colors.onPrimary,
+                modifier = Modifier.padding(
+                    horizontal = 20.dp
+                )
             )
             Spacer(modifier = Modifier.height(20.dp))
             LazyRow(

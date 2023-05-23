@@ -33,6 +33,8 @@ data class CreateTransactionState(
     val transactionName:String="",
     val selectedCategory:String="",
     val transactionDate:LocalDate?=null,
+
+    val transactionCategory:String="",
     //feedback
     val feedback:String=""
 ) : Parcelable

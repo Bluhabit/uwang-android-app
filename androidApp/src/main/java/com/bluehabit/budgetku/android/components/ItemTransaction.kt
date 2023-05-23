@@ -38,6 +38,7 @@ import com.bluehabit.budgetku.android.R
 import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.ui.Grey300
 import com.bluehabit.budgetku.android.ui.Grey700
+import com.bluehabit.budgetku.android.ui.Grey900
 
 @Composable
 fun ItemTransaction(
@@ -114,7 +115,7 @@ fun ItemTransaction(
                             text = transactionCategoryName,
                             style = MaterialTheme.typography.subtitle1,
                             fontWeight = FontWeight.Normal,
-                            color = Grey700
+                            color = Grey900
                         )
 
                     }

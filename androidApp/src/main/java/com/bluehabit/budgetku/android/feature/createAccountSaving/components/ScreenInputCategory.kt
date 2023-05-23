@@ -30,7 +30,7 @@ import com.bluehabit.budgetku.data.model.category.SavingCategory
 
 @Composable
 fun ScreenInputCategory(
-    selected: Int = 0,
+    selected: Int? = null,
     categories: List<SavingCategory> = listOf(),
     onSelected: (Int) -> Unit = {}
 ) {

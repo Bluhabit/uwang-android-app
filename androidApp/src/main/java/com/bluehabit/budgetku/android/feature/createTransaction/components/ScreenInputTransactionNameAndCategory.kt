@@ -47,121 +47,122 @@ import com.bluehabit.budgetku.android.components.DottedLine
 @Composable
 fun ScreenInputTransactionNameAndCategory(
     transactionName: String = "",
-    onSelectCategory:()->Unit={},
+    transactionCategory: String = "",
+    onSelectCategory: () -> Unit = {},
     onChange: (String) -> Unit = {}
 ) {
-    Column(
+    Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colors.primary),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.SpaceBetween
+            .background(MaterialTheme.colors.primary)
     ) {
-
-        Spacer(modifier = Modifier.width(10.dp))
         Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(
-                    horizontal = 20.dp
-                )
+                .align(Alignment.TopCenter)
+                .fillMaxSize()
+                .background(MaterialTheme.colors.primary),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Top
         ) {
-            Text(
-                text = stringResource(R.string.text_title_input_transaction_name_create_transaction),
-                style = MaterialTheme.typography.h5,
-                fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center,
-                color = MaterialTheme.colors.onPrimary,
-                modifier = Modifier.padding(
-                    horizontal = 16.dp
-                )
-            )
-
-            TextField(
-                value = transactionName,
-                onValueChange = onChange,
-                enabled = true,
-                placeholder = {
-                    Text(
-                        text = stringResource(R.string.text_placeholder_transaction_name_create_transaction),
-                        style = MaterialTheme.typography.h4,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colors.onPrimary.copy(
-                            alpha = 0.5f
-                        )
-                    )
-                },
-                colors = TextFieldDefaults.textFieldColors(
-                    backgroundColor = Color.Transparent,
-                    focusedIndicatorColor = Color.Transparent,
-                    disabledIndicatorColor = Color.Transparent,
-                    errorIndicatorColor = Color.Transparent,
-                    unfocusedIndicatorColor = Color.Transparent,
-                    textColor = MaterialTheme.colors.onPrimary,
-                    cursorColor = MaterialTheme.colors.onPrimary,
-
-                    ),
-                maxLines = 3,
-                textStyle = MaterialTheme.typography.h4.copy(
-                    fontWeight = FontWeight.Bold
-                )
-            )
-            Spacer(modifier = Modifier.height(25.dp))
-            Row(
+            Spacer(modifier = Modifier.fillMaxHeight(0.3f))
+            Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clip(MaterialTheme.shapes.small)
-                    .clickable(
-                        enabled = true,
-                        onClick = onSelectCategory
-                    )
-                    .background(MaterialTheme.colors.surface)
                     .padding(
-                        horizontal = 16.dp,
-                        vertical = 16.dp
-                    ),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Row {
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_pin),
-                        contentDescription = ""
+                        horizontal = 20.dp
                     )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(text = stringResource(R.string.text_input_input_category_create_transaction))
-                }
-                Icon(
-                    imageVector = Icons.Outlined.KeyboardArrowDown,
-                    contentDescription = ""
+            ) {
+                Text(
+                    text = stringResource(R.string.text_title_input_transaction_name_create_transaction),
+                    style = MaterialTheme.typography.h5,
+                    fontWeight = FontWeight.Bold,
+                    textAlign = TextAlign.Center,
+                    color = MaterialTheme.colors.onPrimary,
+                    modifier = Modifier.padding(
+                        horizontal = 16.dp
+                    )
                 )
 
-            }
-        }
+                TextField(
+                    value = transactionName,
+                    onValueChange = onChange,
+                    enabled = true,
+                    placeholder = {
+                        Text(
+                            text = stringResource(R.string.text_placeholder_transaction_name_create_transaction),
+                            style = MaterialTheme.typography.h4,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colors.onPrimary.copy(
+                                alpha = 0.5f
+                            )
+                        )
+                    },
+                    colors = TextFieldDefaults.textFieldColors(
+                        backgroundColor = Color.Transparent,
+                        focusedIndicatorColor = Color.Transparent,
+                        disabledIndicatorColor = Color.Transparent,
+                        errorIndicatorColor = Color.Transparent,
+                        unfocusedIndicatorColor = Color.Transparent,
+                        textColor = MaterialTheme.colors.onPrimary,
+                        cursorColor = MaterialTheme.colors.onPrimary,
 
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight(fraction = 0.5f)
-        ) {
-
-            Image(
-                painter = painterResource(id = R.drawable.bg_footer_input_transaction_name),
-                contentDescription = "",
-                modifier = Modifier
-                    .align(Alignment.BottomStart)
-                    .fillMaxWidth(
-                        fraction = 0.6f
+                        ),
+                    maxLines = 3,
+                    textStyle = MaterialTheme.typography.h4.copy(
+                        fontWeight = FontWeight.Bold
                     )
-                    .fillMaxHeight(),
-                contentScale = ContentScale.FillHeight
-            )
-            DottedLine(
-                modifier = Modifier.align(Alignment.TopCenter)
-            )
-        }
+                )
+                Spacer(modifier = Modifier.height(25.dp))
+                if (transactionName.length > 1) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clip(MaterialTheme.shapes.small)
+                            .clickable(
+                                enabled = true,
+                                onClick = onSelectCategory
+                            )
+                            .background(MaterialTheme.colors.surface)
+                            .padding(
+                                horizontal = 16.dp,
+                                vertical = 16.dp
+                            ),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Row {
+                            Image(
+                                painter = painterResource(id = R.drawable.ic_pin),
+                                contentDescription = ""
+                            )
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text(text = transactionCategory.ifEmpty { stringResource(R.string.text_input_input_category_create_transaction) })
+                        }
+                        Icon(
+                            imageVector = Icons.Outlined.KeyboardArrowDown,
+                            contentDescription = ""
+                        )
 
+                    }
+                }
+            }
+
+        }
+        Image(
+            painter = painterResource(id = R.drawable.bg_footer_input_transaction_name),
+            contentDescription = "",
+            modifier = Modifier
+                .align(Alignment.BottomStart)
+                .fillMaxWidth(
+                    fraction = 0.6f
+                )
+                .fillMaxHeight(
+                    fraction = 0.3f
+                ),
+            contentScale = ContentScale.FillHeight
+        )
     }
+
 
 }
 

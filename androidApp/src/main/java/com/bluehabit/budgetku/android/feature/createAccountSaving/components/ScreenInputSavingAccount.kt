@@ -47,7 +47,7 @@ import com.bluehabit.budgetku.data.model.account.AccountModel
 
 @Composable
 fun ScreenInputSavingAccount(
-    selected:Int=0,
+    selected:Int?=null,
     accounts:List<AccountModel> = listOf(),
     onSelectedAccount: (Int) -> Unit = {},
     onAddAccount: () -> Unit = {}
