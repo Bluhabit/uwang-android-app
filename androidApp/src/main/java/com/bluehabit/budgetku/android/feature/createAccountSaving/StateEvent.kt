@@ -27,10 +27,9 @@ enum class CreateAccountSavingBottomSheetType{
 @Parcelize
 data class CreateAccountSavingState(
     val screenType: Int=1,
-    val selectedCategory:Int=0,
+    val selectedCategory:Int?=null,
     val savingPurpose:String="",
-    val selectedAccount:Int=0,
-    val amount:BigDecimal= BigDecimal.ZERO,
+    val selectedAccount:Int?=null,
     val target:String="0",
 
     val feedback:String="",

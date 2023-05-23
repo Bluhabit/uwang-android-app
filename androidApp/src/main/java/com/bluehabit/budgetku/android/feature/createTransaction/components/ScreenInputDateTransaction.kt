@@ -113,7 +113,9 @@ fun ScreenInputDateTransaction(
                         contentDescription = ""
                     )
                     Spacer(modifier = Modifier.width(8.dp))
-                    Text(text = stringResource(R.string.text_placeholder_input_date_transaction_create_transaction))
+                    Text(
+                        text = date?.toString().orEmpty()
+                            .ifEmpty { stringResource(R.string.text_placeholder_input_date_transaction_create_transaction) })
                 }
                 Icon(
                     imageVector = Icons.Outlined.KeyboardArrowDown,

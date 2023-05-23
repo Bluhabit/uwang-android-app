@@ -181,7 +181,7 @@ internal fun ScreenBudget(
 
                     if (dataState.hasBudget) {
                         CardSummaryBudget(
-                            budgetAmount = BigDecimal(2_000_000),
+                            budgetAmount = BigDecimal(10_000_000),
                             budgetUsed = BigDecimal(1_000_000),
                             usage = "40%",
                             onEdit = {

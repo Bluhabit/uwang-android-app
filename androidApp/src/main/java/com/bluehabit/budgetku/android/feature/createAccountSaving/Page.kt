@@ -97,7 +97,7 @@ internal fun ScreenCreateAccountSaving(
             showBottomSheet()
         }
 
-        if (state.screenType > 2) {
+        if (state.screenType > 1) {
             dispatch(CreateAccountSavingEvent.Prev)
         }
     }
@@ -117,7 +117,7 @@ internal fun ScreenCreateAccountSaving(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(
-                    top = 50.dp
+                    top =  if (state.screenType in 1..4) 50.dp else 0.dp
                 )
 
         ) {
@@ -173,7 +173,7 @@ internal fun ScreenCreateAccountSaving(
                     appState.hideTopAppBar()
                     ScreenDetailSaving(
                         target = state.target,
-                        amount = state.amount.toString(),
+                        amount = state.nominal,
                         onAddAmount = {
                             commit {
                                 copy(

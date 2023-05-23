@@ -35,6 +35,7 @@ import com.bluehabit.budgetku.android.components.ScreenInputFeedback
 import com.bluehabit.budgetku.android.components.ScreenInputSuccess
 import com.bluehabit.budgetku.android.components.bottomSheet.BottomSheetConfirmation
 import com.bluehabit.budgetku.android.components.bottomSheet.BottomSheetDatePicker
+import com.bluehabit.budgetku.android.feature.createAccount.CreateAccount
 import com.bluehabit.budgetku.android.feature.createTransaction.CreateTransactionBottomSheetType.CANCEL_CONFIRMATION
 import com.bluehabit.budgetku.android.feature.createTransaction.CreateTransactionBottomSheetType.CATEGORY
 import com.bluehabit.budgetku.android.feature.createTransaction.CreateTransactionBottomSheetType.DATE_PICKER
@@ -137,9 +138,13 @@ internal fun ScreenCreateTransaction(
                             ),
                         ),
                         onCategorySelected = {
+                            commit {
+                                copy(
+                                    transactionCategory = it
+                                )
+                            }
                             hideBottomSheet()
                             dispatch(CreateTransactionEvent.NexPage)
-
                         },
                     )
                 }
@@ -249,11 +254,15 @@ internal fun ScreenCreateTransaction(
                         delay(500)
                         dispatch(CreateTransactionEvent.NexPage)
                     }
+                },
+                onAddAccount = {
+                    navigateSingleTop(CreateAccount.routeName)
                 }
             )
 
             4 -> ScreenInputTransactionNameAndCategory(
                 transactionName = state.transactionName,
+                transactionCategory = state.transactionCategory,
                 onChange = {
                     commit {
                         copy(
@@ -262,7 +271,12 @@ internal fun ScreenCreateTransaction(
                     }
                 },
                 onSelectCategory = {
-                    dispatch(CreateTransactionEvent.ChangeBottomSheet(CATEGORY))
+                    hideKeyboard()
+                    commit { 
+                        copy(
+                            bottomSheetType = CATEGORY
+                        )
+                    }
                     showBottomSheet()
                 },
             )

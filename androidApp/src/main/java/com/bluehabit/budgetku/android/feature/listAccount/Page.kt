@@ -102,7 +102,7 @@ internal fun ScreenListAccount(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(
-                            vertical = 20.dp
+                            vertical = 8.dp
                         ),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Start
@@ -125,8 +125,7 @@ internal fun ScreenListAccount(
                         color = MaterialTheme.colors.onSurface
                     )
                 }
-
-                Spacer(modifier = Modifier.height(24.dp))
+                Spacer(modifier = Modifier.height(16.dp))
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically
