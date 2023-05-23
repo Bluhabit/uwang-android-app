@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Divider
@@ -45,6 +46,7 @@ fun ItemTransaction(
     transactionDate: String = "",
     transactionCategoryName: String = "",
     transactionAmount: String = "",
+    transactionIcon:Int = com.bluehabit.budgetku.data.R.drawable.ic_dummy_food,
     isExpenses: Boolean = false,
     clickable: Boolean = true,
     onClick: () -> Unit = {}
@@ -68,7 +70,7 @@ fun ItemTransaction(
             verticalAlignment = Alignment.Top
         ) {
             Image(
-                painter = painterResource(id = com.bluehabit.budgetku.data.R.drawable.ic_dummy_food),
+                painter = painterResource(id =transactionIcon),
                 contentDescription = "",
                 modifier = Modifier.size(40.dp)
             )
@@ -95,12 +97,14 @@ fun ItemTransaction(
                         fontWeight = FontWeight.Normal,
                         color = Grey700
                     )
+                    Spacer(modifier = Modifier.width(8.dp))
                     Box(
                         modifier = Modifier
-                            .size(8.dp)
+                            .size(4.dp)
                             .clip(CircleShape)
                             .background(Grey300)
                     )
+                    Spacer(modifier = Modifier.width(8.dp))
                     Text(
                         text = transactionCategoryName,
                         style = MaterialTheme.typography.subtitle1,

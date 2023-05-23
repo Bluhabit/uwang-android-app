@@ -55,12 +55,10 @@ import com.bluehabit.budgetku.android.base.extensions.formatToRupiah
 import com.bluehabit.budgetku.android.ui.Grey100
 import com.bluehabit.budgetku.android.ui.Grey300
 import com.bluehabit.budgetku.android.ui.LightBlue600
+import com.bluehabit.budgetku.data.model.LatestTransactionMonthly
+import com.bluehabit.budgetku.data.remote.dummy.dummyLatestMonthlyBudget
 import java.math.BigDecimal
 
-data class LatestTransactionMonthly(
-    val transactionName: String = "",
-    val usedAmount: BigDecimal = BigDecimal.ZERO
-)
 
 @Composable
 fun CardMonthlyBudget(
@@ -232,7 +230,7 @@ fun CardMonthlyBudget(
                         ) {
                             Row {
                                 Image(
-                                    painter = painterResource(id = com.bluehabit.budgetku.data.R.drawable.ic_dummy_food),
+                                    painter = painterResource(id = it.icon),
                                     contentDescription = "",
                                     modifier = Modifier.size(20.dp)
                                 )
@@ -316,16 +314,7 @@ fun PreviewCardMonthlyBudget() {
             usedAmount = BigDecimal(3_000_000),
             totalBudget = BigDecimal(4_000_000),
             score = 50,
-            transactions = listOf(
-                LatestTransactionMonthly(
-                    transactionName = "Makanan",
-                    usedAmount = BigDecimal(80_000)
-                ),
-                LatestTransactionMonthly(
-                    transactionName = "Kendaraan",
-                    usedAmount = BigDecimal(100_000)
-                )
-            )
+            transactions = dummyLatestMonthlyBudget
         )
     }
 }

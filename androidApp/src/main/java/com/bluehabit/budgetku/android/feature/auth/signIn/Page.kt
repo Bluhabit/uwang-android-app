@@ -20,6 +20,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -29,6 +31,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -133,7 +136,10 @@ internal fun ScreenSignIn(appState: ApplicationState) = UIWrapper<SignInViewMode
                     errorMessage = stringResource(R.string.email_not_valid),
                     onChange = {
                         dispatch(SignInEvent.OnEmailChange(it))
-                    }
+                    },
+                    keyboardOptions = KeyboardOptions(
+                        imeAction = ImeAction.Next
+                    )
                 )
                 FormInputPassword(
                     placeholder = stringResource(R.string.input_your_password),
@@ -144,6 +150,14 @@ internal fun ScreenSignIn(appState: ApplicationState) = UIWrapper<SignInViewMode
                     onChange = {
                         dispatch(SignInEvent.OnPasswordChange(it))
                     },
+                    keyboardOptions = KeyboardOptions(
+                        imeAction = ImeAction.Send
+                    ),
+                    keyboardActions = KeyboardActions(
+                        onSend = {
+                            dispatch(SignInEvent.SignInWithEmail)
+                        }
+                    )
                 )
                 Row(
                     modifier = Modifier

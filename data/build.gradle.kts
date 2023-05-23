@@ -37,6 +37,7 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
+        isCoreLibraryDesugaringEnabled = true
     }
     kotlinOptions {
         jvmTarget = "17"
@@ -53,6 +54,7 @@ android {
 dependencies {
 
     implementation(libs.core.ktx)
+    coreLibraryDesugaring(libs.desugar.jdk.lib)
 
     api(libs.sqldelight.android.driver)
     with(libs.ktor){

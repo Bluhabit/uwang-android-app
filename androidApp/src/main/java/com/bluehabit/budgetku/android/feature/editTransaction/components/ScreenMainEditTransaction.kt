@@ -201,7 +201,7 @@ fun ScreenMainEditTransaction() {
                     )
                     Spacer(modifier = Modifier.height(10.dp))
                     ItemEditTransactionDetail(
-                        icon = R.drawable.ic_bca,
+                        icon = com.bluehabit.budgetku.data.R.drawable.dummy_bank_jago,
                         value = stringResource(id = R.string.text_bank_bca),
                         isExpandable = true,
                         onClick = {},

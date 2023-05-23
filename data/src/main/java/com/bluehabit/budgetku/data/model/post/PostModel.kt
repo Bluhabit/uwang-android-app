@@ -17,14 +17,19 @@ data class ContentBudgetingPostModel(
     val amount: BigDecimal
 )
 
+enum class PostType{
+    TEXT,
+    BUDGETING_TEMPLATE,
+    IMAGE
+}
 data class PostModel(
     val displayName: String,
-    val date: LocalDateTime,
+    val date: String,
     val body: String,
     val avatar: Int,
     val comments: Int,
     val likes: Int,
-    val postType: Int,
+    val postType: PostType,
     val mimeContent: Int,
     val content: List<ContentBudgetingPostModel>
 )

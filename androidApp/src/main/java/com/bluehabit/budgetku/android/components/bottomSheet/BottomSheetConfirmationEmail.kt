@@ -33,7 +33,7 @@ import com.bluehabit.budgetku.android.ui.Grey900
 
 @Composable
 fun BottomSheetConfirmationEmail(
-    title: String = "",
+    email: String = "",
     onDismiss: () -> Unit = {},
     onConfirm: () -> Unit = {}
 ) {
@@ -81,7 +81,7 @@ fun BottomSheetConfirmationEmail(
                             color = MaterialTheme.colors.primary
                         ),
                     ) {
-                        append("wahyurenaldi27@gmail.com ")
+                        append(email)
                     }
                     withStyle(
                         style = SpanStyle(

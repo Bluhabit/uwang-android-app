@@ -45,9 +45,11 @@ import com.bluehabit.budgetku.android.ui.Grey700
 import com.bluehabit.budgetku.android.ui.Grey900
 import com.bluehabit.budgetku.data.model.post.ContentBudgetingPostModel
 
+
 @Composable
 fun ItemFeed(
     userName: String = "",
+    avatar:Int=com.bluehabit.budgetku.data.R.drawable.dummy_avatar_1,
     createdAt: String = "",
     comments: Int = 0,
     likes: Int = 0,
@@ -76,7 +78,7 @@ fun ItemFeed(
             horizontalArrangement = Arrangement.Start
         ) {
             Image(
-                painter = painterResource(id = com.bluehabit.budgetku.data.R.drawable.dummy_avatar),
+                painter = painterResource(id =avatar),
                 contentDescription = "",
                 modifier = Modifier
                     .size(48.dp)
@@ -199,6 +201,7 @@ fun ItemFeed(
 @Composable
 fun ItemFeed(
     userName: String = "",
+    avatar:Int=com.bluehabit.budgetku.data.R.drawable.dummy_avatar_1,
     createdAt: String = "",
     body: String = "",
     comments: Int = 0,
@@ -211,6 +214,7 @@ fun ItemFeed(
 ) {
     ItemFeed(
         userName,
+        avatar,
         createdAt,
         comments,
         likes,

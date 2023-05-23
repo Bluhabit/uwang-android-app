@@ -44,7 +44,7 @@ import java.math.BigDecimal
 @Composable
 fun CardItemAccount(
     margin: PaddingValues = PaddingValues(),
-    icon: Int = R.drawable.ic_jago,
+    icon: Int = com.bluehabit.budgetku.data.R.drawable.dummy_bank_jago,
     accountName: String = "",
     accountBalance: BigDecimal = BigDecimal.ZERO,
     hasSaving: Boolean = false,

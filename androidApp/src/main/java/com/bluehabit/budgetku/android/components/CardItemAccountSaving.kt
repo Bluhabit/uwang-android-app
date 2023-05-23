@@ -50,7 +50,7 @@ import com.bluehabit.budgetku.android.ui.Grey700
 fun CardItemAccountSaving(
     margin: PaddingValues = PaddingValues(),
     icon: Int = com.bluehabit.budgetku.data.R.drawable.ic_dummy_saving,
-    accountIcon: Int = R.drawable.ic_jago,
+    accountIcon: Int = com.bluehabit.budgetku.data.R.drawable.dummy_bank_jago,
     accountName: String = "",
     dueDate: String = "",
     targetSaving: String = "",

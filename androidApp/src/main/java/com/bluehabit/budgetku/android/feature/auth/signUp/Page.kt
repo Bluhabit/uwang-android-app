@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
@@ -82,6 +83,7 @@ internal fun ScreenSignUp(
     with(appState) {
         setupBottomSheet {
             BottomSheetConfirmationEmail(
+                email = state.email,
                 onConfirm = {
                     hideBottomSheet()
                     navigateAndReplaceAll(EmailVerification.routeName)
@@ -150,19 +152,26 @@ internal fun ScreenSignUp(
             verticalArrangement = Arrangement.Top
         ) {
             FormInput(
-                value = state.fullName,
+                value = state.email,
                 label = stringResource(id = R.string.label_input_email_signup),
                 placeholder = stringResource(R.string.placeholder_input_email_signup),
                 onChange = {
                     commit {
                         copy(
-                            fullName = it
+                            email = it
                         )
                     }
                 },
                 keyboardOptions = KeyboardOptions(
                     imeAction = ImeAction.Next
                 ),
+                keyboardActions = KeyboardActions(
+                    onNext = {
+                        dispatch(SignUpEvent.Submit)
+                    }
+                ),
+                error=!state.isEmailValid,
+                errorMessage=state.errorMessage
             )
             Spacer(modifier = Modifier.height(24.dp))
             Row(
@@ -188,8 +197,7 @@ internal fun ScreenSignUp(
             ButtonPrimary(
                 text = stringResource(R.string.text_button_register_signup),
                 onClick = {
-                    hideKeyboard()
-                    showBottomSheet()
+                    dispatch(SignUpEvent.Submit)
                 },
             )
             Spacer(modifier = Modifier.height(40.dp))
@@ -206,7 +214,7 @@ internal fun ScreenSignUp(
             Spacer(modifier = Modifier.height(20.dp))
             ButtonGoogle(
                 text = stringResource(R.string.text_button_signin_with_google_signup),
-                onClick = { launcher.launch(1) },
+                onClick = {  },
             )
         }
         Spacer(modifier = Modifier.height(10.dp))

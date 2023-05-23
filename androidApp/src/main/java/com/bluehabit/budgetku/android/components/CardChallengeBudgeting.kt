@@ -46,17 +46,6 @@ import com.bluehabit.budgetku.android.ui.Grey300
 import com.bluehabit.budgetku.android.ui.Grey700
 import com.bluehabit.budgetku.android.ui.Pink500
 
-data class ChallengeModel(
-    val title:String,
-    val message:String,
-    val progress:Float,
-    val totalPoints:Int,
-    val targetPoints:Int,
-    val color: Color,
-    val textColor: Color,
-    val image:Int
-)
-
 
 @Composable
 fun CardChallengeBudgeting(

@@ -47,7 +47,7 @@ class CreateNewPasswordViewModel @Inject constructor(
             confirmPassword != password -> {
                 commit {
                     copy(
-                        isInputPasswordError = true,
+                        isConfirmPasswordError = true,
                         errorConfirmPassword = getString(R.string.subtitle_error_password_not_identical)
                     )
                 }
@@ -57,19 +57,27 @@ class CreateNewPasswordViewModel @Inject constructor(
             confirmPassword.isEmpty() -> {
                 commit {
                     copy(
-                        isInputPasswordError = true,
+                        isConfirmPasswordError = true,
                         errorConfirmPassword = getString(R.string.subtitle_error_password_empty)
                     )
                 }
             }
-            else -> valid(true)
+            else -> {
+                commit {
+                    copy(
+                        isInputPasswordError = false,
+                        isConfirmPasswordError = false
+                    )
+                }
+                valid(true)
+            }
         }
     }
 
 
 
-    override fun handleActions() = onEvent {
-        when (it) {
+    override fun handleActions() = onEvent { event ->
+        when (event) {
             CreateNewPasswordEvent.Submit -> validate {
                 if(it){
                     navigateSingleTop(Home.routeName)

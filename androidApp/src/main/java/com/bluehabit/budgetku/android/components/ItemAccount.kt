@@ -23,9 +23,11 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
@@ -43,7 +45,7 @@ import java.math.BigDecimal
 
 @Composable
 fun ItemAccount(
-    icon:Int=R.drawable.ic_jago,
+    icon:Int=com.bluehabit.budgetku.data.R.drawable.dummy_bank_jago,
     accountBankName: String = "",
     accountBalance: BigDecimal = BigDecimal.ZERO,
     selected: Boolean = false,
@@ -79,13 +81,16 @@ fun ItemAccount(
                 .size(40.dp)
                 .clip(CircleShape)
                 .background(Color.White)
+                .padding(
+                    6.dp
+                )
         ) {
             Image(
                 painter = painterResource(id = icon),
                 contentDescription = "",
                 modifier = Modifier
-                    .fillMaxSize()
-                    .clip(CircleShape),
+                    .align(Alignment.Center),
+                contentScale = ContentScale.Fit
             )
         }
         Column {
