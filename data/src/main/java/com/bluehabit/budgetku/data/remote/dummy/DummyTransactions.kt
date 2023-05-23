@@ -9,7 +9,6 @@ package com.bluehabit.budgetku.data.remote.dummy
 
 import com.bluehabit.budgetku.data.model.transaction.TransactionModel
 import java.math.BigDecimal
-import java.time.LocalDate
 
 val dummyTransactions :List<TransactionModel> = listOf(
     TransactionModel(

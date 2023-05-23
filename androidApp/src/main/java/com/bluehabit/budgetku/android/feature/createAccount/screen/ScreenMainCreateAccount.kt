@@ -38,7 +38,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.bluehabit.budgetku.android.R
 import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.components.CardUpgradeToPremium
 import com.bluehabit.budgetku.android.components.button.ButtonPrimary
@@ -46,8 +45,6 @@ import com.bluehabit.budgetku.android.ui.Grey100
 import com.bluehabit.budgetku.android.ui.Grey300
 import com.bluehabit.budgetku.android.ui.Grey500
 import com.bluehabit.budgetku.android.ui.Grey900
-import com.bluehabit.budgetku.android.ui.Yellow800
-import java.math.BigDecimal
 
 @Composable
 fun ScreenMainCreateAccount(

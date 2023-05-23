@@ -7,13 +7,11 @@
 
 package com.bluehabit.budgetku.android.components
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -30,23 +28,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.bluehabit.budgetku.android.R
 import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.base.extensions.dashedBorder
-import com.bluehabit.budgetku.android.base.extensions.formatToRupiah
 import com.bluehabit.budgetku.android.ui.Grey100
 import com.bluehabit.budgetku.android.ui.Grey300
 import com.bluehabit.budgetku.android.ui.Grey700
-import com.bluehabit.budgetku.android.ui.Yellow200
-import java.math.BigDecimal
 
 @Composable
 fun ItemAccountPlaceholder(

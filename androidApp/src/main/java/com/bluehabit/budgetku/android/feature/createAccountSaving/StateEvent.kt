@@ -8,7 +8,6 @@
 package com.bluehabit.budgetku.android.feature.createAccountSaving
 
 import android.os.Parcelable
-import com.bluehabit.budgetku.android.feature.createBudget.CreateBudgetEvent
 import com.bluehabit.budgetku.data.model.account.AccountModel
 import com.bluehabit.budgetku.data.model.category.SavingCategory
 import com.bluehabit.budgetku.data.remote.dummy.dummyAccountsHome

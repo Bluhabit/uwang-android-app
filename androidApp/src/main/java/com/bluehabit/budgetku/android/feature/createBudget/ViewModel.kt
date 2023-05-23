@@ -10,8 +10,6 @@ package com.bluehabit.budgetku.android.feature.createBudget
 import com.bluehabit.budgetku.android.base.BaseViewModelData
 import com.bluehabit.budgetku.android.base.extensions.formatDecimal
 import dagger.hilt.android.lifecycle.HiltViewModel
-import okhttp3.internal.trimSubstring
-import java.math.BigDecimal
 import javax.inject.Inject
 
 @HiltViewModel

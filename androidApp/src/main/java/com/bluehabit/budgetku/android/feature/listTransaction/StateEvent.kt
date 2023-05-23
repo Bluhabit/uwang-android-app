@@ -13,7 +13,6 @@ import com.bluehabit.budgetku.data.remote.dummy.dummyTransactions
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
 import java.math.BigDecimal
-import java.time.LocalDate
 import javax.annotation.concurrent.Immutable
 
 @Immutable

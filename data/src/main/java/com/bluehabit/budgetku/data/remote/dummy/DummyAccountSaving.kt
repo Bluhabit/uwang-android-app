@@ -9,7 +9,6 @@ package com.bluehabit.budgetku.data.remote.dummy
 
 import com.bluehabit.budgetku.data.R
 import com.bluehabit.budgetku.data.model.account.AccountSavingModel
-import java.time.LocalDateTime
 
 val dummyAcountSaving: List<AccountSavingModel> = listOf(
     AccountSavingModel(

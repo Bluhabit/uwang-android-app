@@ -7,8 +7,6 @@
 
 package com.bluehabit.budgetku.data.model
 
-import com.bluehabit.budgetku.data.R
-
 data class CategoryFinancialAccountModel(
     val name:String="",
     val children:List<FinancialAccountModel>

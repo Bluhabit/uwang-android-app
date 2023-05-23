@@ -37,7 +37,6 @@ import com.bluehabit.budgetku.android.feature.listTransaction.routeListTransacti
 import com.bluehabit.budgetku.android.feature.onboarding.routeOnboard
 import com.bluehabit.budgetku.android.feature.profile.routeProfile
 import com.bluehabit.budgetku.android.feature.resultCreateBudget.routeResultCreateBudget
-import com.bluehabit.budgetku.android.feature.splashScreen.Splash
 import com.bluehabit.budgetku.android.feature.splashScreen.routeSplash
 import com.bluehabit.budgetku.android.feature.tutorialBudget.routeTutorialBudget
 

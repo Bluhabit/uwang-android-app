@@ -12,7 +12,6 @@ import com.bluehabit.budgetku.data.model.post.ContentBudgetingPostModel
 import com.bluehabit.budgetku.data.model.post.PostModel
 import com.bluehabit.budgetku.data.model.post.PostType
 import java.math.BigDecimal
-import java.time.LocalDateTime
 
 val dummyPosts :List<PostModel> = listOf(
     PostModel(

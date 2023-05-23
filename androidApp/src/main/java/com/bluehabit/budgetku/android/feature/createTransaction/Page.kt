@@ -233,7 +233,10 @@ internal fun ScreenCreateTransaction(
             )
 
             3 -> ScreenInputAccount(
-                transactionType = stringResource(if (!state.isExpenses) R.string.text_transaction_type_income else R.string.text_transaction_type_expenses),
+                transactionType = stringResource(
+                    if (!state.isExpenses) R.string.text_transaction_type_income
+                    else R.string.text_transaction_type_expenses
+                ),
                 selectedAccount = state.selectedAccount,
                 accounts = dataState.accounts,
                 onSelectedAccount = {

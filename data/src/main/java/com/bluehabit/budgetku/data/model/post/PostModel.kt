@@ -8,7 +8,6 @@
 package com.bluehabit.budgetku.data.model.post
 
 import java.math.BigDecimal
-import java.time.LocalDateTime
 
 data class ContentBudgetingPostModel(
     val icon: Int,
