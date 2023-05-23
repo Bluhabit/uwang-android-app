@@ -19,15 +19,17 @@ import javax.annotation.concurrent.Immutable
 @Immutable
 @Parcelize
 data class DetailPostState(
-    val comment: String = ""
+    val comment: String = "",
+    val replyTo:String=""
 ) : Parcelable
 
 @Immutable
 @Parcelize
 data class DetailPostDataState(
-    val detailPost: @RawValue PostModel = dummyDetailPost,
+    val detailPost: @RawValue PostModel? = null,
     val comments: @RawValue List<CommentModel> = dummyComment
 ) : Parcelable
 
 sealed interface DetailPostEvent {
+    object GetDetailPost:DetailPostEvent
 }

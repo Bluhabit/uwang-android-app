@@ -22,6 +22,7 @@ enum class PostType{
     IMAGE
 }
 data class PostModel(
+    val id:String,
     val displayName: String,
     val date: String,
     val body: String,

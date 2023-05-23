@@ -15,6 +15,7 @@ import java.math.BigDecimal
 
 val dummyPosts :List<PostModel> = listOf(
     PostModel(
+        id = "001",
         displayName = "Devianrahmani",
         date = "24 Mei 2023,19:54",
         avatar = R.drawable.dummy_avatar,
@@ -28,6 +29,7 @@ val dummyPosts :List<PostModel> = listOf(
         postType = PostType.TEXT
     ),
     PostModel(
+        id = "002",
         displayName = "Andikadiskardo",
         date = "22 Mei 2023,10:00",
         avatar = R.drawable.dummy_avatar_3,
@@ -59,6 +61,7 @@ val dummyPosts :List<PostModel> = listOf(
         postType = PostType.BUDGETING_TEMPLATE
     ),
     PostModel(
+        id = "003",
         displayName = "Aisyah Qalqa",
         date = "24 Mei 2023, 15: 54",
         avatar = R.drawable.dummy_avatar_4,
@@ -71,6 +74,7 @@ val dummyPosts :List<PostModel> = listOf(
         postType = PostType.IMAGE
     ),
     PostModel(
+        id = "004",
         displayName = "KevinAxel",
         date = "24 Mei 2023, 12:32",
         avatar = R.drawable.dummy_avatar_1,
@@ -84,6 +88,7 @@ val dummyPosts :List<PostModel> = listOf(
         postType = PostType.TEXT
     ),
     PostModel(
+        id = "005",
         displayName = "RizkyPratama",
         date = "25 Mei 2023, 08:23",
         avatar = R.drawable.dummy_avatar_2,
@@ -97,6 +102,7 @@ val dummyPosts :List<PostModel> = listOf(
         postType = PostType.TEXT
     ),
     PostModel(
+        id = "006",
         displayName = "FitriaSari",
         date = "22 Mei 2023,10:00",
         avatar = R.drawable.dummy_avatar_3,
@@ -128,6 +134,49 @@ val dummyPosts :List<PostModel> = listOf(
         postType = PostType.BUDGETING_TEMPLATE
     ),
     PostModel(
+        id = "007",
+        displayName = "KevinAxel",
+        date = "24 Mei 2023, 12:32",
+        avatar = R.drawable.dummy_avatar_6,
+        body = "Malam teman budgetku, aku mau curhat dong akhir-akhir ini pengeluaran " +
+                "aku cukup naik karena harus pergi ke cafe hampir setiap mimggu." +
+                " Kira kira teman Budgetku ada tips gak ya?",
+        comments = 20,
+        likes = 40,
+        content = listOf(),
+        mimeContent = R.drawable.dummy_image_post,
+        postType = PostType.TEXT
+    ),
+    PostModel(
+        id = "008",
+        displayName = "KevinAxel",
+        date = "24 Mei 2023, 12:32",
+        avatar = R.drawable.dummy_avatar_4,
+        body = "Malam teman budgetku, aku mau curhat dong akhir-akhir ini pengeluaran aku cukup naik" +
+                " karena harus pergi ke cafe hampir setiap mimggu." +
+                " Kira kira teman Budgetku ada tips gak ya?",
+        comments = 40,
+        likes = 20,
+        content = listOf(),
+        mimeContent = R.drawable.dummy_image_post,
+        postType = PostType.TEXT
+    ),
+    PostModel(
+        id = "009",
+        displayName = "RizkyPratama",
+        date = "25 Mei 2023, 08:23",
+        avatar = R.drawable.dummy_avatar_4,
+        body = "Hey teman-teman, ada yang mau sharing tips hemat belanja bulanan? Aku lagi mencoba strategi meal planning nih," +
+                " jadi bisa mengatur pengeluaran dan makanan sekaligus. Seru banget! Kalau ada yang punya tips lain, boleh dong dishare juga." +
+                " Yuk, kita saling membantu dalam mengelola keuangan kita!",
+        comments = 45,
+        likes = 291,
+        content = listOf(),
+        mimeContent = R.drawable.dummy_image_post,
+        postType = PostType.TEXT
+    ),
+    PostModel(
+        id = "010",
         displayName = "AnitaSantoso",
         date = "26 Mei 2023, 09:45",
         avatar = R.drawable.dummy_avatar_4,
@@ -139,5 +188,39 @@ val dummyPosts :List<PostModel> = listOf(
         content = listOf(),
         mimeContent = R.drawable.dummy_image_post,
         postType = PostType.TEXT
+    ),
+    PostModel(
+        id = "011",
+        displayName = "FitriaSari",
+        date = "22 Mei 2023,10:00",
+        avatar = R.drawable.dummy_avatar_3,
+        body = "Hi semua! Saya ingin berbagi template pengeluaran bulanan yang telah saya gunakan selama ini. " +
+                "Semoga bermanfaat untuk kalian yang ingin lebih terorganisir dalam mengatur keuangan." +
+                " Jangan lupa adaptasi sesuai dengan kebutuhan masing-masing ya! " +
+                "Selamat mencoba dan semoga bisa membantu mencapai tujuan keuangan kita bersama.",
+        comments = 9,
+        likes = 135,
+        content = listOf(
+            ContentBudgetingPostModel(
+                icon = R.drawable.dummy_category_kebutuhanrumah,
+                name = "Living",
+                allocation = "Alokasi 60%",
+                amount = BigDecimal(3_000_000)
+            ),
+            ContentBudgetingPostModel(
+                icon = R.drawable.dummy_category_investasi,
+                name = "Saving",
+                allocation = "Alokasi 30%",
+                amount = BigDecimal(1_500_000)
+            ),
+            ContentBudgetingPostModel(
+                icon = R.drawable.dummy_category_gadget,
+                name = "Playing",
+                allocation = "Alokasi 10%",
+                amount = BigDecimal(500_000)
+            )
+        ),
+        mimeContent = R.drawable.dummy_image_post,
+        postType = PostType.BUDGETING_TEMPLATE
     ),
 )
