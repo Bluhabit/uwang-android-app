@@ -9,7 +9,6 @@ package com.bluehabit.budgetku.android.feature.profile
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -58,8 +57,6 @@ import com.bluehabit.budgetku.android.components.ItemMenuProfile
 import com.bluehabit.budgetku.android.components.ParentMenu
 import com.bluehabit.budgetku.android.feature.editProfile.EditProfile
 import com.bluehabit.budgetku.android.ui.Error
-import com.bluehabit.budgetku.android.ui.Grey100
-import com.bluehabit.budgetku.android.ui.Grey300
 import com.bluehabit.budgetku.android.ui.Grey500
 import com.bluehabit.budgetku.android.ui.Grey900
 import com.bluehabit.budgetku.android.ui.Yellow50

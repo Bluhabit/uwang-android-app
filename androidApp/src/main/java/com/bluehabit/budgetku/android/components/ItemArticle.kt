@@ -26,10 +26,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.rememberAsyncImagePainter
+import coil.request.ImageRequest
+import coil.size.Size
 import com.bluehabit.budgetku.android.R
 import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.ui.Grey700
@@ -39,7 +43,7 @@ fun ItemArticle(
     title: String = "",
     createdAt: String = "",
     likes: Int = 0,
-    image:Int=com.bluehabit.budgetku.data.R.drawable.ic_dummy_article_4
+    image:String=""
 ) {
     Column(
         modifier = Modifier.fillMaxWidth()
@@ -74,7 +78,12 @@ fun ItemArticle(
 
             }
             Image(
-                painter = painterResource(id = image),
+                painter  = rememberAsyncImagePainter(
+                    model = ImageRequest.Builder(LocalContext.current)
+                        .data(image)
+                        .size(Size.ORIGINAL) // Set the target size to load the image at.
+                        .build()
+                ),
                 contentDescription = "",
                 modifier = Modifier
                     .clip(MaterialTheme.shapes.medium)

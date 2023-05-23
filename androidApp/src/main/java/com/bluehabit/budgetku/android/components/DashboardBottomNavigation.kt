@@ -92,7 +92,7 @@ fun DashboardBottomNavigation(
         modifier = Modifier.height(65.dp)
     ) {
 
-        menus.forEachIndexed { index, it ->  
+        menus.forEach {
             if(it.route == "MIDDLE"){
                 Spacer(modifier = Modifier.width(40.dp))
             }else {

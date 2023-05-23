@@ -8,7 +8,6 @@
 package com.bluehabit.budgetku.data.model.transaction
 
 import java.math.BigDecimal
-import java.time.LocalDate
 
 data class TransactionModel(
     val transactionName:String,

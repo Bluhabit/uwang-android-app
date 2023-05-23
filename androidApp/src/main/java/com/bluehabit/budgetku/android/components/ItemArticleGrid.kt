@@ -37,6 +37,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.rememberAsyncImagePainter
+import coil.request.ImageRequest
+import coil.size.Size
 import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.base.extensions.gridItems
 import com.bluehabit.budgetku.android.ui.Grey300
@@ -46,7 +49,7 @@ import com.bluehabit.budgetku.android.ui.Grey700
 fun ItemArticleGrid(
     title: String = "",
     message: String = "",
-    image: Int = 0,
+    image: String = "https://github.com/Blue-Habit/budgetku-mobile-app/blob/feature/BKA-131/assets/dummy_article_community_1.webp",
     onClick: () -> Unit = {}
 ) {
     val ctx = LocalContext.current
@@ -75,7 +78,12 @@ fun ItemArticleGrid(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Image(
-                painter = painterResource(id = image),
+                painter = rememberAsyncImagePainter(
+                    model = ImageRequest.Builder(LocalContext.current)
+                        .data(image)
+                        .size(Size.ORIGINAL) // Set the target size to load the image at.
+                        .build()
+                ),
                 contentDescription = "",
                 modifier = Modifier
                     .fillMaxWidth()
@@ -153,7 +161,6 @@ fun PreviewCardArticleGrid() {
                 ItemArticleGrid(
                     title = "Cerdas Finansial",
                     message = "Yuk melek finansial bersama Budgetku.Tersedia course keuangan untuku",
-                    image = com.bluehabit.budgetku.data.R.drawable.ic_dummy_article,
                     onClick = {}
                 )
 

@@ -10,7 +10,6 @@ package com.bluehabit.budgetku.data.remote.dummy
 import com.bluehabit.budgetku.data.R
 import com.bluehabit.budgetku.data.model.post.PostModel
 import com.bluehabit.budgetku.data.model.post.PostType
-import java.time.LocalDateTime
 
 val dummyDetailPost =  PostModel(
     displayName = "Mario Prasetyo",

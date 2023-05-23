@@ -7,7 +7,6 @@
 
 package com.bluehabit.budgetku.android.feature.createTransaction
 
-import android.icu.util.LocaleData
 import android.os.Parcelable
 import com.bluehabit.budgetku.data.model.account.AccountModel
 import com.bluehabit.budgetku.data.remote.dummy.dummyAccountsHome

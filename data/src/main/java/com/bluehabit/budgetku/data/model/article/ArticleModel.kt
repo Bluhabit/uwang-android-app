@@ -7,12 +7,10 @@
 
 package com.bluehabit.budgetku.data.model.article
 
-import java.time.LocalDateTime
-
 data class ArticleModel(
     val title: String,
     val body: String,
-    val image: Int,
+    val image: String,
     val date:String,
     val likes:Int
 )
