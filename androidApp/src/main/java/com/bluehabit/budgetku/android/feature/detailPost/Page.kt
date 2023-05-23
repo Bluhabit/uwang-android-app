@@ -23,6 +23,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
@@ -32,6 +33,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.MoreVert
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -52,15 +54,17 @@ import com.bluehabit.budgetku.android.ApplicationState
 import com.bluehabit.budgetku.android.R
 import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.base.UIWrapper
+import com.bluehabit.budgetku.android.components.ContentItemFeedTemplate
 import com.bluehabit.budgetku.android.components.FormReplyComment
 import com.bluehabit.budgetku.android.components.ItemComment
+import com.bluehabit.budgetku.data.model.post.PostType
 
 object DetailPost {
     const val routeName = "DetailPost"
     const val argKey = "PostId"
     fun routeName() = "$routeName/{$argKey}"
 
-    val navArg = listOf<NamedNavArgument>(
+    val navArg = listOf(
         navArgument(argKey) {
             type = NavType.StringType
         }
@@ -95,146 +99,175 @@ internal fun ScreenDetailPost(
             )
         }
     }
+    LaunchedEffect(key1 = this, block = {
+        dispatch(DetailPostEvent.GetDetailPost)
+    })
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
-        LazyColumn(content = {
-            item {
-                Spacer(modifier = Modifier.height(20.dp))
-            }
-            item {
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(
-                            horizontal = 20.dp
-                        )
-                ) {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.Top
-                    ) {
-                        Row(
-                            modifier = Modifier,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Image(
-                                painter = painterResource(id = dataState.detailPost.avatar),
-                                contentDescription = "",
-                                modifier = Modifier
-                                    .size(48.dp)
-                                    .clip(CircleShape)
-                            )
-                            Spacer(modifier = Modifier.width(8.dp))
-                            Column {
-                                Text(
-                                    text = dataState.detailPost.displayName,
-                                    style = MaterialTheme.typography.subtitle1,
-                                    fontWeight = FontWeight.Bold
-                                )
-                                Spacer(modifier = Modifier.height(8.dp))
-                                Text(
-                                    text = dataState.detailPost.date.toString(),
-                                    style = MaterialTheme.typography.body2,
-                                    fontWeight = FontWeight.Normal
-                                )
-                            }
-                        }
-                        Icon(
-                            imageVector = Icons.Outlined.MoreVert,
-                            contentDescription = ""
-                        )
-                    }
-                    Spacer(modifier = Modifier.height(16.dp))
-                    Text(
-                        text = dataState.detailPost.body,
-                        style = MaterialTheme.typography.subtitle1,
-                        fontWeight = FontWeight.Normal
-                    )
-                    Spacer(modifier = Modifier.height(16.dp))
-                    Image(
-                        painter = painterResource(id = dataState.detailPost.mimeContent),
-                        contentDescription = "",
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(335.dp)
-                            .clip(MaterialTheme.shapes.medium),
-                        contentScale = ContentScale.FillBounds
-                    )
-                    Spacer(modifier = Modifier.height(16.dp))
+        if (dataState.detailPost != null) {
+            LazyColumn(content = {
+                item {
+                    Spacer(modifier = Modifier.height(20.dp))
                 }
-            }
-            item {
-                Column(
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Row(
+                item {
+                    Column(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(
                                 horizontal = 20.dp
-                            ),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
+                            )
                     ) {
-                        Row {
-                            Row {
-                                Icon(
-                                    painter = painterResource(id = R.drawable.ic_comment),
-                                    contentDescription = ""
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.Top
+                        ) {
+                            Row(
+                                modifier = Modifier,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Image(
+                                    painter = painterResource(id = dataState.detailPost!!.avatar),
+                                    contentDescription = "",
+                                    modifier = Modifier
+                                        .size(48.dp)
+                                        .clip(CircleShape)
                                 )
                                 Spacer(modifier = Modifier.width(8.dp))
-                                Text(text = dataState.detailPost.comments.toString())
+                                Column {
+                                    Text(
+                                        text = dataState.detailPost!!.displayName,
+                                        style = MaterialTheme.typography.subtitle1,
+                                        fontWeight = FontWeight.Bold
+                                    )
+                                    Spacer(modifier = Modifier.height(8.dp))
+                                    Text(
+                                        text = dataState.detailPost!!.date,
+                                        style = MaterialTheme.typography.body2,
+                                        fontWeight = FontWeight.Normal
+                                    )
+                                }
                             }
-                            Spacer(modifier = Modifier.width(10.dp))
+                            Icon(
+                                imageVector = Icons.Outlined.MoreVert,
+                                contentDescription = ""
+                            )
+                        }
+                        Spacer(modifier = Modifier.height(16.dp))
+                        Text(
+                            text = dataState.detailPost!!.body,
+                            style = MaterialTheme.typography.subtitle1,
+                            fontWeight = FontWeight.Normal
+                        )
+                        Spacer(modifier = Modifier.height(16.dp))
+                        when (dataState.detailPost!!.postType) {
+                            PostType.TEXT -> Unit
+                            PostType.BUDGETING_TEMPLATE -> ContentItemFeedTemplate(
+                                items = dataState.detailPost!!.content
+                            )
+
+                            PostType.IMAGE -> Image(
+                                painter = painterResource(id = dataState.detailPost!!.mimeContent),
+                                contentDescription = "",
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(335.dp)
+                                    .clip(MaterialTheme.shapes.medium),
+                                contentScale = ContentScale.FillBounds
+                            )
+                        }
+                        Spacer(modifier = Modifier.height(16.dp))
+                    }
+                }
+                item {
+                    Column(
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(
+                                    horizontal = 20.dp
+                                ),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
                             Row {
-                                Icon(
-                                    painter = painterResource(id = R.drawable.ic_like),
-                                    contentDescription = ""
+                                Row {
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.ic_comment),
+                                        contentDescription = ""
+                                    )
+                                    Spacer(modifier = Modifier.width(8.dp))
+                                    Text(text = dataState.detailPost!!.comments.toString())
+                                }
+                                Spacer(modifier = Modifier.width(10.dp))
+                                Row {
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.ic_like),
+                                        contentDescription = ""
+                                    )
+                                    Spacer(modifier = Modifier.width(8.dp))
+                                    Text(text = dataState.detailPost!!.likes.toString())
+                                }
+                            }
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_share_feed),
+                                contentDescription = ""
+                            )
+                        }
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Divider()
+                        Spacer(modifier = Modifier.height(8.dp))
+                    }
+                }
+                items(dataState.comments) {
+                    ItemComment(
+                        fullName = it.fullName,
+                        body = it.body,
+                        likes = it.likes,
+                        time = it.time,
+                        avatar = it.avatar,
+                        onLike = {},
+                        onReply = {
+                            commit {
+                                copy(
+                                    replyTo = it.fullName
                                 )
-                                Spacer(modifier = Modifier.width(8.dp))
-                                Text(text = dataState.detailPost.likes.toString())
                             }
                         }
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_share_feed),
-                            contentDescription = ""
-                        )
-                    }
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Divider()
-                    Spacer(modifier = Modifier.height(8.dp))
+                    )
                 }
-            }
-            items(dataState.comments) {
-                ItemComment(
-                    fullName = it.fullName,
-                    body = it.body,
-                    likes = it.likes,
-                    time = it.time
+                item {
+                    Spacer(modifier = Modifier.height(60.dp))
+                }
+            })
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .align(
+                        Alignment.BottomCenter
+                    ),
+            ) {
+                FormReplyComment(
+                    value = state.comment,
+                    isReply = state.replyTo.isNotEmpty(),
+                    replyTo = state.replyTo,
+                    onChange = {
+                        commit {
+                            copy(
+                                comment = it
+                            )
+                        }
+                    }
                 )
             }
-            item {
-                Spacer(modifier = Modifier.height(50.dp))
-            }
-        })
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .align(
-                    Alignment.BottomCenter
-                ),
-        ) {
-            FormReplyComment(
-                value = state.comment,
-                onChange = {
-                    commit {
-                        copy(
-                            comment = it
-                        )
-                    }
-                }
+        } else {
+            CircularProgressIndicator(
+                modifier = Modifier
+                    .size(50.dp)
+                    .align(Alignment.Center)
             )
         }
     }

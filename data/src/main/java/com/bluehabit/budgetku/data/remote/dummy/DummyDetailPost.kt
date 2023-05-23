@@ -12,6 +12,7 @@ import com.bluehabit.budgetku.data.model.post.PostModel
 import com.bluehabit.budgetku.data.model.post.PostType
 
 val dummyDetailPost =  PostModel(
+    id="009",
     displayName = "Mario Prasetyo",
     date = "23 Mei 2023,20:00",
     avatar = R.drawable.dummy_avatar_2,

@@ -222,7 +222,7 @@ internal fun ScreenCommunity(
                             comments = it.comments,
                             likes = it.likes,
                             onClick = {
-                                navigate(DetailPost.routeName,"INIID")
+                                navigate(DetailPost.routeName,it.id)
                             }
                         )
 
@@ -238,7 +238,7 @@ internal fun ScreenCommunity(
                                 )
                             },
                             onClick = {
-                                navigate(DetailPost.routeName,"INIID")
+                                navigate(DetailPost.routeName,it.id)
                             }
                         )
 
@@ -264,7 +264,7 @@ internal fun ScreenCommunity(
                                 )
                             },
                             onClick = {
-                                navigate(DetailPost.routeName,"INIID")
+                                navigate(DetailPost.routeName,it.id)
                             }
                         )
 
