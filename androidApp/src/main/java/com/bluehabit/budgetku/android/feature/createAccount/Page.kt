@@ -59,8 +59,8 @@ internal fun ScreenCreateAccount(
             )
         }
     }
-    
-    fun backPressed(){
+
+    fun backPressed() {
         when (state.screenType) {
             ScreenType.INPUT_AMOUNT -> commit { copy(screenType = ScreenType.MAIN) }
             ScreenType.MAIN -> showBottomSheet()
@@ -92,7 +92,8 @@ internal fun ScreenCreateAccount(
         )
 
         ScreenType.MAIN -> ScreenMainCreateAccount(
-            selectedAccount = "Bank Jago",
+            selectedAccount = state.selectedAccountName,
+            selectedAccountIcon = state.selectedAccountIcon,
             amount = state.nominal,
             onSubmit = {
                 navigateUp()
@@ -112,7 +113,13 @@ internal fun ScreenCreateAccount(
         ScreenType.SELECT_ACCOUNT -> ScreenInputAccount(
             accounts = dataState.financialAccount,
             onSelect = {
-                commit { copy(screenType = ScreenType.MAIN) }
+                commit {
+                    copy(
+                        screenType = ScreenType.MAIN,
+                        selectedAccountName = it.name,
+                        selectedAccountIcon = it.icon
+                    )
+                }
             },
             onBackPressed = {
                 commit { copy(screenType = ScreenType.MAIN) }

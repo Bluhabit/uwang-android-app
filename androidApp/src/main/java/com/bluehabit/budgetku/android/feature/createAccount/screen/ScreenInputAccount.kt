@@ -40,11 +40,12 @@ import com.bluehabit.budgetku.android.components.alert.AlertDefaults
 import com.bluehabit.budgetku.android.components.input.FormInputSearch
 import com.bluehabit.budgetku.android.ui.Blue50
 import com.bluehabit.budgetku.data.model.CategoryFinancialAccountModel
+import com.bluehabit.budgetku.data.model.FinancialAccountModel
 
 @Composable
 fun ScreenInputAccount(
     accounts:List<CategoryFinancialAccountModel> = listOf(),
-    onSelect: () -> Unit = {},
+    onSelect: (FinancialAccountModel) -> Unit = {},
     onBackPressed:()->Unit={}
 ) {
     Column(
@@ -120,7 +121,9 @@ fun ScreenInputAccount(
                         ItemTemplateAccount(
                             accountName = it.name,
                             items=it.children,
-                            onSelectedAccount = onSelect
+                            onSelectedAccount = {data->
+                                onSelect(data)
+                            }
                         )
                     }
                 }

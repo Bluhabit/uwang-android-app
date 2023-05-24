@@ -208,7 +208,9 @@ internal fun ScreenBudget(
                         amount = BigDecimal(191_000),
                     )
                 } else {
-                    ItemTipsBudgetEmpty()
+                    ItemTipsBudgetEmpty(
+
+                    )
                 }
 
             }
@@ -252,7 +254,11 @@ internal fun ScreenBudget(
             }
             if (!dataState.hasBudget) {
                 item {
-                    CardEmptyTransactionBudget()
+                    CardEmptyTransactionBudget(
+                        onCreateTransaction = {
+                            navigateSingleTop(CreateTransaction.routeName)
+                        }
+                    )
                 }
             }
 

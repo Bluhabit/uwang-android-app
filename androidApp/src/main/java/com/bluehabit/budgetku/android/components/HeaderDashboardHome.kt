@@ -40,6 +40,7 @@ import androidx.compose.ui.unit.dp
 import com.bluehabit.budgetku.android.R
 import com.bluehabit.budgetku.android.base.BaseMainApp
 import com.bluehabit.budgetku.android.base.extensions.formatToRupiah
+import com.bluehabit.budgetku.android.base.extensions.from
 import java.math.BigDecimal
 
 @Composable
@@ -55,11 +56,6 @@ fun HeaderDashboardHome(
 ) {
 
     val ctx = LocalContext.current
-    val currentWidth = ctx
-        .resources
-        .displayMetrics.widthPixels.dp /
-            LocalDensity.current.density
-    val cardWidth = (currentWidth / 2) - 32.dp
 
     Column(
         modifier = Modifier
@@ -147,13 +143,13 @@ fun HeaderDashboardHome(
         ) {
             Column(
                 modifier = Modifier
-                    .width(cardWidth)
+                    .width(163.dp.from(context = ctx))
                     .clip(MaterialTheme.shapes.small)
                     .background(Color(0xFF1952CE))
                     .padding(
                         vertical = 8.dp
                     )
-                    .height(cardWidth / 3),
+                    .width(60.dp.from(context = ctx)),
                 verticalArrangement = Arrangement.SpaceEvenly,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
@@ -185,13 +181,13 @@ fun HeaderDashboardHome(
             }
             Column(
                 modifier = Modifier
-                    .width(cardWidth)
+                    .width(163.dp.from(context = ctx))
                     .clip(MaterialTheme.shapes.small)
                     .background(Color(0xFF1952CE))
                     .padding(
                         vertical = 8.dp
                     )
-                    .height(cardWidth / 3),
+                    .width(60.dp.from(context = ctx)),
                 verticalArrangement = Arrangement.SpaceEvenly,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {

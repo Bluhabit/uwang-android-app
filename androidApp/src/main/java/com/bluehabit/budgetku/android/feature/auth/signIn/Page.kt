@@ -155,6 +155,7 @@ internal fun ScreenSignIn(appState: ApplicationState) = UIWrapper<SignInViewMode
                     ),
                     keyboardActions = KeyboardActions(
                         onSend = {
+                            hideKeyboard()
                             dispatch(SignInEvent.SignInWithEmail)
                         }
                     )
@@ -181,6 +182,7 @@ internal fun ScreenSignIn(appState: ApplicationState) = UIWrapper<SignInViewMode
             }
             item {
                 ButtonPrimary(text = stringResource(R.string.login), onClick = {
+                    hideKeyboard()
                     dispatch(SignInEvent.SignInWithEmail)
                 })
                 Spacer(modifier = Modifier.height(24.dp))

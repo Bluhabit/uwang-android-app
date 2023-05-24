@@ -40,7 +40,9 @@ import com.bluehabit.budgetku.android.ui.Blue600
 import com.bluehabit.budgetku.android.ui.Grey300
 
 @Composable
-fun CardEmptyTransactionBudget() {
+fun CardEmptyTransactionBudget(
+    onCreateTransaction:()->Unit={}
+) {
     Spacer(modifier = Modifier.height(24.dp))
     Column(
         modifier = Modifier
@@ -91,7 +93,10 @@ fun CardEmptyTransactionBudget() {
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .clickable { },
+                            .clickable(
+                                enabled = true,
+                                onClick = onCreateTransaction
+                            ),
                         horizontalArrangement = Arrangement.Start,
                         verticalAlignment = Alignment.CenterVertically
                     ) {

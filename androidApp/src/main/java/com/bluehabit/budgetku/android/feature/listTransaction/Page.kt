@@ -268,7 +268,7 @@ internal fun ScreenListTransaction(
                 ),
                 isExpenses = it.isTransactionExpenses,
                 onClick = {
-                    navigateSingleTop(DetailTransaction.routeName)
+                    navigateSingleTop(DetailTransaction.routeName,it.transactionId)
                 },
                 transactionIcon=it.transactionIcon
             )
