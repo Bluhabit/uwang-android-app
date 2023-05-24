@@ -10,7 +10,6 @@ package com.bluehabit.budgetku.android.feature.detailTransaction
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 import java.math.BigDecimal
-import java.time.LocalDate
 import javax.annotation.concurrent.Immutable
 
 enum class DetailTransactionBottomSheetType {
