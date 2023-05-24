@@ -197,7 +197,7 @@ internal fun ScreenHome(
                     transactionIcon=it.transactionIcon,
                     isExpenses = it.isTransactionExpenses,
                     onClick = {
-                        navigateSingleTop(DetailTransaction.routeName)
+                        navigateSingleTop(DetailTransaction.routeName,it.transactionId)
                     }
                 )
             }

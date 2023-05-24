@@ -39,7 +39,7 @@ class ResetPasswordViewModel @Inject constructor(
                 commit { copy(isButtonEnabled = it) }
             }
             is ResetPasswordEvent.SendLinkResetPasswordToEmail -> {
-                showSnackbar("Send link to ${it.email}")
+                showSnackbar("Mengirimkan ke  ${it.email}")
             }
         }
     }

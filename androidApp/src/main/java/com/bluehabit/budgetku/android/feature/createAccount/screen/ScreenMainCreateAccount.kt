@@ -49,6 +49,7 @@ import com.bluehabit.budgetku.android.ui.Grey900
 @Composable
 fun ScreenMainCreateAccount(
     selectedAccount: String = "",
+    selectedAccountIcon: Int = com.bluehabit.budgetku.data.R.drawable.dummy_bank_jago,
     amount: String = "",
     onSubscribe: () -> Unit = {},
     onSubmit: () -> Unit = {},
@@ -158,7 +159,7 @@ fun ScreenMainCreateAccount(
                                     )
                             ) {
                                 Image(
-                                    painter = painterResource(id = com.bluehabit.budgetku.data.R.drawable.dummy_bank_jago),
+                                    painter = painterResource(id = selectedAccountIcon),
                                     contentDescription = "",
                                     modifier = Modifier
                                         .fillMaxSize()
@@ -221,7 +222,7 @@ fun ScreenMainCreateAccount(
                         )
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(
-                            text = amount.toString(),
+                            text = amount,
                             style = MaterialTheme.typography.subtitle1,
                             fontWeight = FontWeight.Normal,
                             color = Grey500
@@ -230,9 +231,7 @@ fun ScreenMainCreateAccount(
                 }
                 Spacer(modifier = Modifier.height(30.dp))
                 CardUpgradeToPremium(
-                    onClick = {
-
-                    }
+                    onClick = onSubscribe
                 )
             }
         }

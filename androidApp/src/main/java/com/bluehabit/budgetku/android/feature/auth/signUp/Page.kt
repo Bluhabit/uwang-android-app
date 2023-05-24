@@ -167,6 +167,7 @@ internal fun ScreenSignUp(
                 ),
                 keyboardActions = KeyboardActions(
                     onNext = {
+                        hideKeyboard()
                         dispatch(SignUpEvent.Submit)
                     }
                 ),
@@ -187,6 +188,7 @@ internal fun ScreenSignUp(
                     modifier = Modifier.clickable(
                         enabled = true,
                         onClick = {
+                            hideKeyboard()
                             navigateSingleTop(ResetPassword.routeName)
                         }
                     )

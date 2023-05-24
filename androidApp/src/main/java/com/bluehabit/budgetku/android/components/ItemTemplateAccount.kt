@@ -44,7 +44,7 @@ import com.bluehabit.budgetku.data.remote.dummy.dummyFinancialAccount
 fun ItemTemplateAccount(
     accountName: String = "",
     items: List<FinancialAccountModel> = listOf(),
-    onSelectedAccount: () -> Unit = {}
+    onSelectedAccount: (FinancialAccountModel) -> Unit = {}
 ) {
     Column(
         modifier = Modifier.fillMaxWidth(),
@@ -66,7 +66,9 @@ fun ItemTemplateAccount(
                     .fillMaxWidth()
                     .clickable(
                         enabled = true,
-                        onClick = onSelectedAccount
+                        onClick = {
+                            onSelectedAccount(it)
+                        }
                     ),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween

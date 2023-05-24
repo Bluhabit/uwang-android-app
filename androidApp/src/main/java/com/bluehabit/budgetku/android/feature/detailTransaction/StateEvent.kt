@@ -28,12 +28,17 @@ data class DetailTransactionState(
 @Parcelize
 data class DetailTransactionDataState(
     val transactionAmount: BigDecimal = BigDecimal(50_000),
-    val transactionName: String = "Jajan Gofood",
-    val transactionAccountName: String = "Bank BCA",
-    val transactionDate: LocalDate = LocalDate.now(),
-    val transactionCategory: String = "Makanan & Minuman",
-    val transactionType: String = "Pengeluaran"
+    val transactionName: String = "",
+    val transactionAccountName: String = "",
+    val transactionDate: String="",
+    val transactionCategory: String = "",
+    val transactionType: String = "",
+    val transactionIcon:Int = 0,
+    val transactionAccountIcon:Int=0,
+
+    val isLoading:Boolean = true
 ) : Parcelable
 
 sealed interface DetailTransactionEvent {
+    object GetDetailTransaction:DetailTransactionEvent
 }

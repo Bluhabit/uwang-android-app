@@ -25,7 +25,10 @@ enum class ScreenType {
 data class CreateAccountState(
     val screenType: ScreenType = ScreenType.MAIN,
     val nominal:String="0",
-    val tempNominal:String=""
+    val tempNominal:String="",
+
+    val selectedAccountName:String="Bank Jago",
+    val selectedAccountIcon:Int=com.bluehabit.budgetku.data.R.drawable.dummy_bank_jago
 ) : Parcelable
 
 @Immutable

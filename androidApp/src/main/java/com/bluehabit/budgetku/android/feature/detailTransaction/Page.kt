@@ -23,12 +23,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -41,8 +43,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavType
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.bluehabit.budgetku.android.ApplicationState
 import com.bluehabit.budgetku.android.R
 import com.bluehabit.budgetku.android.base.BaseMainApp
@@ -57,12 +62,25 @@ import com.bluehabit.budgetku.android.ui.Grey700
 
 object DetailTransaction {
     const val routeName = "DetailTransaction"
+
+    const val argKey = "TransactionId"
+
+    fun routeName() = "$routeName/{$argKey}"
+
+    val navArgs = listOf<NamedNavArgument>(
+        navArgument(argKey) {
+            type = NavType.StringType
+        }
+    )
 }
 
 fun NavGraphBuilder.routeDetailTransaction(
     state: ApplicationState,
 ) {
-    composable(DetailTransaction.routeName) {
+    composable(
+        DetailTransaction.routeName(),
+        arguments = DetailTransaction.navArgs
+    ) {
         ScreenDetailTransaction(appState = state)
     }
 }
@@ -109,138 +127,154 @@ internal fun ScreenDetailTransaction(
         }
     }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .scrollable(
-                rememberScrollState(),
-                orientation = Orientation.Vertical
-            ),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Top
-    ) {
-        Spacer(modifier = Modifier.height(20.dp))
-        Box(
-            modifier = Modifier
-                .size(80.dp)
-                .clip(CircleShape)
-                .background(Grey100)
-                .padding(
-                    all = 8.dp
-                )
+    LaunchedEffect(key1 = this, block = {
+        dispatch(DetailTransactionEvent.GetDetailTransaction)
+    })
+
+    if (dataState.isLoading) {
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
-            Image(
-                painter = painterResource(id = com.bluehabit.budgetku.data.R.drawable.ic_dummy_detail_transaction),
-                contentDescription = "",
-                modifier = Modifier.align(Alignment.Center)
+            CircularProgressIndicator(
+                modifier = Modifier.size(40.dp)
             )
         }
-        Spacer(modifier = Modifier.height(16.dp))
-        Text(
-            text = dataState.transactionAmount.formatToRupiah(),
-            style = MaterialTheme.typography.h5,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colors.onSurface
-        )
-
-        Text(
-            text = dataState.transactionName,
-            style = MaterialTheme.typography.h6,
-            fontWeight = FontWeight.Normal,
-            color = Grey700
-        )
-        Spacer(modifier = Modifier.height(24.dp))
-        DottedLine()
-        Spacer(modifier = Modifier.height(24.dp))
+    } else {
         Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(
-                    horizontal = 20.dp
-                )
-        ) {
-            Text(
-                text = stringResource(R.string.text_title_label_detail_transaction),
-                style = MaterialTheme.typography.h5,
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colors.onSurface,
-                modifier = Modifier.fillMaxWidth(),
-                textAlign = TextAlign.Start
-            )
-
-            ItemDetailTransaction(
-                label = stringResource(R.string.text_label_account_source_detail_transaction),
-                value = dataState.transactionAccountName,
-                image = com.bluehabit.budgetku.data.R.drawable.dummy_bank_jago
-            )
-            ItemDetailTransaction(
-                label = stringResource(R.string.text_label_transaction_date_detail_transaction),
-                value = dataState.transactionDate.toString()
-            )
-            ItemDetailTransaction(
-                label = stringResource(R.string.text_label_transaction_category_detail_transaction),
-                value = dataState.transactionCategory
-            )
-            ItemDetailTransaction(
-                label = stringResource(R.string.text_label_transaction_type_detail_transaction),
-                value = dataState.transactionType
-            )
-        }
-        DottedLine()
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(
-                    vertical = 16.dp,
-                    horizontal = 20.dp
+                .fillMaxSize()
+                .scrollable(
+                    rememberScrollState(),
+                    orientation = Orientation.Vertical
                 ),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Top
         ) {
-            Text(
-                text = stringResource(R.string.text_label_total_amount_detail_transaction),
-                style = MaterialTheme.typography.subtitle1,
-                fontWeight = FontWeight.Medium,
-                color = MaterialTheme.colors.onSurface
-            )
+            Spacer(modifier = Modifier.height(20.dp))
+            Box(
+                modifier = Modifier
+                    .size(80.dp)
+                    .clip(CircleShape)
+                    .background(Grey100)
+                    .padding(
+                        all = 8.dp
+                    )
+            ) {
+                Image(
+                    painter = painterResource(id = dataState.transactionIcon),
+                    contentDescription = "",
+                    modifier = Modifier.align(Alignment.Center)
+                )
+            }
+            Spacer(modifier = Modifier.height(16.dp))
             Text(
                 text = dataState.transactionAmount.formatToRupiah(),
                 style = MaterialTheme.typography.h5,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colors.onSurface
             )
-        }
-        DottedLine()
-        Spacer(modifier = Modifier.height(24.dp))
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(
-                    horizontal = 20.dp
-                ),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            ButtonOutlinedPrimary(text = stringResource(R.string.text_button_share_transaction_detail_transaction))
-            TextButton(
-                onClick = {
-                    commit {
-                        copy(
-                            bottomSheetType = DetailTransactionBottomSheetType.DELETE_CONFIRMATION
-                        )
-                    }
-                    showBottomSheet()
-                },
-                modifier = Modifier.clip(MaterialTheme.shapes.large)
+
+            Text(
+                text = dataState.transactionName,
+                style = MaterialTheme.typography.h6,
+                fontWeight = FontWeight.Normal,
+                color = Grey700
+            )
+            Spacer(modifier = Modifier.height(24.dp))
+            DottedLine()
+            Spacer(modifier = Modifier.height(24.dp))
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(
+                        horizontal = 20.dp
+                    )
             ) {
                 Text(
-                    text = stringResource(R.string.text_button_detele_transaction_detail_transaction),
-                    style = MaterialTheme.typography.button,
-                    color = MaterialTheme.colors.error
+                    text = stringResource(R.string.text_title_label_detail_transaction),
+                    style = MaterialTheme.typography.h5,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colors.onSurface,
+                    modifier = Modifier.fillMaxWidth(),
+                    textAlign = TextAlign.Start
+                )
+
+                ItemDetailTransaction(
+                    label = stringResource(R.string.text_label_account_source_detail_transaction),
+                    value = dataState.transactionAccountName,
+                    image = dataState.transactionAccountIcon
+                )
+                ItemDetailTransaction(
+                    label = stringResource(R.string.text_label_transaction_date_detail_transaction),
+                    value = dataState.transactionDate
+                )
+                ItemDetailTransaction(
+                    label = stringResource(R.string.text_label_transaction_category_detail_transaction),
+                    value = dataState.transactionCategory
+                )
+                ItemDetailTransaction(
+                    label = stringResource(R.string.text_label_transaction_type_detail_transaction),
+                    value = dataState.transactionType
                 )
             }
-        }
+            DottedLine()
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(
+                        vertical = 16.dp,
+                        horizontal = 20.dp
+                    ),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = stringResource(R.string.text_label_total_amount_detail_transaction),
+                    style = MaterialTheme.typography.subtitle1,
+                    fontWeight = FontWeight.Medium,
+                    color = MaterialTheme.colors.onSurface
+                )
+                Text(
+                    text = dataState.transactionAmount.formatToRupiah(),
+                    style = MaterialTheme.typography.h5,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colors.onSurface
+                )
+            }
+            DottedLine()
+            Spacer(modifier = Modifier.height(24.dp))
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(
+                        horizontal = 20.dp
+                    ),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                ButtonOutlinedPrimary(text = stringResource(R.string.text_button_share_transaction_detail_transaction))
+                TextButton(
+                    onClick = {
+                        commit {
+                            copy(
+                                bottomSheetType = DetailTransactionBottomSheetType.DELETE_CONFIRMATION
+                            )
+                        }
+                        showBottomSheet()
+                    },
+                    modifier = Modifier.clip(MaterialTheme.shapes.large)
+                ) {
+                    Text(
+                        text = stringResource(R.string.text_button_detele_transaction_detail_transaction),
+                        style = MaterialTheme.typography.button,
+                        color = MaterialTheme.colors.error
+                    )
+                }
+            }
 
+        }
     }
 }
 
