@@ -9,15 +9,7 @@ package com.bluehabit.budgetku.android
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
-import com.bluehabit.budgetku.android.feature.auth.changePassword.routeChangePassword
-import com.bluehabit.budgetku.android.feature.auth.checkEmailResetPassword.routeCheckEmailResetPassword
-import com.bluehabit.budgetku.android.feature.auth.completeProfile.routeCompleteProfile
-import com.bluehabit.budgetku.android.feature.auth.createNewPassword.routeCreateNewPassword
-import com.bluehabit.budgetku.android.feature.auth.emailVerification.routeEmailVerification
-import com.bluehabit.budgetku.android.feature.auth.inputPin.routeInputPin
-import com.bluehabit.budgetku.android.feature.auth.resetPassword.routeResetPassword
-import com.bluehabit.budgetku.android.feature.auth.signIn.routeSignIn
-import com.bluehabit.budgetku.android.feature.auth.signUp.routeSignUp
+import androidx.navigation.compose.navigation
 import com.bluehabit.budgetku.android.feature.createAccount.routeCreateAccount
 import com.bluehabit.budgetku.android.feature.createAccountSaving.routeCreateAccountSaving
 import com.bluehabit.budgetku.android.feature.createBudget.routeCreateBudget
@@ -33,110 +25,130 @@ import com.bluehabit.budgetku.android.feature.editProfile.routeEditProfile
 import com.bluehabit.budgetku.android.feature.editTransaction.routeEditTransaction
 import com.bluehabit.budgetku.android.feature.listAccount.routeListAccount
 import com.bluehabit.budgetku.android.feature.listTransaction.routeListTransaction
-import com.bluehabit.budgetku.android.feature.onboarding.routeOnboard
+import com.bluehabit.budgetku.feature.authentication.onboarding.Onboard
+import com.bluehabit.budgetku.feature.authentication.onboarding.OnboardState
+import com.bluehabit.budgetku.feature.authentication.onboarding.OnboardViewModel
 import com.bluehabit.budgetku.android.feature.profile.routeProfile
 import com.bluehabit.budgetku.android.feature.resultCreateBudget.routeResultCreateBudget
-import com.bluehabit.budgetku.android.feature.splashScreen.Splash
-import com.bluehabit.budgetku.android.feature.splashScreen.routeSplash
+import com.bluehabit.budgetku.feature.authentication.splashScreen.SplashState
+import com.bluehabit.budgetku.feature.authentication.splashScreen.SplashViewModel
 import com.bluehabit.budgetku.android.feature.tutorialBudget.routeTutorialBudget
+import com.bluehabit.budgetku.feature.authentication.AuthenticationConstants
+import com.bluehabit.budgetku.feature.authentication.authenticationRoute
+import com.bluehabit.budgetku.feature.authentication.changePassword.ChangePassword
+import com.bluehabit.budgetku.feature.authentication.changePassword.ChangePasswordState
+import com.bluehabit.budgetku.feature.authentication.changePassword.ChangePasswordViewModel
+import com.bluehabit.budgetku.feature.authentication.changePassword.ScreenChangePassword
+import com.bluehabit.budgetku.feature.authentication.checkEmailResetPassword.CheckEmailResetPassword
+import com.bluehabit.budgetku.feature.authentication.checkEmailResetPassword.CheckEmailResetPasswordState
+import com.bluehabit.budgetku.feature.authentication.checkEmailResetPassword.CheckEmailResetPasswordViewModel
+import com.bluehabit.budgetku.feature.authentication.checkEmailResetPassword.ScreenCheckEmailResetPassword
+import com.bluehabit.budgetku.feature.authentication.completeProfile.CompleteProfile
+import com.bluehabit.budgetku.feature.authentication.completeProfile.CompleteProfileState
+import com.bluehabit.budgetku.feature.authentication.completeProfile.CompleteProfileViewModel
+import com.bluehabit.budgetku.feature.authentication.completeProfile.ScreenCompleteProfile
+import com.bluehabit.budgetku.feature.authentication.createNewPassword.CreateNewPassword
+import com.bluehabit.budgetku.feature.authentication.createNewPassword.CreateNewPasswordState
+import com.bluehabit.budgetku.feature.authentication.createNewPassword.CreateNewPasswordViewModel
+import com.bluehabit.budgetku.feature.authentication.createNewPassword.ScreenCreateNewPassword
+import com.bluehabit.budgetku.feature.authentication.emailVerification.EmailVerification
+import com.bluehabit.budgetku.feature.authentication.emailVerification.EmailVerificationDataState
+import com.bluehabit.budgetku.feature.authentication.emailVerification.EmailVerificationState
+import com.bluehabit.budgetku.feature.authentication.emailVerification.EmailVerificationViewModel
+import com.bluehabit.budgetku.feature.authentication.emailVerification.ScreenEmailVerification
+import com.bluehabit.budgetku.feature.authentication.inputPin.InputPin
+import com.bluehabit.budgetku.feature.authentication.inputPin.InputPinState
+import com.bluehabit.budgetku.feature.authentication.inputPin.InputPinViewModel
+import com.bluehabit.budgetku.feature.authentication.inputPin.ScreenInputPin
+import com.bluehabit.budgetku.feature.authentication.onboarding.ScreenOnboard
+import com.bluehabit.budgetku.feature.authentication.resetPassword.ResetPassword
+import com.bluehabit.budgetku.feature.authentication.resetPassword.ResetPasswordState
+import com.bluehabit.budgetku.feature.authentication.resetPassword.ResetPasswordViewModel
+import com.bluehabit.budgetku.feature.authentication.resetPassword.ScreenResetPassword
+import com.bluehabit.budgetku.feature.authentication.signIn.ScreenSignIn
+import com.bluehabit.budgetku.feature.authentication.signIn.SignIn
+import com.bluehabit.budgetku.feature.authentication.signIn.SignInState
+import com.bluehabit.budgetku.feature.authentication.signIn.SignInViewModel
+import com.bluehabit.budgetku.feature.authentication.signUp.ScreenSignUp
+import com.bluehabit.budgetku.feature.authentication.signUp.SignUp
+import com.bluehabit.budgetku.feature.authentication.signUp.SignUpState
+import com.bluehabit.budgetku.feature.authentication.signUp.SignUpViewModel
+import com.bluehabit.budgetku.feature.authentication.splashScreen.ScreenSplash
+import com.bluehabit.budgetku.feature.authentication.splashScreen.Splash
+import com.bluehabit.core.ui.UIController
+import com.bluehabit.core.ui.UIWrapperListener
+import com.bluehabit.core.ui.UIWrapperListenerData
+import com.bluehabit.core.ui.pageWrapper
 
 @Composable
 fun AppNavigation(
-    applicationState: ApplicationState
+    uiController: UIController
 ) {
     NavHost(
-        navController = applicationState.router,
-        startDestination = Splash.routeName
+        navController = uiController.router,
+        startDestination = AuthenticationConstants.parentRoute
     ) {
-        routeSplash(
-            state = applicationState
-        )
-        routeOnboard(
-            state = applicationState
-        )
-        routeSignIn(
-            state = applicationState
-        )
-        routeSignUp(
-            state = applicationState
-        )
-        routeCompleteProfile(
-            state = applicationState
-        )
+        authenticationRoute(uiController = uiController)
+
         routeHome(
-            state = applicationState
+            state = uiController
         )
         routeCommunity(
-            state = applicationState
+            state = uiController
         )
         routeBudget(
-            state = applicationState
+            state = uiController
         )
         routeReport(
-            state = applicationState
+            state = uiController
         )
         routeCreateBudget(
-            state = applicationState
+            state = uiController
         )
-        routeInputPin(
-            state = applicationState
-        )
-        routeChangePassword(
-            state = applicationState
-        )
+
         routeResultCreateBudget(
-            state = applicationState
+            state = uiController
         )
-        routeResetPassword(
-            state = applicationState
-        )
-        routeCreateNewPassword(
-            state = applicationState
-        )
-        routeCheckEmailResetPassword(
-            state = applicationState
-        )
+
         routeCreateTransaction(
-            state = applicationState
+            state = uiController
         )
         routeTutorialBudget(
-            state = applicationState
+            state = uiController
         )
         routeCreateAccount(
-            state = applicationState
+            state = uiController
         )
         routeListAccount(
-            state = applicationState
+            state = uiController
         )
         routeEditProfile(
-            state = applicationState
+            state = uiController
         )
         routeDetailTransaction(
-            state = applicationState
+            state = uiController
         )
         routeEditTransaction(
-            state = applicationState
+            state = uiController
         )
         routeCreateAccountSaving(
-            state = applicationState
+            state = uiController
         )
         routeEditTransaction(
-            state = applicationState
+            state = uiController
         )
         routeCreatePost(
-            state = applicationState
+            state = uiController
         )
-        routeEmailVerification(
-            state = applicationState
-        )
+
         routeListTransaction(
-            state = applicationState
+            state = uiController
         )
         routeDetailPost(
-            state = applicationState
+            state = uiController
         )
         routeProfile(
-            state = applicationState
+            state = uiController
         )
 
     }

@@ -300,6 +300,7 @@
     <string name="text_button_select_audience_create_post">Pilih</string>
     <string name="text_income">+%1$s</string>
     <string name="text_expenses">-%1$s</string>
+    <string name="app_name">BudgetKu</string>
     <!--    end create post-->
 
 </resources>

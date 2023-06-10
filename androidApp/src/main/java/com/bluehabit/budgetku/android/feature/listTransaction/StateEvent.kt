@@ -24,9 +24,10 @@ data class ListTransactionState(
 @Immutable
 @Parcelize
 data class ListTransactionDataState(
-    val balance: BigDecimal = BigDecimal(2_000_000),
-    val income:BigDecimal = BigDecimal(1_000_000),
-    val expenses:BigDecimal = BigDecimal(8_000_000),
+    val balance: BigDecimal = BigDecimal(3_000_000),
+    val income:BigDecimal = BigDecimal(10_000_000),
+    val expenses:BigDecimal = BigDecimal(7_000_000),
+    val currentExpense:BigDecimal = BigDecimal(324_000),
     val transactions: @RawValue List<TransactionModel> = dummyListTransaction,
 ) : Parcelable
 

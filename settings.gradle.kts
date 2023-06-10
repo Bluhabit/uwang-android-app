@@ -6,6 +6,12 @@
  */
 
 @file:Suppress("UnstableApiUsage")
+
+include(":feature-authentication")
+
+
+include(":core-ui")
+
 pluginManagement {
     repositories {
         google()
