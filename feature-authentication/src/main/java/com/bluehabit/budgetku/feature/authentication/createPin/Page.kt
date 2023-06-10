@@ -39,20 +39,15 @@ import androidx.compose.ui.unit.dp
 import com.bluehabit.core.ui.BaseMainApp
 import com.bluehabit.core.ui.R
 import com.bluehabit.core.ui.UIWrapper
-import com.bluehabit.core.ui.UIWrapperListener
+import com.bluehabit.core.ui.UIListener
 import com.bluehabit.core.ui.rememberUIController
 import com.bluehabit.core.ui.theme.Blue50
 import com.bluehabit.core.ui.theme.Grey100
 import com.bluehabit.core.ui.theme.Grey900
-
-object CreatePin {
-    const val routeName = "CreatePin"
-}
-
 @Composable
 fun ScreenCreatePin(
     state: CreatePinState = CreatePinState(),
-    invoker: UIWrapperListener<CreatePinState, CreatePinEvent>
+    invoker: UIListener<CreatePinState, CreatePinEvent>
 ) = UIWrapper(invoker = invoker) {
 
     Column(
@@ -342,7 +337,7 @@ fun ScreenCreatePin(
 fun PreviewScreenCreatePin() {
     BaseMainApp {
         ScreenCreatePin(
-            invoker = UIWrapperListener(
+            invoker = UIListener(
                 controller = rememberUIController(),
                 state = CreatePinState()
             )

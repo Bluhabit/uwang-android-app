@@ -34,11 +34,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.bluehabit.budgetku.android.base.BaseMainApp
-import com.bluehabit.budgetku.android.base.extensions.formatToRupiah
-import com.bluehabit.budgetku.android.ui.Grey100
-import com.bluehabit.budgetku.android.ui.Grey700
-import com.bluehabit.budgetku.android.ui.Yellow200
+import com.bluehabit.core.ui.BaseMainApp
+import com.bluehabit.core.ui.extensions.formatToRupiah
+import com.bluehabit.core.ui.theme.Grey100
+import com.bluehabit.core.ui.theme.Grey700
+import com.bluehabit.core.ui.theme.Yellow200
 import java.math.BigDecimal
 
 @Composable

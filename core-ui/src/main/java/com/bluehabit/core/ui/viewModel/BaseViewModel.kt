@@ -10,14 +10,18 @@ package com.bluehabit.core.ui.viewModel
 import android.os.Parcelable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.bluehabit.budgetku.data.common.Response
 import com.bluehabit.core.ui.UIController
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -48,24 +52,18 @@ abstract class BaseViewModel<State : Parcelable, Action>(
         }
     }
 
-
     protected inline fun async(crossinline block: suspend () -> Unit) = with(viewModelScope) {
         launch { block() }
     }
 
     protected inline fun asyncWithState(crossinline block: suspend State.() -> Unit) =
-        with(viewModelScope) {
-            launch { block(uiState.value) }
-        }
+        async { block(uiState.value) }
 
     protected suspend inline fun <T> await(crossinline block: suspend () -> T): T =
         withContext(dispatcher) { block() }
 
-    protected inline fun asyncFlow(crossinline block: suspend () -> Unit) = async {
-        withContext(dispatcher) {
-            block()
-        }
-    }
+    protected inline fun asyncFlow(crossinline block: suspend () -> Unit) =
+        async { withContext(dispatcher) { block() } }
 
     protected abstract fun handleActions()
     fun commit(state: State) {
@@ -78,6 +76,28 @@ abstract class BaseViewModel<State : Parcelable, Action>(
 
     protected infix fun BaseViewModel<State, Action>.commit(s: State.() -> State) {
         commit(s(uiState.value))
+    }
+
+    fun <T> Flow<Response<T>>.onEach(
+        success: (T) -> Unit = {},
+        loading: () -> Unit = {},
+        error: (String) -> Unit = {}
+    ) = async {
+        this.catch { error(it.message.orEmpty()) }
+            .collect {
+                when (it) {
+                    is Response.Error ->
+                        error(
+                            it.message.ifEmpty {
+                                controller.context.getString(it.stringId.toInt())
+                            }
+                        )
+
+                    Response.Loading -> loading()
+                    is Response.Result -> success(it.data)
+                }
+            }
+
     }
 
     fun resetState() {
@@ -108,9 +128,7 @@ abstract class BaseViewModelData<State : Parcelable, DataState : Parcelable, Act
     val uiDataState get() = _uiDataState.asStateFlow()
 
     protected inline fun asyncWithData(crossinline block: suspend DataState.() -> Unit) =
-        with(viewModelScope) {
-            launch { block(uiDataState.value) }
-        }
+        async { block(uiDataState.value) }
 
     fun commitData(dataState: DataState) {
         _uiDataState.tryEmit(dataState)

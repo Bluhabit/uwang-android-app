@@ -34,9 +34,9 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import coil.size.Size
-import com.bluehabit.budgetku.android.R
-import com.bluehabit.budgetku.android.base.BaseMainApp
-import com.bluehabit.budgetku.android.ui.Grey700
+import com.bluehabit.core.ui.BaseMainApp
+import com.bluehabit.core.ui.R
+import com.bluehabit.core.ui.theme.Grey700
 
 @Composable
 fun ItemArticle(

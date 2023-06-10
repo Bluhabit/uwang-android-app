@@ -18,7 +18,7 @@ data class OnboardState(
 ) : Parcelable
 
 
-sealed class OnboardEvent{
-    data class PagerChanges(val page:Int=0): OnboardEvent()
+sealed interface OnboardEvent{
+    data class PagerChanges(val page:Int=0): OnboardEvent
 
 }

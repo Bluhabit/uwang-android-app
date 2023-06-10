@@ -5,7 +5,11 @@
 package app.hilwa.ar.base.extensions
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.util.DisplayMetrics
+import android.util.TypedValue
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.draw.drawBehind
@@ -27,9 +31,14 @@ import androidx.compose.ui.graphics.drawscope.clipRect
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.graphics.drawscope.withTransform
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.debugInspectorInfo
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import kotlin.math.pow
+import kotlin.math.sqrt
 
 /**
  * `Extension for colored shadow in card`
@@ -281,3 +290,117 @@ fun Modifier.dashedBorder(width: Dp, brush: Brush, shape: Shape, on: Dp, off: Dp
             properties["shape"] = shape
         }
     )
+
+
+/**
+ * Media query for Dp multiple screen
+ * created by Rahman Ecky R
+ *
+ **/
+
+
+@Composable
+fun Dp.from(
+    context: Context,
+    defaultScreenWidth: Double = 375.0,
+    defaultScreenHeight: Double = 812.0
+): Dp {
+
+    val screenWidth = context
+        .resources
+        .displayMetrics.widthPixels.dp /
+            LocalDensity.current.density
+
+    val screenHeight = context
+        .resources
+        .displayMetrics.heightPixels.dp /
+            LocalDensity.current.density
+
+    val a = screenHeight.value.toDouble().pow(2.0)
+    val b = screenWidth.value.toDouble().pow(2.0)
+    val currentDiagonal = sqrt(a + b).dp
+    //now design using size with w = 375 h = 812
+    val displayMetrics = DisplayMetrics()
+    val defWidth = defaultScreenWidth.pow(2)
+    val defHeight = defaultScreenHeight.pow(2)
+    val defScreenDiagonal = sqrt(defWidth + defHeight)
+
+    val resultCompare = currentDiagonal.value / defScreenDiagonal
+
+    val result = (this.value * resultCompare).toInt()
+
+    return result.dp
+
+}
+
+/**
+ * Media query for text unit multiple screen
+ * created by Rahman Ecky R
+ *
+ **/
+
+@Composable
+fun TextUnit.from(
+    context: Context,
+    defaultScreenWidth: Double = 375.0,
+    defaultScreenHeight: Double = 812.0
+): TextUnit {
+    val screenWidth = context
+        .resources
+        .displayMetrics.widthPixels.dp /
+            LocalDensity.current.density
+
+    val screenHeight = context
+        .resources
+        .displayMetrics.heightPixels.dp /
+            LocalDensity.current.density
+
+    val a = screenHeight.value.toDouble().pow(2.0)
+    val b = screenWidth.value.toDouble().pow(2.0)
+    val currentDiagonal = sqrt(a + b).dp
+
+    //now design using default size with w = 375 h = 812
+    val defWidth = defaultScreenWidth.pow(2)
+    val defHeight = defaultScreenHeight.pow(2)
+    val defScreenDiagonal = sqrt(defWidth + defHeight)
+
+    val resultCompare = currentDiagonal.value / defScreenDiagonal
+    val result = (this.value * resultCompare).toInt()
+
+    return result.sp
+
+}
+
+/**
+ * Dp to Pixel
+ *
+ **/
+
+@Composable
+fun Dp.toPixel(
+    context: Context,
+): Float {
+    return TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_DIP,
+        this.from(
+            context
+        ).value,
+        context.resources.displayMetrics
+    )
+}
+
+/**
+ * Sp to Pixel
+ *
+ **/
+
+@Composable
+fun TextUnit.toPixel(
+    context: Context,
+): Float {
+    return TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_SP,
+        this.from(context).value,
+        context.resources.displayMetrics
+    )
+}

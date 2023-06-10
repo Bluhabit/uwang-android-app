@@ -34,11 +34,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.bluehabit.budgetku.android.R
-import com.bluehabit.budgetku.android.base.BaseMainApp
-import com.bluehabit.budgetku.android.ui.Grey300
-import com.bluehabit.budgetku.android.ui.Grey700
-import com.bluehabit.budgetku.android.ui.Grey900
+import com.bluehabit.core.ui.BaseMainApp
+import com.bluehabit.core.ui.theme.Grey300
+import com.bluehabit.core.ui.theme.Grey700
+import com.bluehabit.core.ui.theme.Grey900
 
 @Composable
 fun ItemTransaction(

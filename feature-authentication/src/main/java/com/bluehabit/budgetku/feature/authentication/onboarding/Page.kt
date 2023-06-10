@@ -16,8 +16,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.pager.HorizontalPager
-import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -35,57 +33,29 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.bluehabit.budgetku.feature.authentication.signIn.SignIn
 import com.bluehabit.core.ui.BaseMainApp
-import com.bluehabit.core.ui.R
+import com.bluehabit.core.ui.UIListener
 import com.bluehabit.core.ui.UIWrapper
-import com.bluehabit.core.ui.UIWrapperListener
 import com.bluehabit.core.ui.components.button.ButtonPrimary
 import com.bluehabit.core.ui.rememberUIController
+import com.bluehabit.core.ui.routes.Routes
+import com.google.accompanist.pager.HorizontalPager
+import com.google.accompanist.pager.rememberPagerState
 
-object Onboard {
-    const val routeName = "Onboard"
-
-    val images: List<Int> = listOf(
-        R.drawable.onboard_1,
-        R.drawable.onboard_2,
-        R.drawable.onboard_3,
-        R.drawable.onboard_4,
-    )
-    val title: List<Int> = listOf(
-        R.string.onboard_title_1,
-        R.string.onboard_title_2,
-        R.string.onboard_title_3,
-        R.string.onboard_title_4,
-    )
-    val subtitle: List<Int> = listOf(
-        R.string.onboard_subtitle_1,
-        R.string.onboard_subtitle_2,
-        R.string.onboard_subtitle_3,
-        R.string.onboard_subtitle_4,
-    )
-}
 
 @Composable
 fun ScreenOnboard(
     state: OnboardState = OnboardState(),
-    invoker: UIWrapperListener<OnboardState, OnboardEvent>
+    invoker: UIListener<OnboardState, OnboardEvent>
 ) = UIWrapper(invoker = invoker) {
 
     val pagerState = rememberPagerState(
         initialPage = 0
     )
+    val totalPage= 4
 
     val percentage by remember {
-        derivedStateOf {
-            when (pagerState.currentPage) {
-                0 -> 0.25f
-                1 -> 0.50f
-                2 -> 0.75f
-                3 -> 1f
-                else -> 0.1f
-            }
-        }
+        derivedStateOf { (((pagerState.currentPage+1).toFloat() / totalPage) * 100) / 100 }
     }
 
     Box(
@@ -93,7 +63,8 @@ fun ScreenOnboard(
     ) {
         HorizontalPager(
             state = pagerState,
-            pageCount = 4
+            count = totalPage,
+            userScrollEnabled=true
         ) {
             Column(
                 modifier = Modifier
@@ -106,8 +77,8 @@ fun ScreenOnboard(
                 verticalArrangement = Arrangement.SpaceBetween
             ) {
                 Image(
-                    painter = painterResource(id = Onboard.images[it]),
-                    contentDescription = stringResource(id = Onboard.title[it]),
+                    painter = painterResource(id = Routes.Onboard.images[0]),
+                    contentDescription = stringResource(id = Routes.Onboard.title[0]),
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(
@@ -119,7 +90,7 @@ fun ScreenOnboard(
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Text(
-                        text = stringResource(id = Onboard.title[it]),
+                        text = stringResource(id = Routes.Onboard.title[0]),
                         modifier = Modifier.fillMaxWidth(),
                         textAlign = TextAlign.Center,
                         style = MaterialTheme.typography.h4,
@@ -127,7 +98,7 @@ fun ScreenOnboard(
                     )
                     Spacer(modifier = Modifier.height(26.dp))
                     Text(
-                        text = stringResource(id = Onboard.subtitle[it]),
+                        text = stringResource(id = Routes.Onboard.subtitle[0]),
                         modifier = Modifier.fillMaxWidth(),
                         textAlign = TextAlign.Center,
                         style = MaterialTheme.typography.h6,
@@ -160,9 +131,7 @@ fun ScreenOnboard(
                 ),
             text = "Get Started",
         ) {
-            navigateAndReplaceAll(
-                SignIn.routeName
-            )
+            navigateAndReplace(Routes.SignIn.routeName)
         }
     }
 }
@@ -172,7 +141,7 @@ fun ScreenOnboard(
 fun PreviewScreenOnboard() {
     BaseMainApp {
         ScreenOnboard(
-            invoker = UIWrapperListener(
+            invoker = UIListener(
                 controller = rememberUIController(),
                 state = OnboardState()
             )

@@ -24,17 +24,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluehabit.core.ui.BaseScreen
 import com.bluehabit.core.ui.UIWrapper
-import com.bluehabit.core.ui.UIWrapperListener
+import com.bluehabit.core.ui.UIListener
+import com.bluehabit.core.ui.components.button.ButtonPrimary
 import com.bluehabit.core.ui.rememberUIController
 
-object Splash {
-    const val routeName = "Splash"
-}
 
 
 @Composable
 fun ScreenSplash(
-    invoker: UIWrapperListener<SplashState, SplashEvent>
+    invoker: UIListener<SplashState, SplashEvent>
 ) = UIWrapper(invoker = invoker) {
     LaunchedEffect(key1 = this, block = {
         dispatch(SplashEvent.CheckSession)
@@ -62,7 +60,7 @@ fun ScreenSplash(
 fun PreviewScreenSplash() {
     BaseScreen {
         ScreenSplash(
-            invoker = UIWrapperListener(
+            invoker = UIListener(
                 controller = rememberUIController(),
                 state = SplashState()
             )

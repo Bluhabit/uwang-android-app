@@ -13,7 +13,7 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
-import com.bluehabit.budgetku.android.ui.Blue800
+import com.bluehabit.core.ui.theme.Blue800
 import java.text.Normalizer
 import java.util.Locale
 

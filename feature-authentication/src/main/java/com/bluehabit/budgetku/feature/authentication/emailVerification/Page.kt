@@ -10,26 +10,22 @@ package com.bluehabit.budgetku.feature.authentication.emailVerification
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.tooling.preview.Preview
-import com.bluehabit.budgetku.feature.authentication.completeProfile.CompleteProfile
 import com.bluehabit.budgetku.feature.authentication.emailVerification.components.ScreenVerificationSuccess
 import com.bluehabit.budgetku.feature.authentication.emailVerification.components.ScreenVerifyingEmail
 import com.bluehabit.core.ui.BaseMainApp
-import com.bluehabit.core.ui.UIWrapper
-import com.bluehabit.core.ui.UIWrapperListenerData
+import com.bluehabit.core.ui.UIListenerData
+import com.bluehabit.core.ui.UiWrapperData
 import com.bluehabit.core.ui.rememberUIController
+import com.bluehabit.core.ui.routes.Routes
 import kotlinx.coroutines.delay
-
-object EmailVerification {
-    const val routeName = "EmailVerification"
-}
 
 
 @Composable
 fun ScreenEmailVerification(
     state: EmailVerificationState = EmailVerificationState(),
     data: EmailVerificationDataState = EmailVerificationDataState(),
-    invoker: UIWrapperListenerData<EmailVerificationState, EmailVerificationDataState, EmailVerificationEvent>
-) = UIWrapper(invoker = invoker) {
+    invoker: UIListenerData<EmailVerificationState, EmailVerificationDataState, EmailVerificationEvent>
+) = UiWrapperData(invoker = invoker) {
 
     LaunchedEffect(key1 = this, block = {
         delay(3000)
@@ -45,7 +41,7 @@ fun ScreenEmailVerification(
     } else {
         ScreenVerificationSuccess(
             onConfirm = {
-                navigateAndReplaceAll(CompleteProfile.routeName)
+                navigateAndReplaceAll(Routes.CompleteProfile.routeName)
             }
         )
     }
@@ -57,7 +53,7 @@ fun ScreenEmailVerification(
 fun PreviewScreenEmailVerification() {
     BaseMainApp {
         ScreenEmailVerification(
-            invoker = UIWrapperListenerData(
+            invoker = UIListenerData(
                 controller = rememberUIController(),
                 state = EmailVerificationState(),
                 data = EmailVerificationDataState()

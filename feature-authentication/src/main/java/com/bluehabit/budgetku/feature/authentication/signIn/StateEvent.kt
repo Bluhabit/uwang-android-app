@@ -8,6 +8,8 @@
 package com.bluehabit.budgetku.feature.authentication.signIn
 
 import android.os.Parcelable
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.tasks.Task
 import kotlinx.parcelize.Parcelize
 import javax.annotation.concurrent.Immutable
 
@@ -24,5 +26,5 @@ sealed class SignInEvent {
     object SignInWithEmail: SignInEvent()
     class OnEmailChange(var email: String) : SignInEvent()
     class OnPasswordChange(var password: String) : SignInEvent()
-//    class SignInWithGoogle(var result: Task<GoogleSignInAccount>?): SignInEvent()
+    class SignInWithGoogle(var result: Task<GoogleSignInAccount>?): SignInEvent()
 }

@@ -7,9 +7,10 @@
 
 package com.bluehabit.budgetku.feature.authentication.splashScreen
 
-import com.bluehabit.budgetku.android.feature.onboarding.Onboard
 import com.bluehabit.budgetku.data.domain.auth.CheckSessionUseCase
+import com.bluehabit.core.ui.extensions.navigateAndReplace
 import com.bluehabit.core.ui.extensions.navigateAndReplaceAll
+import com.bluehabit.core.ui.routes.Routes
 import com.bluehabit.core.ui.viewModel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -26,7 +27,7 @@ class SplashViewModel @Inject constructor(
     private fun checkIfUserLoggedIn() = async {
 //        if (checkSessionUseCase()) navigateAndReplaceAll(Home.routeName)
 //        else
-            controller.navigateAndReplaceAll(Onboard.routeName)
+            controller.navigateAndReplace(Routes.Onboard.routeName)
     }
 
 

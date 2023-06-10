@@ -1,8 +1,6 @@
 @file:Suppress("UnstableApiUsage")
-
 import com.android.build.api.dsl.ApkSigningConfig
 import com.android.build.api.dsl.ApplicationBuildType
-import org.jetbrains.kotlin.gradle.internal.Kapt3GradleSubplugin.Companion.isIncludeCompileClasspath
 
 /*
  * Copyright © 2023 Blue Habit.
@@ -10,6 +8,8 @@ import org.jetbrains.kotlin.gradle.internal.Kapt3GradleSubplugin.Companion.isInc
  * Unauthorized copying, publishing of this file, via any medium is strictly prohibited
  * Proprietary and confidential
  */
+
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.com.android.application)
     alias(libs.plugins.org.jetbrains.kotlin.android)
@@ -101,6 +101,11 @@ dependencies {
     implementation(project(":core-ui"))
 
     implementation(project(":feature-authentication"))
+    implementation(project(":feature-dashboard"))
+    implementation(project(":feature-transaction"))
+    implementation(project(":feature-budget"))
+    implementation(project(":feature-community"))
+    implementation(project(":feature-profile"))
 
     coreLibraryDesugaring(libs.desugar.jdk.lib)
 

@@ -34,11 +34,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.bluehabit.budgetku.android.R
-import com.bluehabit.budgetku.android.base.BaseMainApp
-import com.bluehabit.budgetku.android.components.button.ButtonPrimary
-import com.bluehabit.budgetku.android.ui.Grey300
-import com.bluehabit.budgetku.android.ui.Yellow800
+import com.bluehabit.core.ui.BaseMainApp
+import com.bluehabit.core.ui.R
+import com.bluehabit.core.ui.components.button.ButtonPrimary
+import com.bluehabit.core.ui.theme.Grey300
+import com.bluehabit.core.ui.theme.Yellow800
 
 data class ButtonInput(
     val label: String = "",

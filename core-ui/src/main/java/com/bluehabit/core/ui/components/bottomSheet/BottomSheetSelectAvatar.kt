@@ -11,7 +11,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import app.hilwa.ar.base.extensions.gridItems
+import com.bluehabit.budgetku.android.base.extensions.gridItems
 import com.bluehabit.budgetku.data.remote.dummy.dummyAvatar
 import com.bluehabit.core.ui.components.ItemAvatar
 import com.bluehabit.core.ui.theme.BudgetKuTheme

@@ -36,21 +36,16 @@ import androidx.compose.ui.unit.dp
 import com.bluehabit.core.ui.BaseMainApp
 import com.bluehabit.core.ui.R
 import com.bluehabit.core.ui.UIWrapper
-import com.bluehabit.core.ui.UIWrapperListener
+import com.bluehabit.core.ui.UIListener
 import com.bluehabit.core.ui.rememberUIController
 import com.bluehabit.core.ui.theme.Blue50
 import com.bluehabit.core.ui.theme.Blue800
 import com.bluehabit.core.ui.theme.Grey100
 import com.bluehabit.core.ui.theme.Grey900
-
-object InputPin {
-    const val routeName = "InputPin"
-}
-
 @Composable
 fun ScreenInputPin(
     state: InputPinState = InputPinState(),
-    invoker: UIWrapperListener<InputPinState, InputPinEvent>
+    invoker: UIListener<InputPinState, InputPinEvent>
 ) = UIWrapper(
     invoker = invoker
 ) {
@@ -346,7 +341,7 @@ fun PreviewScreenInputPin() {
     BaseMainApp {
         ScreenInputPin(
             state = InputPinState(),
-            invoker = UIWrapperListener(controller = rememberUIController(), state = InputPinState())
+            invoker = UIListener(controller = rememberUIController(), state = InputPinState())
         )
     }
 }

@@ -7,10 +7,6 @@
 
 @file:Suppress("UnstableApiUsage")
 
-include(":feature-authentication")
-
-
-include(":core-ui")
 
 pluginManagement {
     repositories {
@@ -40,3 +36,13 @@ dependencyResolutionManagement {
 rootProject.name = "BudgetKu"
 include(":androidApp")
 include(":data")
+include(":core-ui")
+include(":feature-authentication")
+include(":feature-dashboard")
+include(":feature-transaction")
+include(":feature-budget")
+include(":feature-community")
+include(":feature-profile")
+
+
+

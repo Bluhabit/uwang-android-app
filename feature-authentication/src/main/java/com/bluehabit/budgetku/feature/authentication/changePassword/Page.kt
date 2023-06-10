@@ -30,19 +30,14 @@ import com.bluehabit.core.ui.BaseMainApp
 import com.bluehabit.core.ui.BaseScreen
 import com.bluehabit.core.ui.R
 import com.bluehabit.core.ui.UIWrapper
-import com.bluehabit.core.ui.UIWrapperListener
+import com.bluehabit.core.ui.UIListener
 import com.bluehabit.core.ui.components.button.ButtonPrimary
 import com.bluehabit.core.ui.components.input.FormInputPassword
-
-object ChangePassword {
-    const val routeName = "ChangePassword"
-}
-
 
 @Composable
 fun ScreenChangePassword(
     state: ChangePasswordState = ChangePasswordState(),
-    invoker: UIWrapperListener<ChangePasswordState, ChangePasswordEvent>
+    invoker: UIListener<ChangePasswordState, ChangePasswordEvent>
 ) = UIWrapper(
     invoker
 ) {
@@ -158,7 +153,7 @@ fun ScreenChangePassword(
 fun PreviewScreenSignIn() {
     BaseMainApp {
         ScreenChangePassword(
-            invoker = UIWrapperListener(
+            invoker = UIListener(
                 controller = it,
                 state = ChangePasswordState()
             )
