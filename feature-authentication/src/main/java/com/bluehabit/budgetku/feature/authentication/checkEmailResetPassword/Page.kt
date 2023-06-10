@@ -31,19 +31,14 @@ import androidx.compose.ui.unit.dp
 import com.bluehabit.core.ui.BaseMainApp
 import com.bluehabit.core.ui.R
 import com.bluehabit.core.ui.UIWrapper
-import com.bluehabit.core.ui.UIWrapperListener
+import com.bluehabit.core.ui.UIListener
 import com.bluehabit.core.ui.components.button.ButtonOutlinedPrimary
 import com.bluehabit.core.ui.components.button.ButtonPrimary
-
-object CheckEmailResetPassword {
-    const val routeName = "CheckEmailResetPassword"
-}
-
 
 @Composable
 fun ScreenCheckEmailResetPassword(
     state: CheckEmailResetPasswordState = CheckEmailResetPasswordState(),
-    invoker: UIWrapperListener<CheckEmailResetPasswordState, CheckEmailResetPasswordEvent>
+    invoker: UIListener<CheckEmailResetPasswordState, CheckEmailResetPasswordEvent>
 ) = UIWrapper(
     invoker
 ) {
@@ -119,7 +114,7 @@ fun ScreenCheckEmailResetPassword(
 fun PreviewScreenSignIn() {
     BaseMainApp {
         ScreenCheckEmailResetPassword(
-            invoker = UIWrapperListener(
+            invoker = UIListener(
                 controller = it,
                 state = CheckEmailResetPasswordState()
             )

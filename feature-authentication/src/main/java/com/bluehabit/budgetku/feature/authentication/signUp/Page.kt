@@ -37,7 +37,7 @@ import androidx.compose.ui.unit.dp
 import com.bluehabit.core.ui.BaseMainApp
 import com.bluehabit.core.ui.BaseScreen
 import com.bluehabit.core.ui.UIWrapper
-import com.bluehabit.core.ui.UIWrapperListener
+import com.bluehabit.core.ui.UIListener
 import com.bluehabit.core.ui.R
 import com.bluehabit.core.ui.components.AnnotationTextItem
 import com.bluehabit.core.ui.components.IconWithAction
@@ -49,15 +49,11 @@ import com.bluehabit.core.ui.rememberUIController
 import com.bluehabit.core.ui.theme.Grey700
 
 
-object SignUp {
-    const val routeName = "SignUp"
-}
-
 
 @Composable
 fun ScreenSignUp(
     state: SignUpState = SignUpState(),
-    invoker: UIWrapperListener<SignUpState, SignUpEvent>
+    invoker: UIListener<SignUpState, SignUpEvent>
 ) = UIWrapper(
     invoker = invoker
 ) {
@@ -231,7 +227,7 @@ fun ScreenSignUp(
 fun PreviewScreenSignUp() {
     BaseMainApp {
         ScreenSignUp(
-            invoker = UIWrapperListener(
+            invoker = UIListener(
                 controller = rememberUIController(),
                 state = SignUpState()
             )

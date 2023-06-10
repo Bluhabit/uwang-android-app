@@ -35,15 +35,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.bluehabit.budgetku.android.R
-import com.bluehabit.budgetku.android.base.BaseMainApp
-import com.bluehabit.budgetku.android.base.extensions.formatToRupiah
-import com.bluehabit.budgetku.android.ui.Blue600
-import com.bluehabit.budgetku.android.ui.Grey300
-import com.bluehabit.budgetku.android.ui.Grey500
-import com.bluehabit.budgetku.android.ui.Grey700
-import com.bluehabit.budgetku.android.ui.Grey900
 import com.bluehabit.budgetku.data.model.post.ContentBudgetingPostModel
+import com.bluehabit.core.ui.BaseMainApp
+import com.bluehabit.core.ui.R
+import com.bluehabit.core.ui.extensions.formatToRupiah
+import com.bluehabit.core.ui.theme.Blue600
+import com.bluehabit.core.ui.theme.Grey300
+import com.bluehabit.core.ui.theme.Grey500
+import com.bluehabit.core.ui.theme.Grey700
+import com.bluehabit.core.ui.theme.Grey900
 
 
 @Composable

@@ -34,27 +34,23 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.bluehabit.budgetku.feature.authentication.createNewPassword.CreateNewPassword
 import com.bluehabit.core.ui.BaseMainApp
 import com.bluehabit.core.ui.BaseScreen
 import com.bluehabit.core.ui.R
 import com.bluehabit.core.ui.UIWrapper
-import com.bluehabit.core.ui.UIWrapperListener
+import com.bluehabit.core.ui.UIListener
 import com.bluehabit.core.ui.components.bottomSheet.BottomSheetGenderPicker
 import com.bluehabit.core.ui.components.bottomSheet.BottomSheetSpinnerDatePicker
 import com.bluehabit.core.ui.components.button.ButtonPrimary
 import com.bluehabit.core.ui.components.input.FormInput
 import com.bluehabit.core.ui.components.input.FormInputWithIcon
-
-object CompleteProfile {
-    const val routeName = "CompleteProfile"
-}
+import com.bluehabit.core.ui.routes.Routes
 
 
 @Composable
 fun ScreenCompleteProfile(
     state: CompleteProfileState = CompleteProfileState(),
-    invoker: UIWrapperListener<CompleteProfileState, CompleteProfileEvent>
+    invoker: UIListener<CompleteProfileState, CompleteProfileEvent>
 ) = UIWrapper(
     invoker = invoker
 ) {
@@ -196,7 +192,7 @@ fun ScreenCompleteProfile(
                 enabled = (state.fullName.isNotEmpty() && state.dateOfBirth != null && state.gender != null),
                 text = stringResource(R.string.text_button_confirmation_complete_profile)
             ) {
-                navigateAndReplaceAll(CreateNewPassword.routeName)
+                navigateAndReplaceAll(Routes.CreateNewPassword.routeName)
             }
         }
     }
@@ -210,7 +206,7 @@ fun PreviewScreenCompleteProfile() {
 
     BaseMainApp {
         ScreenCompleteProfile(
-            invoker = UIWrapperListener(
+            invoker = UIListener(
                 controller = it,
                 state = CompleteProfileState()
             )

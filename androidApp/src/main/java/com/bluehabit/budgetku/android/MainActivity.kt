@@ -11,9 +11,9 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.LaunchedEffect
-import com.bluehabit.budgetku.android.base.extensions.listenChanges
 import com.bluehabit.core.ui.BaseMainApp
 import com.bluehabit.core.ui.UIController
+import com.bluehabit.core.ui.extensions.listenChanges
 import com.bluehabit.core.ui.listener.EventListener
 import com.bluehabit.core.ui.listener.ScreenToAppEvent
 import com.bluehabit.core.ui.rememberUIController

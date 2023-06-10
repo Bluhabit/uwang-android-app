@@ -12,8 +12,11 @@ import app.hilwa.ar.base.extensions.hideKeyboard
 import com.bluehabit.budgetku.data.domain.auth.SignInWIthGoogleUseCase
 import com.bluehabit.budgetku.data.domain.auth.SignInWithEmailUseCase
 import com.bluehabit.budgetku.data.remote.dummy.dummyUser
+import com.bluehabit.core.ui.extensions.navigateAndReplace
+import com.bluehabit.core.ui.routes.Routes
 import com.bluehabit.core.ui.viewModel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 @HiltViewModel
@@ -38,7 +41,8 @@ class SignInViewModel @Inject constructor(
             !Patterns.EMAIL_ADDRESS.matcher(email).matches() -> {
                 commit { copy(emailIsError = true) }
             }
-            email != dummyUser.email && password != dummyUser.password ->{
+
+            email != dummyUser.email && password != dummyUser.password -> {
                 controller.showSnackbar("Akun tidak ditemukan")
             }
 
@@ -48,37 +52,33 @@ class SignInViewModel @Inject constructor(
         }
     }
 
-    override fun handleActions() = onEvent {
-        when (it) {
+    override fun handleActions() = onEvent { event ->
+        when (event) {
             SignInEvent.SignInWithEmail -> validateData { email, password ->
-
-//                controller.navigateAndReplaceAll(Home.routeName)
-//                signInWithEmailUseCase(email, password).onEach(
-//                    loading = { showSnackbar("Loading") },
-//                    error = ::showSnackbar,
-//                    success = { showSnackbar(userProfile.userFullName) }
-//                )
+                signInWithEmailUseCase(email, password).onEach(
+                    loading = { controller.showSnackbar("Loading") },
+                    error = { controller.showSnackbar(it) },
+                    success = { controller.showSnackbar(it.userEmail) }
+                )
             }
 
             is SignInEvent.OnEmailChange -> commit {
                 copy(
-                    email = it.email,
-                    emailIsError = (!Patterns.EMAIL_ADDRESS.matcher(it.email).matches() or it.email.isEmpty())
+                    email = event.email,
+                    emailIsError = (!Patterns.EMAIL_ADDRESS.matcher(event.email).matches() or event.email.isEmpty())
                 )
             }
 
             is SignInEvent.OnPasswordChange -> commit {
-                copy(password = it.password, passwordIsError = it.password.isEmpty())
+                copy(password = event.password, passwordIsError = event.password.isEmpty())
             }
 
-//            is SignInEvent.SignInWithGoogle ->
-//                navigateAndReplaceAll(Home.routeName)
-//
-////                signInWIthGoogleUseCase(it.result?.await()?.idToken).onEach(
-////                    loading = { showSnackbar("Loading") },
-////                    error = ::showSnackbar,
-////                    success = { showSnackbar(userProfile.userFullName) }
-////                )
+            is SignInEvent.SignInWithGoogle ->
+                signInWIthGoogleUseCase(event.result?.await()?.idToken).onEach(
+                    loading = { controller.showSnackbar("Loading") },
+                    error = { controller.showSnackbar(it) },
+                    success = { controller.showSnackbar(it.userEmail) }
+                )
         }
     }
 }

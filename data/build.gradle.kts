@@ -5,6 +5,7 @@
  * Proprietary and confidential
  */
 @file:Suppress("UnstableApiUsage")
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.org.jetbrains.kotlin.android)
     alias(libs.plugins.org.jetbrains.kotlin.kapt)
@@ -70,6 +71,17 @@ dependencies {
         implementation(work)
         kapt(android.compiler)
         kapt(compiler)
+    }
+    with(libs.gms.play.service) {
+        implementation(auth)
+        implementation(base)
+    }
+
+    with(libs.kotlinx.coroutine) {
+        implementation(android)
+        implementation(core)
+        implementation(play.services)
+        testImplementation(test)
     }
 
 }

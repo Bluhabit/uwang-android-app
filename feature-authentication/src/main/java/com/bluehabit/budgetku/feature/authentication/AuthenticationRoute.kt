@@ -7,57 +7,50 @@
 
 package com.bluehabit.budgetku.feature.authentication
 
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.navigation
-import com.bluehabit.budgetku.feature.authentication.changePassword.ChangePassword
-import com.bluehabit.budgetku.feature.authentication.changePassword.ChangePasswordState
 import com.bluehabit.budgetku.feature.authentication.changePassword.ChangePasswordViewModel
 import com.bluehabit.budgetku.feature.authentication.changePassword.ScreenChangePassword
-import com.bluehabit.budgetku.feature.authentication.checkEmailResetPassword.CheckEmailResetPassword
-import com.bluehabit.budgetku.feature.authentication.checkEmailResetPassword.CheckEmailResetPasswordState
 import com.bluehabit.budgetku.feature.authentication.checkEmailResetPassword.CheckEmailResetPasswordViewModel
 import com.bluehabit.budgetku.feature.authentication.checkEmailResetPassword.ScreenCheckEmailResetPassword
-import com.bluehabit.budgetku.feature.authentication.completeProfile.CompleteProfile
-import com.bluehabit.budgetku.feature.authentication.completeProfile.CompleteProfileState
 import com.bluehabit.budgetku.feature.authentication.completeProfile.CompleteProfileViewModel
 import com.bluehabit.budgetku.feature.authentication.completeProfile.ScreenCompleteProfile
-import com.bluehabit.budgetku.feature.authentication.createNewPassword.CreateNewPassword
-import com.bluehabit.budgetku.feature.authentication.createNewPassword.CreateNewPasswordState
 import com.bluehabit.budgetku.feature.authentication.createNewPassword.CreateNewPasswordViewModel
 import com.bluehabit.budgetku.feature.authentication.createNewPassword.ScreenCreateNewPassword
-import com.bluehabit.budgetku.feature.authentication.emailVerification.EmailVerification
-import com.bluehabit.budgetku.feature.authentication.emailVerification.EmailVerificationDataState
-import com.bluehabit.budgetku.feature.authentication.emailVerification.EmailVerificationState
 import com.bluehabit.budgetku.feature.authentication.emailVerification.EmailVerificationViewModel
 import com.bluehabit.budgetku.feature.authentication.emailVerification.ScreenEmailVerification
-import com.bluehabit.budgetku.feature.authentication.inputPin.InputPin
-import com.bluehabit.budgetku.feature.authentication.inputPin.InputPinState
 import com.bluehabit.budgetku.feature.authentication.inputPin.InputPinViewModel
 import com.bluehabit.budgetku.feature.authentication.inputPin.ScreenInputPin
-import com.bluehabit.budgetku.feature.authentication.onboarding.Onboard
 import com.bluehabit.budgetku.feature.authentication.onboarding.OnboardState
 import com.bluehabit.budgetku.feature.authentication.onboarding.OnboardViewModel
 import com.bluehabit.budgetku.feature.authentication.onboarding.ScreenOnboard
-import com.bluehabit.budgetku.feature.authentication.resetPassword.ResetPassword
-import com.bluehabit.budgetku.feature.authentication.resetPassword.ResetPasswordState
 import com.bluehabit.budgetku.feature.authentication.resetPassword.ResetPasswordViewModel
 import com.bluehabit.budgetku.feature.authentication.resetPassword.ScreenResetPassword
 import com.bluehabit.budgetku.feature.authentication.signIn.ScreenSignIn
-import com.bluehabit.budgetku.feature.authentication.signIn.SignIn
-import com.bluehabit.budgetku.feature.authentication.signIn.SignInState
 import com.bluehabit.budgetku.feature.authentication.signIn.SignInViewModel
 import com.bluehabit.budgetku.feature.authentication.signUp.ScreenSignUp
-import com.bluehabit.budgetku.feature.authentication.signUp.SignUp
-import com.bluehabit.budgetku.feature.authentication.signUp.SignUpState
 import com.bluehabit.budgetku.feature.authentication.signUp.SignUpViewModel
 import com.bluehabit.budgetku.feature.authentication.splashScreen.ScreenSplash
-import com.bluehabit.budgetku.feature.authentication.splashScreen.Splash
 import com.bluehabit.budgetku.feature.authentication.splashScreen.SplashState
 import com.bluehabit.budgetku.feature.authentication.splashScreen.SplashViewModel
 import com.bluehabit.core.ui.UIController
-import com.bluehabit.core.ui.UIWrapperListener
-import com.bluehabit.core.ui.UIWrapperListenerData
+import com.bluehabit.core.ui.UIListener
+import com.bluehabit.core.ui.UIListenerData
 import com.bluehabit.core.ui.pageWrapper
+import com.bluehabit.core.ui.routes.AuthenticationConstants
+import com.bluehabit.core.ui.routes.Routes.ChangePassword
+import com.bluehabit.core.ui.routes.Routes.CheckEmailResetPassword
+import com.bluehabit.core.ui.routes.Routes.CompleteProfile
+import com.bluehabit.core.ui.routes.Routes.CreateNewPassword
+import com.bluehabit.core.ui.routes.Routes.EmailVerification
+import com.bluehabit.core.ui.routes.Routes.InputPin
+import com.bluehabit.core.ui.routes.Routes.Onboard
+import com.bluehabit.core.ui.routes.Routes.ResetPassword
+import com.bluehabit.core.ui.routes.Routes.SignIn
+import com.bluehabit.core.ui.routes.Routes.SignUp
+import com.bluehabit.core.ui.routes.Routes.Splash
 
 fun NavGraphBuilder.authenticationRoute(
     uiController: UIController
@@ -71,7 +64,7 @@ fun NavGraphBuilder.authenticationRoute(
             controller = uiController
         ) {
             ScreenSplash(
-                invoker = UIWrapperListener(
+                invoker = UIListener(
                     controller = uiController,
                     state = SplashState(),
                     commit = ::commit,
@@ -83,10 +76,12 @@ fun NavGraphBuilder.authenticationRoute(
             route = Onboard.routeName,
             controller = uiController
         ) {
+            val state by uiState.collectAsState()
             ScreenOnboard(
-                invoker = UIWrapperListener(
+                state=state,
+                invoker = UIListener(
                     controller = uiController,
-                    state = OnboardState(),
+                    state = state,
                     commit = ::commit,
                     dispatcher = ::dispatch
                 )
@@ -96,10 +91,12 @@ fun NavGraphBuilder.authenticationRoute(
             route = SignIn.routeName,
             controller = uiController
         ) {
+            val state by uiState.collectAsState()
             ScreenSignIn(
-                invoker = UIWrapperListener(
+                state=state,
+                invoker = UIListener(
                     controller = uiController,
-                    state = SignInState(),
+                    state =state,
                     commit = ::commit,
                     dispatcher = ::dispatch
                 )
@@ -109,10 +106,12 @@ fun NavGraphBuilder.authenticationRoute(
             route = SignUp.routeName,
             controller = uiController
         ) {
+            val state by uiState.collectAsState()
             ScreenSignUp(
-                invoker = UIWrapperListener(
+                state=state,
+                invoker = UIListener(
                     controller = uiController,
-                    state = SignUpState(),
+                    state = state,
                     commit = ::commit,
                     dispatcher = ::dispatch
                 )
@@ -123,11 +122,15 @@ fun NavGraphBuilder.authenticationRoute(
             route = EmailVerification.routeName,
             controller = uiController
         ) {
+            val state by uiState.collectAsState()
+            val data by uiDataState.collectAsState()
             ScreenEmailVerification(
-                invoker = UIWrapperListenerData(
+                state=state,
+                data=data,
+                invoker = UIListenerData(
                     controller = uiController,
-                    state = EmailVerificationState(),
-                    data = EmailVerificationDataState(),
+                    state = state,
+                    data = data,
                     commit = ::commit,
                     dispatcher = ::dispatch
                 )
@@ -138,10 +141,12 @@ fun NavGraphBuilder.authenticationRoute(
             route = CompleteProfile.routeName,
             controller = uiController
         ) {
+            val state by uiState.collectAsState()
             ScreenCompleteProfile(
-                invoker = UIWrapperListener(
+                state=state,
+                invoker = UIListener(
                     controller = uiController,
-                    state = CompleteProfileState(),
+                    state = state,
                     commit = ::commit,
                     dispatcher = ::dispatch
                 )
@@ -152,10 +157,12 @@ fun NavGraphBuilder.authenticationRoute(
             route = InputPin.routeName,
             controller = uiController
         ) {
+            val state by uiState.collectAsState()
             ScreenInputPin(
-                invoker = UIWrapperListener(
+                state=state,
+                invoker = UIListener(
                     controller = uiController,
-                    state = InputPinState(),
+                    state = state,
                     commit = ::commit,
                     dispatcher = ::dispatch
                 )
@@ -166,10 +173,12 @@ fun NavGraphBuilder.authenticationRoute(
             route = ChangePassword.routeName,
             controller = uiController
         ) {
+            val state by uiState.collectAsState()
             ScreenChangePassword(
-                invoker = UIWrapperListener(
+                state=state,
+                invoker = UIListener(
                     controller = uiController,
-                    state = ChangePasswordState(),
+                    state = state,
                     commit = ::commit,
                     dispatcher = ::dispatch
                 )
@@ -180,10 +189,12 @@ fun NavGraphBuilder.authenticationRoute(
             route = ResetPassword.routeName,
             controller = uiController
         ) {
+            val state by uiState.collectAsState()
             ScreenResetPassword(
-                invoker = UIWrapperListener(
+                state=state,
+                invoker = UIListener(
                     controller = uiController,
-                    state = ResetPasswordState(),
+                    state = state,
                     commit = ::commit,
                     dispatcher = ::dispatch
                 )
@@ -194,10 +205,12 @@ fun NavGraphBuilder.authenticationRoute(
             route = CreateNewPassword.routeName,
             controller = uiController
         ) {
+            val state by uiState.collectAsState()
             ScreenCreateNewPassword(
-                invoker = UIWrapperListener(
+                state=state,
+                invoker = UIListener(
                     controller = uiController,
-                    state = CreateNewPasswordState(),
+                    state = state,
                     commit = ::commit,
                     dispatcher = ::dispatch
                 )
@@ -208,10 +221,12 @@ fun NavGraphBuilder.authenticationRoute(
             route = CheckEmailResetPassword.routeName,
             controller = uiController
         ) {
+            val state by uiState.collectAsState()
             ScreenCheckEmailResetPassword(
-                invoker = UIWrapperListener(
+                state=state,
+                invoker = UIListener(
                     controller = uiController,
-                    state = CheckEmailResetPasswordState(),
+                    state = state,
                     commit = ::commit,
                     dispatcher = ::dispatch
                 )

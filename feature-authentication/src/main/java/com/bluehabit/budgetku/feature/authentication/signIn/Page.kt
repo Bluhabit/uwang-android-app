@@ -7,6 +7,7 @@
 
 package com.bluehabit.budgetku.feature.authentication.signIn
 
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -32,38 +33,34 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.bluehabit.budgetku.feature.authentication.resetPassword.ResetPassword
-import com.bluehabit.budgetku.feature.authentication.signUp.SignUp
+import com.bluehabit.budgetku.data.contract.GoogleAuthContract
 import com.bluehabit.core.ui.BaseMainApp
 import com.bluehabit.core.ui.R
+import com.bluehabit.core.ui.UIListener
 import com.bluehabit.core.ui.UIWrapper
-import com.bluehabit.core.ui.UIWrapperListener
 import com.bluehabit.core.ui.components.button.ButtonGoogle
 import com.bluehabit.core.ui.components.button.ButtonPrimary
 import com.bluehabit.core.ui.components.input.FormInput
 import com.bluehabit.core.ui.components.input.FormInputPassword
 import com.bluehabit.core.ui.rememberUIController
+import com.bluehabit.core.ui.routes.Routes
 import com.bluehabit.core.ui.theme.Blue800
 import com.bluehabit.core.ui.theme.Grey500
-
-object SignIn {
-    const val routeName = "SignIn"
-}
 
 
 @Composable
 fun ScreenSignIn(
     state: SignInState = SignInState(),
-    invoker: UIWrapperListener<SignInState, SignInEvent>
+    invoker: UIListener<SignInState, SignInEvent>
 ) = UIWrapper(
     invoker = invoker
 ) {
 
-//
-//    val launcher = rememberLauncherForActivityResult(
-//        contract = GoogleAuthContract(),
-//        onResult = { dispatch(SignInEvent.SignInWithGoogle(it)) }
-//    )
+
+    val launcher = rememberLauncherForActivityResult(
+        contract = GoogleAuthContract(),
+        onResult = { dispatch(SignInEvent.SignInWithGoogle(it)) }
+    )
 
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
@@ -109,7 +106,7 @@ fun ScreenSignIn(
                         modifier = Modifier.clickable(
                             enabled = true,
                             onClick = {
-                                navigateSingleTop(SignUp.routeName)
+                                navigateSingleTop(Routes.SignUp.routeName)
                             }
                         )
                     )
@@ -162,7 +159,7 @@ fun ScreenSignIn(
                         modifier = Modifier.clickable(
                             enabled = true,
                             onClick = {
-                                navigateSingleTop(ResetPassword.routeName)
+                                navigateSingleTop(Routes.ResetPassword.routeName)
                             }
                         )
                     )
@@ -183,7 +180,10 @@ fun ScreenSignIn(
                 )
                 Spacer(modifier = Modifier.height(24.dp))
                 ButtonGoogle(
-                    text = stringResource(R.string.sign_in_with_google)
+                    text = stringResource(R.string.sign_in_with_google),
+                    onClick = {
+
+                    }
                 )
             }
         }, contentPadding = PaddingValues(horizontal = 21.dp)
@@ -197,7 +197,7 @@ fun ScreenSignIn(
 fun PreviewScreenSignIn() {
     BaseMainApp {
         ScreenSignIn(
-            invoker = UIWrapperListener(
+            invoker = UIListener(
                 controller = rememberUIController(),
                 state = SignInState()
             )

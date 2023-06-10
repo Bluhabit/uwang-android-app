@@ -37,9 +37,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.bluehabit.budgetku.android.ui.BudgetKuTheme
-import com.bluehabit.budgetku.android.ui.Grey100
-import com.bluehabit.budgetku.android.ui.Grey500
+import com.bluehabit.core.ui.theme.BudgetKuTheme
+import com.bluehabit.core.ui.theme.Grey100
+import com.bluehabit.core.ui.theme.Grey500
 
 data class ChildMenu(
     val icon: Int,
