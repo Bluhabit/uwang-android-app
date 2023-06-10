@@ -249,7 +249,7 @@ internal fun ScreenListTransaction(
                     color = MaterialTheme.colors.onSurface
                 )
                 Text(
-                    text = "-Rp2.000.000",
+                    text = "-${dataState.currentExpense.formatToRupiah()}",
                     style = MaterialTheme.typography.subtitle1,
                     fontWeight = FontWeight.Medium,
                     color = MaterialTheme.colors.onSurface
