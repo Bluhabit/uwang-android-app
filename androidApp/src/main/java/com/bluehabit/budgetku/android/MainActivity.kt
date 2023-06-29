@@ -44,7 +44,7 @@ class MainActivity : ComponentActivity() {
     private fun listenFromChild() {
         eventListener.addOnEventListener {
             when(it){
-                ScreenToAppEvent.EXIT_APP -> TODO()
+                ScreenToAppEvent.EXIT_APP -> finish()
             }
         }
     }

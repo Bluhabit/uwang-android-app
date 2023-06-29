@@ -10,8 +10,9 @@
 plugins {
     alias(libs.plugins.com.android.library)
     alias(libs.plugins.org.jetbrains.kotlin.android)
-    alias(libs.plugins.org.jetbrains.kotlin.kapt)
     id("kotlin-parcelize")
+    id("com.google.devtools.ksp") version ("1.8.0-1.0.9")
+    alias(libs.plugins.org.jetbrains.kotlin.kapt)
 }
 
 android {
@@ -55,8 +56,11 @@ android {
 }
 
 dependencies {
-    api(project(":core-ui"))
-    api(project(":data"))
+    implementation("com.github.triandamai.mvi:ui:0.11")
+    implementation("com.github.triandamai.mvi:processor:0.11")
+    ksp("com.github.triandamai.mvi:processor:0.11")
+    api(project(":core-data"))
+    api(project(":core-component"))
 
 
     implementation(libs.android.material)
