@@ -36,10 +36,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import app.hilwa.ar.base.extensions.from
+import app.trian.mvi.ui.extensions.formatToRupiah
+import app.trian.mvi.ui.extensions.from
 import com.bluehabit.core.ui.BaseMainApp
 import com.bluehabit.core.ui.R
-import com.bluehabit.core.ui.extensions.formatToRupiah
 import java.math.BigDecimal
 
 @Composable

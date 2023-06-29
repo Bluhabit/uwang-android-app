@@ -8,20 +8,15 @@
 package com.bluehabit.budgetku.feature.authentication.signUp
 
 import android.util.Patterns
-import app.hilwa.ar.base.extensions.hideKeyboard
-import com.bluehabit.core.ui.extensions.showBottomSheet
-import com.bluehabit.core.ui.viewModel.BaseViewModel
+import app.trian.mvi.ui.viewModel.MviViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
 
-) : BaseViewModel<SignUpState, SignUpAction>(SignUpState()) {
+) : MviViewModel<SignUpState,SignUpIntent, SignUpAction>(SignUpState()) {
 
-    init {
-        handleActions()
-    }
 
     private fun signUpWithEmail(
     ) = asyncWithState {
@@ -42,8 +37,8 @@ class SignUpViewModel @Inject constructor(
                         errorMessage = ""
                     )
                 }
-                controller.context.hideKeyboard()
-                controller.showBottomSheet()
+               // controller.context.hideKeyboard()
+               // controller.showBottomSheet()
             }
         }
     }
@@ -56,8 +51,10 @@ class SignUpViewModel @Inject constructor(
 //    }
 
 
-    override fun handleActions() = onEvent {
-        when (it) {
+
+
+    override fun onAction(action: SignUpAction) {
+        when (action) {
             SignUpAction.Submit -> signUpWithEmail()
 //            is SignUpEvent.SignUpWithGoogle -> signUpGoogle(it.result)
         }

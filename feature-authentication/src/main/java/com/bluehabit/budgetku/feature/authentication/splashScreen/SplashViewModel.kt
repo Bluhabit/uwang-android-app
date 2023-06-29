@@ -7,31 +7,24 @@
 
 package com.bluehabit.budgetku.feature.authentication.splashScreen
 
+import app.trian.mvi.ui.viewModel.MviViewModel
 import com.bluehabit.budgetku.data.domain.auth.CheckSessionUseCase
-import com.bluehabit.core.ui.extensions.navigateAndReplace
-import com.bluehabit.core.ui.routes.Routes
-import com.bluehabit.core.ui.viewModel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class SplashViewModel @Inject constructor(
     private val checkSessionUseCase: CheckSessionUseCase
-) : BaseViewModel<SplashState, SplashAction>(SplashState()) {
-
-    init {
-        handleActions()
-    }
+) : MviViewModel<SplashState,SplashIntent, SplashAction>(SplashState()) {
 
     private fun checkIfUserLoggedIn() = async {
 //        if (checkSessionUseCase()) navigateAndReplaceAll(Home.routeName)
 //        else
-            controller.navigateAndReplace(Routes.Onboard.routeName)
+           // controller.navigateAndReplace(Routes.Onboard.routeName)
     }
 
-
-    override fun handleActions() = onEvent {
-        when (it) {
+    override fun onAction(action: SplashAction) {
+        when (action) {
             SplashAction.CheckSession -> checkIfUserLoggedIn()
         }
     }

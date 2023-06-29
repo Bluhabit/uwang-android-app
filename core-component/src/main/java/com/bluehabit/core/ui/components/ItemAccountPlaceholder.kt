@@ -34,7 +34,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import app.hilwa.ar.base.extensions.dashedBorder
+import app.trian.mvi.ui.extensions.dashedBorder
 import com.bluehabit.core.ui.BaseMainApp
 import com.bluehabit.core.ui.theme.Grey100
 import com.bluehabit.core.ui.theme.Grey300

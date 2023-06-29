@@ -34,8 +34,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import app.trian.mvi.ui.extensions.formatToRupiah
 import com.bluehabit.core.ui.BaseMainApp
-import com.bluehabit.core.ui.extensions.formatToRupiah
 import com.bluehabit.core.ui.theme.Grey100
 import com.bluehabit.core.ui.theme.Grey700
 import com.bluehabit.core.ui.theme.Yellow200
