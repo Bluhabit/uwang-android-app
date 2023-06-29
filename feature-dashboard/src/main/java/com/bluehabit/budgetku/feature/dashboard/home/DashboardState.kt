@@ -27,7 +27,7 @@ import com.bluehabit.budgetku.data.remote.dummy.dummyPosts
 import com.bluehabit.budgetku.data.remote.dummy.dummyTransactions
 import com.bluehabit.budgetku.data.remote.dummy.dummyTutorial
 import com.bluehabit.budgetku.data.remote.dummy.dummyUser
-import com.bluehabit.budgetku.feature.dashboard.budget.BottomSheetBudget
+import com.bluehabit.budgetku.feature.dashboard.home.components.BottomSheetBudget
 import com.bluehabit.core.ui.routes.Routes
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
