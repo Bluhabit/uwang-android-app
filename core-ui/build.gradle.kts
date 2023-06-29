@@ -54,8 +54,7 @@ android {
 
 dependencies {
     coreLibraryDesugaring(libs.desugar.jdk.lib)
-
-    implementation(project(":data"))
+    implementation(project(":core-data"))
 
     implementation(libs.android.material)
     implementation(libs.core.ktx)

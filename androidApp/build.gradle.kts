@@ -1,4 +1,5 @@
 @file:Suppress("UnstableApiUsage")
+
 import com.android.build.api.dsl.ApkSigningConfig
 import com.android.build.api.dsl.ApplicationBuildType
 
@@ -13,11 +14,12 @@ import com.android.build.api.dsl.ApplicationBuildType
 plugins {
     alias(libs.plugins.com.android.application)
     alias(libs.plugins.org.jetbrains.kotlin.android)
-    alias(libs.plugins.org.jetbrains.kotlin.kapt)
     alias(libs.plugins.com.google.dagger.hilt.android)
     alias(libs.plugins.app.cash.sqldelight)
     alias(libs.plugins.io.gitlab.arthubosch.detekt)
     id("kotlin-parcelize")
+    id("com.google.devtools.ksp") version ("1.8.0-1.0.9")
+    alias(libs.plugins.org.jetbrains.kotlin.kapt)
 }
 
 android {
@@ -30,7 +32,6 @@ android {
         versionCode = 1
         versionName = "1.0"
         multiDexEnabled = true
-//        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunner = "com.bluehabit.budgetku.android.HiltTestRunner"
         vectorDrawables {
             useSupportLibrary = true
@@ -97,8 +98,10 @@ android {
 }
 
 dependencies {
-    implementation(project(":data"))
-    implementation(project(":core-ui"))
+    implementation("com.github.triandamai.mvi:ui:0.11")
+    implementation("com.github.triandamai.mvi:processor:0.11")
+    ksp("com.github.triandamai.mvi:processor:0.11")
+    implementation(project(":core-data"))
 
     implementation(project(":feature-authentication"))
     implementation(project(":feature-dashboard"))
@@ -154,11 +157,11 @@ dependencies {
         testImplementation(test)
     }
 
-    with(libs.composeIcons){
+    with(libs.composeIcons) {
         implementation(feather)
     }
 
-    with(libs.chuker){
+    with(libs.chuker) {
         debugApi(debug)
         releaseApi(release)
     }
