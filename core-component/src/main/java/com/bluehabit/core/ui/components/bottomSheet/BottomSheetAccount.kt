@@ -32,9 +32,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import app.trian.mvi.ui.extensions.formatToRupiah
 import com.bluehabit.budgetku.data.model.account.AccountModel
 import com.bluehabit.core.ui.BaseMainApp
-import com.bluehabit.core.ui.extensions.formatToRupiah
 import com.bluehabit.core.ui.theme.Grey300
 import com.bluehabit.core.ui.theme.Grey700
 import java.math.BigDecimal

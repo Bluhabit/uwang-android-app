@@ -34,18 +34,18 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import app.trian.mvi.ui.BaseMainApp
 import app.trian.mvi.ui.BaseScreen
 import app.trian.mvi.ui.UIWrapper
 import app.trian.mvi.ui.internal.UIContract
-import com.bluehabit.budgetku.feature.authentication.R
+import com.bluehabit.core.ui.BaseMainApp
+import com.bluehabit.core.ui.R
 import com.bluehabit.core.ui.components.AnnotationTextItem
 import com.bluehabit.core.ui.components.IconWithAction
 import com.bluehabit.core.ui.components.bottomSheet.BottomSheetConfirmationEmail
 import com.bluehabit.core.ui.components.button.ButtonGoogle
 import com.bluehabit.core.ui.components.button.ButtonPrimary
 import com.bluehabit.core.ui.components.input.FormInput
-
+import com.bluehabit.core.ui.theme.Grey700
 
 
 @Composable
@@ -222,7 +222,12 @@ fun SignUpScreen(
 @Composable
 fun PreviewSignUpScreen() {
     BaseMainApp {
-        SignUpScreen()
+        SignUpScreen(
+            uiContract = UIContract(
+                controller = it,
+                state = SignUpState()
+            )
+        )
     }
 
 }

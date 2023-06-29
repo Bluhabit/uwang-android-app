@@ -8,11 +8,10 @@
 package com.bluehabit.budgetku.feature.authentication.signIn
 
 import android.util.Patterns
-import app.hilwa.ar.base.extensions.hideKeyboard
+import app.trian.mvi.ui.viewModel.MviViewModel
 import com.bluehabit.budgetku.data.domain.auth.SignInWIthGoogleUseCase
 import com.bluehabit.budgetku.data.domain.auth.SignInWithEmailUseCase
 import com.bluehabit.budgetku.data.remote.dummy.dummyUser
-import com.bluehabit.core.ui.viewModel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
@@ -21,16 +20,12 @@ import javax.inject.Inject
 class SignInViewModel @Inject constructor(
     private val signInWithEmailUseCase: SignInWithEmailUseCase,
     private val signInWIthGoogleUseCase: SignInWIthGoogleUseCase
-) : BaseViewModel<SignInState, SignInAction>(SignInState()) {
-
-    init {
-        handleActions()
-    }
+) : MviViewModel<SignInState,SignInIntent, SignInAction>(SignInState()) {
 
     private fun validateData(
         valid: suspend (String, String) -> Unit
     ) = asyncWithState {
-        controller.context.hideKeyboard()
+     //   controller.context.hideKeyboard()
         when {
             email.isEmpty() || password.isEmpty() -> {
                 commit { copy(emailIsError = email.isEmpty(), passwordIsError = password.isEmpty()) }
@@ -41,7 +36,7 @@ class SignInViewModel @Inject constructor(
             }
 
             email != dummyUser.email && password != dummyUser.password -> {
-                controller.showSnackbar("Akun tidak ditemukan")
+            //    controller.showSnackbar("Akun tidak ditemukan")
             }
 
             else -> {
@@ -50,33 +45,49 @@ class SignInViewModel @Inject constructor(
         }
     }
 
-    override fun handleActions() = onEvent { event ->
-        when (event) {
+
+    override fun onAction(action: SignInAction) {
+        when (action) {
             SignInAction.SignInWithEmail -> validateData { email, password ->
-                signInWithEmailUseCase(email, password).onEach(
-                    loading = { controller.showSnackbar("Loading") },
-                    error = { controller.showSnackbar(it) },
-                    success = { controller.showSnackbar(it.userEmail) }
-                )
+                signInWithEmailUseCase(email, password)
+//                    .onEach(
+//                    loading = {
+//                       // controller.showSnackbar("Loading")
+//                              },
+//                    error = {
+//                        //controller.showSnackbar(it)
+//                            },
+//                    success = {
+//                        //controller.showSnackbar(it.userEmail)
+//                    }
+//                )
             }
 
             is SignInAction.OnEmailChange -> commit {
                 copy(
-                    email = event.email,
-                    emailIsError = (!Patterns.EMAIL_ADDRESS.matcher(event.email).matches() or event.email.isEmpty())
+                    email = action.email,
+                    emailIsError = (!Patterns.EMAIL_ADDRESS.matcher(action.email).matches() or action.email.isEmpty())
                 )
             }
 
             is SignInAction.OnPasswordChange -> commit {
-                copy(password = event.password, passwordIsError = event.password.isEmpty())
+                copy(password = action.password, passwordIsError = action.password.isEmpty())
             }
 
-            is SignInAction.SignInWithGoogle ->
-                signInWIthGoogleUseCase(event.result?.await()?.idToken).onEach(
-                    loading = { controller.showSnackbar("Loading") },
-                    error = { controller.showSnackbar(it) },
-                    success = { controller.showSnackbar(it.userEmail) }
-                )
+            is SignInAction.SignInWithGoogle ->async {
+                signInWIthGoogleUseCase(action.result?.await()?.idToken)
+//                    .onEach(
+//                        loading = {
+//                            //controller.showSnackbar("Loading")
+//                        },
+//                        error = {
+//                            // controller.showSnackbar(it)
+//                        },
+//                        success = {
+//                            // controller.showSnackbar(it.userEmail)
+//                        }
+//                    )
+            }
         }
     }
 }

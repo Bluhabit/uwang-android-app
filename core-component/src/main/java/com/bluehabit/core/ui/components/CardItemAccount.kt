@@ -33,8 +33,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import app.trian.mvi.ui.extensions.formatToRupiah
 import com.bluehabit.core.ui.BaseMainApp
-import com.bluehabit.core.ui.extensions.formatToRupiah
 import com.bluehabit.core.ui.theme.Grey300
 import com.bluehabit.core.ui.theme.Grey500
 import com.bluehabit.core.ui.theme.Grey700

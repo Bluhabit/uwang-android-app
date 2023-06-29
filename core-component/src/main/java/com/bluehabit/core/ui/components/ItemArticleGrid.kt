@@ -36,10 +36,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import app.trian.mvi.ui.extensions.gridItems
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import coil.size.Size
-import com.bluehabit.budgetku.android.base.extensions.gridItems
 import com.bluehabit.core.ui.BaseMainApp
 import com.bluehabit.core.ui.theme.Grey300
 import com.bluehabit.core.ui.theme.Grey700
