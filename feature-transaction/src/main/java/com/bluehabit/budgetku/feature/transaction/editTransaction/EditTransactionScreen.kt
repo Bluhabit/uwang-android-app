@@ -25,6 +25,8 @@ import androidx.compose.ui.unit.dp
 import app.trian.mvi.Navigation
 import app.trian.mvi.ui.UIWrapper
 import app.trian.mvi.ui.internal.UIContract
+import app.trian.mvi.ui.internal.listener.BaseEventListener
+import app.trian.mvi.ui.internal.listener.EventListener
 import com.bluehabit.budgetku.feature.transaction.editTransaction.components.BottomSheetTypeEditTransaction
 import com.bluehabit.budgetku.feature.transaction.editTransaction.components.ScreenMainEditTransaction
 import com.bluehabit.budgetku.feature.transaction.editTransaction.components.ScreenType
@@ -49,7 +51,8 @@ import com.bluehabit.core.ui.routes.TransactionConstants
 )
 @Composable
 fun EditTransactionScreen(
-    uiContract: UIContract<EditTransactionState, EditTransactionIntent, EditTransactionAction>
+    uiContract: UIContract<EditTransactionState, EditTransactionIntent, EditTransactionAction>,
+    event: BaseEventListener = EventListener(),
 ) = UIWrapper(uiContract) {
 
     fun onBacPressed() {

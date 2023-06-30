@@ -37,6 +37,8 @@ import androidx.compose.ui.unit.dp
 import app.trian.mvi.ui.BaseScreen
 import app.trian.mvi.ui.UIWrapper
 import app.trian.mvi.ui.internal.UIContract
+import app.trian.mvi.ui.internal.listener.BaseEventListener
+import app.trian.mvi.ui.internal.listener.EventListener
 import com.bluehabit.core.ui.BaseMainApp
 import com.bluehabit.core.ui.R
 import com.bluehabit.core.ui.components.AnnotationTextItem
@@ -50,7 +52,8 @@ import com.bluehabit.core.ui.theme.Grey700
 
 @Composable
 fun SignUpScreen(
-    uiContract: UIContract<SignUpState,SignUpIntent,SignUpAction>
+    uiContract: UIContract<SignUpState,SignUpIntent,SignUpAction>,
+    event: BaseEventListener = EventListener(),
 ) = UIWrapper(
     uiContract
 ) {

@@ -38,6 +38,8 @@ import app.trian.mvi.Navigation
 import app.trian.mvi.ui.BaseScreen
 import app.trian.mvi.ui.UIWrapper
 import app.trian.mvi.ui.internal.UIContract
+import app.trian.mvi.ui.internal.listener.BaseEventListener
+import app.trian.mvi.ui.internal.listener.EventListener
 import app.trian.mvi.ui.internal.rememberUIController
 import com.bluehabit.core.ui.R
 import com.bluehabit.core.ui.components.bottomSheet.BottomSheetGenderPicker
@@ -56,7 +58,8 @@ import com.bluehabit.core.ui.routes.Routes
 )
 @Composable
 fun CompleteProfileScreen(
-    uiContract: UIContract<CompleteProfileState,CompleteProfileIntent,CompleteProfileAction>
+    uiContract: UIContract<CompleteProfileState,CompleteProfileIntent,CompleteProfileAction>,
+    event: BaseEventListener = EventListener(),
 ) = UIWrapper(
     uiContract
 ) {

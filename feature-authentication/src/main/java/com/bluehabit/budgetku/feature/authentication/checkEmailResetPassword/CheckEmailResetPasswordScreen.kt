@@ -31,6 +31,8 @@ import androidx.compose.ui.unit.dp
 import app.trian.mvi.Navigation
 import app.trian.mvi.ui.UIWrapper
 import app.trian.mvi.ui.internal.UIContract
+import app.trian.mvi.ui.internal.listener.BaseEventListener
+import app.trian.mvi.ui.internal.listener.EventListener
 import app.trian.mvi.ui.internal.rememberUIController
 import com.bluehabit.core.ui.BaseMainApp
 import com.bluehabit.core.ui.R
@@ -46,7 +48,8 @@ import com.bluehabit.core.ui.routes.Routes
 )
 @Composable
 fun CheckEmailResetPasswordScreen(
-    uiContract: UIContract<CheckEmailResetPasswordState,CheckEmailResetPasswordIntent,CheckEmailResetPasswordAction>
+    uiContract: UIContract<CheckEmailResetPasswordState,CheckEmailResetPasswordIntent,CheckEmailResetPasswordAction>,
+    event: BaseEventListener = EventListener(),
 ) = UIWrapper(
     uiContract
 ) {

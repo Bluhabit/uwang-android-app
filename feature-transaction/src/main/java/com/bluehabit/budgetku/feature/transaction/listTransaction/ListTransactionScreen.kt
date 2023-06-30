@@ -42,6 +42,8 @@ import app.trian.mvi.Navigation
 import app.trian.mvi.ui.UIWrapper
 import app.trian.mvi.ui.extensions.formatToRupiah
 import app.trian.mvi.ui.internal.UIContract
+import app.trian.mvi.ui.internal.listener.BaseEventListener
+import app.trian.mvi.ui.internal.listener.EventListener
 import app.trian.mvi.ui.internal.rememberUIController
 import com.bluehabit.core.ui.BaseMainApp
 import com.bluehabit.core.ui.BaseScreen
@@ -58,7 +60,8 @@ import com.bluehabit.core.ui.theme.Grey300
 )
 @Composable
 fun ListTransactionScreen(
-   uiContract: UIContract<ListTransactionState,ListTransactionIntent,ListTransactionAction>
+    uiContract: UIContract<ListTransactionState,ListTransactionIntent,ListTransactionAction>,
+    event: BaseEventListener = EventListener(),
 ) = UIWrapper(uiContract) {
 
     val ctx = LocalContext.current

@@ -21,6 +21,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import app.trian.mvi.Navigation
 import app.trian.mvi.ui.UIWrapper
 import app.trian.mvi.ui.internal.UIContract
+import app.trian.mvi.ui.internal.listener.BaseEventListener
+import app.trian.mvi.ui.internal.listener.EventListener
 import com.bluehabit.budgetku.feature.transaction.createTransaction.components.CreateTransactionBottomSheetType
 import com.bluehabit.budgetku.feature.transaction.createTransaction.components.ScreenInputAccount
 import com.bluehabit.budgetku.feature.transaction.createTransaction.components.ScreenInputAmount
@@ -49,7 +51,8 @@ import com.bluehabit.core.ui.theme.Blue800
 )
 @Composable
 fun CreateTransactionScreen(
-    uiContract: UIContract<CreateTransactionState, CreateTransactionIntent, CreateTransactionAction>
+    uiContract: UIContract<CreateTransactionState, CreateTransactionIntent, CreateTransactionAction>,
+    event: BaseEventListener = EventListener(),
 ) = UIWrapper(uiContract) {
 
     fun onBackPressed() {

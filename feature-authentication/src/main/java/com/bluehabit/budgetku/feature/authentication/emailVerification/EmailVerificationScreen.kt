@@ -14,6 +14,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import app.trian.mvi.Navigation
 import app.trian.mvi.ui.UIWrapper
 import app.trian.mvi.ui.internal.UIContract
+import app.trian.mvi.ui.internal.listener.BaseEventListener
+import app.trian.mvi.ui.internal.listener.EventListener
 import app.trian.mvi.ui.internal.rememberUIController
 import com.bluehabit.budgetku.feature.authentication.emailVerification.components.ScreenVerificationSuccess
 import com.bluehabit.budgetku.feature.authentication.emailVerification.components.ScreenVerifyingEmail
@@ -28,7 +30,8 @@ import kotlinx.coroutines.delay
 )
 @Composable
 fun EmailVerificationScreen(
-    uiContract: UIContract<EmailVerificationState, EmailVerificationIntent, EmailVerificationAction>
+    uiContract: UIContract<EmailVerificationState, EmailVerificationIntent, EmailVerificationAction>,
+    event: BaseEventListener = EventListener(),
 ) = UIWrapper(uiContract) {
 
     LaunchedEffect(key1 = this, block = {
