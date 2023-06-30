@@ -9,9 +9,10 @@ package com.bluehabit.budgetku.feature.authentication
 
 import app.trian.mvi.NavigationGroup
 import com.bluehabit.core.ui.routes.AuthenticationConstants
+import com.bluehabit.core.ui.routes.Routes
 
 @NavigationGroup(
     route = AuthenticationConstants.parentRoute,
-    startDestination = ""
+    startDestination = Routes.Splash.routeName
 )
 interface AuthenticationRoute

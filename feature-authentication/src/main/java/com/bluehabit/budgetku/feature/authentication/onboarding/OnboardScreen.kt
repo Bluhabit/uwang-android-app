@@ -36,6 +36,8 @@ import androidx.compose.ui.unit.dp
 import app.trian.mvi.Navigation
 import app.trian.mvi.ui.UIWrapper
 import app.trian.mvi.ui.internal.UIContract
+import app.trian.mvi.ui.internal.listener.BaseEventListener
+import app.trian.mvi.ui.internal.listener.EventListener
 import app.trian.mvi.ui.internal.rememberUIController
 import com.bluehabit.core.ui.components.button.ButtonPrimary
 import com.bluehabit.core.ui.routes.AuthenticationConstants
@@ -51,7 +53,8 @@ import com.google.accompanist.pager.rememberPagerState
 )
 @Composable
 fun OnboardScreen(
-   uiContract: UIContract<OnboardState,OnboardIntent,OnboardAction>
+    uiContract: UIContract<OnboardState,OnboardIntent,OnboardAction>,
+    event: BaseEventListener = EventListener(),
 ) = UIWrapper(uiContract = uiContract) {
 
     val pagerState = rememberPagerState(

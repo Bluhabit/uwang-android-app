@@ -45,6 +45,8 @@ import app.trian.mvi.Navigation
 import app.trian.mvi.ui.UIWrapper
 import app.trian.mvi.ui.extensions.formatToRupiah
 import app.trian.mvi.ui.internal.UIContract
+import app.trian.mvi.ui.internal.listener.BaseEventListener
+import app.trian.mvi.ui.internal.listener.EventListener
 import com.bluehabit.budgetku.feature.transaction.detailTransaction.components.DetailTransactionBottomSheetType
 import com.bluehabit.core.ui.BaseMainApp
 import com.bluehabit.core.ui.BaseScreen
@@ -63,7 +65,8 @@ import com.bluehabit.core.ui.theme.Grey700
 )
 @Composable
 internal fun DetailTransactionScreen(
-    uiContract: UIContract<DetailTransactionState,DetailTransactionIntent,DetailTransactionAction>
+    uiContract: UIContract<DetailTransactionState,DetailTransactionIntent,DetailTransactionAction>,
+    event: BaseEventListener = EventListener(),
 ) = UIWrapper(uiContract) {
 
     LaunchedEffect(key1 = this, block = {

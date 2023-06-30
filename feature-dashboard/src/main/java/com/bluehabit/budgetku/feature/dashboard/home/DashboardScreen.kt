@@ -12,6 +12,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import app.trian.mvi.Navigation
 import app.trian.mvi.ui.UIWrapper
 import app.trian.mvi.ui.internal.UIContract
+import app.trian.mvi.ui.internal.listener.BaseEventListener
+import app.trian.mvi.ui.internal.listener.EventListener
 import com.bluehabit.budgetku.feature.dashboard.component.DashboardBottomNavigation
 import com.bluehabit.budgetku.feature.dashboard.home.components.ScreenBudget
 import com.bluehabit.budgetku.feature.dashboard.home.components.ScreenCommunity
@@ -28,7 +30,8 @@ import com.bluehabit.core.ui.routes.Routes
 )
 @Composable
 fun DashboardScreen(
-    uiContract: UIContract<DashboardState, DashboardIntent, DashboardAction>
+    uiContract: UIContract<DashboardState, DashboardIntent, DashboardAction>,
+    event: BaseEventListener = EventListener(),
 ) = UIWrapper(
     uiContract
 ) {

@@ -39,6 +39,8 @@ import androidx.compose.ui.unit.dp
 import app.trian.mvi.Navigation
 import app.trian.mvi.ui.UIWrapper
 import app.trian.mvi.ui.internal.UIContract
+import app.trian.mvi.ui.internal.listener.BaseEventListener
+import app.trian.mvi.ui.internal.listener.EventListener
 import app.trian.mvi.ui.internal.rememberUIController
 import com.bluehabit.core.ui.R
 import com.bluehabit.core.ui.routes.AuthenticationConstants
@@ -54,7 +56,8 @@ import com.bluehabit.core.ui.theme.Grey900
 )
 @Composable
 fun CreatePinScreen(
-   uiContract: UIContract<CreatePinState,CreatePinIntent,CreatePinAction>
+    uiContract: UIContract<CreatePinState,CreatePinIntent,CreatePinAction>,
+    event: BaseEventListener = EventListener(),
 ) = UIWrapper(uiContract) {
 
     Column(
