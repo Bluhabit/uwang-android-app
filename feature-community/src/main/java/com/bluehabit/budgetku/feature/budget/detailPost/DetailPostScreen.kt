@@ -43,35 +43,39 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavType
-import androidx.navigation.navArgument
+import app.trian.mvi.Navigation
+import app.trian.mvi.ui.UIWrapper
+import app.trian.mvi.ui.internal.UIContract
 import com.bluehabit.budgetku.data.model.post.PostType
 import com.bluehabit.core.ui.BaseMainApp
 import com.bluehabit.core.ui.BaseScreen
 import com.bluehabit.core.ui.R
-import com.bluehabit.core.ui.UIListenerData
-import com.bluehabit.core.ui.UiWrapperData
 import com.bluehabit.core.ui.components.ContentItemFeedTemplate
 import com.bluehabit.core.ui.components.FormReplyComment
 import com.bluehabit.core.ui.components.ItemComment
+import com.bluehabit.core.ui.routes.CommunityConstants
+import com.bluehabit.core.ui.routes.Routes
 
+@Navigation(
+    route = Routes.DetailPost.routeName,
+    group = CommunityConstants.parentRoute,
+    viewModel = DetailPostViewModel::class
+)
 @Composable
-fun ScreenDetailPost(
-    state:DetailPostState= DetailPostState(),
-    data:DetailPostDataState= DetailPostDataState(),
-    invoker:UIListenerData<DetailPostState,DetailPostDataState,DetailPostEvent>
-) = UiWrapperData(invoker) {
+fun DetailPostScreen(
+    uiContract: UIContract<DetailPostState,DetailPostIntent,DetailPostAction>
+) = UIWrapper(uiContract) {
 
 
     LaunchedEffect(key1 = this, block = {
-        dispatch(DetailPostEvent.GetDetailPost)
+        dispatch(DetailPostAction.GetDetailPost)
     })
     BaseScreen(
         topAppBar = {
             TopAppBarDetailPost(
-                commentCount = data.comments.size,
+                commentCount = state.comments.size,
                 onBackPressed = {
-                    navigateUp()
+                    navigator.navigateUp()
                 }
             )
         }
@@ -79,7 +83,7 @@ fun ScreenDetailPost(
         Box(
             modifier = Modifier.fillMaxSize()
         ) {
-            if (data.detailPost != null) {
+            if (state.detailPost != null) {
                 LazyColumn(content = {
                     item {
                         Spacer(modifier = Modifier.height(20.dp))
@@ -102,7 +106,7 @@ fun ScreenDetailPost(
                                     verticalAlignment = Alignment.CenterVertically
                                 ) {
                                     Image(
-                                        painter = painterResource(id = data.detailPost!!.avatar),
+                                        painter = painterResource(id = state.detailPost!!.avatar),
                                         contentDescription = "",
                                         modifier = Modifier
                                             .size(48.dp)
@@ -111,13 +115,13 @@ fun ScreenDetailPost(
                                     Spacer(modifier = Modifier.width(8.dp))
                                     Column {
                                         Text(
-                                            text = data.detailPost!!.displayName,
+                                            text = state.detailPost!!.displayName,
                                             style = MaterialTheme.typography.subtitle1,
                                             fontWeight = FontWeight.Bold
                                         )
                                         Spacer(modifier = Modifier.height(8.dp))
                                         Text(
-                                            text = data.detailPost!!.date,
+                                            text = state.detailPost!!.date,
                                             style = MaterialTheme.typography.body2,
                                             fontWeight = FontWeight.Normal
                                         )
@@ -130,19 +134,19 @@ fun ScreenDetailPost(
                             }
                             Spacer(modifier = Modifier.height(16.dp))
                             Text(
-                                text = data.detailPost!!.body,
+                                text = state.detailPost!!.body,
                                 style = MaterialTheme.typography.subtitle1,
                                 fontWeight = FontWeight.Normal
                             )
                             Spacer(modifier = Modifier.height(16.dp))
-                            when (data.detailPost!!.postType) {
+                            when (state.detailPost!!.postType) {
                                 PostType.TEXT -> Unit
                                 PostType.BUDGETING_TEMPLATE -> ContentItemFeedTemplate(
-                                    items = data.detailPost!!.content
+                                    items = state.detailPost!!.content
                                 )
 
                                 PostType.IMAGE -> Image(
-                                    painter = painterResource(id = data.detailPost!!.mimeContent),
+                                    painter = painterResource(id = state.detailPost!!.mimeContent),
                                     contentDescription = "",
                                     modifier = Modifier
                                         .fillMaxWidth()
@@ -174,7 +178,7 @@ fun ScreenDetailPost(
                                             contentDescription = ""
                                         )
                                         Spacer(modifier = Modifier.width(8.dp))
-                                        Text(text = data.detailPost!!.comments.toString())
+                                        Text(text = state.detailPost!!.comments.toString())
                                     }
                                     Spacer(modifier = Modifier.width(10.dp))
                                     Row {
@@ -183,7 +187,7 @@ fun ScreenDetailPost(
                                             contentDescription = ""
                                         )
                                         Spacer(modifier = Modifier.width(8.dp))
-                                        Text(text = data.detailPost!!.likes.toString())
+                                        Text(text = state.detailPost!!.likes.toString())
                                     }
                                 }
                                 Icon(
@@ -196,7 +200,7 @@ fun ScreenDetailPost(
                             Spacer(modifier = Modifier.height(8.dp))
                         }
                     }
-                    items(data.comments) {
+                    items(state.comments) {
                         ItemComment(
                             fullName = it.fullName,
                             body = it.body,
@@ -290,11 +294,10 @@ fun TopAppBarDetailPost(
 @Composable
 fun PreviewScreenDetailPost() {
     BaseMainApp() {
-        ScreenDetailPost(
-            invoker = UIListenerData(
+        DetailPostScreen(
+              UIContract(
                 controller = it,
                 state=DetailPostState(),
-                data= DetailPostDataState()
             )
         )
     }

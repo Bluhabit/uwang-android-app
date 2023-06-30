@@ -7,23 +7,20 @@
 
 package com.bluehabit.budgetku.feature.budget.createPost
 
-import com.bluehabit.core.ui.viewModel.BaseViewModel
+import app.trian.mvi.ui.viewModel.MviViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class CreatePostViewModel @Inject constructor(
-) : BaseViewModel<CreatePostState, CreatePostEvent>(CreatePostState()) {
+) : MviViewModel<CreatePostState,CreatePostIntent, CreatePostAction>(CreatePostState()) {
 
-    init {
-        handleActions()
-    }
 
-    override fun handleActions() = onEvent {
-        when(it) {
-            is CreatePostEvent.ChangePostVisibility -> commit {
+    override fun onAction(action: CreatePostAction) {
+        when(action) {
+            is CreatePostAction.ChangePostVisibility -> commit {
                 copy(
-                    postVisibility = it.postVisibility,
+                    postVisibility = action.postVisibility,
                     isSubmitEnabled = true
                 )
             }
