@@ -98,9 +98,9 @@ android {
 }
 
 dependencies {
-    implementation("com.github.triandamai.mvi:ui:0.11")
-    implementation("com.github.triandamai.mvi:processor:0.11")
-    ksp("com.github.triandamai.mvi:processor:0.11")
+    implementation(libs.mvi.ui)
+    implementation(libs.mvi.processor)
+    ksp(libs.mvi.processor)
     implementation(project(":core-data"))
 
     implementation(project(":feature-authentication"))
