@@ -40,24 +40,32 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.bluehabit.core.ui.R
+import app.trian.mvi.Navigation
+import app.trian.mvi.ui.UIWrapper
+import app.trian.mvi.ui.internal.UIContract
+import com.bluehabit.budgetku.feature.budget.createPost.components.CreatePostBottomSheetType
 import com.bluehabit.core.ui.BaseScreen
-import com.bluehabit.core.ui.UIListener
-import com.bluehabit.core.ui.UIWrapper
+import com.bluehabit.core.ui.R
 import com.bluehabit.core.ui.components.bottomSheet.BottomSheetConfirmation
 import com.bluehabit.core.ui.components.bottomSheet.BottomSheetSelectPostVisibility
 import com.bluehabit.core.ui.components.bottomSheet.PostVisibility
 import com.bluehabit.core.ui.components.button.ButtonOutlinedPrimary
 import com.bluehabit.core.ui.components.button.ButtonPrimary
 import com.bluehabit.core.ui.components.input.MultilineHintTextField
+import com.bluehabit.core.ui.routes.CommunityConstants
+import com.bluehabit.core.ui.routes.Routes
 import com.bluehabit.core.ui.theme.Grey300
 import com.bluehabit.core.ui.theme.Grey900
 
+@Navigation(
+    route = Routes.CreatePost.routeName,
+    group = CommunityConstants.parentRoute,
+    viewModel = CreatePostViewModel::class
+)
 @Composable
-fun ScreenCreatePost(
-    state:CreatePostState= CreatePostState(),
-    invoker: UIListener<CreatePostState, CreatePostEvent>
-) = UIWrapper(invoker) {
+fun CreatePostScreen(
+    uiContract: UIContract<CreatePostState,CreatePostIntent,CreatePostAction>
+) = UIWrapper(uiContract) {
    BaseScreen(
        bottomSheet = {
            when (state.bottomSheetType) {
@@ -65,12 +73,14 @@ fun ScreenCreatePost(
                    BottomSheetSelectPostVisibility(
                        postVisibility = state.postVisibility,
                        onSubmit = {
-                           dispatch(CreatePostEvent.ChangePostVisibility(it))
-                           hideBottomSheet()
+                           dispatch(CreatePostAction.ChangePostVisibility(it))
+                           //hideBottomSheet()
                        },
-                       onDismiss = { hideBottomSheet() },
+                       onDismiss = {
+                          // hideBottomSheet()
+                                   },
                        onVisibilitySelected = {
-                           dispatch(CreatePostEvent.ChangePostVisibility(it))
+                           dispatch(CreatePostAction.ChangePostVisibility(it))
                        }
                    )
                }
@@ -81,11 +91,11 @@ fun ScreenCreatePost(
                    textConfirmation = "Yakin",
                    textCancel = "Batal",
                    onDismiss = {
-                       hideBottomSheet()
+                      // hideBottomSheet()
                    },
                    onConfirm = {
-                       hideBottomSheet()
-                       navigateUp()
+                      // hideBottomSheet()
+                       navigator.navigateUp()
                    }
                )
            }
@@ -98,7 +108,7 @@ fun ScreenCreatePost(
                 bottomSheetType = CreatePostBottomSheetType.CANCEL_CONFIRMATION
             )
         }
-        showBottomSheet()
+       // showBottomSheet()
     }
     Box(
         modifier = Modifier.fillMaxSize(),
@@ -115,10 +125,10 @@ fun ScreenCreatePost(
                             bottomSheetType = CreatePostBottomSheetType.CANCEL_CONFIRMATION
                         )
                     }
-                    showBottomSheet()
+                    //showBottomSheet()
                 },
                 onSubmit = {
-                    navigateUp()
+                    navigator.navigateUp()
                 }
             )
             ProfileCreatePost(
@@ -130,8 +140,8 @@ fun ScreenCreatePost(
                             bottomSheetType = CreatePostBottomSheetType.CHANGE_VISIBILITY
                         )
                     }
-                    showBottomSheet()
-                    showBottomSheet()
+                    //showBottomSheet()
+                    //showBottomSheet()
                 }
             )
             LazyColumn(

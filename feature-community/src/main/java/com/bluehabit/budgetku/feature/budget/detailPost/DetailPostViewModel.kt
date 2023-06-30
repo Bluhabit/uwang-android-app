@@ -8,19 +8,16 @@
 package com.bluehabit.budgetku.feature.budget.detailPost
 
 import androidx.lifecycle.SavedStateHandle
+import app.trian.mvi.ui.viewModel.MviViewModel
 import com.bluehabit.budgetku.data.remote.dummy.dummyPosts
 import com.bluehabit.core.ui.routes.Routes
-import com.bluehabit.core.ui.viewModel.BaseViewModelData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class DetailPostViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle
-) : BaseViewModelData<DetailPostState, DetailPostDataState, DetailPostEvent>(DetailPostState(), DetailPostDataState()) {
-    init {
-        handleActions()
-    }
+) : MviViewModel<DetailPostState, DetailPostIntent, DetailPostAction>(DetailPostState()) {
 
     private fun getId() = savedStateHandle.get<String>(Routes.DetailPost.argKey).orEmpty()
 
@@ -28,15 +25,15 @@ class DetailPostViewModel @Inject constructor(
         dummyPosts.find {
             it.id == getId()
         }?.let {
-            commitData {
+            commit {
                 copy(detailPost = it)
             }
         }
     }
 
-    override fun handleActions() = onEvent { event ->
-        when (event) {
-            DetailPostEvent.GetDetailPost -> getDetailPost()
+    override fun onAction(action: DetailPostAction) {
+        when (action) {
+            DetailPostAction.GetDetailPost -> getDetailPost()
         }
     }
 

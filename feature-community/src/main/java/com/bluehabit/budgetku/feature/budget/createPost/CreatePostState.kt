@@ -9,14 +9,12 @@ package com.bluehabit.budgetku.feature.budget.createPost
 
 import android.net.Uri
 import android.os.Parcelable
+import com.bluehabit.budgetku.feature.budget.createPost.components.CreatePostBottomSheetType
 import com.bluehabit.core.ui.components.bottomSheet.PostVisibility
 import kotlinx.parcelize.Parcelize
 import javax.annotation.concurrent.Immutable
 
-enum class CreatePostBottomSheetType{
-    CHANGE_VISIBILITY,
-    CANCEL_CONFIRMATION
-}
+
 @Immutable
 @Parcelize
 data class CreatePostState(
@@ -31,6 +29,3 @@ data class CreatePostState(
 ) : Parcelable
 
 
-sealed class CreatePostEvent {
-    data class ChangePostVisibility(val postVisibility: PostVisibility): CreatePostEvent()
-}
