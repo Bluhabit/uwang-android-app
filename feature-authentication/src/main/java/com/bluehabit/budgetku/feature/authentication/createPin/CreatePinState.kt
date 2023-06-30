@@ -8,7 +8,7 @@
 package com.bluehabit.budgetku.feature.authentication.createPin
 
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 import javax.annotation.concurrent.Immutable
 
 @Immutable

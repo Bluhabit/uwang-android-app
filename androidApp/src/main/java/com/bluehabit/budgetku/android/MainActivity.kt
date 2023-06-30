@@ -10,11 +10,14 @@ package com.bluehabit.budgetku.android
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.navigation.compose.NavHost
 import app.trian.mvi.ui.internal.UIController
 import app.trian.mvi.ui.internal.listener.EventListener
 import app.trian.mvi.ui.internal.rememberUIController
 import com.bluehabit.core.ui.BaseMainApp
+import com.bluehabit.core.ui.routes.Routes
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -30,7 +33,11 @@ class MainActivity : ComponentActivity() {
             )
 
             BaseMainApp(controller = appState) {
-              //  AppNavigation(uiController = it)
+              NavHost(navController = appState.navigator.navHost,
+                  startDestination = Routes.Splash.routeName
+              ){
+
+              }
             }
         }
         listenFromChild()

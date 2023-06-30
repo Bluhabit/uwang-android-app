@@ -9,6 +9,7 @@ package com.bluehabit.budgetku.feature.dashboard.home
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import app.trian.mvi.Navigation
 import app.trian.mvi.ui.UIWrapper
 import app.trian.mvi.ui.internal.UIContract
 import com.bluehabit.budgetku.feature.dashboard.component.DashboardBottomNavigation
@@ -21,6 +22,10 @@ import com.bluehabit.core.ui.BaseScreen
 import com.bluehabit.core.ui.components.bottomSheet.BottomSheetAddBudgetTransaction
 import com.bluehabit.core.ui.routes.Routes
 
+@Navigation(
+    route = Routes.Home.routeName,
+    viewModel=DashboardViewModel::class
+)
 @Composable
 fun DashboardScreen(
     uiContract: UIContract<DashboardState, DashboardIntent, DashboardAction>

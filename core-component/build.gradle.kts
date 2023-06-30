@@ -54,7 +54,7 @@ android {
 
 dependencies {
     coreLibraryDesugaring(libs.desugar.jdk.lib)
-    implementation("com.github.triandamai.mvi:ui:0.11")
+    implementation(libs.mvi.ui)
     api(project(":core-data"))
 
     implementation(libs.android.material)
