@@ -6,8 +6,6 @@
  */
 
 @file:Suppress("UnstableApiUsage")
-
-
 pluginManagement {
     repositories {
         google()
@@ -33,17 +31,25 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "BudgetKu"
+rootProject.name = "Eureka Project"
 include(":androidApp")
-include(":core-data")
-//include(":core-ui")
-include(":core-component")
-include(":feature-authentication")
-include(":feature-dashboard")
-include(":feature-transaction")
-include(":feature-budget")
-include(":feature-community")
-include(":feature-profile")
 
-
-
+include(
+    ":core:core-data",
+    ":core:core-component"
+)
+include(
+    ":data:data-authentication"
+)
+include(
+    ":feature:feature-authentication",
+    ":feature:feature-dashboard"
+)
+rootProject.children.forEach {
+    logger.error(it.name)
+    if(it.name in setOf("feature","data","core")){
+        it.children.forEach {project->
+            project(":${it.name}:${project.name}").projectDir = File("${it.name}/${project.name}")
+        }
+    }
+}
