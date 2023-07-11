@@ -47,11 +47,8 @@ import com.bluehabit.core.ui.routes.Routes
 )
 @Composable
 fun ResetPasswordScreen(
-    uiContract: UIContract<ResetPasswordState,ResetPasswordIntent,ResetPasswordAction>,
-    event: BaseEventListener = EventListener(),
-) = UIWrapper(
-    uiContract = uiContract
-) {
+    uiContract: UIContract<ResetPasswordState,ResetPasswordIntent,ResetPasswordAction>
+) = UIWrapper(uiContract) {
     BaseScreen(
         topAppBar = {
             TopAppBar(

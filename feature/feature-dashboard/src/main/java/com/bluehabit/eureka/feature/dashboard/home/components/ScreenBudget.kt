@@ -34,19 +34,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.bluehabit.eureka.feature.dashboard.component.CardEmptyBudget
-import com.bluehabit.eureka.feature.dashboard.component.CardEmptyTransactionBudget
-import com.bluehabit.eureka.feature.dashboard.component.CardSummaryBudget
-import com.bluehabit.eureka.feature.dashboard.component.ItemExpensesCategoryBudget
-import com.bluehabit.eureka.feature.dashboard.component.ItemTipsBudgetEmpty
-import com.bluehabit.eureka.feature.dashboard.component.ItemTipsBudgetSuccess
-import com.bluehabit.eureka.feature.dashboard.home.DashboardState
 import com.bluehabit.core.ui.BaseMainApp
 import com.bluehabit.core.ui.R
-import com.bluehabit.core.ui.routes.Routes
 import com.bluehabit.core.ui.theme.Blue800
 import com.bluehabit.core.ui.theme.Grey500
-import java.math.BigDecimal
+import com.bluehabit.eureka.feature.dashboard.home.DashboardState
 
 @Composable
 fun ScreenBudget(
@@ -105,39 +97,11 @@ fun ScreenBudget(
                         }
                     }
 
-                    if (state.hasBudget) {
-                        CardSummaryBudget(
-                            budgetAmount = BigDecimal(10_000_000),
-                            budgetUsed = BigDecimal(1_000_000),
-                            usage = "40%",
-                            onEdit = {
-                                onNavigateSingleTop(Routes.CreateBudget.routeName)
-                            }
-                        )
-                    } else {
-                        CardEmptyBudget(
-                            onCreateNewBudget = {
-                                onNavigateSingleTop(Routes.CreateBudget.routeName)
-                            },
-                            onHelpClick = {
-                                onNavigateSingleTop(Routes.TutorialBudget.routeName)
-                            }
-                        )
-                    }
 
                 }
             }
             item {
 
-                if (state.hasBudget) {
-                    ItemTipsBudgetSuccess(
-                        amount = BigDecimal(191_000),
-                    )
-                } else {
-                    ItemTipsBudgetEmpty(
-
-                    )
-                }
 
             }
             item {
@@ -173,29 +137,6 @@ fun ScreenBudget(
                             )
                         )
                     }
-                }
-            }
-            if (!state.hasBudget) {
-                item {
-                    CardEmptyTransactionBudget(
-                        onCreateTransaction = {
-                            onNavigateSingleTop(Routes.CreateTransaction.routeName)
-                        }
-                    )
-                }
-            }
-
-            if (state.hasBudget) {
-                items(state.expensesCategory) {
-                    ItemExpensesCategoryBudget(
-                        amount = it.amount,
-                        categoryName = it.categoryName,
-                        categoryImage = it.categoryImage,
-                        usage = it.usage,
-                        onClick = {
-                            onNavigateSingleTop(Routes.DetailTransaction.routeName)
-                        }
-                    )
                 }
             }
         }

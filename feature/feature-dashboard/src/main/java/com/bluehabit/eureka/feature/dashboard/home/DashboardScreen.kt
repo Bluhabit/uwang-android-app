@@ -31,7 +31,6 @@ import com.bluehabit.core.ui.routes.Routes
 @Composable
 fun DashboardScreen(
     uiContract: UIContract<DashboardState, DashboardIntent, DashboardAction>,
-    event: BaseEventListener = EventListener(),
 ) = UIWrapper(
     uiContract
 ) {
@@ -39,19 +38,12 @@ fun DashboardScreen(
         bottomSheet = {
             BottomSheetAddBudgetTransaction(
                 onDismiss = {
-                    //  hideBottomSheet()
                 },
                 onAddAccount = {
-                    //  hideBottomSheet()
-                    //  navigateSingleTop(CreateAccount.routeName)
                 },
                 onAddTransaction = {
-                    //  hideBottomSheet()
-                    //navigateSingleTop(CreateTransaction.routeName)
                 },
                 onAddBudget = {
-                    // hideBottomSheet()
-                    //navigateSingleTop(CreateBudget.routeName)
                 },
                 onAddTransfer = {},
             )
@@ -96,7 +88,6 @@ fun DashboardScreen(
                     commit {
                         copy(bottomSheetType = it)
                     }
-                   // showBottomSheet()
                 },
                 onNavigateSingleTop = {
                     navigator.navigateSingleTop(it)

@@ -13,6 +13,6 @@ import com.bluehabit.core.ui.routes.Routes
 
 @NavigationGroup(
     route = AuthenticationConstants.parentRoute,
-    startDestination = Routes.Splash.routeName
+    startDestination = Routes.Onboard.routeName
 )
 interface AuthenticationRoute

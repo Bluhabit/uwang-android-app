@@ -7,7 +7,6 @@
 
 package com.bluehabit.eureka.feature.authentication.signIn
 
-import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -36,10 +35,7 @@ import androidx.compose.ui.unit.dp
 import app.trian.mvi.Navigation
 import app.trian.mvi.ui.UIWrapper
 import app.trian.mvi.ui.internal.UIContract
-import app.trian.mvi.ui.internal.listener.BaseEventListener
-import app.trian.mvi.ui.internal.listener.EventListener
 import app.trian.mvi.ui.internal.rememberUIController
-import com.bluehabit.eureka.data.contract.GoogleAuthContract
 import com.bluehabit.core.ui.BaseMainApp
 import com.bluehabit.core.ui.R
 import com.bluehabit.core.ui.components.button.ButtonGoogle
@@ -60,17 +56,9 @@ import com.bluehabit.core.ui.theme.Grey500
 @Composable
 fun SignInScreen(
     uiContract: UIContract<SignInState, SignInIntent, SignInAction>,
-    event: BaseEventListener = EventListener(),
 ) = UIWrapper(
     uiContract
 ) {
-
-
-    val launcher = rememberLauncherForActivityResult(
-        contract = GoogleAuthContract(),
-        onResult = { dispatch(SignInAction.SignInWithGoogle(it)) }
-    )
-
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         content = {

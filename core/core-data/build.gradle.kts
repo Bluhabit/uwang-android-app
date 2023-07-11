@@ -5,6 +5,10 @@
  * Proprietary and confidential
  */
 @file:Suppress("UnstableApiUsage")
+
+import  com.android.build.api.dsl.ApplicationBuildType
+import com.android.build.api.dsl.LibraryBuildType
+
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.org.jetbrains.kotlin.android)
@@ -28,11 +32,15 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+            setupBaseUrl()
+            setupDatabase()
+            setupSharedPrefName()
+        }
+
+        debug {
+            setupBaseUrl()
+            setupDatabase()
+            setupSharedPrefName()
         }
     }
     compileOptions {
@@ -43,11 +51,7 @@ android {
     kotlinOptions {
         jvmTarget = "17"
         freeCompilerArgs = listOf(
-            "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
-            "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api",
-            "-opt-in=androidx.compose.material.ExperimentalMaterialApi",
-            "-opt-in=androidx.compose.ui.ExperimentalComposeUiApi",
-            "-opt-in=androidx.compose.foundation.ExperimentalFoundationApi"
+            "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
         )
     }
 }
@@ -84,6 +88,12 @@ dependencies {
         testImplementation(test)
     }
 
+    with(libs.chuker) {
+        debugApi(debug)
+        releaseApi(release)
+    }
+
+
 }
 
 
@@ -96,4 +106,29 @@ sqldelight{
 }
 kapt {
     correctErrorTypes = true
+}
+
+
+fun LibraryBuildType.setupBaseUrl() {
+    buildConfigField(
+        "String",
+        "BASE_URL",
+        "\"${findProperty("BASE_URL").toString()}\""
+    )
+}
+
+fun LibraryBuildType.setupDatabase() {
+    buildConfigField(
+        "String",
+        "DATABASE",
+        "\"${findProperty("DATABASE").toString()}\""
+    )
+}
+
+fun LibraryBuildType.setupSharedPrefName() {
+    buildConfigField(
+        "String",
+        "SHARED_PREFERENCES",
+        "\"${findProperty("SHARED_PREFERENCES").toString()}\""
+    )
 }
