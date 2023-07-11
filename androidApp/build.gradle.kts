@@ -23,7 +23,7 @@ plugins {
 }
 
 android {
-    namespace = libs.versions.namespace.get()
+    namespace = "${libs.versions.namespace.get()}.android"
     compileSdk = 33
     defaultConfig {
         applicationId = libs.versions.application.id.get()
@@ -101,17 +101,11 @@ dependencies {
     implementation(libs.mvi.ui)
     implementation(libs.mvi.processor)
     ksp(libs.mvi.processor)
-    implementation(project(":core-data"))
-
-    implementation(project(":feature-authentication"))
-    implementation(project(":feature-dashboard"))
-    implementation(project(":feature-transaction"))
-    implementation(project(":feature-budget"))
-    implementation(project(":feature-community"))
-    implementation(project(":feature-profile"))
+    implementation(project(":core:core-data"))
+    implementation(project(":feature:feature-authentication"))
+    implementation(project(":feature:feature-dashboard"))
 
     coreLibraryDesugaring(libs.desugar.jdk.lib)
-
     implementation(libs.android.material)
 
     implementation(libs.core.ktx)
