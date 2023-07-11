@@ -61,16 +61,10 @@ android {
 
     buildTypes {
         release {
-            setupBaseUrl()
-            setupDatabase()
-            setupSharedPrefName()
             isMinifyEnabled = false
         }
 
         debug {
-            setupBaseUrl()
-            setupDatabase()
-            setupSharedPrefName()
             isDebuggable = true
         }
     }
@@ -101,7 +95,6 @@ dependencies {
     implementation(libs.mvi.ui)
     implementation(libs.mvi.processor)
     ksp(libs.mvi.processor)
-    implementation(project(":core:core-data"))
     implementation(project(":feature:feature-authentication"))
     implementation(project(":feature:feature-dashboard"))
 
@@ -121,13 +114,6 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.navigation.compose)
     implementation(libs.multidex)
-
-    with(libs.accompanist) {
-        implementation(pager)
-        implementation(pager.indicator)
-        implementation(flow.layout)
-        implementation(shimmer)
-    }
 
     with(libs.hilt) {
         implementation(navigation.compose)
@@ -154,12 +140,6 @@ dependencies {
     with(libs.composeIcons) {
         implementation(feather)
     }
-
-    with(libs.chuker) {
-        debugApi(debug)
-        releaseApi(release)
-    }
-
     implementation(libs.mp.android.chart)
 
     testImplementation(libs.junit)
@@ -198,29 +178,6 @@ tasks.create<Copy>("installGitHook") {
     fileMode = "775".toInt(8)
 }
 
-fun ApplicationBuildType.setupBaseUrl() {
-    buildConfigField(
-        "String",
-        "BASE_URL",
-        "\"${findProperty("BASE_URL").toString()}\""
-    )
-}
-
-fun ApplicationBuildType.setupDatabase() {
-    buildConfigField(
-        "String",
-        "DATABASE",
-        "\"${findProperty("DATABASE").toString()}\""
-    )
-}
-
-fun ApplicationBuildType.setupSharedPrefName() {
-    buildConfigField(
-        "String",
-        "SHARED_PREFERENCES",
-        "\"${findProperty("SHARED_PREFERENCES").toString()}\""
-    )
-}
 
 fun ApkSigningConfig.setupKeystore() {
     keyAlias = findProperty("KEY_ALIAS").toString()

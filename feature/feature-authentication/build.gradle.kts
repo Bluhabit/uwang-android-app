@@ -60,7 +60,7 @@ dependencies {
     implementation(libs.mvi.processor)
     ksp(libs.mvi.processor)
     api(project(":core:core-component"))
-    api(project(":core:core-data"))
+    api(project(":data:data-authentication"))
 
 
     implementation(libs.android.material)

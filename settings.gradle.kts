@@ -46,7 +46,6 @@ include(
     ":feature:feature-dashboard"
 )
 rootProject.children.forEach {
-    logger.error(it.name)
     if(it.name in setOf("feature","data","core")){
         it.children.forEach {project->
             project(":${it.name}:${project.name}").projectDir = File("${it.name}/${project.name}")

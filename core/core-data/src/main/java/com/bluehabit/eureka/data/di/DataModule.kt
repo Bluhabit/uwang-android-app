@@ -5,15 +5,15 @@
  * Proprietary and confidential
  */
 
-package com.bluehabit.eureka.android.di
+package com.bluehabit.eureka.data.di
 
 import android.content.Context
 import android.content.SharedPreferences
 import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.android.AndroidSqliteDriver
-import com.bluehabit.eureka.android.BuildConfig
-import com.bluehabit.eureka.data.local.SharedPref
-import com.bluehabit.eureka.db.Database
+import com.bluehabit.budgetku.db.Database
+import com.bluehabit.eureka.data.BuildConfig
+import com.bluehabit.eureka.data.persistence.SharedPref
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.chuckerteam.chucker.api.RetentionManager

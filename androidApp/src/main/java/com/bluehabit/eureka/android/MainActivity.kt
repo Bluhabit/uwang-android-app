@@ -40,7 +40,6 @@ class MainActivity : ComponentActivity() {
               ){
                   authenticationComponent(uiController,eventListener)
                   dashboardComponent(uiController,eventListener)
-
               }
             }
         }
@@ -48,7 +47,7 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun listenFromChild() {
-        eventListener.addOnAppEventListener { event, params ->
+        eventListener.addOnAppEventListener { event, _ ->
             when (event) {
                 "EXIT" -> finish()
             }

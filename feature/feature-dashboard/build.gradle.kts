@@ -57,7 +57,6 @@ dependencies {
     implementation(libs.mvi.ui)
     implementation(libs.mvi.processor)
     ksp(libs.mvi.processor)
-    api(project(":core:core-data"))
     api(project(":core:core-component"))
 
 

@@ -5,7 +5,7 @@
  * Proprietary and confidential
  */
 
-package com.bluehabit.eureka.data.local
+package com.bluehabit.eureka.data.persistence
 
 import android.content.SharedPreferences
 import androidx.core.content.edit

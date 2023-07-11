@@ -55,7 +55,6 @@ android {
 dependencies {
     coreLibraryDesugaring(libs.desugar.jdk.lib)
     implementation(libs.mvi.ui)
-    api(project(":core:core-data"))
 
     implementation(libs.android.material)
     implementation(libs.core.ktx)
@@ -71,15 +70,6 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.navigation.compose)
 
-    with(libs.hilt) {
-        implementation(navigation.compose)
-        implementation(android)
-        androidTestImplementation(android.test)
-        kapt(android.compiler)
-        kaptTest(android.compiler)
-        kapt(compiler)
-    }
-
     //test
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
@@ -90,6 +80,4 @@ dependencies {
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
     testImplementation(libs.robolectric)
-
-    debugImplementation(libs.leak.canary)
 }

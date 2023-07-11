@@ -26,8 +26,6 @@ import app.trian.mvi.Navigation
 import app.trian.mvi.ui.BaseScreen
 import app.trian.mvi.ui.UIWrapper
 import app.trian.mvi.ui.internal.UIContract
-import app.trian.mvi.ui.internal.listener.BaseEventListener
-import app.trian.mvi.ui.internal.listener.EventListener
 import app.trian.mvi.ui.internal.rememberUIController
 import com.bluehabit.core.ui.routes.Routes
 
@@ -38,7 +36,6 @@ import com.bluehabit.core.ui.routes.Routes
 @Composable
 fun SplashScreen(
     uiContract: UIContract<SplashState, SplashIntent,SplashAction>,
-    event:BaseEventListener = EventListener()
 ) = UIWrapper(uiContract) {
     LaunchedEffect(key1 = this, block = {
         dispatch(SplashAction.CheckSession)
