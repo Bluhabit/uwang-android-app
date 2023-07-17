@@ -35,7 +35,8 @@ class MainActivity : ComponentActivity() {
             )
 
             BaseMainApp(controller = uiController) {
-              NavHost(navController = uiController.navigator.navHost,
+              NavHost(
+                  navController = uiController.navigator.navHost,
                   startDestination = Routes.Splash.routeName
               ){
                   authenticationComponent(uiController,eventListener)

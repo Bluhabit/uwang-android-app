@@ -27,20 +27,23 @@ suspend inline fun <reified T> safeApiCall(call: () -> HttpResponse): Response<T
 }
 
 suspend inline fun <reified T> safeApiCall(
-    onSaveToken: (token: String) -> Unit = {},
+    shouldRefreshToken: (token: String) -> Unit = {},
     call: () -> HttpResponse
 ): Response<T> {
     return try {
         val response = call.invoke()
-        if (response.status.value in 200..209) {
-            val data = response.body<BaseResponse<T>>()
-            if (data.token.isNotEmpty()) {
-                onSaveToken(data.token)
+        when (response.status.value) {
+            in 200..209 -> {
+                val data = response.body<BaseResponse<T>>()
+                if (data.token.isNotEmpty()) {
+                    shouldRefreshToken(data.token)
+                }
+                Response.Result(data.data)
             }
-            Response.Result(data.data)
-        } else {
-            val data = response.body<BaseResponse<List<Any>>>()
-            Response.Error(data.message, data.code)
+            else -> {
+                val data = response.body<BaseResponse<List<Any>>>()
+                Response.Error(data.message, data.code)
+            }
         }
     } catch (e:Exception){
         Response.Error(e.message.orEmpty())
