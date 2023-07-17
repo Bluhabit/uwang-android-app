@@ -47,8 +47,10 @@ include(
 )
 rootProject.children.forEach {
     if(it.name in setOf("feature","data","core")){
+        val dir = it.name
         it.children.forEach {project->
-            project(":${it.name}:${project.name}").projectDir = File("${it.name}/${project.name}")
+            val module=project.name
+            project(":$dir:$module").projectDir = project.projectDir
         }
     }
 }
