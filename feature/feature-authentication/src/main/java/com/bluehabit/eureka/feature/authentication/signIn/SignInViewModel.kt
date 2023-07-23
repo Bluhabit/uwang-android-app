@@ -9,6 +9,7 @@ package com.bluehabit.eureka.feature.authentication.signIn
 
 import app.trian.mvi.ui.viewModel.MviViewModel
 import com.bluehabit.eureka.data.authentication.domain.SignInWithEmailUseCase
+import com.bluehabit.eureka.data.common.executeAsFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
@@ -16,21 +17,18 @@ import javax.inject.Inject
 @HiltViewModel
 class SignInViewModel @Inject constructor(
     private val signInWithEmailUseCase: SignInWithEmailUseCase,
-) : MviViewModel<SignInState,SignInIntent, SignInAction>(SignInState()) {
+) : MviViewModel<SignInState, SignInIntent, SignInAction>(SignInState()) {
 
-    private fun signInWithEmail()=asyncWithState {
-        signInWithEmailUseCase(email,password)
-            .onEach {
-
-            }
+    private fun signInWithEmail() = asyncWithState {
+        executeAsFlow { signInWithEmailUseCase(email, password) }.onEach {}
     }
 
     override fun onAction(action: SignInAction) {
         when (action) {
-            SignInAction.SignInWithEmail -> {}
-            is SignInAction.OnEmailChange ->{}
+            SignInAction.SignInWithEmail -> signInWithEmail()
+            is SignInAction.OnEmailChange -> {}
             is SignInAction.OnPasswordChange -> {}
-            is SignInAction.SignInWithGoogle ->{}
+            is SignInAction.SignInWithGoogle -> {}
         }
     }
 }

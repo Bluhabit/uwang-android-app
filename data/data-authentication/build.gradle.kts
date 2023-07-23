@@ -50,7 +50,7 @@ android {
 
 dependencies {
 
-    implementation(project(":core:core-data"))
+    api(project(":core:core-data"))
 
     implementation(libs.core.ktx)
     coreLibraryDesugaring(libs.desugar.jdk.lib)

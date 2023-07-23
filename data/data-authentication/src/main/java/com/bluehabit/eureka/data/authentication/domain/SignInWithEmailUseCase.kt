@@ -18,9 +18,7 @@ import javax.inject.Inject
 class SignInWithEmailUseCase @Inject constructor(
     private val signInWithEmailRepository: SignInWithEmailRepository
 ) {
-    operator fun invoke(email:String,password:String): Flow<Response<Any>> = flow {
-        emit(Response.Loading)
-        val result = signInWithEmailRepository.execute(email, password)
-        emit(result)
-    }.flowOn(Dispatchers.IO)
+    suspend operator fun invoke(email:String, password:String): Response<Any> =
+        signInWithEmailRepository.execute(email, password)
+
 }
