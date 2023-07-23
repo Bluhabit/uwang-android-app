@@ -9,10 +9,6 @@ package com.bluehabit.eureka.data.authentication.domain
 
 import com.bluehabit.eureka.data.authentication.repositories.SignInWithEmailRepository
 import com.bluehabit.eureka.data.common.Response
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class SignInWithEmailUseCase @Inject constructor(
