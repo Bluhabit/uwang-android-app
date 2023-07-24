@@ -1,0 +1,43 @@
+CREATE TABLE IF NOT EXISTS TODO(
+    todoId TEXT NOT NULL PRIMARY KEY,
+    todoName TEXT NOT NULL,
+    todoDone INTEGER NOT NULL ,
+    createdAt TEXT NOT NULL,
+    updatedAt TEXT NOT NULL
+);
+
+getTodos:
+SELECT * FROM TODO;
+
+getById:
+SELECT * FROM TODO WHERE todoId=?;
+
+getTopOrNull:
+SELECT * FROM TODO LIMIT 1;
+
+insertUser:
+INSERT INTO
+TODO(
+    todoId,
+    todoName,
+    todoDone,
+    createdAt,
+    updatedAt
+)
+VALUES (?,?,?,?,?);
+
+updateTodo:
+UPDATE TODO
+SET
+todoName=?,
+todoDone=?
+WHERE todoId=?;
+
+completeTodo:
+UPDATE TODO
+SET
+todoDone=?
+WHERE todoId=?;
+
+deleteTodoById:
+DELETE FROM TODO WHERE todoId=?;
