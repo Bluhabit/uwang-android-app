@@ -5,18 +5,18 @@
  * Proprietary and confidential
  */
 
-package com.bluehabit.eureka.feature.dashboard.home
+package com.bluehabit.eureka.feature.authentication.signin
 
 import android.os.Parcelable
-import com.bluehabit.core.ui.routes.Routes
+import app.trian.mvi.ui.extensions.Empty
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
-import java.math.BigDecimal
 import javax.annotation.concurrent.Immutable
 
 @Immutable
 @Parcelize
-data class DashboardState(
-    val effect: @RawValue DashboardEffect = DashboardEffect.Nothing
+data class SignInState(
+    val email: String = String.Empty,
+    val password: String = String.Empty,
+    val effect: @RawValue SignInEffect = SignInEffect.Nothing
 ) : Parcelable
-

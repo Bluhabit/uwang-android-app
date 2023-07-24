@@ -5,8 +5,9 @@
  * Proprietary and confidential
  */
 
-package com.bluehabit.eureka.feature.dashboard.home
+package com.bluehabit.eureka.feature.authentication.signin
 
-sealed interface DashboardIntent {
-    class SetName(var name: String) : DashboardIntent
+sealed interface SignInAction {
+    object Nothing : SignInAction
+    object Submit : SignInAction
 }

@@ -5,9 +5,8 @@
  * Proprietary and confidential
  */
 
-package com.bluehabit.eureka.feature.dashboard.home.components
+package com.bluehabit.eureka.feature.dashboard.home
 
-enum class BottomSheetBudget {
-    FAB,
-    SORT
+sealed interface DashboardEffect {
+    object Nothing: DashboardEffect
 }
