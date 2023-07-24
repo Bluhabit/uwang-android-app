@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DashboardViewModel @Inject constructor(
-) : MviViewModel<DashboardState, DashboardIntent, DashboardAction>(DashboardState()) {
+) : MviViewModel<DashboardState, DashboardAction>(DashboardState()) {
 
     override fun onAction(action: DashboardAction) {
         when (action) {
