@@ -9,6 +9,7 @@ package com.bluehabit.eureka.feature.authentication.signin
 
 import android.os.Parcelable
 import app.trian.mvi.ui.extensions.Empty
+import app.trian.mvi.ui.internal.contract.MviState
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
 import javax.annotation.concurrent.Immutable
@@ -18,5 +19,6 @@ import javax.annotation.concurrent.Immutable
 data class SignInState(
     val email: String = String.Empty,
     val password: String = String.Empty,
-    val effect: @RawValue SignInEffect = SignInEffect.Nothing
-) : Parcelable
+    //
+    override val effect: @RawValue SignInEffect = SignInEffect.Nothing
+) :MviState<SignInEffect>(), Parcelable

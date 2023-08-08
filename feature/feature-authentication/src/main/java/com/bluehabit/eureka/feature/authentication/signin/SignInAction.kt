@@ -9,5 +9,6 @@ package com.bluehabit.eureka.feature.authentication.signin
 
 sealed interface SignInAction {
     object Nothing : SignInAction
+    object CheckSession : SignInAction
     object Submit : SignInAction
 }
