@@ -21,5 +21,20 @@ extensions.findByName("buildScan")?.withGroovyBuilder {
 tasks.register("clean", Delete::class) {
     delete(rootProject.buildDir)
 }
+allprojects {
+    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+        kotlinOptions {
+            jvmTarget = "17"
+            freeCompilerArgs = listOf(
+                "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
+                "-opt-in=androidx.compose.material.ExperimentalMaterialApi",
+                "-opt-in=androidx.compose.ui.ExperimentalComposeUiApi",
+                "-opt-in=androidx.compose.foundation.ExperimentalFoundationApi",
+                "-opt-in=com.google.accompanist.pager.ExperimentalPagerApi",
+            )
+        }
+    }
+
+}
 
 tasks.getByPath(":androidApp:preBuild").dependsOn("installGitHook")

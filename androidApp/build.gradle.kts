@@ -1,7 +1,9 @@
 @file:Suppress("UnstableApiUsage")
 
 import com.android.build.api.dsl.ApkSigningConfig
-import com.android.build.api.dsl.ApplicationBuildType
+import com.android.build.api.dsl.ApplicationProductFlavor
+import java.text.SimpleDateFormat
+import java.util.Date
 
 /*
  * Copyright © 2023 Blue Habit.
@@ -30,13 +32,60 @@ android {
         minSdk = 24
         targetSdk = 33
         versionCode = 1
-        versionName = "1.0"
         multiDexEnabled = true
         testInstrumentationRunner = "com.bluehabit.budgetku.android.HiltTestRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
     }
+    signingConfigs {
+        create("release") {
+            setupKeystore()
+        }
+    }
+    buildTypes {
+        release {
+            isMinifyEnabled = true
+            isShrinkResources = true
+            isDebuggable = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+        debug {
+            isMinifyEnabled = false
+            isShrinkResources = false
+            isDebuggable = true
+            applicationIdSuffix = ".debug"
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+    }
+    setFlavorDimensions(listOf("Environment"))
+    productFlavors {
+        create("dev") {
+            dimension = "Environment"
+            versionName = "1.0.${getTimestamp()}-dev"
+            setupBaseUrl("dev")
+        }
+        create("staging") {
+            dimension = "Environment"
+            versionName = "1.0.${getTimestamp()}-beta"
+            setupBaseUrl("staging")
+        }
+        create("production") {
+            dimension = "Environment"
+            versionName = "1.0.${getTimestamp()}"
+            setupBaseUrl("production")
+        }
+    }
+    applicationVariants.all {
+        setProperty("archivesBaseName", "GAWEAN-1.0.${getTimestamp()}-SNAPSHOT")
+    }
+
     buildFeatures {
         compose = true
         buildConfig = true
@@ -59,35 +108,10 @@ android {
         abortOnError = false
     }
 
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-        }
-
-        debug {
-            isDebuggable = true
-        }
-    }
-
-    signingConfigs {
-        create("release") {
-            setupKeystore()
-        }
-    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
         isCoreLibraryDesugaringEnabled = true
-    }
-    kotlinOptions {
-        jvmTarget = "17"
-        freeCompilerArgs = listOf(
-            "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
-            "-opt-in=androidx.compose.material.ExperimentalMaterialApi",
-            "-opt-in=androidx.compose.ui.ExperimentalComposeUiApi",
-            "-opt-in=androidx.compose.foundation.ExperimentalFoundationApi",
-            "-opt-in=com.google.accompanist.pager.ExperimentalPagerApi"
-        )
     }
 }
 
@@ -184,4 +208,20 @@ fun ApkSigningConfig.setupKeystore() {
     keyPassword = findProperty("KEY_PASSWORD").toString()
     storeFile = file(findProperty("STORE_PATH").toString())
     storePassword = findProperty("STORE_PASSWORD").toString()
+}
+
+fun ApplicationProductFlavor.setupBaseUrl(flavor: String) {
+    val url = when (flavor) {
+        "dev" -> "BASE_URL_DEV"
+        "staging" -> "BASE_URL_STAGING"
+        "production" -> "BASE_URL"
+        else -> "BASE_URL_DEV"
+    }
+    buildConfigField("String", "BASE_URL", "\"${findProperty(url).toString()}\"")
+}
+
+fun getTimestamp(): String {
+    val formatter = SimpleDateFormat()
+    formatter.applyPattern("yyyyMMddHHmmss")
+    return formatter.format(Date())
 }
