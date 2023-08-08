@@ -7,11 +7,12 @@
 
 package com.bluehabit.core.ui.routes
 
-import androidx.navigation.NamedNavArgument
-import androidx.navigation.NavType
-import androidx.navigation.navArgument
-import com.bluehabit.core.ui.R
-
 object Routes {
+    object SignIn{
+        const val routeName="sign-in"
+    }
+    object Home{
+        const val routeName="dashboard"
+    }
 }
 
