@@ -9,7 +9,7 @@ package com.bluehabit.eureka.data.authentication.repositories
 
 import com.bluehabit.eureka.data.authentication.datasource.remote.AuthApi
 import com.bluehabit.eureka.data.authentication.datasource.remote.request.SignInWithEmailRequest
-import com.bluehabit.eureka.data.authentication.datasource.remote.response.SignInWithEmailResponse
+import com.bluehabit.eureka.data.authentication.datasource.remote.response.SignInResponse
 import com.bluehabit.eureka.data.common.Response
 import com.bluehabit.eureka.data.common.safeApiCall
 import com.bluehabit.eureka.data.persistence.SharedPref
@@ -22,8 +22,8 @@ class SignInWithEmailRepository @Inject constructor(
     private val httpClient: HttpClient,
     private val pref: SharedPref
 ) {
-    suspend fun execute(email: String, password: String): Response<SignInWithEmailResponse> {
-        val result = safeApiCall<SignInWithEmailResponse> {
+    suspend fun execute(email: String, password: String): Response<SignInResponse> {
+        val result = safeApiCall<SignInResponse> {
             httpClient.post(AuthApi.SignInWithEmail()) {
                 setBody(
                     SignInWithEmailRequest(
@@ -33,11 +33,12 @@ class SignInWithEmailRepository @Inject constructor(
                 )
             }
         }
-        when(result){
+        when (result) {
             is Response.Result -> {
-                pref.setUserLoggedIn("this is token")
+                pref.setUserLoggedIn(result.data.token)
             }
-            else->Unit
+
+            else -> Unit
         }
         return result
     }
