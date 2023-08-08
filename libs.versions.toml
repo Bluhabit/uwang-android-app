@@ -37,8 +37,8 @@ room={group="androidx.room",name="room-runtime",version="2.5.2"}
 room-compiler={group="androidx.room",name="room-compiler",version="2.5.2"}
 
 #MVI
-mvi-ui={group="com.github.triandamai.mvi",name="ui",version="0.15"}
-mvi-processor={group="com.github.triandamai.mvi",name="processor",version="0.15"}
+mvi-ui={group="com.github.triandamai.mvi",name="ui",version="0.18"}
+mvi-processor={group="com.github.triandamai.mvi",name="processor",version="0.18"}
 
 #Compose
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }
