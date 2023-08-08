@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material.Checkbox
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
@@ -26,12 +25,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import app.trian.mvi.Navigation
 import app.trian.mvi.ui.UIWrapper
-import app.trian.mvi.ui.internal.UIContract
+import app.trian.mvi.ui.internal.contract.UIContract
 import app.trian.mvi.ui.internal.rememberUIController
+import com.bluehabit.core.ui.routes.Routes
 import com.bluehabit.core.ui.theme.BudgetKuTheme
 
 @Navigation(
-    route = "",
+    route = Routes.Home.routeName,
     viewModel = DashboardViewModel::class
 )
 @Composable
@@ -54,46 +54,7 @@ fun DashboardScreen(
         Column(
             modifier = modifier.padding(it)
         ) {
-            LazyColumn(
-                content = {
-                    stickyHeader {
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(
-                                    horizontal = 16.dp
-                                ),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.Center
-                        ) {
-                            TextField(
-                                value = "",
-                                placeholder = {
-                                    Text(text = "Mau ngapain ?")
-                                },
-                                onValueChange = {},
-                                modifier = modifier
-                                    .fillMaxWidth()
-                            )
-                        }
-                    }
-                    items(3) {
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.Start,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Checkbox(
-                                checked = false,
-                                onCheckedChange = {
 
-                                }
-                            )
-                            Text(text = "Task 1")
-                        }
-                    }
-                }
-            )
         }
     }
 }

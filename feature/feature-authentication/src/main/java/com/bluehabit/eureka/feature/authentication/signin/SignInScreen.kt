@@ -7,61 +7,52 @@
 
 package com.bluehabit.eureka.feature.authentication.signin
 
+import android.widget.Toast
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.material.Button
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import app.trian.mvi.Navigation
 import app.trian.mvi.ui.UIWrapper
-import app.trian.mvi.ui.internal.UIContract
+import app.trian.mvi.ui.internal.contract.UIContract
+import com.bluehabit.core.ui.routes.Routes
 
 @Navigation(
-    route = "sign-in",
+    route = Routes.SignIn.routeName,
     viewModel = SignInViewModel::class
 )
 @Composable
 fun SignInScreen(
     uiContract: UIContract<SignInState, SignInAction>
 ) = UIWrapper(uiContract = uiContract) {
-    UseEffect(
-        key = state.effect,
-        onDispose = { copy(effect = SignInEffect.Nothing) },
-        block = {
+    val context = LocalContext.current
+    UseEffect<SignInEffect>(
+        commit = { copy(effect = SignInEffect.Nothing) },
+        onEffect = {
             when (this) {
-                SignInEffect.NavigateToHome -> {
-                    navigator.navigate("home")
-                }
-
                 SignInEffect.Nothing -> Unit
+                is SignInEffect.ShowDialog -> {
+                    Toast.makeText(context, this.message, Toast.LENGTH_LONG).show()
+
+                }
             }
         }
     )
+    LaunchedEffect(key1 = this, block = {
+        dispatch(SignInAction.CheckSession)
+    })
 
-    Column {
-        Text(text = "Login")
-
-        TextField(
-            value = state.email,
-            onValueChange = {
-                commit { copy(email = it) }
-            }
-        )
-
-        TextField(
-            value = state.password,
-            onValueChange = {
-                commit { copy(password = it) }
-            }
-        )
-
-        Button(onClick = {
-            dispatch(SignInAction.Submit)
-        }) {
-            Text(
-                text = "Login"
-            )
-        }
-    }
-
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(MaterialTheme.colors.surface),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {}
 }
