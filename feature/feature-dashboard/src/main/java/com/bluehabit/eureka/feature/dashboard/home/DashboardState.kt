@@ -8,6 +8,7 @@
 package com.bluehabit.eureka.feature.dashboard.home
 
 import android.os.Parcelable
+import app.trian.mvi.ui.internal.contract.MviState
 import com.bluehabit.core.ui.routes.Routes
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
@@ -17,6 +18,6 @@ import javax.annotation.concurrent.Immutable
 @Immutable
 @Parcelize
 data class DashboardState(
-    val effect: @RawValue DashboardEffect = DashboardEffect.Nothing
-) : Parcelable
+    override val effect: @RawValue DashboardEffect = DashboardEffect.Nothing
+) :MviState<DashboardEffect>(), Parcelable
 

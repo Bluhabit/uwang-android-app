@@ -20,10 +20,10 @@ suspend inline fun <reified T> safeApiCall(call: () -> HttpResponse): Response<T
             Response.Result(data.data)
         } else {
             val data = response.body<BaseResponse<List<Any>>>()
-            Response.Error(data.message, data.code)
+            Response.Error(data.message, data.statusCode)
         }
     } catch (e: ClientRequestException) {
         val data = e.response.body<BaseResponse<List<Any>>>()
-        Response.Error(data.message, data.code)
+        Response.Error(data.message, data.statusCode)
     }
 }

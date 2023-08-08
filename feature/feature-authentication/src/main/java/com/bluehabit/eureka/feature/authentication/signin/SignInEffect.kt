@@ -9,6 +9,5 @@ package com.bluehabit.eureka.feature.authentication.signin
 
 sealed interface SignInEffect {
     object Nothing : SignInEffect
-
-    object NavigateToHome : SignInEffect
+    data class ShowDialog(val message:String):SignInEffect
 }

@@ -8,8 +8,7 @@
 package com.bluehabit.eureka.data.model
 
 data class BaseResponse<T>(
-    val code: Int,
+    val statusCode: Int,
     val data: T,
-    val message: String,
-    val token: String,
+    val message: String
 )
