@@ -31,6 +31,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bluehabit.core.ui.R
+import com.bluehabit.core.ui.theme.Gray900
 
 @Composable
 fun DialogComponent(isSuccess: Boolean = true, label: String, message: String, btnText: String) {
@@ -75,7 +76,7 @@ fun DialogComponent(isSuccess: Boolean = true, label: String, message: String, b
                         fontSize = 20.sp,
                         lineHeight = 30.sp,
                         fontFamily = FontFamily(Font(R.font.inter_semi_bold)),
-                        color = Color(0xFF101828),
+                        color = Gray900,
                         textAlign = TextAlign.Center
                     )
                 )
@@ -84,7 +85,7 @@ fun DialogComponent(isSuccess: Boolean = true, label: String, message: String, b
                         fontSize = 14.sp,
                         lineHeight = 20.sp,
                         fontFamily = FontFamily(Font(R.font.inter_regular)),
-                        color = Color(0xFF101828),
+                        color = Gray900,
                         textAlign = TextAlign.Center
                     ),
                     modifier = Modifier
