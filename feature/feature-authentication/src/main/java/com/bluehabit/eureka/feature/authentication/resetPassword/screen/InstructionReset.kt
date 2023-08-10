@@ -52,18 +52,20 @@ fun InstructionReset(
             .padding(
                 vertical = 28.dp.from(context = context),
                 horizontal = 26.dp.from(context = context),
-
-                )
+            )
             .background(Color.White),
 
         verticalArrangement = Arrangement.spacedBy(95.dp.from(context = context)), horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Column(
+            modifier = Modifier
+                .padding(
+                    top = 28.dp.from(context = context),
+                ),
             verticalArrangement = Arrangement.spacedBy(24.dp.from(context = context)),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            //pake spacer soalnya wwalupun colum paling atas udh ditambahin padding tapi masih nempel kaya gada padding
-            Spacer(modifier = Modifier.padding(bottom = 28.dp.from(context = context)))
+
             Image(
                 painter = painterResource(
                     id = com.bluehabit.core.ui.R.drawable.gawean_logo
@@ -121,7 +123,7 @@ fun InstructionReset(
                 )
             }
             Column(
-                verticalArrangement = Arrangement.spacedBy(8.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp.from(context = context)),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
@@ -152,13 +154,12 @@ fun InstructionReset(
                     color = Primary600
                 )
             }
-            Spacer(modifier = Modifier.padding(top = 28.dp.from(context = context)))
         }
     }
 }
 
 @Composable
-@Preview(widthDp = 500, heightDp = 750)
+@Preview(widthDp = 384, heightDp = 854)
 fun DefaultPreview() {
     GaweTheme(darkTheme = false) {
         InstructionReset()
