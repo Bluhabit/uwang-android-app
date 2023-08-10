@@ -11,6 +11,8 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -53,35 +55,28 @@ fun DialogConfirmation(
         Dialog(onDismissRequest = onDismiss) {
             Column(
                 modifier = Modifier
-                    .width(328.dp.from(context = context))
-                    .height(351.dp.from(context = context))
                     .background(
                         color = Color(0xFFFFFFFF),
                         shape = RoundedCornerShape(8.dp)
                     )
                     .padding(
-                        vertical = 26.dp,
-                        horizontal = 28.dp,
+                        vertical = 28.dp,
+                        horizontal = 26.dp,
                     ),
             ) {
                 Column(
                     verticalArrangement = Arrangement.spacedBy(35.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
+                    icon?.invoke()
                     Column(
-                        modifier = Modifier
-                            .padding(1.dp)
-                            .width(103.dp.from(context = context))
-                    ) {
-                        icon?.invoke()
-                    }
-                    Column(
-
                         verticalArrangement = Arrangement.spacedBy(
                             8.dp,
                             Alignment.Top
                         ),
                         horizontalAlignment = Alignment.CenterHorizontally,
+                        modifier = Modifier
+                            .fillMaxWidth()
 
                         ) {
                         Text(
@@ -97,6 +92,7 @@ fun DialogConfirmation(
                             lineHeight = 20.sp,
                             fontWeight = FontWeight.W400,
                             textAlign = TextAlign.Center,
+                            modifier = Modifier
                         )
                     }
                     action.invoke()
@@ -107,7 +103,7 @@ fun DialogConfirmation(
 }
 
 @Composable
-@Preview
+@Preview(widthDp = 500, heightDp = 750)
 fun DefaultPreview() {
     GaweTheme {
         Column(modifier = Modifier.padding(20.dp)) {
