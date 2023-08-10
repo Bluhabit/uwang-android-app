@@ -59,7 +59,10 @@ fun DialogConfirmation(
                         color = Color(0xFFFFFFFF),
                         shape = RoundedCornerShape(8.dp)
                     )
-                    .padding(start = 26.dp, top = 28.dp, end = 26.dp, bottom = 28.dp),
+                    .padding(
+                        vertical = 26.dp.from(context = context),
+                        horizontal = 28.dp.from(context = context),
+                    ),
             ) {
                 Column(
                     verticalArrangement = Arrangement.spacedBy(35.dp),
@@ -67,14 +70,17 @@ fun DialogConfirmation(
                 ) {
                     Column(
                         modifier = Modifier
-                            .padding(1.dp)
+                            .padding(1.dp.from(context = context))
                             .width(103.dp.from(context = context))
                     ) {
                         icon?.invoke()
                     }
                     Column(
 
-                        verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.Top),
+                        verticalArrangement = Arrangement.spacedBy(
+                            8.dp.from(context = context),
+                            Alignment.Top
+                        ),
                         horizontalAlignment = Alignment.CenterHorizontally,
 
                         ) {
@@ -90,8 +96,8 @@ fun DialogConfirmation(
                             fontWeight = FontWeight.W400,
                             textAlign = TextAlign.Center,
                             modifier = Modifier
-                                .width(276.dp)
-                                .height(40.dp)
+                                .width(276.dp.from(context = context))
+                                .height(40.dp.from(context = context))
                         )
                     }
                     action.invoke()
