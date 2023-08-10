@@ -19,6 +19,13 @@ class SharedPref(
         const val languageKey = "dtfvdff"
     }
 
+    fun setPersistData(key: String, value: String) = sharedPreferences.edit {
+        putString(key, value)
+        apply()
+    }
+
+    fun getPersistData(key: String) = sharedPreferences.getString(key, "")
+
     fun setLanguage(lang: String) = sharedPreferences.edit {
         putString(languageKey, lang)
         apply()
