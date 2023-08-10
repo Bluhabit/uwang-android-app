@@ -22,37 +22,23 @@ import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
 
-private val darkColorScheme = darkColors(
-    onPrimary = OnPrimary,
-    onSecondary = OnSecondary,
-    onBackground = OnSecondary,
-    onSurface = OnSecondary,
-    onError = OnPrimary,
-    primary = Primary,
-    primaryVariant = PrimaryVariant,
-    secondary = Secondary,
-    secondaryVariant = SecondaryVariant,
-    background = Background,
-    surface = Surface,
-    error = Error
-)
 
 private val lightColorScheme = lightColors(
-    onPrimary = OnPrimary,
-    onSecondary = OnSecondary,
-    onBackground = OnSecondary,
-    onSurface = OnSecondary,
+    primary = Primary600,
+    onPrimary = Color(0xFFFFFFFF),
+    surface = Color(0xFFFFFFFF),
+    background = Color(0xFFFFFFFF),
+    onBackground = Gray900,
+    onSurface = Gray900,
     onError = Color.White,
-    primary = Primary,
-    primaryVariant = PrimaryVariant,
-    secondary = Secondary,
-    secondaryVariant = SecondaryVariant,
-    background = Background,
-    surface = Surface,
-    error = Error
+    secondary = BlueLight600,
+    onSecondary = BlueLight700,
+    secondaryVariant = BlueGray600,
+    primaryVariant = Success700,
+    error = Error700,
 )
 
-private val ShapeScheme = Shapes(
+private val shapeScheme = Shapes(
     large = RoundedCornerShape(24.dp),
     medium = RoundedCornerShape(18.dp),
     small = RoundedCornerShape(10.dp)
@@ -80,6 +66,6 @@ fun BudgetKuTheme(
         colors = colorScheme,
         typography = Typography,
         content = content,
-        shapes = ShapeScheme
+        shapes = shapeScheme
     )
 }
