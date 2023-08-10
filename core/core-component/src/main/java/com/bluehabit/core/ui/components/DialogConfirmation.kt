@@ -22,6 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
@@ -33,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import app.trian.mvi.ui.extensions.Empty
+import app.trian.mvi.ui.extensions.from
 import com.bluehabit.core.ui.R
 import com.bluehabit.core.ui.theme.GaweTheme
 import com.bluehabit.core.ui.theme.Gray900
@@ -46,12 +48,13 @@ fun DialogConfirmation(
     message: String = String.Empty,
     onDismiss: () -> Unit = {}
 ) {
+    val context = LocalContext.current
     if (show) {
         Dialog(onDismissRequest = onDismiss) {
             Column(
                 modifier = Modifier
-                    .width(328.dp)
-                    .height(351.dp)
+                    .width(328.dp.from(context = context))
+                    .height(351.dp.from(context = context))
                     .background(
                         color = Color(0xFFFFFFFF),
                         shape = RoundedCornerShape(8.dp)
@@ -65,7 +68,7 @@ fun DialogConfirmation(
                     Column(
                         modifier = Modifier
                             .padding(1.dp)
-                            .width(103.dp)
+                            .width(103.dp.from(context = context))
                     ) {
                         icon?.invoke()
                     }
@@ -78,13 +81,13 @@ fun DialogConfirmation(
                         Text(
                             text = title,
                             style = MaterialTheme.typography.body1,
-                            fontWeight = FontWeight(600),
+                            fontWeight = FontWeight.W600,
                             textAlign = TextAlign.Center
                         )
                         Text(
                             text = message,
                             style = MaterialTheme.typography.body1,
-                            fontWeight = FontWeight(400),
+                            fontWeight = FontWeight.W400,
                             textAlign = TextAlign.Center,
                             modifier = Modifier
                                 .width(276.dp)
