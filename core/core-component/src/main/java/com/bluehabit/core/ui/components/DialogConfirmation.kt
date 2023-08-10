@@ -50,7 +50,6 @@ fun DialogConfirmation(
     message: String = String.Empty,
     onDismiss: () -> Unit = {}
 ) {
-    val context = LocalContext.current
     if (show) {
         Dialog(onDismissRequest = onDismiss) {
             Column(
