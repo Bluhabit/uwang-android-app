@@ -52,11 +52,15 @@ fun DialogConfirmation(
                 modifier = Modifier
                     .width(328.dp)
                     .height(351.dp)
-                    .background(color = Color(0xFFFFFFFF), shape = RoundedCornerShape(8.dp))
+                    .background(
+                        color = Color(0xFFFFFFFF),
+                        shape = RoundedCornerShape(8.dp)
+                    )
                     .padding(start = 26.dp, top = 28.dp, end = 26.dp, bottom = 28.dp),
             ) {
                 Column(
-                    verticalArrangement = Arrangement.spacedBy(35.dp), horizontalAlignment = Alignment.CenterHorizontally
+                    verticalArrangement = Arrangement.spacedBy(35.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Column(
                         modifier = Modifier
