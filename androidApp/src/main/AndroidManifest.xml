@@ -15,7 +15,7 @@
     <uses-permission-sdk-23 android:name="android.permission.POST_NOTIFICATIONS"/>
 
     <application
-        android:name="com.bluehabit.eureka.android.BudgetKuApplication"
+        android:name="com.bluehabit.eureka.android.GaweanApplication"
         android:allowBackup="false"
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
