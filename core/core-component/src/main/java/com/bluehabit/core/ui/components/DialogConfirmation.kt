@@ -60,8 +60,8 @@ fun DialogConfirmation(
                         shape = RoundedCornerShape(8.dp)
                     )
                     .padding(
-                        vertical = 26.dp.from(context = context),
-                        horizontal = 28.dp.from(context = context),
+                        vertical = 26.dp,
+                        horizontal = 28.dp,
                     ),
             ) {
                 Column(
@@ -70,7 +70,7 @@ fun DialogConfirmation(
                 ) {
                     Column(
                         modifier = Modifier
-                            .padding(1.dp.from(context = context))
+                            .padding(1.dp)
                             .width(103.dp.from(context = context))
                     ) {
                         icon?.invoke()
@@ -78,7 +78,7 @@ fun DialogConfirmation(
                     Column(
 
                         verticalArrangement = Arrangement.spacedBy(
-                            8.dp.from(context = context),
+                            8.dp,
                             Alignment.Top
                         ),
                         horizontalAlignment = Alignment.CenterHorizontally,
@@ -86,18 +86,17 @@ fun DialogConfirmation(
                         ) {
                         Text(
                             text = title,
-                            style = MaterialTheme.typography.body1,
+                            style = MaterialTheme.typography.h6,
+                            lineHeight = 30.sp,
                             fontWeight = FontWeight.W600,
                             textAlign = TextAlign.Center
                         )
                         Text(
                             text = message,
-                            style = MaterialTheme.typography.body1,
+                            style = MaterialTheme.typography.body2,
+                            lineHeight = 20.sp,
                             fontWeight = FontWeight.W400,
                             textAlign = TextAlign.Center,
-                            modifier = Modifier
-                                .width(276.dp.from(context = context))
-                                .height(40.dp.from(context = context))
                         )
                     }
                     action.invoke()
