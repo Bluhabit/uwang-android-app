@@ -13,6 +13,7 @@ import io.ktor.resources.Resource
 class AuthApi {
     @Resource("sign-in")
     class SignInWithEmail(val parent: AuthApi = AuthApi())
+
     @Resource("reset-password")
     class SetNewPassword(val parent: AuthApi = AuthApi())
 
@@ -27,6 +28,4 @@ class AuthApi {
 
     @Resource("complete-profile")
     class CompleteProfile(val parent: AuthApi = AuthApi())
-
-
 }
