@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -38,9 +37,9 @@ fun BasicAlert(
         modifier = modifier
             .fillMaxWidth()
             .clip(MaterialTheme.shapes.small)
-            .border(1.dp, borderColor, RoundedCornerShape(8.dp))
+            .border(4.dp, borderColor, MaterialTheme.shapes.small)
             .background(backgroundColor)
-            .padding(8.dp),
+            .padding(12.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
