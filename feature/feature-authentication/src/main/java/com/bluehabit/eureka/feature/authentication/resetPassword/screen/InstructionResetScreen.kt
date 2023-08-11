@@ -38,8 +38,8 @@ import com.bluehabit.core.ui.theme.Primary600
 
 @Composable
 fun InstructionResetScreen(
-    openEmail: () -> Unit = {},
-    tryAgain: () -> Unit = {},
+    onOpenEmailApp: () -> Unit = {},
+    onRetry: () -> Unit = {},
 ) {
     val context = LocalContext.current
     Column(
