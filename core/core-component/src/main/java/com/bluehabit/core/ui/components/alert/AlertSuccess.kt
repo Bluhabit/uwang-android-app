@@ -5,7 +5,7 @@
  * Proprietary and confidential
  */
 
-package com.bluehabit.core.ui.components
+package com.bluehabit.core.ui.components.alert
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.size
@@ -18,10 +18,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.bluehabit.core.ui.R
 import com.bluehabit.core.ui.theme.Error50
-import com.bluehabit.core.ui.theme.Error700
+import com.bluehabit.core.ui.theme.Success700
 
 @Composable
-fun AlertError(
+fun AlertSuccess(
     modifier: Modifier = Modifier,
     message: String,
     onCLick: () -> Unit,
@@ -30,7 +30,7 @@ fun AlertError(
         leadingButton = {
             Image(
                 painter = painterResource(
-                    id = R.drawable.ic_information_circle_error,
+                    id = R.drawable.ic_information_circle_success,
                 ),
                 contentDescription = null,
             )
@@ -48,15 +48,15 @@ fun AlertError(
                         id = R.drawable.ic_close
                     ),
                     contentDescription = null,
-                    tint = Error700,
+                    tint = Success700,
                     modifier = modifier
                         .size(16.dp)
                 )
             }
         },
         message = message,
-        messageColor = Error700,
+        messageColor = Success700,
         backgroundColor = Error50,
-        borderColor = Color(0xFFF34141).copy(0.16f)
+        borderColor = Color(0xFF53B483).copy(0.16f)
     )
 }
