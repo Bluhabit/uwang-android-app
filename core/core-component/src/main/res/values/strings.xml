@@ -302,4 +302,14 @@
     <string name="text_expenses">-%1$s</string>
     <string name="app_name">BudgetKu</string>
     <!--    end create post-->
+
+    <!--    reset password-->
+    <string name="text_title_instruction_send">Instruksi Terkirim!</string>
+    <string name="text_subtitle_instruction">Cek email anda dan klik link pada instruksi tersebut.</string>
+    <string name="text_check_spam">Tidak menerima email? Coba cek spam.</string>
+    <string name="text_or">atau</string>
+    <string name="text_try_again">coba lagi dengan alamat email yang lain.</string>
+    <string name="text_button_open_email">Buka Email</string>
+    <!--    end change reset password-->
+
 </resources>
