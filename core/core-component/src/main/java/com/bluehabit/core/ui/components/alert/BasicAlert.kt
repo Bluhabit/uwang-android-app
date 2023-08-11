@@ -5,7 +5,7 @@
  * Proprietary and confidential
  */
 
-package com.bluehabit.core.ui.components
+package com.bluehabit.core.ui.components.alert
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
