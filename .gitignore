@@ -18,4 +18,4 @@ local.properties
 xcuserdata
 
 budgetku.jks
-gradle.properties
+core/core-data/gradle.properties
