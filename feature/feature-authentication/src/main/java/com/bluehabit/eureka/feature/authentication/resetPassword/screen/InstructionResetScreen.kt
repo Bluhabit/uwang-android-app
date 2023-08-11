@@ -13,11 +13,10 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -104,13 +103,14 @@ fun InstructionResetScreen(
             verticalArrangement = Arrangement.spacedBy(32.dp.from(context = context)),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-           Column() {
-               ButtonPrimary(
-                   text = stringResource(R.string.text_open_email),
-                   enabled = true,
-                   onClick = onOpenEmailApp
-               )
-           }
+            ButtonPrimary(
+                modifier = Modifier
+                    .width(320.dp.from(context = context))
+                    .height(48.dp.from(context = context)),
+                text = stringResource(R.string.text_open_email),
+                enabled = true,
+                onClick = onOpenEmailApp
+            )
             Column(
                 verticalArrangement = Arrangement.spacedBy(8.dp.from(context = context)),
                 horizontalAlignment = Alignment.CenterHorizontally
