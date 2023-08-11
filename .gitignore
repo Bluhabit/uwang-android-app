@@ -15,8 +15,8 @@ captures
 .externalNativeBuild
 .cxx
 local.properties
+gradle.properties
+application.properties
 xcuserdata
 
 budgetku.jks
-gradle.properties
-application.properties
