@@ -12,8 +12,8 @@ import com.bluehabit.eureka.data.authentication.repositories.SignInWithEmailRepo
 import com.bluehabit.eureka.data.common.Response
 import javax.inject.Inject
 
-//class SetNewPasswordUseCase @Inject constructor(
-//    private val setNewPasswordRepository: SetNewPasswordRepository
-//) {
-//    suspend operator fun invoke(password: String): Response<Any> = setNewPasswordRepository.execute(password)
-//}
+class SetNewPasswordUseCase @Inject constructor(
+    private val setNewPasswordRepository: SetNewPasswordRepository
+) {
+    suspend operator fun invoke(password: String): Response<Any> = setNewPasswordRepository.execute(password)
+}
