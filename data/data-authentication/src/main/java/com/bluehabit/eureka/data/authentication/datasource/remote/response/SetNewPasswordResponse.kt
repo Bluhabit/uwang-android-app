@@ -7,8 +7,11 @@
 
 package com.bluehabit.eureka.data.authentication.datasource.remote.response
 
+import com.google.gson.annotations.SerializedName
+
 data class SetNewPasswordResponse(
-    val token: String,
+    @SerializedName("password")
+    val password: String,
 )
 
 
