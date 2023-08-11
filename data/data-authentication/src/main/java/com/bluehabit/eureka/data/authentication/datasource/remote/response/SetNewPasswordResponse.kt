@@ -5,8 +5,5 @@
  * Proprietary and confidential
  */
 
-package com.bluehabit.eureka.data.authentication.datasource.remote.request
+package com.bluehabit.eureka.data.authentication.datasource.remote.response
 
-data class SetNewPassword (
-    val password: String,
-)
