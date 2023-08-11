@@ -16,7 +16,7 @@ import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 
 @HiltAndroidApp
-class BudgetKuApplication:Application(), Configuration.Provider {
+class GaweanApplication:Application(), Configuration.Provider {
     @Inject
     lateinit var workerFactory: HiltWorkerFactory
     override fun attachBaseContext(base: Context?) {
