@@ -11,9 +11,8 @@ import com.bluehabit.eureka.data.common.Response
 import com.bluehabit.eureka.data.persistence.SharedPref
 import javax.inject.Inject
 
-class CheckSessionRepository @Inject constructor(
+class SessionRepository @Inject constructor(
     private val sharedPref: SharedPref
 ) {
-    suspend fun execute(): Response<Boolean> = Response.Result(sharedPref.getIsLoggedIn())
-
+    fun checkSession(): Response<Boolean> = Response.Result(sharedPref.getIsLoggedIn())
 }
