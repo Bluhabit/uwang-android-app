@@ -1,4 +1,4 @@
-# DATASOURCE
+/home/fauzangraciaramadhani/Downloads/gradle.properties# DATASOURCE
 Data source merupakan layer dari mana data pada aplikasi bersumber umumnya terdapat 2 datasource:
 1. Remote - sumber data berasal dari backend
 2. Local - sumber data lokal atau database local seperti sqllite,atau pun lainnya yang sifatnya persistance pada perangkat
