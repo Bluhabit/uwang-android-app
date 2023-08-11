@@ -26,20 +26,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import app.trian.mvi.ui.extensions.from
-import com.bluehabit.core.ui.theme.GaweTheme
+import com.bluehabit.core.ui.theme.GaweanTheme
 import com.bluehabit.core.ui.theme.Gray900
 import com.bluehabit.core.ui.theme.Primary600
+import com.bluehabit.eureka.feature.authentication.R
 
 @Composable
 fun InstructionResetScreen(
-    openEmail: () -> Unit = {},
-    tryAgain: () -> Unit = {},
+    onOpenEmailApp: () -> Unit = {},
+    onRetry: () -> Unit = {},
 ) {
     val context = LocalContext.current
     Column(
@@ -51,7 +53,8 @@ fun InstructionResetScreen(
             )
             .background(Color.White),
 
-        verticalArrangement = Arrangement.spacedBy(95.dp.from(context = context)), horizontalAlignment = Alignment.CenterHorizontally
+        verticalArrangement = Arrangement.spacedBy(95.dp.from(context = context)),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Column(
             modifier = Modifier
@@ -63,9 +66,7 @@ fun InstructionResetScreen(
         ) {
 
             Image(
-                painter = painterResource(
-                    id = com.bluehabit.core.ui.R.drawable.gawean_logo
-                ),
+                painter = painterResource(id = com.bluehabit.core.ui.R.drawable.gawean_logo),
                 contentDescription = "logo"
             )
             Column(
@@ -73,7 +74,7 @@ fun InstructionResetScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = "Instruksi Terkirim!",
+                    text = stringResource(id = com.bluehabit.core.ui.R.string.text_title_instruction_send),
                     style = MaterialTheme.typography.h6,
                     lineHeight = 30.sp,
                     fontWeight = FontWeight.W600,
@@ -81,7 +82,7 @@ fun InstructionResetScreen(
                     color = Gray900
                 )
                 Text(
-                    text = "Cek email anda dan klik link pada instruksi tersebut.",
+                    text = stringResource(id = com.bluehabit.core.ui.R.string.text_subtitle_instruction),
                     style = MaterialTheme.typography.body2,
                     lineHeight = 20.sp,
                     fontWeight = FontWeight.W400,
@@ -93,10 +94,8 @@ fun InstructionResetScreen(
                 Modifier.padding(30.dp)
             ) {
                 Image(
-                    painter = painterResource(
-                        id = com.bluehabit.core.ui.R.drawable.hero_intruction_reset_password
-                    ),
-                        contentDescription = "logo"
+                    painter = painterResource(id = com.bluehabit.core.ui.R.drawable.hero_intruction_reset_password),
+                    contentDescription = "hero image insctruction screen"
                 )
             }
         }
@@ -105,7 +104,7 @@ fun InstructionResetScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Button(
-                onClick = openEmail, modifier = Modifier
+                onClick = onOpenEmailApp, modifier = Modifier
                     .width(320.dp)
                     .height(48.dp)
                     .background(
@@ -114,7 +113,7 @@ fun InstructionResetScreen(
                     )
             ) {
                 Text(
-                    text = "Buka Email",
+                    text = stringResource(id = com.bluehabit.core.ui.R.string.text_button_open_email),
                     color = Color(0xFFFFFFFF)
                 )
             }
@@ -123,7 +122,7 @@ fun InstructionResetScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = "Tidak menerima email? Coba cek spam",
+                    text = stringResource(id = com.bluehabit.core.ui.R.string.text_check_spam),
                     style = MaterialTheme.typography.caption,
                     lineHeight = 20.sp,
                     fontWeight = FontWeight.W400,
@@ -131,7 +130,7 @@ fun InstructionResetScreen(
                     color = Gray900
                 )
                 Text(
-                    text = "atau",
+                    text = stringResource(id = com.bluehabit.core.ui.R.string.text_or),
                     style = MaterialTheme.typography.caption,
                     lineHeight = 20.sp,
                     fontWeight = FontWeight.W400,
@@ -140,9 +139,9 @@ fun InstructionResetScreen(
                 )
                 Text(
                     modifier = Modifier.clickable {
-                        tryAgain()
+                        onRetry()
                     },
-                    text = "coba lagi dengan alamat email yang lain.",
+                    text = stringResource(id = com.bluehabit.core.ui.R.string.text_try_again),
                     style = MaterialTheme.typography.body2,
                     lineHeight = 20.sp,
                     fontWeight = FontWeight.W400,
@@ -156,8 +155,8 @@ fun InstructionResetScreen(
 
 @Composable
 @Preview(widthDp = 384, heightDp = 854)
-fun DefaultPreview() {
-    GaweTheme(darkTheme = false) {
+fun PreviewInstructionScreen() {
+    GaweanTheme(darkTheme = false) {
         InstructionResetScreen()
     }
 }
