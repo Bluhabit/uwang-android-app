@@ -7,12 +7,13 @@
 
 package com.bluehabit.eureka.data.authentication.domain
 
-import com.bluehabit.eureka.data.authentication.repositories.SessionRepository
+import com.bluehabit.eureka.data.authentication.repositories.SignUpRepository
 import com.bluehabit.eureka.data.common.Response
 import javax.inject.Inject
 
-class CheckSessionUseCase @Inject constructor(
-    private val sessionRepository: SessionRepository
+class SignUpWithEmailUseCase @Inject constructor(
+    private val signUpRepository: SignUpRepository
 ) {
-    suspend operator fun invoke(): Response<Boolean> = sessionRepository.checkSession()
+    suspend operator fun invoke(email: String): Response<Any> =
+        signUpRepository.signUpWIthEmail(email)
 }

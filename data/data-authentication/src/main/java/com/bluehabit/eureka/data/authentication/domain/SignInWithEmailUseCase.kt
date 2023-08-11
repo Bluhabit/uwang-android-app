@@ -7,14 +7,14 @@
 
 package com.bluehabit.eureka.data.authentication.domain
 
-import com.bluehabit.eureka.data.authentication.repositories.SignInWithEmailRepository
+import com.bluehabit.eureka.data.authentication.datasource.remote.response.SignInResponse
+import com.bluehabit.eureka.data.authentication.repositories.SignInRepository
 import com.bluehabit.eureka.data.common.Response
 import javax.inject.Inject
 
 class SignInWithEmailUseCase @Inject constructor(
-    private val signInWithEmailRepository: SignInWithEmailRepository
+    private val signInRepository: SignInRepository
 ) {
-    suspend operator fun invoke(email:String, password:String): Response<Any> =
-        signInWithEmailRepository.execute(email, password)
-
+    suspend operator fun invoke(email: String, password: String): Response<SignInResponse> =
+        signInRepository.signInWIthEmail(email, password)
 }
