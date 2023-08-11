@@ -7,3 +7,8 @@
 
 package com.bluehabit.eureka.data.authentication.datasource.remote.response
 
+data class SetNewPasswordResponse(
+    val token: String,
+)
+
+
