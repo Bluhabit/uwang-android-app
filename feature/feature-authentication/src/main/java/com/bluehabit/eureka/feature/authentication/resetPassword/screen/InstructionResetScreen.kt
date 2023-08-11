@@ -33,7 +33,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import app.trian.mvi.ui.extensions.from
-import com.bluehabit.core.ui.theme.GaweTheme
+import com.bluehabit.core.ui.components.button.ButtonPrimary
+import com.bluehabit.core.ui.theme.GaweanTheme
 import com.bluehabit.core.ui.theme.Gray900
 import com.bluehabit.core.ui.theme.Primary600
 import com.bluehabit.eureka.feature.authentication.R
@@ -103,20 +104,13 @@ fun InstructionResetScreen(
             verticalArrangement = Arrangement.spacedBy(32.dp.from(context = context)),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Button(
-                onClick = onOpenEmailApp, modifier = Modifier
-                    .width(320.dp)
-                    .height(48.dp)
-                    .background(
-                        color = Color(0xFF7F56D9),
-                        shape = RoundedCornerShape(size = 8.dp)
-                    )
-            ) {
-                Text(
-                    text = stringResource(id = com.bluehabit.core.ui.R.string.text_button_open_email),
-                    color = Color(0xFFFFFFFF)
-                )
-            }
+           Column() {
+               ButtonPrimary(
+                   text = stringResource(R.string.text_open_email),
+                   enabled = true,
+                   onClick = onOpenEmailApp
+               )
+           }
             Column(
                 verticalArrangement = Arrangement.spacedBy(8.dp.from(context = context)),
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -156,7 +150,7 @@ fun InstructionResetScreen(
 @Composable
 @Preview(widthDp = 384, heightDp = 854)
 fun PreviewInstructionScreen() {
-    GaweTheme(darkTheme = false) {
+    GaweanTheme(darkTheme = false) {
         InstructionResetScreen()
     }
 }
