@@ -9,4 +9,5 @@ package com.bluehabit.eureka.data.authentication
 
 object AuthConstant {
     const val SESSION_OTP_ID = "sessionOtpId"
+    const val SESSION_TOKEN_RESET_PW = "sessionToken"
 }
