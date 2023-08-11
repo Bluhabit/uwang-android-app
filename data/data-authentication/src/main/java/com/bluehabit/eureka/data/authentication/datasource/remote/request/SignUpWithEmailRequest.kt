@@ -9,9 +9,7 @@ package com.bluehabit.eureka.data.authentication.datasource.remote.request
 
 import com.google.gson.annotations.SerializedName
 
-data class SignInWithEmailRequest(
+data class SignUpWithEmailRequest(
     @SerializedName("email")
-    val email:String,
-    @SerializedName("password")
-    val password:String
+    val email: String,
 )

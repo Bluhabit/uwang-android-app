@@ -20,7 +20,7 @@ import app.trian.mvi.ui.UIWrapper
 import app.trian.mvi.ui.internal.contract.UIContract
 import app.trian.mvi.ui.internal.rememberUIController
 import com.bluehabit.core.ui.routes.Routes
-import com.bluehabit.core.ui.theme.GaweTheme
+import com.bluehabit.core.ui.theme.GaweanTheme
 
 @Navigation(
     route = Routes.Home.routeName,
@@ -55,7 +55,7 @@ fun DashboardScreen(
 @Preview
 @Composable
 fun PreviewDashboardScreen() {
-    GaweTheme() {
+    GaweanTheme() {
         DashboardScreen(
             UIContract(
                 controller = rememberUIController(),
