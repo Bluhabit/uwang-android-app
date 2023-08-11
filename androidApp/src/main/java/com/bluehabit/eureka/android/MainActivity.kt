@@ -18,7 +18,7 @@ import app.trian.mvi.ui.internal.listener.BaseEventListener
 import app.trian.mvi.ui.internal.listener.EventListener
 import app.trian.mvi.ui.internal.rememberUIController
 import com.bluehabit.core.ui.routes.Routes
-import com.bluehabit.core.ui.theme.GaweTheme
+import com.bluehabit.core.ui.theme.GaweanTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -34,7 +34,7 @@ class MainActivity : ComponentActivity() {
                 event = eventListener
             )
 
-            GaweTheme(
+            GaweanTheme(
                 darkTheme = false
             ) {
                 NavHost(
