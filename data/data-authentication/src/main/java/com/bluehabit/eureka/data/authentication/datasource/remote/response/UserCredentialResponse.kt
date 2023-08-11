@@ -7,15 +7,16 @@
 
 package com.bluehabit.eureka.data.authentication.datasource.remote.response
 
-data class SignInResponse(
-    val token: String,
-    val credential: Credential
-)
+import com.google.gson.annotations.SerializedName
 
-data class Credential(
-    val userId: String,
-    val userName: String,
-    val userEmail: String,
+data class UserCredentialResponse(
+    @SerializedName("email")
+    val email: String,
+    @SerializedName("userInfo")
+    val userInfo: List<UserInfoResponse>,
+    @SerializedName("createdAt")
     val createdAt: String,
+    @SerializedName("updatedAt")
     val updatedAt: String
 )
+
