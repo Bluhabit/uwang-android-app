@@ -8,7 +8,6 @@
 package com.bluehabit.eureka.data.authentication.domain
 
 import com.bluehabit.eureka.data.authentication.repositories.SetNewPasswordRepository
-import com.bluehabit.eureka.data.authentication.repositories.SignInWithEmailRepository
 import com.bluehabit.eureka.data.common.Response
 import javax.inject.Inject
 
