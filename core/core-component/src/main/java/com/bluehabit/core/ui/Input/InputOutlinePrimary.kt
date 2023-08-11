@@ -5,18 +5,27 @@
  * Proprietary and confidential
  */
 
-package com.bluehabit.core.ui.Input
+package com.bluehabit.core.ui.input
 
-import android.provider.ContactsContract.CommonDataKinds.Email
-import androidx.compose.animation.expandHorizontally
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.*
-import androidx.compose.runtime.*
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.Text
+import androidx.compose.material.TextFieldDefaults
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.bluehabit.core.ui.theme.*
+import com.bluehabit.core.ui.theme.BudgetKuTheme
+import com.bluehabit.core.ui.theme.Gray300
+import com.bluehabit.core.ui.theme.Gray500
+import com.bluehabit.core.ui.theme.Primary300
+import com.bluehabit.core.ui.theme.Rose700
 
 
 /**
@@ -27,7 +36,13 @@ import com.bluehabit.core.ui.theme.*
  * */
 
 @Composable
-fun InputTextPrimary(value: String="",onChange:(String)->Unit={},label: String = "", enable: Boolean = true, eror: Boolean = false) {
+fun InputTextPrimary(
+    value: String = "",
+    onChange: (String) -> Unit = {},
+    label: String = "",
+    enable: Boolean = true,
+    eror: Boolean = false
+) {
     Column() {
         Text(
             text = label,
@@ -60,32 +75,31 @@ fun PreviewInputTextPrimary() {
                 vertical = 20.dp
             )
         ) {
-            var input by remember{
+            var input by remember {
                 mutableStateOf("")
             }
-
             InputTextPrimary(
                 label = "Email",
                 value = input,
-                onChange = {input=it},
+                onChange = { input = it },
                 eror = true
             )
             InputTextPrimary(
                 label = "Email",
                 value = input,
-                onChange = {input=it},
+                onChange = { input = it },
                 eror = false
             )
             InputTextPrimary(
                 label = "Email",
                 value = input,
-                onChange = {input=it},
+                onChange = { input = it },
                 enable = true
             )
             InputTextPrimary(
                 label = "Email",
                 value = input,
-                onChange = {input=it},
+                onChange = { input = it },
                 enable = false
             )
         }
