@@ -95,7 +95,7 @@ fun InstructionResetScreen(
             ) {
                 Image(
                     painter = painterResource(id = com.bluehabit.core.ui.R.drawable.hero_intruction_reset_password),
-                    contentDescription = "logo"
+                    contentDescription = "hero image insctruction screen"
                 )
             }
         }
