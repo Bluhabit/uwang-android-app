@@ -113,7 +113,7 @@ fun InstructionResetScreen(
                     )
             ) {
                 Text(
-                    text = "Buka Email",
+                    text = stringResource(id = com.bluehabit.core.ui.R.string.text_button_open_email),
                     color = Color(0xFFFFFFFF)
                 )
             }

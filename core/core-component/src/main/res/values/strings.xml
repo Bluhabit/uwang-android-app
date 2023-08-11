@@ -309,6 +309,7 @@
     <string name="text_check_spam">Tidak menerima email? Coba cek spam.</string>
     <string name="text_or">atau</string>
     <string name="text_try_again">coba lagi dengan alamat email yang lain.</string>
+    <string name="text_button_open_email">Buka Email</string>
     <!--    end change reset password-->
 
 </resources>
