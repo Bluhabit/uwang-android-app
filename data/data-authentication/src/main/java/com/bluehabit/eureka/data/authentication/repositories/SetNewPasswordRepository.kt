@@ -28,7 +28,7 @@ class SetNewPasswordRepository @Inject constructor(
         val result = safeApiCall<SetNewPasswordResponse> {
             httpClient.post(AuthApi.SetNewPassword()) {
                 headers {
-                    append("4adf-3ed", pref.getPersistData(AuthConstant.SESSION_TOKEN_RESET_PASSWORD).orEmpty())
+                    append(, pref.getPersistData(AuthConstant.SESSION_TOKEN_RESET_PASSWORD).orEmpty())
                 }
                 setBody(
                     SetNewPasswordRequest(
