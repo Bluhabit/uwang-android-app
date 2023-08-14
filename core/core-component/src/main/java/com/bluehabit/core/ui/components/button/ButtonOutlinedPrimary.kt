@@ -9,8 +9,10 @@ package com.bluehabit.core.ui.components.button
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedButton
@@ -18,10 +20,12 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import app.trian.mvi.ui.extensions.Empty
+import app.trian.mvi.ui.extensions.from
 import com.bluehabit.core.ui.theme.Error300
 import com.bluehabit.core.ui.theme.Error700
 import com.bluehabit.core.ui.theme.GaweanTheme
@@ -43,8 +47,9 @@ fun ButtonOutlinedPrimary(
     error: Boolean = false,
     onClick: () -> Unit = {}
 ) {
+    val ctx = LocalContext.current
     OutlinedButton(
-        modifier = modifier,
+        modifier = modifier.height(44.dp.from(context = ctx)),
         onClick = onClick,
         enabled = enabled,
         shape = RoundedCornerShape(8.dp),
