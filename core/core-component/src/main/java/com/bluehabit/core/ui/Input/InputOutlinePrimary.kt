@@ -21,7 +21,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.bluehabit.core.ui.theme.BudgetKuTheme
+import com.bluehabit.core.ui.theme.GaweanTheme
 import com.bluehabit.core.ui.theme.Gray300
 import com.bluehabit.core.ui.theme.Gray500
 import com.bluehabit.core.ui.theme.Primary300
@@ -68,7 +68,7 @@ fun InputTextPrimary(
 @Preview(showBackground = true, backgroundColor = 0xFFFFFFFF)
 @Composable
 fun PreviewInputTextPrimary() {
-    BudgetKuTheme {
+    GaweanTheme() {
         Column(
             modifier = Modifier.padding(
                 horizontal = 20.dp,

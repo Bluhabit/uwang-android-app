@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright © 2023 Blue Habit.
+  ~
+  ~ Unauthorized copying, publishing of this file, via any medium is strictly prohibited
+  ~ Proprietary and confidential
+  -->
+
+<resources>
+    <string name="remember_me">Ingat Saya</string>
+    <string name="forget_password">Lupa password</string>
+</resources>

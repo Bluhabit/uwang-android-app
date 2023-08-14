@@ -33,7 +33,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import app.trian.mvi.ui.extensions.from
-import com.bluehabit.core.ui.theme.GaweTheme
+import com.bluehabit.core.ui.theme.GaweanTheme
 import com.bluehabit.core.ui.theme.Gray900
 import com.bluehabit.core.ui.theme.Primary600
 import com.bluehabit.eureka.feature.authentication.R
@@ -156,7 +156,7 @@ fun InstructionResetScreen(
 @Composable
 @Preview(widthDp = 384, heightDp = 854)
 fun PreviewInstructionScreen() {
-    GaweTheme(darkTheme = false) {
+    GaweanTheme(darkTheme = false) {
         InstructionResetScreen()
     }
 }
