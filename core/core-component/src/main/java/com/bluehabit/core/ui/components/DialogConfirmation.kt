@@ -11,7 +11,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -24,11 +23,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -36,10 +31,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import app.trian.mvi.ui.extensions.Empty
-import app.trian.mvi.ui.extensions.from
 import com.bluehabit.core.ui.R
-import com.bluehabit.core.ui.theme.GaweTheme
-import com.bluehabit.core.ui.theme.Gray900
+import com.bluehabit.core.ui.theme.GaweanTheme
 
 @Composable
 fun DialogConfirmation(
@@ -104,7 +97,7 @@ fun DialogConfirmation(
 @Composable
 @Preview(widthDp = 500, heightDp = 750)
 fun DefaultPreview() {
-    GaweTheme {
+    GaweanTheme {
         Column(modifier = Modifier.padding(20.dp)) {
             DialogConfirmation(
                 show = true,
