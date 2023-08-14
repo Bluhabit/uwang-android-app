@@ -18,9 +18,6 @@ import io.ktor.client.HttpClient
 import io.ktor.client.plugins.resources.post
 import io.ktor.client.request.headers
 import io.ktor.client.request.setBody
-import io.ktor.http.HttpHeaders
-import io.ktor.http.append
-import okhttp3.internal.http2.Header
 import javax.inject.Inject
 
 class SetNewPasswordRepository @Inject constructor(
@@ -31,10 +28,7 @@ class SetNewPasswordRepository @Inject constructor(
         val result = safeApiCall<SetNewPasswordResponse> {
             httpClient.post(AuthApi.SetNewPassword()) {
                 headers {
-                    append(HttpHeaders.Accept, "text/html")
-                    append(HttpHeaders.Authorization, "abc123")
-                    append(HttpHeaders.UserAgent, "ktor client")
-                    append("4adf-3ed", pref.getPersistData(AuthConstant.SESSION_TOKEN_RESET_PW).orEmpty())
+                    append("4adf-3ed", pref.getPersistData(AuthConstant.SESSION_TOKEN_RESET_PASSWORD).orEmpty())
                 }
                 setBody(
                     SetNewPasswordRequest(
