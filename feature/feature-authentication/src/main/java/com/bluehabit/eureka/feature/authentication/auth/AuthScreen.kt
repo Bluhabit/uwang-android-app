@@ -14,7 +14,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Tab
@@ -22,6 +25,10 @@ import androidx.compose.material.TabRow
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -37,7 +44,9 @@ import app.trian.mvi.ui.UIWrapper
 import app.trian.mvi.ui.extensions.from
 import app.trian.mvi.ui.internal.contract.UIContract
 import app.trian.mvi.ui.internal.rememberUIController
+import com.bluehabit.core.ui.components.button.ButtonGoogle
 import com.bluehabit.core.ui.routes.Routes
+import com.bluehabit.core.ui.theme.GaweanTheme
 import com.bluehabit.core.ui.theme.Gray900
 import com.bluehabit.core.ui.theme.Primary25
 import com.bluehabit.core.ui.theme.Primary600
@@ -60,7 +69,6 @@ fun AuthScreen(
                 AuthEffect.Nothing -> Unit
                 is AuthEffect.ShowDialog -> {
                     Toast.makeText(context, this.message, Toast.LENGTH_LONG).show()
-
                 }
             }
         }
@@ -72,7 +80,8 @@ fun AuthScreen(
         Column(
             modifier = Modifier
                 .padding(it)
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top
         ) {
@@ -132,23 +141,42 @@ fun AuthScreen(
                     )
             ) {
                 when (state.selectedTab) {
-                    0 -> ScreenSignIn()
+                    0 -> ScreenSignIn(
+                        state = state,
+                        onEmailChanged = {
+                            commit { copy(email = it) }
+                        },
+                        onPasswordChanged = {
+                            commit { copy(password = it) }
+                        },
+                        onRememberChecked = {
+                            commit { copy(isRememberChecked = it) }
+                        }
+                    )
+
                     1 -> ScreenSignUp()
                 }
             }
         }
-
     }
 
 }
 
-@Preview(widthDp = 384, heightDp = 854, backgroundColor = 0xFFFCFAFF)
+@Preview(backgroundColor = 0xFFFCFAFF)
 @Composable
 fun PreviewSignInScreen() {
-    AuthScreen(
-        uiContract = UIContract(
-            controller = rememberUIController(),
-            state = AuthState()
+    var state by remember {
+        mutableStateOf(AuthState())
+    }
+    GaweanTheme {
+        AuthScreen(
+            uiContract = UIContract(
+                controller = rememberUIController(),
+                state = state,
+                mutation = {
+                    state = it
+                }
+            )
         )
-    )
+    }
 }

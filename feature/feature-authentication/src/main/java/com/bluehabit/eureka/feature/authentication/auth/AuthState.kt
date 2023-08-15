@@ -19,6 +19,8 @@ import javax.annotation.concurrent.Immutable
 data class AuthState(
     val email: String = String.Empty,
     val password: String = String.Empty,
+    val isRememberChecked:Boolean=false,
+
     //tabs
     val tabs: @RawValue List<String> = listOf("Masuk", "Daftar"),
     val selectedTab:Int=0,
