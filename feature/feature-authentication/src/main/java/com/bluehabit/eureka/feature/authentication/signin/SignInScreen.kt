@@ -18,6 +18,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Checkbox
 import androidx.compose.material.CheckboxDefaults
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Tab
+import androidx.compose.material.TabRow
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -43,6 +45,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import app.trian.mvi.Navigation
 import app.trian.mvi.ui.UIWrapper
+import app.trian.mvi.ui.extensions.from
 import app.trian.mvi.ui.internal.contract.UIContract
 import app.trian.mvi.ui.internal.rememberUIController
 import com.bluehabit.core.ui.components.button.ButtonPrimary
@@ -66,6 +69,8 @@ fun SignInScreen(
     isPasswordValid: Boolean = true,
 ) = UIWrapper(uiContract = uiContract) {
     val context = LocalContext.current
+    val tabs = listOf("Masuk", "Daftar")
+    var selectedTabIndex by remember { mutableStateOf(0) }
 
     UseEffect<SignInEffect>(
         commit = { copy(effect = SignInEffect.Nothing) },
@@ -92,12 +97,12 @@ fun SignInScreen(
                 horizontal = 20.dp
             ),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(24.dp, alignment = Alignment.Top)
+        verticalArrangement = Arrangement.spacedBy(24.dp.from(context = context), alignment = Alignment.Top)
     ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(24.dp, alignment = Alignment.Top),
+            verticalArrangement = Arrangement.spacedBy(24.dp.from(context = context), alignment = Alignment.Top),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Image(
@@ -122,13 +127,24 @@ fun SignInScreen(
                     textAlign = TextAlign.Center
                 )
             }
-
-
+            TabRow(
+                selectedTabIndex = selectedTabIndex,
+                backgroundColor = Color.White,
+                contentColor = Primary600
+            ) {
+                tabs.forEachIndexed { index, title ->
+                    Tab(
+                        selected = selectedTabIndex == index,
+                        onClick = { selectedTabIndex = index },
+                        text = { Text(text = title) }
+                    )
+                }
+            }
         }
         Column(
             modifier = Modifier
                 .fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(20.dp, alignment = Alignment.Top)
+            verticalArrangement = Arrangement.spacedBy(20.dp.from(context = context), alignment = Alignment.Top)
         ) {
             var emailInput by remember {
                 mutableStateOf("")
@@ -198,7 +214,7 @@ fun SignInScreen(
                     text = "Login"
                 )
                 Row(
-                    horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.Start),
+                    horizontalArrangement = Arrangement.spacedBy(16.dp.from(context = context), Alignment.Start),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Image(
@@ -309,36 +325,6 @@ fun SignInScreen(
                         },
                         textAlign = TextAlign.Center
                     )
-
-
-//                    Row(
-//                        horizontalArrangement = Arrangement.Center
-//                    ) {
-//                        Text(
-//                            text = "Syarat & Ketentuan ",
-//                            style = MaterialTheme.typography.caption,
-//                            lineHeight = 18.sp,
-//                            textAlign = TextAlign.Center,
-//                            fontWeight = W400,
-//                            color = Primary600,
-//                        )
-//                        Text(
-//                            text = "dan ",
-//                            style = MaterialTheme.typography.caption,
-//                            lineHeight = 18.sp,
-//                            textAlign = TextAlign.Center,
-//                            fontWeight = W400,
-//                            color = Gray900,
-//                        )
-//                        Text(
-//                            text = "Ketentuan  Kebijakan Privasi yang berlaku.",
-//                            style = MaterialTheme.typography.caption,
-//                            lineHeight = 18.sp,
-//                            textAlign = TextAlign.Center,
-//                            fontWeight = W400,
-//                            color = Primary600,
-//                        )
-//                    }
                 }
             }
         }
