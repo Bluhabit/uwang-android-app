@@ -12,8 +12,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Checkbox
 import androidx.compose.material.CheckboxDefaults
 import androidx.compose.material.MaterialTheme
@@ -25,7 +29,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -39,50 +43,52 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import app.trian.mvi.ui.extensions.from
 import com.bluehabit.core.ui.R
+import com.bluehabit.core.ui.components.button.ButtonFacebook
+import com.bluehabit.core.ui.components.button.ButtonGoogle
 import com.bluehabit.core.ui.components.button.ButtonPrimary
-import com.bluehabit.core.ui.components.button.ButtonSocial
 import com.bluehabit.core.ui.components.input.InputTextPrimary
 import com.bluehabit.core.ui.theme.GaweanTheme
+import com.bluehabit.core.ui.theme.Gray200
+import com.bluehabit.core.ui.theme.Gray300
 import com.bluehabit.core.ui.theme.Gray700
 import com.bluehabit.core.ui.theme.Gray900
 import com.bluehabit.core.ui.theme.Primary25
 import com.bluehabit.core.ui.theme.Primary600
 import com.bluehabit.core.ui.theme.Primary700
+import com.bluehabit.eureka.feature.authentication.auth.AuthState
 
 @Composable
 fun ScreenSignIn(
-    isEmailValid: Boolean = true,
-    isPasswordValid: Boolean = true,
+    modifier: Modifier=Modifier,
+    state:AuthState = AuthState(),
+    onEmailChanged:(String)->Unit={},
+    onPasswordChanged:(String)->Unit={},
+    onRememberChecked:(Boolean)->Unit={}
 ) {
     val context = LocalContext.current
 
 
     Column(
         modifier = Modifier
-            .fillMaxWidth()
+            .fillMaxSize()
             .background(Primary25)
             .padding(
                 horizontal = 18.dp
             ),
     ) {
-        var emailInput by remember {
-            mutableStateOf("")
-        }
-        var passwordInput by remember {
-            mutableStateOf("")
-        }
         InputTextPrimary(
             label = "Email",
-            value = emailInput,
-            onChange = { emailInput = it },
-            eror = !isEmailValid,
+            placeholder = "Masukkan email Anda",
+            value = state.email,
+            onChange = onEmailChanged,
             enable = true,
         )
+        Spacer(modifier = Modifier.height(16.dp))
         InputTextPrimary(
             label = "Password",
-            value = passwordInput,
-            onChange = { passwordInput = it },
-            eror = !isPasswordValid,
+            placeholder = "Masukkan password Anda",
+            value = state.password,
+            onChange = onPasswordChanged,
             enable = true,
         )
 
@@ -95,13 +101,16 @@ fun ScreenSignIn(
             Row(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                val isChecked = remember { mutableStateOf(false) }
-
                 Checkbox(
-                    checked = isChecked.value,
-                    onCheckedChange = { isChecked.value = it },
+                    checked =state.isRememberChecked,
+                    onCheckedChange = onRememberChecked,
                     enabled = true,
-                    colors = CheckboxDefaults.colors(Primary600)
+                    colors = CheckboxDefaults.colors(
+                        checkedColor = Primary700,
+                        uncheckedColor = Gray300,
+                        disabledColor = Gray200
+                    ),
+                    modifier =modifier.clip(RoundedCornerShape(4.dp))
                 )
                 Text(
                     text = stringResource(com.bluehabit.eureka.feature.authentication.R.string.remember_me),
@@ -154,51 +163,24 @@ fun ScreenSignIn(
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                ButtonSocial(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(
-                            vertical = 10.dp
-                        ),
+                ButtonGoogle(
+                    modifier = Modifier.fillMaxWidth(),
                     text = "Masuk Dengan Google",
                     enabled = true,
-                    icon = {
-                        Image(
-                            painterResource(
-                                id = R.drawable.social_icon_google
-                            ),
-                            contentDescription = "social icon"
-                        )
-                    },
-                    backgroundColor = Color.White,
-                    textColor = Gray700,
                     onClick = {}
                 )
-                ButtonSocial(
+                ButtonFacebook(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(
-                            vertical = 10.dp
-                        ),
+                        .padding(vertical = 10.dp),
                     text = "Masuk Dengan Facebook",
                     enabled = true,
-                    icon = {
-                        Image(
-                            painterResource(
-                                id = R.drawable.social_icon_facebook
-                            ),
-                            contentDescription = "social icon"
-                        )
-                    },
-                    backgroundColor = Color(0xFF1877F2),
-                    textColor = Color.White,
                     onClick = {}
                 )
             }
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally
-            )
-            {
+            ) {
                 Text(
                     text = buildAnnotatedString {
                         withStyle(
