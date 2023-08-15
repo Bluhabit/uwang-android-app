@@ -8,4 +8,5 @@
 <resources>
     <string name="remember_me">Ingat Saya</string>
     <string name="forget_password">Lupa password</string>
+    <string name="button_text_login">Masuk</string>
 </resources>
