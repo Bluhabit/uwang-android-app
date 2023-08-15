@@ -55,7 +55,8 @@ fun InputTextPrimary(
     Column {
         Text(
             text = label,
-            style = MaterialTheme.typography.subtitle2
+            style = MaterialTheme.typography.subtitle2,
+            modifier = modifier
         )
         Spacer(modifier = modifier.height(8.dp))
         OutlinedTextField(

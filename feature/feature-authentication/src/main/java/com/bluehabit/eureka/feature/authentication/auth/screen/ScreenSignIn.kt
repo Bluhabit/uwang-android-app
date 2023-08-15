@@ -55,11 +55,11 @@ import com.bluehabit.eureka.feature.authentication.auth.AuthState
 
 @Composable
 fun ScreenSignIn(
-    modifier: Modifier=Modifier,
-    state:AuthState = AuthState(),
-    onEmailChanged:(String)->Unit={},
-    onPasswordChanged:(String)->Unit={},
-    onRememberChecked:(Boolean)->Unit={}
+    modifier: Modifier = Modifier,
+    state: AuthState = AuthState(),
+    onEmailChanged: (String) -> Unit = {},
+    onPasswordChanged: (String) -> Unit = {},
+    onRememberChecked: (Boolean) -> Unit = {}
 ) {
     val context = LocalContext.current
 
@@ -73,16 +73,16 @@ fun ScreenSignIn(
             ),
     ) {
         InputTextPrimary(
-            label = stringResource(id = R.string.text_label_input_email_screen_signin),
-            placeholder = stringResource(id = R.string.text_placeholder_input_email_screen_signin),
+            label = stringResource(id = R.string.text_label_input_email_screen_auth),
+            placeholder = stringResource(id = R.string.text_placeholder_input_email_screen_auth),
             value = state.email,
             onChange = onEmailChanged,
             enable = true,
         )
         Spacer(modifier = Modifier.height(16.dp))
         InputTextPrimary(
-            label = stringResource(id = R.string.text_label_input_password_screen_signin),
-            placeholder =stringResource(id = R.string.text_placeholder_input_password_screen_signin),
+            label = stringResource(id = R.string.text_label_input_password_screen_auth),
+            placeholder = stringResource(id = R.string.text_placeholder_input_password_screen_auth),
             value = state.password,
             onChange = onPasswordChanged,
             enable = true,
@@ -98,7 +98,7 @@ fun ScreenSignIn(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Checkbox(
-                    checked =state.isRememberChecked,
+                    checked = state.isRememberChecked,
                     onCheckedChange = onRememberChecked,
                     enabled = true,
                     colors = CheckboxDefaults.colors(
@@ -106,17 +106,17 @@ fun ScreenSignIn(
                         uncheckedColor = Gray300,
                         disabledColor = Gray200
                     ),
-                    modifier =modifier.clip(RoundedCornerShape(4.dp))
+                    modifier = modifier.clip(RoundedCornerShape(4.dp))
                 )
                 Text(
-                    text = stringResource(com.bluehabit.eureka.feature.authentication.R.string.remember_me),
+                    text = stringResource(id = R.string.text_label_remember_me_screen_auth),
                     style = MaterialTheme.typography.subtitle2,
                     fontWeight = FontWeight.W500,
                     color = Gray700,
                 )
             }
             Text(
-                text = stringResource(com.bluehabit.eureka.feature.authentication.R.string.forget_password),
+                text = stringResource(id = R.string.text_forgot_password_screen_auth),
                 style = MaterialTheme.typography.subtitle2,
                 fontWeight = FontWeight.W500,
                 color = Primary600,
@@ -134,7 +134,7 @@ fun ScreenSignIn(
                     .padding(
                         vertical = 10.dp
                     ),
-                text = "Masuk",
+                text = stringResource(id = R.string.text_button_login_screen_auth),
                 enabled = state.email.isNotEmpty() && state.password.isNotEmpty()
             )
             Row(
@@ -162,7 +162,7 @@ fun ScreenSignIn(
             ) {
                 ButtonGoogle(
                     modifier = Modifier.fillMaxWidth(),
-                    text = stringResource(id = R.string.text_button_signin_with_google),
+                    text = stringResource(id = R.string.text_button_signin_with_google_screen_auth),
                     enabled = true,
                     onClick = {}
                 )
@@ -170,7 +170,7 @@ fun ScreenSignIn(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(vertical = 10.dp),
-                    text = stringResource(id = R.string.text_button_signin_with_facebook),
+                    text = stringResource(id = R.string.text_button_register_screen_auth),
                     enabled = true,
                     onClick = {}
                 )
@@ -187,7 +187,7 @@ fun ScreenSignIn(
                                 fontWeight = FontWeight.W400
                             )
                         ) {
-                            append(stringResource(id = R.string.text_description1_singin_screen))
+                            append(stringResource(id = R.string.text_term_and_condition_title_screen_auth))
                         }
                         append(" ")
                         withStyle(
@@ -197,7 +197,7 @@ fun ScreenSignIn(
                                 fontWeight = FontWeight.W400
                             )
                         ) {
-                            append(stringResource(id= R.string.text_term_and_condition_screen_signin))
+                            append(stringResource(id = R.string.text_term_and_condition_screen_auth))
                         }
                         withStyle(
                             style = SpanStyle(
@@ -207,7 +207,7 @@ fun ScreenSignIn(
                             )
                         ) {
                             append(" ")
-                            append(stringResource(id = R.string.text_and_singin_screen))
+                            append(stringResource(id = R.string.text_and_screen_auth))
                             append(" ")
                         }
                         withStyle(
@@ -217,7 +217,7 @@ fun ScreenSignIn(
                                 fontWeight = FontWeight.W400
                             )
                         ) {
-                            append(stringResource(id = R.string.text_privacy_police_screen_signin))
+                            append(stringResource(id = R.string.text_privacy_police_screen_auth))
                         }
                     },
                     textAlign = TextAlign.Center

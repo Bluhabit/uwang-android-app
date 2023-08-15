@@ -14,20 +14,11 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Checkbox
-import androidx.compose.material.CheckboxDefaults
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Tab
-import androidx.compose.material.TabRow
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -41,20 +32,21 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import app.trian.mvi.ui.extensions.from
 import com.bluehabit.core.ui.R
+import com.bluehabit.core.ui.components.button.ButtonFacebook
+import com.bluehabit.core.ui.components.button.ButtonGoogle
 import com.bluehabit.core.ui.components.button.ButtonPrimary
-import com.bluehabit.core.ui.components.button.ButtonSocial
 import com.bluehabit.core.ui.components.input.InputTextPrimary
 import com.bluehabit.core.ui.theme.GaweanTheme
-import com.bluehabit.core.ui.theme.Gray700
 import com.bluehabit.core.ui.theme.Gray900
 import com.bluehabit.core.ui.theme.Primary25
 import com.bluehabit.core.ui.theme.Primary600
 import com.bluehabit.core.ui.theme.Primary700
+import com.bluehabit.eureka.feature.authentication.auth.AuthState
 
 @Composable
 fun ScreenSignUp(
-    isEmailValid: Boolean = true,
-    isPasswordValid: Boolean = true,
+    state: AuthState = AuthState(),
+    onEmailChanged: (String) -> Unit = {},
 ) {
     val context = LocalContext.current
 
@@ -64,49 +56,15 @@ fun ScreenSignUp(
             .background(Primary25),
         verticalArrangement = Arrangement.spacedBy(20.dp.from(context = context), alignment = Alignment.Top)
     ) {
-        var emailInput by remember {
-            mutableStateOf("")
-        }
-
         InputTextPrimary(
-            label = "Email",
-            value = emailInput,
-            onChange = { emailInput = it },
-            eror = !isEmailValid,
+            label = stringResource(id = R.string.text_label_input_email_screen_auth),
+            value = state.email,
+            placeholder = stringResource(id = R.string.text_placeholder_input_email_screen_auth),
+            onChange = onEmailChanged,
             enable = true,
-        )
-
-        Row(
             modifier = Modifier
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                val isChecked = remember { mutableStateOf(false) }
-
-                Checkbox(
-                    checked = isChecked.value,
-                    onCheckedChange = { isChecked.value = it },
-                    enabled = true,
-                    colors = CheckboxDefaults.colors(Primary600)
-                )
-                Text(
-                    text = stringResource(com.bluehabit.eureka.feature.authentication.R.string.remember_me),
-                    style = MaterialTheme.typography.subtitle2,
-                    fontWeight = FontWeight.W500,
-                    color = Gray700,
-                )
-            }
-            Text(
-                text = stringResource(com.bluehabit.eureka.feature.authentication.R.string.forget_password),
-                style = MaterialTheme.typography.subtitle2,
-                fontWeight = FontWeight.W500,
-                color = Primary600,
-            )
-        }
+                .padding(horizontal = 18.dp)
+        )
         Column(
             modifier = Modifier
                 .fillMaxWidth(),
@@ -117,10 +75,10 @@ fun ScreenSignUp(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(
-                        horizontal = 18.dp,
-                        vertical = 10.dp
+                        start = 18.dp, end = 18.dp, top = 30.dp, bottom = 10.dp
                     ),
-                text = "Masuk"
+                text = stringResource(id = R.string.text_button_signup_with_facebook_screen_auth),
+                enabled = state.email.isNotEmpty(),
             )
             Row(
                 horizontalArrangement = Arrangement.spacedBy(16.dp.from(context = context), Alignment.Start),
@@ -144,54 +102,29 @@ fun ScreenSignUp(
             }
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier
+                    .padding(horizontal = 18.dp)
             ) {
-                ButtonSocial(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(
-                            horizontal = 16.dp,
-                            vertical = 10.dp
-                        ),
-                    text = "Masuk Dengan Google",
+                ButtonGoogle(
+                    modifier = Modifier.fillMaxWidth(),
+                    text = stringResource(id = R.string.text_button_signup_with_google_screen_auth),
                     enabled = true,
-                    icon = {
-                        Image(
-                            painterResource(
-                                id = R.drawable.social_icon_google
-                            ),
-                            contentDescription = "social icon"
-                        )
-                    },
-                    backgroundColor = Color.White,
-                    textColor = Gray700,
                     onClick = {}
                 )
-                ButtonSocial(
+                ButtonFacebook(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(
-                            horizontal = 16.dp,
-                            vertical = 10.dp
-                        ),
-                    text = "Masuk Dengan Facebook",
+                        .padding(vertical = 10.dp),
+                    text = stringResource(id = R.string.text_button_signup_with_facebook_screen_auth),
                     enabled = true,
-                    icon = {
-                        Image(
-                            painterResource(
-                                id = R.drawable.social_icon_facebook
-                            ),
-                            contentDescription = "social icon"
-                        )
-                    },
-                    backgroundColor = Color(0xFF1877F2),
-                    textColor = Color.White,
                     onClick = {}
                 )
             }
             Column(
-                horizontalAlignment = Alignment.CenterHorizontally
-            )
-            {
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier
+                    .padding(horizontal = 18.dp)
+            ) {
                 Text(
                     text = buildAnnotatedString {
                         withStyle(
@@ -201,7 +134,7 @@ fun ScreenSignUp(
                                 fontWeight = FontWeight.W400
                             )
                         ) {
-                            append("Dengan masuk ke akun berarti Anda telah menyetujui")
+                            append(stringResource(id = R.string.text_term_and_condition_title_screen_auth))
                         }
                         append(" ")
                         withStyle(
@@ -211,7 +144,7 @@ fun ScreenSignUp(
                                 fontWeight = FontWeight.W400
                             )
                         ) {
-                            append("Syarat & Ketentuan")
+                            append(stringResource(id = R.string.text_term_and_condition_screen_auth))
                         }
                         withStyle(
                             style = SpanStyle(
@@ -220,7 +153,7 @@ fun ScreenSignUp(
                                 fontWeight = FontWeight.W400
                             )
                         ) {
-                            append(" dan ")
+                            append(stringResource(id = R.string.text_and_screen_auth))
                         }
                         withStyle(
                             style = SpanStyle(
@@ -229,10 +162,10 @@ fun ScreenSignUp(
                                 fontWeight = FontWeight.W400
                             )
                         ) {
-                            append(" Kebijakan Privasi yang berlaku.")
+                            append(stringResource(id = R.string.text_privacy_police_screen_auth))
                         }
                     },
-                    textAlign = TextAlign.Center
+                    textAlign = TextAlign.Center,
                 )
             }
         }
