@@ -92,7 +92,7 @@ fun SignInScreen(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .background(Primary25)
+            .background(Color.White)
             .padding(
                 vertical = 32.dp,
                 horizontal = 20.dp
@@ -144,7 +144,9 @@ fun SignInScreen(
         }
         Column(
             modifier = Modifier
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .background(Primary25),
+
             verticalArrangement = Arrangement.spacedBy(20.dp.from(context = context), alignment = Alignment.Top)
         ) {
             var emailInput by remember {
@@ -334,7 +336,7 @@ fun SignInScreen(
 }
 
 @Composable
-@Preview(widthDp = 384, heightDp = 854, backgroundColor = 0xFFFCFAFF)
+@Preview(widthDp = 384, heightDp = 854)
 fun PreviewSignInScreen() {
     SignInScreen(
         uiContract = UIContract(
