@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.bluehabit.core.ui.R
 import com.bluehabit.core.ui.theme.Error50
@@ -32,7 +33,7 @@ fun AlertError(
                 painter = painterResource(
                     id = R.drawable.ic_information_circle_error,
                 ),
-                contentDescription = "Icon Error",
+                contentDescription = stringResource(id = R.string.description_icon_error),
             )
         },
         trailingButton = {
