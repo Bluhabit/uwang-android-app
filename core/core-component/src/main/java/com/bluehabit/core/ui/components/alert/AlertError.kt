@@ -32,7 +32,7 @@ fun AlertError(
                 painter = painterResource(
                     id = R.drawable.ic_information_circle_error,
                 ),
-                contentDescription = null,
+                contentDescription = "Icon Error",
             )
         },
         trailingButton = {
