@@ -314,4 +314,8 @@
     <string name="text_one_step_more">Tinggal 1 langkah lagi untuk melengkapi profile Anda.</string>
     <!--    end change reset password-->
 
+    <!--    alert component-->
+    <string name="description_icon_error">Ikon error</string>
+    <string name="description_icon_success">Ikon sukses</string>
+    <!--    end alert component-->
 </resources>
