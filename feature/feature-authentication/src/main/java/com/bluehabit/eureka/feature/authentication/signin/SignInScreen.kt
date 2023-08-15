@@ -148,10 +148,10 @@ fun SignInScreen(
             verticalArrangement = Arrangement.spacedBy(20.dp.from(context = context), alignment = Alignment.Top)
         ) {
             var emailInput by remember {
-                mutableStateOf("")
+                mutableStateOf("azki@gmail.com")
             }
             var passwordInput by remember {
-                mutableStateOf("")
+                mutableStateOf("123")
             }
             InputTextPrimary(
                 label = "Email",
@@ -212,7 +212,8 @@ fun SignInScreen(
                             horizontal = 18.dp,
                             vertical = 10.dp
                         ),
-                    text = "Masuk"
+                    text = "Masuk",
+                    enabled = emailInput.isNotEmpty() && passwordInput.isNotEmpty()
                 )
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(16.dp.from(context = context), Alignment.Start),
