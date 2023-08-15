@@ -26,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -38,7 +39,7 @@ import androidx.compose.ui.window.Dialog
 import app.trian.mvi.ui.extensions.Empty
 import app.trian.mvi.ui.extensions.from
 import com.bluehabit.core.ui.R
-import com.bluehabit.core.ui.theme.GaweTheme
+import com.bluehabit.core.ui.theme.GaweanTheme
 import com.bluehabit.core.ui.theme.Gray900
 
 @Composable
@@ -83,7 +84,8 @@ fun DialogConfirmation(
                             style = MaterialTheme.typography.h6,
                             lineHeight = 30.sp,
                             fontWeight = FontWeight.W600,
-                            textAlign = TextAlign.Center
+                            textAlign = TextAlign.Center,
+                            color = Gray900
                         )
                         Text(
                             text = message,
@@ -91,7 +93,7 @@ fun DialogConfirmation(
                             lineHeight = 20.sp,
                             fontWeight = FontWeight.W400,
                             textAlign = TextAlign.Center,
-                            modifier = Modifier
+                            color = Gray900
                         )
                     }
                     action.invoke()
@@ -104,12 +106,12 @@ fun DialogConfirmation(
 @Composable
 @Preview(widthDp = 500, heightDp = 750)
 fun DefaultPreview() {
-    GaweTheme {
+    GaweanTheme {
         Column(modifier = Modifier.padding(20.dp)) {
             DialogConfirmation(
                 show = true,
-                title = "Berhasil Daftar",
-                message = "Tinggal 1 langkah lagi untuk melengkapi profile Anda.",
+                title = stringResource(R.string.text_success_singin),
+                message = stringResource(R.string.text_one_step_more),
                 icon = {
                     Image(
                         painter = painterResource(id = R.drawable.success_icon_purple),
