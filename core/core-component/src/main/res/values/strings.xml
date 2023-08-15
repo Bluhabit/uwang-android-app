@@ -310,6 +310,8 @@
     <string name="text_or">atau</string>
     <string name="text_try_again">coba lagi dengan alamat email yang lain.</string>
     <string name="text_button_open_email">Buka Email</string>
+    <string name="text_success_singin">Berhasil Daftar</string>
+    <string name="text_one_step_more">Tinggal 1 langkah lagi untuk melengkapi profile Anda.</string>
     <!--    end change reset password-->
     <!-- sign In   -->
     <string name="text_button_signin_with_google">Masuk Dengan Google</string>
