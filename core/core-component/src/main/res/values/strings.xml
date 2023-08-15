@@ -13,7 +13,7 @@
     <string name="text_title_instruction_send">Instruksi Terkirim!</string>
     <string name="text_subtitle_instruction">Cek email anda dan klik link pada instruksi tersebut.</string>
     <string name="text_check_spam">Tidak menerima email? Coba cek spam.</string>
-    <string name="text_or">atau</string>
+    <string name="text_or">Atau</string>
     <string name="text_try_again">coba lagi dengan alamat email yang lain.</string>
     <string name="text_button_open_email">Buka Email</string>
     <string name="text_success_singin">Berhasil Daftar</string>
@@ -28,22 +28,27 @@
     <string name="text_resend_otp">Kirim ulang kode OTP</string>
     <!--    end otp -->
 
-    <!-- sign In   -->
-    <string name="text_button_signin_with_google">Masuk Dengan Google</string>
-    <string name="text_button_signin_with_facebook">Masuk Dengan Facebook</string>
-    <string name="text_button_login">Masuk</string>
-    <string name="text_and_singin_screen">dan</string>
-    <string name="text_description1_singin_screen">
+    <!-- authentication   -->
+    <string name="text_button_signin_with_google_screen_auth">Masuk Dengan Google</string>
+    <string name="text_button_signup_with_google_screen_auth">Daftar Dengan Google</string>
+    <string name="text_button_signin_with_facebook_screen_auth">Masuk Dengan Facebook</string>
+    <string name="text_button_signup_with_facebook_screen_auth">Daftar Dengan Facebook</string>
+    <string name="text_button_login_screen_auth">Masuk</string>
+    <string name="text_button_register_screen_auth">Daftar</string>
+    <string name="text_and_screen_auth">dan</string>
+    <string name="text_term_and_condition_title_screen_auth">
         Dengan masuk ke akun berarti Anda telah menyetujui
     </string>
-    <string name="text_title_auth_screen">Selamat datang di Gawean</string>
-    <string name="text_description_auth">Daftar atau masuk agar bisa atur tugas lebih mudah dan selalu produktif.</string>
-    <string name="text_term_and_condition_screen_signin">Syarat &amp; Ketentuan</string>
-    <string name="text_privacy_police_screen_signin"> Kebijakan Privasi yang berlaku.</string>
-    <string name="text_label_input_email_screen_signin">Email</string>
-    <string name="text_placeholder_input_email_screen_signin">Masukkan email Anda</string>
-    <string name="text_label_input_password_screen_signin">Password</string>
-    <string name="text_placeholder_input_password_screen_signin">Masukan Password Anda</string>
-    <!-- end sign In   -->
+    <string name="text_title_screen_auth">Selamat datang di Gawean</string>
+    <string name="text_description_screen_auth">Daftar atau masuk agar bisa atur tugas lebih mudah dan selalu produktif.</string>
+    <string name="text_term_and_condition_screen_auth">Syarat &amp; Ketentuan</string>
+    <string name="text_privacy_police_screen_auth"> Kebijakan Privasi yang berlaku.</string>
+    <string name="text_label_input_email_screen_auth">Email</string>
+    <string name="text_placeholder_input_email_screen_auth">Masukkan email Anda</string>
+    <string name="text_label_input_password_screen_auth">Password</string>
+    <string name="text_placeholder_input_password_screen_auth">Masukan Password Anda</string>
+    <string name="text_label_remember_me_screen_auth">Ingat Saya</string>
+    <string name="text_forgot_password_screen_auth">Lupa password</string>
+    <!-- end authentication   -->
 
 </resources>

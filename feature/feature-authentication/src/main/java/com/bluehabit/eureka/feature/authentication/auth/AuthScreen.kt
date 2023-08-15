@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -45,13 +44,11 @@ import app.trian.mvi.ui.UIWrapper
 import app.trian.mvi.ui.extensions.from
 import app.trian.mvi.ui.internal.contract.UIContract
 import app.trian.mvi.ui.internal.rememberUIController
-import com.bluehabit.core.ui.components.button.ButtonGoogle
 import com.bluehabit.core.ui.routes.Routes
 import com.bluehabit.core.ui.theme.GaweanTheme
 import com.bluehabit.core.ui.theme.Gray900
 import com.bluehabit.core.ui.theme.Primary25
 import com.bluehabit.core.ui.theme.Primary600
-import com.bluehabit.eureka.feature.authentication.R
 import com.bluehabit.eureka.feature.authentication.auth.screen.ScreenSignIn
 import com.bluehabit.eureka.feature.authentication.auth.screen.ScreenSignUp
 
@@ -99,20 +96,20 @@ fun AuthScreen(
             ) {
                 Image(
                     painter = painterResource(id = com.bluehabit.core.ui.R.drawable.gawean_logo),
-                    contentDescription = stringResource(R.string.text_description_logo_gawean)
+                    contentDescription = stringResource(id = com.bluehabit.core.ui.R.string.content_description_logo)
                 )
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = stringResource(id = com.bluehabit.core.ui.R.string.text_title_auth_screen),
+                        text = stringResource(id = com.bluehabit.core.ui.R.string.text_title_screen_auth),
                         style = MaterialTheme.typography.h6,
                         fontWeight = FontWeight.W600,
                         lineHeight = 30.sp,
                         color = Gray900,
                     )
                     Text(
-                        text = stringResource(id = com.bluehabit.core.ui.R.string.text_description_auth),
+                        text = stringResource(id = com.bluehabit.core.ui.R.string.text_description_screen_auth),
                         style = MaterialTheme.typography.subtitle2,
                         fontWeight = FontWeight.W400,
                         color = Gray900,
@@ -157,7 +154,12 @@ fun AuthScreen(
                         }
                     )
 
-                    1 -> ScreenSignUp()
+                    1 -> ScreenSignUp(
+                        state = state,
+                        onEmailChanged = {
+                            commit { copy(email = it) }
+                        }
+                    )
                 }
             }
         }
