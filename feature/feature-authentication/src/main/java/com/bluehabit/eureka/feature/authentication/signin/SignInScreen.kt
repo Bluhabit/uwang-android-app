@@ -27,11 +27,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight.Companion.W400
 import androidx.compose.ui.text.font.FontWeight.Companion.W500
+import androidx.compose.ui.text.font.FontWeight.Companion.W600
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -40,10 +46,13 @@ import app.trian.mvi.ui.UIWrapper
 import app.trian.mvi.ui.internal.contract.UIContract
 import app.trian.mvi.ui.internal.rememberUIController
 import com.bluehabit.core.ui.components.button.ButtonPrimary
+import com.bluehabit.core.ui.components.button.ButtonSocial
 import com.bluehabit.core.ui.input.InputTextPrimary
 import com.bluehabit.core.ui.routes.Routes
 import com.bluehabit.core.ui.theme.Gray700
+import com.bluehabit.core.ui.theme.Gray900
 import com.bluehabit.core.ui.theme.Primary600
+import com.bluehabit.core.ui.theme.Primary700
 import com.bluehabit.eureka.feature.authentication.R
 
 @Navigation(
@@ -53,8 +62,8 @@ import com.bluehabit.eureka.feature.authentication.R
 @Composable
 fun SignInScreen(
     uiContract: UIContract<SignInState, SignInAction>,
-    isEmailValid:Boolean = true,
-    isPasswordValid:Boolean = true,
+    isEmailValid: Boolean = true,
+    isPasswordValid: Boolean = true,
 ) = UIWrapper(uiContract = uiContract) {
     val context = LocalContext.current
 
@@ -79,17 +88,48 @@ fun SignInScreen(
             .fillMaxWidth()
             .background(MaterialTheme.colors.surface)
             .padding(
-                vertical = 24.dp,
+                vertical = 32.dp,
                 horizontal = 20.dp
             ),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.spacedBy(24.dp, alignment = Alignment.Top)
     ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(24.dp, alignment = Alignment.Top),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Image(
+                painter = painterResource(id = com.bluehabit.core.ui.R.drawable.gawean_logo ),
+                contentDescription = "Logo Gawean"
+            )
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally
+            ){
+                Text(
+                    text = "Selamat datang di Gawean",
+                    style = MaterialTheme.typography.h6,
+                    fontWeight = W600,
+                    lineHeight = 30.sp,
+                    color = Gray900,
+                )
+                Text(
+                    text = "Daftar atau masuk agar bisa atur tugas lebih mudah dan selalu produktif.",
+                    style = MaterialTheme.typography.subtitle2,
+                    fontWeight = W400,
+                    color = Gray900,
+                    textAlign = TextAlign.Center
+                )
+            }
+
+
+        }
+        Column(
+            modifier = Modifier
+                .fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(20.dp, alignment = Alignment.Top)
-        ){
+        ) {
             var emailInput by remember {
                 mutableStateOf("")
             }
@@ -99,17 +139,17 @@ fun SignInScreen(
             InputTextPrimary(
                 label = "Email",
                 value = emailInput,
-                onChange = { emailInput = it},
+                onChange = { emailInput = it },
                 eror = !isEmailValid,
                 enable = true,
             )
             InputTextPrimary(
                 label = "Password",
                 value = passwordInput,
-                onChange = { passwordInput = it},
+                onChange = { passwordInput = it },
                 eror = !isPasswordValid,
                 enable = true,
-                )
+            )
 
             Row(
                 modifier = Modifier
@@ -119,7 +159,7 @@ fun SignInScreen(
             ) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
-                    ) {
+                ) {
                     val isChecked = remember { mutableStateOf(false) }
 
                     Checkbox(
@@ -146,7 +186,7 @@ fun SignInScreen(
                 modifier = Modifier
                     .fillMaxWidth(),
                 verticalArrangement = Arrangement.spacedBy(24.dp),
-
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 ButtonPrimary(
                     modifier = Modifier
@@ -155,7 +195,7 @@ fun SignInScreen(
                             horizontal = 18.dp,
                             vertical = 10.dp
                         ),
-                    text = stringResource(R.string.button_text_login)
+                    text = "Login"
                 )
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.Start),
@@ -177,6 +217,129 @@ fun SignInScreen(
                         contentDescription = "line"
                     )
                 }
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                ) {
+                    ButtonSocial(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(
+                                horizontal = 16.dp,
+                                vertical = 10.dp
+                            ),
+                        text = "Masuk Dengan Google",
+                        enabled = true,
+                        icon = {
+                            Image(
+                                painterResource(
+                                    id = com.bluehabit.core.ui.R.drawable.social_icon_google
+                                ),
+                                contentDescription = "social icon"
+                            )
+                        },
+                        backgroundColor = Color.White,
+                        textColor = Gray700,
+                        onClick = {}
+                    )
+                    ButtonSocial(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(
+                                horizontal = 16.dp,
+                                vertical = 10.dp
+                            ),
+                        text = "Masuk Dengan Facebook",
+                        enabled = true,
+                        icon = {
+                            Image(
+                                painterResource(
+                                    id = com.bluehabit.core.ui.R.drawable.social_icon_facebook
+                                ),
+                                contentDescription = "social icon"
+                            )
+                        },
+                        backgroundColor = Color(0xFF1877F2),
+                        textColor = Color.White,
+                        onClick = {}
+                    )
+                }
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally
+                )
+                {
+                    Text(
+                        text = buildAnnotatedString {
+                            withStyle(
+                                style = SpanStyle(
+                                    color = Gray900,
+                                    fontStyle = MaterialTheme.typography.body1.fontStyle,
+                                    fontWeight = W400
+                                )
+                            ) {
+                                append("Dengan masuk ke akun berarti Anda telah menyetujui")
+                            }
+                            append(" ")
+                            withStyle(
+                                style = SpanStyle(
+                                    color = Primary700,
+                                    fontStyle = MaterialTheme.typography.body1.fontStyle,
+                                    fontWeight = W400
+                                )
+                            ) {
+                                append("Syarat & Ketentuan")
+                            }
+                            withStyle(
+                                style = SpanStyle(
+                                    color = Gray900,
+                                    fontStyle = MaterialTheme.typography.body1.fontStyle,
+                                    fontWeight = W400
+                                )
+                            ) {
+                                append(" dan ")
+                            }
+                            withStyle(
+                                style = SpanStyle(
+                                    color = Primary700,
+                                    fontStyle = MaterialTheme.typography.body1.fontStyle,
+                                    fontWeight = W400
+                                )
+                            ) {
+                                append(" Kebijakan Privasi yang berlaku.")
+                            }
+                        },
+                        textAlign = TextAlign.Center
+                    )
+
+
+//                    Row(
+//                        horizontalArrangement = Arrangement.Center
+//                    ) {
+//                        Text(
+//                            text = "Syarat & Ketentuan ",
+//                            style = MaterialTheme.typography.caption,
+//                            lineHeight = 18.sp,
+//                            textAlign = TextAlign.Center,
+//                            fontWeight = W400,
+//                            color = Primary600,
+//                        )
+//                        Text(
+//                            text = "dan ",
+//                            style = MaterialTheme.typography.caption,
+//                            lineHeight = 18.sp,
+//                            textAlign = TextAlign.Center,
+//                            fontWeight = W400,
+//                            color = Gray900,
+//                        )
+//                        Text(
+//                            text = "Ketentuan  Kebijakan Privasi yang berlaku.",
+//                            style = MaterialTheme.typography.caption,
+//                            lineHeight = 18.sp,
+//                            textAlign = TextAlign.Center,
+//                            fontWeight = W400,
+//                            color = Primary600,
+//                        )
+//                    }
+                }
             }
         }
     }
@@ -184,9 +347,11 @@ fun SignInScreen(
 
 @Composable
 @Preview(widthDp = 384, heightDp = 854)
-fun PreviewSignInScreen(){
-    SignInScreen(uiContract =UIContract(
-        controller = rememberUIController(),
-        state=SignInState()
-    ))
+fun PreviewSignInScreen() {
+    SignInScreen(
+        uiContract = UIContract(
+            controller = rememberUIController(),
+            state = SignInState()
+        )
+    )
 }

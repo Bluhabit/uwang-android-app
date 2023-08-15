@@ -8,5 +8,7 @@
 <resources>
     <string name="remember_me">Ingat Saya</string>
     <string name="forget_password">Lupa password</string>
-    <string name="button_text_login">Masuk</string>
+    <string name="text_button_login">Masuk</string>
+    <string name="text_button_signin_with_google">Masuk Dengan Google</string>
+    <string name="text_button_signin_with_facebook">Masuk Dengan Facebook</string>
 </resources>

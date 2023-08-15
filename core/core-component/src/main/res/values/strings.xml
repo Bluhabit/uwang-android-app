@@ -311,5 +311,10 @@
     <string name="text_try_again">coba lagi dengan alamat email yang lain.</string>
     <string name="text_button_open_email">Buka Email</string>
     <!--    end change reset password-->
+    <!-- sign In   -->
+    <string name="text_button_signin_with_google">Masuk Dengan Google</string>
+    <string name="text_button_login">Masuk</string>
+
+    <!-- end sign In   -->
 
 </resources>
