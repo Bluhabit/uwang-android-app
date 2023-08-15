@@ -24,7 +24,7 @@ import com.bluehabit.core.ui.theme.Success700
 fun AlertSuccess(
     modifier: Modifier = Modifier,
     message: String,
-    onCLick: () -> Unit,
+    onClick: () -> Unit,
 ) {
     BasicAlert(
         leadingButton = {
@@ -38,7 +38,7 @@ fun AlertSuccess(
         trailingButton = {
             IconButton(
                 onClick = {
-                    onCLick()
+                    onClick()
                 },
                 modifier = modifier
                     .size(24.dp)
