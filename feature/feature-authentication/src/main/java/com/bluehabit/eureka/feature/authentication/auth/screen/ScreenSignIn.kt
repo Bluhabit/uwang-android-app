@@ -60,11 +60,10 @@ fun ScreenSignIn(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .background(Primary25),
-        verticalArrangement = Arrangement.spacedBy(
-            20.dp.from(context = context),
-            alignment = Alignment.Top
-        )
+            .background(Primary25)
+            .padding(
+                horizontal = 18.dp
+            ),
     ) {
         var emailInput by remember {
             mutableStateOf("")
@@ -128,7 +127,6 @@ fun ScreenSignIn(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(
-                        horizontal = 18.dp,
                         vertical = 10.dp
                     ),
                 text = "Masuk"
@@ -160,7 +158,6 @@ fun ScreenSignIn(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(
-                            horizontal = 16.dp,
                             vertical = 10.dp
                         ),
                     text = "Masuk Dengan Google",
@@ -181,7 +178,6 @@ fun ScreenSignIn(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(
-                            horizontal = 16.dp,
                             vertical = 10.dp
                         ),
                     text = "Masuk Dengan Facebook",

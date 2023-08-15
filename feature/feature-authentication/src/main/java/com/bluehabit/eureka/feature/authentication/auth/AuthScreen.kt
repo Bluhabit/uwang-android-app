@@ -12,6 +12,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
@@ -73,11 +74,14 @@ fun AuthScreen(
                 .padding(it)
                 .fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(24.dp.from(context = context), alignment = Alignment.Top)
+            verticalArrangement = Arrangement.Top
         ) {
             Column(
                 modifier = Modifier
-                    .fillMaxWidth(),
+                    .fillMaxWidth()
+                    .padding(
+                        horizontal = 16.dp
+                    ),
                 verticalArrangement = Arrangement.spacedBy(24.dp.from(context = context), alignment = Alignment.Top),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
@@ -119,9 +123,18 @@ fun AuthScreen(
                     }
                 }
             }
-            when (state.selectedTab) {
-                0 -> ScreenSignIn()
-                1 -> ScreenSignUp()
+            Column(
+                modifier = Modifier
+                    .background(Primary25)
+                    .fillMaxSize()
+                    .padding(
+                        vertical = 16.dp
+                    )
+            ) {
+                when (state.selectedTab) {
+                    0 -> ScreenSignIn()
+                    1 -> ScreenSignUp()
+                }
             }
         }
 
