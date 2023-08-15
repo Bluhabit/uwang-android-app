@@ -134,7 +134,8 @@ fun ScreenSignIn(
                     .padding(
                         vertical = 10.dp
                     ),
-                text = "Masuk"
+                text = "Masuk",
+                enabled = state.email.isNotEmpty() && state.password.isNotEmpty()
             )
             Row(
                 horizontalArrangement = Arrangement.spacedBy(16.dp.from(context = context), Alignment.Start),
