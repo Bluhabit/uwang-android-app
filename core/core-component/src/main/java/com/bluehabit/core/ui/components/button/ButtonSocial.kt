@@ -37,7 +37,11 @@ import com.bluehabit.core.ui.theme.Gray700
  * @param modifier
  * @param backgroundColor
  *  color of button
- * @sample PreviewButtonGoogle
+ * @param textColor
+ *  color text button
+ * @param icon
+ *  icon button
+ * @sample PreviewButtonSocial
  * */
 
 @Composable
@@ -80,9 +84,9 @@ fun ButtonSocial(
     }
 }
 
-@Preview(showBackground = true, backgroundColor = 0xFFFFFFFF)
+@Preview(showBackground = true, backgroundColor = 0xFFFFFFFF, heightDp = 500)
 @Composable
-fun PreviewButtonGoogle() {
+fun PreviewButtonSocial() {
     GaweanTheme {
         Column(
             modifier = Modifier
