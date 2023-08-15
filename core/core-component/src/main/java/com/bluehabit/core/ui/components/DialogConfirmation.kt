@@ -26,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -108,7 +109,7 @@ fun DialogConfirmation(
                             lineHeight = 20.sp,
                             fontWeight = FontWeight.W400,
                             textAlign = TextAlign.Center,
-                            color = Gray900,
+                            color = Gray900
                         )
                     }
                     action.invoke()
@@ -120,13 +121,14 @@ fun DialogConfirmation(
 
 @Composable
 @Preview(widthDp = 500, heightDp = 750)
+
 fun DialogConfirmationPreview() {
     GaweanTheme {
         Column(modifier = Modifier.padding(20.dp)) {
             DialogConfirmation(
                 show = true,
-                title = "Berhasil Daftar",
-                message = "Tinggal 1 langkah lagi untuk melengkapi profile Anda.",
+                title = stringResource(R.string.text_success_singin),
+                message = stringResource(R.string.text_one_step_more),
                 icon = {
                     Image(
                         painter = painterResource(id = R.drawable.success_icon_purple),
