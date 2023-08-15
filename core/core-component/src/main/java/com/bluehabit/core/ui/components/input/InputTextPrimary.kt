@@ -8,6 +8,7 @@
 package com.bluehabit.core.ui.components.input
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
@@ -21,6 +22,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import app.trian.mvi.ui.extensions.Empty
 import com.bluehabit.core.ui.theme.GaweanTheme
 import com.bluehabit.core.ui.theme.Gray300
 import com.bluehabit.core.ui.theme.Gray500
@@ -37,13 +39,15 @@ import com.bluehabit.core.ui.theme.Rose700
 
 @Composable
 fun InputTextPrimary(
-    value: String = "",
+    modifier: Modifier = Modifier,
+    value: String = String.Empty,
+    placeholder: String = String.Empty,
     onChange: (String) -> Unit = {},
     label: String = "",
     enable: Boolean = true,
     eror: Boolean = false
 ) {
-    Column() {
+    Column {
         Text(
             text = label,
             style = MaterialTheme.typography.subtitle2
@@ -51,14 +55,19 @@ fun InputTextPrimary(
         OutlinedTextField(
             isError = eror,
             enabled = enable,
-            value = value, onValueChange = onChange,
+            value = value,
+            onValueChange = onChange,
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 placeholderColor = Gray300,
                 textColor = Gray500,
                 focusedBorderColor = Primary300,
                 disabledBorderColor = Gray300,
                 errorBorderColor = Rose700
-            )
+            ),
+            modifier = modifier.fillMaxWidth(),
+            placeholder = {
+                Text(text = placeholder)
+            }
         )
 
     }
