@@ -29,7 +29,7 @@ import com.bluehabit.core.ui.theme.Rose700
 
 
 /**
- * Button Primary
+ * Input Primary
  * @param modifier
  *
  * @sample PreviewInputTextPrimary
