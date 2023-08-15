@@ -91,7 +91,8 @@ fun AuthScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(
-                        horizontal = 16.dp
+                        vertical = 24.dp,
+                        horizontal = 20.dp,
                     ),
                 verticalArrangement = Arrangement.spacedBy(24.dp.from(context = context), alignment = Alignment.Top),
                 horizontalAlignment = Alignment.CenterHorizontally
