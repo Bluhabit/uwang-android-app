@@ -40,6 +40,22 @@ import app.trian.mvi.ui.extensions.from
 import com.bluehabit.core.ui.R
 import com.bluehabit.core.ui.theme.GaweanTheme
 import com.bluehabit.core.ui.theme.Gray900
+/**
+ * DialogConfirmation
+ * @param show
+ * for show overlay dialog
+ * @param icon
+ * for icon
+ * @param action
+ * button click
+ * @param title
+ * title dialog
+ * @param message
+ * message dialog
+ * @param onDismiss
+ *
+ * @sample DialogConfirmationPreview
+ * */
 
 @Composable
 fun DialogConfirmation(
@@ -104,7 +120,7 @@ fun DialogConfirmation(
 
 @Composable
 @Preview(widthDp = 500, heightDp = 750)
-fun DefaultPreview() {
+fun DialogConfirmationPreview() {
     GaweanTheme {
         Column(modifier = Modifier.padding(20.dp)) {
             DialogConfirmation(

@@ -8,6 +8,7 @@
 package com.bluehabit.eureka.feature.authentication.signin
 
 import android.widget.Toast
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -27,10 +28,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight.Companion.W400
 import androidx.compose.ui.text.font.FontWeight.Companion.W500
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import app.trian.mvi.Navigation
 import app.trian.mvi.ui.UIWrapper
 import app.trian.mvi.ui.internal.contract.UIContract
@@ -148,11 +152,31 @@ fun SignInScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(
-                        horizontal = 18.dp,
-                        vertical = 10.dp
+                            horizontal = 18.dp,
+                            vertical = 10.dp
                         ),
-                    text = "Masuk"
+                    text = stringResource(R.string.button_text_login)
                 )
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.Start),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Image(
+                        painter = painterResource(id = com.bluehabit.core.ui.R.drawable.line_4),
+                        contentDescription = "line"
+                    )
+                    Text(
+                        text = stringResource(com.bluehabit.core.ui.R.string.text_or),
+                        style = MaterialTheme.typography.caption,
+                        lineHeight = 18.sp,
+                        fontWeight = W400,
+                        color = Primary600,
+                    )
+                    Image(
+                        painter = painterResource(id = com.bluehabit.core.ui.R.drawable.line_4),
+                        contentDescription = "line"
+                    )
+                }
             }
         }
     }
