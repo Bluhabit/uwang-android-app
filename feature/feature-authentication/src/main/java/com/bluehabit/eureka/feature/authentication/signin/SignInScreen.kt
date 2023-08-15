@@ -54,6 +54,7 @@ import com.bluehabit.core.ui.input.InputTextPrimary
 import com.bluehabit.core.ui.routes.Routes
 import com.bluehabit.core.ui.theme.Gray700
 import com.bluehabit.core.ui.theme.Gray900
+import com.bluehabit.core.ui.theme.Primary25
 import com.bluehabit.core.ui.theme.Primary600
 import com.bluehabit.core.ui.theme.Primary700
 import com.bluehabit.eureka.feature.authentication.R
@@ -91,7 +92,7 @@ fun SignInScreen(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .background(MaterialTheme.colors.surface)
+            .background(Primary25)
             .padding(
                 vertical = 32.dp,
                 horizontal = 20.dp
@@ -211,7 +212,7 @@ fun SignInScreen(
                             horizontal = 18.dp,
                             vertical = 10.dp
                         ),
-                    text = "Login"
+                    text = "Masuk"
                 )
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(16.dp.from(context = context), Alignment.Start),
@@ -332,7 +333,7 @@ fun SignInScreen(
 }
 
 @Composable
-@Preview(widthDp = 384, heightDp = 854)
+@Preview(widthDp = 384, heightDp = 854, backgroundColor = 0xFFFCFAFF)
 fun PreviewSignInScreen() {
     SignInScreen(
         uiContract = UIContract(
