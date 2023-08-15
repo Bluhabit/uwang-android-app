@@ -11,7 +11,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -24,12 +23,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -37,10 +31,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import app.trian.mvi.ui.extensions.Empty
-import app.trian.mvi.ui.extensions.from
 import com.bluehabit.core.ui.R
 import com.bluehabit.core.ui.theme.GaweanTheme
 import com.bluehabit.core.ui.theme.Gray900
+
 /**
  * DialogConfirmation
  * @param show
@@ -109,7 +103,7 @@ fun DialogConfirmation(
                             lineHeight = 20.sp,
                             fontWeight = FontWeight.W400,
                             textAlign = TextAlign.Center,
-                            color = Gray900
+                            color = Gray900,
                         )
                     }
                     action.invoke()
@@ -121,14 +115,13 @@ fun DialogConfirmation(
 
 @Composable
 @Preview(widthDp = 500, heightDp = 750)
-
 fun DialogConfirmationPreview() {
     GaweanTheme {
         Column(modifier = Modifier.padding(20.dp)) {
             DialogConfirmation(
                 show = true,
-                title = stringResource(R.string.text_success_singin),
-                message = stringResource(R.string.text_one_step_more),
+                title = "Berhasil Daftar",
+                message = "Tinggal 1 langkah lagi untuk melengkapi profile Anda.",
                 icon = {
                     Image(
                         painter = painterResource(id = R.drawable.success_icon_purple),

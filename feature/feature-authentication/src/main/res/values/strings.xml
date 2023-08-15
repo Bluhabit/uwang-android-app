@@ -11,4 +11,5 @@
     <string name="text_button_login">Masuk</string>
     <string name="text_button_signin_with_google">Masuk Dengan Google</string>
     <string name="text_button_signin_with_facebook">Masuk Dengan Facebook</string>
+    <string name="text_description_logo_gawean">Logo Gawean</string>
 </resources>
