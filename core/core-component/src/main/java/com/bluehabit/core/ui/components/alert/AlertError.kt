@@ -24,7 +24,7 @@ import com.bluehabit.core.ui.theme.Error700
 fun AlertError(
     modifier: Modifier = Modifier,
     message: String,
-    onCLick: () -> Unit,
+    onClick: () -> Unit,
 ) {
     BasicAlert(
         leadingButton = {
@@ -38,7 +38,7 @@ fun AlertError(
         trailingButton = {
             IconButton(
                 onClick = {
-                    onCLick()
+                    onClick()
                 },
                 modifier = modifier
                     .size(24.dp)

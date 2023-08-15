@@ -37,7 +37,7 @@ fun BasicAlert(
         modifier = modifier
             .fillMaxWidth()
             .clip(MaterialTheme.shapes.small)
-            .border(4.dp, borderColor, MaterialTheme.shapes.small)
+            .border(2.dp, borderColor, MaterialTheme.shapes.small)
             .background(backgroundColor)
             .padding(12.dp),
         verticalAlignment = Alignment.CenterVertically,
