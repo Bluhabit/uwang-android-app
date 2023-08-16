@@ -13,11 +13,10 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -33,6 +32,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import app.trian.mvi.ui.extensions.from
+import com.bluehabit.core.ui.components.button.ButtonPrimary
 import com.bluehabit.core.ui.theme.GaweanTheme
 import com.bluehabit.core.ui.theme.Gray900
 import com.bluehabit.core.ui.theme.Primary600
@@ -103,20 +103,14 @@ fun InstructionResetScreen(
             verticalArrangement = Arrangement.spacedBy(32.dp.from(context = context)),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Button(
-                onClick = onOpenEmailApp, modifier = Modifier
-                    .width(320.dp)
-                    .height(48.dp)
-                    .background(
-                        color = Color(0xFF7F56D9),
-                        shape = RoundedCornerShape(size = 8.dp)
-                    )
-            ) {
-                Text(
-                    text = stringResource(id = com.bluehabit.core.ui.R.string.text_button_open_email),
-                    color = Color(0xFFFFFFFF)
-                )
-            }
+            ButtonPrimary(
+                modifier = Modifier
+                    .width(320.dp.from(context = context))
+                    .height(48.dp.from(context = context)),
+                text = stringResource(R.string.text_open_email),
+                enabled = true,
+                onClick = onOpenEmailApp
+            )
             Column(
                 verticalArrangement = Arrangement.spacedBy(8.dp.from(context = context)),
                 horizontalAlignment = Alignment.CenterHorizontally

@@ -51,4 +51,10 @@
     <string name="text_forgot_password_screen_auth">Lupa password</string>
     <!-- end authentication   -->
 
+    <!--    reset password -->
+    <string name="text_title_complete_reset_password">Password Berhasil diubah!</string>
+    <string name="text_subtitle_complete_reset_password">Yey, kamu berhasil mengubah password baru mu. Silahkan login dengan password baru.</string>
+    <!--    end reset password-->
+
+
 </resources>
