@@ -56,7 +56,6 @@
     <string name="text_subtitle_complete_reset_password">Yey, kamu berhasil mengubah password baru mu. Silahkan login dengan password baru.</string>
     <!--    end reset password-->
 
-
     <!--    alert component-->
     <string name="description_icon_error">Ikon error</string>
     <string name="description_icon_success">Ikon sukses</string>
