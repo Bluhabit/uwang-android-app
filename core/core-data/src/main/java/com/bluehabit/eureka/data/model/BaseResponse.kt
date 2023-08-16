@@ -7,8 +7,13 @@
 
 package com.bluehabit.eureka.data.model
 
+import com.google.gson.annotations.SerializedName
+
 data class BaseResponse<T>(
+    @SerializedName("statusCode")
     val statusCode: Int,
+    @SerializedName("data")
     val data: T,
+    @SerializedName("message")
     val message: String
 )
