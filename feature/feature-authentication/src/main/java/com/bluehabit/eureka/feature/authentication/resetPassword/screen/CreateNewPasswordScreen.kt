@@ -30,7 +30,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import app.trian.mvi.ui.extensions.from
 import com.bluehabit.core.ui.R
-import com.bluehabit.core.ui.components.input.InputTextPrimary
+import com.bluehabit.core.ui.components.button.ButtonPrimary
+import com.bluehabit.core.ui.components.input.InputPasswordPrimary
 import com.bluehabit.core.ui.theme.GaweanTheme
 import com.bluehabit.core.ui.theme.Gray900
 import com.bluehabit.eureka.feature.authentication.resetPassword.ResetPasswordState
@@ -39,13 +40,14 @@ import com.bluehabit.eureka.feature.authentication.resetPassword.ResetPasswordSt
 fun InputNewPasswordScreen(
     modifier: Modifier = Modifier,
     state: ResetPasswordState = ResetPasswordState(),
-    onEmailChanged: (String) -> Unit = {},
+    onPasswordChanged: (String) -> Unit = {},
+    onPasswordConfirmationChanged: (String) -> Unit = {},
     onResetPassword: () -> Unit = {}
 ) {
     val context = LocalContext.current
 
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .background(Color.White)
             .padding(
@@ -62,11 +64,11 @@ fun InputNewPasswordScreen(
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(4.dp),
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxWidth()
         ) {
             Text(
-                text = stringResource(id = com.bluehabit.core.ui.R.string.text_title_instruction_send),
+                text = stringResource(id = com.bluehabit.core.ui.R.string.text_title_create_new_password_screen_auth),
                 style = MaterialTheme.typography.h6,
                 lineHeight = 30.sp,
                 fontWeight = FontWeight.W600,
@@ -74,7 +76,7 @@ fun InputNewPasswordScreen(
                 color = Gray900
             )
             Text(
-                text = stringResource(id = com.bluehabit.core.ui.R.string.text_subtitle_instruction),
+                text = stringResource(id = com.bluehabit.core.ui.R.string.text_description_create_new_password_screen_auth),
                 style = MaterialTheme.typography.body2,
                 lineHeight = 20.sp,
                 fontWeight = FontWeight.W400,
@@ -82,13 +84,30 @@ fun InputNewPasswordScreen(
                 color = Gray900
             )
         }
-
-        InputTextPrimary(
-            label = stringResource(id = R.string.text_label_input_password_screen_auth),
-            placeholder = stringResource(id = R.string.text_placeholder_input_password_screen_auth),
-            value = state.email,
-            onChange = onEmailChanged,
-            enable = true,
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(4.dp),
+            modifier = modifier
+                .fillMaxWidth()
+        ) {
+            InputPasswordPrimary(
+                label = stringResource(id = R.string.text_label_input_password_screen_auth),
+                placeholder = stringResource(id = R.string.text_placeholder_input_password_screen_auth),
+                value = state.password,
+                onChange = onPasswordChanged
+            )
+            InputPasswordPrimary(
+                label = stringResource(id = R.string.text_label_input_password_screen_auth),
+                placeholder = stringResource(id = R.string.text_placeholder_input_password_screen_auth),
+                value = state.password,
+                onChange = onPasswordChanged
+            )
+        }
+        ButtonPrimary(
+            modifier = modifier
+                .fillMaxWidth(),
+            text = stringResource(id = R.string.text_button_login_screen_auth),
+            enabled = state.password.isNotEmpty() && state.passwordConfirmation.isNotEmpty()
         )
     }
 }
