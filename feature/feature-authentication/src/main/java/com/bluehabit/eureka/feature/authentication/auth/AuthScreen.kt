@@ -53,7 +53,7 @@ import com.bluehabit.eureka.feature.authentication.auth.screen.ScreenSignIn
 import com.bluehabit.eureka.feature.authentication.auth.screen.ScreenSignUp
 
 @Navigation(
-    route = Routes.SignIn.routeName,
+    route = Routes.Auth.routeName,
     viewModel = AuthViewModel::class
 )
 @Composable

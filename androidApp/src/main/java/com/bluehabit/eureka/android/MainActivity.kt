@@ -39,7 +39,7 @@ class MainActivity : ComponentActivity() {
             ) {
                 NavHost(
                     navController = controller.navigator.navHost,
-                    startDestination = Routes.SignIn.routeName,
+                    startDestination = Routes.Onboard.routeName,
                 ) {
                     authenticationComponent(
                         uiController = controller,
