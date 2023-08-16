@@ -27,5 +27,9 @@
     <string name="text_subtitle3_otp_screen">email</string>
     <string name="text_resend_otp">Kirim ulang kode OTP</string>
     <!--    end otp -->
+    <!--    reset password -->
+    <string name="text_title_complete_reset_password">Password Berhasil diubah!</string>
+    <string name="text_subtitle_complete_reset_password">Yey, kamu berhasil mengubah password baru mu. Silahkan login dengan password baru.</string>
+    <!--    end reset password-->
 
 </resources>
