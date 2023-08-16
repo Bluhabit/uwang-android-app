@@ -28,4 +28,5 @@ class AuthApi {
 
     @Resource("complete-profile")
     class CompleteProfile(val parent: AuthApi = AuthApi())
+
 }
