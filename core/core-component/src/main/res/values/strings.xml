@@ -35,18 +35,25 @@
     <string name="text_button_signup_with_facebook_screen_auth">Daftar Dengan Facebook</string>
     <string name="text_button_login_screen_auth">Masuk</string>
     <string name="text_button_register_screen_auth">Daftar</string>
+    <string name="text_button_create_new_password_screen_auth">Reset Password</string>
     <string name="text_and_screen_auth">dan</string>
     <string name="text_term_and_condition_title_screen_auth">
         Dengan masuk ke akun berarti Anda telah menyetujui
     </string>
     <string name="text_title_screen_auth">Selamat datang di Gawean</string>
+    <string name="text_title_create_new_password_screen_auth">Buat Password Baru</string>
     <string name="text_description_screen_auth">Daftar atau masuk agar bisa atur tugas lebih mudah dan selalu produktif.</string>
+    <string name="text_description_create_new_password_screen_auth">Password yang baru harus berbeda dengan password yang sebelumnya.</string>
     <string name="text_term_and_condition_screen_auth">Syarat &amp; Ketentuan</string>
     <string name="text_privacy_police_screen_auth"> Kebijakan Privasi yang berlaku.</string>
     <string name="text_label_input_email_screen_auth">Email</string>
     <string name="text_placeholder_input_email_screen_auth">Masukkan email Anda</string>
     <string name="text_label_input_password_screen_auth">Password</string>
+    <string name="text_label_input_new_password_screen_auth">Password baru</string>
+    <string name="text_label_input_confirmation_new_password_screen_auth">Konfirmasi password baru</string>
     <string name="text_placeholder_input_password_screen_auth">Masukan Password Anda</string>
+    <string name="text_placeholder_input_new_password_screen_auth">Masukan password baru</string>
+    <string name="text_placeholder_input_confirmation_new_password_screen_auth">Konfirmasi password baru</string>
     <string name="text_label_remember_me_screen_auth">Ingat Saya</string>
     <string name="text_forgot_password_screen_auth">Lupa password</string>
     <!-- end authentication   -->
