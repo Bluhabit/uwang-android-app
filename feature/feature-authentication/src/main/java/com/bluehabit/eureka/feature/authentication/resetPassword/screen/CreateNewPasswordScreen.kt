@@ -51,7 +51,7 @@ fun InputNewPasswordScreen(
             .fillMaxSize()
             .background(Color.White)
             .padding(
-                vertical = 28.dp.from(context = context),
+                vertical = 24.dp.from(context = context),
                 horizontal = 26.dp.from(context = context),
             ),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -68,7 +68,7 @@ fun InputNewPasswordScreen(
                 .fillMaxWidth()
         ) {
             Text(
-                text = stringResource(id = com.bluehabit.core.ui.R.string.text_title_create_new_password_screen_auth),
+                text = stringResource(id = R.string.text_title_create_new_password_screen_auth),
                 style = MaterialTheme.typography.h6,
                 lineHeight = 30.sp,
                 fontWeight = FontWeight.W600,
@@ -76,7 +76,7 @@ fun InputNewPasswordScreen(
                 color = Gray900
             )
             Text(
-                text = stringResource(id = com.bluehabit.core.ui.R.string.text_description_create_new_password_screen_auth),
+                text = stringResource(id = R.string.text_description_create_new_password_screen_auth),
                 style = MaterialTheme.typography.body2,
                 lineHeight = 20.sp,
                 fontWeight = FontWeight.W400,
@@ -91,23 +91,24 @@ fun InputNewPasswordScreen(
                 .fillMaxWidth()
         ) {
             InputPasswordPrimary(
-                label = stringResource(id = R.string.text_label_input_password_screen_auth),
-                placeholder = stringResource(id = R.string.text_placeholder_input_password_screen_auth),
+                label = stringResource(id = R.string.text_label_input_new_password_screen_auth),
+                placeholder = stringResource(id = R.string.text_placeholder_input_new_password_screen_auth),
                 value = state.password,
                 onChange = onPasswordChanged
             )
             InputPasswordPrimary(
-                label = stringResource(id = R.string.text_label_input_password_screen_auth),
-                placeholder = stringResource(id = R.string.text_placeholder_input_password_screen_auth),
-                value = state.password,
-                onChange = onPasswordChanged
+                label = stringResource(id = R.string.text_label_input_confirmation_new_password_screen_auth),
+                placeholder = stringResource(id = R.string.text_placeholder_input_confirmation_new_password_screen_auth),
+                value = state.passwordConfirmation,
+                onChange = onPasswordConfirmationChanged
             )
         }
         ButtonPrimary(
             modifier = modifier
                 .fillMaxWidth(),
-            text = stringResource(id = R.string.text_button_login_screen_auth),
-            enabled = state.password.isNotEmpty() && state.passwordConfirmation.isNotEmpty()
+            text = stringResource(id = R.string.text_button_create_new_password_screen_auth),
+            enabled = state.password.isNotEmpty() && state.passwordConfirmation.isNotEmpty(),
+            onClick = onResetPassword
         )
     }
 }
