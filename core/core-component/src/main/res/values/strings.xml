@@ -40,7 +40,9 @@
         Dengan masuk ke akun berarti Anda telah menyetujui
     </string>
     <string name="text_title_screen_auth">Selamat datang di Gawean</string>
-    <string name="text_description_screen_auth">Daftar atau masuk agar bisa atur tugas lebih mudah dan selalu produktif.</string>
+    <string name="text_title_create_new_password_screen_auth">Buat Password Baru</string>
+    <string name="text_description_create_new_password_screen_auth">Daftar atau masuk agar bisa atur tugas lebih mudah dan selalu produktif.</string>
+    <string name="text_description_screen_auth">Password yang baru harus berbeda dengan password yang sebelumnya.</string>
     <string name="text_term_and_condition_screen_auth">Syarat &amp; Ketentuan</string>
     <string name="text_privacy_police_screen_auth"> Kebijakan Privasi yang berlaku.</string>
     <string name="text_label_input_email_screen_auth">Email</string>
