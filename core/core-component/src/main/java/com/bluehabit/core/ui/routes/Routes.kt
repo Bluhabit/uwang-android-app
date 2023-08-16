@@ -8,8 +8,12 @@
 package com.bluehabit.core.ui.routes
 
 object Routes {
-    object SignIn{
-        const val routeName="sign-in"
+    object Onboard{
+        const val routeName="onboarding"
+    }
+
+    object Auth{
+        const val routeName="auth"
     }
     object Home{
         const val routeName="dashboard"
