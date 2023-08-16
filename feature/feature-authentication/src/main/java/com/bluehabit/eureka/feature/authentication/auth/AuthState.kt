@@ -5,7 +5,7 @@
  * Proprietary and confidential
  */
 
-package com.bluehabit.eureka.feature.authentication.signin
+package com.bluehabit.eureka.feature.authentication.auth
 
 import android.os.Parcelable
 import app.trian.mvi.ui.extensions.Empty
@@ -16,9 +16,14 @@ import javax.annotation.concurrent.Immutable
 
 @Immutable
 @Parcelize
-data class SignInState(
+data class AuthState(
     val email: String = String.Empty,
     val password: String = String.Empty,
+    val isRememberChecked:Boolean=false,
+
+    //tabs
+    val tabs: @RawValue List<String> = listOf("Masuk", "Daftar"),
+    val selectedTab:Int=0,
     //
-    override val effect: @RawValue SignInEffect = SignInEffect.Nothing
-) :MviState<SignInEffect>(), Parcelable
+    override val effect: @RawValue AuthEffect = AuthEffect.Nothing
+) : MviState<AuthEffect>(), Parcelable

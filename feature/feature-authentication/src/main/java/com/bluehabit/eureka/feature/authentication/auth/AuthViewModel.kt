@@ -5,7 +5,7 @@
  * Proprietary and confidential
  */
 
-package com.bluehabit.eureka.feature.authentication.signin
+package com.bluehabit.eureka.feature.authentication.auth
 
 import app.trian.mvi.ui.viewModel.MviViewModel
 import com.bluehabit.core.ui.routes.Routes
@@ -17,11 +17,11 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class SignInViewModel @Inject constructor(
+class AuthViewModel @Inject constructor(
     private val signInWithEmailUseCase: SignInWithEmailUseCase,
     private val checkSessionUseCase: CheckSessionUseCase
-) : MviViewModel<SignInState, SignInAction>(
-    SignInState()
+) : MviViewModel<AuthState, AuthAction>(
+    AuthState()
 ) {
     private fun checkIfUserLoggedIn() = async {
         executeAsFlow { checkSessionUseCase() }
@@ -46,18 +46,18 @@ class SignInViewModel @Inject constructor(
             )
         }.collect {
             when (it) {
-                is Response.Error -> commit { copy(effect = SignInEffect.ShowDialog(it.message)) }
+                is Response.Error -> commit { copy(effect = AuthEffect.ShowDialog(it.message)) }
                 Response.Loading -> Unit
                 is Response.Result -> navigate(Routes.Home.routeName)
             }
         }
     }
 
-    override fun onAction(action: SignInAction) {
+    override fun onAction(action: AuthAction) {
         when (action) {
-            SignInAction.Nothing -> Unit
-            SignInAction.Submit -> signIn()
-            SignInAction.CheckSession -> checkIfUserLoggedIn()
+            AuthAction.Nothing -> Unit
+            AuthAction.Submit -> signIn()
+            AuthAction.CheckSession -> checkIfUserLoggedIn()
         }
     }
 }
