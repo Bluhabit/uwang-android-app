@@ -10,6 +10,7 @@ package com.bluehabit.core.ui.components.button
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ButtonDefaults
@@ -21,10 +22,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import app.trian.mvi.ui.extensions.Empty
+import app.trian.mvi.ui.extensions.from
 import com.bluehabit.core.ui.theme.Error200
 import com.bluehabit.core.ui.theme.Error300
 import com.bluehabit.core.ui.theme.Error700
@@ -50,8 +53,9 @@ fun ButtonTextPrimary(
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     val isPressed by interactionSource.collectIsPressedAsState()
+    val ctx = LocalContext.current
     TextButton(
-        modifier = modifier,
+        modifier = modifier.height(44.dp.from(context = ctx)),
         onClick = onClick,
         enabled = enabled,
         shape = RoundedCornerShape(8.dp),
