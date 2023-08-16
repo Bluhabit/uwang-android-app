@@ -7,7 +7,6 @@
 
 package com.bluehabit.eureka.feature.authentication.signUp.screen
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -164,7 +163,7 @@ fun PreviewOtpScreen() {
     GaweanTheme {
         OtpScreen(
             otp = otp,
-            email="example@gmail.com",
+            email = "example@gmail.com",
             onChange = {
                 otp = it
             }
