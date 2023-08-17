@@ -8,9 +8,12 @@
 package com.bluehabit.eureka.data.common
 
 import com.bluehabit.eureka.data.model.BaseResponse
+import com.bluehabit.eureka.data.model.BaseResponseError
+import io.ktor.client.call.NoTransformationFoundException
 import io.ktor.client.call.body
 import io.ktor.client.plugins.ClientRequestException
 import io.ktor.client.statement.HttpResponse
+import java.net.ConnectException
 
 suspend inline fun <reified T> safeApiCall(call: () -> HttpResponse): Response<T> {
     return try {
@@ -23,7 +26,23 @@ suspend inline fun <reified T> safeApiCall(call: () -> HttpResponse): Response<T
             Response.Error(data.message, data.statusCode)
         }
     } catch (e: ClientRequestException) {
-        val data = e.response.body<BaseResponse<List<Any>>>()
-        Response.Error(data.message, data.statusCode)
+        val data = e.response.body<BaseResponseError<Any>>()
+        if (data.statusCode == 1008) {
+            Response.Error(buildString {
+                append(data.message)
+                append(" ")
+                data.errorField.forEach {
+                    it.forEach { (key, value) ->
+                        append(key.plus(": ").plus(value).plus(","))
+                    }
+                }
+            }, data.statusCode)
+        } else {
+            Response.Error(data.message, data.statusCode)
+        }
+    } catch (connectionException: ConnectException) {
+        Response.Error("Failed connect to server", 503)
+    }catch (e: NoTransformationFoundException){
+        Response.Error("Server error", 500)
     }
 }

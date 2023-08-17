@@ -7,14 +7,23 @@
 
 package com.bluehabit.eureka.feature.authentication.resetPassword
 
+import android.util.Log
+import androidx.lifecycle.SavedStateHandle
 import app.trian.mvi.ui.viewModel.MviViewModel
+import com.bluehabit.core.ui.routes.Routes
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class ResetPasswordViewModel @Inject constructor() : MviViewModel<ResetPasswordState, ResetPasswordAction>(
+class ResetPasswordViewModel @Inject constructor(
+    private val savedStateHandle: SavedStateHandle
+) : MviViewModel<ResetPasswordState, ResetPasswordAction>(
     ResetPasswordState()
 ) {
+    init {
+        Log.e("HEHEH", savedStateHandle.get<String>(Routes.ResetPassword.argDeeplink).orEmpty())
+    }
+
     override fun onAction(action: ResetPasswordAction) {
 
     }

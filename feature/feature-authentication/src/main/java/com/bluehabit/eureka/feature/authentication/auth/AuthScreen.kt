@@ -8,12 +8,16 @@
 package com.bluehabit.eureka.feature.authentication.auth
 
 import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -42,9 +46,11 @@ import androidx.compose.ui.unit.sp
 import app.trian.mvi.Navigation
 import app.trian.mvi.ui.UIWrapper
 import app.trian.mvi.ui.extensions.from
+import app.trian.mvi.ui.extensions.getScreenHeight
 import app.trian.mvi.ui.extensions.hideKeyboard
 import app.trian.mvi.ui.internal.contract.UIContract
 import app.trian.mvi.ui.internal.rememberUIController
+import com.bluehabit.core.ui.components.dialog.DialogLoading
 import com.bluehabit.core.ui.routes.Routes
 import com.bluehabit.core.ui.theme.GaweanTheme
 import com.bluehabit.core.ui.theme.Gray900
@@ -53,6 +59,7 @@ import com.bluehabit.core.ui.theme.Primary600
 import com.bluehabit.eureka.data.authentication.AuthConstant.AUTH_SCREEN_OTP
 import com.bluehabit.eureka.data.authentication.AuthConstant.AUTH_SCREEN_SIGN_IN
 import com.bluehabit.eureka.data.authentication.AuthConstant.AUTH_SCREEN_SIGN_UP
+import com.bluehabit.eureka.data.contract.GoogleAuthContract
 import com.bluehabit.eureka.feature.authentication.auth.screen.ScreenSignIn
 import com.bluehabit.eureka.feature.authentication.auth.screen.ScreenSignUp
 
@@ -62,9 +69,21 @@ import com.bluehabit.eureka.feature.authentication.auth.screen.ScreenSignUp
 )
 @Composable
 fun AuthScreen(
+    modifier: Modifier = Modifier,
     uiContract: UIContract<AuthState, AuthAction>,
 ) = UIWrapper(uiContract = uiContract) {
     val context = LocalContext.current
+    val screenHeight = context.getScreenHeight()
+
+    val googleLauncher = rememberLauncherForActivityResult(
+        contract = GoogleAuthContract(),
+        onResult = {
+            if(it == null){
+                toast.show("not permitted")
+            }
+            dispatch(AuthAction.SignInWithGoogle(it))
+        })
+
     UseEffect<AuthEffect>(
         commit = { copy(effect = AuthEffect.Nothing) },
         onEffect = {
@@ -73,7 +92,6 @@ fun AuthScreen(
                 is AuthEffect.ShowDialog -> {
                     Toast.makeText(context, this.message, Toast.LENGTH_LONG).show()
                 }
-
                 AuthEffect.NavigateToHome -> navigator.navigateAndReplace(Routes.Home.routeName)
                 AuthEffect.NavigateToOtp -> navigator.navigateAndReplace(Routes.SignUp.routeName, AUTH_SCREEN_OTP.toString())
             }
@@ -82,9 +100,14 @@ fun AuthScreen(
     LaunchedEffect(key1 = this, block = {
         dispatch(AuthAction.CheckSession)
     })
+
+    DialogLoading(
+        show = state.isLoading
+    )
+
     Scaffold {
         Column(
-            modifier = Modifier
+            modifier = modifier
                 .padding(it)
                 .fillMaxWidth()
                 .verticalScroll(rememberScrollState()),
@@ -92,99 +115,110 @@ fun AuthScreen(
             verticalArrangement = Arrangement.Top
         ) {
             Column(
-                modifier = Modifier
+                modifier = modifier
                     .fillMaxWidth()
-                    .padding(
-                        vertical = 24.dp,
-                        horizontal = 20.dp,
-                    ),
-                verticalArrangement = Arrangement.spacedBy(24.dp.from(context = context), alignment = Alignment.Top),
-                horizontalAlignment = Alignment.CenterHorizontally
+                    .height(screenHeight)
             ) {
-                Image(
-                    painter = painterResource(id = com.bluehabit.core.ui.R.drawable.gawean_logo),
-                    contentDescription = stringResource(id = com.bluehabit.core.ui.R.string.content_description_logo)
-                )
                 Column(
+                    modifier = modifier
+                        .fillMaxWidth()
+                        .padding(
+                            top = 24.dp,
+                            start = 20.dp,
+                            end = 20.dp,
+                        ),
+                    verticalArrangement = Arrangement.spacedBy(24.dp.from(context = context), alignment = Alignment.Top),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text(
-                        text = stringResource(id = com.bluehabit.core.ui.R.string.text_title_screen_auth),
-                        style = MaterialTheme.typography.h6,
-                        fontWeight = FontWeight.W600,
-                        lineHeight = 30.sp,
-                        color = Gray900,
+                    Image(
+                        painter = painterResource(id = com.bluehabit.core.ui.R.drawable.gawean_logo),
+                        contentDescription = stringResource(id = com.bluehabit.core.ui.R.string.content_description_logo)
                     )
-                    Text(
-                        text = stringResource(id = com.bluehabit.core.ui.R.string.text_description_screen_auth),
-                        style = MaterialTheme.typography.subtitle2,
-                        fontWeight = FontWeight.W400,
-                        color = Gray900,
-                        textAlign = TextAlign.Center
-                    )
-                }
-                TabRow(
-                    selectedTabIndex = state.selectedTab,
-                    backgroundColor = Color.White,
-                    contentColor = Primary600
-                ) {
-                    state.tabs.forEach { tab ->
-                        val (title, screenPosition) = tab
-                        Tab(
-                            selected = state.selectedTab == screenPosition,
-                            onClick = {
-                                commit { copy(selectedTab = screenPosition) }
-                            },
-                            text = { Text(text = title) }
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(
+                            text = stringResource(id = com.bluehabit.core.ui.R.string.text_title_screen_auth),
+                            style = MaterialTheme.typography.h6,
+                            fontWeight = FontWeight.W600,
+                            lineHeight = 30.sp,
+                            color = Gray900,
+                        )
+                        Text(
+                            text = stringResource(id = com.bluehabit.core.ui.R.string.text_description_screen_auth),
+                            style = MaterialTheme.typography.subtitle2,
+                            fontWeight = FontWeight.W400,
+                            color = Gray900,
+                            textAlign = TextAlign.Center
                         )
                     }
+                    TabRow(
+                        selectedTabIndex = state.selectedTab,
+                        backgroundColor = Color.White,
+                        contentColor = Primary600
+                    ) {
+                        state.tabs.forEach { tab ->
+                            val (title, screenPosition) = tab
+                            Tab(
+                                selected = state.selectedTab == screenPosition,
+                                onClick = {
+                                    commit { copy(selectedTab = screenPosition) }
+                                },
+                                text = { Text(text = title) }
+                            )
+                        }
+                    }
                 }
-            }
-            Column(
-                modifier = Modifier
-                    .background(Primary25)
-                    .fillMaxSize()
-                    .padding(
-                        vertical = 16.dp
-                    )
-            ) {
-                when (state.selectedTab) {
-                    AUTH_SCREEN_SIGN_IN -> ScreenSignIn(
-                        state = state,
-                        onEmailChanged = {
-                            commit { copy(emailSignIn = it) }
-                        },
-                        onPasswordChanged = {
-                            commit { copy(passwordSignIn = it) }
-                        },
-                        onRememberChecked = {
-                            commit { copy(isRememberChecked = it) }
-                        },
-                        onNavigateToResetPassword = {},
-                        onSignInEmail = {
-                            context.hideKeyboard()
-                            dispatch(AuthAction.SignInWithEmail)
-                        },
-                        onSignInFacebook = {},
-                        onSignInGoogle = {},
-                        onShowPrivacyPolicy = {},
-                        onShowTermCondition = {}
-                    )
+                Column(
+                    modifier = modifier
+                        .background(Primary25)
+                ) {
+                    when (state.selectedTab) {
+                        AUTH_SCREEN_SIGN_IN -> ScreenSignIn(
+                            state = state,
+                            onEmailChanged = {
+                                commit { copy(emailSignIn = it) }
+                            },
+                            onPasswordChanged = {
+                                commit { copy(passwordSignIn = it) }
+                            },
+                            onRememberChecked = {
+                                commit { copy(isRememberChecked = it) }
+                            },
+                            onNavigateToResetPassword = {},
+                            onSignInEmail = {
+                                context.hideKeyboard()
+                                dispatch(AuthAction.SignInWithEmail)
+                            },
+                            onSignInFacebook = {
+                                toast.show("Coming soon")
+                            },
+                            onSignInGoogle = {
+                                googleLauncher.launch(1)
+                            },
+                            onShowPrivacyPolicy = {},
+                            onShowTermCondition = {}
+                        )
 
-                    AUTH_SCREEN_SIGN_UP -> ScreenSignUp(
-                        state = state,
-                        onEmailChanged = {
-                            commit { copy(emailSignUp = it) }
-                        },
-                        onSignUpEmail = {
-                            context.hideKeyboard()
-                            dispatch(AuthAction.SignUpWithEmail)
-                        },
-                        onSignUpGoogle = {},
-                        onSignUpFacebook = {},
-                        onShowTermCondition = {},
-                        onShowPrivacyPolicy = {}
-                    )
+                        AUTH_SCREEN_SIGN_UP -> ScreenSignUp(
+                            state = state,
+                            onEmailChanged = {
+                                commit { copy(emailSignUp = it) }
+                            },
+                            onSignUpEmail = {
+                                context.hideKeyboard()
+                                dispatch(AuthAction.SignUpWithEmail)
+                            },
+                            onSignUpGoogle = {
+                                googleLauncher.launch(1)
+                            },
+                            onSignUpFacebook = {
+                                toast.show("Coming soon")
+                            },
+                            onShowTermCondition = {},
+                            onShowPrivacyPolicy = {}
+                        )
+                    }
                 }
             }
         }

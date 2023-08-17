@@ -41,13 +41,20 @@ class SignUpViewModel @Inject constructor(
         executeAsFlow { otpConfirmationUseCase(otp) }
             .collect {
                 when (it) {
-                    is Response.Error -> Unit
-                    Response.Loading -> Unit
+                    is Response.Error -> commit {
+                        copy(isLoading = false)
+                    }
+
+                    Response.Loading -> commit {
+                        copy(isLoading = true)
+                    }
+
                     is Response.Result -> {
                         commit {
                             copy(
                                 otp = String.Empty,
-                                showDialogConfirmation = true
+                                showDialogConfirmation = true,
+                                isLoading = false
                             )
                         }
                     }
@@ -63,15 +70,22 @@ class SignUpViewModel @Inject constructor(
             )
         }.collect {
             when (it) {
-                is Response.Error -> Unit
-                Response.Loading -> Unit
+                is Response.Error -> commit {
+                    copy(isLoading = false)
+                }
+
+                Response.Loading -> commit {
+                    copy(isLoading = true)
+                }
+
                 is Response.Result -> {
                     commit {
                         copy(
                             fullName = String.Empty,
                             password = String.Empty,
                             confirmPassword = String.Empty,
-                            effect = SignUpEffect.NavigateToHome
+                            effect = SignUpEffect.NavigateToHome,
+                            isLoading = false
                         )
                     }
                 }

@@ -18,16 +18,17 @@ import javax.annotation.concurrent.Immutable
 @Immutable
 @Parcelize
 data class SignUpState(
-    val currentScreen:Int=AUTH_SCREEN_OTP,
-    val showDialogConfirmation:Boolean=false,
+    val currentScreen: Int = AUTH_SCREEN_OTP,
+    val showDialogConfirmation: Boolean = false,
+    val isLoading: Boolean = false,
     //otp
-    val otp:String=String.Empty,
-    val email:String=String.Empty,
+    val otp: String = String.Empty,
+    val email: String = String.Empty,
     //end otp
     //complete profile
-    val fullName:String=String.Empty,
-    val password:String=String.Empty,
-    val confirmPassword:String=String.Empty,
+    val fullName: String = String.Empty,
+    val password: String = String.Empty,
+    val confirmPassword: String = String.Empty,
 
     //end complete profile
     override val effect: @RawValue SignUpEffect = SignUpEffect.Nothing

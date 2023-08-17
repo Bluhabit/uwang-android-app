@@ -27,7 +27,8 @@ import app.trian.mvi.ui.extensions.hideKeyboard
 import app.trian.mvi.ui.internal.contract.UIContract
 import app.trian.mvi.ui.internal.rememberUIController
 import com.bluehabit.core.ui.R
-import com.bluehabit.core.ui.components.DialogConfirmation
+import com.bluehabit.core.ui.components.dialog.DialogConfirmation
+import com.bluehabit.core.ui.components.dialog.DialogLoading
 import com.bluehabit.core.ui.routes.Routes
 import com.bluehabit.core.ui.theme.GaweanTheme
 import com.bluehabit.eureka.data.authentication.AuthConstant.AUTH_SCREEN_COMPLETE_PROFILE
@@ -89,6 +90,9 @@ fun SignUpScreen(
                 Text(text = "Lanjut")
             }
         }
+    )
+    DialogLoading(
+        show = state.isLoading
     )
     when (state.currentScreen) {
         AUTH_SCREEN_OTP -> ScreenOtp(

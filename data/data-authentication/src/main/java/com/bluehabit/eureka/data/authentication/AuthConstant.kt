@@ -15,6 +15,12 @@ object AuthConstant {
     const val AUTH_SCREEN_SIGN_IN = 0
     const val AUTH_SCREEN_SIGN_UP = 1
 
-    const val AUTH_SCREEN_OTP =3
-    const val AUTH_SCREEN_COMPLETE_PROFILE =4
+    const val AUTH_SCREEN_OTP =1
+    const val AUTH_SCREEN_COMPLETE_PROFILE =2
+
+    const val AUTH_SCREEN_RESET_PASSWORD=1
+    const val AUTH_SCREEN_INSTRUCTION_RESET_PASSWORD=2
+    const val AUTH_SCREEN_LINK_CONFIRMATION=3
+    const val AUTH_SCREEN_CREATE_PASSWORD=4
+    const val AUTH_SCREEN_RESET_SUCCESS=5
 }
