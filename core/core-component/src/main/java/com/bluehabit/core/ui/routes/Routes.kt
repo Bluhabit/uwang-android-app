@@ -11,7 +11,7 @@ import com.bluehabit.core.ui.R
 
 object Routes {
     object Onboard {
-        const val routeName = "onboarding"
+        const val routeName = "Onboarding"
 
         val itemsOnboarding = listOf(
             Pair(
@@ -38,12 +38,18 @@ object Routes {
         const val currentScreenArg = "currentScreen"
     }
 
+    object ResetPassword {
+        const val routeName = "ResetPassword"
+        const val argDeeplink = "token"
+        const val deepLink = "http://gawean.com/{$argDeeplink}"
+    }
+
     object Auth {
-        const val routeName = "auth"
+        const val routeName = "Auth"
     }
 
     object Home {
-        const val routeName = "dashboard"
+        const val routeName = "Dashboard"
     }
 }
 

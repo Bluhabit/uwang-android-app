@@ -10,9 +10,11 @@ package com.bluehabit.core.ui.components.input
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Icon
@@ -63,20 +65,19 @@ fun InputPasswordPrimary(
         mutableStateOf(false)
     }
     Column(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
     ) {
         Text(
             text = label,
             style = MaterialTheme.typography.subtitle2,
-            fontWeight = FontWeight.Normal,
-            color = MaterialTheme.colors.onSurface
+            modifier = modifier
         )
-        Spacer(modifier = Modifier.height(6.dp))
+        Spacer(modifier = modifier.height(8.dp))
         OutlinedTextField(
+            isError = error,
+            enabled = enabled,
             value = value,
             onValueChange = onChange,
-            modifier = Modifier.fillMaxWidth(),
-            enabled = enabled,
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 placeholderColor = Gray300,
                 textColor = Gray500,
@@ -84,14 +85,19 @@ fun InputPasswordPrimary(
                 disabledBorderColor = Gray300,
                 errorBorderColor = Rose700
             ),
+            modifier = modifier
+                .fillMaxWidth()
+                .defaultMinSize(
+                    minHeight = 40.dp
+                ),
             placeholder = {
                 Text(
                     text = placeholder,
-                    style = MaterialTheme.typography.subtitle2,
-                    fontWeight = FontWeight.Normal
+                    style = MaterialTheme.typography.body1,
+                    fontWeight = FontWeight.W400
                 )
             },
-            isError = error,
+            singleLine = true,
             trailingIcon = {
                 Icon(
                     painter = painterResource(id = if (visible) R.drawable.eye_open else R.drawable.eye_close),
@@ -103,7 +109,10 @@ fun InputPasswordPrimary(
                     }
                 )
             },
-            textStyle = MaterialTheme.typography.subtitle2,
+            textStyle = MaterialTheme.typography.body1.copy(
+                fontWeight = FontWeight.W400
+            ),
+            shape = RoundedCornerShape(8.dp),
             visualTransformation = if (visible) VisualTransformation.None else PasswordVisualTransformation()
         )
     }

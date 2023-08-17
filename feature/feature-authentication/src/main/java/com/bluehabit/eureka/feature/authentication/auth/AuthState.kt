@@ -24,6 +24,8 @@ data class AuthState(
     val passwordSignIn: String = String.Empty,
     val isRememberChecked: Boolean = false,
 
+    val isLoading: Boolean = false,
+
     //tabs
     val tabs: @RawValue List<Pair<String, Int>> = listOf(
         Pair("Masuk", AUTH_SCREEN_SIGN_IN),

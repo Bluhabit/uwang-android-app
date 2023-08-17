@@ -12,7 +12,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -45,6 +48,7 @@ import com.bluehabit.eureka.feature.authentication.auth.AuthState
 
 @Composable
 fun ScreenSignUp(
+    modifier: Modifier = Modifier,
     state: AuthState = AuthState(),
     onEmailChanged: (String) -> Unit = {},
     onSignUpEmail: () -> Unit = {},
@@ -57,18 +61,19 @@ fun ScreenSignUp(
 
     Column(
         modifier = Modifier
-            .fillMaxWidth()
-            .background(Primary25),
-        verticalArrangement = Arrangement.spacedBy(20.dp.from(context = context), alignment = Alignment.Top)
+            .fillMaxSize()
+            .background(Primary25)
+            .padding(
+                horizontal = 18.dp,
+                vertical = 18.dp
+            ),
     ) {
         InputTextPrimary(
             label = stringResource(id = R.string.text_label_input_email_screen_auth),
             value = state.emailSignUp,
             placeholder = stringResource(id = R.string.text_placeholder_input_email_screen_auth),
             onChange = onEmailChanged,
-            enabled = true,
-            modifier = Modifier
-                .padding(horizontal = 18.dp)
+            enabled = true
         )
         Column(
             modifier = Modifier
@@ -76,13 +81,11 @@ fun ScreenSignUp(
             verticalArrangement = Arrangement.spacedBy(24.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            Spacer(modifier = modifier.height(16.dp))
             ButtonPrimary(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(
-                        start = 18.dp, end = 18.dp, top = 30.dp, bottom = 10.dp
-                    ),
-                text = stringResource(id = R.string.text_button_signup_with_facebook_screen_auth),
+                    .fillMaxWidth(),
+                text = stringResource(id = R.string.text_button_signup_with_email_screen_auth),
                 enabled = state.emailSignUp.isNotEmpty(),
                 onClick = onSignUpEmail
             )
@@ -109,7 +112,6 @@ fun ScreenSignUp(
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
-                    .padding(horizontal = 18.dp)
             ) {
                 ButtonGoogle(
                     modifier = Modifier.fillMaxWidth(),
@@ -129,7 +131,6 @@ fun ScreenSignUp(
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
-                    .padding(horizontal = 18.dp)
             ) {
                 Text(
                     text = buildAnnotatedString {

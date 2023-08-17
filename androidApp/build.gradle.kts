@@ -69,17 +69,14 @@ android {
         create("dev") {
             dimension = "Environment"
             versionName = "1.0.${getTimestamp()}-dev"
-            setupBaseUrl("dev")
         }
         create("staging") {
             dimension = "Environment"
             versionName = "1.0.${getTimestamp()}-beta"
-            setupBaseUrl("staging")
         }
         create("production") {
             dimension = "Environment"
             versionName = "1.0.${getTimestamp()}"
-            setupBaseUrl("production")
         }
     }
     applicationVariants.all {
@@ -208,16 +205,6 @@ fun ApkSigningConfig.setupKeystore() {
     keyPassword = findProperty("KEY_PASSWORD").toString()
     storeFile = file(findProperty("STORE_PATH").toString())
     storePassword = findProperty("STORE_PASSWORD").toString()
-}
-
-fun ApplicationProductFlavor.setupBaseUrl(flavor: String) {
-    val url = when (flavor) {
-        "dev" -> "BASE_URL_DEV"
-        "staging" -> "BASE_URL_STAGING"
-        "production" -> "BASE_URL"
-        else -> "BASE_URL_DEV"
-    }
-    buildConfigField("String", "BASE_URL", "\"${findProperty(url).toString()}\"")
 }
 
 fun getTimestamp(): String {

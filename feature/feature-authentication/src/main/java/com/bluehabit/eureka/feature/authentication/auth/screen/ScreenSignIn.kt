@@ -76,7 +76,8 @@ fun ScreenSignIn(
             .fillMaxSize()
             .background(Primary25)
             .padding(
-                horizontal = 18.dp
+                horizontal = 18.dp,
+                vertical = 18.dp
             ),
     ) {
         InputTextPrimary(
