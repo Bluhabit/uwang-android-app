@@ -7,4 +7,6 @@
 
 package com.bluehabit.eureka.feature.authentication.onboarding
 
-sealed interface OnboardingAction
+sealed interface OnboardingAction {
+    object CheckSession : OnboardingAction
+}

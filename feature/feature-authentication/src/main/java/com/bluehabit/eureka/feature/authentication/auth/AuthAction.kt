@@ -10,5 +10,6 @@ package com.bluehabit.eureka.feature.authentication.auth
 sealed interface AuthAction {
     object Nothing : AuthAction
     object CheckSession : AuthAction
-    object Submit : AuthAction
+    object SignInWithEmail : AuthAction
+    object SignUpWithEmail : AuthAction
 }

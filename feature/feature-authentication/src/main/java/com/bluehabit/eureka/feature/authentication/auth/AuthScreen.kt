@@ -42,6 +42,7 @@ import androidx.compose.ui.unit.sp
 import app.trian.mvi.Navigation
 import app.trian.mvi.ui.UIWrapper
 import app.trian.mvi.ui.extensions.from
+import app.trian.mvi.ui.extensions.hideKeyboard
 import app.trian.mvi.ui.internal.contract.UIContract
 import app.trian.mvi.ui.internal.rememberUIController
 import com.bluehabit.core.ui.routes.Routes
@@ -49,6 +50,9 @@ import com.bluehabit.core.ui.theme.GaweanTheme
 import com.bluehabit.core.ui.theme.Gray900
 import com.bluehabit.core.ui.theme.Primary25
 import com.bluehabit.core.ui.theme.Primary600
+import com.bluehabit.eureka.data.authentication.AuthConstant.AUTH_SCREEN_OTP
+import com.bluehabit.eureka.data.authentication.AuthConstant.AUTH_SCREEN_SIGN_IN
+import com.bluehabit.eureka.data.authentication.AuthConstant.AUTH_SCREEN_SIGN_UP
 import com.bluehabit.eureka.feature.authentication.auth.screen.ScreenSignIn
 import com.bluehabit.eureka.feature.authentication.auth.screen.ScreenSignUp
 
@@ -69,6 +73,9 @@ fun AuthScreen(
                 is AuthEffect.ShowDialog -> {
                     Toast.makeText(context, this.message, Toast.LENGTH_LONG).show()
                 }
+
+                AuthEffect.NavigateToHome -> navigator.navigateAndReplace(Routes.Home.routeName)
+                AuthEffect.NavigateToOtp -> navigator.navigateAndReplace(Routes.SignUp.routeName, AUTH_SCREEN_OTP.toString())
             }
         }
     )
@@ -121,11 +128,12 @@ fun AuthScreen(
                     backgroundColor = Color.White,
                     contentColor = Primary600
                 ) {
-                    state.tabs.forEachIndexed { index, title ->
+                    state.tabs.forEach { tab ->
+                        val (title, screenPosition) = tab
                         Tab(
-                            selected = state.selectedTab == index,
+                            selected = state.selectedTab == screenPosition,
                             onClick = {
-                                commit { copy(selectedTab = index) }
+                                commit { copy(selectedTab = screenPosition) }
                             },
                             text = { Text(text = title) }
                         )
@@ -141,24 +149,41 @@ fun AuthScreen(
                     )
             ) {
                 when (state.selectedTab) {
-                    0 -> ScreenSignIn(
+                    AUTH_SCREEN_SIGN_IN -> ScreenSignIn(
                         state = state,
                         onEmailChanged = {
-                            commit { copy(email = it) }
+                            commit { copy(emailSignIn = it) }
                         },
                         onPasswordChanged = {
-                            commit { copy(password = it) }
+                            commit { copy(passwordSignIn = it) }
                         },
                         onRememberChecked = {
                             commit { copy(isRememberChecked = it) }
-                        }
+                        },
+                        onNavigateToResetPassword = {},
+                        onSignInEmail = {
+                            context.hideKeyboard()
+                            dispatch(AuthAction.SignInWithEmail)
+                        },
+                        onSignInFacebook = {},
+                        onSignInGoogle = {},
+                        onShowPrivacyPolicy = {},
+                        onShowTermCondition = {}
                     )
 
-                    1 -> ScreenSignUp(
+                    AUTH_SCREEN_SIGN_UP -> ScreenSignUp(
                         state = state,
                         onEmailChanged = {
-                            commit { copy(email = it) }
-                        }
+                            commit { copy(emailSignUp = it) }
+                        },
+                        onSignUpEmail = {
+                            context.hideKeyboard()
+                            dispatch(AuthAction.SignUpWithEmail)
+                        },
+                        onSignUpGoogle = {},
+                        onSignUpFacebook = {},
+                        onShowTermCondition = {},
+                        onShowPrivacyPolicy = {}
                     )
                 }
             }

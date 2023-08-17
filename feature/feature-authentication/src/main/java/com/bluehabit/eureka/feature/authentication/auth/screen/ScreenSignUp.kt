@@ -47,6 +47,11 @@ import com.bluehabit.eureka.feature.authentication.auth.AuthState
 fun ScreenSignUp(
     state: AuthState = AuthState(),
     onEmailChanged: (String) -> Unit = {},
+    onSignUpEmail: () -> Unit = {},
+    onSignUpGoogle: () -> Unit = {},
+    onSignUpFacebook: () -> Unit = {},
+    onShowTermCondition: () -> Unit = {},
+    onShowPrivacyPolicy: () -> Unit = {}
 ) {
     val context = LocalContext.current
 
@@ -58,10 +63,10 @@ fun ScreenSignUp(
     ) {
         InputTextPrimary(
             label = stringResource(id = R.string.text_label_input_email_screen_auth),
-            value = state.email,
+            value = state.emailSignUp,
             placeholder = stringResource(id = R.string.text_placeholder_input_email_screen_auth),
             onChange = onEmailChanged,
-            enable = true,
+            enabled = true,
             modifier = Modifier
                 .padding(horizontal = 18.dp)
         )
@@ -78,7 +83,8 @@ fun ScreenSignUp(
                         start = 18.dp, end = 18.dp, top = 30.dp, bottom = 10.dp
                     ),
                 text = stringResource(id = R.string.text_button_signup_with_facebook_screen_auth),
-                enabled = state.email.isNotEmpty(),
+                enabled = state.emailSignUp.isNotEmpty(),
+                onClick = onSignUpEmail
             )
             Row(
                 horizontalArrangement = Arrangement.spacedBy(16.dp.from(context = context), Alignment.Start),
@@ -109,7 +115,7 @@ fun ScreenSignUp(
                     modifier = Modifier.fillMaxWidth(),
                     text = stringResource(id = R.string.text_button_signup_with_google_screen_auth),
                     enabled = true,
-                    onClick = {}
+                    onClick = onSignUpGoogle
                 )
                 ButtonFacebook(
                     modifier = Modifier
@@ -117,7 +123,7 @@ fun ScreenSignUp(
                         .padding(vertical = 10.dp),
                     text = stringResource(id = R.string.text_button_signup_with_facebook_screen_auth),
                     enabled = true,
-                    onClick = {}
+                    onClick = onSignUpFacebook
                 )
             }
             Column(

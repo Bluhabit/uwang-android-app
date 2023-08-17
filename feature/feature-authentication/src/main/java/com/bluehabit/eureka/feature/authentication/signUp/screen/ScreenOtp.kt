@@ -7,7 +7,6 @@
 
 package com.bluehabit.eureka.feature.authentication.signUp.screen
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -45,13 +44,14 @@ import com.bluehabit.core.ui.components.input.InputOtp
 import com.bluehabit.core.ui.theme.GaweanTheme
 import com.bluehabit.core.ui.theme.Primary600
 import com.bluehabit.core.ui.theme.Primary700
+import com.bluehabit.eureka.feature.authentication.signUp.SignUpState
 
 @Composable
-fun OtpScreen(
+fun ScreenOtp(
     modifier: Modifier = Modifier,
-    otp: String = String.Empty,
-    email: String = String.Empty,
-    onChange: (String) -> Unit = {}
+    state: SignUpState = SignUpState(),
+    onChange: (String) -> Unit = {},
+    onSubmit: () -> Unit = {}
 ) {
     val ctx = LocalContext.current
     Scaffold(
@@ -68,7 +68,8 @@ fun OtpScreen(
                     modifier = modifier
                         .fillMaxWidth(),
                     text = stringResource(R.string.btn_confirmation_otp_screen),
-                    enabled = false
+                    enabled = state.otp.isNotEmpty(),
+                    onClick = onSubmit
                 )
             }
         }
@@ -125,7 +126,7 @@ fun OtpScreen(
                             fontWeight = FontWeight.W400
                         )
                     ) {
-                        append(email)
+                        append(state.email)
                     }
                 })
                 Spacer(modifier = modifier.height(20.dp))
@@ -135,12 +136,11 @@ fun OtpScreen(
                 verticalArrangement = Arrangement.SpaceBetween
             ) {
                 InputOtp(
-                    otp = otp,
+                    otp = state.otp,
                     onChange = { otp, valid ->
-                        if (valid) {
-                            onChange(otp)
-                        }
-                    }
+                        onChange(otp)
+                    },
+                    onDone = onSubmit
                 )
                 Spacer(modifier = modifier.height(20.dp))
                 Text(
@@ -162,9 +162,10 @@ fun PreviewOtpScreen() {
         mutableStateOf("")
     }
     GaweanTheme {
-        OtpScreen(
-            otp = otp,
-            email="example@gmail.com",
+        ScreenOtp(
+            state = SignUpState(
+                email = "example@gmail.com"
+            ),
             onChange = {
                 otp = it
             }

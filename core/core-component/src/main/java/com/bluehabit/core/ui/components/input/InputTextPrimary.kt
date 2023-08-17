@@ -49,8 +49,8 @@ fun InputTextPrimary(
     placeholder: String = String.Empty,
     onChange: (String) -> Unit = {},
     label: String = "",
-    enable: Boolean = true,
-    eror: Boolean = false
+    enabled: Boolean = true,
+    error: Boolean = false
 ) {
     Column {
         Text(
@@ -60,8 +60,8 @@ fun InputTextPrimary(
         )
         Spacer(modifier = modifier.height(8.dp))
         OutlinedTextField(
-            isError = eror,
-            enabled = enable,
+            isError = error,
+            enabled = enabled,
             value = value,
             onValueChange = onChange,
             colors = TextFieldDefaults.outlinedTextFieldColors(
@@ -112,28 +112,28 @@ fun PreviewInputTextPrimary() {
                 value = input,
                 placeholder = "Masukkan email disini",
                 onChange = { input = it },
-                eror = true
+                error = true
             )
             InputTextPrimary(
                 label = "Email",
                 value = input,
                 placeholder = "Masukkan email disini",
                 onChange = { input = it },
-                eror = false
+                error = false
             )
             InputTextPrimary(
                 label = "Email",
                 value = input,
                 placeholder = "Masukkan email disini",
                 onChange = { input = it },
-                enable = true
+                enabled = true
             )
             InputTextPrimary(
                 label = "Email",
                 value = input,
                 placeholder = "Masukkan email disini",
                 onChange = { input = it },
-                enable = false
+                enabled = false
             )
         }
     }

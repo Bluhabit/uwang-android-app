@@ -9,4 +9,6 @@ package com.bluehabit.eureka.feature.authentication.signUp
 
 sealed interface SignUpAction {
     object Nothing : SignUpAction
+    object SubmitOtp : SignUpAction
+    object SubmitCompleteProfile : SignUpAction
 }

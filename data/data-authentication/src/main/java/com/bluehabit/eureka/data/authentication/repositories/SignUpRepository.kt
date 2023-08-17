@@ -53,7 +53,8 @@ class SignUpRepository @Inject constructor(
                 setBody(
                     CompleteProfileRequest(
                         pref.getPersistData(SESSION_OTP_ID).orEmpty(),
-                        fullName, password
+                        fullName,
+                        password
                     )
                 )
             }

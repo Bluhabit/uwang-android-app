@@ -9,4 +9,5 @@ package com.bluehabit.eureka.feature.authentication.signUp
 
 sealed interface SignUpEffect{
     object Nothing:SignUpEffect
+    object NavigateToHome:SignUpEffect
 }

@@ -16,6 +16,6 @@ import javax.annotation.concurrent.Immutable
 @Immutable
 @Parcelize
 data class OnboardingState(
+    val isLoading: Boolean = true,
     override val effect: @RawValue OnboardingEffect = OnboardingEffect.Nothing
-
 ) : MviState<OnboardingEffect>(), Parcelable

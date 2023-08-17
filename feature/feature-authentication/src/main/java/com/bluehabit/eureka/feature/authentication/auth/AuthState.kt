@@ -10,6 +10,8 @@ package com.bluehabit.eureka.feature.authentication.auth
 import android.os.Parcelable
 import app.trian.mvi.ui.extensions.Empty
 import app.trian.mvi.ui.internal.contract.MviState
+import com.bluehabit.eureka.data.authentication.AuthConstant.AUTH_SCREEN_SIGN_IN
+import com.bluehabit.eureka.data.authentication.AuthConstant.AUTH_SCREEN_SIGN_UP
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
 import javax.annotation.concurrent.Immutable
@@ -17,13 +19,17 @@ import javax.annotation.concurrent.Immutable
 @Immutable
 @Parcelize
 data class AuthState(
-    val email: String = String.Empty,
-    val password: String = String.Empty,
-    val isRememberChecked:Boolean=false,
+    val emailSignIn: String = String.Empty,
+    val emailSignUp: String = String.Empty,
+    val passwordSignIn: String = String.Empty,
+    val isRememberChecked: Boolean = false,
 
     //tabs
-    val tabs: @RawValue List<String> = listOf("Masuk", "Daftar"),
-    val selectedTab:Int=0,
+    val tabs: @RawValue List<Pair<String, Int>> = listOf(
+        Pair("Masuk", AUTH_SCREEN_SIGN_IN),
+        Pair("Daftar", AUTH_SCREEN_SIGN_UP)
+    ),
+    val selectedTab: Int = AUTH_SCREEN_SIGN_IN,
     //
     override val effect: @RawValue AuthEffect = AuthEffect.Nothing
 ) : MviState<AuthEffect>(), Parcelable
