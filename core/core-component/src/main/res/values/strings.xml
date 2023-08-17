@@ -59,8 +59,14 @@
     <!-- end authentication   -->
 
     <!--    reset password -->
+
     <string name="text_title_complete_reset_password">Password Berhasil diubah!</string>
     <string name="text_subtitle_complete_reset_password">Yey, kamu berhasil mengubah password baru mu. Silahkan login dengan password baru.</string>
+    <string name="text_title_request_reset_password">Reset Password</string>
+    <string name="text_subtitle_request_reset_password">Jangan Khawatir, kami akan mengirimkan instruksi ke email anda.</string>
+    <string name="text_label_request_reset_password">Email</string>
+    <string name="text_placeholder_request_reset_password">Masukan email anda.</string>
+    <string name="text_button_request_reset_password">Kirim</string>
     <!--    end reset password-->
 
     <!--    alert component-->
