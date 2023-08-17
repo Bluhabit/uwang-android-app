@@ -9,4 +9,5 @@ package com.bluehabit.eureka.feature.authentication.onboarding
 
 sealed interface OnboardingEffect {
     object Nothing : OnboardingEffect
+    object NavigateToHome:OnboardingEffect
 }

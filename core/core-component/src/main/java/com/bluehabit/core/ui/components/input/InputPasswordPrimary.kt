@@ -33,8 +33,13 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import app.trian.mvi.ui.extensions.Empty
 import com.bluehabit.core.ui.R
 import com.bluehabit.core.ui.theme.GaweanTheme
+import com.bluehabit.core.ui.theme.Gray300
+import com.bluehabit.core.ui.theme.Gray500
+import com.bluehabit.core.ui.theme.Primary300
+import com.bluehabit.core.ui.theme.Rose700
 
 
 /**
@@ -46,14 +51,13 @@ import com.bluehabit.core.ui.theme.GaweanTheme
 
 @Composable
 fun InputPasswordPrimary(
-    value: String = "",
+    modifier: Modifier = Modifier,
+    value: String = String.Empty,
+    placeholder: String = String.Empty,
+    onChange: (String) -> Unit = {},
     label: String = "",
-    placeholder: String = "",
-    error: Boolean = false,
-    errorMessage: String = "",
-    keyboardActions: KeyboardActions = KeyboardActions(),
-    keyboardOptions: KeyboardOptions = KeyboardOptions(),
-    onChange: (String) -> Unit = {}
+    enabled: Boolean = true,
+    error: Boolean = false
 ) {
     var visible by remember {
         mutableStateOf(false)
@@ -72,12 +76,13 @@ fun InputPasswordPrimary(
             value = value,
             onValueChange = onChange,
             modifier = Modifier.fillMaxWidth(),
+            enabled = enabled,
             colors = TextFieldDefaults.outlinedTextFieldColors(
-                backgroundColor = Color(0xFFFAFAFA),
-                unfocusedBorderColor = Color(0xFFFAFAFA),
-                focusedBorderColor = MaterialTheme.colors.primary,
-                textColor = MaterialTheme.colors.onSurface,
-                disabledTextColor = MaterialTheme.colors.onSurface
+                placeholderColor = Gray300,
+                textColor = Gray500,
+                focusedBorderColor = Primary300,
+                disabledBorderColor = Gray300,
+                errorBorderColor = Rose700
             ),
             placeholder = {
                 Text(
@@ -87,8 +92,6 @@ fun InputPasswordPrimary(
                 )
             },
             isError = error,
-            keyboardOptions = keyboardOptions,
-            keyboardActions = keyboardActions,
             trailingIcon = {
                 Icon(
                     painter = painterResource(id = if (visible) R.drawable.eye_open else R.drawable.eye_close),
@@ -103,17 +106,6 @@ fun InputPasswordPrimary(
             textStyle = MaterialTheme.typography.subtitle2,
             visualTransformation = if (visible) VisualTransformation.None else PasswordVisualTransformation()
         )
-        if (error) {
-            Spacer(modifier = Modifier.height(6.dp))
-            Text(
-                text = errorMessage,
-                style = MaterialTheme.typography.subtitle2,
-                fontWeight = FontWeight.Normal,
-                color = MaterialTheme.colors.error
-            )
-        } else {
-            Spacer(modifier = Modifier.height(16.dp))
-        }
     }
 }
 

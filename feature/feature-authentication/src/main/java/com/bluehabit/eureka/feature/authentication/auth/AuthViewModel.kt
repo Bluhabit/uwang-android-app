@@ -7,10 +7,12 @@
 
 package com.bluehabit.eureka.feature.authentication.auth
 
+import app.trian.mvi.ui.extensions.Empty
 import app.trian.mvi.ui.viewModel.MviViewModel
 import com.bluehabit.core.ui.routes.Routes
 import com.bluehabit.eureka.data.authentication.domain.CheckSessionUseCase
 import com.bluehabit.eureka.data.authentication.domain.SignInWithEmailUseCase
+import com.bluehabit.eureka.data.authentication.domain.SignUpWithEmailUseCase
 import com.bluehabit.eureka.data.common.Response
 import com.bluehabit.eureka.data.common.executeAsFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,6 +21,7 @@ import javax.inject.Inject
 @HiltViewModel
 class AuthViewModel @Inject constructor(
     private val signInWithEmailUseCase: SignInWithEmailUseCase,
+    private val signUpWithEmailUseCase: SignUpWithEmailUseCase,
     private val checkSessionUseCase: CheckSessionUseCase
 ) : MviViewModel<AuthState, AuthAction>(
     AuthState()
@@ -38,26 +41,49 @@ class AuthViewModel @Inject constructor(
             }
     }
 
-    private fun signIn() = asyncWithState {
+    private fun signInWithEmail() = asyncWithState {
         executeAsFlow {
             signInWithEmailUseCase(
-                email = email,
-                password = password
+                email = emailSignIn,
+                password = passwordSignIn
             )
         }.collect {
             when (it) {
                 is Response.Error -> commit { copy(effect = AuthEffect.ShowDialog(it.message)) }
                 Response.Loading -> Unit
-                is Response.Result -> navigate(Routes.Home.routeName)
+                is Response.Result -> commit {
+                    copy(
+                        emailSignIn = String.Empty,
+                        passwordSignIn = String.Empty,
+                        effect = AuthEffect.NavigateToHome
+                    )
+                }
             }
         }
+    }
+
+    private fun signUpWithEmail() = asyncWithState {
+        executeAsFlow { signUpWithEmailUseCase(emailSignUp) }
+            .collect {
+                when (it) {
+                    is Response.Error -> commit { copy(effect = AuthEffect.ShowDialog(it.message)) }
+                    Response.Loading -> Unit
+                    is Response.Result -> commit {
+                        copy(
+                            emailSignUp = String.Empty,
+                            effect = AuthEffect.NavigateToOtp
+                        )
+                    }
+                }
+            }
     }
 
     override fun onAction(action: AuthAction) {
         when (action) {
             AuthAction.Nothing -> Unit
-            AuthAction.Submit -> signIn()
+            AuthAction.SignInWithEmail -> signInWithEmail()
             AuthAction.CheckSession -> checkIfUserLoggedIn()
+            AuthAction.SignUpWithEmail -> signUpWithEmail()
         }
     }
 }

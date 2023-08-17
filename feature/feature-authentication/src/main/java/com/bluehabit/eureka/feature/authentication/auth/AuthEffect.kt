@@ -9,5 +9,7 @@ package com.bluehabit.eureka.feature.authentication.auth
 
 sealed interface AuthEffect {
     object Nothing : AuthEffect
+    object NavigateToHome : AuthEffect
+    object NavigateToOtp : AuthEffect
     data class ShowDialog(val message:String):AuthEffect
 }

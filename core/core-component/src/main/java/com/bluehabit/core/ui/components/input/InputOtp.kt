@@ -52,7 +52,8 @@ fun InputOtp(
     modifier: Modifier = Modifier,
     otp: String = String.Empty,
     length: Int = 4,
-    onChange: (String, Boolean) -> Unit = { _, _ -> }
+    onChange: (String, Boolean) -> Unit = { _, _ -> },
+    onDone: () -> Unit = {}
 ) {
     val focusRequester = remember { FocusRequester() }
     var isFocused by remember { mutableStateOf(false) }
@@ -67,7 +68,7 @@ fun InputOtp(
                 isFocused = it.isFocused
             },
         value = TextFieldValue(
-            otp,
+            text = otp,
             selection = TextRange(otp.length)
         ),
         onValueChange = {
@@ -77,7 +78,7 @@ fun InputOtp(
         },
         keyboardActions = KeyboardActions(
             onDone = {
-
+                onDone()
             }
         ),
         keyboardOptions = KeyboardOptions(

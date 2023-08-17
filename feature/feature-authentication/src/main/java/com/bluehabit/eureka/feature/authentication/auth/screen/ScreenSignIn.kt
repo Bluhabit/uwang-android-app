@@ -9,6 +9,7 @@ package com.bluehabit.eureka.feature.authentication.auth.screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -42,6 +43,7 @@ import com.bluehabit.core.ui.R
 import com.bluehabit.core.ui.components.button.ButtonFacebook
 import com.bluehabit.core.ui.components.button.ButtonGoogle
 import com.bluehabit.core.ui.components.button.ButtonPrimary
+import com.bluehabit.core.ui.components.input.InputPasswordPrimary
 import com.bluehabit.core.ui.components.input.InputTextPrimary
 import com.bluehabit.core.ui.theme.GaweanTheme
 import com.bluehabit.core.ui.theme.Gray200
@@ -59,10 +61,15 @@ fun ScreenSignIn(
     state: AuthState = AuthState(),
     onEmailChanged: (String) -> Unit = {},
     onPasswordChanged: (String) -> Unit = {},
-    onRememberChecked: (Boolean) -> Unit = {}
+    onRememberChecked: (Boolean) -> Unit = {},
+    onNavigateToResetPassword: () -> Unit = {},
+    onSignInGoogle:()->Unit={},
+    onSignInEmail:()->Unit={},
+    onSignInFacebook:()->Unit={},
+    onShowTermCondition:()->Unit={},
+    onShowPrivacyPolicy:()->Unit={}
 ) {
     val context = LocalContext.current
-
 
     Column(
         modifier = Modifier
@@ -75,17 +82,17 @@ fun ScreenSignIn(
         InputTextPrimary(
             label = stringResource(id = R.string.text_label_input_email_screen_auth),
             placeholder = stringResource(id = R.string.text_placeholder_input_email_screen_auth),
-            value = state.email,
+            value = state.emailSignIn,
             onChange = onEmailChanged,
-            enable = true,
+            enabled = true,
         )
         Spacer(modifier = Modifier.height(16.dp))
-        InputTextPrimary(
+        InputPasswordPrimary(
             label = stringResource(id = R.string.text_label_input_password_screen_auth),
             placeholder = stringResource(id = R.string.text_placeholder_input_password_screen_auth),
-            value = state.password,
+            value = state.passwordSignIn,
             onChange = onPasswordChanged,
-            enable = true,
+            enabled = true,
         )
 
         Row(
@@ -120,6 +127,9 @@ fun ScreenSignIn(
                 style = MaterialTheme.typography.subtitle2,
                 fontWeight = FontWeight.W500,
                 color = Primary600,
+                modifier = modifier.clickable {
+                    onNavigateToResetPassword()
+                }
             )
         }
         Column(
@@ -135,7 +145,8 @@ fun ScreenSignIn(
                         vertical = 10.dp
                     ),
                 text = stringResource(id = R.string.text_button_login_screen_auth),
-                enabled = state.email.isNotEmpty() && state.password.isNotEmpty()
+                enabled = state.emailSignIn.isNotEmpty() && state.passwordSignIn.isNotEmpty(),
+                onClick = onSignInEmail
             )
             Row(
                 horizontalArrangement = Arrangement.spacedBy(16.dp.from(context = context), Alignment.Start),
@@ -164,7 +175,7 @@ fun ScreenSignIn(
                     modifier = Modifier.fillMaxWidth(),
                     text = stringResource(id = R.string.text_button_signin_with_google_screen_auth),
                     enabled = true,
-                    onClick = {}
+                    onClick = onSignInGoogle
                 )
                 ButtonFacebook(
                     modifier = Modifier
@@ -172,7 +183,7 @@ fun ScreenSignIn(
                         .padding(vertical = 10.dp),
                     text = stringResource(id = R.string.text_button_register_screen_auth),
                     enabled = true,
-                    onClick = {}
+                    onClick = onSignInFacebook
                 )
             }
             Column(

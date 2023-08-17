@@ -55,6 +55,24 @@
     <string name="text_title_complete_reset_password">Password Berhasil diubah!</string>
     <string name="text_subtitle_complete_reset_password">Yey, kamu berhasil mengubah password baru mu. Silahkan login dengan password baru.</string>
     <!--    end reset password-->
+    <!--    onboard  -->
+    <string name="text_onboard_1">Atur tugas &amp; selesaikan dengan mudah</string>
+    <string name="text_onboard_2">Tetap fokus &amp; monitor tugas setiap hari</string>
+    <string name="text_onboard_3">Koloborasi dengan tim buat jadi lebih mudah</string>
+    <string name="text_onboard_4">Apapun Gaweannya enjoy adalah jalannya.</string>
+    <!--    end onboarrd  -->
+    <!--    complete profile  -->
+    <string name="text_title_complete_profile">Lengkapi Profil</string>
+    <string name="text_subtitle_complete_profile">Lengkapi profil dengan mengisi data dibawah ini</string>
+    <string name="text_btn_complete_profile">Konfirmasi</string>
+
+    <string name="text_placeholder_input_full_name_complete_profile">Masukkan nama lengkap Anda</string>
+    <string name="text_label_input_full_name_complete_profile">Nama Lengkap</string>
+    <string name="text_placeholder_input_password_complete_profile">Masukkan password Anda</string>
+    <string name="text_label_password_complete_profile">Password</string>
+    <string name="text_placeholder_input_confirm_password_complete_profile">Ulangi password Anda</string>
+    <string name="text_label_input_confirm_password_complete_profile">Konfirmasi Password</string>
+    <!--    end complete profile  -->
 
 
 </resources>
