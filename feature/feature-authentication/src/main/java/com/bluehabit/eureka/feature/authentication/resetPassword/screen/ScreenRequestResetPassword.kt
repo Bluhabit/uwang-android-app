@@ -44,7 +44,7 @@ import com.bluehabit.eureka.feature.authentication.resetPassword.ResetPasswordSt
 fun RequestResetPassword(
     modifier: Modifier = Modifier,
     state: ResetPasswordState = ResetPasswordState(),
-    onEmailRequest: (String) -> Unit = {},
+    onEmailChange: (String) -> Unit = {},
     onSendRequest: () -> Unit = {}
 ) {
     val context = LocalContext.current
@@ -97,7 +97,7 @@ fun RequestResetPassword(
                 label = stringResource(id = R.string.text_label_request_reset_password),
                 placeholder = stringResource(id = R.string.text_placeholder_request_reset_password),
                 value = state.email,
-                onChange = onEmailRequest
+                onChange = onEmailChange
             )
         }
         ButtonPrimary(
@@ -119,7 +119,7 @@ fun PreviewRequestResetPassword() {
     GaweanTheme {
         RequestResetPassword(
             state = state,
-            onEmailRequest ={
+            onEmailChange ={
                 state = state.copy(email= it)
             }
         )
