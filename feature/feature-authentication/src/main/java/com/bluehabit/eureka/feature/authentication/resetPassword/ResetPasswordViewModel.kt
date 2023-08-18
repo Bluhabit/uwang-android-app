@@ -25,6 +25,9 @@ class ResetPasswordViewModel @Inject constructor(
     }
 
     override fun onAction(action: ResetPasswordAction) {
-
+        when(action){
+            ResetPasswordAction.SubmitCreateNewPassword -> TODO()
+            ResetPasswordAction.SubmitRequestResetPassword -> TODO()
+        }
     }
 }

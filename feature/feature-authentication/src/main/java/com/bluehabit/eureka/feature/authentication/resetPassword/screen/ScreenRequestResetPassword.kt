@@ -41,7 +41,7 @@ import com.bluehabit.core.ui.theme.Gray900
 import com.bluehabit.eureka.feature.authentication.resetPassword.ResetPasswordState
 
 @Composable
-fun RequestResetPassword(
+fun ScreenRequestResetPassword(
     modifier: Modifier = Modifier,
     state: ResetPasswordState = ResetPasswordState(),
     onEmailChange: (String) -> Unit = {},
@@ -54,8 +54,8 @@ fun RequestResetPassword(
             .fillMaxSize()
             .background(Color.White)
             .padding(
-                vertical = 24.dp.from(context = context),
-                horizontal = 26.dp.from(context = context),
+                vertical = 18.dp.from(context = context),
+                horizontal = 18.dp.from(context = context),
             ),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(28.dp)
@@ -117,7 +117,7 @@ fun PreviewRequestResetPassword() {
         mutableStateOf(ResetPasswordState())
     }
     GaweanTheme {
-        RequestResetPassword(
+        ScreenRequestResetPassword(
             state = state,
             onEmailChange ={
                 state = state.copy(email= it)

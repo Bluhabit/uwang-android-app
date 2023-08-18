@@ -37,7 +37,7 @@ import com.bluehabit.core.ui.theme.Gray900
 import com.bluehabit.eureka.feature.authentication.resetPassword.ResetPasswordState
 
 @Composable
-fun InputNewPasswordScreen(
+fun ScreenInputNewPassword(
     modifier: Modifier = Modifier,
     state: ResetPasswordState = ResetPasswordState(),
     onPasswordChanged: (String) -> Unit = {},
@@ -117,7 +117,7 @@ fun InputNewPasswordScreen(
 @Composable
 fun PreviewInputNewPassword() {
     GaweanTheme {
-        InputNewPasswordScreen()
+        ScreenInputNewPassword()
     }
 
 }

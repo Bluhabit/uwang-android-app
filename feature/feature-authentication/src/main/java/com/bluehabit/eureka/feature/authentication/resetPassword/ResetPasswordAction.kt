@@ -8,4 +8,7 @@
 package com.bluehabit.eureka.feature.authentication.resetPassword
 
 sealed interface ResetPasswordAction {
+    object SubmitRequestResetPassword:ResetPasswordAction
+
+    object SubmitCreateNewPassword:ResetPasswordAction
 }
