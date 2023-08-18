@@ -32,7 +32,6 @@ import app.trian.mvi.ui.extensions.from
 import com.bluehabit.core.ui.R
 import com.bluehabit.core.ui.components.button.ButtonPrimary
 import com.bluehabit.core.ui.theme.GaweanTheme
-import com.bluehabit.core.ui.theme.Primary600
 
 @Composable
 fun CompleteResetPasswordScreen(
