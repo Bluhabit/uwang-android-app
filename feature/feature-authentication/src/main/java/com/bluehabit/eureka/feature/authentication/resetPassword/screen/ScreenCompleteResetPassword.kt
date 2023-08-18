@@ -34,7 +34,7 @@ import com.bluehabit.core.ui.components.button.ButtonPrimary
 import com.bluehabit.core.ui.theme.GaweanTheme
 
 @Composable
-fun CompleteResetPasswordScreen(
+fun ScreenCompleteResetPassword(
     modifier: Modifier = Modifier
 ) {
     val ctx = LocalContext.current
@@ -99,6 +99,6 @@ fun CompleteResetPasswordScreen(
 @Composable
 fun PreviewCompleteResetPasswordScreen() {
     GaweanTheme {
-        CompleteResetPasswordScreen()
+        ScreenCompleteResetPassword()
     }
 }

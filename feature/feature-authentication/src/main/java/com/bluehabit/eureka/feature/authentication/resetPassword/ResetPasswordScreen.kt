@@ -24,6 +24,10 @@ import com.bluehabit.eureka.data.authentication.AuthConstant.AUTH_SCREEN_INSTRUC
 import com.bluehabit.eureka.data.authentication.AuthConstant.AUTH_SCREEN_LINK_CONFIRMATION
 import com.bluehabit.eureka.data.authentication.AuthConstant.AUTH_SCREEN_RESET_PASSWORD
 import com.bluehabit.eureka.data.authentication.AuthConstant.AUTH_SCREEN_RESET_SUCCESS
+import com.bluehabit.eureka.feature.authentication.resetPassword.screen.ScreenCompleteResetPassword
+import com.bluehabit.eureka.feature.authentication.resetPassword.screen.ScreenInputNewPassword
+import com.bluehabit.eureka.feature.authentication.resetPassword.screen.ScreenInstructionReset
+import com.bluehabit.eureka.feature.authentication.resetPassword.screen.ScreenRequestResetPassword
 
 @Navigation(
     route = Routes.ResetPassword.routeName,
@@ -47,11 +51,11 @@ fun ResetPasswordScreen(
             modifier = Modifier.padding(it)
         ) {
             when (state.currentScreen) {
-                AUTH_SCREEN_RESET_PASSWORD -> Unit
-                AUTH_SCREEN_INSTRUCTION_RESET_PASSWORD -> Unit
+                AUTH_SCREEN_RESET_PASSWORD -> ScreenRequestResetPassword()
+                AUTH_SCREEN_INSTRUCTION_RESET_PASSWORD -> ScreenInstructionReset()
                 AUTH_SCREEN_LINK_CONFIRMATION -> Unit
-                AUTH_SCREEN_CREATE_PASSWORD -> Unit
-                AUTH_SCREEN_RESET_SUCCESS -> Unit
+                AUTH_SCREEN_CREATE_PASSWORD -> ScreenInputNewPassword()
+                AUTH_SCREEN_RESET_SUCCESS -> ScreenCompleteResetPassword()
             }
         }
     }
