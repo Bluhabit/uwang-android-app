@@ -7,6 +7,6 @@
 
 package com.bluehabit.eureka.feature.authentication.resetPassword
 
-sealed interface ResetPasswordEffect{
-    object Nothing:ResetPasswordEffect
+sealed interface ResetPasswordEffect {
+    object Nothing : ResetPasswordEffect
 }

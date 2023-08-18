@@ -37,25 +37,38 @@
 
     <string name="text_button_login_screen_auth">Masuk</string>
     <string name="text_button_register_screen_auth">Daftar</string>
+    <string name="text_button_create_new_password_screen_auth">Reset Password</string>
     <string name="text_and_screen_auth">dan</string>
     <string name="text_term_and_condition_title_screen_auth">
         Dengan masuk ke akun berarti Anda telah menyetujui
     </string>
     <string name="text_title_screen_auth">Selamat datang di Gawean</string>
+    <string name="text_title_create_new_password_screen_auth">Buat Password Baru</string>
     <string name="text_description_screen_auth">Daftar atau masuk agar bisa atur tugas lebih mudah dan selalu produktif.</string>
+    <string name="text_description_create_new_password_screen_auth">Password yang baru harus berbeda dengan password yang sebelumnya.</string>
     <string name="text_term_and_condition_screen_auth">Syarat &amp; Ketentuan</string>
     <string name="text_privacy_police_screen_auth"> Kebijakan Privasi yang berlaku.</string>
     <string name="text_label_input_email_screen_auth">Email</string>
     <string name="text_placeholder_input_email_screen_auth">Masukkan email Anda</string>
     <string name="text_label_input_password_screen_auth">Password</string>
+    <string name="text_label_input_new_password_screen_auth">Password baru</string>
+    <string name="text_label_input_confirmation_new_password_screen_auth">Konfirmasi password baru</string>
     <string name="text_placeholder_input_password_screen_auth">Masukan Password Anda</string>
+    <string name="text_placeholder_input_new_password_screen_auth">Masukan password baru</string>
+    <string name="text_placeholder_input_confirmation_new_password_screen_auth">Konfirmasi password baru</string>
     <string name="text_label_remember_me_screen_auth">Ingat Saya</string>
     <string name="text_forgot_password_screen_auth">Lupa password</string>
     <!-- end authentication   -->
 
     <!--    reset password -->
+
     <string name="text_title_complete_reset_password">Password Berhasil diubah!</string>
     <string name="text_subtitle_complete_reset_password">Yey, kamu berhasil mengubah password baru mu. Silahkan login dengan password baru.</string>
+    <string name="text_title_request_reset_password">Reset Password</string>
+    <string name="text_subtitle_request_reset_password">Jangan Khawatir, kami akan mengirimkan instruksi ke email anda.</string>
+    <string name="text_label_request_reset_password">Email</string>
+    <string name="text_placeholder_request_reset_password">Masukan email anda.</string>
+    <string name="text_button_request_reset_password">Kirim</string>
     <!--    end reset password-->
     <!--    onboard  -->
     <string name="text_onboard_1">Atur tugas &amp; selesaikan dengan mudah</string>
@@ -76,5 +89,8 @@
     <string name="text_label_input_confirm_password_complete_profile">Konfirmasi Password</string>
     <!--    end complete profile  -->
 
-
+    <!--    alert component-->
+    <string name="description_icon_error">Ikon error</string>
+    <string name="description_icon_success">Ikon sukses</string>
+    <!--    end alert component-->
 </resources>
