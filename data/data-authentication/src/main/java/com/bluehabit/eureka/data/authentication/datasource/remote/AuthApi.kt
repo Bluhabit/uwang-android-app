@@ -29,4 +29,12 @@ class AuthApi {
     @Resource("complete-profile")
     class CompleteProfile(val parent: AuthApi = AuthApi())
 
+    @Resource("request-reset-password")
+    class RequestResetPassword(val parent: AuthApi = AuthApi())
+
+    @Resource("link-confirmation")
+    class LinkConfirmation(val parent: AuthApi = AuthApi())
+
+    @Resource("reset-password")
+    class ResetPassword(val parent: AuthApi = AuthApi())
 }
