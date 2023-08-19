@@ -35,7 +35,8 @@ import com.bluehabit.core.ui.theme.GaweanTheme
 
 @Composable
 fun ScreenCompleteResetPassword(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onConfirm: () -> Unit = {}
 ) {
     val ctx = LocalContext.current
     Column(
@@ -86,7 +87,8 @@ fun ScreenCompleteResetPassword(
             Spacer(modifier = modifier.height(45.dp))
             ButtonPrimary(
                 modifier = modifier.fillMaxWidth(),
-                text = "Masuk"
+                text = stringResource(R.string.text_button_complete_reset_password),
+                onClick = onConfirm
             )
         }
         Column {

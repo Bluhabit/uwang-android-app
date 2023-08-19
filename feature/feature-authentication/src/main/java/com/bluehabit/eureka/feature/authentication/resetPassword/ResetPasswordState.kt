@@ -21,5 +21,6 @@ data class ResetPasswordState(
     val password: String = String.Empty,
     val passwordConfirmation: String = String.Empty,
 
+    val isLoading:Boolean=false,
     override val effect: @RawValue ResetPasswordEffect = ResetPasswordEffect.Nothing
 ) : MviState<ResetPasswordEffect>(), Parcelable

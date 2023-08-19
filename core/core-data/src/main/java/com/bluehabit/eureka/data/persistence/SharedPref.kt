@@ -57,4 +57,9 @@ class SharedPref(
         putString(tokenKey, token)
         apply()
     }
+
+    fun clearAllSession()=sharedPreferences.edit {
+        clear()
+        commit()
+    }
 }
