@@ -69,6 +69,7 @@
     <string name="text_label_request_reset_password">Email</string>
     <string name="text_placeholder_request_reset_password">Masukan email anda.</string>
     <string name="text_button_request_reset_password">Kirim</string>
+    <string name="text_button_complete_reset_password">Masuk</string>
     <!--    end reset password-->
     <!--    onboard  -->
     <string name="text_onboard_1">Atur tugas &amp; selesaikan dengan mudah</string>

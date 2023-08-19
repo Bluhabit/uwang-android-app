@@ -59,6 +59,7 @@ import com.bluehabit.core.ui.theme.Primary600
 import com.bluehabit.eureka.data.authentication.AuthConstant.AUTH_SCREEN_OTP
 import com.bluehabit.eureka.data.authentication.AuthConstant.AUTH_SCREEN_SIGN_IN
 import com.bluehabit.eureka.data.authentication.AuthConstant.AUTH_SCREEN_SIGN_UP
+import com.bluehabit.eureka.data.common.Response
 import com.bluehabit.eureka.data.contract.GoogleAuthContract
 import com.bluehabit.eureka.feature.authentication.auth.screen.ScreenSignIn
 import com.bluehabit.eureka.feature.authentication.auth.screen.ScreenSignUp
@@ -78,10 +79,16 @@ fun AuthScreen(
     val googleLauncher = rememberLauncherForActivityResult(
         contract = GoogleAuthContract(),
         onResult = {
-            if(it == null){
-                toast.show("not permitted")
+            when(it){
+                is Response.Error -> {
+                    toast.show(it.message)
+                }
+                Response.Loading -> Unit
+                is Response.Result -> {
+                    dispatch(AuthAction.SignInWithGoogle(it.data))
+                }
             }
-            dispatch(AuthAction.SignInWithGoogle(it))
+
         })
 
     UseEffect<AuthEffect>(
@@ -92,6 +99,7 @@ fun AuthScreen(
                 is AuthEffect.ShowDialog -> {
                     Toast.makeText(context, this.message, Toast.LENGTH_LONG).show()
                 }
+
                 AuthEffect.NavigateToHome -> navigator.navigateAndReplace(Routes.Home.routeName)
                 AuthEffect.NavigateToOtp -> navigator.navigateAndReplace(Routes.SignUp.routeName, AUTH_SCREEN_OTP.toString())
             }
@@ -185,7 +193,9 @@ fun AuthScreen(
                             onRememberChecked = {
                                 commit { copy(isRememberChecked = it) }
                             },
-                            onNavigateToResetPassword = {},
+                            onNavigateToResetPassword = {
+                                navigator.navigateAndReplace(Routes.ResetPassword.routeName)
+                            },
                             onSignInEmail = {
                                 context.hideKeyboard()
                                 dispatch(AuthAction.SignInWithEmail)
@@ -194,6 +204,7 @@ fun AuthScreen(
                                 toast.show("Coming soon")
                             },
                             onSignInGoogle = {
+                                commit { copy(isLoading = true) }
                                 googleLauncher.launch(1)
                             },
                             onShowPrivacyPolicy = {},
@@ -210,6 +221,7 @@ fun AuthScreen(
                                 dispatch(AuthAction.SignUpWithEmail)
                             },
                             onSignUpGoogle = {
+                                commit { copy(isLoading = true) }
                                 googleLauncher.launch(1)
                             },
                             onSignUpFacebook = {

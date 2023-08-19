@@ -15,5 +15,5 @@ class RequestResetPasswordUseCase @Inject constructor(
     private val resetPasswordRepository: ResetPasswordRepository
 ) {
     suspend operator fun invoke(email: String): Response<Any> =
-        resetPasswordRepository.resetPassword(email)
+        resetPasswordRepository.requestResetPassword(email)
 }

@@ -11,6 +11,7 @@ import com.bluehabit.eureka.data.model.BaseResponse
 import com.bluehabit.eureka.data.model.BaseResponseError
 import io.ktor.client.call.NoTransformationFoundException
 import io.ktor.client.call.body
+import io.ktor.client.network.sockets.ConnectTimeoutException
 import io.ktor.client.plugins.ClientRequestException
 import io.ktor.client.statement.HttpResponse
 import java.net.ConnectException
@@ -44,5 +45,7 @@ suspend inline fun <reified T> safeApiCall(call: () -> HttpResponse): Response<T
         Response.Error("Failed connect to server", 503)
     }catch (e: NoTransformationFoundException){
         Response.Error("Server error", 500)
+    }catch (e: ConnectTimeoutException){
+        Response.Error("Server timeout", 500)
     }
 }

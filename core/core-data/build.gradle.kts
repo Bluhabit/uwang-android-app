@@ -6,10 +6,8 @@
  */
 @file:Suppress("UnstableApiUsage")
 
-import  com.android.build.api.dsl.ApplicationBuildType
 import com.android.build.api.dsl.LibraryBuildType
-import com.android.build.api.dsl.LibraryProductFlavor
-import  java.util.regex.Pattern
+import java.util.regex.Pattern
 
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
@@ -20,6 +18,7 @@ plugins {
     alias(libs.plugins.org.jetbrains.kotlin.serialization)
     alias(libs.plugins.com.android.library)
     id("kotlin-parcelize")
+    alias(libs.plugins.google.services)
     alias(libs.plugins.org.jetbrains.kotlin.kapt)
 }
 

@@ -9,4 +9,5 @@ package com.bluehabit.eureka.feature.dashboard.home
 
 sealed interface DashboardEffect {
     object Nothing: DashboardEffect
+    object CloseApp: DashboardEffect
 }

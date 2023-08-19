@@ -19,6 +19,7 @@ import app.trian.mvi.Navigation
 import app.trian.mvi.ui.UIWrapper
 import app.trian.mvi.ui.internal.contract.UIContract
 import app.trian.mvi.ui.internal.rememberUIController
+import com.bluehabit.core.ui.components.button.ButtonPrimary
 import com.bluehabit.core.ui.routes.Routes
 import com.bluehabit.core.ui.theme.GaweanTheme
 
@@ -33,6 +34,17 @@ fun DashboardScreen(
 ) = UIWrapper(
     uiContract = uiContract
 ) {
+    UseEffect<DashboardEffect>(commit = {
+        copy(effect = DashboardEffect.Nothing)
+    }, onEffect = {
+        when (this) {
+            DashboardEffect.CloseApp -> {
+                navigator.navigateUp()
+            }
+
+            DashboardEffect.Nothing -> Unit
+        }
+    })
     Scaffold(
         topBar = {
             TopAppBar {
@@ -46,7 +58,12 @@ fun DashboardScreen(
         Column(
             modifier = modifier.padding(it)
         ) {
-
+            ButtonPrimary(
+                text = "Keluar",
+                onClick = {
+                    dispatch(DashboardAction.SignOut)
+                }
+            )
         }
     }
 }
