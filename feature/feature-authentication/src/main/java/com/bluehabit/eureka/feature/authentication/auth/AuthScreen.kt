@@ -13,9 +13,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -45,6 +42,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import app.trian.mvi.Navigation
 import app.trian.mvi.ui.UIWrapper
+import app.trian.mvi.ui.extensions.Empty
 import app.trian.mvi.ui.extensions.from
 import app.trian.mvi.ui.extensions.getScreenHeight
 import app.trian.mvi.ui.extensions.hideKeyboard
@@ -75,14 +73,18 @@ fun AuthScreen(
 ) = UIWrapper(uiContract = uiContract) {
     val context = LocalContext.current
     val screenHeight = context.getScreenHeight()
+    fun resetAlert(){
+        commit { copy(isError = false, errorMessage = String.Empty) }
+    }
 
     val googleLauncher = rememberLauncherForActivityResult(
         contract = GoogleAuthContract(),
         onResult = {
-            when(it){
+            when (it) {
                 is Response.Error -> {
                     toast.show(it.message)
                 }
+
                 Response.Loading -> Unit
                 is Response.Result -> {
                     dispatch(AuthAction.SignInWithGoogle(it.data))
@@ -100,14 +102,11 @@ fun AuthScreen(
                     Toast.makeText(context, this.message, Toast.LENGTH_LONG).show()
                 }
 
-                AuthEffect.NavigateToHome -> navigator.navigateAndReplace(Routes.Home.routeName)
+                AuthEffect.NavigateToHome -> navigator.navigateAndReplace(Routes.Dashboard.routeName)
                 AuthEffect.NavigateToOtp -> navigator.navigateAndReplace(Routes.SignUp.routeName, AUTH_SCREEN_OTP.toString())
             }
         }
     )
-    LaunchedEffect(key1 = this, block = {
-        dispatch(AuthAction.CheckSession)
-    })
 
     DialogLoading(
         show = state.isLoading
@@ -170,6 +169,7 @@ fun AuthScreen(
                             Tab(
                                 selected = state.selectedTab == screenPosition,
                                 onClick = {
+                                    resetAlert()
                                     commit { copy(selectedTab = screenPosition) }
                                 },
                                 text = { Text(text = title) }
@@ -200,12 +200,16 @@ fun AuthScreen(
                                 context.hideKeyboard()
                                 dispatch(AuthAction.SignInWithEmail)
                             },
+
                             onSignInFacebook = {
                                 toast.show("Coming soon")
                             },
                             onSignInGoogle = {
                                 commit { copy(isLoading = true) }
                                 googleLauncher.launch(1)
+                            },
+                            onResetAlert = {
+                                resetAlert()
                             },
                             onShowPrivacyPolicy = {},
                             onShowTermCondition = {}
@@ -226,6 +230,9 @@ fun AuthScreen(
                             },
                             onSignUpFacebook = {
                                 toast.show("Coming soon")
+                            },
+                            onResetAlert = {
+                                resetAlert()
                             },
                             onShowTermCondition = {},
                             onShowPrivacyPolicy = {}

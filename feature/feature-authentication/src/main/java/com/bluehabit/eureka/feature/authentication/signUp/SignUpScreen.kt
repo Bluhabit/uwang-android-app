@@ -8,11 +8,16 @@
 package com.bluehabit.eureka.feature.authentication.signUp
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Button
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Snackbar
+import androidx.compose.material.SnackbarHost
 import androidx.compose.material.Text
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -27,8 +32,11 @@ import app.trian.mvi.ui.extensions.hideKeyboard
 import app.trian.mvi.ui.internal.contract.UIContract
 import app.trian.mvi.ui.internal.rememberUIController
 import com.bluehabit.core.ui.R
+import com.bluehabit.core.ui.components.alert.AlertError
+import com.bluehabit.core.ui.components.alert.AlertSuccess
 import com.bluehabit.core.ui.components.dialog.DialogConfirmation
 import com.bluehabit.core.ui.components.dialog.DialogLoading
+import com.bluehabit.core.ui.components.snackbar.BaseSnackbar
 import com.bluehabit.core.ui.routes.Routes
 import com.bluehabit.core.ui.theme.GaweanTheme
 import com.bluehabit.eureka.data.authentication.AuthConstant.AUTH_SCREEN_COMPLETE_PROFILE
@@ -49,12 +57,18 @@ fun SignUpScreen(
     uiContract: UIContract<SignUpState, SignUpAction>
 ) = UIWrapper(uiContract = uiContract) {
     val context = LocalContext.current
+    val scaffoldState = rememberScaffoldState()
     UseEffect<SignUpEffect>(
         commit = { copy(effect = SignUpEffect.Nothing) },
         onEffect = {
             when (this) {
-                SignUpEffect.NavigateToHome -> navigator.navigateAndReplace(Routes.Home.routeName)
+                SignUpEffect.NavigateToHome -> navigator.navigateAndReplace(Routes.Dashboard.routeName)
                 SignUpEffect.Nothing -> Unit
+                is SignUpEffect.ShowAlert -> {
+                    launch {
+                        scaffoldState.snackbarHostState.showSnackbar(this.message)
+                    }
+                }
             }
         }
     )
@@ -94,40 +108,56 @@ fun SignUpScreen(
     DialogLoading(
         show = state.isLoading
     )
-    when (state.currentScreen) {
-        AUTH_SCREEN_OTP -> ScreenOtp(
-            state = state,
-            onChange = {
-                commit { copy(otp = it) }
-                if (it.length == 4) {
-                    context.hideKeyboard()
-                    dispatch(SignUpAction.SubmitOtp)
+    Scaffold(
+        scaffoldState = scaffoldState,
+        snackbarHost = {
+            BaseSnackbar(host = it, content = {
+                if (state.isAlertError) {
+                    AlertError(message = it.message) {
+
+                    }
+                } else {
+                    AlertSuccess(message = it.message) {
+
+                    }
                 }
-            },
-            onSubmit = {
-                context.hideKeyboard()
-                dispatch(SignUpAction.SubmitOtp)
-            }
-        )
+            })
+        }
+    ) {
+        Column(
+            modifier = Modifier.padding(it)
+        ) {
+            when (state.currentScreen) {
+                AUTH_SCREEN_OTP -> ScreenOtp(
+                    state = state,
+                    onChange = {
+                        commit { copy(otp = it) }
+                    },
+                    onSubmit = {
+                        dispatch(SignUpAction.SubmitOtp)
+                    }
+                )
 
-        AUTH_SCREEN_COMPLETE_PROFILE -> ScreenCompleteProfile(
-            state = state,
-            onChangeFullName = {
-                commit { copy(fullName = it) }
-            },
-            onChangePassword = {
-                commit { copy(password = it) }
-            },
-            onChangeConfirmPassword = {
-                commit { copy(confirmPassword = it) }
-            },
-            onSubmit = {
-                context.hideKeyboard()
-                dispatch(SignUpAction.SubmitCompleteProfile)
-            }
-        )
+                AUTH_SCREEN_COMPLETE_PROFILE -> ScreenCompleteProfile(
+                    state = state,
+                    onChangeFullName = {
+                        commit { copy(fullName = it) }
+                    },
+                    onChangePassword = {
+                        commit { copy(password = it) }
+                    },
+                    onChangeConfirmPassword = {
+                        commit { copy(confirmPassword = it) }
+                    },
+                    onSubmit = {
+                        context.hideKeyboard()
+                        dispatch(SignUpAction.SubmitCompleteProfile)
+                    }
+                )
 
-        else -> Unit
+                else -> Unit
+            }
+        }
     }
 }
 

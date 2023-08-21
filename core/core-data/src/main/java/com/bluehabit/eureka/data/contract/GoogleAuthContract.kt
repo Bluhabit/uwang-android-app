@@ -21,8 +21,7 @@ class GoogleAuthContract : ActivityResultContract<Int, Response<Task<GoogleSignI
     override fun createIntent(context: Context, input: Int): Intent {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken("949035954925-rd7v5t6tkla7i5ngbjntb95n4pqt6u7e.apps.googleusercontent.com")
-            //
-//            .requestProfile()
+            .requestProfile()
             .requestEmail()
             .build()
 

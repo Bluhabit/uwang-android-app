@@ -7,6 +7,7 @@
 
 package com.bluehabit.eureka.feature.authentication.auth.screen
 
+import android.util.Patterns
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -35,6 +36,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import app.trian.mvi.ui.extensions.from
 import com.bluehabit.core.ui.R
+import com.bluehabit.core.ui.components.alert.AlertError
 import com.bluehabit.core.ui.components.button.ButtonFacebook
 import com.bluehabit.core.ui.components.button.ButtonGoogle
 import com.bluehabit.core.ui.components.button.ButtonPrimary
@@ -54,10 +56,15 @@ fun ScreenSignUp(
     onSignUpEmail: () -> Unit = {},
     onSignUpGoogle: () -> Unit = {},
     onSignUpFacebook: () -> Unit = {},
+    onResetAlert:()->Unit={},
     onShowTermCondition: () -> Unit = {},
     onShowPrivacyPolicy: () -> Unit = {}
 ) {
     val context = LocalContext.current
+    fun isEmailValid(): Boolean {
+        return state.emailSignUp.isNotEmpty() && Patterns
+            .EMAIL_ADDRESS.matcher(state.emailSignUp).matches()
+    }
 
     Column(
         modifier = Modifier
@@ -68,6 +75,12 @@ fun ScreenSignUp(
                 vertical = 18.dp
             ),
     ) {
+        if (state.isError) {
+            AlertError(message = state.errorMessage) {
+                onResetAlert()
+            }
+        }
+        Spacer(modifier = modifier.height(10.dp))
         InputTextPrimary(
             label = stringResource(id = R.string.text_label_input_email_screen_auth),
             value = state.emailSignUp,
@@ -86,7 +99,7 @@ fun ScreenSignUp(
                 modifier = Modifier
                     .fillMaxWidth(),
                 text = stringResource(id = R.string.text_button_signup_with_email_screen_auth),
-                enabled = state.emailSignUp.isNotEmpty(),
+                enabled = isEmailValid(),
                 onClick = onSignUpEmail
             )
             Row(

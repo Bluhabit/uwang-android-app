@@ -50,7 +50,7 @@ object Routes {
         const val routeName = "Auth"
     }
 
-    object Home {
+    object Dashboard {
         const val routeName = "Dashboard"
     }
 }

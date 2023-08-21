@@ -9,5 +9,6 @@ package com.bluehabit.eureka.feature.authentication.signUp
 
 sealed interface SignUpEffect{
     object Nothing:SignUpEffect
+    data class ShowAlert(val message:String):SignUpEffect
     object NavigateToHome:SignUpEffect
 }

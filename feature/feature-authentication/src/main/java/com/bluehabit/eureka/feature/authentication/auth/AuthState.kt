@@ -19,12 +19,19 @@ import javax.annotation.concurrent.Immutable
 @Immutable
 @Parcelize
 data class AuthState(
+    //sign in
     val emailSignIn: String = String.Empty,
-    val emailSignUp: String = String.Empty,
-    val passwordSignIn: String = String.Empty,
     val isRememberChecked: Boolean = false,
+    val passwordSignIn: String = String.Empty,
 
+    //ens
+    //sign up
+    val emailSignUp: String = String.Empty,
+
+    //end
     val isLoading: Boolean = false,
+    val isError:Boolean=false,
+    val errorMessage:String=String.Empty,
 
     //tabs
     val tabs: @RawValue List<Pair<String, Int>> = listOf(

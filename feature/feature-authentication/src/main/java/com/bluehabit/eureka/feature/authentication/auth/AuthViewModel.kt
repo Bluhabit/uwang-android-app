@@ -9,8 +9,6 @@ package com.bluehabit.eureka.feature.authentication.auth
 
 import app.trian.mvi.ui.extensions.Empty
 import app.trian.mvi.ui.viewModel.MviViewModel
-import com.bluehabit.core.ui.routes.Routes
-import com.bluehabit.eureka.data.authentication.domain.CheckSessionUseCase
 import com.bluehabit.eureka.data.authentication.domain.SignInWithEmailUseCase
 import com.bluehabit.eureka.data.authentication.domain.SignInWithGoogleUseCase
 import com.bluehabit.eureka.data.authentication.domain.SignUpWithEmailUseCase
@@ -19,32 +17,17 @@ import com.bluehabit.eureka.data.common.executeAsFlow
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.tasks.Task
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
+import kotlinx.coroutines.tasks.await
 
 @HiltViewModel
 class AuthViewModel @Inject constructor(
     private val signInWithGoogleUseCase: SignInWithGoogleUseCase,
     private val signInWithEmailUseCase: SignInWithEmailUseCase,
     private val signUpWithEmailUseCase: SignUpWithEmailUseCase,
-    private val checkSessionUseCase: CheckSessionUseCase
 ) : MviViewModel<AuthState, AuthAction>(
     AuthState()
 ) {
-    private fun checkIfUserLoggedIn() = async {
-        executeAsFlow { checkSessionUseCase() }
-            .collect {
-                when (it) {
-                    is Response.Error -> Unit
-                    Response.Loading -> Unit
-                    is Response.Result -> {
-                        if (it.data) {
-                            navigate(Routes.Home.routeName)
-                        }
-                    }
-                }
-            }
-    }
 
     private fun signInWithEmail() = asyncWithState {
         executeAsFlow {
@@ -56,8 +39,9 @@ class AuthViewModel @Inject constructor(
             when (it) {
                 is Response.Error -> commit {
                     copy(
-                        effect = AuthEffect.ShowDialog(it.message),
-                        isLoading = false
+                        isLoading = false,
+                        isError = true,
+                        errorMessage = it.message
                     )
                 }
 
@@ -80,47 +64,37 @@ class AuthViewModel @Inject constructor(
     }
 
     private fun signInWithGoogle(
-        task: Task<GoogleSignInAccount>?
+        task: Task<GoogleSignInAccount>
     ) = async {
-        commit {
-            copy(isLoading = true)
-        }
-        if (task == null) {
-            commit {
-                copy(isLoading = false)
-            }
-            return@async
-        }
+        commit { copy(isLoading = true) }
         val result = task.await()
-        executeAsFlow {
-            signInWithGoogleUseCase(
-                token = result.idToken.orEmpty()
-            )
-        }.collect {
-            when (it) {
-                is Response.Error -> commit {
-                    copy(
-                        effect = AuthEffect.ShowDialog(it.message),
-                        isLoading = false
-                    )
-                }
+        executeAsFlow { signInWithGoogleUseCase(token = result.idToken.orEmpty()) }
+            .collect {
+                when (it) {
+                    is Response.Error -> commit {
+                        copy(
+                            isLoading = false,
+                            isError = true,
+                            errorMessage = it.message
+                        )
+                    }
 
-                Response.Loading -> commit {
-                    copy(
-                        isLoading = true
-                    )
-                }
+                    Response.Loading -> commit {
+                        copy(
+                            isLoading = true
+                        )
+                    }
 
-                is Response.Result -> commit {
-                    copy(
-                        emailSignIn = String.Empty,
-                        passwordSignIn = String.Empty,
-                        effect = AuthEffect.NavigateToHome,
-                        isLoading = false
-                    )
+                    is Response.Result -> commit {
+                        copy(
+                            emailSignIn = String.Empty,
+                            passwordSignIn = String.Empty,
+                            effect = AuthEffect.NavigateToHome,
+                            isLoading = false
+                        )
+                    }
                 }
             }
-        }
     }
 
     private fun signUpWithEmail() = asyncWithState {
@@ -129,8 +103,9 @@ class AuthViewModel @Inject constructor(
                 when (it) {
                     is Response.Error -> commit {
                         copy(
-                            effect = AuthEffect.ShowDialog(it.message),
-                            isLoading = false
+                            isLoading = false,
+                            isError = true,
+                            errorMessage = it.message
                         )
                     }
 
@@ -153,7 +128,6 @@ class AuthViewModel @Inject constructor(
         when (action) {
             AuthAction.Nothing -> Unit
             AuthAction.SignInWithEmail -> signInWithEmail()
-            AuthAction.CheckSession -> checkIfUserLoggedIn()
             AuthAction.SignUpWithEmail -> signUpWithEmail()
             is AuthAction.SignInWithGoogle -> signInWithGoogle(action.value)
         }

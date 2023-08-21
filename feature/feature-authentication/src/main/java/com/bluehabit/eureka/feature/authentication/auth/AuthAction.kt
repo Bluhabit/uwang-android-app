@@ -12,8 +12,7 @@ import com.google.android.gms.tasks.Task
 
 sealed interface AuthAction {
     object Nothing : AuthAction
-    object CheckSession : AuthAction
-    data class SignInWithGoogle(val value:Task<GoogleSignInAccount>?) : AuthAction
+    data class SignInWithGoogle(val value:Task<GoogleSignInAccount>) : AuthAction
 
     object SignInWithEmail : AuthAction
 
