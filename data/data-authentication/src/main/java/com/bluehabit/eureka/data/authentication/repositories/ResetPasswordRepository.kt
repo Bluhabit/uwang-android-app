@@ -13,10 +13,9 @@ import com.bluehabit.eureka.data.authentication.datasource.remote.request.LinkCo
 import com.bluehabit.eureka.data.authentication.datasource.remote.request.RequestResetPasswordRequest
 import com.bluehabit.eureka.data.authentication.datasource.remote.request.ResetPasswordRequest
 import com.bluehabit.eureka.data.authentication.datasource.remote.response.LinkConfirmationResponse
-import com.bluehabit.eureka.data.authentication.datasource.remote.response.RequestResetPasswordResponse
-import com.bluehabit.eureka.data.authentication.datasource.remote.response.ResetPasswordResponse
 import com.bluehabit.eureka.data.common.Response
 import com.bluehabit.eureka.data.common.safeApiCall
+import com.bluehabit.eureka.data.model.BaseResponse
 import com.bluehabit.eureka.data.persistence.SharedPref
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.resources.post
@@ -30,7 +29,7 @@ class ResetPasswordRepository @Inject constructor(
 ) {
     suspend fun requestResetPassword(
         email: String,
-    ): Response<RequestResetPasswordResponse> = safeApiCall<RequestResetPasswordResponse> {
+    ): Response<BaseResponse<Any>> = safeApiCall {
         httpClient.post(AuthApi.RequestResetPassword()) {
             setBody(RequestResetPasswordRequest(email))
         }
@@ -38,8 +37,8 @@ class ResetPasswordRepository @Inject constructor(
 
     suspend fun linkConfirmation(
         token: String
-    ): Response<LinkConfirmationResponse> =
-        when (val result = safeApiCall<LinkConfirmationResponse> {
+    ): Response<BaseResponse<LinkConfirmationResponse>> =
+        when (val result = safeApiCall<BaseResponse<LinkConfirmationResponse>> {
             httpClient.post(AuthApi.LinkConfirmation()) {
                 setBody(LinkConfirmationRequest(token))
             }
@@ -56,7 +55,7 @@ class ResetPasswordRepository @Inject constructor(
 
     suspend fun resetPassword(
         newPassword: String
-    ): Response<ResetPasswordResponse> = safeApiCall {
+    ): Response<BaseResponse<Any>> = safeApiCall {
         httpClient.post(AuthApi.RequestResetPassword) {
             headers {
                 append(
