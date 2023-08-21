@@ -10,15 +10,6 @@ package com.bluehabit.eureka.data.authentication.datasource.remote.response
 import com.google.gson.annotations.SerializedName
 
 data class LinkConfirmationResponse(
-    @SerializedName("statusCode")
-    val statusCode: Int,
-    @SerializedName("data")
-    val data: Data,
-    @SerializedName("message")
-    val message: String,
-)
-
-data class Data(
     @SerializedName("sessionId")
     val sessionId: String
 )
