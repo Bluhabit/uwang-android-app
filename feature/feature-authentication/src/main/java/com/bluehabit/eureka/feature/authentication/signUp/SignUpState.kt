@@ -21,6 +21,7 @@ data class SignUpState(
     val currentScreen: Int = AUTH_SCREEN_OTP,
     val showDialogConfirmation: Boolean = false,
     val isLoading: Boolean = false,
+    val isAlertError: Boolean = false,
     //otp
     val otp: String = String.Empty,
     val email: String = String.Empty,

@@ -9,6 +9,7 @@ package com.bluehabit.eureka.feature.authentication.onboarding
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import app.trian.mvi.Navigation
 import app.trian.mvi.ui.UIWrapper
@@ -25,11 +26,16 @@ import com.bluehabit.eureka.feature.authentication.onboarding.screen.ScreenOnboa
 )
 @Composable
 fun OnboardingScreen(
-    uiContract: UIContract<OnboardingState, OnboardingAction>
+    uiContract: UIContract<OnboardingState, OnboardingAction>,
+    modifier: Modifier = Modifier
 ) = UIWrapper(uiContract = uiContract) {
+
     UseEffect<OnboardingEffect>(commit = { copy(effect = OnboardingEffect.Nothing) }, onEffect = {
         when (this) {
-            OnboardingEffect.NavigateToHome -> navigator.navigateAndReplace(Routes.Home.routeName)
+            OnboardingEffect.NavigateToHome -> {
+                navigator.navigateAndReplace(Routes.Dashboard.routeName)
+            }
+
             OnboardingEffect.Nothing -> Unit
         }
     })
@@ -37,6 +43,7 @@ fun OnboardingScreen(
     LaunchedEffect(key1 = Unit, block = {
         dispatch(OnboardingAction.CheckSession)
     })
+
     if (state.isLoading) {
         ScreenLoading()
     } else {

@@ -24,6 +24,11 @@ class SharedPref(
         apply()
     }
 
+    fun removePersistData(key: String) = sharedPreferences.edit {
+        remove(key)
+        commit()
+    }
+
     fun getPersistData(key: String) = sharedPreferences.getString(key, "")
 
     fun setLanguage(lang: String) = sharedPreferences.edit {

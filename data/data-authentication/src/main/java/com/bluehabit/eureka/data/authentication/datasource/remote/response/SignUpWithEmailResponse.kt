@@ -5,13 +5,11 @@
  * Proprietary and confidential
  */
 
-package com.bluehabit.eureka.data.authentication.datasource.remote.request
+package com.bluehabit.eureka.data.authentication.datasource.remote.response
 
 import com.google.gson.annotations.SerializedName
 
-data class OtpConfirmationRequest(
-    @SerializedName("otp")
-    val otp: String,
+data class SignUpWithEmailResponse(
     @SerializedName("sessionId")
-    val sessionId: String,
+    val sessionId: String
 )

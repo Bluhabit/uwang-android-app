@@ -13,7 +13,7 @@ data class UserCredentialResponse(
     @SerializedName("email")
     val email: String,
     @SerializedName("userInfo")
-    val userInfo: List<UserInfoResponse>,
+    val userInfo: UserInfoResponse,
     @SerializedName("createdAt")
     val createdAt: String,
     @SerializedName("updatedAt")

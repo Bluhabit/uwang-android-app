@@ -42,7 +42,11 @@ class SignUpViewModel @Inject constructor(
             .collect {
                 when (it) {
                     is Response.Error -> commit {
-                        copy(isLoading = false)
+                        copy(
+                            isLoading = false,
+                            isAlertError = true,
+                            effect = SignUpEffect.ShowAlert(it.message)
+                        )
                     }
 
                     Response.Loading -> commit {
@@ -54,7 +58,9 @@ class SignUpViewModel @Inject constructor(
                             copy(
                                 otp = String.Empty,
                                 showDialogConfirmation = true,
-                                isLoading = false
+                                isLoading = false,
+                                isAlertError = false,
+                                effect = SignUpEffect.ShowAlert("Success")
                             )
                         }
                     }

@@ -138,7 +138,9 @@ fun ScreenOtp(
                 InputOtp(
                     otp = state.otp,
                     onChange = { otp, valid ->
-                        onChange(otp)
+                        if(otp.length <=4) {
+                            onChange(otp)
+                        }
                     },
                     onDone = onSubmit
                 )

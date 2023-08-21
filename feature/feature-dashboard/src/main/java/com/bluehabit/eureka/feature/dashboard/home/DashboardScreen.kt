@@ -24,7 +24,7 @@ import com.bluehabit.core.ui.routes.Routes
 import com.bluehabit.core.ui.theme.GaweanTheme
 
 @Navigation(
-    route = Routes.Home.routeName,
+    route = Routes.Dashboard.routeName,
     viewModel = DashboardViewModel::class
 )
 @Composable
