@@ -10,6 +10,7 @@ package com.bluehabit.eureka.feature.authentication.resetPassword
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -17,7 +18,10 @@ import app.trian.mvi.DeepLink
 import app.trian.mvi.Navigation
 import app.trian.mvi.ui.UIWrapper
 import app.trian.mvi.ui.internal.contract.UIContract
+import com.bluehabit.core.ui.components.alert.AlertError
+import com.bluehabit.core.ui.components.alert.AlertSuccess
 import com.bluehabit.core.ui.components.dialog.DialogLoading
+import com.bluehabit.core.ui.components.snackbar.BaseSnackbar
 import com.bluehabit.core.ui.ext.openEmail
 import com.bluehabit.core.ui.routes.Routes
 import com.bluehabit.eureka.data.authentication.AuthConstant.AUTH_SCREEN_CREATE_PASSWORD
@@ -49,13 +53,33 @@ fun ResetPasswordScreen(
     uiContract: UIContract<ResetPasswordState, ResetPasswordAction>
 ) = UIWrapper(uiContract = uiContract) {
     val context = LocalContext.current
+    val scaffoldState = rememberScaffoldState()
+
+    UseEffect<ResetPasswordEffect>(
+        commit = { copy(effect = ResetPasswordEffect.Nothing) },
+        onEffect = {
+            when (this) {
+                ResetPasswordEffect.Nothing -> Unit
+                is ResetPasswordEffect.ShowAlert -> {
+                    launch {
+                        scaffoldState.snackbarHostState.showSnackbar(this.message)
+                    }
+                }
+            }
+        }
+    )
 
     DialogLoading(
         show = state.isLoading
     )
 
     Scaffold(
-        bottomBar = {}
+        scaffoldState = scaffoldState,
+        snackbarHost = {host->
+            BaseSnackbar(host = host, content = {
+                AlertError(message = it.message) {}
+            })
+        }
     ) {
         Column(
             modifier = Modifier.padding(it)
@@ -64,7 +88,7 @@ fun ResetPasswordScreen(
                 AUTH_SCREEN_RESET_PASSWORD -> ScreenRequestResetPassword(
                     state = state,
                     onEmailChange = {
-                        commit { copy(email = it) }
+                        dispatch(ResetPasswordAction.OnEmailChange(it))
                     },
                     onSendRequest = {
                         dispatch(ResetPasswordAction.SubmitRequestResetPassword)
@@ -83,11 +107,11 @@ fun ResetPasswordScreen(
                 AUTH_SCREEN_LINK_CONFIRMATION -> ScreenVerifyLink()
                 AUTH_SCREEN_CREATE_PASSWORD -> ScreenInputNewPassword(
                     state = state,
-                    onPasswordConfirmationChanged = {
-                        commit { copy(passwordConfirmation = it) }
-                    },
                     onPasswordChanged = {
-                        commit { copy(password = it) }
+                        dispatch(ResetPasswordAction.OnPasswordChange(it))
+                    },
+                    onPasswordConfirmationChanged = {
+                        dispatch(ResetPasswordAction.OnConfirmPasswordChange(it))
                     },
                     onResetPassword = {
                         dispatch(ResetPasswordAction.SubmitCreateNewPassword)

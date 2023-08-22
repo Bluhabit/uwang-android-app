@@ -18,8 +18,16 @@ import kotlinx.parcelize.RawValue
 data class ResetPasswordState(
     val currentScreen: Int = AUTH_SCREEN_RESET_PASSWORD,
     val email: String = String.Empty,
+    val emailError:Boolean=false,
+    val emailErrorMessage:String=String.Empty,
+
     val password: String = String.Empty,
-    val passwordConfirmation: String = String.Empty,
+    val passwordError:Boolean=false,
+    val passwordErrorMessage:String=String.Empty,
+
+    val confirmPassword: String = String.Empty,
+    val confirmPasswordError:Boolean=false,
+    val confirmPasswordErrorMessage:String=String.Empty,
 
     val isLoading:Boolean=false,
     override val effect: @RawValue ResetPasswordEffect = ResetPasswordEffect.Nothing

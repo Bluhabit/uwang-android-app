@@ -9,6 +9,7 @@ package com.bluehabit.eureka.feature.authentication.signUp
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -125,7 +126,9 @@ fun SignUpScreen(
         }
     ) {
         Column(
-            modifier = Modifier.padding(it)
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(it)
         ) {
             when (state.currentScreen) {
                 AUTH_SCREEN_OTP -> ScreenOtp(
@@ -141,13 +144,13 @@ fun SignUpScreen(
                 AUTH_SCREEN_COMPLETE_PROFILE -> ScreenCompleteProfile(
                     state = state,
                     onChangeFullName = {
-                        commit { copy(fullName = it) }
+                        dispatch(SignUpAction.OnFullNameChange(it))
                     },
                     onChangePassword = {
-                        commit { copy(password = it) }
+                        dispatch(SignUpAction.OnPasswordChange(it))
                     },
                     onChangeConfirmPassword = {
-                        commit { copy(confirmPassword = it) }
+                        dispatch(SignUpAction.OnConfirmPasswordChange(it))
                     },
                     onSubmit = {
                         context.hideKeyboard()

@@ -41,13 +41,17 @@ class AuthViewModel @Inject constructor(
                     copy(
                         isLoading = false,
                         isError = true,
+                        emailSignInError = true,
+                        passwordSignInError = true,
                         errorMessage = it.message
                     )
                 }
 
                 Response.Loading -> commit {
                     copy(
-                        isLoading = true
+                        isLoading = true,
+                        emailSignInError = false,
+                        passwordSignInError = false
                     )
                 }
 
@@ -56,6 +60,8 @@ class AuthViewModel @Inject constructor(
                         emailSignIn = String.Empty,
                         passwordSignIn = String.Empty,
                         isLoading = false,
+                        emailSignInError = false,
+                        passwordSignInError = false,
                         effect = AuthEffect.NavigateToHome,
                     )
                 }
@@ -105,18 +111,20 @@ class AuthViewModel @Inject constructor(
                         copy(
                             isLoading = false,
                             isError = true,
+                            emailSignUpError = true,
                             errorMessage = it.message
                         )
                     }
 
                     Response.Loading -> commit {
-                        copy(isLoading = true)
+                        copy(isLoading = true, emailSignUpError = false)
                     }
 
                     is Response.Result -> commit {
                         copy(
                             emailSignUp = String.Empty,
                             effect = AuthEffect.NavigateToOtp,
+                            emailSignUpError = false,
                             isLoading = false
                         )
                     }

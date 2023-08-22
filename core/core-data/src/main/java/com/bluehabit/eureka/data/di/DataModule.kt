@@ -96,7 +96,7 @@ object DataModule {
             defaultRequest {
                 url(BuildConfig.BASE_URL)
                 val locale = sharedPref.getLanguage()
-                header("Accept-Language", locale.ifEmpty { Locale.ENGLISH.language })
+                header("Accept-Language", locale.ifEmpty { Locale.forLanguageTag("ID").language })
                 contentType(ContentType.Application.Json)
             }
             install(ContentNegotiation) {

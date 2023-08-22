@@ -7,11 +7,9 @@
 
 package com.bluehabit.eureka.android
 
-import android.net.Uri
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.compose.NavHost
 import app.trian.mvi.authenticationComponent
 import app.trian.mvi.dashboardComponent

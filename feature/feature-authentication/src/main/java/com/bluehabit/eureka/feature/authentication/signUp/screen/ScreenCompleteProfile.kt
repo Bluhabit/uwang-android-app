@@ -17,6 +17,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
@@ -32,6 +34,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import app.trian.mvi.ui.extensions.from
+import app.trian.mvi.ui.extensions.getScreenHeight
 import com.bluehabit.core.ui.R
 import com.bluehabit.core.ui.components.button.ButtonPrimary
 import com.bluehabit.core.ui.components.input.InputPasswordPrimary
@@ -51,13 +54,20 @@ fun ScreenCompleteProfile(
     onSubmit: () -> Unit = {}
 ) {
     val context = LocalContext.current
+    val screenHeight = context.getScreenHeight()
+    fun isValid(): Boolean {
+        return state.fullName.isNotEmpty() && state.password.isNotEmpty()
+                && state.confirmPassword.isNotEmpty()
+    }
     Scaffold(
         bottomBar = {
             Row(
-                modifier = modifier.padding(
-                    horizontal = 18.dp,
-                    vertical = 10.dp
-                )
+                modifier = modifier
+                    .background(MaterialTheme.colors.surface)
+                    .padding(
+                        horizontal = 18.dp,
+                        vertical = 10.dp
+                    )
             ) {
                 ButtonPrimary(
                     modifier = Modifier
@@ -66,7 +76,7 @@ fun ScreenCompleteProfile(
                             vertical = 10.dp
                         ),
                     text = stringResource(id = R.string.text_btn_complete_profile),
-                    enabled = true,
+                    enabled = isValid() && (!state.fullNameError && !state.passwordError && !state.confirmPasswordError),
                     onClick = onSubmit
                 )
             }
@@ -74,8 +84,9 @@ fun ScreenCompleteProfile(
     ) {
         Column(
             modifier = Modifier
+                .verticalScroll(rememberScrollState())
                 .padding(it)
-                .fillMaxSize()
+                .height(screenHeight)
                 .background(Primary25)
                 .padding(
                     horizontal = 18.dp
@@ -120,20 +131,24 @@ fun ScreenCompleteProfile(
                 value = state.fullName,
                 onChange = onChangeFullName,
                 enabled = true,
+                error = state.fullNameError,
+                errorMessage = state.fullNameErrorMessage
             )
-            Spacer(modifier = Modifier.height(16.dp))
             InputPasswordPrimary(
                 label = stringResource(id = R.string.text_label_password_complete_profile),
                 placeholder = stringResource(id = R.string.text_placeholder_input_password_complete_profile),
                 value = state.password,
                 onChange = onChangePassword,
+                error = state.passwordError,
+                errorMessage = state.passwordErrorMessage
             )
-            Spacer(modifier = Modifier.height(16.dp))
             InputPasswordPrimary(
                 label = stringResource(id = R.string.text_label_input_confirm_password_complete_profile),
                 placeholder = stringResource(id = R.string.text_placeholder_input_confirm_password_complete_profile),
                 value = state.confirmPassword,
                 onChange = onChangeConfirmPassword,
+                error = state.confirmPasswordError,
+                errorMessage = state.confirmPasswordErrorMessage
             )
         }
     }

@@ -29,6 +29,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
@@ -87,6 +88,7 @@ fun ScreenSignIn(
         modifier = Modifier
             .fillMaxSize()
             .background(Primary25)
+            .testTag("container_sign_in")
             .padding(
                 horizontal = 18.dp,
                 vertical = 18.dp
@@ -102,18 +104,20 @@ fun ScreenSignIn(
             label = stringResource(id = R.string.text_label_input_email_screen_auth),
             placeholder = stringResource(id = R.string.text_placeholder_input_email_screen_auth),
             value = state.emailSignIn,
-            onChange = onEmailChanged,
+            onChange = {
+                onEmailChanged(it)
+            },
             enabled = true,
+            error = state.emailSignInError
         )
-        Spacer(modifier = Modifier.height(16.dp))
         InputPasswordPrimary(
             label = stringResource(id = R.string.text_label_input_password_screen_auth),
             placeholder = stringResource(id = R.string.text_placeholder_input_password_screen_auth),
             value = state.passwordSignIn,
             onChange = onPasswordChanged,
             enabled = true,
+            error = state.passwordSignInError
         )
-
         Row(
             modifier = Modifier
                 .fillMaxWidth(),
