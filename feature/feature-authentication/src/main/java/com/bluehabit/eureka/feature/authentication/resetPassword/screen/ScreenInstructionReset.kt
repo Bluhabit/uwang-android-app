@@ -13,7 +13,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -39,7 +38,7 @@ import com.bluehabit.core.ui.theme.Primary600
 import com.bluehabit.eureka.feature.authentication.R
 
 @Composable
-fun InstructionResetScreen(
+fun ScreenInstructionReset(
     onOpenEmailApp: () -> Unit = {},
     onRetry: () -> Unit = {},
 ) {
@@ -151,6 +150,6 @@ fun InstructionResetScreen(
 @Preview(widthDp = 384, heightDp = 854)
 fun PreviewInstructionScreen() {
     GaweanTheme(darkTheme = false) {
-        InstructionResetScreen()
+        ScreenInstructionReset()
     }
 }

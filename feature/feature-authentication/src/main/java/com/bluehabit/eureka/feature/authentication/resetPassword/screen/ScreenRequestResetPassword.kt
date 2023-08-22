@@ -7,6 +7,7 @@
 
 package com.bluehabit.eureka.feature.authentication.resetPassword.screen
 
+import android.util.Patterns
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -41,7 +42,7 @@ import com.bluehabit.core.ui.theme.Gray900
 import com.bluehabit.eureka.feature.authentication.resetPassword.ResetPasswordState
 
 @Composable
-fun RequestResetPassword(
+fun ScreenRequestResetPassword(
     modifier: Modifier = Modifier,
     state: ResetPasswordState = ResetPasswordState(),
     onEmailChange: (String) -> Unit = {},
@@ -54,8 +55,8 @@ fun RequestResetPassword(
             .fillMaxSize()
             .background(Color.White)
             .padding(
-                vertical = 24.dp.from(context = context),
-                horizontal = 26.dp.from(context = context),
+                vertical = 18.dp.from(context = context),
+                horizontal = 18.dp.from(context = context),
             ),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(28.dp)
@@ -97,14 +98,16 @@ fun RequestResetPassword(
                 label = stringResource(id = R.string.text_label_request_reset_password),
                 placeholder = stringResource(id = R.string.text_placeholder_request_reset_password),
                 value = state.email,
-                onChange = onEmailChange
+                onChange = onEmailChange,
+                error = state.emailError,
+                errorMessage = state.emailErrorMessage
             )
         }
         ButtonPrimary(
             modifier = modifier
                 .fillMaxWidth(),
             text = stringResource(id = R.string.text_button_request_reset_password),
-            enabled = state.email.isNotEmpty() ,
+            enabled = Patterns.EMAIL_ADDRESS.matcher(state.email).matches(),
             onClick = onSendRequest
         )
     }
@@ -117,10 +120,10 @@ fun PreviewRequestResetPassword() {
         mutableStateOf(ResetPasswordState())
     }
     GaweanTheme {
-        RequestResetPassword(
+        ScreenRequestResetPassword(
             state = state,
-            onEmailChange ={
-                state = state.copy(email= it)
+            onEmailChange = {
+                state = state.copy(email = it)
             }
         )
     }

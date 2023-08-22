@@ -6,8 +6,8 @@
  */
 @file:Suppress("UnstableApiUsage")
 
-import  com.android.build.api.dsl.ApplicationBuildType
 import com.android.build.api.dsl.LibraryBuildType
+import java.util.regex.Pattern
 
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
@@ -18,6 +18,7 @@ plugins {
     alias(libs.plugins.org.jetbrains.kotlin.serialization)
     alias(libs.plugins.com.android.library)
     id("kotlin-parcelize")
+    alias(libs.plugins.google.services)
     alias(libs.plugins.org.jetbrains.kotlin.kapt)
 }
 
@@ -32,13 +33,13 @@ android {
 
     buildTypes {
         release {
-            setupBaseUrl()
+            setupBaseUrl(getCurrentFlavor())
             setupDatabase()
             setupSharedPrefName()
         }
 
         debug {
-            setupBaseUrl()
+            setupBaseUrl(getCurrentFlavor())
             setupDatabase()
             setupSharedPrefName()
         }
@@ -103,12 +104,14 @@ kapt {
 }
 
 
-fun LibraryBuildType.setupBaseUrl() {
-    buildConfigField(
-        "String",
-        "BASE_URL",
-        "\"${findProperty("BASE_URL").toString()}\""
-    )
+fun LibraryBuildType.setupBaseUrl(flavor: String) {
+    val url = when (flavor) {
+        "dev" -> "BASE_URL_DEV"
+        "staging" -> "BASE_URL_STAGING"
+        "production" -> "BASE_URL"
+        else -> "BASE_URL_DEV"
+    }
+    buildConfigField("String", "BASE_URL", "\"${findProperty(url).toString()}\"")
 }
 
 fun LibraryBuildType.setupDatabase() {
@@ -125,4 +128,22 @@ fun LibraryBuildType.setupSharedPrefName() {
         "SHARED_PREFERENCES",
         "\"${findProperty("SHARED_PREFERENCES").toString()}\""
     )
+}
+
+fun getCurrentFlavor(): String {
+    val taskRequestsStr = gradle.startParameter.taskRequests.toString()
+    val pattern: Pattern = if (taskRequestsStr.contains("assemble")) {
+        Pattern.compile("assemble(\\w+)(Release|Debug)")
+    } else {
+        Pattern.compile("bundle(\\w+)(Release|Debug)")
+    }
+
+    val matcher = pattern.matcher(taskRequestsStr)
+    val flavor = if (matcher.find()) {
+        matcher.group(1).lowercase()
+    } else {
+        print("NO FLAVOR FOUND")
+        "dev"
+    }
+    return flavor
 }

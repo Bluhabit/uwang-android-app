@@ -18,7 +18,7 @@ class AuthApi {
     class SetNewPassword(val parent: AuthApi = AuthApi())
 
     @Resource("sign-in-google")
-    class SignUpWithGoogle(val parent: AuthApi = AuthApi())
+    class SignInWithGoogle(val parent: AuthApi = AuthApi())
 
     @Resource("sign-up-email")
     class SignUpWithEmail(val parent: AuthApi = AuthApi())

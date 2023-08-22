@@ -12,4 +12,6 @@ import com.google.gson.annotations.SerializedName
 data class OtpConfirmationRequest(
     @SerializedName("otp")
     val otp: String,
+    @SerializedName("sessionId")
+    val sessionId: String,
 )

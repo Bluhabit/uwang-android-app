@@ -7,8 +7,10 @@
 
 package com.bluehabit.eureka.feature.authentication.auth.screen
 
+import android.util.Patterns
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -27,6 +29,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
@@ -39,9 +42,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import app.trian.mvi.ui.extensions.from
 import com.bluehabit.core.ui.R
+import com.bluehabit.core.ui.components.alert.AlertError
 import com.bluehabit.core.ui.components.button.ButtonFacebook
 import com.bluehabit.core.ui.components.button.ButtonGoogle
 import com.bluehabit.core.ui.components.button.ButtonPrimary
+import com.bluehabit.core.ui.components.input.InputPasswordPrimary
 import com.bluehabit.core.ui.components.input.InputTextPrimary
 import com.bluehabit.core.ui.theme.GaweanTheme
 import com.bluehabit.core.ui.theme.Gray200
@@ -59,35 +64,60 @@ fun ScreenSignIn(
     state: AuthState = AuthState(),
     onEmailChanged: (String) -> Unit = {},
     onPasswordChanged: (String) -> Unit = {},
-    onRememberChecked: (Boolean) -> Unit = {}
+    onRememberChecked: (Boolean) -> Unit = {},
+    onNavigateToResetPassword: () -> Unit = {},
+    onSignInGoogle: () -> Unit = {},
+    onSignInEmail: () -> Unit = {},
+    onSignInFacebook: () -> Unit = {},
+    onResetAlert: () -> Unit = {},
+    onShowTermCondition: () -> Unit = {},
+    onShowPrivacyPolicy: () -> Unit = {}
 ) {
     val context = LocalContext.current
 
+    fun isEmailValid(): Boolean {
+        return state.emailSignIn.isNotEmpty() && Patterns
+            .EMAIL_ADDRESS.matcher(state.emailSignIn).matches()
+    }
+
+    fun isPasswordValid(): Boolean {
+        return state.passwordSignIn.isNotEmpty()
+    }
 
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Primary25)
+            .testTag("container_sign_in")
             .padding(
-                horizontal = 18.dp
+                horizontal = 18.dp,
+                vertical = 18.dp
             ),
     ) {
+        if (state.isError) {
+            AlertError(message = state.errorMessage) {
+                onResetAlert()
+            }
+        }
+        Spacer(modifier = Modifier.height(10.dp))
         InputTextPrimary(
             label = stringResource(id = R.string.text_label_input_email_screen_auth),
             placeholder = stringResource(id = R.string.text_placeholder_input_email_screen_auth),
-            value = state.email,
-            onChange = onEmailChanged,
-            enable = true,
+            value = state.emailSignIn,
+            onChange = {
+                onEmailChanged(it)
+            },
+            enabled = true,
+            error = state.emailSignInError
         )
-        Spacer(modifier = Modifier.height(16.dp))
-        InputTextPrimary(
+        InputPasswordPrimary(
             label = stringResource(id = R.string.text_label_input_password_screen_auth),
             placeholder = stringResource(id = R.string.text_placeholder_input_password_screen_auth),
-            value = state.password,
+            value = state.passwordSignIn,
             onChange = onPasswordChanged,
-            enable = true,
+            enabled = true,
+            error = state.passwordSignInError
         )
-
         Row(
             modifier = Modifier
                 .fillMaxWidth(),
@@ -120,6 +150,9 @@ fun ScreenSignIn(
                 style = MaterialTheme.typography.subtitle2,
                 fontWeight = FontWeight.W500,
                 color = Primary600,
+                modifier = modifier.clickable {
+                    onNavigateToResetPassword()
+                }
             )
         }
         Column(
@@ -135,7 +168,11 @@ fun ScreenSignIn(
                         vertical = 10.dp
                     ),
                 text = stringResource(id = R.string.text_button_login_screen_auth),
-                enabled = state.email.isNotEmpty() && state.password.isNotEmpty()
+                enabled = isEmailValid() && isPasswordValid(),
+                onClick = {
+                    onResetAlert()
+                    onSignInEmail()
+                }
             )
             Row(
                 horizontalArrangement = Arrangement.spacedBy(16.dp.from(context = context), Alignment.Start),
@@ -164,7 +201,7 @@ fun ScreenSignIn(
                     modifier = Modifier.fillMaxWidth(),
                     text = stringResource(id = R.string.text_button_signin_with_google_screen_auth),
                     enabled = true,
-                    onClick = {}
+                    onClick = onSignInGoogle
                 )
                 ButtonFacebook(
                     modifier = Modifier
@@ -172,7 +209,7 @@ fun ScreenSignIn(
                         .padding(vertical = 10.dp),
                     text = stringResource(id = R.string.text_button_register_screen_auth),
                     enabled = true,
-                    onClick = {}
+                    onClick = onSignInFacebook
                 )
             }
             Column(

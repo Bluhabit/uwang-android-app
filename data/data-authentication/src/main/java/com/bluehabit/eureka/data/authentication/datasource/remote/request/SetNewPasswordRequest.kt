@@ -10,6 +10,6 @@ package com.bluehabit.eureka.data.authentication.datasource.remote.request
 import com.google.gson.annotations.SerializedName
 
 data class SetNewPasswordRequest (
-    @SerializedName("password")
-    val password: String,
+    @SerializedName("newPassword")
+    val newPassword: String,
 )

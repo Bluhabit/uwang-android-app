@@ -28,18 +28,18 @@ class MainActivity : ComponentActivity() {
     private lateinit var eventListener: BaseEventListener
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent {
             eventListener = EventListener()
             controller = rememberUIController(
                 event = eventListener
             )
-
             GaweanTheme(
                 darkTheme = false
             ) {
                 NavHost(
                     navController = controller.navigator.navHost,
-                    startDestination = Routes.SignIn.routeName,
+                    startDestination = Routes.Onboard.routeName,
                 ) {
                     authenticationComponent(
                         uiController = controller,
