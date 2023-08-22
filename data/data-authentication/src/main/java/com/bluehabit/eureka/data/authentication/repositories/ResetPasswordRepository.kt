@@ -13,7 +13,6 @@ import com.bluehabit.eureka.data.authentication.datasource.remote.request.LinkCo
 import com.bluehabit.eureka.data.authentication.datasource.remote.request.RequestResetPasswordRequest
 import com.bluehabit.eureka.data.authentication.datasource.remote.request.ResetPasswordRequest
 import com.bluehabit.eureka.data.authentication.datasource.remote.response.LinkConfirmationResponse
-import com.bluehabit.eureka.data.authentication.datasource.remote.response.ResetPasswordResponse
 import com.bluehabit.eureka.data.common.Response
 import com.bluehabit.eureka.data.common.safeApiCall
 import com.bluehabit.eureka.data.persistence.SharedPref
@@ -29,7 +28,7 @@ class ResetPasswordRepository @Inject constructor(
 ) {
     suspend fun requestResetPassword(
         email: String,
-    ): Response<Any> = safeApiCall<Any> {
+    ): Response<Any> = safeApiCall {
         httpClient.post(AuthApi.RequestResetPassword()) {
             setBody(RequestResetPasswordRequest(email))
         }
@@ -55,7 +54,7 @@ class ResetPasswordRepository @Inject constructor(
 
     suspend fun resetPassword(
         newPassword: String
-    ): Response<ResetPasswordResponse> = safeApiCall {
+    ): Response<Any> = safeApiCall {
         httpClient.post(AuthApi.RequestResetPassword()) {
             headers {
                 append(
