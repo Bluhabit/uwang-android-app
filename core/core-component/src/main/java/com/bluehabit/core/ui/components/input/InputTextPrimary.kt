@@ -7,6 +7,7 @@
 
 package com.bluehabit.core.ui.components.input
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.defaultMinSize
@@ -14,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
@@ -24,10 +26,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import app.trian.mvi.ui.extensions.Empty
+import com.bluehabit.core.ui.R
+import com.bluehabit.core.ui.theme.Error500
 import com.bluehabit.core.ui.theme.GaweanTheme
 import com.bluehabit.core.ui.theme.Gray300
 import com.bluehabit.core.ui.theme.Gray500
@@ -49,19 +54,21 @@ fun InputTextPrimary(
     placeholder: String = String.Empty,
     onChange: (String) -> Unit = {},
     label: String = "",
-    enable: Boolean = true,
-    eror: Boolean = false
+    enabled: Boolean = true,
+    error: Boolean = false,
+    errorMessage:String=String.Empty
 ) {
     Column {
         Text(
             text = label,
             style = MaterialTheme.typography.subtitle2,
+            fontWeight=FontWeight.W500,
             modifier = modifier
         )
         Spacer(modifier = modifier.height(8.dp))
         OutlinedTextField(
-            isError = eror,
-            enabled = enable,
+            isError = error,
+            enabled = enabled,
             value = value,
             onValueChange = onChange,
             colors = TextFieldDefaults.outlinedTextFieldColors(
@@ -73,9 +80,7 @@ fun InputTextPrimary(
             ),
             modifier = modifier
                 .fillMaxWidth()
-                .defaultMinSize(
-                    minHeight = 40.dp
-                ),
+                .defaultMinSize(minHeight = 40.dp),
             placeholder = {
                 Text(
                     text = placeholder,
@@ -87,11 +92,26 @@ fun InputTextPrimary(
             textStyle = MaterialTheme.typography.body1.copy(
                 fontWeight = FontWeight.W400
             ),
-            shape = RoundedCornerShape(8.dp)
+            shape = RoundedCornerShape(8.dp),
+            trailingIcon = if (error) {
+                {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_info),
+                        contentDescription = "",
+                        tint = Error500
+                    )
+                }
+            } else null
         )
-
+        Spacer(modifier = modifier.height(6.dp))
+        Text(
+            text = errorMessage,
+            style = MaterialTheme.typography.subtitle2,
+            fontWeight=FontWeight.W400,
+            modifier = modifier,
+            color = Error500
+        )
     }
-
 }
 
 @Preview(showBackground = true, backgroundColor = 0xFFFFFFFF)
@@ -112,28 +132,28 @@ fun PreviewInputTextPrimary() {
                 value = input,
                 placeholder = "Masukkan email disini",
                 onChange = { input = it },
-                eror = true
+                error = true
             )
             InputTextPrimary(
                 label = "Email",
                 value = input,
                 placeholder = "Masukkan email disini",
                 onChange = { input = it },
-                eror = false
+                error = false
             )
             InputTextPrimary(
                 label = "Email",
                 value = input,
                 placeholder = "Masukkan email disini",
                 onChange = { input = it },
-                enable = true
+                enabled = true
             )
             InputTextPrimary(
                 label = "Email",
                 value = input,
                 placeholder = "Masukkan email disini",
                 onChange = { input = it },
-                enable = false
+                enabled = false
             )
         }
     }

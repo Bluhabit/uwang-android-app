@@ -5,7 +5,7 @@
  * Proprietary and confidential
  */
 
-package com.bluehabit.core.ui.components
+package com.bluehabit.core.ui.components.dialog
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

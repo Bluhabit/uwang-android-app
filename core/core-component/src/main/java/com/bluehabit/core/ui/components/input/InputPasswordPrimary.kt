@@ -10,11 +10,11 @@ package com.bluehabit.core.ui.components.input
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
@@ -26,15 +26,20 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import app.trian.mvi.ui.extensions.Empty
 import com.bluehabit.core.ui.R
+import com.bluehabit.core.ui.theme.Error500
 import com.bluehabit.core.ui.theme.GaweanTheme
+import com.bluehabit.core.ui.theme.Gray300
+import com.bluehabit.core.ui.theme.Gray500
+import com.bluehabit.core.ui.theme.Primary300
+import com.bluehabit.core.ui.theme.Rose700
 
 
 /**
@@ -46,74 +51,77 @@ import com.bluehabit.core.ui.theme.GaweanTheme
 
 @Composable
 fun InputPasswordPrimary(
-    value: String = "",
+    modifier: Modifier = Modifier,
+    value: String = String.Empty,
+    placeholder: String = String.Empty,
+    onChange: (String) -> Unit = {},
     label: String = "",
-    placeholder: String = "",
+    enabled: Boolean = true,
     error: Boolean = false,
-    errorMessage: String = "",
-    keyboardActions: KeyboardActions = KeyboardActions(),
-    keyboardOptions: KeyboardOptions = KeyboardOptions(),
-    onChange: (String) -> Unit = {}
+    errorMessage: String = String.Empty
 ) {
     var visible by remember {
         mutableStateOf(false)
     }
     Column(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
     ) {
         Text(
             text = label,
             style = MaterialTheme.typography.subtitle2,
-            fontWeight = FontWeight.Normal,
-            color = MaterialTheme.colors.onSurface
+            modifier = modifier
         )
-        Spacer(modifier = Modifier.height(6.dp))
+        Spacer(modifier = modifier.height(8.dp))
         OutlinedTextField(
+            isError = error,
+            enabled = enabled,
             value = value,
             onValueChange = onChange,
-            modifier = Modifier.fillMaxWidth(),
             colors = TextFieldDefaults.outlinedTextFieldColors(
-                backgroundColor = Color(0xFFFAFAFA),
-                unfocusedBorderColor = Color(0xFFFAFAFA),
-                focusedBorderColor = MaterialTheme.colors.primary,
-                textColor = MaterialTheme.colors.onSurface,
-                disabledTextColor = MaterialTheme.colors.onSurface
+                placeholderColor = Gray300,
+                textColor = Gray500,
+                focusedBorderColor = Primary300,
+                disabledBorderColor = Gray300,
+                errorBorderColor = Rose700
             ),
+            modifier = modifier
+                .fillMaxWidth()
+                .defaultMinSize(
+                    minHeight = 40.dp
+                ),
             placeholder = {
                 Text(
                     text = placeholder,
-                    style = MaterialTheme.typography.subtitle2,
-                    fontWeight = FontWeight.Normal
+                    style = MaterialTheme.typography.body1,
+                    fontWeight = FontWeight.W400
                 )
             },
-            isError = error,
-            keyboardOptions = keyboardOptions,
-            keyboardActions = keyboardActions,
+            singleLine = true,
             trailingIcon = {
                 Icon(
-                    painter = painterResource(id = if (visible) R.drawable.eye_open else R.drawable.eye_close),
+                    painter = painterResource(id = if (error) R.drawable.ic_info else if (visible) R.drawable.eye_open else R.drawable.eye_close),
                     contentDescription = "",
-                    tint = if (visible) MaterialTheme.colors.primary
+                    tint = if (error) Error500 else if (visible) MaterialTheme.colors.primary
                     else MaterialTheme.colors.onSurface,
                     modifier = Modifier.clickable {
                         visible = !visible
                     }
                 )
             },
-            textStyle = MaterialTheme.typography.subtitle2,
+            textStyle = MaterialTheme.typography.body1.copy(
+                fontWeight = FontWeight.W400
+            ),
+            shape = RoundedCornerShape(8.dp),
             visualTransformation = if (visible) VisualTransformation.None else PasswordVisualTransformation()
         )
-        if (error) {
-            Spacer(modifier = Modifier.height(6.dp))
-            Text(
-                text = errorMessage,
-                style = MaterialTheme.typography.subtitle2,
-                fontWeight = FontWeight.Normal,
-                color = MaterialTheme.colors.error
-            )
-        } else {
-            Spacer(modifier = Modifier.height(16.dp))
-        }
+        Spacer(modifier = modifier.height(6.dp))
+        Text(
+            text = errorMessage,
+            style = MaterialTheme.typography.subtitle2,
+            fontWeight = FontWeight.W400,
+            modifier = modifier,
+            color = Error500
+        )
     }
 }
 

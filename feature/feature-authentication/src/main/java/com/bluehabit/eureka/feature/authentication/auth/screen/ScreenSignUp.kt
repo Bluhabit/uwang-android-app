@@ -7,12 +7,16 @@
 
 package com.bluehabit.eureka.feature.authentication.auth.screen
 
+import android.util.Patterns
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -20,6 +24,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
@@ -32,6 +37,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import app.trian.mvi.ui.extensions.from
 import com.bluehabit.core.ui.R
+import com.bluehabit.core.ui.components.alert.AlertError
 import com.bluehabit.core.ui.components.button.ButtonFacebook
 import com.bluehabit.core.ui.components.button.ButtonGoogle
 import com.bluehabit.core.ui.components.button.ButtonPrimary
@@ -45,25 +51,44 @@ import com.bluehabit.eureka.feature.authentication.auth.AuthState
 
 @Composable
 fun ScreenSignUp(
+    modifier: Modifier = Modifier,
     state: AuthState = AuthState(),
     onEmailChanged: (String) -> Unit = {},
+    onSignUpEmail: () -> Unit = {},
+    onSignUpGoogle: () -> Unit = {},
+    onSignUpFacebook: () -> Unit = {},
+    onResetAlert:()->Unit={},
+    onShowTermCondition: () -> Unit = {},
+    onShowPrivacyPolicy: () -> Unit = {}
 ) {
     val context = LocalContext.current
+    fun isEmailValid(): Boolean {
+        return state.emailSignUp.isNotEmpty() && Patterns
+            .EMAIL_ADDRESS.matcher(state.emailSignUp).matches()
+    }
 
     Column(
         modifier = Modifier
-            .fillMaxWidth()
-            .background(Primary25),
-        verticalArrangement = Arrangement.spacedBy(20.dp.from(context = context), alignment = Alignment.Top)
+            .fillMaxSize()
+            .background(Primary25)
+            .testTag("container_sign_up")
+            .padding(
+                horizontal = 18.dp,
+                vertical = 18.dp
+            ),
     ) {
+        if (state.isError) {
+            AlertError(message = state.errorMessage) {
+                onResetAlert()
+            }
+        }
+        Spacer(modifier = modifier.height(10.dp))
         InputTextPrimary(
             label = stringResource(id = R.string.text_label_input_email_screen_auth),
-            value = state.email,
+            value = state.emailSignUp,
             placeholder = stringResource(id = R.string.text_placeholder_input_email_screen_auth),
             onChange = onEmailChanged,
-            enable = true,
-            modifier = Modifier
-                .padding(horizontal = 18.dp)
+            enabled = true
         )
         Column(
             modifier = Modifier
@@ -71,14 +96,13 @@ fun ScreenSignUp(
             verticalArrangement = Arrangement.spacedBy(24.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            Spacer(modifier = modifier.height(16.dp))
             ButtonPrimary(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(
-                        start = 18.dp, end = 18.dp, top = 30.dp, bottom = 10.dp
-                    ),
-                text = stringResource(id = R.string.text_button_signup_with_facebook_screen_auth),
-                enabled = state.email.isNotEmpty(),
+                    .fillMaxWidth(),
+                text = stringResource(id = R.string.text_button_signup_with_email_screen_auth),
+                enabled = isEmailValid(),
+                onClick = onSignUpEmail
             )
             Row(
                 horizontalArrangement = Arrangement.spacedBy(16.dp.from(context = context), Alignment.Start),
@@ -103,13 +127,12 @@ fun ScreenSignUp(
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
-                    .padding(horizontal = 18.dp)
             ) {
                 ButtonGoogle(
                     modifier = Modifier.fillMaxWidth(),
                     text = stringResource(id = R.string.text_button_signup_with_google_screen_auth),
                     enabled = true,
-                    onClick = {}
+                    onClick = onSignUpGoogle
                 )
                 ButtonFacebook(
                     modifier = Modifier
@@ -117,13 +140,12 @@ fun ScreenSignUp(
                         .padding(vertical = 10.dp),
                     text = stringResource(id = R.string.text_button_signup_with_facebook_screen_auth),
                     enabled = true,
-                    onClick = {}
+                    onClick = onSignUpFacebook
                 )
             }
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
-                    .padding(horizontal = 18.dp)
             ) {
                 Text(
                     text = buildAnnotatedString {

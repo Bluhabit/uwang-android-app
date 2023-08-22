@@ -17,3 +17,14 @@ data class BaseResponse<T>(
     @SerializedName("message")
     val message: String
 )
+
+data class BaseResponseError<T>(
+    @SerializedName("statusCode")
+    val statusCode: Int,
+    @SerializedName("data")
+    val data: T,
+    @SerializedName("message")
+    val message: String,
+    @SerializedName("errorField")
+    val errorField: List<Map<String, String>>,
+)

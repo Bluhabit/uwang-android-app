@@ -8,5 +8,6 @@
 package com.bluehabit.eureka.feature.dashboard.home
 
 sealed interface DashboardAction {
-    class SetName(var name: String) : DashboardAction
+    object SignOut:DashboardAction
+    data class SetName(var name: String) : DashboardAction
 }

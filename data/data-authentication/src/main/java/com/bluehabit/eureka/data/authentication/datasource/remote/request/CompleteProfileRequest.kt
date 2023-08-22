@@ -10,8 +10,8 @@ package com.bluehabit.eureka.data.authentication.datasource.remote.request
 import com.google.gson.annotations.SerializedName
 
 data class CompleteProfileRequest(
-    @SerializedName("userId")
-    val userId: String,
+    @SerializedName("sessionId")
+    val sessionId: String,
     @SerializedName("fullName")
     val fullName: String,
     @SerializedName("password")

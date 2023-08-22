@@ -55,7 +55,7 @@ class ResetPasswordRepository @Inject constructor(
     suspend fun resetPassword(
         newPassword: String
     ): Response<Any> = safeApiCall {
-        httpClient.post(AuthApi.RequestResetPassword) {
+        httpClient.post(AuthApi.RequestResetPassword()) {
             headers {
                 append(
                     name = AuthConstant.TOKEN_RESET_PASSWORD,

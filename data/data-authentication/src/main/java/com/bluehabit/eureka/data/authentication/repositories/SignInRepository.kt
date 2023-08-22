@@ -39,7 +39,7 @@ class SignInRepository @Inject constructor(
 
     suspend fun signInWithGoogle(token: String): Response<Any> =
         when (val result = safeApiCall<SignInResponse> {
-            httpClient.post(AuthApi.SignInWithEmail()) {
+            httpClient.post(AuthApi.SignInWithGoogle()) {
                 setBody(SignInWithGoogleRequest(token))
             }
         }) {

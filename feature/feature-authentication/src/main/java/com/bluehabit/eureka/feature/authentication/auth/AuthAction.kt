@@ -7,8 +7,14 @@
 
 package com.bluehabit.eureka.feature.authentication.auth
 
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.tasks.Task
+
 sealed interface AuthAction {
     object Nothing : AuthAction
-    object CheckSession : AuthAction
-    object Submit : AuthAction
+    data class SignInWithGoogle(val value:Task<GoogleSignInAccount>) : AuthAction
+
+    object SignInWithEmail : AuthAction
+
+    object SignUpWithEmail : AuthAction
 }
