@@ -15,7 +15,6 @@ import com.bluehabit.eureka.data.authentication.datasource.remote.request.ResetP
 import com.bluehabit.eureka.data.authentication.datasource.remote.response.LinkConfirmationResponse
 import com.bluehabit.eureka.data.common.Response
 import com.bluehabit.eureka.data.common.safeApiCall
-import com.bluehabit.eureka.data.model.BaseResponse
 import com.bluehabit.eureka.data.persistence.SharedPref
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.resources.post
@@ -29,7 +28,7 @@ class ResetPasswordRepository @Inject constructor(
 ) {
     suspend fun requestResetPassword(
         email: String,
-    ): Response<BaseResponse<Any>> = safeApiCall {
+    ): Response<Any> = safeApiCall {
         httpClient.post(AuthApi.RequestResetPassword()) {
             setBody(RequestResetPasswordRequest(email))
         }
@@ -37,14 +36,14 @@ class ResetPasswordRepository @Inject constructor(
 
     suspend fun linkConfirmation(
         token: String
-    ): Response<BaseResponse<LinkConfirmationResponse>> =
-        when (val result = safeApiCall<BaseResponse<LinkConfirmationResponse>> {
+    ): Response<LinkConfirmationResponse> =
+        when (val result = safeApiCall<LinkConfirmationResponse> {
             httpClient.post(AuthApi.LinkConfirmation()) {
                 setBody(LinkConfirmationRequest(token))
             }
         }) {
             is Response.Result -> {
-                pref.setPersistData(AuthConstant.SESSION_TOKEN_RESET_PASSWORD, result.data.data.sessionId)
+                pref.setPersistData(AuthConstant.SESSION_TOKEN_RESET_PASSWORD, result.data.sessionId)
                 result
             }
 
@@ -55,7 +54,7 @@ class ResetPasswordRepository @Inject constructor(
 
     suspend fun resetPassword(
         newPassword: String
-    ): Response<BaseResponse<Any>> = safeApiCall {
+    ): Response<Any> = safeApiCall {
         httpClient.post(AuthApi.RequestResetPassword) {
             headers {
                 append(
