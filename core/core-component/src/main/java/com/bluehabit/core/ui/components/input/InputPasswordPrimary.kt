@@ -15,8 +15,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
@@ -28,7 +26,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -37,6 +34,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import app.trian.mvi.ui.extensions.Empty
 import com.bluehabit.core.ui.R
+import com.bluehabit.core.ui.theme.Error500
 import com.bluehabit.core.ui.theme.GaweanTheme
 import com.bluehabit.core.ui.theme.Gray300
 import com.bluehabit.core.ui.theme.Gray500
@@ -59,7 +57,8 @@ fun InputPasswordPrimary(
     onChange: (String) -> Unit = {},
     label: String = "",
     enabled: Boolean = true,
-    error: Boolean = false
+    error: Boolean = false,
+    errorMessage: String = String.Empty
 ) {
     var visible by remember {
         mutableStateOf(false)
@@ -100,9 +99,9 @@ fun InputPasswordPrimary(
             singleLine = true,
             trailingIcon = {
                 Icon(
-                    painter = painterResource(id = if (visible) R.drawable.eye_open else R.drawable.eye_close),
+                    painter = painterResource(id = if (error) R.drawable.ic_info else if (visible) R.drawable.eye_open else R.drawable.eye_close),
                     contentDescription = "",
-                    tint = if (visible) MaterialTheme.colors.primary
+                    tint = if (error) Error500 else if (visible) MaterialTheme.colors.primary
                     else MaterialTheme.colors.onSurface,
                     modifier = Modifier.clickable {
                         visible = !visible
@@ -114,6 +113,14 @@ fun InputPasswordPrimary(
             ),
             shape = RoundedCornerShape(8.dp),
             visualTransformation = if (visible) VisualTransformation.None else PasswordVisualTransformation()
+        )
+        Spacer(modifier = modifier.height(6.dp))
+        Text(
+            text = errorMessage,
+            style = MaterialTheme.typography.subtitle2,
+            fontWeight = FontWeight.W400,
+            modifier = modifier,
+            color = Error500
         )
     }
 }

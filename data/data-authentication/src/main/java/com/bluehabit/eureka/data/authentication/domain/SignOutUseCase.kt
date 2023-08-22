@@ -8,7 +8,6 @@
 package com.bluehabit.eureka.data.authentication.domain
 
 import com.bluehabit.eureka.data.authentication.repositories.SignOutRepository
-import com.bluehabit.eureka.data.authentication.repositories.SignUpRepository
 import com.bluehabit.eureka.data.common.Response
 import javax.inject.Inject
 

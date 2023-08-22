@@ -8,11 +8,14 @@
 package com.bluehabit.core.ui.ext
 
 import android.content.Context
+import android.content.Intent
 
 
 fun Context.openEmail() {
-    packageManager.getLaunchIntentForPackage("com.android.email")
-        .apply {
-            startActivity(this)
-        }
+    Intent(Intent.ACTION_MAIN).apply {
+        addCategory(Intent.CATEGORY_APP_EMAIL)
+        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(this)
+    }
+
 }

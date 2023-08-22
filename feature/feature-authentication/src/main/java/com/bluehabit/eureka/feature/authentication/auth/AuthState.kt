@@ -23,15 +23,18 @@ data class AuthState(
     val emailSignIn: String = String.Empty,
     val isRememberChecked: Boolean = false,
     val passwordSignIn: String = String.Empty,
+    val emailSignInError: Boolean = false,
+    val passwordSignInError: Boolean = false,
 
-    //ens
+    //end
     //sign up
     val emailSignUp: String = String.Empty,
+    val emailSignUpError: Boolean = false,
 
     //end
     val isLoading: Boolean = false,
-    val isError:Boolean=false,
-    val errorMessage:String=String.Empty,
+    val isError: Boolean = false,
+    val errorMessage: String = String.Empty,
 
     //tabs
     val tabs: @RawValue List<Pair<String, Int>> = listOf(

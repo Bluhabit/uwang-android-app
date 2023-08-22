@@ -7,6 +7,9 @@
 
 package com.bluehabit.eureka.data.authentication.datasource.remote.response
 
+import com.google.gson.annotations.SerializedName
+
 data class UserInfoResponse (
+    @SerializedName("fullName")
     val fullName: String
 )

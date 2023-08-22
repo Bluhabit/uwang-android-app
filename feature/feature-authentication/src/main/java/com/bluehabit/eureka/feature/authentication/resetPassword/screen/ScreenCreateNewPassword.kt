@@ -46,6 +46,11 @@ fun ScreenInputNewPassword(
 ) {
     val context = LocalContext.current
 
+    fun isValid(): Boolean {
+        return (state.password == state.confirmPassword) && (state.password.isNotEmpty() &&
+                state.confirmPassword.isNotEmpty())
+    }
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -94,20 +99,24 @@ fun ScreenInputNewPassword(
                 label = stringResource(id = R.string.text_label_input_new_password_screen_auth),
                 placeholder = stringResource(id = R.string.text_placeholder_input_new_password_screen_auth),
                 value = state.password,
-                onChange = onPasswordChanged
+                onChange = onPasswordChanged,
+                error = state.passwordError,
+                errorMessage = state.passwordErrorMessage
             )
             InputPasswordPrimary(
                 label = stringResource(id = R.string.text_label_input_confirmation_new_password_screen_auth),
                 placeholder = stringResource(id = R.string.text_placeholder_input_confirmation_new_password_screen_auth),
-                value = state.passwordConfirmation,
-                onChange = onPasswordConfirmationChanged
+                value = state.confirmPassword,
+                onChange = onPasswordConfirmationChanged,
+                error = state.confirmPasswordError,
+                errorMessage = state.confirmPasswordErrorMessage
             )
         }
         ButtonPrimary(
             modifier = modifier
                 .fillMaxWidth(),
             text = stringResource(id = R.string.text_button_create_new_password_screen_auth),
-            enabled = state.password.isNotEmpty() && state.passwordConfirmation.isNotEmpty(),
+            enabled = isValid(),
             onClick = onResetPassword
         )
     }

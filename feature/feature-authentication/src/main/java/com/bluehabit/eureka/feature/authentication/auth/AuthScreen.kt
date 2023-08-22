@@ -7,6 +7,7 @@
 
 package com.bluehabit.eureka.feature.authentication.auth
 
+import android.util.Patterns
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.compose.foundation.Image
@@ -33,6 +34,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -73,8 +75,22 @@ fun AuthScreen(
 ) = UIWrapper(uiContract = uiContract) {
     val context = LocalContext.current
     val screenHeight = context.getScreenHeight()
-    fun resetAlert(){
+    fun resetAlert() {
         commit { copy(isError = false, errorMessage = String.Empty) }
+    }
+
+    fun isEmailSignInValid(): Boolean {
+        return state.emailSignIn.isNotEmpty() && Patterns
+            .EMAIL_ADDRESS.matcher(state.emailSignIn).matches()
+    }
+
+    fun isEmailSignUpValid(): Boolean {
+        return state.emailSignUp.isNotEmpty() && Patterns
+            .EMAIL_ADDRESS.matcher(state.emailSignUp).matches()
+    }
+
+    fun isPasswordValid(): Boolean {
+        return state.passwordSignIn.isNotEmpty()
     }
 
     val googleLauncher = rememberLauncherForActivityResult(
@@ -169,10 +185,10 @@ fun AuthScreen(
                             Tab(
                                 selected = state.selectedTab == screenPosition,
                                 onClick = {
-                                    resetAlert()
-                                    commit { copy(selectedTab = screenPosition) }
+                                    commit { copy(isError = false, selectedTab = screenPosition) }
                                 },
-                                text = { Text(text = title) }
+                                text = { Text(text = title) },
+                                modifier = modifier.testTag("tab_auth_$screenPosition")
                             )
                         }
                     }
@@ -185,10 +201,10 @@ fun AuthScreen(
                         AUTH_SCREEN_SIGN_IN -> ScreenSignIn(
                             state = state,
                             onEmailChanged = {
-                                commit { copy(emailSignIn = it) }
+                                commit { copy(emailSignIn = it, emailSignInError = !isEmailSignInValid()) }
                             },
                             onPasswordChanged = {
-                                commit { copy(passwordSignIn = it) }
+                                commit { copy(passwordSignIn = it, passwordSignInError = !isPasswordValid()) }
                             },
                             onRememberChecked = {
                                 commit { copy(isRememberChecked = it) }
@@ -218,7 +234,7 @@ fun AuthScreen(
                         AUTH_SCREEN_SIGN_UP -> ScreenSignUp(
                             state = state,
                             onEmailChanged = {
-                                commit { copy(emailSignUp = it) }
+                                commit { copy(emailSignUp = it, emailSignUpError = !isEmailSignUpValid()) }
                             },
                             onSignUpEmail = {
                                 context.hideKeyboard()
