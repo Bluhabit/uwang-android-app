@@ -41,7 +41,7 @@ fun BaseCircleCheckbox(
     val borderSize = if (checked) 0.dp else 2.dp
     Box(
         modifier = modifier
-            .size(32.dp)
+            .size(24.dp)
             .background(getBackgroundColor, CircleShape)
             .clip(CircleShape)
             .border(borderSize, Gray300, CircleShape)
