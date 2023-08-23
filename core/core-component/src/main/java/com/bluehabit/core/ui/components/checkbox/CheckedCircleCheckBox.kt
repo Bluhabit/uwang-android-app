@@ -36,6 +36,7 @@ fun CheckedCircleCheckBox(
             onCheckedChange()
         },
         checked = checked,
+        modifier = modifier,
     ) {
         Icon(
             painter = painterResource(id = R.drawable.ic_check),
