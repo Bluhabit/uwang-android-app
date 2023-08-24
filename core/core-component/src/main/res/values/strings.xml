@@ -94,4 +94,16 @@
     <string name="description_icon_error">Ikon error</string>
     <string name="description_icon_success">Ikon sukses</string>
     <!--    end alert component-->
+
+    <!--    changepassword-->
+    <string name="text_label_change_password_profile">Ubah Password</string>
+    <string name="text_subtitle_change_password">Untuk lanjut mengubah, masukan password akun anda saat ini </string>
+    <string name="text_subtitle_confirm_password">Password yang baru harus berbeda dengan password yang sebelumnya </string>
+    <string name="text_label_input_change_password">Password saat ini</string>
+    <string name="text_placeholder_change_password">Masukkan password Anda saat ini</string>
+    <string name="text_button_request_change_password">Konfirmasi</string>
+    <string name="text_label_confirm_dialog_password">Password Berhasil diubah!</string>
+    <string name="text_subtitle_confirm_dialog_password">Yey, kamu berhasil mengubah password baru kamu. </string>
+    <string name="text_button_confirm_dialog_password">Oke</string>
+    <!--    end alert component-->
 </resources>
