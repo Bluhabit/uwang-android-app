@@ -94,4 +94,8 @@
     <string name="description_icon_error">Ikon error</string>
     <string name="description_icon_success">Ikon sukses</string>
     <!--    end alert component-->
+
+    <!--    notif profile-->
+    <string name="text_label_notif_profile">Profil berhasil diperbarui</string>
+    <!--    end alert component-->
 </resources>
