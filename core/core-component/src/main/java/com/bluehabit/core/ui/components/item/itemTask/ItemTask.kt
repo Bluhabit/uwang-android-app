@@ -8,7 +8,9 @@
 package com.bluehabit.core.ui.components.item.itemTask
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Icon
@@ -32,6 +34,7 @@ import com.bluehabit.core.ui.R
 import com.bluehabit.core.ui.components.label.AttachmentLabel
 import com.bluehabit.core.ui.theme.Gray500
 import com.bluehabit.core.ui.theme.Gray900
+import com.bluehabit.core.ui.theme.Warning400
 
 @Composable
 fun ItemTask(
@@ -40,9 +43,10 @@ fun ItemTask(
     iconPriorityTint: Color? = null,
     title: String,
     date: String,
-    attachmentCount: String,
+    attachmentCount: Int = 0,
     checked: Boolean = false,
     onCheckedChange: (Boolean) -> Unit = {},
+    onItemClicked: () -> Unit = {},
 ) {
     BaseItemTask(
         modifier = modifier,
@@ -51,7 +55,8 @@ fun ItemTask(
         iconPriorityTint = iconPriorityTint,
         onCheckedChange = {
             onCheckedChange(it)
-        }
+        },
+        onItemClicked = onItemClicked,
     ) {
         Text(
             text = title,
@@ -81,7 +86,7 @@ fun ItemTask(
             )
         }
         AttachmentLabel(
-            text = attachmentCount
+            text = attachmentCount.toString()
         )
     }
 }
@@ -92,16 +97,41 @@ fun ItemTaskPreview() {
     var checked by remember {
         mutableStateOf(false)
     }
-    ItemTask(
-        title = "Competitor Analys",
-        priority = "none",
-        iconPriorityTint = null,
-        date = "07 Agu 2023 ",
-        attachmentCount = "3",
-        checked = checked,
+    var checked2 by remember {
+        mutableStateOf(false)
+    }
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(12.dp),
         modifier = Modifier
+            .fillMaxWidth()
             .padding(12.dp)
     ) {
-        checked = !checked
+        ItemTask(
+            title = "Competitor Analys",
+            priority = "none",
+            iconPriorityTint = null,
+            date = "07 Agu 2023 ",
+            attachmentCount = 3,
+            checked = checked,
+            onCheckedChange = {
+                checked = !it
+            }
+        ) {
+            //Do Something
+        }
+        ItemTask(
+            title = "Competitor Analys",
+            priority = "high",
+            iconPriorityTint = Warning400,
+            date = "07 Agu 2023 ",
+            attachmentCount = 3,
+            checked = checked2,
+            onCheckedChange = {
+                checked2 = !it
+            }
+        ) {
+            //Do Something
+        }
     }
 }
