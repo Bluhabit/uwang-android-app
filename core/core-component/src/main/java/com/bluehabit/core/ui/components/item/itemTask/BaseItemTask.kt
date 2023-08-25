@@ -7,6 +7,7 @@
 
 package com.bluehabit.core.ui.components.item.itemTask
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
@@ -20,6 +21,7 @@ import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -33,12 +35,15 @@ fun BaseItemTask(
     iconPriorityTint: Color? = null,
     checked: Boolean = false,
     onCheckedChange: (Boolean) -> Unit = {},
+    onItemClicked: () -> Unit = {},
     content: @Composable ColumnScope.() -> Unit = {},
 ) {
     Card(
         shape = RoundedCornerShape(8.dp),
         modifier = modifier
             .fillMaxWidth()
+            .clip(RoundedCornerShape(8.dp))
+            .clickable(onClick = onItemClicked)
     ) {
         Row(
             horizontalArrangement = Arrangement.spacedBy(12.dp),
@@ -54,20 +59,19 @@ fun BaseItemTask(
             Column(
                 verticalArrangement = Arrangement.spacedBy(12.dp),
                 modifier = Modifier
-                    .weight(10f),
+                    .fillMaxWidth(0.8f),
             ) {
                 content()
             }
             Spacer(modifier = Modifier.weight(1f))
-
-            val priorityIcon = if (priority == "none") {
-                R.drawable.outlined_priority_flag
-            } else {
-                R.drawable.priority_flag
-            }
-
             Icon(
-                painter = painterResource(id = priorityIcon),
+                painter = painterResource(
+                    id = if (priority == "none") {
+                        R.drawable.outlined_priority_flag
+                    } else {
+                        R.drawable.priority_flag
+                    }
+                ),
                 tint = iconPriorityTint ?: Color(0xFF98A2B3),
                 contentDescription = null,
                 modifier = Modifier
