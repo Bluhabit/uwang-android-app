@@ -17,6 +17,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -37,7 +38,7 @@ fun BaseInputTextPrimary(
     enabled: Boolean = true,
     placeholder: String = String.Empty,
     value: String = String.Empty,
-    onFocused: () -> Unit = {},
+    onFocusChanged: (FocusState) -> Unit = {},
     leadingIcon: @Composable (() -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
     onChange: (String) -> Unit = {},
@@ -59,9 +60,7 @@ fun BaseInputTextPrimary(
             .fillMaxWidth()
             .defaultMinSize(minHeight = 40.dp)
             .onFocusChanged {
-                if (it.isFocused) {
-                    onFocused()
-                }
+                onFocusChanged(it)
             },
         placeholder = {
             Text(

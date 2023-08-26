@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import app.trian.mvi.ui.extensions.Empty
 import com.bluehabit.core.ui.R
 import com.bluehabit.core.ui.components.input.BaseInputTextPrimary
+import com.bluehabit.core.ui.theme.Gray500
 
 @Composable
 fun InputDatePicker(
@@ -36,20 +37,26 @@ fun InputDatePicker(
     onClick: () -> Unit = {},
 ) {
     BaseInputTextPrimary(
-        readOnly = false,
+        modifier = modifier,
+        enabled = enabled,
+        readOnly = true,
         placeholder = placeholder,
+        error = error,
         value = value,
         onChange = onChange,
-        onFocused = {
-            onClick()
+        onFocusChanged = {
+            if (it.isFocused) {
+                onClick()
+            }
         },
         trailingIcon = {
             Icon(
-                painter = painterResource(id = R.drawable.eye_close),
+                painter = painterResource(id = R.drawable.ic_calendar_pick),
+                tint = Gray500,
                 contentDescription = "",
-                modifier = Modifier
+                modifier = modifier
                     .clickable {
-                        onChange("")
+                        onClick()
                     }
             )
         }
@@ -62,6 +69,14 @@ fun InputDatePickerPreview() {
     val value = remember {
         mutableStateOf("")
     }
+
+    fun clearOrFill() {
+        if (value.value == "") {
+            value.value = "Dimulai..."
+        } else {
+            value.value = ""
+        }
+    }
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
@@ -70,13 +85,13 @@ fun InputDatePickerPreview() {
             .padding(24.dp)
     ) {
         InputDatePicker(
-            placeholder = "Pilih mulai",
+            placeholder = "Ayo mulai",
             value = value.value,
             onChange = {
                 value.value = it
             }
         ) {
-            value.value = "kucheng"
+            clearOrFill()
         }
     }
 }
