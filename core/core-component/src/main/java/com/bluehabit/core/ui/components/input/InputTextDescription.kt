@@ -53,7 +53,7 @@ fun InputTextDescription(
     Column {
         Text(
             text = label,
-            style = MaterialTheme.typography.subtitle2,
+            style = MaterialTheme.typography.subtitle1,
             fontWeight = FontWeight.W500,
             modifier = modifier,
             color = Gray700
