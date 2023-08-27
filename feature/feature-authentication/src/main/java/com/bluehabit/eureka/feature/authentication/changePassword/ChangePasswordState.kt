@@ -16,7 +16,7 @@ import kotlinx.parcelize.RawValue
 
 @Parcelize
 data class ChangePasswordState(
-    val currentScreen: Int = AuthConstant.AUTH_SCREEN_CHANGE_PASSWORD,
+    val currentScreen: Int = AuthConstant.PROFILE_SCREEN_CHANGE_PASSWORD,
     val email: String = String.Empty,
     val emailError:Boolean=false,
     val emailErrorMessage:String=String.Empty,
