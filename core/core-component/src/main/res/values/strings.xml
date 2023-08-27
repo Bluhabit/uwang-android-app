@@ -94,4 +94,8 @@
     <string name="description_icon_error">Ikon error</string>
     <string name="description_icon_success">Ikon sukses</string>
     <!--    end alert component-->
+
+    <!--    search component-->
+    <string name="text_placeholder_search_bar">Cari tugas atau proyek Anda</string>
+    <!--    end search component-->
 </resources>
