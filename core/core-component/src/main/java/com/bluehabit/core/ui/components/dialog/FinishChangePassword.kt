@@ -32,7 +32,7 @@ import com.bluehabit.core.ui.theme.GaweanTheme
 import com.bluehabit.core.ui.theme.Gray900
 
 @Composable
-fun FinishChangePassword(
+fun DialogChangePassword(
     show: Boolean = false,
     icon: (@Composable () -> Unit)? = null,
     action: @Composable () -> Unit = {},
@@ -97,7 +97,7 @@ fun FinishChangePassword(
 fun FinishChangePasswordPreview() {
     GaweanTheme {
         Column(modifier = Modifier.padding(20.dp)) {
-            DialogConfirmation(
+            DialogChangePassword(
                 show = true,
                 title = stringResource(id = R.string.text_label_confirm_dialog_password),
                 message = stringResource(id = R.string.text_subtitle_confirm_dialog_password),

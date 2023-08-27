@@ -24,5 +24,5 @@ object AuthConstant {
     const val AUTH_SCREEN_CREATE_PASSWORD=4
     const val AUTH_SCREEN_RESET_SUCCESS=5
 
-    const val AUTH_SCREEN_CHANGE_PASSWORD=1
+    const val PROFILE_SCREEN_CHANGE_PASSWORD=1
 }
