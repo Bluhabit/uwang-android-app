@@ -7,23 +7,12 @@
 
 package com.bluehabit.core.ui.components.input
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.material.TextFieldDefaults
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -31,16 +20,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import app.trian.mvi.ui.extensions.Empty
 import com.bluehabit.core.ui.R
-import com.bluehabit.core.ui.theme.Error300
-import com.bluehabit.core.ui.theme.Error600
-import com.bluehabit.core.ui.theme.GaweanTheme
-import com.bluehabit.core.ui.theme.Gray300
-import com.bluehabit.core.ui.theme.Gray700
-import com.bluehabit.core.ui.theme.Gray900
-import com.bluehabit.core.ui.theme.Primary300
+import com.bluehabit.core.ui.theme.*
 
 @Composable
-fun InputTextDescription(
+fun InputTextArea(
     modifier: Modifier = Modifier,
     value: String = String.Empty,
     placeholder: String = String.Empty,
@@ -113,7 +96,7 @@ fun PreviewInputTextDescription() {
             var input by remember {
                 mutableStateOf("")
             }
-            InputTextDescription(
+            InputTextArea(
                 value = input,
                 placeholder = stringResource(id = R.string.text_placeholder_input_description),
                 onChange = { input = it },
@@ -125,7 +108,7 @@ fun PreviewInputTextDescription() {
                 enabled = true
             )
             Spacer(modifier = Modifier.height(20.dp))
-            InputTextDescription(
+            InputTextArea(
                 value = input,
                 placeholder = stringResource(id = R.string.text_placeholder_input_description),
                 onChange = { input = it },
