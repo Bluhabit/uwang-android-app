@@ -33,28 +33,28 @@ import com.bluehabit.core.ui.theme.Primary600
 open class DashboardBottomNavigationMenu(
     val route: String = "Navigation",
     val name: Int = R.string.text_label_nav_report_dashboard,
-    val iconActive: Int = R.drawable.add,
-    val iconInactive: Int = R.drawable.add,
+    val iconActive: Int = R.drawable.icon_item_bottom_navigation_user_active,
+    val iconInactive: Int = R.drawable.icon_item_bottom_navigation_user_active,
 ) {
     object MenuHome : DashboardBottomNavigationMenu(
         route = "Menu",
         name = R.string.text_label_nav_home_dashboard,
-        iconActive = R.drawable.home_active,
-        iconInactive = R.drawable.home_inactive
+        iconActive = R.drawable.icon_item_bottom_navigation_home_active,
+        iconInactive = R.drawable.icon_item_bottom_navigation_home_inactive
     )
 
     object MenuTask : DashboardBottomNavigationMenu(
         route = "Task",
         name = R.string.text_label_nav_task_dashboard,
-        iconActive = R.drawable.calendar_active,
-        iconInactive = R.drawable.calendar_inactive
+        iconActive = R.drawable.icon_item_bottom_task_user_active,
+        iconInactive = R.drawable.icon_item_bottom_task_user_inactive
     )
 
     object MenuProject : DashboardBottomNavigationMenu(
         route = "Project",
         name = R.string.text_label_nav_project_dashboard,
-        iconActive = R.drawable.group_active,
-        iconInactive = R.drawable.group_inactive
+        iconActive = R.drawable.icon_item_bottom_navigation_group_active,
+        iconInactive = R.drawable.icon_item_bottom_navigation_group_inactive
     )
 
     object MenuProfile : DashboardBottomNavigationMenu(
@@ -128,7 +128,7 @@ fun PreviewDashboardBottomNavigation() {
                     onClick = { /*TODO*/ },
                     content = {
                         Icon(
-                            painter = painterResource(id = R.drawable.add),
+                            painter = painterResource(id = R.drawable.icon_item_bottom_navigation_user_active),
                             contentDescription = null,
                             modifier = Modifier.size(37.dp)
                         )
