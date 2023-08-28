@@ -19,6 +19,6 @@ import kotlinx.parcelize.RawValue
 data class EditProfileState(
     val changeName:String = String.Empty,
     val nameError:Boolean = false,
-
+    val imageUrl:String = String.Empty,
     override val effect:  @RawValue EditProfileEffect = EditProfileEffect.Nothing
 ) : MviState<EditProfileEffect>(),Parcelable
