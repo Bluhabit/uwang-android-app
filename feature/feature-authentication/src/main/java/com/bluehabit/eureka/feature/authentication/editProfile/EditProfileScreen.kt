@@ -10,7 +10,6 @@ package com.bluehabit.eureka.feature.authentication.editProfile
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ModalBottomSheetLayout
@@ -38,7 +37,7 @@ fun ScreenEditProfile(
 
         )
     val scope = rememberCoroutineScope()
-    ModalBottomSheetLayout(sheetContent = {EditProfile},
+    ModalBottomSheetLayout(sheetContent = {},
         sheetState = modalSheetState,
         sheetBackgroundColor = Color.White,
         sheetShape = RoundedCornerShape(
