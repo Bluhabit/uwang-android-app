@@ -7,7 +7,6 @@
 
 package com.bluehabit.core.ui.components.input
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.defaultMinSize
@@ -56,13 +55,13 @@ fun InputTextPrimary(
     label: String = "",
     enabled: Boolean = true,
     error: Boolean = false,
-    errorMessage:String=String.Empty
+    errorMessage: String = String.Empty
 ) {
     Column {
         Text(
             text = label,
             style = MaterialTheme.typography.subtitle2,
-            fontWeight=FontWeight.W500,
+            fontWeight = FontWeight.W500,
             modifier = modifier
         )
         Spacer(modifier = modifier.height(8.dp))
@@ -107,7 +106,7 @@ fun InputTextPrimary(
         Text(
             text = errorMessage,
             style = MaterialTheme.typography.subtitle2,
-            fontWeight=FontWeight.W400,
+            fontWeight = FontWeight.W400,
             modifier = modifier,
             color = Error500
         )
