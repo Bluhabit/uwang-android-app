@@ -7,5 +7,8 @@
 
 package com.bluehabit.eureka.feature.authentication.editProfile
 
+
 sealed interface EditProfileAction {
+    object CheckSession : EditProfileAction
+
 }

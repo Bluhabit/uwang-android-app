@@ -7,4 +7,7 @@
 
 package com.bluehabit.eureka.feature.authentication.editProfile
 
-sealed interface EditProfileEffect
+
+sealed interface EditProfileEffect {
+    object Nothing : EditProfileEffect
+}
