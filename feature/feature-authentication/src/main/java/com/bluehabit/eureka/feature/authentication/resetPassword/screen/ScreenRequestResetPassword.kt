@@ -7,7 +7,6 @@
 
 package com.bluehabit.eureka.feature.authentication.resetPassword.screen
 
-import android.util.Patterns
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -55,8 +54,8 @@ fun ScreenRequestResetPassword(
             .fillMaxSize()
             .background(Color.White)
             .padding(
-                vertical = 18.dp.from(context = context),
-                horizontal = 18.dp.from(context = context),
+                vertical = 24.dp.from(context = context),
+                horizontal = 26.dp.from(context = context),
             ),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(28.dp)
@@ -98,16 +97,14 @@ fun ScreenRequestResetPassword(
                 label = stringResource(id = R.string.text_label_request_reset_password),
                 placeholder = stringResource(id = R.string.text_placeholder_request_reset_password),
                 value = state.email,
-                onChange = onEmailChange,
-                error = state.emailError,
-                errorMessage = state.emailErrorMessage
+                onChange = onEmailChange
             )
         }
         ButtonPrimary(
             modifier = modifier
                 .fillMaxWidth(),
             text = stringResource(id = R.string.text_button_request_reset_password),
-            enabled = Patterns.EMAIL_ADDRESS.matcher(state.email).matches(),
+            enabled = state.email.isNotEmpty() ,
             onClick = onSendRequest
         )
     }
@@ -122,8 +119,8 @@ fun PreviewRequestResetPassword() {
     GaweanTheme {
         ScreenRequestResetPassword(
             state = state,
-            onEmailChange = {
-                state = state.copy(email = it)
+            onEmailChange ={
+                state = state.copy(email= it)
             }
         )
     }

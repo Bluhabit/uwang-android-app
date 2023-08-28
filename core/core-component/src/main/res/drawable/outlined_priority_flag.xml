@@ -1,0 +1,14 @@
+<!--
+  ~ Copyright © 2023 Blue Habit.
+  ~
+  ~ Unauthorized copying, publishing of this file, via any medium is strictly prohibited
+  ~ Proprietary and confidential
+  -->
+
+<vector android:height="100dp" android:viewportHeight="26"
+    android:viewportWidth="26" android:width="100dp" xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="#00000000"
+        android:pathData="M1,1V3M1,25V17M1,17L4.636,16.077C7.371,15.382 10.261,15.704 12.783,16.985L12.925,17.057C15.396,18.313 18.223,18.648 20.913,18.005L25,17.028C24.752,14.72 24.625,12.375 24.625,10C24.625,7.645 24.75,5.319 24.994,3.029L20.913,4.005C18.223,4.648 15.396,4.312 12.925,3.057L12.783,2.985C10.261,1.704 7.371,1.382 4.636,2.077L1,3M1,17V3"
+        android:strokeColor="#000000" android:strokeLineCap="round"
+        android:strokeLineJoin="round" android:strokeWidth="1.5"/>
+</vector>

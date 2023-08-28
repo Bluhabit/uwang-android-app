@@ -106,4 +106,13 @@
     <string name="text_subtitle_confirm_dialog_password">Yey, kamu berhasil mengubah password baru kamu. </string>
     <string name="text_button_confirm_dialog_password">Oke</string>
     <!--    end alert component-->
+
+    <!--    bottom navigation-->
+    <string name="text_label_nav_report_dashboard">Laporan</string>
+    <string name="text_label_nav_home_dashboard">Home</string>
+    <string name="text_label_nav_task_dashboard">Tugas</string>
+    <string name="text_label_nav_project_dashboard">Proyek</string>
+    <string name="text_label_nav_profile_dashboard">Profil</string>
+    <!--    end navigation-->
+
 </resources>
