@@ -7,6 +7,7 @@
 
 package com.bluehabit.core.ui.components.item.itemTask
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -27,6 +28,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.bluehabit.core.ui.R
 import com.bluehabit.core.ui.components.checkbox.CheckedCircleCheckBox
+import com.bluehabit.core.ui.theme.Gray100
 
 @Composable
 fun BaseItemTask(
@@ -49,6 +51,9 @@ fun BaseItemTask(
             horizontalArrangement = Arrangement.spacedBy(12.dp),
             modifier = Modifier
                 .fillMaxWidth()
+                .background(
+                    if (checked) Gray100 else Color.White,
+                )
                 .padding(20.dp)
         ) {
             CheckedCircleCheckBox(
