@@ -27,7 +27,6 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -43,76 +42,43 @@ import com.bluehabit.core.ui.R
 import com.bluehabit.core.ui.theme.Gray900
 import kotlinx.coroutines.launch
 
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun EditPhotoBottomSheet(
-    show: Boolean = false,
     onUploadImage: () -> Unit = {},
     onTakePicture: () -> Unit = {},
     onDeleteImage: () -> Unit = {},
-    onDismiss: () -> Unit = {},
 ) {
-    val context = LocalContext.current
-    val modalSheetState = rememberModalBottomSheetState(
-        initialValue = ModalBottomSheetValue.Hidden,
-        confirmValueChange = { it != ModalBottomSheetValue.HalfExpanded },
-        skipHalfExpanded = false,
-
-    )
-    val scope = rememberCoroutineScope()
-    ModalBottomSheetLayout(
-        sheetState = modalSheetState,
-        sheetBackgroundColor = Color.White,
-        sheetShape = RoundedCornerShape(
-            topStart = 16.dp,
-            topEnd = 16.dp
-        ),
-        sheetContent = {
-            Column(
-                Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 23.dp)
-            ) {
-                ItemBottomSheet(
-                    icon = R.drawable.ic_upload,
-                    text = stringResource(R.string.text_upload_image_from_phone),
-                    onItemClick = { onUploadImage.invoke() }
-                )
-                ItemBottomSheet(
-                    icon = R.drawable.camera,
-                    text = stringResource(R.string.text_take_picture),
-                    onItemClick = { onTakePicture.invoke() }
-
-                )
-                ItemBottomSheet(
-                    icon = R.drawable.ic_trash,
-                    text = stringResource(R.string.text_delete_image),
-                    onItemClick = { onDeleteImage.invoke() }
-                )
-            }
-        }
+    Column(
+        Modifier
+            .fillMaxWidth()
+            .padding(vertical = 23.dp)
     ) {
-        Scaffold(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp)
-                .background(Color(0x1A0D0D0D)),
-        ) {
-            Button(onClick = { scope.launch { modalSheetState.show() } }) {
-                Text("Click to show sheet")
-            }
-        }
+        ItemBottomSheet(
+            icon = R.drawable.ic_upload,
+            text = stringResource(R.string.text_upload_image_from_phone),
+            onItemClick = { onUploadImage.invoke() }
+        )
+        ItemBottomSheet(
+            icon = R.drawable.camera,
+            text = stringResource(R.string.text_take_picture),
+            onItemClick = { onTakePicture.invoke() }
 
+        )
+        ItemBottomSheet(
+            icon = R.drawable.ic_trash,
+            text = stringResource(R.string.text_delete_image),
+            onItemClick = { onDeleteImage.invoke() }
+        )
     }
-}
 
+}
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun ItemBottomSheet(
     icon: Int,
     text: String,
     onItemClick: () -> Unit = {}
 ) {
-    val context = LocalContext.current
     Row(
         modifier = Modifier
             .height(48.dp)
@@ -141,10 +107,38 @@ fun ItemBottomSheet(
     }
 }
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 @Preview(widthDp = 500, heightDp = 750, backgroundColor = 0xffffff)
 fun BottomSheetEditPhotoPreview() {
-    EditPhotoBottomSheet(
-        show = true
-    )
+    val modalSheetState = rememberModalBottomSheetState(
+        initialValue = ModalBottomSheetValue.Hidden,
+        confirmValueChange = { it != ModalBottomSheetValue.HalfExpanded },
+        skipHalfExpanded = false,
+
+        )
+    val scope = rememberCoroutineScope()
+    ModalBottomSheetLayout(
+        sheetState = modalSheetState,
+        sheetBackgroundColor = Color.White,
+        sheetShape = RoundedCornerShape(
+            topStart = 16.dp,
+            topEnd = 16.dp
+        ),
+        sheetContent = {
+           EditPhotoBottomSheet()
+        }
+    ) {
+        Scaffold(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp)
+                .background(Color(0x1A0D0D0D)),
+        ) {
+            Button(onClick = { scope.launch { modalSheetState.show() } }) {
+                Text("Click to show sheet")
+            }
+        }
+
+    }
 }
