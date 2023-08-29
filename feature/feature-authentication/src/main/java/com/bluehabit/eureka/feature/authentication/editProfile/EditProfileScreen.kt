@@ -69,8 +69,13 @@ fun EditProfileScreen(
     val profilePicture = rememberAsyncImagePainter(
         model =ImageRequest
             .Builder(context)
-            .data(state.imageUrl)
+            .data(state.imageUrl.ifEmpty {
+                com.bluehabit.eureka.data.R.drawable.dummy_avatar_1
+            })
             .placeholder(com.bluehabit.eureka.data.R.drawable.dummy_avatar_1)
+            .error(
+                com.bluehabit.eureka.data.R.drawable.dummy_avatar_1
+            )
             .build()
     )
     val scope = rememberCoroutineScope()
@@ -78,7 +83,6 @@ fun EditProfileScreen(
         sheetContent = { EditPhotoBottomSheet() },
         sheetState = modalSheetState,
         sheetBackgroundColor = Color.White,
-        scrimColor = Color(0x1A0D0D0D),
         sheetShape = RoundedCornerShape(
             topStart = 16.dp,
             topEnd = 16.dp
