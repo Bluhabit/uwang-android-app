@@ -6,6 +6,9 @@
  */
 
 @file:Suppress("UnstableApiUsage")
+
+include(":data:data-task")
+
 pluginManagement {
     repositories {
         google()
@@ -39,7 +42,8 @@ include(
     ":core:core-component"
 )
 include(
-    ":data:data-authentication"
+    ":data:data-authentication",
+    ":data:data-task"
 )
 include(
     ":feature:feature-authentication",
