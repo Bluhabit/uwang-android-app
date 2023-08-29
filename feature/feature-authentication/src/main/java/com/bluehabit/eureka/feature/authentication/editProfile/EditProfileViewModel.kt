@@ -7,5 +7,16 @@
 
 package com.bluehabit.eureka.feature.authentication.editProfile
 
-class EditProfileViewModel {
+import app.trian.mvi.ui.viewModel.MviViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+
+@HiltViewModel
+class EditProfileViewModel(
+):MviViewModel<EditProfileState,EditProfileAction>(
+    EditProfileState()
+) {
+    override fun onAction(action: EditProfileAction) {
+        TODO("Not yet implemented")
+    }
+
 }
