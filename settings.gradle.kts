@@ -7,8 +7,6 @@
 
 @file:Suppress("UnstableApiUsage")
 
-include(":data:data-task")
-
 pluginManagement {
     repositories {
         google()
@@ -37,24 +35,15 @@ dependencyResolutionManagement {
 rootProject.name = "Eureka Project"
 include(":androidApp")
 
-include(
-    ":core:core-data",
-    ":core:core-component"
-)
-include(
-    ":data:data-authentication",
-    ":data:data-task"
-)
-include(
-    ":feature:feature-authentication",
-    ":feature:feature-dashboard"
-)
-rootProject.children.forEach {
-    if(it.name in setOf("feature","data","core")){
-        val dir = it.name
-        it.children.forEach {project->
-            val module=project.name
-            project(":$dir:$module").projectDir = project.projectDir
-        }
+val module = setOf("feature", "data", "core")
+module.forEach { subModuleName ->
+    File(rootDir, subModuleName)
+        .list { file, name -> file.isDirectory && name.startsWith(subModuleName) }
+        .forEach { include(":$subModuleName:$it") }
+}
+
+rootProject.children.forEach { child ->
+    if (child.name in module) {
+        child.children.forEach { subModule -> project(":${child.name}:${subModule.name}").projectDir = subModule.projectDir }
     }
 }
