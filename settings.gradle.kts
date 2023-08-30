@@ -42,8 +42,6 @@ module.forEach { subModuleName ->
         .forEach { include(":$subModuleName:$it") }
 }
 
-rootProject.children.forEach { module ->
-    if (module.name in this.module) {
-        module.children.forEach { subModule -> project(":${module.name}:${subModule.name}").projectDir = subModule.projectDir }
-    }
+rootProject.children.filter { it.name in module }.forEach { module ->
+    module.children.forEach { subModule -> project(":${module.name}:${subModule.name}").projectDir = subModule.projectDir }
 }
