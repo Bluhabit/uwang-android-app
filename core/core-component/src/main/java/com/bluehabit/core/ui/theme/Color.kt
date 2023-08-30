@@ -33,6 +33,8 @@ val Gray700 = Color(0xFF344054)
 val Gray800 = Color(0xFF1D2939)
 val Gray900 = Color(0xFF101828)
 
+val Neutral100 = Color(0xFF0A0A0A)
+
 val Error25 = Color(0xFFFFFBFA)
 val Error50 = Color(0xFFFEF3F2)
 val Error100 = Color(0xFFFEE4E2)
