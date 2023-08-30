@@ -48,8 +48,9 @@ import java.time.LocalDate
 import kotlinx.coroutines.launch
 
 @Composable
-fun DatePickerBottomSheet(){
-    val selectedDate = remember { mutableStateOf(LocalDate.now()) }
+fun DatePickerBottomSheet(
+    onChange: (date: LocalDate) -> Unit ={}
+){
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -92,7 +93,7 @@ fun DatePickerBottomSheet(){
                 border = BorderStroke(2.dp, Color(0xFFf1faee))
             ),
             onSnappedDate = { snappedDate ->
-                selectedDate.value = snappedDate
+                onChange.invoke(snappedDate)
             }
         )
         ButtonPrimary(
