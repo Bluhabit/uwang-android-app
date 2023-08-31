@@ -24,8 +24,6 @@ import io.ktor.client.plugins.resources.get
 import io.ktor.client.plugins.resources.post
 import io.ktor.client.request.forms.MultiPartFormDataContent
 import io.ktor.client.request.forms.formData
-import io.ktor.client.request.get
-import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import io.ktor.http.Headers
 import io.ktor.http.HttpHeaders
@@ -107,5 +105,9 @@ class TaskRepository @Inject constructor(
 
             else -> response
         }
+    }
+
+    suspend fun getTaskByStatus(page: Int, status: String) = safeApiCall<BasePagingResponse<TaskResponse>> {
+        httpClient.get(TaskApi.GetTaskByStatus(page = page, status = status))
     }
 }
