@@ -64,8 +64,6 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun EditProfileScreen(
-    state: EditProfileState = EditProfileState(),
-    onNewNameChange: (String) -> Unit = {},
     uiContract: UIContract<EditProfileState, EditProfileAction>
 ) = UIWrapper(uiContract = uiContract) {
     val modalSheetState = rememberModalBottomSheetState(
@@ -81,16 +79,13 @@ fun EditProfileScreen(
     val profilePicture = rememberAsyncImagePainter(
         model = ImageRequest
             .Builder(context)
-            .data(state.imageUrl.ifEmpty {
-                R.drawable.dummy_avatar_1
-            })
+            .data(state.imageUrl.orEmpty())
             .placeholder(R.drawable.dummy_avatar_1)
             .error(
                 R.drawable.dummy_avatar_1
             )
             .build()
     )
-    val scope = rememberCoroutineScope()
     ModalBottomSheetLayout(
         sheetContent = { EditPhotoBottomSheet() },
         sheetState = modalSheetState,
@@ -124,7 +119,7 @@ fun EditProfileScreen(
                         }
                     },
                     actions = {
-                        IconButton(onClick = {  }) {
+                        IconButton(onClick = { /*TODO*/ }) {
 
                         }
                     }
@@ -146,7 +141,7 @@ fun EditProfileScreen(
                     modifier = Modifier
                         .width(72.dp)
                         .height(72.dp)
-                        .clickable(onClick = { scope.launch { modalSheetState.show() } })
+                        .clickable(onClick = { launch { modalSheetState.show() } })
                 ) {
                     Image(
                         modifier = Modifier
@@ -183,7 +178,7 @@ fun EditProfileScreen(
                     label = stringResource(id = string.text_label_input_new_name_edit_profile),
                     placeholder = stringResource(id = string.text_label_placeholder_new_name_edit_profile),
                     value = state.newName,
-                    onChange = onNewNameChange,
+//                    onChange = onNewNameChange(),
                     enabled = true
                 )
                 ButtonPrimary(
