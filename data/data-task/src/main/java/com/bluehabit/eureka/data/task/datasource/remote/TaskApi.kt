@@ -29,4 +29,6 @@ class TaskApi {
     @Resource("publish")
     class Publish(val parent: TaskApi = TaskApi())
 
+    @Resource("task-list-by-status/{status}?page={page}")
+    class GetTaskByStatus(val parent: TaskApi = TaskApi(), val page: Int, val status: String)
 }
