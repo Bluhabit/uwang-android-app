@@ -13,6 +13,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -21,6 +22,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.Scaffold
@@ -41,6 +43,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import app.trian.mvi.ui.UIWrapper
@@ -52,7 +56,8 @@ import coil.request.ImageRequest
 import com.bluehabit.core.ui.components.button.ButtonPrimary
 import com.bluehabit.core.ui.components.input.InputTextPrimary
 import com.bluehabit.core.ui.components.sheet.EditPhotoBottomSheet
-import com.bluehabit.eureka.feature.authentication.R
+import com.bluehabit.core.ui.theme.Gray900
+import com.bluehabit.eureka.data.R
 import kotlinx.coroutines.launch
 
 
@@ -66,18 +71,17 @@ fun EditProfileScreen(
         initialValue = ModalBottomSheetValue.Hidden,
         confirmValueChange = { it != ModalBottomSheetValue.HalfExpanded },
         skipHalfExpanded = false,
-
         )
     val context = LocalContext.current
     val profilePicture = rememberAsyncImagePainter(
         model = ImageRequest
             .Builder(context)
             .data(state.imageUrl.ifEmpty {
-                com.bluehabit.eureka.data.R.drawable.dummy_avatar_1
+                R.drawable.dummy_avatar_1
             })
-            .placeholder(com.bluehabit.eureka.data.R.drawable.dummy_avatar_1)
+            .placeholder(R.drawable.dummy_avatar_1)
             .error(
-                com.bluehabit.eureka.data.R.drawable.dummy_avatar_1
+                R.drawable.dummy_avatar_1
             )
             .build()
     )
@@ -92,11 +96,19 @@ fun EditProfileScreen(
         ),
     ) {
         Scaffold(
+            modifier = Modifier.fillMaxSize(),
             topBar = {
                 TopAppBar(
-
+                    backgroundColor = Color.White,
                     title = {
-                        Text(text = "Edit Profile")
+                        Text(
+                            modifier = Modifier.fillMaxWidth(),
+                            text = stringResource(id = com.bluehabit.core.ui.R.string.text_top_bar_edit_profile),
+                            style = MaterialTheme.typography.h6,
+                            fontWeight = FontWeight.W600,
+                            color = Gray900,
+                            textAlign = TextAlign.Center
+                        )
                     },
                     navigationIcon = {
                         IconButton(onClick = { /*TODO*/ }) {
@@ -170,7 +182,7 @@ fun EditProfileScreen(
                     modifier = Modifier
                         .fillMaxWidth(),
                     text = "Simpan Perubahan",
-                    )
+                )
             }
         }
 
