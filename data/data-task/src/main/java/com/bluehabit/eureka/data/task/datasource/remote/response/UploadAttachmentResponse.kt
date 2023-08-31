@@ -10,12 +10,18 @@ package com.bluehabit.eureka.data.task.datasource.remote.response
 import com.google.gson.annotations.SerializedName
 
 data class UploadAttachmentResponse(
-    @SerializedName("")
+    @SerializedName("id")
     val id: String,
+    @SerializedName("name")
     val name: String,
+    @SerializedName("type")
     val type: String,
+    @SerializedName("mimeType")
     val mimeType: String,
+    @SerializedName("createdAt")
     val createdAt: String,
+    @SerializedName("updatedAt")
     val updatedAt: String,
+    @SerializedName("deleted")
     val deleted: Boolean,
 )
