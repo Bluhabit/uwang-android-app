@@ -40,6 +40,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import app.trian.mvi.ui.UIWrapper
@@ -57,7 +58,9 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun EditProfileScreen(
-    uiContract: UIContract<EditProfileState,EditProfileAction>
+    state: EditProfileState = EditProfileState(),
+    onNewNameChange: (String) -> Unit = {},
+    uiContract: UIContract<EditProfileState, EditProfileAction>
 ) = UIWrapper(uiContract = uiContract) {
     val modalSheetState = rememberModalBottomSheetState(
         initialValue = ModalBottomSheetValue.Hidden,
@@ -67,7 +70,7 @@ fun EditProfileScreen(
         )
     val context = LocalContext.current
     val profilePicture = rememberAsyncImagePainter(
-        model =ImageRequest
+        model = ImageRequest
             .Builder(context)
             .data(state.imageUrl.ifEmpty {
                 com.bluehabit.eureka.data.R.drawable.dummy_avatar_1
@@ -93,18 +96,21 @@ fun EditProfileScreen(
                 TopAppBar(
 
                     title = {
-                        Text(text = "Edit Profile" )
+                        Text(text = "Edit Profile")
                     },
                     navigationIcon = {
                         IconButton(onClick = { /*TODO*/ }) {
-                            Icon(painter = painterResource(
-                                id = com.bluehabit.core.ui.R.drawable.ic_arrow_back),
-                                contentDescription = "Arrow Back" )
+                            Icon(
+                                painter = painterResource(
+                                    id = com.bluehabit.core.ui.R.drawable.ic_arrow_back
+                                ),
+                                contentDescription = stringResource(id = com.bluehabit.core.ui.R.string.description_icon_arrow)
+                            )
                         }
                     }
                 )
             }
-        ){
+        ) {
             Column(
                 modifier = Modifier
                     .padding(it)
@@ -120,7 +126,7 @@ fun EditProfileScreen(
                     modifier = Modifier
                         .width(72.dp)
                         .height(72.dp)
-                        .clickable(onClick = {scope.launch{modalSheetState.show()}})
+                        .clickable(onClick = { scope.launch { modalSheetState.show() } })
                 ) {
                     Image(
                         modifier = Modifier
@@ -130,7 +136,7 @@ fun EditProfileScreen(
                             .clip(CircleShape),
                         painter = profilePicture,
                         contentScale = ContentScale.FillBounds,
-                        contentDescription = "Profile Picture",
+                        contentDescription = stringResource(id = com.bluehabit.core.ui.R.string.description_avatar),
                     )
                     Box(
                         modifier = Modifier
@@ -147,39 +153,41 @@ fun EditProfileScreen(
                                 .height(16.dp.from(context = context))
                                 .align(Alignment.Center),
                             painter = painterResource(id = com.bluehabit.core.ui.R.drawable.pencil_square),
-                            contentDescription = "",
+                            contentDescription = stringResource(id = com.bluehabit.core.ui.R.string.description_icon_pencil),
                             contentScale = ContentScale.None
                         )
                     }
                 }
 
                 InputTextPrimary(
-                    label = "Nama Pengguna",
-                    placeholder = "Masukan Nama Penggunaan",
-
+                    label = stringResource(id = com.bluehabit.core.ui.R.string.text_label_input_new_name_edit_profile),
+                    placeholder = stringResource(id = com.bluehabit.core.ui.R.string.text_label_placeholder_new_name_edit_profile),
+                    value = state.newName,
+                    onChange = onNewNameChange,
+                    enabled = true
                 )
                 ButtonPrimary(
                     modifier = Modifier
                         .fillMaxWidth(),
                     text = "Simpan Perubahan",
-
-                )
+                    )
             }
         }
 
     }
 }
+
 @Composable
 @Preview
-fun PreviewEditProfile(){
+fun PreviewEditProfile() {
     var state by remember {
         mutableStateOf(EditProfileState())
     }
     EditProfileScreen(
         uiContract = UIContract(
-            controller =  rememberUIController(),
+            controller = rememberUIController(),
             state = state,
-            mutation ={
+            mutation = {
                 state = it
             }
         )

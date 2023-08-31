@@ -131,4 +131,11 @@
     <string name="text_label_nav_profile_dashboard">Profil</string>
     <!--    end navigation-->
 
+    <!--  edit profil  -->
+    <string name="description_avatar">Profile Picture</string>
+    <string name="description_icon_arrow">Arrow Back</string>
+    <string name="description_icon_pencil">pencil</string>
+    <string name="text_label_input_new_name_edit_profile">Nama Pengguna</string>
+    <string name="text_label_placeholder_new_name_edit_profile">Masukan Nama Pengguna</string>
+    <!-- end edit profil  -->
 </resources>
