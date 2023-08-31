@@ -13,6 +13,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -53,13 +54,13 @@ import app.trian.mvi.ui.internal.contract.UIContract
 import app.trian.mvi.ui.internal.rememberUIController
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
+import com.bluehabit.core.ui.R.string
 import com.bluehabit.core.ui.components.button.ButtonPrimary
 import com.bluehabit.core.ui.components.input.InputTextPrimary
 import com.bluehabit.core.ui.components.sheet.EditPhotoBottomSheet
 import com.bluehabit.core.ui.theme.Gray900
 import com.bluehabit.eureka.data.R
 import kotlinx.coroutines.launch
-
 
 @Composable
 fun EditProfileScreen(
@@ -71,8 +72,12 @@ fun EditProfileScreen(
         initialValue = ModalBottomSheetValue.Hidden,
         confirmValueChange = { it != ModalBottomSheetValue.HalfExpanded },
         skipHalfExpanded = false,
-        )
+    )
     val context = LocalContext.current
+    fun isNameValid(): Boolean {
+        return state.newName.isNotEmpty()
+    }
+
     val profilePicture = rememberAsyncImagePainter(
         model = ImageRequest
             .Builder(context)
@@ -96,14 +101,14 @@ fun EditProfileScreen(
         ),
     ) {
         Scaffold(
-            modifier = Modifier.fillMaxSize(),
             topBar = {
                 TopAppBar(
+                    elevation = 0.dp,
                     backgroundColor = Color.White,
                     title = {
                         Text(
                             modifier = Modifier.fillMaxWidth(),
-                            text = stringResource(id = com.bluehabit.core.ui.R.string.text_top_bar_edit_profile),
+                            text = stringResource(id = string.text_top_bar_edit_profile),
                             style = MaterialTheme.typography.h6,
                             fontWeight = FontWeight.W600,
                             color = Gray900,
@@ -113,11 +118,14 @@ fun EditProfileScreen(
                     navigationIcon = {
                         IconButton(onClick = { /*TODO*/ }) {
                             Icon(
-                                painter = painterResource(
-                                    id = com.bluehabit.core.ui.R.drawable.ic_arrow_back
-                                ),
-                                contentDescription = stringResource(id = com.bluehabit.core.ui.R.string.description_icon_arrow)
+                                painter = painterResource(id = com.bluehabit.core.ui.R.drawable.ic_arrow_back),
+                                contentDescription = stringResource(id = string.description_icon_arrow)
                             )
+                        }
+                    },
+                    actions = {
+                        IconButton(onClick = {  }) {
+
                         }
                     }
                 )
@@ -148,7 +156,7 @@ fun EditProfileScreen(
                             .clip(CircleShape),
                         painter = profilePicture,
                         contentScale = ContentScale.FillBounds,
-                        contentDescription = stringResource(id = com.bluehabit.core.ui.R.string.description_avatar),
+                        contentDescription = stringResource(id = string.description_avatar),
                     )
                     Box(
                         modifier = Modifier
@@ -165,15 +173,15 @@ fun EditProfileScreen(
                                 .height(16.dp.from(context = context))
                                 .align(Alignment.Center),
                             painter = painterResource(id = com.bluehabit.core.ui.R.drawable.pencil_square),
-                            contentDescription = stringResource(id = com.bluehabit.core.ui.R.string.description_icon_pencil),
+                            contentDescription = stringResource(id = string.description_icon_pencil),
                             contentScale = ContentScale.None
                         )
                     }
                 }
 
                 InputTextPrimary(
-                    label = stringResource(id = com.bluehabit.core.ui.R.string.text_label_input_new_name_edit_profile),
-                    placeholder = stringResource(id = com.bluehabit.core.ui.R.string.text_label_placeholder_new_name_edit_profile),
+                    label = stringResource(id = string.text_label_input_new_name_edit_profile),
+                    placeholder = stringResource(id = string.text_label_placeholder_new_name_edit_profile),
                     value = state.newName,
                     onChange = onNewNameChange,
                     enabled = true
@@ -181,7 +189,8 @@ fun EditProfileScreen(
                 ButtonPrimary(
                     modifier = Modifier
                         .fillMaxWidth(),
-                    text = "Simpan Perubahan",
+                    text = stringResource(id = string.text_label_placeholder_new_name_edit_profile),
+                    enabled = isNameValid()
                 )
             }
         }
