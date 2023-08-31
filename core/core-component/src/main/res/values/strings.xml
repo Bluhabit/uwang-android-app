@@ -137,6 +137,7 @@
     <string name="description_icon_pencil">pencil</string>
     <string name="text_label_input_new_name_edit_profile">Nama Pengguna</string>
     <string name="text_top_bar_edit_profile">Edit Profile</string>
+    <string name="text_button_save_change_edit_profile">Simpan Perubahan</string>
     <string name="text_label_placeholder_new_name_edit_profile">Masukan Nama Pengguna</string>
     <!-- end edit profil  -->
 </resources>
