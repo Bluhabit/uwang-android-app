@@ -9,9 +9,10 @@ package com.bluehabit.eureka.feature.authentication.editProfile
 
 import app.trian.mvi.ui.viewModel.MviViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
 @HiltViewModel
-class EditProfileViewModel(
+class EditProfileViewModel @Inject constructor(
 ):MviViewModel<EditProfileState,EditProfileAction>(
     EditProfileState()
 ) {
