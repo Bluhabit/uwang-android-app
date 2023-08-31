@@ -11,5 +11,11 @@ import com.google.gson.annotations.SerializedName
 
 data class UploadAttachmentResponse(
     @SerializedName("")
-    val id: String
+    val id: String,
+    val name: String,
+    val type: String,
+    val mimeType: String,
+    val createdAt: String,
+    val updatedAt: String,
+    val deleted: Boolean,
 )
