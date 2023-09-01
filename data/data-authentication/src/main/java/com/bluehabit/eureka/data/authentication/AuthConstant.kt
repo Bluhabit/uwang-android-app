@@ -27,4 +27,5 @@ object AuthConstant {
     const val PROFILE_SCREEN_CHANGE_PASSWORD=1
 
     const val SEARCH_LIST_TASK=1
+    const val EMPTY_LIST_TASK=0
 }
