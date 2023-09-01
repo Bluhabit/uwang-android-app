@@ -131,4 +131,10 @@
     <string name="text_label_nav_profile_dashboard">Profil</string>
     <!--    end navigation-->
 
+    <!--    item notification component-->
+    <string name="text_button_item_notification">Lihat Tugas</string>
+    <!--    item notification component-->
+
+
+
 </resources>
