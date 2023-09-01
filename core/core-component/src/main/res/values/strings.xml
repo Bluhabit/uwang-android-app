@@ -125,6 +125,8 @@
     <!--    end navigation-->
     <!--    text description-->
     <string name="text_placeholder_search_list_task">Cari nama tugas atau nama proyek Anda</string>
+    <string name="text_title_empty_list_task">Tidak ada hasil yang ditemukan</string>
+    <string name="text_placeholder_empty_list_task">Hasil tidak ditemukan, coba cek kembali nama tugas atau proyek Anda</string>
     <!--    end alert component-->
 
 
