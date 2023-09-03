@@ -37,10 +37,10 @@ import com.bluehabit.core.ui.theme.Gray500
 
 @Composable
 fun SearchBar(
+    modifier: Modifier = Modifier,
     value: String = String.Empty,
     placeholder: String = String.Empty,
     onChange: (String) -> Unit = {},
-    modifier: Modifier = Modifier,
 ) {
     OutlinedTextField(
 
@@ -67,7 +67,7 @@ fun SearchBar(
                 modifier = Modifier.size(20.dp)
             )
         },
-        modifier = Modifier
+        modifier = modifier
             .width(310.dp)
             .height(51.dp)
     )
