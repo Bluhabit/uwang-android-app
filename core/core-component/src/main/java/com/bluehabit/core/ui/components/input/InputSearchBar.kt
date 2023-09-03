@@ -74,7 +74,7 @@ fun SearchBar(
         },
         leadingIcon = {
             Icon(
-                painter = painterResource(id = R.drawable.search),
+                painter = painterResource(id = com.google.android.material.R.drawable.ic_search_black_24),
                 contentDescription = "",
                 tint = Gray500,
                 modifier = Modifier.size(20.dp)
