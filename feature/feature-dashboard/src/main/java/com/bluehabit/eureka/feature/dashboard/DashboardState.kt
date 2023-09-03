@@ -10,6 +10,7 @@ package com.bluehabit.eureka.feature.dashboard
 import android.os.Parcelable
 import app.trian.mvi.ui.extensions.Empty
 import app.trian.mvi.ui.internal.contract.MviState
+import com.bluehabit.eureka.data.task.datasource.remote.response.TaskResponse
 import com.bluehabit.eureka.feature.dashboard.DashboardEffect
 import javax.annotation.concurrent.Immutable
 import kotlinx.parcelize.Parcelize
@@ -20,6 +21,9 @@ import kotlinx.parcelize.RawValue
 data class DashboardState(
     val fullName: String = String.Empty,
     val dashboardScreen: Int = 0,
+    //list task
+    val allTask: @RawValue List<TaskResponse> = listOf(),
+    //end
     override val effect: @RawValue DashboardEffect = DashboardEffect.Nothing
 ) : MviState<DashboardEffect>(), Parcelable
 
