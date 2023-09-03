@@ -31,34 +31,34 @@ import com.bluehabit.core.ui.theme.Primary600
 
 
 open class DashboardBottomNavigationMenu(
-    val route: String = "Navigation",
+    val screen: Int = 0,
     val name: Int = R.string.text_label_nav_report_dashboard,
     val iconActive: Int = R.drawable.icon_item_bottom_navigation_user_active,
     val iconInactive: Int = R.drawable.icon_item_bottom_navigation_user_active,
 ) {
     object MenuHome : DashboardBottomNavigationMenu(
-        route = "Menu",
+        screen = 0,
         name = R.string.text_label_nav_home_dashboard,
         iconActive = R.drawable.icon_item_bottom_navigation_home_active,
         iconInactive = R.drawable.icon_item_bottom_navigation_home_inactive
     )
 
     object MenuTask : DashboardBottomNavigationMenu(
-        route = "Task",
+        screen = 1,
         name = R.string.text_label_nav_task_dashboard,
         iconActive = R.drawable.icon_item_bottom_task_user_active,
         iconInactive = R.drawable.icon_item_bottom_task_user_inactive
     )
 
     object MenuProject : DashboardBottomNavigationMenu(
-        route = "Project",
+        screen = 2,
         name = R.string.text_label_nav_project_dashboard,
         iconActive = R.drawable.icon_item_bottom_navigation_group_active,
         iconInactive = R.drawable.icon_item_bottom_navigation_group_inactive
     )
 
     object MenuProfile : DashboardBottomNavigationMenu(
-        route = "Profile",
+        screen = 3,
         name = R.string.text_label_nav_profile_dashboard,
         iconActive = R.drawable.user_active,
         iconInactive = R.drawable.user_inactive
@@ -75,7 +75,7 @@ var menus = listOf(
 
 @Composable
 fun DashboardBottomNavigation(
-    currentRoute: String,
+    currentRoute: Int,
     onRefresh: (DashboardBottomNavigationMenu) -> Unit = {},
     onClick: (DashboardBottomNavigationMenu) -> Unit = {}
 ) {
@@ -87,17 +87,17 @@ fun DashboardBottomNavigation(
 
         menus.forEach {
             BottomNavigationItem(
-                selected = currentRoute == it.route,
+                selected = currentRoute == it.screen,
                 selectedContentColor = MaterialTheme.colors.primary,
                 unselectedContentColor = Gray500,
                 onClick = {
-                    if (currentRoute != it.route) onClick(it)
-                    else onRefresh(it)
+                    if (currentRoute == it.screen) onRefresh(it)
+                    else onClick(it)
                 },
                 icon = {
                     Icon(
                         painter = painterResource(
-                            id = if (currentRoute == it.route) it.iconActive
+                            id = if (currentRoute == it.screen) it.iconActive
                             else it.iconInactive
                         ),
                         contentDescription = stringResource(id = it.name),
@@ -119,7 +119,7 @@ fun PreviewDashboardBottomNavigation() {
         Scaffold(
             bottomBar = {
                 DashboardBottomNavigation(
-                    currentRoute = "Menu",
+                    currentRoute = 0,
                     onClick = {}
                 )
             },
