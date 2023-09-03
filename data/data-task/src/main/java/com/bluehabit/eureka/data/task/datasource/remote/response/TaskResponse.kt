@@ -19,7 +19,7 @@ data class TaskResponse(
     @SerializedName("assign")
     val assign: UserResponse? = null,
     @SerializedName("priority")
-    val priority: Any? = null,
+    val priority: PriorityTaskResponse? = null,
     @SerializedName("status")
     val status: Any? = null,
     @SerializedName("attachment")
