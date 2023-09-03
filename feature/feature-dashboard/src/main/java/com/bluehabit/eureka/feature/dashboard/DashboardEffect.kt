@@ -5,7 +5,7 @@
  * Proprietary and confidential
  */
 
-package com.bluehabit.eureka.feature.dashboard.home
+package com.bluehabit.eureka.feature.dashboard
 
 sealed interface DashboardEffect {
     object Nothing: DashboardEffect

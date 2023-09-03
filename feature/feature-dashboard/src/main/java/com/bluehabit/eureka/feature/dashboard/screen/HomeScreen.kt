@@ -5,7 +5,7 @@
  * Proprietary and confidential
  */
 
-package com.bluehabit.eureka.feature.dashboard.home.screen
+package com.bluehabit.eureka.feature.dashboard.screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bluehabit.core.ui.R
 import com.bluehabit.core.ui.theme.Gray600
-import com.bluehabit.eureka.feature.dashboard.home.DashboardState
+import com.bluehabit.eureka.feature.dashboard.DashboardState
 
 @Composable
 fun HomeScreen(
