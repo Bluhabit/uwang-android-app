@@ -131,4 +131,11 @@
     <string name="text_label_nav_profile_dashboard">Profil</string>
     <!--    end navigation-->
 
+    <!--    notifikasi-->
+    <string name="text_title_nav_notifikasi">Notifikasi</string>
+    <string name="text_label_nav_notifikasi">Ups, Belum Ada Notifikasi!</string>
+    <string name="text_placeholder_notifikasi">Yuk, Mulai dengan menambahkan tugas dan kami akan memberi tahu anda tentang informasi terkait tugas anda.</string>
+    <string name="text_button_notifikasi">Tambah Tugas</string>
+    <!--    end notifikasi-->
+
 </resources>
