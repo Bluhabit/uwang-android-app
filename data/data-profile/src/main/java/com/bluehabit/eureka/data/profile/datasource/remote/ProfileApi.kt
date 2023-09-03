@@ -13,4 +13,6 @@ import io.ktor.resources.Resource
 class ProfileApi {
     @Resource("detail")
     class GetDetailProfile(val parent: ProfileApi = ProfileApi())
+    @Resource("upload-profile-picture")
+    class UploadProfilePicture(val parent: ProfileApi = ProfileApi())
 }
