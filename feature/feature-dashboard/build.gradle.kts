@@ -1,4 +1,5 @@
 @file:Suppress("UnstableApiUsage")
+
 /*
  * Copyright © 2023 Blue Habit.
  *
@@ -49,6 +50,7 @@ dependencies {
     ksp(libs.mvi.processor)
     api(project(":core:core-component"))
     api(project(":data:data-authentication"))
+    api(project(":data:data-task"))
 
 
     implementation(libs.android.material)
