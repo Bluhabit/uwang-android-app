@@ -16,6 +16,7 @@ import androidx.compose.material.FloatingActionButtonDefaults
 import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -31,6 +32,7 @@ import com.bluehabit.core.ui.routes.Routes
 import com.bluehabit.core.ui.theme.GaweanTheme
 import com.bluehabit.core.ui.theme.Primary600
 import com.bluehabit.eureka.feature.dashboard.screen.HomeScreen
+import com.bluehabit.eureka.feature.dashboard.screen.ListTaskScreen
 
 @Navigation(
     route = Routes.Dashboard.routeName,
@@ -54,6 +56,11 @@ fun DashboardScreen(
             DashboardEffect.Nothing -> Unit
         }
     })
+
+    LaunchedEffect(key1 = Unit, block = {
+        dispatch(DashboardAction.GetListTask)
+    })
+
     Scaffold(
         bottomBar = {
             DashboardBottomNavigation(
@@ -62,13 +69,15 @@ fun DashboardScreen(
 
                 },
                 onClick = {
-                    commit { copy(dashboardScreen=it.screen) }
+                    commit { copy(dashboardScreen = it.screen) }
                 }
             )
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { /*TODO*/ },
+                onClick = {
+                          dispatch(DashboardAction.SignOut)
+                },
                 content = {
                     Icon(
                         painter = painterResource(id = R.drawable.icon_item_bottom_navigation_user_active),
@@ -94,6 +103,7 @@ fun DashboardScreen(
         ) {
             when (state.dashboardScreen) {
                 0 -> HomeScreen(state = state)
+                1 -> ListTaskScreen(state = state)
             }
         }
     }

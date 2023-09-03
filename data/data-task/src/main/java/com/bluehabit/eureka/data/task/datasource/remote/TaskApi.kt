@@ -17,7 +17,7 @@ class TaskApi {
     @Resource("status-list?page={page}")
     class GetListStatus(val parent: TaskApi = TaskApi(), val page: Int)
 
-    @Resource("list-task?page={page}")
+    @Resource("list-task")
     class GetListTask(val parent: TaskApi = TaskApi(), val page: Int)
 
     @Resource("create-temporary-task")
