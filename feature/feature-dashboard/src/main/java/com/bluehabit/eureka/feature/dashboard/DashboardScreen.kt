@@ -5,7 +5,7 @@
  * Proprietary and confidential
  */
 
-package com.bluehabit.eureka.feature.dashboard.home
+package com.bluehabit.eureka.feature.dashboard
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -15,8 +15,6 @@ import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.FloatingActionButtonDefaults
 import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -28,11 +26,11 @@ import app.trian.mvi.ui.UIWrapper
 import app.trian.mvi.ui.internal.contract.UIContract
 import app.trian.mvi.ui.internal.rememberUIController
 import com.bluehabit.core.ui.R
-import com.bluehabit.core.ui.components.button.ButtonPrimary
 import com.bluehabit.core.ui.components.navigationbar.DashboardBottomNavigation
 import com.bluehabit.core.ui.routes.Routes
 import com.bluehabit.core.ui.theme.GaweanTheme
 import com.bluehabit.core.ui.theme.Primary600
+import com.bluehabit.eureka.feature.dashboard.screen.HomeScreen
 
 @Navigation(
     route = Routes.Dashboard.routeName,
@@ -95,7 +93,7 @@ fun DashboardScreen(
             modifier = modifier.padding(it)
         ) {
             when (state.dashboardScreen) {
-                0 -> {}
+                0 -> HomeScreen(state = state)
             }
         }
     }
