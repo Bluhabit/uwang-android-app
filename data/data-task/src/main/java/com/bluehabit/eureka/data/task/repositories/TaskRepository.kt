@@ -42,6 +42,17 @@ class TaskRepository @Inject constructor(
         return safeApiCall { httpClient.get(TaskApi.GetListStatus(page = page)) }
     }
 
+    suspend fun getListTaskByDate(from: String, to: String): Response<BasePagingResponse<TaskResponse>> {
+        return safeApiCall {
+            httpClient.get(
+                TaskApi.GetListTaskByDate(
+                    from = from,
+                    to = to
+                )
+            )
+        }
+    }
+
     suspend fun getListTask(page: Int = 0): Response<BasePagingResponse<TaskResponse>> {
         return safeApiCall { httpClient.get(TaskApi.GetListTask(page = page)) }
     }

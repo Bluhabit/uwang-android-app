@@ -58,7 +58,7 @@ fun DashboardScreen(
     })
 
     LaunchedEffect(key1 = Unit, block = {
-        dispatch(DashboardAction.GetListTask)
+        dispatch(DashboardAction.GetAllListTask)
     })
 
     Scaffold(
