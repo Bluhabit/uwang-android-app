@@ -43,7 +43,7 @@ data class DashboardState(
         ),
         ItemTabListTask(
             title = "Selesai",
-            action = DashboardAction.GetListTaskByStatus()
+            action = DashboardAction.GetFinishListTask
         )
     ),
     //end

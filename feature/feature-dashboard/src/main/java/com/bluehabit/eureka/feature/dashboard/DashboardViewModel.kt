@@ -11,24 +11,25 @@ import app.trian.mvi.ui.viewModel.MviViewModel
 import com.bluehabit.eureka.data.authentication.domain.SignOutUseCase
 import com.bluehabit.eureka.data.common.Response
 import com.bluehabit.eureka.data.common.executeAsFlow
-import com.bluehabit.eureka.data.task.domain.GetListTaskByDateUseCase
+import com.bluehabit.eureka.data.task.domain.GetFinishListTaskUseCase
 import com.bluehabit.eureka.data.task.domain.GetListTaskUseCase
+import com.bluehabit.eureka.data.task.domain.GetThisWeekListTaskUseCase
+import com.bluehabit.eureka.data.task.domain.GetTodayListTaskUseCase
+import com.bluehabit.eureka.data.task.domain.GetTomorrowListTaskUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import java.time.LocalDate
-import java.time.temporal.WeekFields
-import java.util.Locale
+import java.time.OffsetDateTime
 import javax.inject.Inject
 
 @HiltViewModel
 class DashboardViewModel @Inject constructor(
     private val signOutUseCase: SignOutUseCase,
     private val getListTaskUseCase: GetListTaskUseCase,
-    private val getListTaskByDateUseCase: GetListTaskByDateUseCase,
+    private val getTodayListTaskUseCase: GetTodayListTaskUseCase,
+    private val getTomorrowListTaskUseCase: GetTomorrowListTaskUseCase,
+    private val getThisWeekListTaskUseCase: GetThisWeekListTaskUseCase,
+    private val getFinishListTaskUseCase: GetFinishListTaskUseCase
 ) : MviViewModel<DashboardState, DashboardAction>(DashboardState()) {
 
-    init {
-
-    }
     private fun getAllTaskUseCase() = async {
         executeAsFlow { getListTaskUseCase(page = 0) }
             .collect {
@@ -36,6 +37,16 @@ class DashboardViewModel @Inject constructor(
                     is Response.Error -> Unit
                     Response.Loading -> Unit
                     is Response.Result -> {
+                        val todayDate = OffsetDateTime.now()
+                        val today = it.data.items.filter {
+                            val date = OffsetDateTime.parse(it.createdAt)
+                            date.isAfter(todayDate) && date.isBefore(todayDate.plusDays(1))
+                        }
+
+                        val tomorrow = it.data.items.filter {
+                            val date = OffsetDateTime.parse(it.createdAt)
+                            date.isAfter(todayDate.plusDays(1)) && date.isBefore(todayDate.plusDays(2))
+                        }
                         commit { copy(allTask = it.data.items) }
                     }
                 }
@@ -43,13 +54,7 @@ class DashboardViewModel @Inject constructor(
     }
 
     private fun getListTaskToday() = async {
-        val today = LocalDate.now()
-        executeAsFlow {
-            getListTaskByDateUseCase(
-                from = today,
-                to = today.plusDays(1)
-            )
-        }.collect {
+        executeAsFlow { getTodayListTaskUseCase() }.collect {
             when (it) {
                 is Response.Error -> Unit
                 Response.Loading -> Unit
@@ -58,14 +63,8 @@ class DashboardViewModel @Inject constructor(
         }
     }
 
-    private fun getListTaskTomorrow() = async {
-        val tomorrow = LocalDate.now().plusDays(1)
-        executeAsFlow {
-            getListTaskByDateUseCase(
-                from = tomorrow,
-                to = tomorrow.plusDays(1)
-            )
-        }.collect {
+    private fun getTomorrowListTask() = async {
+        executeAsFlow { getTomorrowListTaskUseCase() }.collect {
             when (it) {
                 is Response.Error -> Unit
                 Response.Loading -> Unit
@@ -75,17 +74,7 @@ class DashboardViewModel @Inject constructor(
     }
 
     private fun getListTaskThisWeek() = async {
-        val today = LocalDate.now()
-        val field = WeekFields.of(Locale.forLanguageTag("ID")).dayOfWeek()
-        val firstDay = today.with(field, 1)
-        val lastDay = firstDay.plusDays(7)
-
-        executeAsFlow {
-            getListTaskByDateUseCase(
-                from = firstDay,
-                to = lastDay
-            )
-        }.collect {
+        executeAsFlow { getThisWeekListTaskUseCase() }.collect {
             when (it) {
                 is Response.Error -> Unit
                 Response.Loading -> Unit
@@ -94,18 +83,8 @@ class DashboardViewModel @Inject constructor(
         }
     }
 
-    private fun getListTaskByStatus() = async {
-        val today = LocalDate.now()
-        val field = WeekFields.of(Locale.forLanguageTag("ID")).dayOfWeek()
-        val firstDay = today.with(field, 1)
-        val lastDay = firstDay.plusDays(7)
-
-        executeAsFlow {
-            getListTaskByDateUseCase(
-                from = firstDay,
-                to = lastDay
-            )
-        }.collect {
+    private fun getFinishListTask() = async {
+        executeAsFlow {getFinishListTaskUseCase()}.collect {
             when (it) {
                 is Response.Error -> Unit
                 Response.Loading -> Unit
@@ -122,11 +101,12 @@ class DashboardViewModel @Inject constructor(
                     signOutUseCase()
                     commit { copy(effect = DashboardEffect.CloseApp) }
                 }
+
             DashboardAction.GetAllListTask -> getAllTaskUseCase()
-            is DashboardAction.GetListTaskByStatus -> Unit
+            DashboardAction.GetFinishListTask -> getFinishListTask()
             DashboardAction.GetListTaskThisWeek -> getListTaskThisWeek()
             DashboardAction.GetListTaskToday -> getListTaskToday()
-            DashboardAction.GetListTaskTomorrow -> getListTaskTomorrow()
+            DashboardAction.GetListTaskTomorrow -> getTomorrowListTask()
         }
     }
 }
