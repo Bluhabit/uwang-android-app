@@ -47,13 +47,14 @@ import com.bluehabit.eureka.data.task.datasource.remote.response.UserInfoRespons
 import com.bluehabit.eureka.data.task.datasource.remote.response.UserResponse
 import com.bluehabit.eureka.feature.dashboard.DashboardAction
 import com.bluehabit.eureka.feature.dashboard.DashboardState
+import com.bluehabit.eureka.feature.dashboard.model.ItemTabListTask
 
 @Composable
 fun HomeScreen(
     state: DashboardState,
     onNotificationIconClick: () -> Unit = {},
     onSearchClicked: () -> Unit = {},
-    onTabClick:(DashboardAction)->Unit={}
+    onTabSelected: (Int, ItemTabListTask) -> Unit = { _, _ -> },
 ) {
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(20.dp),
@@ -159,7 +160,7 @@ fun HomeScreen(
                         },
                         selected = state.selectedTabIndex == index,
                         onClick = {
-                           onTabClick(tab.action)
+                           onTabSelected(index,tab)
                         },
                     )
                 }

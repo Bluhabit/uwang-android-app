@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.IconButton
@@ -35,10 +36,12 @@ import com.bluehabit.core.ui.theme.GaweanTheme
 import com.bluehabit.core.ui.theme.Gray600
 import com.bluehabit.core.ui.theme.Primary700
 import com.bluehabit.eureka.feature.dashboard.DashboardState
+import com.bluehabit.eureka.feature.dashboard.model.ItemTabListTask
 
 @Composable
 fun ListTaskScreen(
-    state: DashboardState
+    state: DashboardState,
+    onTabSelected: (Int, ItemTabListTask) -> Unit = { _, _ -> },
 ) {
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(20.dp),
@@ -80,12 +83,18 @@ fun ListTaskScreen(
         }
         item {
             TabRow(
-                selectedTabIndex = 0,
+                modifier = Modifier.padding(
+                    horizontal = 18.dp
+                ),
+                selectedTabIndex = state.selectedTabIndex,
                 backgroundColor = MaterialTheme.colors.surface,
                 contentColor = Primary700
             ) {
                 state.tabsListTask.forEachIndexed { index, itemTabListTask ->
-                    Tab(selected = 0 == index, onClick = { /*TODO*/ }) {
+                    Tab(
+                        selected = state.selectedTabIndex == index,
+                        onClick = { onTabSelected(index, itemTabListTask) }
+                    ) {
                         Text(
                             text = itemTabListTask.title,
                             style = MaterialTheme.typography.body1.copy(
@@ -93,6 +102,7 @@ fun ListTaskScreen(
                                 fontSize = 14.sp
                             )
                         )
+                        Spacer(modifier = Modifier.height(8.dp))
                     }
                 }
             }

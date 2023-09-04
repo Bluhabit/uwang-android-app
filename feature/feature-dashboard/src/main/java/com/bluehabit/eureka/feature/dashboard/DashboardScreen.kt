@@ -106,11 +106,18 @@ fun DashboardScreen(
                     state = state,
                     onNotificationIconClick = {},
                     onSearchClicked = {},
-                    onTabClick = {
-                        dispatch(it)
+                    onTabSelected = { index,tab->
+                        commit { copy(selectedTabIndex=index) }
+                        dispatch(tab.action)
                     }
                 )
-                1 -> ListTaskScreen(state = state)
+                1 -> ListTaskScreen(
+                    state = state,
+                    onTabSelected = {index,tab->
+                        commit { copy(selectedTabIndex=index) }
+                        dispatch(tab.action)
+                    }
+                )
             }
         }
     }
