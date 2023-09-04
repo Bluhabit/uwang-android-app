@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Tab
@@ -32,6 +33,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bluehabit.core.ui.R
 import com.bluehabit.core.ui.components.input.SearchBar
+import com.bluehabit.core.ui.components.item.itemTask.ItemTask
+import com.bluehabit.core.ui.components.item.itemTask.ProgressItemTask
 import com.bluehabit.core.ui.theme.GaweanTheme
 import com.bluehabit.core.ui.theme.Gray600
 import com.bluehabit.core.ui.theme.Primary700
@@ -41,6 +44,7 @@ import com.bluehabit.eureka.feature.dashboard.model.ItemTabListTask
 @Composable
 fun ListTaskScreen(
     state: DashboardState,
+    onClickNotification:()->Unit={},
     onTabSelected: (Int, ItemTabListTask) -> Unit = { _, _ -> },
 ) {
     LazyColumn(
@@ -63,7 +67,7 @@ fun ListTaskScreen(
                     color = Gray600
                 )
                 Spacer(modifier = Modifier.weight(1f))
-                IconButton(onClick = {}) {
+                IconButton(onClick = onClickNotification) {
                     Image(
                         painter = painterResource(id = R.drawable.ic_bell),
                         contentDescription = stringResource(id = R.string.content_description_logo)
@@ -104,6 +108,26 @@ fun ListTaskScreen(
                         )
                         Spacer(modifier = Modifier.height(8.dp))
                     }
+                }
+            }
+        }
+        state.listAllTask.forEach { (key, data) ->
+            stickyHeader {
+                Text(text = key)
+            }
+            itemsIndexed(data){ _, item->
+                if (!item.subtasks.isNullOrEmpty()) {
+                    ProgressItemTask(
+                        title = item.name.orEmpty(),
+                        startDate = item.taskStart.orEmpty(),
+                        dueDate = item.taskEnd.orEmpty(),
+                        subTaskCount = item.subtasks!!.size
+                    )
+                } else {
+                    ItemTask(
+                        title = item.name.orEmpty(),
+                        date = "${item.taskStart} - ${item.taskEnd}"
+                    )
                 }
             }
         }
