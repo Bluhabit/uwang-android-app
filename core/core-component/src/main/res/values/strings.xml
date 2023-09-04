@@ -150,4 +150,10 @@
     <string name="text_button_save_change_edit_profile">Simpan Perubahan</string>
     <string name="text_label_placeholder_new_name_edit_profile">Masukan Nama Pengguna</string>
     <!-- end edit profil  -->
+
+    <!--    empty notif-->
+    <string name="text_label_empty_list_task">Tugas hari ini</string>
+    <string name="text_title_empty_list">Kerja bagus</string>
+    <string name="text_placeholder_empty_list">Hari ini Anda tidak memiliki tugas, Anda bisa istirahat sejenak</string>
+    <!--    end empty notif-->
 </resources>
