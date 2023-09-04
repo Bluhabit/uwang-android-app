@@ -11,14 +11,17 @@ import io.ktor.resources.Resource
 
 @Resource("/api/v1/task")
 class TaskApi {
-    @Resource("priority-list?page={page}")
+    @Resource("priority-list")
     class GetListPriority(val parent: TaskApi = TaskApi(), val page: Int)
 
-    @Resource("status-list?page={page}")
+    @Resource("status-list")
     class GetListStatus(val parent: TaskApi = TaskApi(), val page: Int)
 
     @Resource("list-task")
     class GetListTask(val parent: TaskApi = TaskApi(), val page: Int)
+
+    @Resource("get-list-by-date")
+    class GetListTaskByDate(val parent: TaskApi = TaskApi(), val from: String, val to: String)
 
     @Resource("create-temporary-task")
     class CreateTemporaryTask(val parent: TaskApi = TaskApi())
@@ -29,6 +32,6 @@ class TaskApi {
     @Resource("publish")
     class Publish(val parent: TaskApi = TaskApi())
 
-    @Resource("task-list-by-status/{status}?page={page}")
-    class GetTaskByStatus(val parent: TaskApi = TaskApi(), val page: Int, val status: String)
+    @Resource("task-list-by-status/{status}")
+    class GetTaskByStatus(val parent: TaskApi = TaskApi(), val status: String, val page: Int)
 }

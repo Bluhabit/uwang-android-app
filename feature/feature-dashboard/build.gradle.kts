@@ -41,10 +41,12 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
+        isCoreLibraryDesugaringEnabled = true
     }
 }
 
 dependencies {
+    coreLibraryDesugaring(libs.desugar.jdk.lib)
     implementation(libs.mvi.ui)
     implementation(libs.mvi.processor)
     ksp(libs.mvi.processor)
