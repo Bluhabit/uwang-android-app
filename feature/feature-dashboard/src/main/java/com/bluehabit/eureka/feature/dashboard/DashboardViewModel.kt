@@ -11,19 +11,18 @@ import app.trian.mvi.ui.viewModel.MviViewModel
 import com.bluehabit.eureka.data.authentication.domain.SignOutUseCase
 import com.bluehabit.eureka.data.common.Response
 import com.bluehabit.eureka.data.common.executeAsFlow
+import com.bluehabit.eureka.data.task.domain.GetAllListTaskUseCase
 import com.bluehabit.eureka.data.task.domain.GetFinishListTaskUseCase
-import com.bluehabit.eureka.data.task.domain.GetListTaskUseCase
 import com.bluehabit.eureka.data.task.domain.GetThisWeekListTaskUseCase
 import com.bluehabit.eureka.data.task.domain.GetTodayListTaskUseCase
 import com.bluehabit.eureka.data.task.domain.GetTomorrowListTaskUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import java.time.OffsetDateTime
 import javax.inject.Inject
 
 @HiltViewModel
 class DashboardViewModel @Inject constructor(
     private val signOutUseCase: SignOutUseCase,
-    private val getListTaskUseCase: GetListTaskUseCase,
+    private val getAllListTaskUseCase: GetAllListTaskUseCase,
     private val getTodayListTaskUseCase: GetTodayListTaskUseCase,
     private val getTomorrowListTaskUseCase: GetTomorrowListTaskUseCase,
     private val getThisWeekListTaskUseCase: GetThisWeekListTaskUseCase,
@@ -31,23 +30,13 @@ class DashboardViewModel @Inject constructor(
 ) : MviViewModel<DashboardState, DashboardAction>(DashboardState()) {
 
     private fun getAllTaskUseCase() = async {
-        executeAsFlow { getListTaskUseCase(page = 0) }
+        executeAsFlow { getAllListTaskUseCase(page = 0) }
             .collect {
                 when (it) {
                     is Response.Error -> Unit
                     Response.Loading -> Unit
                     is Response.Result -> {
-                        val todayDate = OffsetDateTime.now()
-                        val today = it.data.items.filter {
-                            val date = OffsetDateTime.parse(it.createdAt)
-                            date.isAfter(todayDate) && date.isBefore(todayDate.plusDays(1))
-                        }
-
-                        val tomorrow = it.data.items.filter {
-                            val date = OffsetDateTime.parse(it.createdAt)
-                            date.isAfter(todayDate.plusDays(1)) && date.isBefore(todayDate.plusDays(2))
-                        }
-                        commit { copy(allTask = it.data.items) }
+                        commit { copy(listAllTask = it.data) }
                     }
                 }
             }
@@ -58,7 +47,7 @@ class DashboardViewModel @Inject constructor(
             when (it) {
                 is Response.Error -> Unit
                 Response.Loading -> Unit
-                is Response.Result -> commit { copy(allTask = it.data.items) }
+                is Response.Result -> commit { copy(listTask = it.data.items) }
             }
         }
     }
@@ -68,7 +57,7 @@ class DashboardViewModel @Inject constructor(
             when (it) {
                 is Response.Error -> Unit
                 Response.Loading -> Unit
-                is Response.Result -> commit { copy(allTask = it.data.items) }
+                is Response.Result -> commit { copy(listTask = it.data.items) }
             }
         }
     }
@@ -78,7 +67,7 @@ class DashboardViewModel @Inject constructor(
             when (it) {
                 is Response.Error -> Unit
                 Response.Loading -> Unit
-                is Response.Result -> commit { copy(allTask = it.data.items) }
+                is Response.Result -> commit { copy(listTask = it.data.items) }
             }
         }
     }
@@ -88,7 +77,7 @@ class DashboardViewModel @Inject constructor(
             when (it) {
                 is Response.Error -> Unit
                 Response.Loading -> Unit
-                is Response.Result -> commit { copy(allTask = it.data.items) }
+                is Response.Result -> commit { copy(listTask = it.data.items) }
             }
         }
     }

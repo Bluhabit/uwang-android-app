@@ -102,7 +102,14 @@ fun DashboardScreen(
             modifier = modifier.padding(it)
         ) {
             when (state.dashboardScreen) {
-                0 -> HomeScreen(state = state)
+                0 -> HomeScreen(
+                    state = state,
+                    onNotificationIconClick = {},
+                    onSearchClicked = {},
+                    onTabClick = {
+                        dispatch(it)
+                    }
+                )
                 1 -> ListTaskScreen(state = state)
             }
         }
