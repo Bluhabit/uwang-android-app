@@ -65,9 +65,7 @@ fun DashboardScreen(
         bottomBar = {
             DashboardBottomNavigation(
                 currentRoute = state.dashboardScreen,
-                onRefresh = {
-
-                },
+                onRefresh = {},
                 onClick = {
                     commit { copy(dashboardScreen = it.screen) }
                 }
@@ -76,7 +74,7 @@ fun DashboardScreen(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-                          dispatch(DashboardAction.SignOut)
+                    navigator.navigate(Routes.CreateTask.routeName)
                 },
                 content = {
                     Icon(
@@ -104,18 +102,24 @@ fun DashboardScreen(
             when (state.dashboardScreen) {
                 0 -> HomeScreen(
                     state = state,
-                    onNotificationIconClick = {},
+                    onNotificationIconClick = {
+                        dispatch(DashboardAction.SignOut)
+                    },
                     onSearchClicked = {},
-                    onTabSelected = { index,tab->
-                        commit { copy(selectedTabIndex=index) }
+                    onTabSelected = { index, tab ->
+                        commit { copy(selectedTabIndex = index) }
                         dispatch(tab.action)
                     }
                 )
+
                 1 -> ListTaskScreen(
                     state = state,
-                    onTabSelected = {index,tab->
-                        commit { copy(selectedTabIndex=index) }
+                    onTabSelected = { index, tab ->
+                        commit { copy(selectedTabIndex = index) }
                         dispatch(tab.action)
+                    },
+                    onClickNotification = {
+                        dispatch(DashboardAction.SignOut)
                     }
                 )
             }

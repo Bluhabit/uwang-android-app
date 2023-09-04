@@ -13,6 +13,7 @@ import androidx.activity.compose.setContent
 import androidx.navigation.compose.NavHost
 import app.trian.mvi.authenticationComponent
 import app.trian.mvi.dashboardComponent
+import app.trian.mvi.taskComponent
 import app.trian.mvi.ui.internal.UIController
 import app.trian.mvi.ui.internal.listener.BaseEventListener
 import app.trian.mvi.ui.internal.listener.EventListener
@@ -46,6 +47,10 @@ class MainActivity : ComponentActivity() {
                         event = eventListener
                     )
                     dashboardComponent(
+                        uiController = controller,
+                        event = eventListener
+                    )
+                    taskComponent(
                         uiController = controller,
                         event = eventListener
                     )
