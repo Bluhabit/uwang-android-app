@@ -25,7 +25,7 @@ data class TaskResponse(
     @SerializedName("attachment")
     val attachments: Any? = null,
     @SerializedName("subtask")
-    val subtasks: Any? = null,
+    val subtasks: List<SubTaskResponse>? = null,
     @SerializedName("name")
     val name: String? = null,
     @SerializedName("description")
