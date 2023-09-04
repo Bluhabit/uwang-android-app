@@ -41,9 +41,11 @@ import com.bluehabit.core.ui.theme.Gray500
 
 
 @Composable
-fun MenuSample(
+fun InputDropDown(
     items: List<String>,
     placeholder: String = String.Empty,
+    onSelected: (String) -> Unit = {},
+    selectedPriority: String = String.Empty,
 ) {
     var expanded by remember { mutableStateOf(false) }
 
@@ -108,7 +110,7 @@ fun MenuSample(
                         }
 
                     },
-                    onClick = {}
+                    onClick = {onSelected(it)}
                 )
             }
 
@@ -126,7 +128,7 @@ fun MenuSamplePreview() {
                 vertical = 20.dp
             )
         ) {
-            MenuSample(
+            InputDropDown(
                 items = listOf("Low", "Normal", "High", "Urgent"),
                 placeholder = "Pilih prioritas tugas"
             )
