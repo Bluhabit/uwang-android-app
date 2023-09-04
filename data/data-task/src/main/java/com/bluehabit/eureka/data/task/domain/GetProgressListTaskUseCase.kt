@@ -10,8 +10,8 @@ package com.bluehabit.eureka.data.task.domain
 import com.bluehabit.eureka.data.task.repositories.TaskRepository
 import javax.inject.Inject
 
-class GetListTaskUseCase @Inject constructor(
+class GetProgressListTaskUseCase @Inject constructor(
     private val taskRepository: TaskRepository
 ) {
-    suspend operator fun invoke(page: Int) = taskRepository.getListTask(page)
+    suspend operator fun invoke(page: Int = 0, status: String = "e3daf232-2b2c-4720-9e87-7d23e869f8e5") = taskRepository.getTaskByStatus(page, status)
 }

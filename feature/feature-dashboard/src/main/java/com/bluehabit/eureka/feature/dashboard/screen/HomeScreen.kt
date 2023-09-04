@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Tab
@@ -36,6 +37,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bluehabit.core.ui.R
 import com.bluehabit.core.ui.components.item.itemTask.ItemTask
+import com.bluehabit.core.ui.components.item.itemTask.ProgressItemTask
 import com.bluehabit.core.ui.theme.Gray600
 import com.bluehabit.core.ui.theme.Primary600
 import com.bluehabit.eureka.data.task.datasource.remote.response.ChannelResponse
@@ -43,6 +45,7 @@ import com.bluehabit.eureka.data.task.datasource.remote.response.PriorityTaskRes
 import com.bluehabit.eureka.data.task.datasource.remote.response.TaskResponse
 import com.bluehabit.eureka.data.task.datasource.remote.response.UserInfoResponse
 import com.bluehabit.eureka.data.task.datasource.remote.response.UserResponse
+import com.bluehabit.eureka.feature.dashboard.DashboardAction
 import com.bluehabit.eureka.feature.dashboard.DashboardState
 
 @Composable
@@ -50,6 +53,7 @@ fun HomeScreen(
     state: DashboardState,
     onNotificationIconClick: () -> Unit = {},
     onSearchClicked: () -> Unit = {},
+    onTabClick:(DashboardAction)->Unit={}
 ) {
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(20.dp),
@@ -127,7 +131,6 @@ fun HomeScreen(
                     horizontalArrangement = Arrangement.spacedBy(16.dp),
                     contentPadding = PaddingValues(horizontal = 20.dp)
                 ) {
-                    // TODO : Need to change the item layout
                     items(state.favoriteItemTask) { task ->
                         ItemTask(
                             title = task.name.orEmpty(),
@@ -156,38 +159,32 @@ fun HomeScreen(
                         },
                         selected = state.selectedTabIndex == index,
                         onClick = {
-                            // TODO : Change item task by tab title
+                           onTabClick(tab.action)
                         },
                     )
                 }
             }
         }
-//        if (state.tabsListTask.isNotEmpty()) {
-//            item {
-//                LazyColumn(
-//                    verticalArrangement = Arrangement.spacedBy(16.dp),
-//                    contentPadding = PaddingValues(horizontal = 20.dp)
-//                ) {
-//                    items(state.allTask) { task ->
-//                        if (!task.subtasks.isNullOrEmpty()) {
-//                            ProgressItemTask(
-//                                title = task.name.orEmpty(),
-//                                startDate = task.taskStart.orEmpty(),
-//                                dueDate = task.taskEnd.orEmpty(),
-//                                subTaskCount = task.subtasks!!.size
-//                            )
-//                        } else {
-//                            ItemTask(
-//                                title = task.name.orEmpty(),
-//                                date = "${task.taskStart} - ${task.taskEnd}"
-//                            )
-//                        }
-//                    }
-//                }
-//            }
-//        } else {
-//            // TODO : Empty list image illustration
-//        }
+        state.listAllTask.forEach { (key, data) ->
+            stickyHeader {
+                Text(text = key)
+            }
+            itemsIndexed(data){ _, item->
+                if (!item.subtasks.isNullOrEmpty()) {
+                    ProgressItemTask(
+                        title = item.name.orEmpty(),
+                        startDate = item.taskStart.orEmpty(),
+                        dueDate = item.taskEnd.orEmpty(),
+                        subTaskCount = item.subtasks!!.size
+                    )
+                } else {
+                    ItemTask(
+                        title = item.name.orEmpty(),
+                        date = "${item.taskStart} - ${item.taskEnd}"
+                    )
+                }
+            }
+        }
     }
 }
 
