@@ -24,7 +24,7 @@ data class DashboardState(
     val dashboardScreen: Int = 0,
     //list task
     val allTask: @RawValue List<TaskResponse> = listOf(),
-    val tabsListTask : @RawValue List<ItemTabListTask> = listOf(
+    val tabsListTask: @RawValue List<ItemTabListTask> = listOf(
         ItemTabListTask(
             title = "Semua",
             action = DashboardAction.GetAllListTask
@@ -47,7 +47,14 @@ data class DashboardState(
         )
     ),
     //end
-    val itemTaskFavorite: @RawValue List<TaskResponse> = listOf(),
+    val favoriteItemTask: @RawValue List<TaskResponse> = listOf(),
+    val tabsHome: @RawValue List<ItemTabListTask> = listOf(
+        ItemTabListTask(
+            title = "Semua",
+            action = DashboardAction.GetAllListTask
+        ),
+    ),
+    val selectedTabIndex: Int = 0,
     override val effect: @RawValue DashboardEffect = DashboardEffect.Nothing
 ) : MviState<DashboardEffect>(), Parcelable
 
