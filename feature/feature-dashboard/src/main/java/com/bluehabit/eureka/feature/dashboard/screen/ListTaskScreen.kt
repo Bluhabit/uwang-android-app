@@ -25,6 +25,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -35,6 +36,7 @@ import com.bluehabit.core.ui.R
 import com.bluehabit.core.ui.components.input.SearchBar
 import com.bluehabit.core.ui.components.item.itemTask.ItemTask
 import com.bluehabit.core.ui.components.item.itemTask.ProgressItemTask
+import com.bluehabit.core.ui.ext.toColor
 import com.bluehabit.core.ui.theme.GaweanTheme
 import com.bluehabit.core.ui.theme.Gray600
 import com.bluehabit.core.ui.theme.Primary700
@@ -115,18 +117,22 @@ fun ListTaskScreen(
             stickyHeader {
                 Text(text = key)
             }
-            itemsIndexed(data){ _, item->
-                if (!item.subtasks.isNullOrEmpty()) {
+            itemsIndexed(data){ _, task->
+                if (!task.subtasks.isNullOrEmpty()) {
                     ProgressItemTask(
-                        title = item.name.orEmpty(),
-                        startDate = item.taskStart.orEmpty(),
-                        dueDate = item.taskEnd.orEmpty(),
-                        subTaskCount = item.subtasks!!.size
+                        title = task.name.orEmpty(),
+                        startDate = task.taskStart.orEmpty(),
+                        dueDate = task.taskEnd.orEmpty(),
+                        subTaskCount = task.subtasks!!.size,
+                        priority = task.priority?.name ?: "none",
+                        iconPriorityTint = task.priority?.color?.toColor(default = Color(0xFF98A2B3))!!
                     )
                 } else {
                     ItemTask(
-                        title = item.name.orEmpty(),
-                        date = "${item.taskStart} - ${item.taskEnd}"
+                        title = task.name.orEmpty(),
+                        date = "${task.taskStart} - ${task.taskEnd}",
+                        priority = task.priority?.name ?: "none",
+                        iconPriorityTint = task.priority?.color?.toColor(default = Color(0xFF98A2B3))!!
                     )
                 }
             }

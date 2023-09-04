@@ -150,4 +150,12 @@
     <string name="text_button_save_change_edit_profile">Simpan Perubahan</string>
     <string name="text_label_placeholder_new_name_edit_profile">Masukan Nama Pengguna</string>
     <!-- end edit profil  -->
+
+    <!--  home screen  -->
+    <string name="text_welcome_back">Selamat datang kembali</string>
+    <string name="text_favorite_task">Tugas dibintangi</string>
+    <string name="empty_task_image">Gambar illustrasi tidak ada tugas</string>
+    Cari tugas atau proyek anda
+    <!-- home screen  -->
+
 </resources>

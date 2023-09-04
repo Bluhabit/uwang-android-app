@@ -37,7 +37,7 @@ import com.bluehabit.core.ui.theme.Gray200
 fun BaseItemTask(
     modifier: Modifier = Modifier,
     priority: String = "none",
-    iconPriorityTint: Color? = null,
+    iconPriorityTint: Color,
     checked: Boolean = false,
     onCheckedChange: (Boolean) -> Unit = {},
     onItemClicked: () -> Unit = {},
@@ -81,7 +81,7 @@ fun BaseItemTask(
                         R.drawable.priority_flag
                     }
                 ),
-                tint = iconPriorityTint ?: Color(0xFF98A2B3),
+                tint = iconPriorityTint,
                 contentDescription = null,
                 modifier = Modifier
                     .size(24.dp)

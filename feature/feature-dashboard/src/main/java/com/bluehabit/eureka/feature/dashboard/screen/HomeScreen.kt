@@ -9,12 +9,14 @@ package com.bluehabit.eureka.feature.dashboard.screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
@@ -36,16 +38,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bluehabit.core.ui.R
+import com.bluehabit.core.ui.components.input.SearchBar
 import com.bluehabit.core.ui.components.item.itemTask.ItemTask
 import com.bluehabit.core.ui.components.item.itemTask.ProgressItemTask
+import com.bluehabit.core.ui.ext.toColor
 import com.bluehabit.core.ui.theme.Gray600
 import com.bluehabit.core.ui.theme.Primary600
+import com.bluehabit.core.ui.theme.Primary700
 import com.bluehabit.eureka.data.task.datasource.remote.response.ChannelResponse
 import com.bluehabit.eureka.data.task.datasource.remote.response.PriorityTaskResponse
 import com.bluehabit.eureka.data.task.datasource.remote.response.TaskResponse
 import com.bluehabit.eureka.data.task.datasource.remote.response.UserInfoResponse
 import com.bluehabit.eureka.data.task.datasource.remote.response.UserResponse
-import com.bluehabit.eureka.feature.dashboard.DashboardAction
 import com.bluehabit.eureka.feature.dashboard.DashboardState
 import com.bluehabit.eureka.feature.dashboard.model.ItemTabListTask
 
@@ -53,13 +57,17 @@ import com.bluehabit.eureka.feature.dashboard.model.ItemTabListTask
 fun HomeScreen(
     state: DashboardState,
     onNotificationIconClick: () -> Unit = {},
-    onSearchClicked: () -> Unit = {},
+    onSearchChanged: (String) -> Unit = {},
+    onSearch: (String) -> Unit = {},
+    onTaskCheckChanged: (taskId: String, newValue: Boolean) -> Unit = { _, _ -> },
+    onTaskClicked: () -> Unit = {},
     onTabSelected: (Int, ItemTabListTask) -> Unit = { _, _ -> },
 ) {
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(20.dp),
         contentPadding = PaddingValues(top = 12.dp),
         modifier = Modifier
+            .fillMaxSize()
             .background(Color.White)
     ) {
         item {
@@ -72,12 +80,10 @@ fun HomeScreen(
                 Image(
                     painter = painterResource(id = R.drawable.app_logo),
                     contentDescription = "",
-                    modifier = Modifier
-                        .clickable(onClick = onSearchClicked)
                 )
                 Column {
                     Text(
-                        text = "Selamat datang kembali",
+                        text = stringResource(id = R.string.text_welcome_back),
                         style = MaterialTheme.typography.body2.copy(
                             fontWeight = FontWeight.Medium
                         ),
@@ -104,18 +110,19 @@ fun HomeScreen(
             }
         }
         item {
-            Image(
-                painter = painterResource(
-                    id = R.drawable.input_search_bar
-                ),
-                contentDescription = "",
+            SearchBar(
                 modifier = Modifier
-                    .padding(horizontal = 20.dp)
+                    .fillMaxWidth()
+                    .padding(horizontal = 20.dp),
+                placeholder = stringResource(id = R.string.text_placeholder_search_bar),
+                value = state.inputSearch,
+                onChange = { onSearchChanged(it) },
+                onSearch = { onSearch(it) }
             )
         }
         item {
             Text(
-                text = "Tugas dibintangi",
+                text = stringResource(id = R.string.text_favorite_task),
                 style = MaterialTheme.typography.body2.copy(
                     fontWeight = FontWeight.Medium,
                     fontSize = 16.sp
@@ -136,14 +143,21 @@ fun HomeScreen(
                         ItemTask(
                             title = task.name.orEmpty(),
                             date = "${task.taskStart} - ${task.taskEnd}",
-                            priority = task.priority?.name.orEmpty()
+                            priority = task.priority?.name ?: "none",
+                            iconPriorityTint = task.priority?.color?.toColor(default = Color(0xFF98A2B3))!!
                         )
                     }
                 }
             }
         }
         item {
-            TabRow(selectedTabIndex = state.selectedTabIndex) {
+            TabRow(
+                selectedTabIndex = state.selectedTabIndex,
+                backgroundColor = MaterialTheme.colors.surface,
+                contentColor = Primary700,
+                modifier = Modifier
+                    .padding(horizontal = 20.dp)
+            ) {
                 state.tabsHome.forEachIndexed { index, tab ->
                     Tab(
                         text = {
@@ -154,36 +168,74 @@ fun HomeScreen(
                                 ),
                                 fontWeight = FontWeight.W500,
                                 color = Primary600,
-                                modifier = Modifier
-                                    .padding(horizontal = 20.dp)
                             )
                         },
                         selected = state.selectedTabIndex == index,
                         onClick = {
-                           onTabSelected(index,tab)
+                            onTabSelected(index, tab)
                         },
                     )
                 }
             }
         }
-        state.listAllTask.forEach { (key, data) ->
-            stickyHeader {
-                Text(text = key)
-            }
-            itemsIndexed(data){ _, item->
-                if (!item.subtasks.isNullOrEmpty()) {
-                    ProgressItemTask(
-                        title = item.name.orEmpty(),
-                        startDate = item.taskStart.orEmpty(),
-                        dueDate = item.taskEnd.orEmpty(),
-                        subTaskCount = item.subtasks!!.size
-                    )
-                } else {
-                    ItemTask(
-                        title = item.name.orEmpty(),
-                        date = "${item.taskStart} - ${item.taskEnd}"
+        if (state.listAllTaskHome.isNotEmpty()) {
+            state.listAllTaskHome.forEach { (key, data) ->
+                stickyHeader {
+                    Text(
+                        text = key,
+                        style = MaterialTheme.typography.body2.copy(
+                            fontWeight = FontWeight.Medium,
+                            fontSize = 16.sp
+                        ),
+                        fontWeight = FontWeight.W500,
+                        color = Gray600,
+                        modifier = Modifier
+                            .padding(horizontal = 20.dp)
                     )
                 }
+                itemsIndexed(data) { _, task ->
+                    if (!task.subtasks.isNullOrEmpty()) {
+                        ProgressItemTask(
+                            title = task.name.orEmpty(),
+                            startDate = task.taskStart.orEmpty(),
+                            dueDate = task.taskEnd.orEmpty(),
+                            subTaskCount = task.subtasks!!.size,
+                            priority = task.priority?.name ?: "none",
+                            iconPriorityTint = task.priority?.color?.toColor(default = Color(0xFF98A2B3))!!,
+//                            TODO
+//                            checked = task.status,
+                            onCheckedChange = {
+                                onTaskCheckChanged(task.id, it)
+                            },
+                            onItemClicked = onTaskClicked,
+                            modifier = Modifier
+                                .padding(horizontal = 20.dp)
+                        )
+                    } else {
+                        ItemTask(
+                            title = task.name.orEmpty(),
+                            date = "${task.taskStart} - ${task.taskEnd}",
+                            iconPriorityTint = task.priority?.color?.toColor(default = Color(0xFF98A2B3))!!,
+                            modifier = Modifier
+                                .padding(horizontal = 20.dp)
+                        )
+                    }
+                }
+            }
+        } else {
+            item {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.empty_task_image),
+                        contentDescription = stringResource(id = R.string.empty_task_image),
+                        modifier = Modifier
+                            .align(Alignment.Center)
+                    )
+                }
+
             }
         }
     }
@@ -381,6 +433,11 @@ fun HomeScreenPreview() {
         DashboardState(
             fullName = "Olivia Rhye",
             favoriteItemTask = taskList,
+            listAllTaskHome = mapOf(
+                "Tugas hari ini" to taskList,
+                "Tugas besok" to taskList,
+                "Tugas minggu ini" to taskList,
+            )
         )
     )
 }
