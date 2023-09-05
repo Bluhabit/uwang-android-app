@@ -66,7 +66,8 @@ fun BaseInputTextPrimary(
             Text(
                 text = placeholder,
                 style = MaterialTheme.typography.body1,
-                fontWeight = FontWeight.W400
+                fontWeight = FontWeight.W400,
+                color = Gray500
             )
         },
         singleLine = true,

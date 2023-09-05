@@ -130,7 +130,7 @@
     <string name="text_label_nav_project_dashboard">Proyek</string>
     <string name="text_label_nav_profile_dashboard">Profil</string>
     <!--    end navigation-->
-  
+
     <!--    text description-->
     <string name="text_placeholder_search_list_task">Cari nama tugas atau nama proyek Anda</string>
     <string name="text_title_empty_list_task">Tidak ada hasil yang ditemukan</string>
@@ -156,4 +156,8 @@
     <string name="text_title_empty_list">Kerja bagus</string>
     <string name="text_placeholder_empty_list">Hari ini Anda tidak memiliki tugas, Anda bisa istirahat sejenak</string>
     <!--    end empty notif-->
+  
+    <!--  logout  -->
+    <string name="text_button_logout">Keluar</string>
+    <!--  end logout  -->
 </resources>
