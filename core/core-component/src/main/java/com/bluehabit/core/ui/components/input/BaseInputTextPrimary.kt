@@ -10,10 +10,11 @@ package com.bluehabit.core.ui.components.input
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -36,8 +37,10 @@ fun BaseInputTextPrimary(
     readOnly: Boolean = false,
     error: Boolean = false,
     enabled: Boolean = true,
-    placeholder: String = String.Empty,
+    placeholder: @Composable (() -> Unit)? = null,
     value: String = String.Empty,
+    keyboardOptions: KeyboardOptions = KeyboardOptions(),
+    keyboardActions: KeyboardActions = KeyboardActions(),
     onFocusChanged: (FocusState) -> Unit = {},
     leadingIcon: @Composable (() -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
@@ -62,19 +65,14 @@ fun BaseInputTextPrimary(
             .onFocusChanged {
                 onFocusChanged(it)
             },
-        placeholder = {
-            Text(
-                text = placeholder,
-                style = MaterialTheme.typography.body1,
-                fontWeight = FontWeight.W400,
-                color = Gray500
-            )
-        },
+        placeholder = placeholder,
         singleLine = true,
         textStyle = MaterialTheme.typography.body1.copy(
             fontWeight = FontWeight.W400
         ),
         shape = RoundedCornerShape(8.dp),
+        keyboardOptions = keyboardOptions,
+        keyboardActions = keyboardActions,
         leadingIcon =
         if (leadingIcon != null) {
             { leadingIcon() }

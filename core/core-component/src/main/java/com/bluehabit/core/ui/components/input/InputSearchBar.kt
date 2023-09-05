@@ -8,14 +8,15 @@
 package com.bluehabit.core.ui.components.input
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -26,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -40,12 +42,15 @@ fun SearchBar(
     modifier: Modifier = Modifier,
     value: String = String.Empty,
     placeholder: String = String.Empty,
+    readOnly: Boolean = false,
     onChange: (String) -> Unit = {},
+    onSearch: (String) -> Unit = {}
 ) {
-    OutlinedTextField(
-
-        value = value,
-        onValueChange = onChange,
+    BaseInputTextPrimary(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(51.dp),
+        readOnly = readOnly,
         placeholder = {
             Text(
                 modifier = Modifier
@@ -57,8 +62,7 @@ fun SearchBar(
                 fontSize = 14.sp
             )
         },
-        singleLine = true,
-        shape = RoundedCornerShape(8.dp),
+        value = value,
         leadingIcon = {
             Icon(
                 painter = painterResource(id = com.google.android.material.R.drawable.ic_search_black_24),
@@ -67,9 +71,15 @@ fun SearchBar(
                 modifier = Modifier.size(20.dp)
             )
         },
-        modifier = modifier
-            .width(310.dp)
-            .height(51.dp)
+        keyboardOptions = KeyboardOptions(
+            imeAction = ImeAction.Search,
+        ),
+        keyboardActions = KeyboardActions(
+            onDone = {
+                onSearch(value)
+            }
+        ),
+        onChange = onChange
     )
 }
 

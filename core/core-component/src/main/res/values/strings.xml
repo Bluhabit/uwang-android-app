@@ -164,8 +164,16 @@
     <string name="text_title_empty_list">Kerja bagus</string>
     <string name="text_placeholder_empty_list">Hari ini Anda tidak memiliki tugas, Anda bisa istirahat sejenak</string>
     <!--    end empty notif-->
-  
+
     <!--  logout  -->
     <string name="text_button_logout">Keluar</string>
     <!--  end logout  -->
+
+    <!--  home screen  -->
+    <string name="text_welcome_back">Selamat datang kembali</string>
+    <string name="text_favorite_task">Tugas dibintangi</string>
+    <string name="empty_task_image">Gambar illustrasi tidak ada tugas</string>
+    Cari tugas atau proyek anda
+    <!-- home screen  -->
+
 </resources>
