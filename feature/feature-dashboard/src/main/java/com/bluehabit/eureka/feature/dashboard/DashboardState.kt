@@ -19,11 +19,10 @@ import kotlinx.parcelize.RawValue
 @Immutable
 @Parcelize
 data class DashboardState(
-    val fullName: String = String.Empty,
-    val inputSearch: String = String.Empty,
     val dashboardScreen: Int = 0,
     val listTask:@RawValue List<TaskResponse> = listOf(),
     //list task
+    val inputSearch: String = String.Empty,
     val listAllTask: @RawValue Map<String, List<TaskResponse>> = mapOf(),
     val tabsListTask: @RawValue List<ItemTabListTask> = listOf(
         ItemTabListTask(
@@ -49,6 +48,7 @@ data class DashboardState(
     ),
     //end list task
     //home
+    val fullName: String = String.Empty,
     val favoriteItemTask: @RawValue List<TaskResponse> = listOf(),
     val listAllTaskHome: @RawValue Map<String, List<TaskResponse>> = mapOf(),
     val tabsHome: @RawValue List<ItemTabListTask> = listOf(

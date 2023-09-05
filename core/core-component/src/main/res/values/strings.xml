@@ -95,6 +95,10 @@
     <string name="description_icon_success">Ikon sukses</string>
     <!--    end alert component-->
 
+    <!--    favorite task component-->
+    <string name="description_icon_star">Ikon penanda tugas favorite</string>
+    <!--    end alert component-->
+
     <!--    bottom sheet edit profile component-->
     <string name="text_upload_image_from_phone">Upload foto baru dari ponsel</string>
     <string name="text_take_picture">Ambil Gambar</string>

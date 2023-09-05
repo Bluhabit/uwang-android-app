@@ -43,14 +43,15 @@ fun SearchBar(
     value: String = String.Empty,
     placeholder: String = String.Empty,
     readOnly: Boolean = false,
+    enabled: Boolean = true,
     onChange: (String) -> Unit = {},
-    onSearch: (String) -> Unit = {}
 ) {
     BaseInputTextPrimary(
         modifier = modifier
             .fillMaxWidth()
             .height(51.dp),
         readOnly = readOnly,
+        enabled = enabled,
         placeholder = {
             Text(
                 modifier = Modifier
@@ -73,11 +74,6 @@ fun SearchBar(
         },
         keyboardOptions = KeyboardOptions(
             imeAction = ImeAction.Search,
-        ),
-        keyboardActions = KeyboardActions(
-            onDone = {
-                onSearch(value)
-            }
         ),
         onChange = onChange
     )
