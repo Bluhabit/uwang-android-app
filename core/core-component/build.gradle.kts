@@ -59,6 +59,7 @@ dependencies {
     implementation(libs.wheel.picker.compose)
     implementation(libs.coil.compose)
     implementation(libs.navigation.compose)
+    implementation(libs.mp.android.chart)
 
     //test
     testImplementation(libs.junit)

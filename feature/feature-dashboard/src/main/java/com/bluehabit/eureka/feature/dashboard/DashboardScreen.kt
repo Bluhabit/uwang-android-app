@@ -33,6 +33,7 @@ import com.bluehabit.core.ui.theme.GaweanTheme
 import com.bluehabit.core.ui.theme.Primary600
 import com.bluehabit.eureka.feature.dashboard.screen.HomeScreen
 import com.bluehabit.eureka.feature.dashboard.screen.ListTaskScreen
+import com.bluehabit.eureka.feature.dashboard.screen.ProfileScreen
 
 @Navigation(
     route = Routes.Dashboard.routeName,
@@ -120,6 +121,13 @@ fun DashboardScreen(
                     },
                     onClickNotification = {
                         dispatch(DashboardAction.SignOut)
+                    }
+                )
+
+                2 -> ProfileScreen(
+                    state = state,
+                    onClickNotification = {
+
                     }
                 )
             }

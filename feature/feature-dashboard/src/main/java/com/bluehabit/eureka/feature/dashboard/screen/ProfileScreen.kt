@@ -32,6 +32,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bluehabit.core.ui.R
+import com.bluehabit.core.ui.components.button.ButtonLogout
+import com.bluehabit.core.ui.components.chart.BarChartView
 import com.bluehabit.core.ui.components.input.SearchBar
 import com.bluehabit.core.ui.components.item.itemTask.ItemTask
 import com.bluehabit.core.ui.components.item.itemTask.ProgressItemTask
@@ -75,7 +77,15 @@ fun ProfileScreen(
             }
         }
         item {
-
+            BarChartView(
+                title = "",
+                maxAxis = 8f,
+                labels = listOf(),
+                items = listOf()
+            )
+        }
+        item {
+            ButtonLogout()
         }
     }
 }
