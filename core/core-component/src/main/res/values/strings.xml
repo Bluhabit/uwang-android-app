@@ -95,22 +95,30 @@
     <string name="description_icon_success">Ikon sukses</string>
     <!--    end alert component-->
 
-    <!--    bottom sheet component-->
+    <!--    bottom sheet edit profile component-->
     <string name="text_upload_image_from_phone">Upload foto baru dari ponsel</string>
     <string name="text_take_picture">Ambil Gambar</string>
     <string name="text_delete_image">Hapus Gambar</string>
-    <!--   end bottom sheet component-->
+    <!--   end bottom sheet edit profile component-->
+
+    <!--    bottom sheet date picker-->
+    <string name="text_start">Mulai</string>
+    <string name="btn_text_choose">Pilih</string>
+    <!--   end bottom sheet date picker-->
   
     <!--    search component-->
     <string name="text_placeholder_search_bar">Cari tugas atau proyek Anda</string>
     <!--    end search component-->
+
     <!--    text description-->
     <string name="text_label_input_description">Deskripsi</string>
     <string name="text_placeholder_input_description">Tulis deskripsi Anda di sini...</string>
     <!--    end alert component-->
+
     <!--    notif profile-->
     <string name="text_label_notif_profile">Profil berhasil diperbarui</string>
     <!--    end alert component-->
+
     <!--    changepassword-->
     <string name="text_label_change_password_profile">Ubah Password</string>
     <string name="text_subtitle_change_password">Untuk lanjut mengubah, masukan password akun anda saat ini </string>
@@ -138,4 +146,33 @@
     <string name="text_button_notifikasi">Tambah Tugas</string>
     <!--    end notifikasi-->
 
+    <!--    text description-->
+    <string name="text_placeholder_search_list_task">Cari nama tugas atau nama proyek Anda</string>
+    <string name="text_title_empty_list_task">Tidak ada hasil yang ditemukan</string>
+    <string name="text_placeholder_empty_list_task">Hasil tidak ditemukan, coba cek kembali nama tugas atau proyek Anda</string>
+    <!--    end alert component-->
+
+    <!--    item notification component-->
+    <string name="text_button_item_notification">Lihat Tugas</string>
+    <!--    item notification component-->
+
+    <!--  edit profil  -->
+    <string name="description_avatar">Profile Picture</string>
+    <string name="description_icon_arrow">Arrow Back</string>
+    <string name="description_icon_pencil">pencil</string>
+    <string name="text_label_input_new_name_edit_profile">Nama Pengguna</string>
+    <string name="text_top_bar_edit_profile">Edit Profile</string>
+    <string name="text_button_save_change_edit_profile">Simpan Perubahan</string>
+    <string name="text_label_placeholder_new_name_edit_profile">Masukan Nama Pengguna</string>
+    <!-- end edit profil  -->
+
+    <!--    empty notif-->
+    <string name="text_label_empty_list_task">Tugas hari ini</string>
+    <string name="text_title_empty_list">Kerja bagus</string>
+    <string name="text_placeholder_empty_list">Hari ini Anda tidak memiliki tugas, Anda bisa istirahat sejenak</string>
+    <!--    end empty notif-->
+  
+    <!--  logout  -->
+    <string name="text_button_logout">Keluar</string>
+    <!--  end logout  -->
 </resources>
