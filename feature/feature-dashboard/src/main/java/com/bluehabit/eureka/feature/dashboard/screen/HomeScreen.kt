@@ -54,6 +54,7 @@ import com.bluehabit.eureka.data.ext.offsetToDate
 import com.bluehabit.eureka.data.task.datasource.remote.response.ChannelResponse
 import com.bluehabit.eureka.data.task.datasource.remote.response.PriorityTaskResponse
 import com.bluehabit.eureka.data.task.datasource.remote.response.StatusTaskResponse
+import com.bluehabit.eureka.data.task.datasource.remote.response.SubTaskResponse
 import com.bluehabit.eureka.data.task.datasource.remote.response.TaskResponse
 import com.bluehabit.eureka.data.task.datasource.remote.response.UserInfoResponse
 import com.bluehabit.eureka.data.task.datasource.remote.response.UserResponse
@@ -153,6 +154,7 @@ fun HomeScreen(
                             date = "${task.taskStart?.offsetToDate(DatePattern).orEmpty()} - ${task.taskEnd?.offsetToDate(DatePattern).orEmpty()}",
                             priority = task.priority?.name ?: "none",
                             iconPriorityTint = task.priority?.color?.toColor(default = Color(0xFF98A2B3))!!,
+                            subTaskCount = task.subtasks?.size ?: 0
                         ) {
                             onTaskClicked(task.id)
                         }
@@ -391,6 +393,33 @@ fun HomeScreenPreview() {
         deleted = false
     )
 
+    val subTask = listOf(
+        SubTaskResponse(
+            id = "SUBTASK_001",
+            name = "Menonton anime",
+            createdAt = "2023-09-05T12:41:43.440-03:00",
+            updatedAt = "2023-09-05T12:41:43.440-03:00",
+            done = false,
+            deleted = false
+        ),
+        SubTaskResponse(
+            id = "SUBTASK_002",
+            name = "Menonton drakor",
+            createdAt = "2023-09-05T12:41:43.440-03:00",
+            updatedAt = "2023-09-05T12:41:43.440-03:00",
+            done = true,
+            deleted = false
+        ),
+        SubTaskResponse(
+            id = "SUBTASK_002",
+            name = "SitUp 10x",
+            createdAt = "2023-09-05T12:41:43.440-03:00",
+            updatedAt = "2023-09-05T12:41:43.440-03:00",
+            done = false,
+            deleted = false
+        )
+    )
+
     val taskList = listOf(
         TaskResponse(
             id = "USER_002-TASK-001",
@@ -420,7 +449,7 @@ fun HomeScreenPreview() {
             priority = priorityMedium,
             status = undoneStatusTask,
             attachments = null,
-            subtasks = null,
+            subtasks = subTask,
             name = "Membaca buku terbaru",
             description = "Novel fiksi ilmiah",
             taskStart = "2023-09-05T12:41:43.440-03:00",

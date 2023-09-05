@@ -112,27 +112,28 @@ fun ItemTaskFavorite(
                     color = Gray500,
                 )
             }
-
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                LinearProgressIndicator(
-                    progress = progressTask,
-                    color = Primary600,
-                    backgroundColor = Gray100,
-                    modifier = Modifier
-                        .height(12.dp)
-                        .weight(0.5f)
-                        .clip(RoundedCornerShape(25.dp)),
-                )
-                Text(
-                    text = "${(progressTask * 100).toInt()}%",
-                    style = MaterialTheme.typography.body2,
-                    lineHeight = 18.sp,
-                    fontWeight = FontWeight.W400,
-                    color = Gray500,
-                )
+            if (subTaskCount != 0) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    LinearProgressIndicator(
+                        progress = progressTask,
+                        color = Primary600,
+                        backgroundColor = Gray100,
+                        modifier = Modifier
+                            .height(12.dp)
+                            .weight(0.5f)
+                            .clip(RoundedCornerShape(25.dp)),
+                    )
+                    Text(
+                        text = "${(progressTask * 100).toInt()}%",
+                        style = MaterialTheme.typography.body2,
+                        lineHeight = 18.sp,
+                        fontWeight = FontWeight.W400,
+                        color = Gray500,
+                    )
+                }
             }
             Row(
                 verticalAlignment = Alignment.CenterVertically,
