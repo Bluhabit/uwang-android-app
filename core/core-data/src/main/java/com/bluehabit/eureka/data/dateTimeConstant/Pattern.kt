@@ -7,4 +7,4 @@
 
 package com.bluehabit.eureka.data.dateTimeConstant
 
-const val DatePattern = "dd MMM yyyy"
+const val DATE_PATTERN = "dd MMM yyyy"

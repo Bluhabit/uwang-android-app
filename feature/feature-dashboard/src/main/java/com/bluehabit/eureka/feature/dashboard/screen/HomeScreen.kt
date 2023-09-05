@@ -49,7 +49,7 @@ import com.bluehabit.core.ui.ext.toColor
 import com.bluehabit.core.ui.theme.Gray600
 import com.bluehabit.core.ui.theme.Primary600
 import com.bluehabit.core.ui.theme.Primary700
-import com.bluehabit.eureka.data.dateTimeConstant.DatePattern
+import com.bluehabit.eureka.data.dateTimeConstant.DATE_PATTERN
 import com.bluehabit.eureka.data.ext.offsetToDate
 import com.bluehabit.eureka.data.task.datasource.remote.response.ChannelResponse
 import com.bluehabit.eureka.data.task.datasource.remote.response.PriorityTaskResponse
@@ -151,7 +151,7 @@ fun HomeScreen(
                     items(state.favoriteItemTask) { task ->
                         ItemTaskFavorite(
                             title = task.name.orEmpty(),
-                            date = "${task.taskStart?.offsetToDate(DatePattern).orEmpty()} - ${task.taskEnd?.offsetToDate(DatePattern).orEmpty()}",
+                            date = "${task.taskStart?.offsetToDate(DATE_PATTERN).orEmpty()} - ${task.taskEnd?.offsetToDate(DATE_PATTERN).orEmpty()}",
                             priority = task.priority?.name ?: "none",
                             iconPriorityTint = task.priority?.color?.toColor(default = Color(0xFF98A2B3))!!,
                             subTaskCount = task.subtasks?.size ?: 0
@@ -227,12 +227,11 @@ fun HomeScreen(
                     if (!task.subtasks.isNullOrEmpty()) {
                         ProgressItemTask(
                             title = task.name.orEmpty(),
-                            startDate = task.taskStart?.offsetToDate(DatePattern).orEmpty(),
+                            startDate = task.taskStart?.offsetToDate(DATE_PATTERN).orEmpty(),
                             dueDate = task.taskEnd.orEmpty(),
                             subTaskCount = task.subtasks!!.size,
                             priority = task.priority?.name ?: "none",
                             iconPriorityTint = task.priority?.color?.toColor(default = Color(0xFF98A2B3))!!,
-//                            TODO
                             checked = task.status?.value == "finish",
                             onCheckedChange = {
                                 onTaskCheckChanged(task.id, it)
@@ -246,7 +245,7 @@ fun HomeScreen(
                     } else {
                         ItemTask(
                             title = task.name.orEmpty(),
-                            date = "${task.taskStart?.offsetToDate(DatePattern).orEmpty()} - ${task.taskEnd?.offsetToDate(DatePattern).orEmpty()}",
+                            date = "${task.taskStart?.offsetToDate(DATE_PATTERN).orEmpty()} - ${task.taskEnd?.offsetToDate(DATE_PATTERN).orEmpty()}",
                             iconPriorityTint = task.priority?.color?.toColor(default = Color(0xFF98A2B3))!!,
                             priority = task.priority?.name ?: "none",
                             checked = task.status?.value == "finish",
