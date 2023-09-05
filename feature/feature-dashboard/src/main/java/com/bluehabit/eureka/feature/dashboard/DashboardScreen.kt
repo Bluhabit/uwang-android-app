@@ -106,7 +106,6 @@ fun DashboardScreen(
                     onNotificationIconClick = {
                         dispatch(DashboardAction.SignOut)
                     },
-                    onSearch = {},
                     onTabSelected = { index, tab ->
                         commit { copy(selectedTabIndex = index) }
                         dispatch(tab.action)
