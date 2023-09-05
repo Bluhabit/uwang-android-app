@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bluehabit.core.ui.R
 import com.bluehabit.core.ui.components.label.AttachmentLabel
+import com.bluehabit.core.ui.theme.Error500
 import com.bluehabit.core.ui.theme.Gray500
 import com.bluehabit.core.ui.theme.Gray900
 import com.bluehabit.core.ui.theme.Warning400
@@ -40,7 +41,7 @@ import com.bluehabit.core.ui.theme.Warning400
 fun ItemTask(
     modifier: Modifier = Modifier,
     priority: String = "none",
-    iconPriorityTint: Color? = null,
+    iconPriorityTint: Color,
     title: String,
     date: String,
     attachmentCount: Int = 0,
@@ -110,7 +111,7 @@ fun ItemTaskPreview() {
         ItemTask(
             title = "Competitor Analys",
             priority = "none",
-            iconPriorityTint = null,
+            iconPriorityTint = Error500,
             date = "07 Agu 2023 ",
             attachmentCount = 3,
             checked = checked,

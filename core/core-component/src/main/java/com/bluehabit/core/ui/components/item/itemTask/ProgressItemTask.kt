@@ -48,7 +48,7 @@ import com.bluehabit.core.ui.theme.Primary600
 fun ProgressItemTask(
     modifier: Modifier = Modifier,
     priority: String = "none",
-    iconPriorityTint: Color? = null,
+    iconPriorityTint: Color,
     title: String,
     startDate: String,
     dueDate: String,
