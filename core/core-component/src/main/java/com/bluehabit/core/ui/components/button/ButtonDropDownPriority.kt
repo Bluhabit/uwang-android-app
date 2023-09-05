@@ -77,7 +77,9 @@ fun InputDropDown(
                     )
                 }
             },
-            placeholder = placeholder,
+            placeholder = {
+                Text(text = placeholder)
+            },
             readOnly = true,
             enabled = false,
             modifier = Modifier
@@ -89,7 +91,7 @@ fun InputDropDown(
         DropdownMenu(
             modifier = Modifier
                 .fillMaxWidth(),
-            properties = PopupProperties(usePlatformDefaultWidth = false ),
+            properties = PopupProperties(usePlatformDefaultWidth = false),
             expanded = expanded,
             onDismissRequest = { expanded = false }
         ) {
@@ -110,7 +112,7 @@ fun InputDropDown(
                         }
 
                     },
-                    onClick = {onSelected(it)}
+                    onClick = { onSelected(it) }
                 )
             }
 

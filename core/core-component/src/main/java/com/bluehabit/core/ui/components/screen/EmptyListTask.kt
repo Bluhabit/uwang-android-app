@@ -5,10 +5,15 @@
  * Proprietary and confidential
  */
 
-package com.bluehabit.core.ui.components.Screen
+package com.bluehabit.core.ui.components.screen
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -33,11 +38,12 @@ fun EmptyListPage(
     label: String = String.Empty,
     title: String = String.Empty,
     message: String = String.Empty,
-    show: Boolean = false,
     icon: (@Composable () -> Unit)? = null,
 ) {
     Text(
-        modifier = Modifier,
+        modifier = modifier.padding(
+            horizontal = 18.dp
+        ),
         text = label,
         style = MaterialTheme.typography.h6,
         lineHeight = 24.sp,
@@ -45,15 +51,15 @@ fun EmptyListPage(
         textAlign = TextAlign.Center,
         color = Gray600
     )
-    Spacer(modifier = Modifier.height(16.dp))
+    Spacer(modifier = modifier.height(16.dp))
     Column(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         icon?.invoke()
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = modifier.height(16.dp))
         Text(
-            modifier = Modifier
+            modifier = modifier
                 .width(295.dp)
                 .height(35.dp),
             text = title,
@@ -63,9 +69,9 @@ fun EmptyListPage(
             textAlign = TextAlign.Center,
             color = Gray600
         )
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = modifier.height(16.dp))
         Text(
-            modifier = Modifier
+            modifier = modifier
                 .width(295.dp)
                 .height(40.dp),
             text = message,
@@ -81,11 +87,10 @@ fun EmptyListPage(
 
 @Composable
 @Preview(widthDp = 500, heightDp = 750)
-fun EmptyListTaskPreview() {
+fun PreviewEmptyListTask() {
     GaweanTheme {
         Column(modifier = Modifier.padding(20.dp)) {
             EmptyListPage(
-                show = true,
                 label = stringResource(id = R.string.text_label_empty_list_task),
                 icon = {
                     Image(
@@ -97,9 +102,7 @@ fun EmptyListTaskPreview() {
                     )
                 },
                 title = stringResource(id = R.string.text_title_empty_list),
-                message = stringResource(id = R.string.text_placeholder_empty_list),
-
-                )
+                message = stringResource(id = R.string.text_placeholder_empty_list),)
         }
     }
 }
