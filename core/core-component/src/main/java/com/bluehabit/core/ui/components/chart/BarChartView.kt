@@ -52,12 +52,11 @@ import com.github.mikephil.charting.formatter.ValueFormatter
  */
 @Composable
 fun BarChartView(
-    modifier: Modifier =Modifier,
-    title:String = "",
-    maxAxis:Float=5f,
-    items:List<BarEntry> = listOf(),
-    labels:List<String> = listOf(),
-    onArrowClicked:(isNext:Boolean) ->Unit ={}
+    modifier: Modifier = Modifier,
+    title: String = "",
+    maxAxis: Float = 5f,
+    items: List<BarEntry> = listOf(),
+    labels: List<String> = listOf()
 ) {
     val ctx = LocalContext.current
     val currentWidth = ctx
@@ -77,41 +76,13 @@ fun BarChartView(
 
     ) {
         Text(
-            text = "Muaheheeh",
+            text = title,
             style = MaterialTheme.typography.body1,
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.Bold,
+            modifier = modifier.padding(horizontal = 18.dp)
         )
-        Row(
-            modifier = modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            IconToggleButton(
-                checked = false,
-                onCheckedChange = {
-                    onArrowClicked(false)
-                }
-            ) {
-                Icon(
-                    imageVector = Icons.Outlined.ArrowBack,
-                    contentDescription = "Previous week"
-                )
-            }
-            Text(text = title)
-            IconToggleButton(
-                checked = false,
-                onCheckedChange = {
-                    onArrowClicked(true)
-                }
-            ) {
-                Icon(
-                    imageVector = Icons.Outlined.ArrowForward,
-                    contentDescription = "Next Week"
-                )
-            }
-        }
         AndroidView(
-            modifier= modifier
+            modifier = modifier
                 .fillMaxWidth()
                 .fillMaxHeight(),
             factory = {
@@ -122,7 +93,7 @@ fun BarChartView(
                         setDrawLabels(false)
 
                         valueFormatter = YAxisValueFormatter()
-                        textColor = if(isDark) Color.WHITE else Color.DKGRAY
+                        textColor = if (isDark) Color.WHITE else Color.DKGRAY
                     }
                     axisLeft.apply {
                         setDrawGridLines(false)
@@ -131,15 +102,15 @@ fun BarChartView(
 
                         spaceTop = 4f
                         valueFormatter = YAxisValueFormatter()
-                        textColor = if(isDark) Color.WHITE else Color.DKGRAY
+                        textColor = if (isDark) Color.WHITE else Color.DKGRAY
                     }
                     xAxis.apply {
                         axisMaximum = 7f
                         setDrawLabels(true)
                         setDrawGridLines(false)
                         setDrawAxisLine(true)
-                        position= XAxis.XAxisPosition.BOTTOM
-                        textColor = if(isDark) Color.WHITE else Color.DKGRAY
+                        position = XAxis.XAxisPosition.BOTTOM
+                        textColor = if (isDark) Color.WHITE else Color.DKGRAY
                     }
                     setVisibleYRangeMaximum(
                         maxAxis,
@@ -147,20 +118,20 @@ fun BarChartView(
                     )
 
                     legend.apply {
-                        textColor = if(isDark) Color.WHITE else Color.DKGRAY
+                        textColor = if (isDark) Color.WHITE else Color.DKGRAY
                     }
                     description.apply {
-                        textColor = if(isDark) Color.WHITE else Color.DKGRAY
+                        textColor = if (isDark) Color.WHITE else Color.DKGRAY
                     }
 
                 }
             },
-            update = {chart->
+            update = { chart ->
                 chart.setRadius(30)
-                if(items.isNotEmpty()) {
+                if (items.isNotEmpty()) {
                     chart.xAxis.valueFormatter = XAxisTimeFormatter(labels)
                     chart.data = BarData(listOf(BarDataSet(items, "Tudu"))).apply {
-                        setValueTextColor(if(isDark) Color.WHITE else Color.DKGRAY)
+                        setValueTextColor(if (isDark) Color.WHITE else Color.DKGRAY)
                     }
                     chart.invalidate()
                 }
@@ -169,6 +140,7 @@ fun BarChartView(
     }
 
 }
+
 class XAxisTimeFormatter(data: List<String>?) : ValueFormatter() {
     private val getCurrent: MutableList<String> = ArrayList()
     override fun getAxisLabel(value: Float, axis: AxisBase): String {
@@ -184,7 +156,7 @@ class XAxisTimeFormatter(data: List<String>?) : ValueFormatter() {
     }
 }
 
-class YAxisValueFormatter():ValueFormatter(){
+class YAxisValueFormatter() : ValueFormatter() {
     override fun getAxisLabel(value: Float, axis: AxisBase?): String {
         return "${value.toInt()}"
     }

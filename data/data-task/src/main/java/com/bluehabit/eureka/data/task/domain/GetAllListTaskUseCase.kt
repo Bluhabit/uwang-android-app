@@ -18,9 +18,11 @@ import javax.inject.Inject
 class GetAllListTaskUseCase @Inject constructor(
     private val taskRepository: TaskRepository
 ) {
-    suspend operator fun invoke(page: Int):Response<Map<String,List<TaskResponse>>> {
-       return when(val result = taskRepository.getListTask(page)){
-            is Response.Result ->{
+    suspend operator fun invoke(page: Int): Response<Map<String, List<TaskResponse>>> {
+        return when (val result = taskRepository.getListTask(page)) {
+            is Response.Result -> {
+                if (result.data.items.isEmpty()) return Response.Result(mapOf())
+
                 val today = OffsetDateTime.now()
                 val field = WeekFields.of(Locale.forLanguageTag("ID")).dayOfWeek()
                 val firstDay = today.with(field, 1)
@@ -42,14 +44,17 @@ class GetAllListTaskUseCase @Inject constructor(
                     date.isAfter(firstDay) && date.isBefore(lastDay)
                 }
 
-                Response.Result(mapOf(
-                    "Hari ini" to todayTask,
-                    "Besok" to tomorrow,
-                    "Minggu ini" to thisWeek
-                ))
+                Response.Result(
+                    mapOf(
+                        "Hari ini" to todayTask,
+                        "Besok" to tomorrow,
+                        "Minggu ini" to thisWeek
+                    )
+                )
             }
-           is Response.Error -> Response.Error("",1)
-           Response.Loading -> Response.Loading
-       }
+
+            is Response.Error -> Response.Error("", 1)
+            Response.Loading -> Response.Loading
+        }
     }
 }

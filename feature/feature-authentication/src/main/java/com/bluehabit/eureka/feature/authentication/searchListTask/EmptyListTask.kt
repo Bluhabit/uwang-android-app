@@ -43,7 +43,7 @@ import com.bluehabit.core.ui.theme.GaweanTheme
 import com.bluehabit.core.ui.theme.Gray600
 
 @Composable
-fun EmptyListPage(
+fun EmptySearchPage(
     icon: (@Composable () -> Unit)? = null,
     label: String = String.Empty,
     message: String = String.Empty,
@@ -121,7 +121,7 @@ fun EmptyListPage(
 
 @Composable
 @Preview(widthDp = 500, heightDp = 750)
-fun PriviewEmptyListTask() {
+fun PreviewEmptySearchPage() {
     GaweanTheme() {
         Column(
             modifier = Modifier
@@ -130,7 +130,7 @@ fun PriviewEmptyListTask() {
             var search by remember {
                 mutableStateOf(SearchThisState())
             }
-            EmptyListPage(
+            EmptySearchPage(
                 search = search,
                 onSearchThis = {
                     search = search.copy(word = it)
