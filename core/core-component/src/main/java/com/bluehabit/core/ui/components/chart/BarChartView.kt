@@ -63,7 +63,6 @@ fun BarChartView(
         .resources
         .displayMetrics.widthPixels.dp /
             LocalDensity.current.density
-    val isDark = isSystemInDarkTheme()
     Column(
         modifier = modifier
             .width(currentWidth)
@@ -93,7 +92,7 @@ fun BarChartView(
                         setDrawLabels(false)
 
                         valueFormatter = YAxisValueFormatter()
-                        textColor = if (isDark) Color.WHITE else Color.DKGRAY
+                        textColor =  Color.DKGRAY
                     }
                     axisLeft.apply {
                         setDrawGridLines(false)
@@ -102,7 +101,7 @@ fun BarChartView(
 
                         spaceTop = 4f
                         valueFormatter = YAxisValueFormatter()
-                        textColor = if (isDark) Color.WHITE else Color.DKGRAY
+                        textColor =  Color.DKGRAY
                     }
                     xAxis.apply {
                         axisMaximum = 7f
@@ -110,7 +109,7 @@ fun BarChartView(
                         setDrawGridLines(false)
                         setDrawAxisLine(true)
                         position = XAxis.XAxisPosition.BOTTOM
-                        textColor = if (isDark) Color.WHITE else Color.DKGRAY
+                        textColor = Color.DKGRAY
                     }
                     setVisibleYRangeMaximum(
                         maxAxis,
@@ -118,10 +117,10 @@ fun BarChartView(
                     )
 
                     legend.apply {
-                        textColor = if (isDark) Color.WHITE else Color.DKGRAY
+                        textColor = Color.DKGRAY
                     }
                     description.apply {
-                        textColor = if (isDark) Color.WHITE else Color.DKGRAY
+                        textColor =  Color.DKGRAY
                     }
 
                 }
@@ -131,7 +130,7 @@ fun BarChartView(
                 if (items.isNotEmpty()) {
                     chart.xAxis.valueFormatter = XAxisTimeFormatter(labels)
                     chart.data = BarData(listOf(BarDataSet(items, "Tudu"))).apply {
-                        setValueTextColor(if (isDark) Color.WHITE else Color.DKGRAY)
+                        setValueTextColor(Color.DKGRAY)
                     }
                     chart.invalidate()
                 }

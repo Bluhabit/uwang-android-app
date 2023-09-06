@@ -46,7 +46,7 @@ fun ButtonLogout(
         ) {
         Icon(
             painter = painterResource(
-                id = R.drawable.ic_bell
+                id = R.drawable.logout
             ),
             tint = Primary600,
             contentDescription = "",

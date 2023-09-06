@@ -5,7 +5,7 @@
  * Proprietary and confidential
  */
 
-package com.bluehabit.eureka.feature.authentication.notifikasi
+package com.bluehabit.eureka.feature.authentication.notifikasi.screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -32,7 +32,7 @@ import com.bluehabit.core.ui.theme.GaweanTheme
 import com.bluehabit.core.ui.theme.Gray900
 
 @Composable
-fun EmptyNotification(
+fun EmptyNotificationScreen(
     icon: (@Composable () -> Unit)? = null,
     message: String = String.Empty,
     label: String = String.Empty,
@@ -124,7 +124,7 @@ fun PreviewEmptyNotification() {
             modifier = Modifier
                 .fillMaxWidth()
         ) {
-            EmptyNotification(
+            EmptyNotificationScreen(
                 icon = {
                     Image(
                         painter = painterResource(id = R.drawable.emptynotif),

@@ -22,6 +22,7 @@ import com.github.mikephil.charting.renderer.BarChartRenderer
 import com.github.mikephil.charting.utils.Transformer
 import com.github.mikephil.charting.utils.Utils
 import com.github.mikephil.charting.utils.ViewPortHandler
+import kotlin.math.ceil
 
 /**
  * Custom Bar renderer
@@ -91,7 +92,7 @@ class RoundedBarChart : BarChart {
                     y1 = e.y
                     y2 = 0f
                 }
-                prepareBarHighlight(e.x, y1, y2, barData.barWidth / 2f, trans)
+                prepareBarHighlight(e.x, y1, y2, barData.barWidth / 4f, trans)
                 setHighlightDrawPos(high, mBarRect)
                 c.drawRoundRect(mBarRect, mRadius.toFloat(), mRadius.toFloat(), mHighlightPaint)
             }
@@ -110,13 +111,10 @@ class RoundedBarChart : BarChart {
                 mShadowPaint.color = dataSet.barShadowColor
                 val barData = mChart.barData
                 val barWidth = barData.barWidth
-                val barWidthHalf = barWidth / 2.0f
+                val barWidthHalf = barWidth /4.0f
                 var x: Float
                 var i = 0
-                val count = Math.min(
-                    Math.ceil((dataSet.entryCount.toFloat() * phaseX).toDouble()).toInt(),
-                    dataSet.entryCount
-                )
+                val count = ceil((dataSet.entryCount.toFloat() * phaseX).toDouble()).toInt().coerceAtMost(dataSet.entryCount)
                 while (i < count) {
                     val e = dataSet.getEntryForIndex(i)
                     x = e.x
@@ -140,7 +138,7 @@ class RoundedBarChart : BarChart {
             buffer.setPhases(phaseX, phaseY)
             buffer.setDataSet(index)
             buffer.setInverted(mChart.isInverted(dataSet.axisDependency))
-            buffer.setBarWidth(mChart.barData.barWidth)
+            buffer.setBarWidth(mChart.barData.barWidth/4f)
             buffer.feed(dataSet)
             trans.pointValuesToPixel(buffer.buffer)
             val isSingleColor = dataSet.colors.size == 1

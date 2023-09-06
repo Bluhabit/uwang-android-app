@@ -54,11 +54,13 @@ import com.bluehabit.core.ui.theme.Gray100
 import com.bluehabit.core.ui.theme.Gray600
 import com.bluehabit.core.ui.theme.Primary600
 import com.bluehabit.eureka.feature.dashboard.DashboardState
+import com.github.mikephil.charting.data.BarEntry
 
 @Composable
 fun ProfileScreen(
     state: DashboardState,
     onClickNotification: () -> Unit = {},
+    onSignOut:()->Unit={}
 ) {
     val context = LocalContext.current
     val screenWidth = context.getScreenWidth() - 40.dp
@@ -207,8 +209,29 @@ fun ProfileScreen(
             BarChartView(
                 title = "Aktifitas",
                 maxAxis = 8f,
-                labels = listOf(),
-                items = listOf()
+                labels = listOf(
+                    "Sen",
+                    "Sel",
+                    "Rab",
+                    "Kam",
+                    "Jum",
+                    "Sab",
+                    "Min"
+                ),
+                items = listOf(
+                    BarEntry(
+                        0f,
+                        6f
+                    ),
+                    BarEntry(
+                        1f,
+                        2f
+                    ),
+                    BarEntry(
+                        2f,
+                        7f
+                    )
+                )
             )
         }
         item {
@@ -304,7 +327,24 @@ fun ProfileScreen(
             }
         }
         item {
-            ButtonLogout()
+            Spacer(
+                modifier = Modifier
+                    .height(10.dp)
+            )
+        }
+        item {
+            ButtonLogout(
+                label=stringResource(id = R.string.text_button_logout),
+                onClick = {
+                    onSignOut()
+                }
+            )
+        }
+        item {
+            Spacer(
+                modifier = Modifier
+                    .height(10.dp)
+            )
         }
     }
 }
