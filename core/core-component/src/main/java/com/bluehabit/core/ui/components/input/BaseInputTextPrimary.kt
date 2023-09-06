@@ -38,6 +38,8 @@ fun BaseInputTextPrimary(
     error: Boolean = false,
     enabled: Boolean = true,
     placeholder: @Composable (() -> Unit)? = null,
+    maxLines: Int = Int.MAX_VALUE,
+    minLines: Int = 1,
     value: String = String.Empty,
     keyboardOptions: KeyboardOptions = KeyboardOptions(),
     keyboardActions: KeyboardActions = KeyboardActions(),
@@ -66,13 +68,15 @@ fun BaseInputTextPrimary(
                 onFocusChanged(it)
             },
         placeholder = placeholder,
-        singleLine = true,
+        singleLine = false,
         textStyle = MaterialTheme.typography.body1.copy(
             fontWeight = FontWeight.W400
         ),
         shape = RoundedCornerShape(8.dp),
         keyboardOptions = keyboardOptions,
         keyboardActions = keyboardActions,
+        maxLines = maxLines,
+        minLines = minLines,
         leadingIcon =
         if (leadingIcon != null) {
             { leadingIcon() }
