@@ -21,7 +21,7 @@ data class TaskResponse(
     @SerializedName("priority")
     val priority: PriorityTaskResponse? = null,
     @SerializedName("status")
-    val status: Any? = null,
+    val status: StatusTaskResponse? = null,
     @SerializedName("attachment")
     val attachments: Any? = null,
     @SerializedName("subtask")
