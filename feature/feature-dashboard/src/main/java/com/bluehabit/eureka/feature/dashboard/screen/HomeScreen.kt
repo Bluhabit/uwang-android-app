@@ -9,6 +9,7 @@ package com.bluehabit.eureka.feature.dashboard.screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -22,6 +23,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Tab
@@ -30,6 +32,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -41,12 +44,17 @@ import com.bluehabit.core.ui.R
 import com.bluehabit.core.ui.components.input.SearchBar
 import com.bluehabit.core.ui.components.item.itemTask.ItemTask
 import com.bluehabit.core.ui.components.item.itemTask.ProgressItemTask
+import com.bluehabit.core.ui.components.item.itemTaskFavorite.ItemTaskFavorite
 import com.bluehabit.core.ui.ext.toColor
 import com.bluehabit.core.ui.theme.Gray600
 import com.bluehabit.core.ui.theme.Primary600
 import com.bluehabit.core.ui.theme.Primary700
+import com.bluehabit.eureka.data.dateTimeConstant.DATE_PATTERN
+import com.bluehabit.eureka.data.ext.offsetToDate
 import com.bluehabit.eureka.data.task.datasource.remote.response.ChannelResponse
 import com.bluehabit.eureka.data.task.datasource.remote.response.PriorityTaskResponse
+import com.bluehabit.eureka.data.task.datasource.remote.response.StatusTaskResponse
+import com.bluehabit.eureka.data.task.datasource.remote.response.SubTaskResponse
 import com.bluehabit.eureka.data.task.datasource.remote.response.TaskResponse
 import com.bluehabit.eureka.data.task.datasource.remote.response.UserInfoResponse
 import com.bluehabit.eureka.data.task.datasource.remote.response.UserResponse
@@ -57,10 +65,10 @@ import com.bluehabit.eureka.feature.dashboard.model.ItemTabListTask
 fun HomeScreen(
     state: DashboardState,
     onNotificationIconClick: () -> Unit = {},
-    onSearchChanged: (String) -> Unit = {},
-    onSearch: (String) -> Unit = {},
+    onSearchClicked: () -> Unit = {},
     onTaskCheckChanged: (taskId: String, newValue: Boolean) -> Unit = { _, _ -> },
-    onTaskClicked: () -> Unit = {},
+    onReadMoreClicked: (key: String) -> Unit = {},
+    onTaskClicked: (taskId: String) -> Unit = {},
     onTabSelected: (Int, ItemTabListTask) -> Unit = { _, _ -> },
 ) {
     LazyColumn(
@@ -113,39 +121,43 @@ fun HomeScreen(
             SearchBar(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 20.dp),
-                placeholder = stringResource(id = R.string.text_placeholder_search_bar),
-                value = state.inputSearch,
-                onChange = { onSearchChanged(it) },
-                onSearch = { onSearch(it) }
-            )
-        }
-        item {
-            Text(
-                text = stringResource(id = R.string.text_favorite_task),
-                style = MaterialTheme.typography.body2.copy(
-                    fontWeight = FontWeight.Medium,
-                    fontSize = 16.sp
-                ),
-                fontWeight = FontWeight.W500,
-                color = Gray600,
-                modifier = Modifier
                     .padding(horizontal = 20.dp)
+                    .clip(RoundedCornerShape(8.dp))
+                    .clickable(onClick = onSearchClicked),
+                placeholder = stringResource(id = R.string.text_placeholder_search_bar),
+                enabled = false,
+                readOnly = true,
             )
         }
         if (state.favoriteItemTask.isNotEmpty()) {
+            item {
+                Text(
+                    text = stringResource(id = R.string.text_favorite_task),
+                    style = MaterialTheme.typography.body2.copy(
+                        fontWeight = FontWeight.Medium,
+                        fontSize = 16.sp
+                    ),
+                    fontWeight = FontWeight.W500,
+                    color = Gray600,
+                    modifier = Modifier
+                        .padding(horizontal = 20.dp)
+                )
+            }
             item {
                 LazyRow(
                     horizontalArrangement = Arrangement.spacedBy(16.dp),
                     contentPadding = PaddingValues(horizontal = 20.dp)
                 ) {
                     items(state.favoriteItemTask) { task ->
-                        ItemTask(
+                        ItemTaskFavorite(
                             title = task.name.orEmpty(),
-                            date = "${task.taskStart} - ${task.taskEnd}",
+                            date = "${task.taskStart?.offsetToDate(DATE_PATTERN).orEmpty()} - ${task.taskEnd?.offsetToDate(DATE_PATTERN).orEmpty()}",
                             priority = task.priority?.name ?: "none",
-                            iconPriorityTint = task.priority?.color?.toColor(default = Color(0xFF98A2B3))!!
-                        )
+                            iconPriorityTint = task.priority?.color?.toColor(default = Color(0xFF98A2B3))!!,
+                            subTaskCount = task.subtasks?.size ?: 0
+                        ) {
+                            onTaskClicked(task.id)
+                        }
                     }
                 }
             }
@@ -181,41 +193,68 @@ fun HomeScreen(
         if (state.listAllTaskHome.isNotEmpty()) {
             state.listAllTaskHome.forEach { (key, data) ->
                 stickyHeader {
-                    Text(
-                        text = key,
-                        style = MaterialTheme.typography.body2.copy(
-                            fontWeight = FontWeight.Medium,
-                            fontSize = 16.sp
-                        ),
-                        fontWeight = FontWeight.W500,
-                        color = Gray600,
+                    Row(
+                        horizontalArrangement = Arrangement.SpaceBetween,
                         modifier = Modifier
+                            .fillMaxWidth()
                             .padding(horizontal = 20.dp)
-                    )
+                    ) {
+                        Text(
+                            text = key,
+                            style = MaterialTheme.typography.body2.copy(
+                                fontWeight = FontWeight.Medium,
+                                fontSize = 16.sp
+                            ),
+                            fontWeight = FontWeight.W500,
+                            color = Gray600,
+
+                            )
+                        Text(
+                            text = "Selengkapnya",
+                            style = MaterialTheme.typography.button,
+                            fontWeight = FontWeight.W600,
+                            color = Primary700,
+                            modifier = Modifier
+                                .clickable {
+                                    onReadMoreClicked(key)
+                                }
+                        )
+                    }
+
+
                 }
                 itemsIndexed(data) { _, task ->
                     if (!task.subtasks.isNullOrEmpty()) {
                         ProgressItemTask(
                             title = task.name.orEmpty(),
-                            startDate = task.taskStart.orEmpty(),
+                            startDate = task.taskStart?.offsetToDate(DATE_PATTERN).orEmpty(),
                             dueDate = task.taskEnd.orEmpty(),
                             subTaskCount = task.subtasks!!.size,
                             priority = task.priority?.name ?: "none",
                             iconPriorityTint = task.priority?.color?.toColor(default = Color(0xFF98A2B3))!!,
-//                            TODO
-//                            checked = task.status,
+                            checked = task.status?.value == "finish",
                             onCheckedChange = {
                                 onTaskCheckChanged(task.id, it)
                             },
-                            onItemClicked = onTaskClicked,
+                            onItemClicked = {
+                                onTaskClicked(task.id)
+                            },
                             modifier = Modifier
                                 .padding(horizontal = 20.dp)
                         )
                     } else {
                         ItemTask(
                             title = task.name.orEmpty(),
-                            date = "${task.taskStart} - ${task.taskEnd}",
+                            date = "${task.taskStart?.offsetToDate(DATE_PATTERN).orEmpty()} - ${task.taskEnd?.offsetToDate(DATE_PATTERN).orEmpty()}",
                             iconPriorityTint = task.priority?.color?.toColor(default = Color(0xFF98A2B3))!!,
+                            priority = task.priority?.name ?: "none",
+                            checked = task.status?.value == "finish",
+                            onCheckedChange = {
+                                onTaskCheckChanged(task.id, it)
+                            },
+                            onItemClicked = {
+                                onTaskClicked(task.id)
+                            },
                             modifier = Modifier
                                 .padding(horizontal = 20.dp)
                         )
@@ -255,8 +294,8 @@ fun HomeScreenPreview() {
                 userId = "USER_001",
                 key = "name",
                 value = "John Doe",
-                createdAt = "2023-09-03T10:00:00Z",
-                updatedAt = "2023-09-03T10:00:00Z",
+                createdAt = "2023-09-05T12:41:43.440-03:00",
+                updatedAt = "2023-09-05T12:41:43.440-03:00",
                 deleted = false
             ),
             UserInfoResponse(
@@ -264,13 +303,13 @@ fun HomeScreenPreview() {
                 userId = "USER_001",
                 key = "profile_url",
                 value = "https://www.rri.res.in/sites/default/files/2022-09/Abhisek%20Tamang.jpg",
-                createdAt = "2023-09-03T10:00:00Z",
-                updatedAt = "2023-09-03T10:00:00Z",
+                createdAt = "2023-09-05T12:41:43.440-03:00",
+                updatedAt = "2023-09-05T12:41:43.440-03:00",
                 deleted = false
             )
         ),
-        createdAt = "2023-09-03T10:00:00Z",
-        updatedAt = "2023-09-03T10:00:00Z",
+        createdAt = "2023-09-05T12:41:43.440-03:00",
+        updatedAt = "2023-09-05T12:41:43.440-03:00",
         deleted = false
     )
     val userResponse2 = UserResponse(
@@ -284,8 +323,8 @@ fun HomeScreenPreview() {
                 userId = "USER_002",
                 key = "name",
                 value = "John Doe",
-                createdAt = "2023-09-03T10:00:00Z",
-                updatedAt = "2023-09-03T10:00:00Z",
+                createdAt = "2023-09-05T12:41:43.440-03:00",
+                updatedAt = "2023-09-05T12:41:43.440-03:00",
                 deleted = false
             ),
             UserInfoResponse(
@@ -293,13 +332,13 @@ fun HomeScreenPreview() {
                 userId = "USER_002",
                 key = "profile_url",
                 value = "https://www.rri.res.in/sites/default/files/2022-09/Abhisek%20Tamang.jpg",
-                createdAt = "2023-09-03T10:00:00Z",
-                updatedAt = "2023-09-03T10:00:00Z",
+                createdAt = "2023-09-05T12:41:43.440-03:00",
+                updatedAt = "2023-09-05T12:41:43.440-03:00",
                 deleted = false
             )
         ),
-        createdAt = "2023-09-03T11:00:00Z",
-        updatedAt = "2023-09-03T11:00:00Z",
+        createdAt = "2023-09-05T12:41:43.440-03:00",
+        updatedAt = "2023-09-05T12:41:43.440-03:00",
         deleted = false
     )
     val channelResponse = ChannelResponse(
@@ -311,8 +350,8 @@ fun HomeScreenPreview() {
         name = "High",
         description = "High priority",
         color = "#FF0000",
-        createdAt = "2023-09-03T10:00:00Z",
-        updatedAt = "2023-09-03T10:00:00Z",
+        createdAt = "2023-09-05T12:41:43.440-03:00",
+        updatedAt = "2023-09-05T12:41:43.440-03:00",
         deleted = false
     )
 
@@ -321,8 +360,8 @@ fun HomeScreenPreview() {
         name = "Medium",
         description = "Medium priority",
         color = "#FFFF00",
-        createdAt = "2023-09-03T11:00:00Z",
-        updatedAt = "2023-09-03T11:00:00Z",
+        createdAt = "2023-09-05T12:41:43.440-03:00",
+        updatedAt = "2023-09-05T12:41:43.440-03:00",
         deleted = false
     )
 
@@ -331,9 +370,53 @@ fun HomeScreenPreview() {
         name = "Low",
         description = "Low priority",
         color = "#00FF00",
-        createdAt = "2023-09-03T12:00:00Z",
-        updatedAt = "2023-09-03T12:00:00Z",
+        createdAt = "2023-09-05T12:41:43.440-03:00",
+        updatedAt = "2023-09-05T12:41:43.440-03:00",
         deleted = false
+    )
+
+    val doneStatusTask = StatusTaskResponse(
+        id = "STATUS_TASK_001",
+        name = "Selesai",
+        value = "finish",
+        createdAt = "2023-09-05T12:41:43.440-03:00",
+        updatedAt = "2023-09-05T12:41:43.440-03:00",
+        deleted = false
+    )
+    val undoneStatusTask = StatusTaskResponse(
+        id = "STATUS_TASK_002",
+        name = "Proses",
+        value = "progress",
+        createdAt = "2023-09-05T12:41:43.440-03:00",
+        updatedAt = "2023-09-05T12:41:43.440-03:00",
+        deleted = false
+    )
+
+    val subTask = listOf(
+        SubTaskResponse(
+            id = "SUBTASK_001",
+            name = "Menonton anime",
+            createdAt = "2023-09-05T12:41:43.440-03:00",
+            updatedAt = "2023-09-05T12:41:43.440-03:00",
+            done = false,
+            deleted = false
+        ),
+        SubTaskResponse(
+            id = "SUBTASK_002",
+            name = "Menonton drakor",
+            createdAt = "2023-09-05T12:41:43.440-03:00",
+            updatedAt = "2023-09-05T12:41:43.440-03:00",
+            done = true,
+            deleted = false
+        ),
+        SubTaskResponse(
+            id = "SUBTASK_002",
+            name = "SitUp 10x",
+            createdAt = "2023-09-05T12:41:43.440-03:00",
+            updatedAt = "2023-09-05T12:41:43.440-03:00",
+            done = false,
+            deleted = false
+        )
     )
 
     val taskList = listOf(
@@ -342,10 +425,10 @@ fun HomeScreenPreview() {
             createdBy = userResponse2,
             channel = channelResponse,
             assign = userResponse1,
-            createdAt = "2023-09-03T13:00:00Z",
-            updatedAt = "2023-09-03T13:00:00Z",
+            createdAt = "2023-09-05T12:41:43.440-03:00",
+            updatedAt = "2023-09-05T12:41:43.440-03:00",
             priority = priorityHigh,
-            status = "done",
+            status = doneStatusTask,
             attachments = null,
             subtasks = null,
             name = "Menulis nama fauzan 100x",
@@ -360,16 +443,16 @@ fun HomeScreenPreview() {
             createdBy = userResponse1,
             channel = channelResponse,
             assign = userResponse2,
-            createdAt = "2023-09-03T14:00:00Z",
-            updatedAt = "2023-09-03T14:00:00Z",
+            createdAt = "2023-09-05T12:41:43.440-03:00",
+            updatedAt = "2023-09-05T12:41:43.440-03:00",
             priority = priorityMedium,
-            status = "in_progress",
+            status = undoneStatusTask,
             attachments = null,
-            subtasks = null,
+            subtasks = subTask,
             name = "Membaca buku terbaru",
             description = "Novel fiksi ilmiah",
-            taskStart = "2028-12-03T14:00:00Z",
-            taskEnd = "2028-12-03T15:00:00Z",
+            taskStart = "2023-09-05T12:41:43.440-03:00",
+            taskEnd = "2023-09-05T12:41:43.440-03:00",
             deleted = false,
             publish = true
         ),
@@ -378,16 +461,16 @@ fun HomeScreenPreview() {
             createdBy = userResponse1,
             channel = channelResponse,
             assign = userResponse1,
-            createdAt = "2023-09-03T15:00:00Z",
-            updatedAt = "2023-09-03T15:00:00Z",
+            createdAt = "2023-09-05T12:41:43.440-03:00",
+            updatedAt = "2023-09-05T12:41:43.440-03:00",
             priority = priorityMedium,
-            status = "overtime",
+            status = undoneStatusTask,
             attachments = null,
             subtasks = null,
             name = "Belajar musik",
             description = "Latihan gitar",
-            taskStart = "2028-12-03T15:00:00Z",
-            taskEnd = "2028-12-03T16:00:00Z",
+            taskStart = "2023-09-05T12:41:43.440-03:00",
+            taskEnd = "2023-09-05T12:41:43.440-03:00",
             deleted = false,
             publish = true
         ),
@@ -396,16 +479,16 @@ fun HomeScreenPreview() {
             createdBy = userResponse2,
             channel = channelResponse,
             assign = userResponse1,
-            createdAt = "2023-09-03T16:00:00Z",
-            updatedAt = "2023-09-03T16:00:00Z",
+            createdAt = "2023-09-05T12:41:43.440-03:00",
+            updatedAt = "2023-09-05T12:41:43.440-03:00",
             priority = priorityLow,
-            status = "in_progress",
+            status = doneStatusTask,
             attachments = null,
             subtasks = null,
             name = "Menulis ulasan buku",
             description = "Buku non-fiksi",
-            taskStart = "2028-12-03T16:00:00Z",
-            taskEnd = "2028-12-03T17:00:00Z",
+            taskStart = "2023-09-05T12:41:43.440-03:00",
+            taskEnd = "2023-09-05T12:41:43.440-03:00",
             deleted = false,
             publish = true
         ),
@@ -414,16 +497,16 @@ fun HomeScreenPreview() {
             createdBy = userResponse2,
             channel = channelResponse,
             assign = userResponse1,
-            createdAt = "2023-09-03T17:00:00Z",
-            updatedAt = "2023-09-03T17:00:00Z",
+            createdAt = "2023-09-05T12:41:43.440-03:00",
+            updatedAt = "2023-09-05T12:41:43.440-03:00",
             priority = priorityMedium,
-            status = "done",
+            status = doneStatusTask,
             attachments = null,
             subtasks = null,
             name = "Pelajari bahasa baru",
             description = "Bahasa Spanyol",
-            taskStart = "2028-12-03T17:00:00Z",
-            taskEnd = "2028-12-03T18:00:00Z",
+            taskStart = "2023-09-05T12:41:43.440-03:00",
+            taskEnd = "2023-09-05T12:41:43.440-03:00",
             deleted = false,
             publish = true
         )

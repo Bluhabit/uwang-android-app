@@ -105,7 +105,6 @@ fun DashboardScreen(
                     state = state,
                     onNotificationIconClick = {
                     },
-                    onSearch = {},
                     onTabSelected = { index, tab ->
                         commit { copy(selectedTabIndex = index) }
                         dispatch(tab.action)
