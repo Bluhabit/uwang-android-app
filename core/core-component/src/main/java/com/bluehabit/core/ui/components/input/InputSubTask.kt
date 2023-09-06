@@ -112,7 +112,6 @@ fun InputSubTask(
                 )
             },
             maxLines = maxLine,
-            // Bagaimana agar lebar mengisi space kosong
             modifier = Modifier
                 .weight(1f)
         )
@@ -120,7 +119,7 @@ fun InputSubTask(
             Icon(
                 painter = painterResource(id = R.drawable.ic_close),
                 tint = Gray900,
-                contentDescription = stringResource(id = R.string.text_description_ic_delete),
+                contentDescription = stringResource(id = R.string.text_description_ic_delete_input_subtask),
                 modifier = Modifier
                     .padding(top = 6.dp),
             )
