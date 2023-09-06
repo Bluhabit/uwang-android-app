@@ -104,7 +104,6 @@ fun DashboardScreen(
                 0 -> HomeScreen(
                     state = state,
                     onNotificationIconClick = {
-                        dispatch(DashboardAction.SignOut)
                     },
                     onSearch = {},
                     onTabSelected = { index, tab ->
@@ -120,14 +119,14 @@ fun DashboardScreen(
                         dispatch(tab.action)
                     },
                     onClickNotification = {
-                        dispatch(DashboardAction.SignOut)
                     }
                 )
 
-                2 -> ProfileScreen(
+                3 -> ProfileScreen(
                     state = state,
-                    onClickNotification = {
-
+                    onClickNotification = {},
+                    onSignOut = {
+                        dispatch(DashboardAction.SignOut)
                     }
                 )
             }
