@@ -42,7 +42,7 @@ fun CheckedCircleCheckBox(
             painter = painterResource(id = R.drawable.ic_check),
             contentDescription = null,
             tint = Color.White,
-            modifier = modifier
+            modifier = Modifier
                 .align(Alignment.Center)
         )
     }

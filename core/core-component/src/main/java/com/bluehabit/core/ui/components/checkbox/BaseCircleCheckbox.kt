@@ -24,6 +24,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
+import com.bluehabit.core.ui.theme.Gray100
+import com.bluehabit.core.ui.theme.Gray200
 import com.bluehabit.core.ui.theme.Gray300
 import com.bluehabit.core.ui.theme.Primary600
 
@@ -37,14 +39,21 @@ fun BaseCircleCheckbox(
     onCheckedChange: () -> Unit = {},
     content: @Composable BoxScope.() -> Unit = {},
 ) {
-    val getBackgroundColor = if (checked) backgroundColor else Color.White
-    val borderSize = if (checked) 0.dp else 2.dp
     Box(
         modifier = modifier
             .size(24.dp)
-            .background(getBackgroundColor, CircleShape)
+            .background(
+                if (checked) backgroundColor
+                else if (!enabled) Gray100
+                else Color.White,
+                CircleShape
+            )
             .clip(CircleShape)
-            .border(borderSize, Gray300, CircleShape)
+            .border(
+                if (checked) 0.dp else 2.dp,
+                if (checked) Gray300 else Gray200,
+                CircleShape
+            )
             .clickable(
                 onClick = onCheckedChange,
                 enabled = enabled,
