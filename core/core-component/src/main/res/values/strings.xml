@@ -187,4 +187,13 @@
     Cari tugas atau proyek anda
     <!-- home screen  -->
 
+    <!-- create task -->
+    <string name="text_top_bar_create_task">Buat Tugas Baru</string>
+    <!-- end create task -->
+
+    <!-- input subtask component -->
+    <string name="text_placeholder_input_subtask">Masukan subtugas Anda</string>
+    <string name="text_description_ic_delete">Ikon menghapus subtask</string>
+    <!-- nput subtask component -->
+
 </resources>
