@@ -45,6 +45,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import app.trian.mvi.Navigation
 import app.trian.mvi.ui.UIWrapper
+import app.trian.mvi.ui.extensions.Empty
 import app.trian.mvi.ui.internal.contract.UIContract
 import app.trian.mvi.ui.internal.rememberUIController
 import com.bluehabit.core.ui.R
@@ -197,11 +198,15 @@ fun CreateTaskScreen(
                                         copy(
                                             titleTask = newValue,
                                             titleTaskError = false,
-                                            titleTaskErrorMessage = "Nama tugas max. 100 karakter"
+                                            titleTaskErrorMessage = String.Empty
+
                                         )
                                     }
                                 } else {
-                                    commit { copy(titleTaskError = true) }
+                                    commit { copy(
+                                        titleTaskError = true,
+                                        titleTaskErrorMessage = "Nama tugas max. 100 karakter"
+                                    ) }
                                 }
                             }
                         )
@@ -308,11 +313,16 @@ fun CreateTaskScreen(
                                         copy(
                                             descriptionTask = newValue,
                                             descriptionTaskError = false,
-                                            descriptionTaskErrorMessage = "Deskripsi tugas max. 100 karakter"
+                                            descriptionTaskErrorMessage = String.Empty
                                         )
                                     }
                                 } else {
-                                    commit { copy(descriptionTaskError = true) }
+                                    commit {
+                                        copy(
+                                            descriptionTaskError = true,
+                                            descriptionTaskErrorMessage = "Deskripsi tugas max. 100 karakter"
+                                        )
+                                    }
                                 }
                             }
                         )
