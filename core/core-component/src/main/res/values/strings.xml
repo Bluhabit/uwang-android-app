@@ -114,11 +114,6 @@
     <string name="text_placeholder_search_bar">Cari tugas atau proyek Anda</string>
     <!--    end search component-->
 
-    <!--    text description-->
-    <string name="text_label_input_description">Deskripsi</string>
-    <string name="text_placeholder_input_description">Tulis deskripsi Anda di sini...</string>
-    <!--    end alert component-->
-
     <!--    notif profile-->
     <string name="text_label_notif_profile">Profil berhasil diperbarui</string>
     <!--    end alert component-->
@@ -190,6 +185,8 @@
     <!-- create task -->
     <string name="text_top_bar_create_task">Buat Tugas Baru</string>
     <string name="text_description_ic_add_create_task">Ikon menambahkan subtask baru</string>
+    <string name="text_placeholder_input_title_create_task">Tulis judul Anda di sini…</string>
+    <string name="text_placeholder_input_description_create_task">Tulis deskripsi Anda di sini…</string>
     <!-- end create task -->
 
     <!-- input subtask component -->

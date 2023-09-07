@@ -11,4 +11,5 @@ sealed interface CreateTaskAction {
     object CreateTemporaryTask : CreateTaskAction
     object UploadAttachment : CreateTaskAction
     object PublishTask : CreateTaskAction
+    object AddNewSubTask : CreateTaskAction
 }

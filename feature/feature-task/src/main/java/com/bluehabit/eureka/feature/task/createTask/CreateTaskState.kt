@@ -10,7 +10,7 @@ package com.bluehabit.eureka.feature.task.createTask
 import android.os.Parcelable
 import app.trian.mvi.ui.extensions.Empty
 import app.trian.mvi.ui.internal.contract.MviState
-import com.bluehabit.eureka.data.task.datasource.remote.response.SubTaskResponse
+import com.bluehabit.eureka.data.task.datasource.remote.request.SubtaskRequest
 import javax.annotation.concurrent.Immutable
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
@@ -21,7 +21,7 @@ data class CreateTaskState(
     //create task
     val titleTask: String = String.Empty,
     val titleTaskError: Boolean = false,
-    val listSubTask: @RawValue MutableList<SubTaskResponse>  = mutableListOf(),
+    val listSubTask: @RawValue MutableList<SubtaskRequest> = mutableListOf(),
     val descriptionTask: String = String.Empty,
     val descriptionTaskError: Boolean = false,
     //end create task
