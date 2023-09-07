@@ -26,7 +26,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import app.trian.mvi.ui.extensions.Empty
 import com.bluehabit.core.ui.R
 import com.bluehabit.core.ui.theme.GaweanTheme
@@ -47,9 +46,8 @@ fun InputTextArea(
         placeholder = {
             Text(
                 text = placeholder,
-                style = MaterialTheme.typography.subtitle1,
-                fontWeight = FontWeight.W400,
-                fontSize = 14.sp
+                style = MaterialTheme.typography.body2,
+                fontWeight = FontWeight.W400
             )
         },
         error = error,

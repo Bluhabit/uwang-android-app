@@ -15,6 +15,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.TextFieldColors
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -28,6 +29,7 @@ import com.bluehabit.core.ui.R
 import com.bluehabit.core.ui.theme.Error500
 import com.bluehabit.core.ui.theme.Gray300
 import com.bluehabit.core.ui.theme.Gray500
+import com.bluehabit.core.ui.theme.Gray900
 import com.bluehabit.core.ui.theme.Primary300
 import com.bluehabit.core.ui.theme.Rose700
 
@@ -41,6 +43,13 @@ fun BaseInputTextPrimary(
     maxLines: Int = Int.MAX_VALUE,
     minLines: Int = 1,
     value: String = String.Empty,
+    colors: TextFieldColors = TextFieldDefaults.outlinedTextFieldColors(
+        placeholderColor = Gray500,
+        textColor = Gray900,
+        focusedBorderColor = Primary300,
+        disabledBorderColor = Gray300,
+        errorBorderColor = Rose700
+    ),
     keyboardOptions: KeyboardOptions = KeyboardOptions(),
     keyboardActions: KeyboardActions = KeyboardActions(),
     onFocusChanged: (FocusState) -> Unit = {},
@@ -54,13 +63,7 @@ fun BaseInputTextPrimary(
         enabled = enabled,
         value = value,
         onValueChange = onChange,
-        colors = TextFieldDefaults.outlinedTextFieldColors(
-            placeholderColor = Gray300,
-            textColor = Gray500,
-            focusedBorderColor = Primary300,
-            disabledBorderColor = Gray300,
-            errorBorderColor = Rose700
-        ),
+        colors = colors,
         modifier = modifier
             .fillMaxWidth()
             .defaultMinSize(minHeight = 40.dp)
