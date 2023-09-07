@@ -12,22 +12,17 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.material.ContentAlpha
 import androidx.compose.material.DropdownMenu
 import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -40,23 +35,33 @@ import com.bluehabit.core.ui.components.input.BaseInputTextPrimary
 import com.bluehabit.core.ui.theme.GaweanTheme
 import com.bluehabit.core.ui.theme.Gray400
 import com.bluehabit.core.ui.theme.Gray500
+import com.bluehabit.core.ui.theme.Gray900
+import com.bluehabit.core.ui.theme.Rose700
 
 
 @Composable
-fun InputDropDown(
+fun ButtonDropDownPriority(
+    modifier: Modifier = Modifier,
     items: List<String>,
     placeholder: String = String.Empty,
-    onSelected: (String) -> Unit = {},
     selectedPriority: String = String.Empty,
+    expanded: Boolean = false,
+    enabled: Boolean = true,
+    onExpand: () -> Unit = {},
+    onDismiss: () -> Unit = {},
+    onSelected: (String) -> Unit = {},
 ) {
-    var expanded by remember { mutableStateOf(false) }
-
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .wrapContentSize(Alignment.TopStart)
+        modifier = modifier
     ) {
         BaseInputTextPrimary(
+            value = selectedPriority,
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                disabledTextColor = Gray900,
+                disabledPlaceholderColor = Gray400,
+                disabledBorderColor = MaterialTheme.colors.onSurface.copy(alpha = ContentAlpha.disabled),
+                errorBorderColor = Rose700,
+            ),
             leadingIcon = {
                 Icon(
                     painter = painterResource(id = R.drawable.inactiveflag),
@@ -67,13 +72,13 @@ fun InputDropDown(
             trailingIcon = {
                 if (expanded) {
                     Icon(
-                        painter = painterResource(id = R.drawable.arrow_down),
+                        painter = painterResource(id = R.drawable.arrow_up),
                         contentDescription = "",
                         tint = Gray500
                     )
                 } else {
                     Icon(
-                        painter = painterResource(id = R.drawable.arrow_up),
+                        painter = painterResource(id = R.drawable.arrow_down),
                         contentDescription = "",
                         tint = Gray500
                     )
@@ -91,20 +96,25 @@ fun InputDropDown(
             enabled = false,
             modifier = Modifier
                 .fillMaxWidth()
-                .clickable {
-                    expanded = !expanded
-                }
+                .clickable(
+                    onClick = onExpand,
+                    enabled = enabled
+                ),
         )
         DropdownMenu(
             modifier = Modifier
                 .fillMaxWidth(),
-            properties = PopupProperties(usePlatformDefaultWidth = false),
+            properties = PopupProperties(
+                usePlatformDefaultWidth = true,
+                clippingEnabled = false
+            ),
             expanded = expanded,
-            onDismissRequest = { expanded = false }
+            onDismissRequest = onDismiss
         ) {
             items.forEach {
                 DropdownMenuItem(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth(),
                     content = {
                         Row(
                             modifier = Modifier.fillMaxWidth(),
@@ -137,7 +147,7 @@ fun MenuSamplePreview() {
                 vertical = 20.dp
             )
         ) {
-            InputDropDown(
+            ButtonDropDownPriority(
                 items = listOf("Low", "Normal", "High", "Urgent"),
                 placeholder = "Pilih prioritas tugas"
             )

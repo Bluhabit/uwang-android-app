@@ -33,6 +33,8 @@ data class CreateTaskState(
     val openEndDate: Boolean = false,
     val endDateError: Boolean = false,
     val dateErrorMessage: String = String.Empty,
+    val currentPriority: String = String.Empty,
+    val expandDropDownPriority: Boolean = false,
     //end create task
 
     override val effect: @RawValue CreateTaskEffect = CreateTaskEffect.Nothing

@@ -37,19 +37,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import app.trian.mvi.Navigation
 import app.trian.mvi.ui.UIWrapper
 import app.trian.mvi.ui.internal.contract.UIContract
 import app.trian.mvi.ui.internal.rememberUIController
 import com.bluehabit.core.ui.R
+import com.bluehabit.core.ui.components.button.ButtonDropDownPriority
 import com.bluehabit.core.ui.components.input.BaseInputTextPrimary
 import com.bluehabit.core.ui.components.input.InputSubTask
 import com.bluehabit.core.ui.components.input.InputTextArea
@@ -76,14 +75,14 @@ fun CreateTaskScreen(
     uiContract: UIContract<CreateTaskState, CreateTaskAction>,
     modifier: Modifier = Modifier
 ) = UIWrapper(uiContract = uiContract) {
+    val keyboardController = LocalSoftwareKeyboardController.current
     val modalSheetState = rememberModalBottomSheetState(
         initialValue = ModalBottomSheetValue.Hidden,
-        confirmValueChange = { it != ModalBottomSheetValue.HalfExpanded },
+        confirmValueChange = {
+            it != ModalBottomSheetValue.HalfExpanded
+        },
         skipHalfExpanded = false,
-        )
-    val keyboardController = LocalSoftwareKeyboardController.current
-    val focusManager = LocalFocusManager.current
-
+    )
     ModalBottomSheetLayout(
         sheetState = modalSheetState,
         sheetBackgroundColor = Color.White,
@@ -96,7 +95,6 @@ fun CreateTaskScreen(
                 DatePickerBottomSheet(
                     title = "Mulai",
                     onDone = {
-                        focusManager.clearFocus()
                         commit {
                             copy(openStartDate = false)
                         }
@@ -105,7 +103,6 @@ fun CreateTaskScreen(
                         }
                     }
                 ) { localDate ->
-                    focusManager.clearFocus()
                     commit {
                         copy(
                             startDate = localDate.localDateToOffset(),
@@ -117,7 +114,6 @@ fun CreateTaskScreen(
                 DatePickerBottomSheet(
                     title = "Selesai",
                     onDone = {
-                        focusManager.clearFocus()
                         commit {
                             copy(openEndDate = false)
                         }
@@ -125,8 +121,7 @@ fun CreateTaskScreen(
                             modalSheetState.hide()
                         }
                     },
-                ) {localDate ->
-                    focusManager.clearFocus()
+                ) { localDate ->
                     commit {
                         copy(
                             endDate = localDate.localDateToOffset(),
@@ -190,9 +185,8 @@ fun CreateTaskScreen(
                             placeholder = {
                                 Text(
                                     text = stringResource(id = R.string.text_placeholder_input_title_create_task),
-                                    style = MaterialTheme.typography.subtitle1,
-                                    fontWeight = FontWeight.W400,
-                                    fontSize = 14.sp
+                                    style = MaterialTheme.typography.body2,
+                                    fontWeight = FontWeight.W400
                                 )
                             },
                             error = state.titleTaskError,
@@ -397,6 +391,77 @@ fun CreateTaskScreen(
                         )
                     }
                 }
+                item {
+                    Spacer(modifier = Modifier.padding(vertical = 12.dp))
+                }
+                item {
+                    Column(
+                        verticalArrangement = Arrangement.spacedBy(6.dp),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 20.dp)
+                    ) {
+                        Text(
+                            text = "Prioritas",
+                            style = MaterialTheme.typography.body2.copy(
+                                fontWeight = FontWeight.Medium,
+                            ),
+                            fontWeight = FontWeight.W500,
+                            color = Gray700,
+                        )
+                        ButtonDropDownPriority(
+                            items = listOf("Low", "Normal", "High", "Urgent"),
+                            selectedPriority = state.currentPriority,
+                            placeholder = "Pilih prioritas tugas",
+                            expanded = state.expandDropDownPriority,
+                            onExpand = {
+                                commit {
+                                    copy(expandDropDownPriority = !state.expandDropDownPriority)
+                                }
+
+                            },
+                            onDismiss = {
+                                commit {
+                                    copy(expandDropDownPriority = false)
+                                }
+                            },
+                            onSelected = { priority ->
+                                commit {
+                                    copy(
+                                        expandDropDownPriority = false,
+                                        currentPriority = priority
+                                    )
+                                }
+                            }
+                        )
+                    }
+                }
+                item {
+                    Spacer(modifier = Modifier.padding(vertical = 12.dp))
+                }
+                item {
+                    Column(
+                        verticalArrangement = Arrangement.spacedBy(6.dp),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 20.dp)
+                    ) {
+                        Text(
+                            text = "Lampiran",
+                            style = MaterialTheme.typography.body2.copy(
+                                fontWeight = FontWeight.Medium,
+                            ),
+                            fontWeight = FontWeight.W500,
+                            color = Gray700,
+                        )
+                        Text(
+                            text = "Batas upload 3 File PNG/JPG ukuran file max. 5 MB",
+                            style = MaterialTheme.typography.caption,
+                            fontWeight = FontWeight.W400,
+                            color = Gray400,
+                        )
+                    }
+                }
             }
         }
     }
@@ -444,12 +509,13 @@ fun PreviewDashboardScreen() {
                     state = it
                 },
                 dispatcher = {
-                    when(it){
+                    when (it) {
                         CreateTaskAction.AddNewSubTask -> {
                             val subs = state.listSubTask.toMutableList()
-                            subs.add(SubtaskRequest("",false))
+                            subs.add(SubtaskRequest("", false))
                             state = state.copy(listSubTask = subs)
                         }
+
                         CreateTaskAction.CreateTemporaryTask -> Unit
                         CreateTaskAction.PublishTask -> Unit
                         CreateTaskAction.UploadAttachment -> Unit
