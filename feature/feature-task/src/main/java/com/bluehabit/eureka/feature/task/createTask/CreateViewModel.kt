@@ -9,6 +9,7 @@ package com.bluehabit.eureka.feature.task.createTask
 
 import app.trian.mvi.ui.viewModel.MviViewModel
 import com.bluehabit.eureka.data.common.executeAsFlow
+import com.bluehabit.eureka.data.task.datasource.remote.request.SubtaskRequest
 import com.bluehabit.eureka.data.task.domain.CreateTemporaryTaskUseCase
 import com.bluehabit.eureka.data.task.domain.PublishTaskUseCase
 import com.bluehabit.eureka.data.task.domain.UploadTaskAttachmentUseCase
@@ -52,11 +53,25 @@ class CreateViewModel @Inject constructor(
         }
     }
 
+    private fun addSubTask() = asyncWithState {
+        val newSubTask: MutableList<SubtaskRequest> = listSubTask
+        newSubTask.add(
+            SubtaskRequest(
+                subTaskName = "",
+                done = false
+            )
+        )
+        commit {
+            copy(listSubTask = newSubTask)
+        }
+    }
+
     override fun onAction(action: CreateTaskAction) {
         when (action) {
             CreateTaskAction.CreateTemporaryTask -> createTemporaryTask()
             CreateTaskAction.PublishTask -> Unit
             CreateTaskAction.UploadAttachment -> Unit
+            CreateTaskAction.AddNewSubTask -> addSubTask()
         }
     }
 }

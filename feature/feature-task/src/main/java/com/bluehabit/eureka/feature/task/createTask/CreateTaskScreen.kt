@@ -42,6 +42,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import app.trian.mvi.Navigation
 import app.trian.mvi.ui.UIWrapper
 import app.trian.mvi.ui.internal.contract.UIContract
@@ -49,6 +50,7 @@ import app.trian.mvi.ui.internal.rememberUIController
 import com.bluehabit.core.ui.R
 import com.bluehabit.core.ui.components.input.BaseInputTextPrimary
 import com.bluehabit.core.ui.components.input.InputSubTask
+import com.bluehabit.core.ui.components.input.InputTextArea
 import com.bluehabit.core.ui.components.sheet.DatePickerBottomSheet
 import com.bluehabit.core.ui.routes.Routes
 import com.bluehabit.core.ui.theme.Error500
@@ -136,10 +138,24 @@ fun CreateTaskScreen(
                         BaseInputTextPrimary(
                             modifier = Modifier
                                 .fillMaxWidth(),
+                            placeholder = {
+                                Text(
+                                    text = stringResource(id = R.string.text_placeholder_input_title_create_task),
+                                    style = MaterialTheme.typography.subtitle1,
+                                    fontWeight = FontWeight.W400,
+                                    fontSize = 14.sp
+                                )
+                            },
                             error = state.titleTaskError,
+                            value = state.titleTask,
                             onChange = { newValue ->
                                 if (newValue.length <= 100) {
-                                    commit { copy(titleTask = newValue) }
+                                    commit {
+                                        copy(
+                                            titleTask = newValue,
+                                            titleTaskError = false
+                                        )
+                                    }
                                 } else {
                                     commit { copy(titleTaskError = true) }
                                 }
@@ -177,7 +193,7 @@ fun CreateTaskScreen(
                     InputSubTask(
                         modifier = Modifier
                             .padding(vertical = 8.dp, horizontal = 20.dp),
-                        value = subTask.name,
+                        value = subTask.subTaskName,
                         checked = subTask.done,
                         onValueChange = { newValue ->
                             if (newValue.isEmpty()) {
@@ -203,7 +219,7 @@ fun CreateTaskScreen(
                             .padding(horizontal = 20.dp)
                             .clip(RoundedCornerShape(8.dp))
                             .clickable {
-                                //Add new sub-task
+                                dispatch(CreateTaskAction.AddNewSubTask)
                             }
                     ) {
                         Icon(
@@ -238,20 +254,24 @@ fun CreateTaskScreen(
                             fontWeight = FontWeight.W500,
                             color = Gray700,
                         )
-                        BaseInputTextPrimary(
-                            modifier = Modifier
-                                .fillMaxWidth(),
+                        InputTextArea(
+                            placeholder = stringResource(id = R.string.text_placeholder_input_description_create_task),
                             error = state.descriptionTaskError,
-                            minLines = 4,
+                            value = state.descriptionTask,
                             onChange = { newValue ->
                                 if (newValue.length <= 100) {
-                                    commit { copy(descriptionTask = newValue) }
+                                    commit {
+                                        copy(
+                                            descriptionTask = newValue,
+                                            descriptionTaskError = false
+                                        )
+                                    }
                                 } else {
                                     commit { copy(descriptionTaskError = true) }
                                 }
                             }
                         )
-                        if (state.titleTaskError) {
+                        if (state.descriptionTaskError) {
                             Text(
                                 text = "Deskripsi tugas max. 100 karakter",
                                 style = MaterialTheme.typography.body2,
