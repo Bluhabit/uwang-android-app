@@ -58,6 +58,7 @@ import com.bluehabit.core.ui.theme.GaweanTheme
 import com.bluehabit.core.ui.theme.Gray400
 import com.bluehabit.core.ui.theme.Gray700
 import com.bluehabit.core.ui.theme.Gray900
+import com.bluehabit.eureka.data.task.datasource.remote.request.SubtaskRequest
 import com.bluehabit.eureka.data.task.datasource.remote.response.SubTaskResponse
 
 @Navigation(
@@ -331,6 +332,18 @@ fun PreviewDashboardScreen() {
                 state = state,
                 mutation = {
                     state = it
+                },
+                dispatcher = {
+                    when(it){
+                        CreateTaskAction.AddNewSubTask -> {
+                            val subs = state.listSubTask.toMutableList()
+                            subs.add(SubtaskRequest("",false))
+                            state = state.copy(listSubTask = subs)
+                        }
+                        CreateTaskAction.CreateTemporaryTask -> Unit
+                        CreateTaskAction.PublishTask -> Unit
+                        CreateTaskAction.UploadAttachment -> Unit
+                    }
                 }
             )
         )
