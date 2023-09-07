@@ -220,6 +220,11 @@ fun CreateTaskScreen(
                             .clip(RoundedCornerShape(8.dp))
                             .clickable {
                                 dispatch(CreateTaskAction.AddNewSubTask)
+                                commit {
+                                    copy(
+                                        descriptionTask = state.listSubTask.size.toString()
+                                    )
+                                }
                             }
                     ) {
                         Icon(

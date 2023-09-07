@@ -21,7 +21,7 @@ data class CreateTaskState(
     //create task
     val titleTask: String = String.Empty,
     val titleTaskError: Boolean = false,
-    val listSubTask: @RawValue MutableList<SubtaskRequest> = mutableListOf(),
+    val listSubTask: @RawValue List<SubtaskRequest> = mutableListOf(),
     val descriptionTask: String = String.Empty,
     val descriptionTaskError: Boolean = false,
     //end create task
