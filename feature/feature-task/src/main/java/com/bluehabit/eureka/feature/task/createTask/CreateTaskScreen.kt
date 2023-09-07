@@ -85,7 +85,7 @@ fun CreateTaskScreen(
             topEnd = 16.dp
         ),
         sheetContent = {
-            DatePickerBottomSheet()
+          //  DatePickerBottomSheet()
         }
     ) {
         Scaffold(
@@ -221,11 +221,6 @@ fun CreateTaskScreen(
                             .clip(RoundedCornerShape(8.dp))
                             .clickable {
                                 dispatch(CreateTaskAction.AddNewSubTask)
-                                commit {
-                                    copy(
-                                        descriptionTask = state.listSubTask.size.toString()
-                                    )
-                                }
                             }
                     ) {
                         Icon(
@@ -324,7 +319,11 @@ fun PreviewDashboardScreen() {
             )
         )
         var state by remember {
-            mutableStateOf(CreateTaskState())
+            mutableStateOf(CreateTaskState(
+                listSubTask = listOf(
+                    SubtaskRequest("ygy",false)
+                )
+            ))
         }
         CreateTaskScreen(
             uiContract = UIContract(
@@ -337,8 +336,8 @@ fun PreviewDashboardScreen() {
                     when(it){
                         CreateTaskAction.AddNewSubTask -> {
                             val subs = state.listSubTask.toMutableList()
-                            subs.add(SubtaskRequest("",false))
-                            state = state.copy(listSubTask = subs)
+                            subs.add(SubtaskRequest("ygy",false))
+                            state = state.copy(listSubTask = subs, descriptionTask = "7")
                         }
                         CreateTaskAction.CreateTemporaryTask -> Unit
                         CreateTaskAction.PublishTask -> Unit
