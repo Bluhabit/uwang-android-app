@@ -21,9 +21,18 @@ data class CreateTaskState(
     //create task
     val titleTask: String = String.Empty,
     val titleTaskError: Boolean = false,
+    val titleTaskErrorMessage: String = String.Empty,
     val listSubTask: @RawValue List<SubtaskRequest> = mutableListOf(),
     val descriptionTask: String = String.Empty,
     val descriptionTaskError: Boolean = false,
+    val descriptionTaskErrorMessage: String = String.Empty,
+    val startDate: String = String.Empty,
+    val openStartDate: Boolean = false,
+    val startDateError: Boolean = false,
+    val endDate: String = String.Empty,
+    val openEndDate: Boolean = false,
+    val endDateError: Boolean = false,
+    val dateErrorMessage: String = String.Empty,
     //end create task
 
     override val effect: @RawValue CreateTaskEffect = CreateTaskEffect.Nothing

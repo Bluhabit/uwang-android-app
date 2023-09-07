@@ -37,6 +37,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -51,6 +53,7 @@ import com.bluehabit.core.ui.R
 import com.bluehabit.core.ui.components.input.BaseInputTextPrimary
 import com.bluehabit.core.ui.components.input.InputSubTask
 import com.bluehabit.core.ui.components.input.InputTextArea
+import com.bluehabit.core.ui.components.input.picker.InputDatePicker
 import com.bluehabit.core.ui.components.sheet.DatePickerBottomSheet
 import com.bluehabit.core.ui.routes.Routes
 import com.bluehabit.core.ui.theme.Error500
@@ -58,6 +61,9 @@ import com.bluehabit.core.ui.theme.GaweanTheme
 import com.bluehabit.core.ui.theme.Gray400
 import com.bluehabit.core.ui.theme.Gray700
 import com.bluehabit.core.ui.theme.Gray900
+import com.bluehabit.eureka.data.dateTimeConstant.DATE_PATTERN
+import com.bluehabit.eureka.data.ext.localDateToOffset
+import com.bluehabit.eureka.data.ext.offsetToDate
 import com.bluehabit.eureka.data.task.datasource.remote.request.SubtaskRequest
 import com.bluehabit.eureka.data.task.datasource.remote.response.SubTaskResponse
 
@@ -74,8 +80,9 @@ fun CreateTaskScreen(
         initialValue = ModalBottomSheetValue.Hidden,
         confirmValueChange = { it != ModalBottomSheetValue.HalfExpanded },
         skipHalfExpanded = false,
-
         )
+    val keyboardController = LocalSoftwareKeyboardController.current
+    val focusManager = LocalFocusManager.current
 
     ModalBottomSheetLayout(
         sheetState = modalSheetState,
@@ -85,7 +92,48 @@ fun CreateTaskScreen(
             topEnd = 16.dp
         ),
         sheetContent = {
-            DatePickerBottomSheet()
+            if (state.openStartDate) {
+                DatePickerBottomSheet(
+                    title = "Mulai",
+                    onDone = {
+                        focusManager.clearFocus()
+                        commit {
+                            copy(openStartDate = false)
+                        }
+                        launch {
+                            modalSheetState.hide()
+                        }
+                    }
+                ) { localDate ->
+                    focusManager.clearFocus()
+                    commit {
+                        copy(
+                            startDate = localDate.localDateToOffset(),
+                        )
+                    }
+                }
+
+            } else if (state.openEndDate) {
+                DatePickerBottomSheet(
+                    title = "Selesai",
+                    onDone = {
+                        focusManager.clearFocus()
+                        commit {
+                            copy(openEndDate = false)
+                        }
+                        launch {
+                            modalSheetState.hide()
+                        }
+                    },
+                ) {localDate ->
+                    focusManager.clearFocus()
+                    commit {
+                        copy(
+                            endDate = localDate.localDateToOffset(),
+                        )
+                    }
+                }
+            }
         }
     ) {
         Scaffold(
@@ -154,7 +202,8 @@ fun CreateTaskScreen(
                                     commit {
                                         copy(
                                             titleTask = newValue,
-                                            titleTaskError = false
+                                            titleTaskError = false,
+                                            titleTaskErrorMessage = "Nama tugas max. 100 karakter"
                                         )
                                     }
                                 } else {
@@ -164,7 +213,7 @@ fun CreateTaskScreen(
                         )
                         if (state.titleTaskError) {
                             Text(
-                                text = "Nama tugas max. 100 karakter",
+                                text = state.titleTaskErrorMessage,
                                 style = MaterialTheme.typography.body2,
                                 fontWeight = FontWeight.W400,
                                 color = Error500,
@@ -221,11 +270,6 @@ fun CreateTaskScreen(
                             .clip(RoundedCornerShape(8.dp))
                             .clickable {
                                 dispatch(CreateTaskAction.AddNewSubTask)
-                                commit {
-                                    copy(
-                                        descriptionTask = state.listSubTask.size.toString()
-                                    )
-                                }
                             }
                     ) {
                         Icon(
@@ -269,7 +313,8 @@ fun CreateTaskScreen(
                                     commit {
                                         copy(
                                             descriptionTask = newValue,
-                                            descriptionTaskError = false
+                                            descriptionTaskError = false,
+                                            descriptionTaskErrorMessage = "Deskripsi tugas max. 100 karakter"
                                         )
                                     }
                                 } else {
@@ -279,12 +324,77 @@ fun CreateTaskScreen(
                         )
                         if (state.descriptionTaskError) {
                             Text(
-                                text = "Deskripsi tugas max. 100 karakter",
+                                text = state.descriptionTaskErrorMessage,
                                 style = MaterialTheme.typography.body2,
                                 fontWeight = FontWeight.W400,
                                 color = Error500,
                             )
                         }
+                    }
+                }
+                item {
+                    Spacer(modifier = Modifier.padding(vertical = 12.dp))
+                }
+                item {
+                    Column(
+                        verticalArrangement = Arrangement.spacedBy(6.dp),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 20.dp)
+                    ) {
+                        Text(
+                            text = "Durasi",
+                            style = MaterialTheme.typography.body2.copy(
+                                fontWeight = FontWeight.Medium,
+                            ),
+                            fontWeight = FontWeight.W500,
+                            color = Gray700,
+                        )
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        ) {
+                            InputDatePicker(
+                                modifier = Modifier
+                                    .weight(1f),
+                                placeholder = "Pilih mulai",
+                                value = state.startDate.offsetToDate(DATE_PATTERN).orEmpty(),
+                                error = state.startDateError,
+                                onClick = {
+                                    keyboardController?.hide()
+                                    commit {
+                                        copy(openStartDate = true)
+                                    }
+                                    launch {
+                                        modalSheetState.show()
+                                    }
+                                }
+                            )
+                            InputDatePicker(
+                                modifier = Modifier
+                                    .weight(1f),
+                                placeholder = "Pilih selesai",
+                                value = state.endDate.offsetToDate(DATE_PATTERN).orEmpty(),
+                                error = state.endDateError,
+                                enabled = state.startDate.isNotEmpty(),
+                                onClick = {
+                                    keyboardController?.hide()
+                                    commit {
+                                        copy(openEndDate = true)
+                                    }
+                                    launch {
+                                        modalSheetState.show()
+                                    }
+                                }
+                            )
+                        }
+                    }
+                    if (state.startDateError || state.endDateError) {
+                        Text(
+                            text = state.dateErrorMessage,
+                            style = MaterialTheme.typography.body2,
+                            fontWeight = FontWeight.W400,
+                            color = Error500,
+                        )
                     }
                 }
             }
