@@ -54,7 +54,7 @@ class CreateViewModel @Inject constructor(
     }
 
     private fun addSubTask() = asyncWithState {
-        val newSubTask: MutableList<SubtaskRequest> = listSubTask
+        val newSubTask: MutableList<SubtaskRequest> = listSubTask.toMutableList()
         newSubTask.add(
             SubtaskRequest(
                 subTaskName = "",
@@ -62,7 +62,7 @@ class CreateViewModel @Inject constructor(
             )
         )
         commit {
-            copy(listSubTask = newSubTask)
+            copy(listSubTask = newSubTask.toList())
         }
     }
 
