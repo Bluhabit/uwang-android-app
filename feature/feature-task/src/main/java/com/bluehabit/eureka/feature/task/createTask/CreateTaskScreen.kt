@@ -515,7 +515,6 @@ fun PreviewDashboardScreen() {
                             subs.add(SubtaskRequest("", false))
                             state = state.copy(listSubTask = subs)
                         }
-
                         CreateTaskAction.CreateTemporaryTask -> Unit
                         CreateTaskAction.PublishTask -> Unit
                         CreateTaskAction.UploadAttachment -> Unit
