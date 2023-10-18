@@ -32,6 +32,7 @@ import androidx.compose.ui.window.PopupProperties
 import app.trian.mvi.ui.extensions.Empty
 import com.bluehabit.core.ui.R
 import com.bluehabit.core.ui.components.input.BaseInputTextPrimary
+import com.bluehabit.core.ui.ext.toColor
 import com.bluehabit.core.ui.theme.GaweanTheme
 import com.bluehabit.core.ui.theme.Gray400
 import com.bluehabit.core.ui.theme.Gray500
@@ -39,23 +40,29 @@ import com.bluehabit.core.ui.theme.Gray900
 import com.bluehabit.core.ui.theme.Rose700
 
 
+data class PriorityItem(
+    val name:String,
+    val color:String,
+    val id:String
+)
+
 @Composable
 fun ButtonDropDownPriority(
     modifier: Modifier = Modifier,
-    items: List<String>,
+    items: List<PriorityItem>,
     placeholder: String = String.Empty,
-    selectedPriority: String = String.Empty,
+    selectedPriority: PriorityItem? = null,
     expanded: Boolean = false,
     enabled: Boolean = true,
     onExpand: () -> Unit = {},
     onDismiss: () -> Unit = {},
-    onSelected: (String) -> Unit = {},
+    onSelected: (PriorityItem) -> Unit = {},
 ) {
     Column(
         modifier = modifier
     ) {
         BaseInputTextPrimary(
-            value = selectedPriority,
+            value = selectedPriority?.name.orEmpty(),
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 disabledTextColor = Gray900,
                 disabledPlaceholderColor = Gray400,
@@ -66,7 +73,7 @@ fun ButtonDropDownPriority(
                 Icon(
                     painter = painterResource(id = R.drawable.inactiveflag),
                     contentDescription = "",
-                    tint = Gray400
+                    tint =selectedPriority?.color.toColor()
                 )
             },
             trailingIcon = {
@@ -111,7 +118,7 @@ fun ButtonDropDownPriority(
             expanded = expanded,
             onDismissRequest = onDismiss
         ) {
-            items.forEach {
+            if(items.isEmpty()){
                 DropdownMenuItem(
                     modifier = Modifier
                         .fillMaxWidth(),
@@ -122,15 +129,41 @@ fun ButtonDropDownPriority(
                         ) {
                             Icon(
                                 painter = painterResource(id = R.drawable.blueflag),
-                                contentDescription = ""
+                                contentDescription = "",
+                                tint = Gray500
                             )
                             Spacer(modifier = Modifier.width(15.dp))
-                            Text(text = it)
+                            Text(text = "Tidak ada prioritas")
                         }
 
                     },
-                    onClick = { onSelected(it) }
+                    onClick = {
+                        onDismiss()
+                    }
                 )
+            }else {
+                items.forEach {
+                    DropdownMenuItem(
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        content = {
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.Start
+                            ) {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.blueflag),
+                                    contentDescription = "",
+                                    tint = it.color.toColor()
+                                )
+                                Spacer(modifier = Modifier.width(15.dp))
+                                Text(text = it.name)
+                            }
+
+                        },
+                        onClick = { onSelected(it) }
+                    )
+                }
             }
 
         }
@@ -148,7 +181,7 @@ fun MenuSamplePreview() {
             )
         ) {
             ButtonDropDownPriority(
-                items = listOf("Low", "Normal", "High", "Urgent"),
+                items = listOf(),
                 placeholder = "Pilih prioritas tugas"
             )
         }

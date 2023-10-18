@@ -119,7 +119,6 @@ dependencies {
     ksp(libs.mvi.processor)
     implementation(project(":feature:feature-authentication"))
     implementation(project(":feature:feature-dashboard"))
-    implementation(project(":feature:feature-task"))
 
     coreLibraryDesugaring(libs.desugar.jdk.lib)
     implementation(libs.android.material)
