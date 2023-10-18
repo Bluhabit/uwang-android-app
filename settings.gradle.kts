@@ -33,7 +33,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Eureka Project"
+rootProject.name = "Blu Project"
 include(":androidApp")
 
 val module = setOf("feature", "data", "core")
