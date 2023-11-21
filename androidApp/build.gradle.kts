@@ -43,6 +43,9 @@ android {
         create("release") {
             setupKeystore()
         }
+        getByName("debug") {
+            setupKeystore()
+        }
     }
     buildTypes {
         release {
