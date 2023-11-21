@@ -25,6 +25,7 @@ tasks.register("clean", Delete::class) {
 }
 allprojects {
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+        val conf = this
         kotlinOptions {
             jvmTarget = "17"
             freeCompilerArgs = listOf(
