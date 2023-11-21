@@ -81,7 +81,7 @@ android {
         }
     }
     applicationVariants.all {
-        setProperty("archivesBaseName", "GAWEAN-1.0.${getTimestamp()}-SNAPSHOT")
+        setProperty("archivesBaseName", "UWANG-1.0.${getTimestamp()}-SNAPSHOT")
     }
 
     buildFeatures {
@@ -163,6 +163,9 @@ dependencies {
         implementation(feather)
     }
     implementation(libs.mp.android.chart)
+
+    implementation(platform("com.google.firebase:firebase-bom:32.5.0"))
+    implementation("com.google.firebase:firebase-analytics")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)

@@ -11,14 +11,13 @@ import java.util.regex.Pattern
 
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
+    alias(libs.plugins.com.android.library)
     alias(libs.plugins.org.jetbrains.kotlin.android)
     alias(libs.plugins.com.google.dagger.hilt.android)
     alias(libs.plugins.app.cash.sqldelight)
     alias(libs.plugins.io.gitlab.arthubosch.detekt)
     alias(libs.plugins.org.jetbrains.kotlin.serialization)
-    alias(libs.plugins.com.android.library)
     id("kotlin-parcelize")
-    alias(libs.plugins.google.services)
     alias(libs.plugins.org.jetbrains.kotlin.kapt)
 }
 
@@ -88,6 +87,8 @@ dependencies {
         releaseApi(release)
     }
 
+    implementation(platform("com.google.firebase:firebase-bom:32.5.0"))
+    implementation("com.google.firebase:firebase-analytics")
 
 }
 

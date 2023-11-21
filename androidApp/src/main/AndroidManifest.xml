@@ -14,7 +14,7 @@
     <uses-permission-sdk-23 android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
-        android:name="com.bluehabit.blu.android.BluApplication"
+        android:name="com.bluhabit.blu.android.BluApplication"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -24,7 +24,7 @@
         android:usesCleartextTraffic="true"
         tools:ignore="DataExtractionRules">
         <activity
-            android:name="com.bluehabit.blu.android.MainActivity"
+            android:name="com.bluhabit.blu.android.MainActivity"
             android:exported="true"
             android:icon="@mipmap/ic_launcher"
             android:roundIcon="@mipmap/ic_launcher_round"
