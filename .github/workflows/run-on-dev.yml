@@ -60,7 +60,7 @@ jobs:
         run: ./gradlew detekt
 
       - name: Build with Gradle
-        run: ./gradlew assembleDebug lintDebug --stacktrace
+        run: ./gradlew assembleRelease lintDebug --stacktrace
 
       - name: Upload build output(APKs)
         uses: actions/upload-artifact@v3
