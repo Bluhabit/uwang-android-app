@@ -43,7 +43,7 @@ jobs:
           echo "$ANDROID_KEYSTORE_FILE" > uwang-keystore.b64
           base64 -d -i uwang-keystore.b64 > "$SECRET_PATH"/uwang-keystore
           echo "$GRADLE_PROPERTIES" >> gradle.properties
-          echo "$GOOGLE_SERVICES" >> "APP_PATH"/gradle.properties
+          echo "$GOOGLE_SERVICES" >> "$APP_PATH"/gradle.properties
 
 #          echo "storeFile=../secret/uwang-keystore" >> gradle.properties
 #          echo "keyAlias=$KEYSTORE_KEY_ALIAS" >> gradle.properties
