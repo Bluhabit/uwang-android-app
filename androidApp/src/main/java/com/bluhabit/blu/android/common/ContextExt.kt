@@ -18,5 +18,5 @@ fun Context.findActivity(): MainActivity {
         if (context is Activity) return context as MainActivity
         context = context.baseContext
     }
-    throw IllegalStateException("no activity")
+    return context as MainActivity
 }

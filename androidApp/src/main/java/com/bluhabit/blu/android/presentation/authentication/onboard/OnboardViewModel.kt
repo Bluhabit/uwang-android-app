@@ -16,6 +16,6 @@ class OnboardViewModel @Inject constructor():BaseViewModel<OnboardState,OnboardA
     OnboardState()
 ) {
     override fun onAction(action: OnboardAction) {
-
+//no empty
     }
 }

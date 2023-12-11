@@ -5,7 +5,7 @@
  * Proprietary and confidential
  */
 
-package com.bluhabit.blu.data.authentication
+package com.bluhabit.blu.android.data.authentication
 
 object AuthConstant {
 
