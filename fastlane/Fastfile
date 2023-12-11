@@ -20,7 +20,7 @@ platform :android do
   lane :distribute do
     gradle(task: "clean assembleRelease")
     firebase_app_distribution(
-        service_credentials_file: "secret/uwang-db913-6be6db44a038.json",
+        service_credentials_file: "secret/uwang-app-distribution.json",
         app: "1:616208190167:android:21914953259000a938fe92",
         release_notes_file: "FirebaseDistributionConfig/release_notes.txt",
         groups_file: "FirebaseDistributionConfig/groups.txt",
