@@ -1,3 +1,7 @@
 /build
 /google-services.json
 google-services.json
+/secret
+/secret/uwang-app-distribution.json
+/secret/uwang-keystore
+/secret/uwang-keystore.b64

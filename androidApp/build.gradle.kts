@@ -1,7 +1,7 @@
 @file:Suppress("UnstableApiUsage")
 
 import com.android.build.api.dsl.ApkSigningConfig
-import com.android.build.api.dsl.ApplicationProductFlavor
+import com.google.firebase.appdistribution.gradle.firebaseAppDistribution
 import java.text.SimpleDateFormat
 import java.util.Date
 
@@ -21,6 +21,7 @@ plugins {
     alias(libs.plugins.io.gitlab.arthubosch.detekt)
     id("kotlin-parcelize")
     id("com.google.devtools.ksp") version ("1.8.0-1.0.9")
+    id("com.google.firebase.appdistribution")
     alias(libs.plugins.google.services)
     alias(libs.plugins.org.jetbrains.kotlin.kapt)
 }
@@ -41,6 +42,13 @@ android {
     }
     signingConfigs {
         create("release") {
+            firebaseAppDistribution {
+                artifactType = "APK"
+                releaseNotesFile = "./FirebaseDistributionConfig/release_notes.txt"
+                testers="triandamai@gmail.com"
+                serviceCredentialsFile = "./secret/uwang-db913-6be6db44a038.json"
+                appId = "1:616208190167:android:21914953259000a938fe92"
+            }
             setupKeystore()
         }
         getByName("debug") {

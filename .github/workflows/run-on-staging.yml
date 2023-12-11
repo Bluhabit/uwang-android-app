@@ -44,6 +44,7 @@ jobs:
           base64 -d -i uwang-keystore.b64 > "$SECRET_PATH"/uwang-keystore
           echo "$GRADLE_PROPERTIES" >> gradle.properties
           echo "$GOOGLE_SERVICES" >> "$APP_PATH"/google-services.json
+          echo "$GOOGLE_CREDENTIAL" >> "$SECRET_PATH/uwang-db913-6be6db44a038.json"
 
 #          echo "storeFile=../secret/uwang-keystore" >> gradle.properties
 #          echo "keyAlias=$KEYSTORE_KEY_ALIAS" >> gradle.properties
@@ -52,6 +53,7 @@ jobs:
         env:
           ANDROID_KEYSTORE_FILE: ${{ secrets.ANDROID_KEYSTORE_FILE }}
           GOOGLE_SERVICES: ${{ secrets.GOOGLE_SERVICES }}
+          GOOGLE_CREDENTIAL: ${{ secrets.GOOGLE_CREDENTIAL }}
           GRADLE_PROPERTIES: ${{ secrets.GRADLE_PROPERTIES }}
 #          KEYSTORE_KEY_ALIAS: ${{ secrets.KEYSTORE_KEY_ALIAS }}
 #          KEYSTORE_KEY_PASSWORD: ${{ secrets.KEYSTORE_KEY_PASSWORD }}
@@ -60,7 +62,7 @@ jobs:
         run: ./gradlew detekt
 
       - name: Build with Gradle
-        run: ./gradlew assembleRelease lintDebug --stacktrace
+        run: ./gradlew  assembleRelease appDistributionUploadStagingRelease --stacktrace
 
       - name: Upload build output(APKs)
         uses: actions/upload-artifact@v3
