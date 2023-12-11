@@ -21,3 +21,4 @@ budgetku.jks
 gradle.properties
 androidApp/google-services.json
 core/core-data/google-services.json
+secret/uwang-app-distribution.json

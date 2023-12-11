@@ -13,6 +13,7 @@ plugins {
     alias(libs.plugins.com.google.dagger.hilt.android) apply false
     alias(libs.plugins.com.android.library) apply false
     alias(libs.plugins.google.services) apply false
+    id("com.google.firebase.appdistribution") version "4.0.1" apply false
 }
 
 extensions.findByName("buildScan")?.withGroovyBuilder {
