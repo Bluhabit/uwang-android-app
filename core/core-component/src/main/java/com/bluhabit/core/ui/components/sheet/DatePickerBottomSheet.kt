@@ -38,9 +38,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import app.trian.mvi.ui.extensions.Empty
 import com.bluehabit.core.ui.R
 import com.bluhabit.core.ui.components.button.ButtonPrimary
+import com.bluhabit.core.ui.ext.Empty
 import com.bluhabit.core.ui.theme.Gray100
 import com.bluhabit.core.ui.theme.Inter
 import com.bluhabit.core.ui.theme.Neutral100

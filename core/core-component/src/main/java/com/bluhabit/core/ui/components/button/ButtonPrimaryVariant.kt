@@ -21,17 +21,16 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import app.trian.mvi.ui.extensions.Empty
-import app.trian.mvi.ui.extensions.from
+import com.bluhabit.core.ui.ext.Empty
 import com.bluhabit.core.ui.theme.Error100
 import com.bluhabit.core.ui.theme.Error25
 import com.bluhabit.core.ui.theme.Error300
 import com.bluhabit.core.ui.theme.Error700
-import com.bluhabit.core.ui.theme.GaweanTheme
 import com.bluhabit.core.ui.theme.Primary100
 import com.bluhabit.core.ui.theme.Primary25
 import com.bluhabit.core.ui.theme.Primary300
 import com.bluhabit.core.ui.theme.Primary700
+import com.bluhabit.core.ui.theme.UwangTheme
 
 /**
  * Button Primary
@@ -50,7 +49,7 @@ fun ButtonPrimaryVariant(
 ) {
     val ctx = LocalContext.current
     Button(
-        modifier = modifier.height(44.dp.from(context = ctx)),
+        modifier = modifier.height(44.dp),
         onClick = onClick,
         enabled = enabled,
         shape = RoundedCornerShape(8.dp),
@@ -76,7 +75,7 @@ fun ButtonPrimaryVariant(
 @Preview(showBackground = true, backgroundColor = 0xFFFFFFFF)
 @Composable
 fun PreviewButtonPrimaryVariant() {
-    GaweanTheme {
+    UwangTheme {
         Column(
             modifier = Modifier
                 .padding(

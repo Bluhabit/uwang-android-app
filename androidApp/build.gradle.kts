@@ -20,7 +20,6 @@ plugins {
     alias(libs.plugins.app.cash.sqldelight)
     alias(libs.plugins.io.gitlab.arthubosch.detekt)
     id("kotlin-parcelize")
-    id("com.google.devtools.ksp") version ("1.8.0-1.0.9")
     id("com.google.firebase.appdistribution")
     alias(libs.plugins.google.services)
     alias(libs.plugins.org.jetbrains.kotlin.kapt)
@@ -28,11 +27,11 @@ plugins {
 
 android {
     namespace = "${libs.versions.namespace.get()}.android"
-    compileSdk = 33
+    compileSdk = 34
     defaultConfig {
         applicationId = libs.versions.application.id.get()
         minSdk = 24
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         multiDexEnabled = true
         testInstrumentationRunner = "com.bluehabit.budgetku.android.HiltTestRunner"
@@ -105,7 +104,7 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = "1.4.0"
     }
-    packagingOptions {
+    packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
@@ -128,28 +127,15 @@ android {
 }
 
 dependencies {
-    implementation(libs.mvi.ui)
-    implementation(libs.mvi.processor)
-    ksp(libs.mvi.processor)
-    implementation(project(":feature:feature-authentication"))
-    implementation(project(":feature:feature-dashboard"))
+
+    implementation(platform("com.google.firebase:firebase-bom:32.5.0"))
+    implementation("com.google.firebase:firebase-analytics")
+    api(project(":core:core-component"))
+    api(project(":core:core-data"))
 
     coreLibraryDesugaring(libs.desugar.jdk.lib)
-    implementation(libs.android.material)
-
-    implementation(libs.core.ktx)
-    implementation(libs.lifecycle.runtime.ktx)
-    implementation(libs.activity.compose)
-    implementation(platform(libs.compose.bom))
-    implementation(libs.ui)
-    implementation(libs.ui.graphics)
-    implementation(libs.ui.tooling.preview)
-    implementation(libs.compose.material)
-    implementation(libs.compose.calendar)
-    implementation(libs.wheel.picker.compose)
-    implementation(libs.coil.compose)
-    implementation(libs.navigation.compose)
     implementation(libs.multidex)
+    implementation(libs.core.ktx)
 
     with(libs.hilt) {
         implementation(navigation.compose)
@@ -160,27 +146,10 @@ dependencies {
         kaptTest(android.compiler)
         kapt(compiler)
     }
-    with(libs.gms.play.service) {
-        implementation(auth)
-        implementation(base)
-    }
+
     implementation(libs.work.runtime)
 
-    with(libs.kotlinx.coroutine) {
-        implementation(android)
-        implementation(core)
-        implementation(play.services)
-        testImplementation(test)
-    }
-
-    with(libs.composeIcons) {
-        implementation(feather)
-    }
-    implementation(libs.mp.android.chart)
-
-    implementation(platform("com.google.firebase:firebase-bom:32.5.0"))
-    implementation("com.google.firebase:firebase-analytics")
-
+    //test
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -192,6 +161,7 @@ dependencies {
     testImplementation(libs.robolectric)
 
     debugImplementation(libs.leak.canary)
+
 
 }
 kapt {

@@ -26,15 +26,14 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import app.trian.mvi.ui.extensions.Empty
-import app.trian.mvi.ui.extensions.from
+import com.bluhabit.core.ui.ext.Empty
 import com.bluhabit.core.ui.theme.Error200
 import com.bluhabit.core.ui.theme.Error300
 import com.bluhabit.core.ui.theme.Error700
-import com.bluhabit.core.ui.theme.GaweanTheme
 import com.bluhabit.core.ui.theme.Gray300
 import com.bluhabit.core.ui.theme.Primary200
 import com.bluhabit.core.ui.theme.Primary700
+import com.bluhabit.core.ui.theme.UwangTheme
 
 /**
  * Button Primary
@@ -55,7 +54,7 @@ fun ButtonTextPrimary(
     val isPressed by interactionSource.collectIsPressedAsState()
     val ctx = LocalContext.current
     TextButton(
-        modifier = modifier.height(44.dp.from(context = ctx)),
+        modifier = modifier.height(44.dp),
         onClick = onClick,
         enabled = enabled,
         shape = RoundedCornerShape(8.dp),
@@ -83,7 +82,7 @@ fun ButtonTextPrimary(
 @Preview(showBackground = true, backgroundColor = 0xFFFFFFFF)
 @Composable
 fun PreviewButtonTextPrimary() {
-    GaweanTheme {
+    UwangTheme {
         Column(
             modifier = Modifier
                 .padding(

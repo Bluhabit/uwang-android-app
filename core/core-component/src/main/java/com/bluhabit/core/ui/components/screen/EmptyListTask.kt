@@ -26,11 +26,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import app.trian.mvi.ui.extensions.Empty
 import com.bluehabit.core.ui.R
-import com.bluhabit.core.ui.theme.GaweanTheme
+import com.bluhabit.core.ui.ext.Empty
 import com.bluhabit.core.ui.theme.Gray500
 import com.bluhabit.core.ui.theme.Gray600
+import com.bluhabit.core.ui.theme.UwangTheme
 
 @Composable
 fun EmptyListPage(
@@ -88,7 +88,7 @@ fun EmptyListPage(
 @Composable
 @Preview(widthDp = 500, heightDp = 750)
 fun PreviewEmptyListTask() {
-    GaweanTheme {
+    UwangTheme {
         Column(modifier = Modifier.padding(20.dp)) {
             EmptyListPage(
                 label = stringResource(id = R.string.text_label_empty_list_task),

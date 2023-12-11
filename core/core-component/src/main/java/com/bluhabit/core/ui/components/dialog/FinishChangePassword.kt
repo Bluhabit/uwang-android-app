@@ -31,10 +31,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
-import app.trian.mvi.ui.extensions.Empty
 import com.bluehabit.core.ui.R
-import com.bluhabit.core.ui.theme.GaweanTheme
+import com.bluhabit.core.ui.ext.Empty
 import com.bluhabit.core.ui.theme.Gray900
+import com.bluhabit.core.ui.theme.UwangTheme
 
 @Composable
 fun DialogChangePassword(
@@ -100,7 +100,7 @@ fun DialogChangePassword(
 @Composable
 @Preview(widthDp = 500, heightDp = 750)
 fun FinishChangePasswordPreview() {
-    GaweanTheme {
+    UwangTheme {
         Column(modifier = Modifier.padding(20.dp)) {
             DialogChangePassword(
                 show = true,

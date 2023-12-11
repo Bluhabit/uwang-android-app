@@ -10,48 +10,52 @@ package com.bluhabit.blu.android
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Column
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
-import app.trian.mvi.authenticationComponent
-import app.trian.mvi.dashboardComponent
-import app.trian.mvi.ui.internal.UIController
-import app.trian.mvi.ui.internal.listener.BaseEventListener
-import app.trian.mvi.ui.internal.listener.EventListener
-import app.trian.mvi.ui.internal.rememberUIController
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.bluhabit.blu.android.presentation.authentication.onboard.OnboardScreen
+import com.bluhabit.blu.android.presentation.authentication.onboard.OnboardViewModel
 import com.bluhabit.core.ui.routes.Routes
-import com.bluhabit.core.ui.theme.GaweanTheme
+import com.bluhabit.core.ui.theme.UwangTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    private lateinit var controller: UIController
-    private lateinit var eventListener: BaseEventListener
+    private var sseListener: SseListener? = null
+
+    interface SseListener {
+        fun onEvent()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContent {
-            eventListener = EventListener()
-            controller = rememberUIController(
-                event = eventListener
-            )
-            GaweanTheme(
+            val navHostController = rememberNavController()
+            UwangTheme(
                 darkTheme = false
             ) {
                 NavHost(
-                    navController = controller.navigator.navHost,
+                    navController = navHostController,
                     startDestination = Routes.Onboard.routeName,
                 ) {
-                    authenticationComponent(
-                        uiController = controller,
-                        event = eventListener
-                    )
-                    dashboardComponent(
-                        uiController = controller,
-                        event = eventListener
-                    )
+                    composable("/onboard") {
+                        val viewModel = hiltViewModel<OnboardViewModel>()
+                        OnboardScreen(
+                            stateFlow = viewModel.state,
+                            effectFlow = viewModel.onEffect,
+                            onAction = viewModel::onAction
+                        )
+                    }
                 }
             }
         }
+    }
+
+    fun addEventListener(listener: SseListener) {
+        sseListener = listener
     }
 }
 

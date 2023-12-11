@@ -20,7 +20,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
-import app.trian.mvi.ui.extensions.from
 
 @Composable
 fun DialogLoading(
@@ -35,7 +34,7 @@ fun DialogLoading(
                     .clip(RoundedCornerShape(10.dp))
                     .background(MaterialTheme.colors.surface)
                     .size(
-                        100.dp.from(context = ctx)
+                        100.dp
                     )
             ) {
                 CircularProgressIndicator(
