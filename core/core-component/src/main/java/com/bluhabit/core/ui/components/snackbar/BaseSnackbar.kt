@@ -16,7 +16,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import app.trian.mvi.ui.extensions.from
 
 @Composable
 fun BaseSnackbar(
@@ -31,7 +30,7 @@ fun BaseSnackbar(
             modifier = Modifier.padding(
                 start = 18.dp,
                 end = 18.dp,
-                bottom = 65.dp.from(context = ctx)
+                bottom = 65.dp
             )
         ) {
             content(it)

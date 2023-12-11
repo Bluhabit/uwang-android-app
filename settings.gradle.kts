@@ -36,11 +36,11 @@ dependencyResolutionManagement {
 rootProject.name = "Blu Project"
 include(":androidApp")
 
-val module = setOf("feature", "data", "core")
+val module = setOf("core")
 module.forEach { subModuleName ->
     File(rootDir, subModuleName)
         .list { file, name -> file.isDirectory && name.startsWith(subModuleName) }
-        .forEach { include(":$subModuleName:$it") }
+        ?.forEach { include(":$subModuleName:$it") }
 }
 
 rootProject.children.filter { it.name in module }.forEach { module ->

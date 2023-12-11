@@ -34,10 +34,6 @@ jobs:
       - name: Make Gradle executable
         run: chmod +x ./gradlew
 
-#      - name: Install bundle
-#        run: |
-#          bundle config path vendor/bundle
-#          bundle install --jobs 4 --retry 3
       - name: Configure Keystore
         run: |
           echo "$ANDROID_KEYSTORE_FILE" > uwang-keystore.b64
@@ -46,26 +42,13 @@ jobs:
           echo "$GOOGLE_SERVICES" >> "$APP_PATH"/google-services.json
           echo "$GOOGLE_CREDENTIAL" >> "$SECRET_PATH"/uwang-app-distribution.json
 
-#          echo "storeFile=../secret/uwang-keystore" >> gradle.properties
-#          echo "keyAlias=$KEYSTORE_KEY_ALIAS" >> gradle.properties
-#          echo "storePassword=$KEYSTORE_STORE_PASSWORD" >> gradle.properties
-#          echo "keyPassword=$KEYSTORE_KEY_PASSWORD" >> gradle.properties
         env:
           ANDROID_KEYSTORE_FILE: ${{ secrets.ANDROID_KEYSTORE_FILE }}
           GOOGLE_SERVICES: ${{ secrets.GOOGLE_SERVICES }}
           GOOGLE_CREDENTIAL: ${{ secrets.GOOGLE_CREDENTIAL }}
           GRADLE_PROPERTIES: ${{ secrets.GRADLE_PROPERTIES }}
-#          KEYSTORE_KEY_ALIAS: ${{ secrets.KEYSTORE_KEY_ALIAS }}
-#          KEYSTORE_KEY_PASSWORD: ${{ secrets.KEYSTORE_KEY_PASSWORD }}
-#          KEYSTORE_STORE_PASSWORD: ${{ secrets.KEYSTORE_STORE_PASSWORD }}
       - name: Detekt
         run: ./gradlew detekt
 
       - name: Build with Gradle
         run: ./gradlew  assembleRelease appDistributionUploadStagingRelease --stacktrace
-
-      - name: Upload build output(APKs)
-        uses: actions/upload-artifact@v3
-        with:
-          name: build-outputs
-          path: ${{env.APP_PATH}}/build/outputs

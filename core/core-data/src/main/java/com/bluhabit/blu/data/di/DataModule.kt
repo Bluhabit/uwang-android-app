@@ -11,7 +11,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.android.AndroidSqliteDriver
-import com.bluehabit.budgetku.db.Database
+import com.bluehabit.uwang.db.Database
 import com.bluhabit.blu.data.BuildConfig
 import com.bluhabit.blu.data.persistence.SharedPref
 import com.chuckerteam.chucker.api.ChuckerCollector

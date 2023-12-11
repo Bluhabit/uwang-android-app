@@ -16,10 +16,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import app.trian.mvi.ui.extensions.Empty
 import com.bluehabit.core.ui.R
-import com.bluhabit.core.ui.theme.GaweanTheme
+import com.bluhabit.core.ui.ext.Empty
 import com.bluhabit.core.ui.theme.Gray700
+import com.bluhabit.core.ui.theme.UwangTheme
 
 /**
  * Button Social
@@ -56,7 +56,7 @@ fun ButtonGoogle(
 @Preview(showBackground = true, backgroundColor = 0xFFFFFFFF, heightDp = 500)
 @Composable
 fun PreviewButtonGoogle() {
-    GaweanTheme {
+    UwangTheme {
         Column(
             modifier = Modifier
                 .padding(

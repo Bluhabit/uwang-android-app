@@ -23,13 +23,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import app.trian.mvi.ui.extensions.Empty
-import app.trian.mvi.ui.extensions.from
+import com.bluhabit.core.ui.ext.Empty
 import com.bluhabit.core.ui.theme.Error300
 import com.bluhabit.core.ui.theme.Error700
-import com.bluhabit.core.ui.theme.GaweanTheme
 import com.bluhabit.core.ui.theme.Primary300
 import com.bluhabit.core.ui.theme.Primary700
+import com.bluhabit.core.ui.theme.UwangTheme
 
 /**
  * Button Primary
@@ -48,7 +47,7 @@ fun ButtonOutlinedPrimary(
 ) {
     val ctx = LocalContext.current
     OutlinedButton(
-        modifier = modifier.height(44.dp.from(context = ctx)),
+        modifier = modifier.height(44.dp),
         onClick = onClick,
         enabled = enabled,
         shape = RoundedCornerShape(8.dp),
@@ -80,7 +79,7 @@ fun ButtonOutlinedPrimary(
 @Preview(showBackground = true, backgroundColor = 0xFFFFFFFF)
 @Composable
 fun PreviewButtonOutlinedPrimary() {
-    GaweanTheme {
+    UwangTheme {
         Column(
             modifier = Modifier
                 .padding(

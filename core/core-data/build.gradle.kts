@@ -43,6 +43,9 @@ android {
             setupSharedPrefName()
         }
     }
+    buildFeatures {
+        buildConfig = true
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
@@ -54,6 +57,8 @@ dependencies {
 
     implementation(libs.core.ktx)
     coreLibraryDesugaring(libs.desugar.jdk.lib)
+    implementation(platform("com.google.firebase:firebase-bom:32.5.0"))
+    implementation("com.google.firebase:firebase-analytics")
 
     api(libs.sqldelight.android.driver)
     with(libs.ktor){
@@ -71,32 +76,28 @@ dependencies {
         kapt(compiler)
     }
     with(libs.gms.play.service) {
-        implementation(auth)
-        implementation(base)
+        api(auth)
+        api(base)
     }
 
     with(libs.kotlinx.coroutine) {
-        implementation(android)
-        implementation(core)
-        implementation(play.services)
-        testImplementation(test)
+        api(android)
+        api(core)
+        api(play.services)
+        testApi(test)
     }
 
     with(libs.chuker) {
         debugApi(debug)
         releaseApi(release)
     }
-
-    implementation(platform("com.google.firebase:firebase-bom:32.5.0"))
-    implementation("com.google.firebase:firebase-analytics")
-
 }
 
 
 sqldelight{
     databases{
         create("Database"){
-            packageName.set("com.bluehabit.budgetku.db")
+            packageName.set("com.bluehabit.uwang.db")
         }
     }
 }

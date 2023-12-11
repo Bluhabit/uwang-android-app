@@ -18,7 +18,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluehabit.core.ui.R
-import com.bluhabit.core.ui.theme.GaweanTheme
+import com.bluhabit.core.ui.theme.UwangTheme
 import com.bluhabit.core.ui.theme.Success50
 import com.bluhabit.core.ui.theme.Success700
 
@@ -66,7 +66,7 @@ fun AlertSuccess(
 @Preview(showBackground = true, backgroundColor = 0xFFFFFFFF)
 @Composable
 fun PreviewAlerSuccess() {
-    GaweanTheme {
+    UwangTheme {
         AlertSuccess(message = "Test alert success") {
 
         }

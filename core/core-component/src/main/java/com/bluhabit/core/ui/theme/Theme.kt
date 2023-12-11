@@ -44,7 +44,7 @@ private val shapeScheme = Shapes(
 )
 
 @Composable
-fun GaweanTheme(
+fun UwangTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {

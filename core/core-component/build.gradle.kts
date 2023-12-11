@@ -44,22 +44,23 @@ android {
 
 dependencies {
     coreLibraryDesugaring(libs.desugar.jdk.lib)
-    implementation(libs.mvi.ui)
-
-    implementation(libs.android.material)
     implementation(libs.core.ktx)
-    implementation(libs.lifecycle.runtime.ktx)
-    implementation(libs.activity.compose)
-    implementation(platform(libs.compose.bom))
-    implementation(libs.ui)
-    implementation(libs.ui.graphics)
-    implementation(libs.ui.tooling.preview)
-    implementation(libs.compose.material)
-    implementation(libs.compose.calendar)
-    implementation(libs.wheel.picker.compose)
-    implementation(libs.coil.compose)
-    implementation(libs.navigation.compose)
-    api(libs.mp.android.chart)
+
+    api(libs.android.material)
+    api(libs.lifecycle.runtime.ktx)
+    api(libs.lifecycle.runtime.compose)
+    api(libs.activity.compose)
+
+    api(platform(libs.compose.bom))
+    api(libs.ui)
+    api(libs.ui.graphics)
+    api(libs.ui.tooling.preview)
+    api(libs.compose.material)
+    api(libs.compose.calendar)
+    api(libs.wheel.picker.compose)
+    api(libs.coil.compose)
+    api(libs.coil.compose)
+    api(libs.navigation.compose)
 
     //test
     testImplementation(libs.junit)

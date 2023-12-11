@@ -29,10 +29,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import app.trian.mvi.ui.extensions.Empty
 import com.bluehabit.core.ui.R
-import com.bluhabit.core.ui.theme.GaweanTheme
+import com.bluhabit.core.ui.ext.Empty
 import com.bluhabit.core.ui.theme.Primary600
+import com.bluhabit.core.ui.theme.UwangTheme
 
 @Composable
 fun ButtonLogout(
@@ -73,7 +73,7 @@ fun ButtonLogout(
 @Composable
 @Preview(widthDp = 500, heightDp = 750)
 fun PreviewButtonLogout() {
-    GaweanTheme()
+    UwangTheme()
     {
         Column(
             modifier = Modifier
