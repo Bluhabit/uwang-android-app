@@ -1,8 +1,8 @@
-name: DEV
+name: STAGING
 
 on:
-  pull_request:
-    branches: [ development ]
+  push:
+    branches: [ staging ]
 
 env:
   APP_PATH: androidApp
@@ -18,7 +18,7 @@ jobs:
       - name: set up JDK
         uses: actions/setup-java@v3
         with:
-          java-version: 11
+          java-version: 17
           distribution: 'temurin'
           cache: gradle
 
@@ -44,7 +44,7 @@ jobs:
           base64 -d -i uwang-keystore.b64 > "$SECRET_PATH"/uwang-keystore
           echo "$GRADLE_PROPERTIES" >> gradle.properties
           echo "$GOOGLE_SERVICES" >> "$APP_PATH"/google-services.json
-          echo "$GOOGLE_CREDENTIAL" >> "$SECRET_PATH/uwang-db913-6be6db44a038.json"
+          echo "$GOOGLE_CREDENTIAL" >> "$SECRET_PATH"/uwang-app-distribution.json
 
 #          echo "storeFile=../secret/uwang-keystore" >> gradle.properties
 #          echo "keyAlias=$KEYSTORE_KEY_ALIAS" >> gradle.properties
