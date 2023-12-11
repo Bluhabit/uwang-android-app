@@ -46,7 +46,7 @@ android {
                 artifactType = "APK"
                 releaseNotesFile = "./FirebaseDistributionConfig/release_notes.txt"
                 testers="triandamai@gmail.com"
-                serviceCredentialsFile = "./secret/uwang-db913-6be6db44a038.json"
+                serviceCredentialsFile = "./secret/uwang-app-distribution.json"
                 appId = "1:616208190167:android:21914953259000a938fe92"
             }
             setupKeystore()
