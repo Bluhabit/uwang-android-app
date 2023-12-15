@@ -5,7 +5,8 @@
  * Proprietary and confidential
  */
 
-package com.bluhabit.blu.android.data.authentication
+package com.bluhabit.blu.android.presentation.authentication.termAndCondition
 
-object AuthConstant {
+sealed interface TermAndConditionEffect {
+    object None:TermAndConditionEffect
 }
