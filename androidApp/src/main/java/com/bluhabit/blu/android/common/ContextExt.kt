@@ -12,11 +12,11 @@ import android.content.Context
 import android.content.ContextWrapper
 import com.bluhabit.blu.android.MainActivity
 
-fun Context.findActivity(): MainActivity {
+fun Context.findActivity(): MainActivity? {
     var context = this
     while (context is ContextWrapper) {
-        if (context is Activity) return context as MainActivity
+        if (context is Activity) return context as MainActivity?
         context = context.baseContext
     }
-    return context as MainActivity
+    return null
 }
