@@ -5,7 +5,7 @@
  * Proprietary and confidential
  */
 
-package com.bluhabit.blu.data.profile.datasource
+package com.bluhabit.blu.android.data.profile.datasource
 
 object ProfileConstant {
 }

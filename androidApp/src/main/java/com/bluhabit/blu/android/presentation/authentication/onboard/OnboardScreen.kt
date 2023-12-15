@@ -36,9 +36,9 @@ fun OnboardScreen(
         }
     })
     LaunchedEffect(key1 = Unit, block = {
-        activity.addEventListener(object :MainActivity.SseListener{
+        activity?.addEventListener(object :MainActivity.SseListener{
             override fun onEvent() {
-
+                // Not Empty
             }
 
         })
