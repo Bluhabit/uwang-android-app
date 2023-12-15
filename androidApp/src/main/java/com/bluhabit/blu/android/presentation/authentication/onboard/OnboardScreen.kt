@@ -31,7 +31,7 @@ fun OnboardScreen(
     LaunchedEffect(key1 = effect, block = {
         when (effect) {
             OnboardEffect.None -> {
-
+                // Not Empty
             }
         }
     })
