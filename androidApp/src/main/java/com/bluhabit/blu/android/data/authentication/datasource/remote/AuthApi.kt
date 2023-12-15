@@ -5,7 +5,7 @@
  * Proprietary and confidential
  */
 
-package com.bluhabit.blu.data.authentication.datasource.remote
+package com.bluhabit.blu.android.data.authentication.datasource.remote
 
 import io.ktor.resources.Resource
 

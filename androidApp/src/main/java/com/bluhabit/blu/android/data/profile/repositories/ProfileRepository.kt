@@ -5,7 +5,7 @@
  * Proprietary and confidential
  */
 
-package com.bluhabit.blu.data.profile.repositories
+package com.bluhabit.blu.android.data.profile.repositories
 
 import com.bluhabit.blu.data.persistence.SharedPref
 import io.ktor.client.HttpClient
