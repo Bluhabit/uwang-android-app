@@ -53,9 +53,15 @@ fun ScreenOnboarding(
     navigateToAuth: () -> Unit = {}
 ) {
     val onboard = listOf(
-        Triple(com.bluehabit.core.ui.R.drawable.onboarding1, com.bluehabit.core.ui.R.string.text_onboard_1, com.bluehabit.core.ui.R.string.text_title_1),
-        Triple(com.bluehabit.core.ui.R.drawable.onboarding2,com.bluehabit.core.ui.R.string.text_onboard_2,com.bluehabit.core.ui.R.string.text_title_2),
-        Triple(com.bluehabit.core.ui.R.drawable.onboarding3,com.bluehabit.core.ui.R.string.text_onboard_3,com.bluehabit.core.ui.R.string.text_title_3),
+        Triple(com.bluehabit.core.ui.R.drawable.onboarding1,
+            com.bluehabit.core.ui.R.string.text_onboard_1,
+            com.bluehabit.core.ui.R.string.text_title_1),
+        Triple(com.bluehabit.core.ui.R.drawable.onboarding2,
+            com.bluehabit.core.ui.R.string.text_onboard_2,
+            com.bluehabit.core.ui.R.string.text_title_2),
+        Triple(com.bluehabit.core.ui.R.drawable.onboarding3,
+            com.bluehabit.core.ui.R.string.text_onboard_3,
+            com.bluehabit.core.ui.R.string.text_title_3),
     )
     val pagerState = rememberPagerState(
         initialPage = 0,
