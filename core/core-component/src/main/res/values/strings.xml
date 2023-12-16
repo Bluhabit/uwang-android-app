@@ -72,10 +72,21 @@
     <string name="text_button_complete_reset_password">Masuk</string>
     <!--    end reset password-->
     <!--    onboard  -->
-    <string name="text_onboard_1">Atur tugas &amp; selesaikan dengan mudah</string>
-    <string name="text_onboard_2">Tetap fokus &amp; monitor tugas setiap hari</string>
-    <string name="text_onboard_3">Koloborasi dengan tim buat jadi lebih mudah</string>
-    <string name="text_onboard_4">Apapun Gaweannya enjoy adalah jalannya.</string>
+    <string name="text_button_daftar">Daftar</string>
+    <string name="text_button_skip">Lewati</string>
+    <string name="text_button_signin_with_email_onboard">Masuk Dengan alamat Email</string>
+    <string name="text_button_signin_with_google_screen_onboard">Masuk Dengan Google</string>
+    <string name="text_button_term_and_condition">Syarat dan Ketentuan kebijakan aplikasi</string>
+    <string name="text_title_1">Selamat datang di Uwang!</string>
+    <string name="text_title_2">Templating keuangan</string>
+    <string name="text_title_3">Komunitas diskusi</string>
+    <string name="text_title_4">Sumber belajar</string>
+    <string name="text_title_daftar">Belum memiliki akun sebelumnya?</string>
+    <string name="text_title_termcondition">Dengan melakukan pendaftaran akun atau masuk ke dalam akun anda menyetujui </string>
+    <string name="text_onboard_2">Dapatkan template keuangan terbaik untuk membantu Anda merencanakan dan mencapai tujuan keuangan Anda.</string>
+    <string name="text_onboard_3">Bergabunglah dalam obrolan dengan komunitas kami, tanyakan pertanyaan, dan bagikan tips keuangan Anda.</string>
+    <string name="text_onboard_1">Kami hadir untuk membantu Anda membangun kehidupan keuangan yang lebih baik.</string>
+    <string name="text_onboard_4">Baca artikel dan ikuti berita terkini seputar keuangan untuk tetap terinformasi..</string>
     <!--    end onboarrd  -->
     <!--    complete profile  -->
     <string name="text_title_complete_profile">Lengkapi Profil</string>
