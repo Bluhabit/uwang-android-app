@@ -94,7 +94,11 @@
     <string name="description_icon_error">Ikon error</string>
     <string name="description_icon_success">Ikon sukses</string>
     <!--    end alert component-->
-
+    <!--    complete profile  -->
+    <string name="text_title_success_profile">Yeay, Profil berhasil dibuat</string>
+    <string name="text_subtitle_success_profile">Silakan masuk ke akunmu dan nikmati pengalamanmu dalam aplikasi Uwang</string>
+    <string name="text_btn_success_profile">Beranda</string>
+    <!--   end complete profile  -->
     <!--    favorite task component-->
     <string name="description_icon_star">Ikon penanda tugas favorite</string>
     <!--    end alert component-->
