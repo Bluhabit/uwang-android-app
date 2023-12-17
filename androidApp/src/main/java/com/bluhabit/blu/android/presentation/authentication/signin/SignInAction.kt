@@ -10,11 +10,11 @@ package com.bluhabit.blu.android.presentation.authentication.signin
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.tasks.Task
 
-sealed interface SignInAction {
-    object Nothing : SignInAction
-    data class SignInWithGoogle(val value:Task<GoogleSignInAccount>) : SignInAction
+sealed interface AuthAction {
+    object Nothing : AuthAction
+    data class SignInWithGoogle(val value:Task<GoogleSignInAccount>) : AuthAction
 
-    object SignInWithEmail : SignInAction
+    object SignInWithEmail : AuthAction
 
-    object SignUpWithEmail : SignInAction
+    object SignUpWithEmail : AuthAction
 }
