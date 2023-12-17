@@ -23,6 +23,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluhabit.core.ui.ext.Empty
+import com.bluhabit.core.ui.theme.Blue500
 import com.bluhabit.core.ui.theme.Error200
 import com.bluhabit.core.ui.theme.Error600
 import com.bluhabit.core.ui.theme.Primary200
@@ -51,7 +52,7 @@ fun ButtonPrimary(
         enabled = enabled,
         shape = RoundedCornerShape(8.dp),
         colors = ButtonDefaults.buttonColors(
-            backgroundColor = if (error) Error600 else Primary700,
+            backgroundColor = if (error) Error600 else Color(0xFF1041B7),
             contentColor = Color(0xFFFFFFFF),
             disabledBackgroundColor = if (error) Error200 else Primary200,
             disabledContentColor = Color(0xFFFFFFFF),
