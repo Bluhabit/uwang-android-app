@@ -16,6 +16,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.bluhabit.blu.android.presentation.authentication.onboard.OnboardScreen
 import com.bluhabit.blu.android.presentation.authentication.onboard.OnboardViewModel
+import com.bluhabit.blu.android.presentation.authentication.termAndCondition.TermAndConditionScreen
+import com.bluhabit.blu.android.presentation.authentication.termAndCondition.TermAndConditionViewModel
 import com.bluhabit.blu.android.presentation.authentication.signin.SignInScreen
 import com.bluhabit.blu.android.presentation.authentication.signin.SignInViewModel
 import com.bluhabit.core.ui.routes.Routes
@@ -49,6 +51,14 @@ class MainActivity : ComponentActivity() {
                             effectFlow = viewModel.onEffect,
                             onAction = viewModel::onAction
                         )
+                    }
+                    composable("/term_and_condition") {
+                        val viewModel = hiltViewModel<TermAndConditionViewModel>()
+                        TermAndConditionScreen(
+                            stateFlow = viewModel.state,
+                            effectFlow = viewModel.onEffect,
+                            onAction = viewModel::onAction
+                          )
                     }
                     composable("/sign_in_screen") {
                         val viewModel = hiltViewModel<SignInViewModel>()
