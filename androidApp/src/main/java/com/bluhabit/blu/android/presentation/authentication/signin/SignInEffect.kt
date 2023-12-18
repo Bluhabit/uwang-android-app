@@ -5,8 +5,8 @@
  * Proprietary and confidential
  */
 
-package com.bluhabit.blu.android.presentation.authentication.onboard
+package com.bluhabit.blu.android.presentation.authentication.signin
 
-sealed interface OnboardAction {
-
+sealed interface SignInEffect {
+    object None:SignInEffect
 }

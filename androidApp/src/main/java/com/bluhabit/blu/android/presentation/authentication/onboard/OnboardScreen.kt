@@ -33,6 +33,10 @@ fun OnboardScreen(
             OnboardEffect.None -> {
                 // Not Empty
             }
+
+            is OnboardEffect.ShowDialog -> {
+                // Showing dialog
+            }
         }
     })
     LaunchedEffect(key1 = Unit, block = {
