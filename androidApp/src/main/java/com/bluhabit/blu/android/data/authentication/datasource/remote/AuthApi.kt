@@ -9,5 +9,9 @@ package com.bluhabit.blu.android.data.authentication.datasource.remote
 
 import io.ktor.resources.Resource
 
-@Resource("/api/v1/auth")
-class AuthApi {}
+@Resource("/api/auth")
+class AuthApi {
+
+    @Resource("/sign-in-google")
+    class SignInGoogle(val parent: AuthApi = AuthApi())
+}
