@@ -174,7 +174,7 @@ object CustomColor {
         val Grey2 = Color(0xFFFDFDFD)
         val Grey3 = Color(0xFFF0F0F0)
         val grey4 = Color(0xFFF1F1F0)
-        val grey5 = Color(0xFFDBDBDB)
+        val Grey5 = Color(0xFFDBDBDB)
         val Grey6 = Color(0xFFC3C3C2)
         val Grey7 = Color(0xFF939392)
         val Grey8 = Color(0xFF626361)

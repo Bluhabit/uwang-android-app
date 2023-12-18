@@ -9,4 +9,7 @@ package com.bluhabit.blu.android.presentation.authentication.onboard
 
 sealed interface OnboardEffect {
     object None:OnboardEffect
+    data class ShowDialog(
+        val message: String
+    ) : OnboardEffect
 }
