@@ -7,15 +7,21 @@
 
 package com.bluhabit.blu.android.presentation.authentication.onboard
 
+import androidx.lifecycle.viewModelScope
 import com.bluhabit.blu.android.common.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kotlinx.coroutines.launch
 
 @HiltViewModel
 class OnboardViewModel @Inject constructor():BaseViewModel<OnboardState,OnboardAction,OnboardEffect>(
     OnboardState()
 ) {
     override fun onAction(action: OnboardAction) {
-//no empty
+        viewModelScope.launch {
+            _effect.send(OnboardEffect.ShowDialog(
+                message = "Show Message Test"
+            ))
+        }
     }
 }

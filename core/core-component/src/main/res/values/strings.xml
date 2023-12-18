@@ -105,7 +105,11 @@
     <string name="description_icon_error">Ikon error</string>
     <string name="description_icon_success">Ikon sukses</string>
     <!--    end alert component-->
-
+    <!--    complete profile  -->
+    <string name="text_title_success_profile">Yeay, Profil berhasil dibuat</string>
+    <string name="text_subtitle_success_profile">Silakan masuk ke akunmu dan nikmati pengalamanmu dalam aplikasi Uwang</string>
+    <string name="text_btn_success_profile">Beranda</string>
+    <!--   end complete profile  -->
     <!--    favorite task component-->
     <string name="description_icon_star">Ikon penanda tugas favorite</string>
     <!--    end alert component-->
@@ -139,6 +143,12 @@
     <string name="text_label_confirm_dialog_password">Password Berhasil diubah!</string>
     <string name="text_subtitle_confirm_dialog_password">Yey, kamu berhasil mengubah password baru kamu. </string>
     <string name="text_button_confirm_dialog_password">Oke</string>
+    <!--    end alert component-->
+
+    <!--    forgot password component-->
+    <string name="text_label_forgot_password">Password berhasil diubah</string>
+    <string name="text_subtitle_forgot_password">Silakan masuk ke akunmu dengan memasukkan kata sandi terbaru. </string>
+    <string name="text_button_forgot_password">Login</string>
     <!--    end alert component-->
 
     <!--    bottom navigation-->
@@ -204,5 +214,23 @@
     <string name="text_placeholder_input_subtask">Masukan subtugas Anda</string>
     <string name="text_description_ic_delete_input_subtask">Ikon menghapus subtask</string>
     <!-- nput subtask component -->
+
+
+    <!--  [NEW] sign in screen  -->
+    <string name="sign_in_screen_welcome">Selamat datang</string>
+    <string name="sign_in_screen_description">Masukkan alamat email dan password Anda untuk melakukan login</string>
+    <string name="sign_in_screen_email_text_field_title">Email</string>
+    <string name="sign_in_screen_email_text_field_label">Contoh  : fadelptr09@gmail.com</string>
+    <string name="sign_in_screen_password_text_field_title">Password</string>
+    <string name="sign_in_screen_password_text_field_label">Masukkan password Anda</string>
+    <string name="sign_in_screen_forgot_password">Lupa Password</string>
+    <string name="sign_in_screen_sign_in_button_text">Masuk</string>
+    <string name="sign_in_screen_or">Atau</string>
+    <string name="sign_in_screen_sign_in_google_button_text">Masuk dengan Google</string>
+    <string name="sign_in_screen_not_have_an_account">Belum memiliki akun sebelumnya?\u0020</string>
+    <string name="sign_in_screen_register">Daftar</string>
+    <string name="sign_in_screen_term_and_condition_1">Dengan melakukan pendaftaran akun atau masuk ke dalam akun anda menyetujui</string>
+    <string name="sign_in_screen_term_and_condition_2">Syarat &amp; Ketentuan kebijakan aplikasi</string>
+    <!-- end sign in screen  -->
 
 </resources>

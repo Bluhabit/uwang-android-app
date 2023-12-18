@@ -5,7 +5,8 @@
  * Proprietary and confidential
  */
 
-package com.bluhabit.blu.android.data.authentication
+package com.bluhabit.blu.android.presentation.authentication.signin
 
-object AuthConstant {
+sealed interface SignInEffect {
+    object None:SignInEffect
 }

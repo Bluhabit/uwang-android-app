@@ -31,14 +31,18 @@ fun OnboardScreen(
     LaunchedEffect(key1 = effect, block = {
         when (effect) {
             OnboardEffect.None -> {
+                // Not Empty
+            }
 
+            is OnboardEffect.ShowDialog -> {
+                // Showing dialog
             }
         }
     })
     LaunchedEffect(key1 = Unit, block = {
-        activity.addEventListener(object :MainActivity.SseListener{
+        activity?.addEventListener(object :MainActivity.SseListener{
             override fun onEvent() {
-                //no empty
+                // Not Empty
             }
 
         })

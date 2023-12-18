@@ -10,15 +10,15 @@ package com.bluhabit.core.ui.components.button
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluehabit.core.ui.R
 import com.bluhabit.core.ui.ext.Empty
-import com.bluhabit.core.ui.theme.Gray700
+import com.bluhabit.core.ui.theme.CustomColor
 import com.bluhabit.core.ui.theme.UwangTheme
 
 /**
@@ -44,11 +44,13 @@ fun ButtonGoogle(
                 painterResource(
                     id = R.drawable.social_icon_google
                 ),
-                contentDescription = "social icon"
+                contentDescription = "social icon",
+                modifier = Modifier
+                    .size(24.dp)
             )
         },
-        backgroundColor = Color.White,
-        textColor = Gray700,
+        backgroundColor = CustomColor.Neutral.Grey1,
+        textColor = CustomColor.Primary.Blue500,
         onClick = onClick
     )
 }
