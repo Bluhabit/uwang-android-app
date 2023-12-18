@@ -8,4 +8,5 @@
 package com.bluhabit.blu.android.presentation.authentication.onboard
 
 sealed interface OnboardAction {
+
 }

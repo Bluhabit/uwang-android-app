@@ -7,9 +7,6 @@
 
 package com.bluhabit.blu.android.presentation.authentication.signin
 
-sealed interface AuthEffect {
-    object Nothing : AuthEffect
-    object NavigateToHome : AuthEffect
-    object NavigateToOtp : AuthEffect
-    data class ShowDialog(val message:String):AuthEffect
+sealed interface SignInEffect {
+    object None:SignInEffect
 }

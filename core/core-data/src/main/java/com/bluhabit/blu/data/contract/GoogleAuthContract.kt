@@ -41,7 +41,7 @@ class GoogleAuthContract : ActivityResultContract<Int, Response<Task<GoogleSignI
                 return Response.Result(data)
             }
 
-            else -> Response.Error(intent?.extras?.keySet()?.map { intent.extras?.get(it.toString()).toString() }.toString(), resultCode)
+            else -> Response.Error(intent?.extras?.keySet()?.map { intent.extras?.getString(it.toString()).toString() }.toString(), resultCode)
         }
     }
 
