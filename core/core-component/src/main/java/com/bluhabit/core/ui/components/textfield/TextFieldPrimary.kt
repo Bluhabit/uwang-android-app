@@ -34,7 +34,7 @@ fun TextFieldPrimary(
         backgroundColor = Color.White,
         focusedBorderColor = CustomColor.Neutral.Grey13,
         unfocusedBorderColor = CustomColor.Neutral.Grey5,
-        unfocusedLabelColor = CustomColor.Neutral.Grey9,
+        unfocusedLabelColor = CustomColor.Neutral.Grey7,
         errorBorderColor = CustomColor.Error.Red500,
     ),
     textStyle: TextStyle = CustomTypography.Body.Small.W400,

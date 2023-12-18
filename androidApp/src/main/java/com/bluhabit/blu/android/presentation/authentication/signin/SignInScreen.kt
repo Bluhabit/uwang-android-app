@@ -27,6 +27,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -71,12 +72,12 @@ fun SignInScreen(
                 .padding(horizontal = 16.dp)
         ) {
             Text(
-                text = "Selamat datang",
+                text = stringResource(id = R.string.sign_in_screen_welcome),
                 style = CustomTypography.Body.XL.W600,
                 color = CustomColor.Neutral.Grey13
             )
             Text(
-                text = "Masukkan alamat email dan password Anda untuk melakukan login  ",
+                text = stringResource(id = R.string.sign_in_screen_description),
                 style = CustomTypography.Body.Small.W400,
                 color = CustomColor.Neutral.Grey9
             )
@@ -87,7 +88,7 @@ fun SignInScreen(
                 .padding(horizontal = 16.dp)
         ) {
             Text(
-                text = "Email",
+                text = stringResource(id = R.string.sign_in_screen_email_text_field_title),
                 style = CustomTypography.Body.Small.W400,
                 color = CustomColor.Neutral.Grey9
             )
@@ -95,7 +96,7 @@ fun SignInScreen(
                 modifier = Modifier
                     .fillMaxWidth(),
                 label = {
-                    Text(text = "Email")
+                    Text(text = stringResource(id = R.string.sign_in_screen_email_text_field_label))
                 },
                 value = signInState.emailState,
                 onValueChange = {
@@ -110,7 +111,7 @@ fun SignInScreen(
                 .padding(horizontal = 16.dp)
         ) {
             Text(
-                text = "Password",
+                text = stringResource(id = R.string.sign_in_screen_password_text_field_title),
                 style = CustomTypography.Body.Small.W400,
                 color = CustomColor.Neutral.Grey9
             )
@@ -118,7 +119,7 @@ fun SignInScreen(
                 modifier = Modifier
                     .fillMaxWidth(),
                 label = {
-                    Text(text = "Password")
+                    Text(text = stringResource(id = R.string.sign_in_screen_password_text_field_label))
                 },
                 trailingIcon = {
                     IconButton(
@@ -148,7 +149,7 @@ fun SignInScreen(
             )
         }
         Text(
-            text = "Lupa Password",
+            text = stringResource(id = R.string.sign_in_screen_forgot_password),
             style = CustomTypography.Body.XS.W500,
             textAlign = TextAlign.Right,
             modifier = Modifier
@@ -156,7 +157,7 @@ fun SignInScreen(
                 .padding(horizontal = 16.dp)
         )
         ButtonPrimary(
-            text = "Masuk",
+            text = stringResource(id = R.string.sign_in_screen_sign_in_button_text),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp),
@@ -174,7 +175,7 @@ fun SignInScreen(
                     .weight(0.9f)
             )
             Text(
-                text = "Atau",
+                text = stringResource(id = R.string.sign_in_screen_or),
                 style = CustomTypography.Body.Small.W400,
                 color = CustomColor.Neutral.Grey8,
                 textAlign = TextAlign.Center,
@@ -190,19 +191,19 @@ fun SignInScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp),
-            text = "Masuk dengan Google",
+            text = stringResource(id = R.string.sign_in_screen_sign_in_google_button_text),
         )
         Row(
             modifier = Modifier
                 .padding(horizontal = 16.dp),
         ) {
             Text(
-                text = "Belum memiliki akun sebelumnya? ",
+                text = stringResource(id = R.string.sign_in_screen_not_have_an_account),
                 style = CustomTypography.Body.Small.W400,
                 color = CustomColor.Neutral.Grey9
             )
             Text(
-                text = "Daftar",
+                text = stringResource(id = R.string.sign_in_screen_register),
                 style = CustomTypography.Body.Small.W400,
                 color = CustomColor.Primary.Blue500,
                 modifier = Modifier
@@ -217,12 +218,12 @@ fun SignInScreen(
                 .padding(horizontal = 16.dp),
         ) {
             Text(
-                text = "Dengan melakukan pendaftaran akun atau masuk ke dalam akun anda menyetujui",
+                text = stringResource(id = R.string.sign_in_screen_term_and_condition_1),
                 style = CustomTypography.Body.Small.W400,
                 color = CustomColor.Neutral.Grey7
             )
             Text(
-                text = "Syarat & Ketentuan kebijakan aplikasi",
+                text = stringResource(id = R.string.sign_in_screen_term_and_condition_2),
                 style = CustomTypography.Body.Small.W400,
                 color = CustomColor.Primary.Blue500,
                 modifier = Modifier

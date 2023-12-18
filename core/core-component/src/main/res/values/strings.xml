@@ -194,4 +194,22 @@
     <string name="text_description_ic_delete_input_subtask">Ikon menghapus subtask</string>
     <!-- nput subtask component -->
 
+
+    <!--  [NEW] sign in screen  -->
+    <string name="sign_in_screen_welcome">Selamat datang</string>
+    <string name="sign_in_screen_description">Masukkan alamat email dan password Anda untuk melakukan login</string>
+    <string name="sign_in_screen_email_text_field_title">Email</string>
+    <string name="sign_in_screen_email_text_field_label">Contoh  : fadelptr09@gmail.com</string>
+    <string name="sign_in_screen_password_text_field_title">Password</string>
+    <string name="sign_in_screen_password_text_field_label">Masukkan password Anda</string>
+    <string name="sign_in_screen_forgot_password">Lupa Password</string>
+    <string name="sign_in_screen_sign_in_button_text">Masuk</string>
+    <string name="sign_in_screen_or">Atau</string>
+    <string name="sign_in_screen_sign_in_google_button_text">Masuk dengan Google</string>
+    <string name="sign_in_screen_not_have_an_account">Belum memiliki akun sebelumnya?\u0020</string>
+    <string name="sign_in_screen_register">Daftar</string>
+    <string name="sign_in_screen_term_and_condition_1">Dengan melakukan pendaftaran akun atau masuk ke dalam akun anda menyetujui</string>
+    <string name="sign_in_screen_term_and_condition_2">Syarat &amp; Ketentuan kebijakan aplikasi</string>
+    <!-- end sign in screen  -->
+
 </resources>
