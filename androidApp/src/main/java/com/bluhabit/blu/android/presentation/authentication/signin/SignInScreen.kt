@@ -162,7 +162,7 @@ fun SignInScreen(
                 .padding(horizontal = 16.dp),
             enabled = signInState.buttonEnabled
         ) {
-            // TODO: Sign in
+            // Sign in
         }
         Row(
             modifier = Modifier
@@ -207,7 +207,7 @@ fun SignInScreen(
                 color = CustomColor.Primary.Blue500,
                 modifier = Modifier
                     .clickable {
-                        //TODO: On register clicked
+                        //On register clicked
                     }
             )
         }
@@ -227,7 +227,7 @@ fun SignInScreen(
                 color = CustomColor.Primary.Blue500,
                 modifier = Modifier
                     .clickable {
-                        //TODO: On terms and condition clicked
+                        //On terms and condition clicked
                     }
             )
         }
