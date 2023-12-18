@@ -16,6 +16,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.bluhabit.blu.android.presentation.authentication.onboard.OnboardScreen
 import com.bluhabit.blu.android.presentation.authentication.onboard.OnboardViewModel
+import com.bluhabit.blu.android.presentation.authentication.signin.SignInScreen
+import com.bluhabit.blu.android.presentation.authentication.signin.SignInViewModel
 import com.bluhabit.core.ui.routes.Routes
 import com.bluhabit.core.ui.theme.UwangTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -46,6 +48,14 @@ class MainActivity : ComponentActivity() {
                             stateFlow = viewModel.state,
                             effectFlow = viewModel.onEffect,
                             onAction = viewModel::onAction
+                        )
+                    }
+                    composable("/sign_in_screen") {
+                        val viewModel = hiltViewModel<SignInViewModel>()
+                        SignInScreen(
+                            stateFlow = viewModel.state,
+                            effectFlow = viewModel.onEffect,
+                            onAction = viewModel::onAction,
                         )
                     }
                 }
