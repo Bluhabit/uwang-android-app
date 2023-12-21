@@ -23,6 +23,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluehabit.core.ui.R
@@ -66,12 +67,12 @@ fun ForgotPasswordScreen(
                 .padding(horizontal = 16.dp)
         ) {
             Text(
-                text = "Reset Password",
+                text = stringResource(id = R.string.reset_password_screen_reset_password),
                 style = CustomTypography.Body.XL.W600,
                 color = CustomColor.Neutral.Grey13
             )
             Text(
-                text = "Masukkan alamat email yang terdaftar dan kami akan mengirimkan email berisi kode OTP untuk mengatur ulang Password",
+                text = stringResource(id = R.string.reset_password_screen_hint),
                 style = CustomTypography.Body.Small.W400,
                 color = CustomColor.Neutral.Grey9
             )
@@ -83,7 +84,7 @@ fun ForgotPasswordScreen(
                 .padding(horizontal = 16.dp)
         ) {
             Text(
-                text = "Email",
+                text = stringResource(id = R.string.reset_password_screen_email),
                 style = CustomTypography.Body.Small.W400,
                 color = CustomColor.Neutral.Grey9
             )
@@ -92,7 +93,7 @@ fun ForgotPasswordScreen(
                     .fillMaxWidth(),
                 label = {
                     Text(
-                        text = "Contoh : jenny11@gmail.com",
+                        text = stringResource(id = R.string.reset_password_screen_email_text_field_label),
                         style = CustomTypography.Body.XS.W500
                     )
                 },
@@ -112,7 +113,7 @@ fun ForgotPasswordScreen(
         }
         Spacer(modifier = Modifier.weight(1f))
         ButtonPrimary(
-            text = "Selanjutnya",
+            text = stringResource(id = R.string.reset_password_screen_next),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 16.dp, end = 16.dp, bottom = 42.dp),
