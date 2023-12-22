@@ -16,10 +16,14 @@ import kotlinx.coroutines.flow.consumeAsFlow
 abstract class BaseViewModel<State, Action, Effect>(
     private val initialState: State
 ) : ViewModel() {
-    private val _effect: Channel<Effect> = Channel(Channel.BUFFERED)
+    protected val _effect: Channel<Effect> = Channel(Channel.BUFFERED)
     val onEffect = _effect.consumeAsFlow()
 
-    private val _state: MutableStateFlow<State> = MutableStateFlow(initialState)
+    protected val _state: MutableStateFlow<State> = MutableStateFlow(initialState)
     val state = _state.asStateFlow()
     abstract fun onAction(action: Action)
+
+    protected fun updateState(s: State.() -> State) {
+        _state.tryEmit(s(state.value))
+    }
 }

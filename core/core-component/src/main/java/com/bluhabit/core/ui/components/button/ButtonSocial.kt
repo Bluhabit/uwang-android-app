@@ -18,7 +18,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -30,7 +29,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluehabit.core.ui.R
 import com.bluhabit.core.ui.ext.Empty
-import com.bluhabit.core.ui.theme.Gray300
+import com.bluhabit.core.ui.theme.CustomColor
+import com.bluhabit.core.ui.theme.CustomTypography
 import com.bluhabit.core.ui.theme.Gray700
 import com.bluhabit.core.ui.theme.UwangTheme
 
@@ -56,18 +56,16 @@ fun ButtonSocial(
     icon: (@Composable () -> Unit)? = null,
     onClick: () -> Unit = {}
 ) {
-    val ctx = LocalContext.current
     Button(
         modifier = modifier
-            .height(44.dp)
-            .defaultMinSize(minHeight = 44.dp)
-        ,
+            .height(40.dp)
+            .defaultMinSize(minHeight = 40.dp),
         onClick = onClick,
         enabled = enabled,
-        shape = RoundedCornerShape(8.dp),
+        shape = RoundedCornerShape(12.dp),
         border = BorderStroke(
-            width = 1.dp,
-            color = Gray300
+            width = 0.8.dp,
+            color = CustomColor.Primary.Blue500
         ),
         colors = ButtonDefaults.buttonColors(
             backgroundColor = backgroundColor,
@@ -79,11 +77,11 @@ fun ButtonSocial(
         icon?.invoke()
         Spacer(
             modifier = Modifier
-                .padding(12.dp)
+                .padding(10.dp)
         )
         Text(
             text = text,
-            style = MaterialTheme.typography.button,
+            style = CustomTypography.Label.Large.W600,
             fontWeight = FontWeight.SemiBold,
             color = textColor
         )
@@ -131,7 +129,7 @@ fun PreviewButtonSocial() {
                         contentDescription = "social icon"
                     )
                 },
-                backgroundColor =  Color(0xFF1877F2),
+                backgroundColor = Color(0xFF1877F2),
                 textColor = Color.White,
                 onClick = {}
             )

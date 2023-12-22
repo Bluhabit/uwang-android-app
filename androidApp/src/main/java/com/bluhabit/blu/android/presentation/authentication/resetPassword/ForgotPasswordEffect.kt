@@ -5,8 +5,8 @@
  * Proprietary and confidential
  */
 
-package com.bluhabit.blu.android.presentation.authentication.onboard
+package com.bluhabit.blu.android.presentation.authentication.resetPassword
 
-sealed interface OnboardAction {
-
+sealed interface ForgotPasswordEffect {
+    object None:ForgotPasswordEffect
 }
