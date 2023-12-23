@@ -7,12 +7,16 @@
 
 package com.bluhabit.blu.android.presentation.authentication.signin
 
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.tasks.Task
+
 sealed interface SignInAction {
 
-    data class EmailAction (
+    data class EmailAction(
         val value: String = "",
         val error: Boolean = false
     ) : SignInAction
+
     data class PasswordAction(
         val value: String = "",
         val visibility: Boolean = false,
@@ -21,5 +25,9 @@ sealed interface SignInAction {
 
     data class ButtonAction(
         val enabled: Boolean = true,
+    ) : SignInAction
+
+    data class SignInGoogle(
+        val authResult:Task<GoogleSignInAccount>
     ) : SignInAction
 }

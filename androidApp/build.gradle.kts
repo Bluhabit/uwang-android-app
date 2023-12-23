@@ -19,7 +19,6 @@ plugins {
     alias(libs.plugins.com.google.dagger.hilt.android)
     alias(libs.plugins.app.cash.sqldelight)
     alias(libs.plugins.io.gitlab.arthubosch.detekt)
-    id("kotlin-parcelize")
     id("com.google.firebase.appdistribution")
     alias(libs.plugins.google.services)
     alias(libs.plugins.org.jetbrains.kotlin.kapt)
@@ -133,6 +132,8 @@ dependencies {
     api(project(":core:core-component"))
     api(project(":core:core-data"))
 
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
+
     coreLibraryDesugaring(libs.desugar.jdk.lib)
     implementation(libs.multidex)
     implementation(libs.core.ktx)
@@ -146,6 +147,7 @@ dependencies {
         kaptTest(android.compiler)
         kapt(compiler)
     }
+
 
     implementation(libs.work.runtime)
 

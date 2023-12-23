@@ -42,9 +42,9 @@ class MainActivity : ComponentActivity() {
             ) {
                 NavHost(
                     navController = navHostController,
-                    startDestination = Routes.Onboard.routeName,
+                    startDestination = "sign_in_screen",
                 ) {
-                    composable("/onboard") {
+                    composable("onboard") {
                         val viewModel = hiltViewModel<OnboardViewModel>()
                         OnboardScreen(
                             stateFlow = viewModel.state,
@@ -52,7 +52,7 @@ class MainActivity : ComponentActivity() {
                             onAction = viewModel::onAction
                         )
                     }
-                    composable("/term_and_condition") {
+                    composable("term_and_condition") {
                         val viewModel = hiltViewModel<TermAndConditionViewModel>()
                         TermAndConditionScreen(
                             stateFlow = viewModel.state,
@@ -60,7 +60,7 @@ class MainActivity : ComponentActivity() {
                             onAction = viewModel::onAction
                           )
                     }
-                    composable("/sign_in_screen") {
+                    composable("sign_in_screen") {
                         val viewModel = hiltViewModel<SignInViewModel>()
                         SignInScreen(
                             stateFlow = viewModel.state,

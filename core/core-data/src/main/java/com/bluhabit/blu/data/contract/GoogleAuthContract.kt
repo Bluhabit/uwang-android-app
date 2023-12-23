@@ -20,9 +20,10 @@ import com.google.android.gms.tasks.Task
 class GoogleAuthContract : ActivityResultContract<Int, Response<Task<GoogleSignInAccount>>>() {
     override fun createIntent(context: Context, input: Int): Intent {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken("949035954925-rd7v5t6tkla7i5ngbjntb95n4pqt6u7e.apps.googleusercontent.com")
-            .requestProfile()
             .requestEmail()
+            .requestIdToken("616208190167-aget8lort8gj59osgs4doe9g9i5bnhfj.apps.googleusercontent.com")
+            .requestId()
+            .requestProfile()
             .build()
 
         val gsi = GoogleSignIn.getClient(
@@ -41,7 +42,12 @@ class GoogleAuthContract : ActivityResultContract<Int, Response<Task<GoogleSignI
                 return Response.Result(data)
             }
 
-            else -> Response.Error(intent?.extras?.keySet()?.map { intent.extras?.getString(it.toString()).toString() }.toString(), resultCode)
+            else -> {
+                Response.Error(
+                    intent?.extras?.keySet()?.map {
+                        intent.extras?.get(it.toString()).toString()
+                    }.toString(), resultCode)
+            }
         }
     }
 

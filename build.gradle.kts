@@ -13,6 +13,7 @@ plugins {
     alias(libs.plugins.com.google.dagger.hilt.android) apply false
     alias(libs.plugins.com.android.library) apply false
     alias(libs.plugins.google.services) apply false
+    alias(libs.plugins.org.jetbrains.kotlin.serialization)
     id("com.google.firebase.appdistribution") version "4.0.1" apply false
 }
 
@@ -33,7 +34,7 @@ allprojects {
                 "-opt-in=androidx.compose.material.ExperimentalMaterialApi",
                 "-opt-in=androidx.compose.ui.ExperimentalComposeUiApi",
                 "-opt-in=androidx.compose.foundation.ExperimentalFoundationApi",
-                "-opt-in=com.google.accompanist.pager.ExperimentalPagerApi",
+//                "-opt-in=com.google.accompanist.pager.ExperimentalPagerApi",
             )
         }
     }

@@ -7,6 +7,8 @@
 
 package com.bluhabit.blu.android.presentation.authentication.signin
 
+import android.util.Log
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -33,6 +35,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluehabit.core.ui.R
+import com.bluhabit.blu.data.common.Response
+import com.bluhabit.blu.data.contract.GoogleAuthContract
 import com.bluhabit.core.ui.components.button.ButtonGoogle
 import com.bluhabit.core.ui.components.button.ButtonPrimary
 import com.bluhabit.core.ui.components.textfield.TextFieldPrimary
@@ -49,6 +53,18 @@ fun SignInScreen(
     effectFlow: Flow<SignInEffect> = flowOf(),
     onAction: (SignInAction) -> Unit = {},
 ) {
+
+    val googleAuthLauncher = rememberLauncherForActivityResult(contract = GoogleAuthContract(), onResult = {
+        when (it) {
+            is Response.Error -> {
+                Log.e("HEHE",it.message)
+            }
+
+            is Response.Result -> {
+                onAction(SignInAction.SignInGoogle(it.data))
+            }
+        }
+    })
 
     Column(
         verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -192,6 +208,9 @@ fun SignInScreen(
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp),
             text = stringResource(id = R.string.sign_in_screen_sign_in_google_button_text),
+            onClick = {
+                googleAuthLauncher.launch(1)
+            }
         )
         Row(
             modifier = Modifier
