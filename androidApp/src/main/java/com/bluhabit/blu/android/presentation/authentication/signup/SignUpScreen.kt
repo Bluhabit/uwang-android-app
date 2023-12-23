@@ -27,6 +27,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -71,12 +72,12 @@ fun SignUpScreen(
                 .padding(horizontal = 16.dp)
         ) {
             Text(
-                text = "Daftarkan akun anda",
+                text = stringResource(id = R.string.sign_up_screen_title),
                 style = CustomTypography.Body.XL.W600,
                 color = CustomColor.Neutral.Grey13
             )
             Text(
-                text = "Masukkan alamat email Anda dan buat password Anda untuk melakukan pendaftaran  ",
+                text = stringResource(id = R.string.sign_up_screen_instruction),
                 style = CustomTypography.Body.Small.W400,
                 color = CustomColor.Neutral.Grey9
             )
@@ -87,7 +88,7 @@ fun SignUpScreen(
                 .padding(horizontal = 16.dp)
         ) {
             Text(
-                text = "Email",
+                text = stringResource(id = R.string.sign_up_screen_email_text_field_title),
                 style = CustomTypography.Body.Small.W400,
                 color = CustomColor.Neutral.Grey9
             )
@@ -95,7 +96,7 @@ fun SignUpScreen(
                 modifier = Modifier
                     .fillMaxWidth(),
                 label = {
-                    Text(text = "Contoh  : fadelptr09@gmail.com")
+                    Text(text = stringResource(id = R.string.sign_up_screen_email_text_field_label))
                 },
                 value = signUpState.emailState,
                 onValueChange = {
@@ -117,7 +118,7 @@ fun SignUpScreen(
                 .padding(horizontal = 16.dp)
         ) {
             Text(
-                text = "Password",
+                text = stringResource(id = R.string.sign_up_screen_password_text_field_title),
                 style = CustomTypography.Body.Small.W400,
                 color = CustomColor.Neutral.Grey9
             )
@@ -125,7 +126,7 @@ fun SignUpScreen(
                 modifier = Modifier
                     .fillMaxWidth(),
                 label = {
-                    Text("Masukkan password Anda")
+                    Text(stringResource(id = R.string.sign_up_screen_password_text_field_label))
                 },
                 trailingIcon = {
                     IconButton(
@@ -167,7 +168,7 @@ fun SignUpScreen(
                 .padding(horizontal = 16.dp)
         ) {
             Text(
-                text = "Konfirmasi Password",
+                text = stringResource(id = R.string.sign_up_screen_password_confirmation_text_field_title),
                 style = CustomTypography.Body.Small.W400,
                 color = CustomColor.Neutral.Grey9
             )
@@ -175,7 +176,7 @@ fun SignUpScreen(
                 modifier = Modifier
                     .fillMaxWidth(),
                 label = {
-                    Text("Konfirmasi password Anda")
+                    Text(stringResource(id = R.string.sign_up_screen_password_confirmation_text_field_label))
                 },
                 trailingIcon = {
                     IconButton(
@@ -192,7 +193,7 @@ fun SignUpScreen(
                                 }
                             ),
                             tint = CustomColor.Neutral.Grey7,
-                            contentDescription = null,
+                            contentDescription = "",
                         )
                     }
                 },
@@ -213,13 +214,13 @@ fun SignUpScreen(
         }
         Spacer(modifier = Modifier.padding(bottom = 16.dp))
         ButtonPrimary(
-            text = "Daftar",
+            text = stringResource(id = R.string.sign_up_screen_sign_up_button_text),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp),
             enabled = signUpState.buttonEnabled
         ) {
-            // Sign in
+            // Sign up
         }
         Row(
             modifier = Modifier
@@ -231,7 +232,7 @@ fun SignUpScreen(
                     .weight(0.9f)
             )
             Text(
-                text = "Atau",
+                text = stringResource(id = R.string.sign_up_screen_or),
                 style = CustomTypography.Body.Small.W400,
                 color = CustomColor.Neutral.Grey8,
                 textAlign = TextAlign.Center,
@@ -247,19 +248,19 @@ fun SignUpScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp),
-            text = "Daftar dengan Google",
+            text = stringResource(id = R.string.sign_up_screen_sign_in_google_button_text),
         )
         Row(
             modifier = Modifier
                 .padding(horizontal = 16.dp),
         ) {
             Text(
-                text = "Sudah memiliki akun sebelumnya? ",
+                text = stringResource(id = R.string.sign_up_screen_already_have_an_account),
                 style = CustomTypography.Body.Small.W400,
                 color = CustomColor.Neutral.Grey9
             )
             Text(
-                text = "Masuk",
+                text = stringResource(id = R.string.sign_up_screen_sign_in),
                 style = CustomTypography.Body.Small.W400,
                 color = CustomColor.Primary.Blue500,
                 modifier = Modifier
@@ -274,12 +275,12 @@ fun SignUpScreen(
                 .padding(horizontal = 16.dp),
         ) {
             Text(
-                text = "Dengan melakukan pendaftaran akun atau masuk ke dalam akun anda menyetujui",
+                text = stringResource(id = R.string.sign_up_screen_term_and_condition_1),
                 style = CustomTypography.Body.Small.W400,
                 color = CustomColor.Neutral.Grey7
             )
             Text(
-                text = "Syarat &amp; Ketentuan kebijakan aplikasi",
+                text = stringResource(id = R.string.sign_up_screen_term_and_condition_2),
                 style = CustomTypography.Body.Small.W400,
                 color = CustomColor.Primary.Blue500,
                 modifier = Modifier

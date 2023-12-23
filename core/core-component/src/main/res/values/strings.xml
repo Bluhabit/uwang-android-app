@@ -233,6 +233,24 @@
     <string name="sign_in_screen_term_and_condition_2">Syarat &amp; Ketentuan kebijakan aplikasi</string>
     <!-- end sign in screen  -->
 
+    <!--  [NEW] sign up screen  -->
+    <string name="sign_up_screen_title">Daftarkan akun anda</string>
+    <string name="sign_up_screen_instruction">Masukkan alamat email Anda dan buat password Anda untuk melakukan pendaftaran</string>
+    <string name="sign_up_screen_email_text_field_title">Email</string>
+    <string name="sign_up_screen_email_text_field_label">Contoh  : fadelptr09@gmail.com</string>
+    <string name="sign_up_screen_password_text_field_title">Password</string>
+    <string name="sign_up_screen_password_text_field_label">Masukkan password Anda</string>
+    <string name="sign_up_screen_password_confirmation_text_field_title">Konfirmasi Password</string>
+    <string name="sign_up_screen_password_confirmation_text_field_label">Konfirmasi password Anda</string>
+    <string name="sign_up_screen_sign_up_button_text">Daftar</string>
+    <string name="sign_up_screen_or">Atau</string>
+    <string name="sign_up_screen_sign_in_google_button_text">Daftar dengan Google</string>
+    <string name="sign_up_screen_already_have_an_account">Sudah memiliki akun sebelumnya?\u0020</string>
+    <string name="sign_up_screen_sign_in">Masuk</string>
+    <string name="sign_up_screen_term_and_condition_1">Dengan melakukan pendaftaran akun atau masuk ke dalam akun anda menyetujui</string>
+    <string name="sign_up_screen_term_and_condition_2">Syarat &amp; Ketentuan kebijakan aplikasi</string>
+    <!-- end sign up screen  -->
+
     <!--  [NEW] forgot password screen  -->
     <string name="reset_password_screen_reset_password">Reset Password</string>
     <string name="reset_password_screen_hint">Masukkan alamat email yang terdaftar dan kami akan mengirimkan email berisi kode OTP untuk mengatur ulang Password</string>
