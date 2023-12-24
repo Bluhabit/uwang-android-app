@@ -43,6 +43,11 @@ class SignInViewModel @Inject constructor(
 
             is SignInAction.OnSignInBasic -> signInBasic()
             is SignInAction.OnSignInGoogle -> signInGoogle(action.authResult)
+            is SignInAction.OtpNumberAction -> updateState {
+                copy(
+                    otpNumberState = action.value,
+                )
+            }
         }
     }
 
@@ -50,7 +55,7 @@ class SignInViewModel @Inject constructor(
         executeAsFlow { signInBasicUseCase(email = state.value.emailState) }
             .onStart { }
             .onEach {
-                when(it){
+                when (it) {
                     is Response.Error -> Unit
                     is Response.Result -> {
                         sendEffect(SignInEffect.NavigateToOtp)

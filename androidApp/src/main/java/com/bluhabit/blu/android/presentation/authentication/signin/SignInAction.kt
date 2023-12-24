@@ -12,6 +12,7 @@ import com.google.android.gms.tasks.Task
 
 sealed interface SignInAction {
 
+    // Sign In Screen
     data class OnEmailChange(
         val value: String = "",
         val error: Boolean = false
@@ -28,4 +29,10 @@ sealed interface SignInAction {
     data class OnSignInGoogle(
         val authResult: Task<GoogleSignInAccount>
     ) : SignInAction
+
+    // Otp Sign In Screen
+    data class OtpNumberAction(
+        val value: String = "",
+        val error: Boolean = false,
+    ): SignInAction
 }

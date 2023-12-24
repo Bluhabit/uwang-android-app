@@ -258,4 +258,11 @@
     <string name="reset_password_screen_email_text_field_label">Contoh : jenny11@gmail.com</string>
     <string name="reset_password_screen_next">Selanjutnya</string>
     <!-- end forgot password screen  -->
+
+    <!--  [NEW] otp sign in screen  -->
+    <string name="otp_sign_in_screen_reset_title">Masukkan Kode OTP</string>
+    <string name="otp_sign_in_screen_reset_instruction">Silakan periksa kotak masuk dan spam pada email %s, masukkan kode OTP  untuk buat password baru</string>
+    <string name="otp_sign_in_screen_reset_confirmation_time">Waktu konfirmasi\u0020</string>
+    <string name="otp_sign_in_screen_reset_next_button_text">Selanjutnya</string>
+    <!-- end forgot password screen  -->
 </resources>
