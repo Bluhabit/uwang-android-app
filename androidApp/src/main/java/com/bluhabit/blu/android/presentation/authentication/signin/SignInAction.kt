@@ -12,22 +12,20 @@ import com.google.android.gms.tasks.Task
 
 sealed interface SignInAction {
 
-    data class EmailAction(
+    data class OnEmailChange(
         val value: String = "",
         val error: Boolean = false
     ) : SignInAction
 
-    data class PasswordAction(
+    data class OnPasswordChange(
         val value: String = "",
         val visibility: Boolean = false,
         val error: Boolean = false,
     ) : SignInAction
 
-    data class ButtonAction(
-        val enabled: Boolean = true,
-    ) : SignInAction
+    object OnSignInBasic : SignInAction
 
-    data class SignInGoogle(
-        val authResult:Task<GoogleSignInAccount>
+    data class OnSignInGoogle(
+        val authResult: Task<GoogleSignInAccount>
     ) : SignInAction
 }

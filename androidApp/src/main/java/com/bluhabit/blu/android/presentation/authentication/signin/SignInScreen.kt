@@ -26,6 +26,8 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -34,6 +36,9 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.bluehabit.core.ui.R
 import com.bluhabit.blu.data.common.Response
 import com.bluhabit.blu.data.contract.GoogleAuthContract
@@ -48,20 +53,31 @@ import kotlinx.coroutines.flow.flowOf
 
 @Composable
 fun SignInScreen(
-    signInState: SignInState = SignInState(),
+    navHostController: NavHostController= rememberNavController(),
     stateFlow: Flow<SignInState> = flowOf(),
     effectFlow: Flow<SignInEffect> = flowOf(),
     onAction: (SignInAction) -> Unit = {},
 ) {
+    val state by stateFlow.collectAsStateWithLifecycle(initialValue = SignInState())
+    val effect by effectFlow.collectAsStateWithLifecycle(initialValue = SignInEffect.None)
+
+    LaunchedEffect(key1 = effect, block = {
+        when (effect) {
+            SignInEffect.None -> Unit
+            SignInEffect.NavigateToOtp ->{
+
+            }
+        }
+    })
 
     val googleAuthLauncher = rememberLauncherForActivityResult(contract = GoogleAuthContract(), onResult = {
         when (it) {
             is Response.Error -> {
-                Log.e("HEHE",it.message)
+                Log.e("HEHE", it.message)
             }
 
             is Response.Result -> {
-                onAction(SignInAction.SignInGoogle(it.data))
+                onAction(SignInAction.OnSignInGoogle(it.data))
             }
         }
     })
@@ -114,11 +130,11 @@ fun SignInScreen(
                 label = {
                     Text(text = stringResource(id = R.string.sign_in_screen_email_text_field_label))
                 },
-                value = signInState.emailState,
+                value = state.emailState,
                 onValueChange = {
-                    onAction(SignInAction.EmailAction(value = it))
+                    onAction(SignInAction.OnEmailChange(value = it))
                 },
-                error = signInState.emailError
+                error = state.emailError
             )
         }
         Column(
@@ -140,12 +156,16 @@ fun SignInScreen(
                 trailingIcon = {
                     IconButton(
                         onClick = {
-                            onAction(SignInAction.PasswordAction(visibility = !signInState.passwordVisibility))
+                            onAction(
+                                SignInAction.OnPasswordChange(
+                                    visibility = !state.passwordVisibility
+                                )
+                            )
                         }
                     ) {
                         Icon(
                             painter = painterResource(
-                                id = if (!signInState.passwordVisibility) {
+                                id = if (!state.passwordVisibility) {
                                     R.drawable.ic_eye_closed
                                 } else {
                                     R.drawable.ic_eye_open
@@ -157,11 +177,11 @@ fun SignInScreen(
                     }
                 },
                 visualTransformation = PasswordVisualTransformation(),
-                value = signInState.passwordState,
+                value = state.passwordState,
                 onValueChange = {
-                    onAction(SignInAction.PasswordAction(value = it))
+                    onAction(SignInAction.OnPasswordChange(value = it))
                 },
-                error = signInState.passwordError
+                error = state.passwordError
             )
         }
         Text(
@@ -177,9 +197,9 @@ fun SignInScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp),
-            enabled = signInState.buttonEnabled
+            enabled = state.buttonEnabled
         ) {
-            // Sign in
+            onAction(SignInAction.OnSignInBasic)
         }
         Row(
             modifier = Modifier
@@ -256,7 +276,7 @@ fun SignInScreen(
 
 @Preview
 @Composable
-fun TermAndConditionScreenPreview() {
+fun SignInScreenPreview() {
     UwangTheme {
         SignInScreen()
     }

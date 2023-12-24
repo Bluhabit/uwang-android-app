@@ -8,10 +8,12 @@
 package com.bluhabit.blu.android.common
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.consumeAsFlow
+import kotlinx.coroutines.launch
 
 abstract class BaseViewModel<State, Action, Effect>(
     private val initialState: State
@@ -25,5 +27,9 @@ abstract class BaseViewModel<State, Action, Effect>(
 
     protected fun updateState(s: State.() -> State) {
         _state.tryEmit(s(state.value))
+    }
+
+    protected fun sendEffect(effect: Effect) = viewModelScope.launch {
+        _effect.send(effect)
     }
 }
