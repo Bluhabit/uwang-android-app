@@ -46,10 +46,6 @@ import kotlinx.coroutines.flow.flowOf
 
 @Composable
 fun OnboardLogin(
-    signInState: SignInState = SignInState(),
-    stateFlow: Flow<SignInState> = flowOf(),
-    effectFlow: Flow<SignInEffect> = flowOf(),
-    onAction: (SignInAction) -> Unit = {},
 ) {
 
     Column(
