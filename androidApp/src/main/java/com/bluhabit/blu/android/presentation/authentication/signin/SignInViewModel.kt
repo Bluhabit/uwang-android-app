@@ -7,7 +7,6 @@
 
 package com.bluhabit.blu.android.presentation.authentication.signin
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.bluhabit.blu.android.common.BaseViewModel
 import com.bluhabit.blu.android.data.authentication.domain.SignInBasicUseCase
