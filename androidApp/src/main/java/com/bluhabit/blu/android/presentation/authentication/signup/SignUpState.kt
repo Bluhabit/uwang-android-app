@@ -7,6 +7,7 @@
 
 package com.bluhabit.blu.android.presentation.authentication.signup
 
+import com.bluhabit.core.ui.ext.Empty
 import javax.annotation.concurrent.Immutable
 
 @Immutable
@@ -23,4 +24,8 @@ data class SignUpState(
     val passwordConfirmationError: Boolean = false,
     val passwordConfirmationErrorText: String = "",
     val buttonEnabled: Boolean = true,
+    //otp
+    val otp: String = String.Empty,
+    val email: String = String.Empty,
+    //end otp
 )

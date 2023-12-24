@@ -51,9 +51,9 @@ fun ButtonPrimary(
         enabled = enabled,
         shape = RoundedCornerShape(12.dp),
         colors = ButtonDefaults.buttonColors(
-            backgroundColor = if (error) Error600 else Blue500,
+            backgroundColor = if (error) Error600 else Color(0xFF1041B7),
             contentColor = Color(0xFFFFFFFF),
-            disabledBackgroundColor = if (error) Error200 else Primary200,
+            disabledBackgroundColor = if (error) Error200 else Color(0xFFB5C4E9),
             disabledContentColor = Color(0xFFFFFFFF),
         ),
         elevation = ButtonDefaults.elevation(
