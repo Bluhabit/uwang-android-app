@@ -8,18 +8,17 @@
 package com.bluhabit.core.ui.components.sheet
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material.IconButton
 import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.Scaffold
@@ -32,8 +31,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
@@ -41,9 +38,8 @@ import androidx.compose.ui.unit.sp
 import com.bluehabit.core.ui.R
 import com.bluhabit.core.ui.components.button.ButtonPrimary
 import com.bluhabit.core.ui.ext.Empty
-import com.bluhabit.core.ui.theme.Gray100
-import com.bluhabit.core.ui.theme.Inter
-import com.bluhabit.core.ui.theme.Neutral100
+import com.bluhabit.core.ui.theme.CustomColor
+import com.bluhabit.core.ui.theme.CustomTypography
 import com.commandiron.wheel_picker_compose.WheelDatePicker
 import com.commandiron.wheel_picker_compose.core.WheelPickerDefaults
 import java.time.LocalDate
@@ -54,54 +50,55 @@ fun DatePickerBottomSheet(
     title: String = String.Empty,
     minDate: LocalDate = LocalDate.now(),
     onDone: () -> Unit = {},
+    onClose: () -> Unit = {},
     onChange: (date: LocalDate) -> Unit = {}
 ) {
     Column(
+        verticalArrangement = Arrangement.spacedBy(24.dp),
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 16.dp, horizontal = 24.dp)
+            .padding(20.dp)
             .background(
                 Color.White,
                 shape = RoundedCornerShape(
-                    topStart = 16.dp,
-                    topEnd = 16.dp
+                    topStart = 24.dp,
+                    topEnd = 24.dp
                 )
             )
     ) {
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterHorizontally),
-            verticalAlignment = Alignment.CenterVertically,
+        Column(
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            Icon(
-                painter = painterResource(id = R.drawable.ic_close),
-                contentDescription = "close"
-            )
+            Box(modifier = Modifier.fillMaxWidth()) {
+                IconButton(
+                    onClick = onClose,
+                    modifier = Modifier.align(Alignment.CenterEnd)
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_close),
+                        contentDescription = "close",
+                        tint = Color.Black,
+                    )
+                }
+            }
             Text(
                 text = title,
                 lineHeight = 28.sp,
-                fontWeight = FontWeight.W600,
-                color = Neutral100,
-                style = MaterialTheme.typography.subtitle1
+                color = CustomColor.Neutral.Grey9,
+                style = CustomTypography.Body.XL.W600,
+                modifier = Modifier.fillMaxWidth()
             )
         }
         WheelDatePicker(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 16.dp),
+                .fillMaxWidth(),
             minDate = minDate,
-            size = DpSize(350.dp, 200.dp),
+            size = DpSize(321.dp, 264.dp),
             rowCount = 5,
-            textStyle = TextStyle(
-                fontFamily = Inter,
-                fontWeight = FontWeight.Medium,
-                fontSize = 16.sp,
-                letterSpacing = 0.15.sp
-            ),
+            textStyle = CustomTypography.Body.Large.W600,
+            textColor = Color(0xFF212121),
             selectorProperties = WheelPickerDefaults.selectorProperties(
-                enabled = true,
-                shape = RoundedCornerShape(0.dp),
-                color = Gray100,
-                border = BorderStroke(0.dp, Gray100)
+                enabled = false,
             ),
             onSnappedDate = { snappedDate ->
                 onChange.invoke(snappedDate)
@@ -110,7 +107,7 @@ fun DatePickerBottomSheet(
         ButtonPrimary(
             modifier = Modifier
                 .fillMaxWidth(),
-            text = stringResource(id = R.string.btn_text_choose),
+            text = stringResource(id = R.string.btn_text_save),
             onClick = onDone
         )
     }
@@ -123,7 +120,7 @@ fun DatePickerBottomSheetPreview() {
     val modalSheetState = rememberModalBottomSheetState(
         initialValue = ModalBottomSheetValue.Hidden,
         confirmValueChange = { it != ModalBottomSheetValue.HalfExpanded },
-        skipHalfExpanded = false,
+        skipHalfExpanded = true,
 
         )
     val scope = rememberCoroutineScope()
@@ -131,11 +128,18 @@ fun DatePickerBottomSheetPreview() {
         sheetState = modalSheetState,
         sheetBackgroundColor = Color.White,
         sheetShape = RoundedCornerShape(
-            topStart = 16.dp,
-            topEnd = 16.dp
+            topStart = 24.dp,
+            topEnd = 24.dp
         ),
         sheetContent = {
-            DatePickerBottomSheet()
+            DatePickerBottomSheet(
+                title = "Title Here",
+                onClose = {
+                    scope.launch {
+                        modalSheetState.hide()
+                    }
+                }
+            )
         }
     ) {
         Scaffold(
