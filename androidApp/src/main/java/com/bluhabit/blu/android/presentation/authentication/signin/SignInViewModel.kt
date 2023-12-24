@@ -29,6 +29,9 @@ class SignInViewModel
            }
 
            is SignInAction.ButtonAction -> updateState { copy(buttonEnabled = action.enabled) }
+           is SignInAction.OtpNumberAction -> updateState { copy(
+               otpNumberState = action.value,
+           ) }
        }
     }
 }
