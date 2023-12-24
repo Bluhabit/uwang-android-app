@@ -120,10 +120,9 @@
     <string name="text_delete_image">Hapus Gambar</string>
     <!--   end bottom sheet edit profile component-->
 
-    <!--    bottom sheet date picker-->
-    <string name="text_start">Mulai</string>
-    <string name="btn_text_choose">Pilih</string>
-    <!--   end bottom sheet date picker-->
+    <!--    bottom sheet date picker component-->
+    <string name="btn_text_save">Save</string>
+    <!--   end bottom sheet date picker component-->
   
     <!--    search component-->
     <string name="text_placeholder_search_bar">Cari tugas atau proyek Anda</string>
