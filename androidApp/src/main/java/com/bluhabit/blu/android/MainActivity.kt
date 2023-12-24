@@ -42,11 +42,12 @@ class MainActivity : ComponentActivity() {
             ) {
                 NavHost(
                     navController = navHostController,
-                    startDestination = "sign_in_screen",
+                    startDestination = "onboard",
                 ) {
                     composable("onboard") {
                         val viewModel = hiltViewModel<OnboardViewModel>()
                         OnboardScreen(
+                            navHostController = navHostController,
                             stateFlow = viewModel.state,
                             effectFlow = viewModel.onEffect,
                             onAction = viewModel::onAction
@@ -58,9 +59,9 @@ class MainActivity : ComponentActivity() {
                             stateFlow = viewModel.state,
                             effectFlow = viewModel.onEffect,
                             onAction = viewModel::onAction
-                          )
+                        )
                     }
-                    composable("sign_in_screen") {
+                    composable("sign_in") {
                         val viewModel = hiltViewModel<SignInViewModel>()
                         SignInScreen(
                             stateFlow = viewModel.state,

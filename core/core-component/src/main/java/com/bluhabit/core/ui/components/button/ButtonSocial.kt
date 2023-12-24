@@ -62,7 +62,7 @@ fun ButtonSocial(
             .defaultMinSize(minHeight = 40.dp),
         onClick = onClick,
         enabled = enabled,
-        shape = RoundedCornerShape(12.dp),
+        shape = RoundedCornerShape(8.dp),
         border = BorderStroke(
             width = 0.8.dp,
             color = CustomColor.Primary.Blue500

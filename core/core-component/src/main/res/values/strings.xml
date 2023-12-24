@@ -124,7 +124,7 @@
     <string name="text_start">Mulai</string>
     <string name="btn_text_choose">Pilih</string>
     <!--   end bottom sheet date picker-->
-  
+
     <!--    search component-->
     <string name="text_placeholder_search_bar">Cari tugas atau proyek Anda</string>
     <!--    end search component-->
@@ -215,6 +215,10 @@
     <string name="text_description_ic_delete_input_subtask">Ikon menghapus subtask</string>
     <!-- nput subtask component -->
 
+    <!--  [NEW] onboard  -->
+    <string name="onboard_screen_sign_in_google_button_text">Masuk dengan Google</string>
+    <string name="onboard_screen_sign_in_email_button_text">Masuk dengan alamat Email</string>
+    <!--  end onboard  -->
 
     <!--  [NEW] sign in screen  -->
     <string name="sign_in_screen_welcome">Selamat datang</string>

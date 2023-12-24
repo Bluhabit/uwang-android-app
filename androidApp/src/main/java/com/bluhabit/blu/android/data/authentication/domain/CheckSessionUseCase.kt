@@ -8,12 +8,10 @@
 package com.bluhabit.blu.android.data.authentication.domain
 
 import com.bluhabit.blu.android.data.authentication.repositories.AuthRepository
-import com.bluhabit.blu.data.common.Response
 import javax.inject.Inject
 
-class SignInBasicUseCase @Inject constructor(
+class CheckSessionUseCase @Inject constructor(
     private val authRepository: AuthRepository
 ) {
-    suspend operator fun invoke(email: String): Response<String> =
-        authRepository.signInBasic(email)
+    operator fun invoke() = authRepository.isLoggedIn()
 }

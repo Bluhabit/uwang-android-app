@@ -17,7 +17,7 @@ import com.bluhabit.blu.android.data.authentication.datasource.remote.request.Ve
 import com.bluhabit.blu.android.data.authentication.datasource.remote.response.SignInBasicResponse
 import com.bluhabit.blu.data.common.Response
 import com.bluhabit.blu.data.common.safeApiCall
-import com.bluhabit.blu.data.datasource.remote.response.SignInGoogleResponse
+import com.bluhabit.blu.android.data.authentication.datasource.remote.response.SignInGoogleResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
@@ -29,7 +29,14 @@ class AuthRepository @Inject constructor(
 ) {
     companion object {
         const val KEY_SESSION_ID = "session_id"
+        const val KEY_IS_LOGGED_IN = "f435-bc0f2"
     }
+
+    //session
+    fun isLoggedIn(): Boolean {
+        return sharedPreferences.getBoolean(KEY_IS_LOGGED_IN, false)
+    }
+    //end session
 
     //sign in region
     suspend fun signInBasic(email: String): Response<String> {
