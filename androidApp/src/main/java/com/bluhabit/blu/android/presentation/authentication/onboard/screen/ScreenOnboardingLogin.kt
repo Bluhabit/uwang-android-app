@@ -5,7 +5,6 @@
  * Proprietary and confidential
  */
 
-package com.bluhabit.blu.android.presentation.authentication.signin
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
