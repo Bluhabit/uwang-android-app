@@ -44,6 +44,7 @@ fun TextFieldOtp(
     value: String = String.Empty,
     length: Int = 4,
     enabled: Boolean = true,
+    error: Boolean = false,
     onChange: (String) -> Unit = {},
     onDone: () -> Unit = {}
 ) {
@@ -71,7 +72,8 @@ fun TextFieldOtp(
                     CharView(
                         index = it,
                         text = value,
-                        enabled = enabled
+                        enabled = enabled,
+                        error = error,
                     )
                     Spacer(modifier = Modifier.width(16.dp))
                 }
@@ -85,7 +87,8 @@ fun TextFieldOtp(
 fun CharView(
     index: Int,
     text: String,
-    enabled: Boolean = true
+    enabled: Boolean = true,
+    error: Boolean = false,
 ) {
     Box(
         modifier = Modifier
@@ -95,6 +98,7 @@ fun CharView(
                 width = 1.dp,
                 color = when {
                     enabled -> CustomColor.Neutral.Grey13
+                    error -> CustomColor.Error.Red500
                     else -> CustomColor.Neutral.Grey7
                 },
                 shape = RoundedCornerShape(12.dp)
@@ -106,7 +110,11 @@ fun CharView(
                 .align(Alignment.TopCenter),
             text = if (index >= text.length) "0" else text[index].toString(),
             style = CustomTypography.Body.Large.W600,
-            color = if (index >= text.length || !enabled) CustomColor.Neutral.Grey7 else CustomColor.Neutral.Grey13,
+            color = when {
+                (index >= text.length || !enabled) -> CustomColor.Neutral.Grey7
+                error -> CustomColor.Error.Red500
+                else -> CustomColor.Neutral.Grey13
+            },
             textAlign = TextAlign.Center,
         )
     }
