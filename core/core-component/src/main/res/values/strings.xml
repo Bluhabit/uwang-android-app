@@ -259,6 +259,14 @@
     <string name="reset_password_screen_next">Selanjutnya</string>
     <!-- end forgot password screen  -->
 
+    <!--  [NEW] forgot password screen  -->
+    <string name="send_otp">Masukkan Kode OTP</string>
+    <string name="send_otp_p1">Silakan periksa kotak masuk dan spam pada email</string>
+    <string name="send_otp_p2">""</string>
+    <string name="send_otp_p3"> masukkan kode OTP untuk buat password baru</string>
+    <string name="send_otp_screen_next">Selanjutnya</string>
+    <!-- end forgot password screen  -->
+
 
     <!--  [NEW] input new password screen  -->
     <string name="input_password_screen_reset_password">Buat Password Baru</string>
