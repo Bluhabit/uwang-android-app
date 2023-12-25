@@ -13,6 +13,9 @@ import javax.annotation.concurrent.Immutable
 data class ForgotPasswordState(
     val emailState: String="",
     val emailError: Boolean = false,
-    val emailErrorText: String = "",
+    val emailErrorText:  String = "",
+    val passwordState: String = "",
+    val passwordVisibility: Boolean = false,
     val nextButtonEnabled: Boolean = true,
+    val passwordError: Boolean = false,
 )
