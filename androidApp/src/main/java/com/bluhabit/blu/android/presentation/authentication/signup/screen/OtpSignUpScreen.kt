@@ -55,12 +55,15 @@ fun OtpSignUpScreen(
     onAction: (SignUpAction) -> Unit
 ) {
     val focusManager = LocalFocusManager.current
-    var timeLeft by remember { mutableStateOf(2 * 60 * 1000L) }
+    var timeLeft by remember { mutableStateOf(1 * 60 * 1000L) }
 
     LaunchedEffect(key1 = timeLeft) {
         while (timeLeft > 0) {
             delay(1000)
             timeLeft -= 1000
+        }
+        if (timeLeft == 0L) {
+            onAction(SignUpAction.OnButtonEnabledChange(false))
         }
     }
 
@@ -128,7 +131,7 @@ fun OtpSignUpScreen(
                                     fontWeight = FontWeight.W400
                                 )
                             ) {
-                                append(state.email)
+                                append(state.emailState)
                             }
                         }
                     )

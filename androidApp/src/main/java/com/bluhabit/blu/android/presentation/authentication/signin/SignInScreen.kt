@@ -73,6 +73,9 @@ fun SignInScreen(
                 onForgotPassword = {
                     navHostController.navigate("forgot_password")
                 },
+                onTermAndCondition = {
+                    navHostController.navigate("term_and_condition")
+                },
                 action = onAction
             )
         }
@@ -81,7 +84,8 @@ fun SignInScreen(
             state = state,
             onBackPressed = {
                 onAction(SignInAction.OnScreenChange(0))
-            }
+            },
+            onAction = onAction
         )
     }
 

@@ -61,6 +61,9 @@ fun SignUpScreen(
             onBackPressed = {
                 goBack()
             },
+            onSignIn = {
+                navHostController.navigateUp()
+            },
             onAction = onAction
         )
 

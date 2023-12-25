@@ -33,6 +33,7 @@ import io.ktor.http.ContentType
 import io.ktor.http.contentType
 import io.ktor.serialization.gson.gson
 import java.util.Locale
+import okhttp3.logging.HttpLoggingInterceptor
 
 
 @Module
@@ -71,6 +72,8 @@ object DataModule {
         @ApplicationContext appContext: Context,
         sharedPref: SharedPref
     ): HttpClient {
+        val logging = HttpLoggingInterceptor()
+        logging.level = HttpLoggingInterceptor.Level.BODY
         val chucker = ChuckerInterceptor
             .Builder(appContext)
             .collector(
@@ -86,6 +89,7 @@ object DataModule {
             .build()
         val okHttpEngine = OkHttp.create {
             addInterceptor(chucker)
+            addInterceptor(logging)
         }
         return HttpClient(okHttpEngine) {
             expectSuccess = true

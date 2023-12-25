@@ -14,7 +14,7 @@ import javax.annotation.concurrent.Immutable
 data class SignUpState(
     //global
     // 0 == sing up 1 == otp
-    val currentScreen:Int=1,
+    val currentScreen:Int=0,
     //sign up
     val emailState: String = "",
     val emailError: Boolean = false,
@@ -27,10 +27,10 @@ data class SignUpState(
     val passwordConfirmationVisibility: Boolean = false,
     val passwordConfirmationError: Boolean = false,
     val passwordConfirmationErrorText: String = "",
+
     val buttonEnabled: Boolean = true,
     //otp
     val otpState: String = String.Empty,
     val otpError: Boolean = false,
-    val email: String = String.Empty,
     //end otp
 )

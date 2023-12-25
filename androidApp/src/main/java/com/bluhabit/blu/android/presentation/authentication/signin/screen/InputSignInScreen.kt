@@ -43,11 +43,12 @@ import com.bluhabit.core.ui.theme.CustomTypography
 
 @Composable
 fun InputSignInScreen(
-    state:SignInState=SignInState(),
-    onSignInGoogle:()->Unit,
-    onSignUp:()->Unit,
-    onForgotPassword:()->Unit,
-    action:(SignInAction)->Unit
+    state: SignInState = SignInState(),
+    onSignInGoogle: () -> Unit,
+    onSignUp: () -> Unit,
+    onForgotPassword: () -> Unit,
+    onTermAndCondition:()->Unit,
+    action: (SignInAction) -> Unit
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -103,6 +104,11 @@ fun InputSignInScreen(
                 },
                 error = state.emailError
             )
+            Text(
+                text = state.emailErrorText,
+                style = CustomTypography.Label.Small.W400,
+                color = CustomColor.Error.Red300
+            )
         }
         Column(
             verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -150,6 +156,12 @@ fun InputSignInScreen(
                 },
                 error = state.passwordError
             )
+            Text(
+                text = state.passwordErrorText,
+                style = CustomTypography.Label.Small.W400,
+                color = CustomColor.Error.Red300
+            )
+
         }
         Text(
             text = stringResource(id = R.string.sign_in_screen_forgot_password),
@@ -159,7 +171,7 @@ fun InputSignInScreen(
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)
                 .clickable {
-                   onForgotPassword()
+                    onForgotPassword()
                 }
         )
         ButtonPrimary(
@@ -237,7 +249,7 @@ fun InputSignInScreen(
                 color = CustomColor.Primary.Blue500,
                 modifier = Modifier
                     .clickable {
-                        //On terms and condition clicked
+                        onTermAndCondition()
                     }
             )
         }

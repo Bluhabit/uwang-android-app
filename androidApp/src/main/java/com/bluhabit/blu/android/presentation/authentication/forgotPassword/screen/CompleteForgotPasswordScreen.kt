@@ -5,7 +5,7 @@
  * Proprietary and confidential
  */
 
-package com.bluhabit.blu.android.presentation.authentication.resetPassword.screen
+package com.bluhabit.blu.android.presentation.authentication.forgotPassword.screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -35,11 +35,10 @@ import com.bluhabit.core.ui.components.button.ButtonPrimary
 import com.bluhabit.core.ui.theme.UwangTheme
 
 @Composable
-fun ScreenCompleteForgotPassword(
+fun CompleteForgotPasswordScreen(
     modifier: Modifier = Modifier,
     onConfirm: () -> Unit = {}
 ) {
-    val ctx = LocalContext.current
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -96,6 +95,6 @@ fun ScreenCompleteForgotPassword(
 @Composable
 fun PreviewCompleteResetPasswordScreen() {
     UwangTheme {
-        ScreenCompleteForgotPassword()
+        CompleteForgotPasswordScreen()
     }
 }

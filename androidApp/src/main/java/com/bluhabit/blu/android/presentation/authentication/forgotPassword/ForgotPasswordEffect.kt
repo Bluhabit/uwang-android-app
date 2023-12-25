@@ -5,7 +5,7 @@
  * Proprietary and confidential
  */
 
-package com.bluhabit.blu.android.presentation.authentication.resetPassword
+package com.bluhabit.blu.android.presentation.authentication.forgotPassword
 
 sealed interface ForgotPasswordEffect {
     object None:ForgotPasswordEffect

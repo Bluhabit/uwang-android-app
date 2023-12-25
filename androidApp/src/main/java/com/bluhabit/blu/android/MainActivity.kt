@@ -14,10 +14,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.bluhabit.blu.android.presentation.authentication.forgotPassword.ForgotPasswordScreen
 import com.bluhabit.blu.android.presentation.authentication.onboard.OnboardScreen
 import com.bluhabit.blu.android.presentation.authentication.onboard.OnboardViewModel
-import com.bluhabit.blu.android.presentation.authentication.resetPassword.ForgotPasswordViewModel
-import com.bluhabit.blu.android.presentation.authentication.resetPassword.screen.ForgotPasswordScreen
+import com.bluhabit.blu.android.presentation.authentication.forgotPassword.ForgotPasswordViewModel
+import com.bluhabit.blu.android.presentation.authentication.forgotPassword.screen.InputForgotPasswordScreen
 import com.bluhabit.blu.android.presentation.authentication.signin.SignInScreen
 import com.bluhabit.blu.android.presentation.authentication.signin.SignInViewModel
 import com.bluhabit.blu.android.presentation.authentication.signup.SignUpScreen
@@ -80,10 +81,10 @@ class MainActivity : ComponentActivity() {
                             onAction = viewModel::onAction,
                         )
                     }
-                    composable("reset_password") {
+                    composable("forgot_password") {
                         val viewModel = hiltViewModel<ForgotPasswordViewModel>()
                         ForgotPasswordScreen(
-                            navHostController=navHostController,
+                            navHostController = navHostController,
                             stateFlow = viewModel.state,
                             effectFlow = viewModel.onEffect,
                             onAction = viewModel::onAction

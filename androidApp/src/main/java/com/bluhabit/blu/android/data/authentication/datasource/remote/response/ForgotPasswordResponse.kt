@@ -11,9 +11,9 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class SignInBasicResponse(
+data class ForgotPasswordResponse(
     @SerializedName("token")
     val token: String,
-    @SerializedName("user")
+    @SerializedName("credential")
     val credential: UserCredentialResponse
 )

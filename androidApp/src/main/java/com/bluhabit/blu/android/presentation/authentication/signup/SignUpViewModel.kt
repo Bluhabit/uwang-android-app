@@ -37,37 +37,76 @@ class SignUpViewModel @Inject constructor(
             is SignUpAction.OnScreenChange -> updateState { copy(currentScreen = action.screen) }
             SignUpAction.SignUpBasic -> signUpBasic()
             SignUpAction.VerifyOtpUpBasic -> verifyOtp()
+            is SignUpAction.OnButtonEnabledChange -> updateState { copy(buttonEnabled = false) }
         }
     }
 
     private fun onEmailChange(email: String) = viewModelScope.launch {
         val isEmailValid = Patterns.EMAIL_ADDRESS.matcher(email).matches()
-        updateState { copy(emailState = email, emailError = !isEmailValid) }
+        val isPasswordValid = state.value.passwordState.isNotEmpty()
+        val isConfirmPasswordValid = state.value.passwordConfirmationState.isNotEmpty()
+        updateState {
+            copy(
+                emailState = email,
+                emailError = !isEmailValid,
+                emailErrorText = if (isEmailValid) "" else "Format email tidak valid",
+                buttonEnabled = isPasswordValid && isConfirmPasswordValid && isEmailValid
+            )
+        }
     }
 
     private fun onPasswordChange(password: String) = viewModelScope.launch {
-        updateState { copy(passwordState = email, passwordError = password.isEmpty()) }
+        val isEmailValid = Patterns.EMAIL_ADDRESS.matcher(state.value.emailState).matches()
+        val isPasswordValid = password.isNotEmpty() && password.length >= 8
+        val isConfirmPasswordValid = state.value.passwordConfirmationState.isNotEmpty()
+        updateState {
+            copy(
+                passwordState = password,
+                passwordError = !isPasswordValid,
+                passwordErrorText = if (isPasswordValid) "" else "Password harus minimal 8 karakter",
+                buttonEnabled = isPasswordValid && isConfirmPasswordValid && isEmailValid
+            )
+        }
     }
 
     private fun onPasswordConfirmationChange(password: String) = viewModelScope.launch {
-        updateState { copy(passwordConfirmationState = password, passwordConfirmationError = password.isEmpty()) }
+        val isEmailValid = Patterns.EMAIL_ADDRESS.matcher(state.value.emailState).matches()
+        val isPasswordValid = state.value.passwordState.isNotEmpty()
+        val isConfirmPasswordValid = password == state.value.passwordState
+        updateState {
+            copy(
+                passwordConfirmationState = password,
+                passwordConfirmationError = !isConfirmPasswordValid,
+                passwordConfirmationErrorText = if (isConfirmPasswordValid) "" else "Password tidak sesuai",
+                buttonEnabled = isPasswordValid && isConfirmPasswordValid && isEmailValid
+            )
+        }
     }
 
-    private fun onOtpChange(password: String) = viewModelScope.launch {
-        updateState { copy(passwordConfirmationState = password, passwordConfirmationError = password.isEmpty()) }
+    private fun onOtpChange(otp: String) = viewModelScope.launch {
+        val isOtpValid = otp.isNotEmpty() && otp.length >= 4
+        updateState { copy(otpState = otp, otpError = isOtpValid) }
     }
 
     private fun signUpBasic() = viewModelScope.launch {
         executeAsFlow { signUpBasicUseCase(email = state.value.emailState, password = state.value.passwordState) }
             .onStart {}
             .onEach {
-            when (it) {
-                is Response.Error -> Unit
-                is Response.Result -> {
-                    updateState { copy(currentScreen = 1) }
+                when (it) {
+                    is Response.Error -> Unit
+                    is Response.Result -> {
+                        updateState {
+                            copy(
+                                currentScreen = 1,
+                                emailState = "",
+                                passwordState = "",
+                                passwordConfirmationState = "",
+                                buttonEnabled = false
+                            )
+                        }
+                    }
                 }
-            }
-        }.collect()
+            }.collect()
     }
 
     private fun verifyOtp() = viewModelScope.launch {

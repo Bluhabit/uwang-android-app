@@ -5,7 +5,7 @@
  * Proprietary and confidential
  */
 
-package com.bluhabit.blu.android.presentation.authentication.resetPassword.screen
+package com.bluhabit.blu.android.presentation.authentication.forgotPassword.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -26,23 +26,20 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.bluhabit.blu.android.R
-import com.bluhabit.blu.android.presentation.authentication.resetPassword.ForgotPasswordAction
-import com.bluhabit.blu.android.presentation.authentication.resetPassword.ForgotPasswordEffect
-import com.bluhabit.blu.android.presentation.authentication.resetPassword.ForgotPasswordState
+import com.bluehabit.core.ui.R
+import com.bluhabit.blu.android.presentation.authentication.forgotPassword.ForgotPasswordAction
+import com.bluhabit.blu.android.presentation.authentication.forgotPassword.ForgotPasswordState
 import com.bluhabit.core.ui.components.button.ButtonPrimary
+import com.bluhabit.core.ui.components.textfield.TextFieldPrimary
 import com.bluhabit.core.ui.theme.CustomColor
 import com.bluhabit.core.ui.theme.CustomTypography
 import com.bluhabit.core.ui.theme.UwangTheme
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
 
 
 @Composable
 fun InputNewPasswordScreen(
-    forgotPasswordState: ForgotPasswordState = ForgotPasswordState(),
-    stateFlow: Flow<ForgotPasswordState> = flowOf(),
-    effectFlow: Flow<ForgotPasswordEffect> = flowOf(),
+    state: ForgotPasswordState = ForgotPasswordState(),
+    onBackPressed: () -> Unit,
     onAction: (ForgotPasswordAction) -> Unit = {},
 ) {
     Column(
@@ -54,7 +51,7 @@ fun InputNewPasswordScreen(
     ) {
         IconButton(
             onClick = {
-                // TODO
+                onBackPressed()
             }) {
             Icon(
                 painter = painterResource(id = com.bluehabit.core.ui.R.drawable.ic_arrow_back),
@@ -81,10 +78,24 @@ fun InputNewPasswordScreen(
                 style = CustomTypography.Body.Small.W400,
                 color = CustomColor.Neutral.Grey9
             )
-            InputNewPasswordScreen()
-            if (forgotPasswordState.emailError) {
+            TextFieldPrimary(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                label = {
+                    Text(
+                        text = stringResource(id = R.string.reset_password_screen_email_text_field_label),
+                        style = CustomTypography.Body.XS.W500
+                    )
+                },
+                value = state.emailState,
+                onValueChange = {
+                    onAction(ForgotPasswordAction.OnEmailChange(value = it))
+                },
+                error = state.emailError
+            )
+            if (state.emailError) {
                 Text(
-                    text = forgotPasswordState.emailErrorText,
+                    text = state.emailErrorText,
                     style = CustomTypography.Label.Small.W400,
                     color = CustomColor.Error.Red300
                 )
@@ -94,10 +105,24 @@ fun InputNewPasswordScreen(
                 style = CustomTypography.Body.Small.W400,
                 color = CustomColor.Neutral.Grey9
             )
-            InputNewPasswordScreen()
-            if (forgotPasswordState.emailError) {
+            TextFieldPrimary(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                label = {
+                    Text(
+                        text = stringResource(id = R.string.reset_password_screen_email_text_field_label),
+                        style = CustomTypography.Body.XS.W500
+                    )
+                },
+                value = state.emailState,
+                onValueChange = {
+                    onAction(ForgotPasswordAction.OnEmailChange(value = it))
+                },
+                error = state.emailError
+            )
+            if (state.emailError) {
                 Text(
-                    text = forgotPasswordState.emailErrorText,
+                    text = state.emailErrorText,
                     style = CustomTypography.Label.Small.W400,
                     color = CustomColor.Error.Red300
                 )
@@ -110,7 +135,7 @@ fun InputNewPasswordScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 16.dp, end = 16.dp, bottom = 42.dp),
-            enabled = forgotPasswordState.nextButtonEnabled
+            enabled = state.nextButtonEnabled
         ) {
             // Next
         }
@@ -121,6 +146,8 @@ fun InputNewPasswordScreen(
 @Composable
 fun InputNewPasswordScreenPreview() {
     UwangTheme {
-        InputNewPasswordScreen()
+        InputNewPasswordScreen(
+            onBackPressed = {}
+        )
     }
 }

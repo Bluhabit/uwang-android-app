@@ -37,7 +37,11 @@ sealed interface SignInAction {
     ) : SignInAction
 
     // Otp Sign In Screen
-    data class OtpNumberAction(
+
+    data class OnButtonEnabledChange(
+        val enabled:Boolean=false
+    ):SignInAction
+    data class OnOtpChange(
         val value: String = ""
     ) : SignInAction
 }

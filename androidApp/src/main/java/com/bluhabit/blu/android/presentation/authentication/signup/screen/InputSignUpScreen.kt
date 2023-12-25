@@ -29,6 +29,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -47,6 +48,7 @@ fun InputSignUpScreen(
     state: SignUpState = SignUpState(),
     onTermAndCondition: () -> Unit,
     onBackPressed: () -> Unit,
+    onSignIn: () -> Unit,
     onAction: (SignUpAction) -> Unit
 ) {
 
@@ -104,13 +106,12 @@ fun InputSignUpScreen(
                 },
                 error = state.emailError
             )
-            if (state.emailError) {
-                Text(
-                    text = state.emailErrorText,
-                    style = CustomTypography.Label.Small.W400,
-                    color = CustomColor.Error.Red300
-                )
-            }
+            Text(
+                text = state.emailErrorText,
+                style = CustomTypography.Label.Small.W400,
+                color = CustomColor.Error.Red300
+            )
+
         }
         Column(
             verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -147,20 +148,18 @@ fun InputSignUpScreen(
                         )
                     }
                 },
-                visualTransformation = PasswordVisualTransformation(),
+                visualTransformation = if(state.passwordVisibility) VisualTransformation.None else PasswordVisualTransformation(),
                 value = state.passwordState,
                 onValueChange = {
                     onAction(SignUpAction.OnPasswordChange(value = it))
                 },
                 error = state.passwordError
             )
-            if (state.passwordError) {
-                Text(
-                    text = state.passwordErrorText,
-                    style = CustomTypography.Label.Small.W400,
-                    color = CustomColor.Error.Red300
-                )
-            }
+            Text(
+                text = state.passwordErrorText,
+                style = CustomTypography.Label.Small.W400,
+                color = CustomColor.Error.Red300
+            )
         }
         Column(
             verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -197,20 +196,19 @@ fun InputSignUpScreen(
                         )
                     }
                 },
-                visualTransformation = PasswordVisualTransformation(),
+                visualTransformation = if(state.passwordConfirmationVisibility) VisualTransformation.None else PasswordVisualTransformation(),
                 value = state.passwordConfirmationState,
                 onValueChange = {
-                    onAction(SignUpAction.OnPasswordChange(value = it))
+                    onAction(SignUpAction.OnPasswordConfirmationChange(value = it))
                 },
                 error = state.passwordConfirmationError
             )
-            if (state.passwordConfirmationError) {
-                Text(
-                    text = state.passwordConfirmationErrorText,
-                    style = CustomTypography.Label.Small.W400,
-                    color = CustomColor.Error.Red300
-                )
-            }
+            Text(
+                text = state.passwordConfirmationErrorText,
+                style = CustomTypography.Label.Small.W400,
+                color = CustomColor.Error.Red300
+            )
+
         }
         Spacer(modifier = Modifier.padding(bottom = 16.dp))
         ButtonPrimary(
@@ -220,7 +218,7 @@ fun InputSignUpScreen(
                 .padding(horizontal = 16.dp),
             enabled = state.buttonEnabled
         ) {
-            // Sign up
+            onAction(SignUpAction.SignUpBasic)
         }
         Row(
             modifier = Modifier
@@ -265,7 +263,7 @@ fun InputSignUpScreen(
                 color = CustomColor.Primary.Blue500,
                 modifier = Modifier
                     .clickable {
-                        //On login clicked
+                        onSignIn()
                     }
             )
         }
@@ -299,7 +297,8 @@ fun TermAndConditionScreenPreview() {
         InputSignUpScreen(
             onAction = {},
             onBackPressed = {},
-            onTermAndCondition = {}
+            onTermAndCondition = {},
+            onSignIn = {}
         )
     }
 }

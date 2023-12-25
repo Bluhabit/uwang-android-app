@@ -39,27 +39,41 @@ class SignInViewModel @Inject constructor(
             is SignInAction.OnPasswordChange -> onPasswordChange(action.value)
             is SignInAction.OnSignInBasic -> signInBasic()
             is SignInAction.OnSignInGoogle -> signInGoogle(action.authResult)
-            is SignInAction.OtpNumberAction -> updateState { copy(otpNumberState = action.value) }
-
+            is SignInAction.OnOtpChange -> {
+                updateState { copy(otpNumberState = action.value) }
+            }
             is SignInAction.OnPasswordVisibilityChange -> updateState {
                 copy(passwordVisibility = action.visibility)
             }
 
             SignInAction.OnVerifyOtp -> verifyOtp()
             is SignInAction.OnScreenChange -> updateState { copy(currentScreen = action.screen) }
+            is SignInAction.OnButtonEnabledChange -> updateState { copy(buttonEnabled = action.enabled) }
         }
     }
 
     private fun onPasswordChange(password: String) {
-        updateState { copy(passwordState = password, passwordError = password.isEmpty()) }
+        val emailValid = Patterns.EMAIL_ADDRESS.matcher(state.value.emailState).matches()
+        val isPasswordValid = password.isNotEmpty()
+        updateState {
+            copy(
+                passwordState = password,
+                passwordError = !isPasswordValid,
+                passwordErrorText = if (isPasswordValid) "" else "Email/username atau password tidak valid",
+                buttonEnabled = isPasswordValid && emailValid
+            )
+        }
     }
 
     private fun onEmailChange(email: String) {
         val emailValid = Patterns.EMAIL_ADDRESS.matcher(email).matches()
+        val isPasswordValid = state.value.passwordState.isNotEmpty()
         updateState {
             copy(
                 emailState = email,
-                emailError = !emailValid
+                emailError = !emailValid,
+                emailErrorText = if (emailValid) "" else "Email/username atau password tidak valid",
+                buttonEnabled = emailValid && isPasswordValid
             )
         }
     }
@@ -77,7 +91,13 @@ class SignInViewModel @Inject constructor(
                     is Response.Error -> Unit
                     is Response.Result -> {
                         //go to otp
-                        updateState { copy(currentScreen = 1) }
+                        updateState {
+                            copy(
+                                currentScreen = 1,
+                                emailState = "",
+                                passwordState = ""
+                            )
+                        }
                     }
                 }
             }

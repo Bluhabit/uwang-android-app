@@ -35,6 +35,10 @@ sealed interface SignUpAction {
     data class OnOtpChange(
         val otp: String="",
     ) : SignUpAction
+
+    data class OnButtonEnabledChange(
+        val enabled: Boolean=false,
+    ) : SignUpAction
     object SignUpBasic : SignUpAction
     object VerifyOtpUpBasic : SignUpAction
 }

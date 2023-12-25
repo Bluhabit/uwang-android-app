@@ -9,11 +9,15 @@ package com.bluhabit.blu.android.data.authentication.repositories
 
 import android.content.SharedPreferences
 import androidx.core.content.edit
+import com.bluhabit.blu.android.data.authentication.datasource.remote.request.ForgotPasswordRequest
+import com.bluhabit.blu.android.data.authentication.datasource.remote.request.SetForgotPasswordRequest
 import com.bluhabit.blu.android.data.authentication.datasource.remote.request.SignInBasicRequest
 import com.bluhabit.blu.android.data.authentication.datasource.remote.request.SignInGoogleRequest
 import com.bluhabit.blu.android.data.authentication.datasource.remote.request.SignUpBasicRequest
+import com.bluhabit.blu.android.data.authentication.datasource.remote.request.VerifyOtpForgotPasswordRequest
 import com.bluhabit.blu.android.data.authentication.datasource.remote.request.VerifyOtpSignInRequest
 import com.bluhabit.blu.android.data.authentication.datasource.remote.request.VerifyOtpSignUpRequest
+import com.bluhabit.blu.android.data.authentication.datasource.remote.response.ForgotPasswordResponse
 import com.bluhabit.blu.android.data.authentication.datasource.remote.response.SignInBasicResponse
 import com.bluhabit.blu.android.data.authentication.datasource.remote.response.SignInGoogleResponse
 import com.bluhabit.blu.android.data.authentication.datasource.remote.response.SignUpBasicResponse
@@ -41,10 +45,10 @@ class AuthRepository @Inject constructor(
     //end session
 
     //sign in region
-    suspend fun signInBasic(email: String,password: String): Response<String> {
+    suspend fun signInBasic(email: String, password: String): Response<String> {
         return when (val result = safeApiCall<String> {
             httpClient.post("/api/auth/sign-in-basic") {
-                setBody(SignInBasicRequest(email = email,password=password))
+                setBody(SignInBasicRequest(email = email, password = password))
             }
         }) {
             is Response.Error -> result
@@ -64,12 +68,12 @@ class AuthRepository @Inject constructor(
         otp: String
     ): Response<SignInBasicResponse> {
         val sessionId = sharedPreferences.getString(KEY_SESSION_ID, null)
-            ?: Response.Error("Sesi tidak ditemukan sudah habis", 401)
+            ?: return Response.Error("Sesi tidak ditemukan sudah habis", 401)
         return when (val result = safeApiCall<SignInBasicResponse> {
             httpClient.post("/api/auth/sign-in-basic/verify-otp") {
                 setBody(
                     VerifyOtpSignInRequest(
-                        sessionId = sessionId.toString(),
+                        sessionId = sessionId,
                         otp = otp
                     )
                 )
@@ -115,7 +119,7 @@ class AuthRepository @Inject constructor(
         password: String
     ): Response<String> {
         return when (val result = safeApiCall<String> {
-            httpClient.post("/auth/sign-up-basic") {
+            httpClient.post("/api/auth/sign-up-basic") {
                 setBody(
                     SignUpBasicRequest(
                         email = email,
@@ -139,13 +143,13 @@ class AuthRepository @Inject constructor(
 
     suspend fun verifyOtpSignUpBasic(otp: String): Response<SignUpBasicResponse> {
         val sessionId = sharedPreferences.getString(KEY_SESSION_ID, null)
-            ?: Response.Error("Sesi tidak ditemukan sudah habis", 401)
+            ?: return Response.Error("Sesi tidak ditemukan sudah habis", 401)
 
         return when (val result = safeApiCall<SignUpBasicResponse> {
-            httpClient.post("/auth/sign-up-basic/verify-otp") {
+            httpClient.post("/api/auth/sign-up-basic/verify-otp") {
                 setBody(
                     VerifyOtpSignUpRequest(
-                        sessionId = sessionId.toString(),
+                        sessionId = sessionId,
                         otp = otp
                     )
                 )
@@ -161,7 +165,81 @@ class AuthRepository @Inject constructor(
             }
         }
     }
+
     //end sign up
-    //
+    //forgot password
+    suspend fun forgotPassword(email: String): Response<String> {
+        return when (val result = safeApiCall<String> {
+            httpClient.post("/api/auth/forgot-password") {
+                setBody(ForgotPasswordRequest(email = email))
+            }
+        }) {
+            is Response.Error -> result
+            is Response.Result -> {
+                if (result.data.isNotEmpty()) {
+                    sharedPreferences.edit {
+                        putString(KEY_SESSION_ID, result.data)
+                        apply()
+                    }
+                }
+                result
+            }
+        }
+    }
+
+    suspend fun verifyOtpForgotPassword(
+        otp: String
+    ): Response<ForgotPasswordResponse> {
+        val sessionId = sharedPreferences.getString(KEY_SESSION_ID, null)
+            ?: return Response.Error("Sesi tidak ditemukan sudah habis", 401)
+
+        return when (val result = safeApiCall<ForgotPasswordResponse> {
+            httpClient.post("/api/forgot-password/verify-otp") {
+                setBody(
+                    VerifyOtpForgotPasswordRequest(
+                        sessionId = sessionId,
+                        otp = otp
+                    )
+                )
+            }
+        }){
+            is Response.Error -> result
+            is Response.Result -> {
+                sharedPreferences.edit {
+                    putString(KEY_TOKEN, result.data.token)
+                    apply()
+                }
+                result
+            }
+        }
+    }
+
+    suspend fun setForgotPassword(
+        newPassword:String
+    ): Response<String>{
+        val sessionId = sharedPreferences.getString(KEY_SESSION_ID, null)
+            ?: return Response.Error("Sesi tidak ditemukan sudah habis", 401)
+
+        return when(val result = safeApiCall<String> {
+            httpClient.post("/api/auth/forgot-password/set-password"){
+                setBody(SetForgotPasswordRequest(
+                    password = newPassword,
+                    sessionId = sessionId
+                ))
+            }
+        }){
+            is Response.Error -> result
+            is Response.Result -> {
+                sharedPreferences.edit {
+                    remove(KEY_SESSION_ID)
+                    remove(KEY_TOKEN)
+                    remove(KEY_IS_LOGGED_IN)
+                    apply()
+                }
+                result
+            }
+        }
+    }
+    //end password
 
 }

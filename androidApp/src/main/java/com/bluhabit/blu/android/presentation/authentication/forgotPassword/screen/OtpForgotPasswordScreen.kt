@@ -5,13 +5,13 @@
  * Proprietary and confidential
  */
 
-package com.bluhabit.blu.android.presentation.authentication.signin.screen
+package com.bluhabit.blu.android.presentation.authentication.forgotPassword.screen
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -22,11 +22,6 @@ import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -36,35 +31,21 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluehabit.core.ui.R
-import com.bluhabit.blu.android.presentation.authentication.signin.SignInAction
-import com.bluhabit.blu.android.presentation.authentication.signin.SignInState
-import com.bluhabit.core.ui.components.alert.CountdownText
+import com.bluhabit.blu.android.presentation.authentication.forgotPassword.ForgotPasswordAction
+import com.bluhabit.blu.android.presentation.authentication.forgotPassword.ForgotPasswordState
 import com.bluhabit.core.ui.components.button.ButtonPrimary
 import com.bluhabit.core.ui.components.textfield.TextFieldOtp
 import com.bluhabit.core.ui.theme.CustomColor
 import com.bluhabit.core.ui.theme.CustomTypography
 import com.bluhabit.core.ui.theme.UwangTheme
-import kotlinx.coroutines.delay
 
 @Composable
-fun OtpSignInScreen(
-    state: SignInState = SignInState(),
+fun OtpForgotPasswordScreen(
+    state: ForgotPasswordState = ForgotPasswordState(),
     onBackPressed: () -> Unit,
-    onAction: (SignInAction) -> Unit = {},
+    onAction: (ForgotPasswordAction) -> Unit = {},
 ) {
-
     val focusManager = LocalFocusManager.current
-    var timeLeft by remember { mutableStateOf(1 * 60 * 1000L) }
-
-    LaunchedEffect(key1 = timeLeft) {
-        while (timeLeft > 0) {
-            delay(1000)
-            timeLeft -= 1000
-        }
-        if (timeLeft == 0L) {
-            onAction(SignInAction.OnButtonEnabledChange(false))
-        }
-    }
 
     Column(
         verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -101,7 +82,24 @@ fun OtpSignInScreen(
                 color = CustomColor.Neutral.Grey9
             )
         }
-        CountdownText(timeLeft)
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 4.dp, bottom = 7.dp)
+        ) {
+            Text(
+                text = stringResource(id = R.string.otp_sign_in_screen_reset_confirmation_time),
+                style = CustomTypography.Body.XS.W500,
+                color = CustomColor.Neutral.Grey13
+            )
+            Text(
+                text = "00.57",
+                style = CustomTypography.Body.XS.W500,
+                color = CustomColor.Error.Red500
+            )
+        }
         Box(
             modifier = Modifier.fillMaxWidth(),
         ) {
@@ -109,13 +107,13 @@ fun OtpSignInScreen(
                 modifier = Modifier.align(Alignment.Center),
                 enabled = true,
                 length = 4,
-                value = state.otpNumberState,
-                error = state.otpNumberError,
+                value = state.otpState,
+                error = state.otpError,
                 onDone = {
                     focusManager.clearFocus(true)
                 },
                 onChange = { value ->
-                    onAction(SignInAction.OnOtpChange(value = value))
+                    onAction(ForgotPasswordAction.OnOtpChange(value = value))
                 }
             )
         }
@@ -127,7 +125,7 @@ fun OtpSignInScreen(
                 .padding(start = 16.dp, end = 16.dp, bottom = 42.dp),
             enabled = state.otpButtonEnabled
         ) {
-            onAction(SignInAction.OnVerifyOtp)
+            onAction(ForgotPasswordAction.VerifyOtp)
         }
     }
 }
@@ -136,7 +134,7 @@ fun OtpSignInScreen(
 @Composable
 fun OtpSignInScreenPreview() {
     UwangTheme {
-        OtpSignInScreen(
+        OtpForgotPasswordScreen(
             onBackPressed = {}
         )
     }

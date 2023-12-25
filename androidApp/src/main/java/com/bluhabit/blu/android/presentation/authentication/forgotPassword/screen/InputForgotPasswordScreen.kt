@@ -5,7 +5,7 @@
  * Proprietary and confidential
  */
 
-package com.bluhabit.blu.android.presentation.authentication.resetPassword.screen
+package com.bluhabit.blu.android.presentation.authentication.forgotPassword.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -21,37 +21,27 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.bluehabit.core.ui.R
-import com.bluhabit.blu.android.presentation.authentication.resetPassword.ForgotPasswordAction
-import com.bluhabit.blu.android.presentation.authentication.resetPassword.ForgotPasswordEffect
-import com.bluhabit.blu.android.presentation.authentication.resetPassword.ForgotPasswordState
+import com.bluhabit.blu.android.presentation.authentication.forgotPassword.ForgotPasswordAction
+import com.bluhabit.blu.android.presentation.authentication.forgotPassword.ForgotPasswordState
 import com.bluhabit.core.ui.components.button.ButtonPrimary
 import com.bluhabit.core.ui.components.textfield.TextFieldPrimary
 import com.bluhabit.core.ui.theme.CustomColor
 import com.bluhabit.core.ui.theme.CustomTypography
 import com.bluhabit.core.ui.theme.UwangTheme
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
 
 @Composable
-fun ForgotPasswordScreen(
-    navHostController: NavHostController = rememberNavController(),
-    stateFlow: Flow<ForgotPasswordState> = flowOf(),
-    effectFlow: Flow<ForgotPasswordEffect> = flowOf(),
+fun InputForgotPasswordScreen(
+    state: ForgotPasswordState = ForgotPasswordState(),
+    onBackPressed: () -> Unit,
     onAction: (ForgotPasswordAction) -> Unit = {},
 ) {
-    val state by stateFlow.collectAsStateWithLifecycle(initialValue = ForgotPasswordState())
-    val effect by effectFlow.collectAsState(initial = ForgotPasswordEffect.None)
+
     Column(
         verticalArrangement = Arrangement.spacedBy(16.dp),
         modifier = Modifier
@@ -61,7 +51,7 @@ fun ForgotPasswordScreen(
     ) {
         IconButton(
             onClick = {
-                // TODO
+                onBackPressed()
             }) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_arrow_back),
@@ -106,7 +96,7 @@ fun ForgotPasswordScreen(
                 },
                 value = state.emailState,
                 onValueChange = {
-                    onAction(ForgotPasswordAction.EmailAction(value = it))
+                    onAction(ForgotPasswordAction.OnEmailChange(value = it))
                 },
                 error = state.emailError
             )
@@ -126,7 +116,7 @@ fun ForgotPasswordScreen(
                 .padding(start = 16.dp, end = 16.dp, bottom = 42.dp),
             enabled = state.nextButtonEnabled
         ) {
-            // Next
+            onAction(ForgotPasswordAction.ForgotPassword)
         }
     }
 }
@@ -135,6 +125,8 @@ fun ForgotPasswordScreen(
 @Composable
 fun ForgotPasswordScreenPreview() {
     UwangTheme {
-        ForgotPasswordScreen()
+        InputForgotPasswordScreen(
+            onBackPressed = {}
+        )
     }
 }
