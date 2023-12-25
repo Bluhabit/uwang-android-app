@@ -259,6 +259,13 @@
     <string name="reset_password_screen_next">Selanjutnya</string>
     <!-- end forgot password screen  -->
 
+    <!--  [NEW] edit profile screen  -->
+    <string name="edit_profile_screen">Yuk, satu langkah lagi</string>
+    <string name="edit_profile_screen_hint">Tambahkan foto profil dan username diaplikasi Uwang.</string>
+    <string name="edit_profile_screen_placeholder">Username</string>
+    <string name="edit_profile_screen_field_label">Contoh : Jenny</string>
+    <string name="edit_profile_screen_next">Simpan</string>
+    <!--  [NEW] edit profile screen  -->
 
     <!--  [NEW] input new password screen  -->
     <string name="input_password_screen_reset_password">Buat Password Baru</string>
@@ -275,5 +282,4 @@
     <string name="otp_sign_in_screen_reset_confirmation_time">Waktu konfirmasi\u0020</string>
     <string name="otp_sign_in_screen_reset_next_button_text">Selanjutnya</string>
     <!-- end forgot password screen  -->
-
 </resources>
