@@ -86,7 +86,6 @@ class SignInViewModel @Inject constructor(
 
     private fun verifyOtp() = viewModelScope.launch {
         val otp = state.value.otpNumberState
-
         executeAsFlow { verifyOtpSignInBasicUseCase(otp) }
             .onStart { }
             .onEach {

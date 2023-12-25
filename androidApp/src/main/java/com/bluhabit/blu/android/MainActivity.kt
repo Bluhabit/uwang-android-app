@@ -44,7 +44,7 @@ class MainActivity : ComponentActivity() {
             ) {
                 NavHost(
                     navController = navHostController,
-                    startDestination = "sign_up",
+                    startDestination = "onboard",
                 ) {
                     composable("onboard") {
                         val viewModel = hiltViewModel<OnboardViewModel>()

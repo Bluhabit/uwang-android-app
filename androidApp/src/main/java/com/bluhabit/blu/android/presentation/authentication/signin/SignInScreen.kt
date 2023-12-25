@@ -70,6 +70,9 @@ fun SignInScreen(
                 onSignUp = {
                     navHostController.navigate("sign_up")
                 },
+                onForgotPassword = {
+                    navHostController.navigate("forgot_password")
+                },
                 action = onAction
             )
         }

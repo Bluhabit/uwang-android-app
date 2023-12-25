@@ -46,6 +46,7 @@ fun InputSignInScreen(
     state:SignInState=SignInState(),
     onSignInGoogle:()->Unit,
     onSignUp:()->Unit,
+    onForgotPassword:()->Unit,
     action:(SignInAction)->Unit
 ) {
     Column(
@@ -158,7 +159,7 @@ fun InputSignInScreen(
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)
                 .clickable {
-                   onSignUp()
+                   onForgotPassword()
                 }
         )
         ButtonPrimary(
@@ -216,7 +217,7 @@ fun InputSignInScreen(
                 color = CustomColor.Primary.Blue500,
                 modifier = Modifier
                     .clickable {
-                        //On register clicked
+                        onSignUp()
                     }
             )
         }
