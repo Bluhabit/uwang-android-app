@@ -5,28 +5,27 @@
  * Proprietary and confidential
  */
 
-package com.bluhabit.blu.android.presentation.authentication.signin
+package com.bluhabit.blu.android.presentation.authentication.signup
 
-sealed interface SignInAction {
+sealed interface SignUpAction {
 
-    // Sign In Screen
     data class EmailAction (
         val value: String = "",
         val error: Boolean = false
-    ) : SignInAction
+    ) : SignUpAction
     data class PasswordAction(
         val value: String = "",
         val visibility: Boolean = false,
         val error: Boolean = false,
-    ) : SignInAction
+    ) : SignUpAction
+
+    data class PasswordConfirmationAction(
+        val value: String = "",
+        val visibility: Boolean = false,
+        val error: Boolean = false,
+    ) : SignUpAction
 
     data class ButtonAction(
         val enabled: Boolean = true,
-    ) : SignInAction
-
-    // Otp Sign In Screen
-    data class OtpNumberAction(
-        val value: String = "",
-        val error: Boolean = false,
-    ): SignInAction
+    ) : SignUpAction
 }
