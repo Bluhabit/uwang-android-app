@@ -7,13 +7,14 @@
 
 package com.bluhabit.blu.android.data.authentication.domain
 
+import com.bluhabit.blu.android.data.authentication.datasource.remote.response.SignUpBasicResponse
 import com.bluhabit.blu.android.data.authentication.repositories.AuthRepository
 import com.bluhabit.blu.data.common.Response
 import javax.inject.Inject
 
-class SignInBasicUseCase @Inject constructor(
+class VerifyOtpSignUpBasicUseCase @Inject constructor(
     private val authRepository: AuthRepository
 ) {
-    suspend operator fun invoke(email: String, password: String): Response<String> =
-        authRepository.signInBasic( email = email, password = password)
+    suspend operator fun invoke(otp: String): Response<SignUpBasicResponse> =
+        authRepository.verifyOtpSignUpBasic(otp)
 }

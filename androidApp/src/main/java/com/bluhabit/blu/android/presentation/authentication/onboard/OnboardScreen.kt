@@ -23,7 +23,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
@@ -43,6 +42,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import com.bluehabit.core.ui.R
@@ -55,7 +55,6 @@ import com.bluhabit.core.ui.components.button.ButtonPrimary
 import com.bluhabit.core.ui.theme.CustomColor
 import com.bluhabit.core.ui.theme.CustomTypography
 import com.bluhabit.core.ui.theme.Neutral100
-import com.bluhabit.core.ui.theme.Primary600
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
@@ -74,13 +73,21 @@ fun OnboardScreen(
 
     val onboard = listOf(
         Triple(
-            R.drawable.onboarding1, com.bluehabit.core.ui.R.string.text_title_1, com.bluehabit.core.ui.R.string.text_onboard_1
+            R.drawable.onboarding1,
+            R.string.text_title_1,
+            R.string.text_onboard_1
         ), Triple(
-            R.drawable.onboarding2, com.bluehabit.core.ui.R.string.text_title_2, com.bluehabit.core.ui.R.string.text_onboard_2
+            R.drawable.onboarding2,
+            R.string.text_title_2,
+            R.string.text_onboard_2
         ), Triple(
-            R.drawable.onboarding3, com.bluehabit.core.ui.R.string.text_title_3, com.bluehabit.core.ui.R.string.text_onboard_3
+            R.drawable.onboarding3,
+            R.string.text_title_3,
+            R.string.text_onboard_3
         ), Triple(
-            R.drawable.onboarding3, com.bluehabit.core.ui.R.string.text_title_3, com.bluehabit.core.ui.R.string.text_onboard_3
+            R.drawable.onboard4,
+            R.string.onboard_screen_login,
+            R.string.onboard_screen_login_title
         )
     )
     val pagerState = rememberPagerState(
@@ -103,6 +110,7 @@ fun OnboardScreen(
             is OnboardEffect.ShowDialog -> Unit
             OnboardEffect.NavigateAuth -> Unit
             OnboardEffect.NavigateHome -> navHostController.navigate("/home")
+            OnboardEffect.NavigateCompleteProfile -> TODO()
         }
     })
     Box(modifier = modifier.fillMaxSize()) {
@@ -119,44 +127,64 @@ fun OnboardScreen(
                 FrameScreen(
                     modifier = modifier,
                     top = {
+                        Column(
+                            modifier = modifier
+                                .padding(top = 35.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center
+                        ) {
+                            Text(
+                                text = stringResource(onboard[page].second),
+                                style = MaterialTheme.typography.h6.copy(
+                                    fontSize = 20.sp
+                                ),
+                                fontWeight = FontWeight.W600,
+                                textAlign = TextAlign.Center,
+                                color = CustomColor.Primary.Blue500,
+                                modifier = modifier.fillMaxWidth()
+                            )
+                            Text(
+                                text = stringResource(onboard[page].third),
+                                style = MaterialTheme.typography.body2.copy(
+                                    fontSize = 14.sp
+                                ),
+                                fontWeight = FontWeight.W400,
+                                textAlign = TextAlign.Center,
+                                color = Neutral100,
+                                modifier = modifier.fillMaxWidth()
+                            )
+                        }
                         Image(
                             painter = painterResource(onboard[page].first),
                             contentDescription = "",
                             modifier = modifier
-                                .width(252.dp)
-                                .height(252.dp),
+                                .fillMaxHeight(0.4f)
+                                .fillMaxWidth()
+                                .padding(horizontal = 20.dp),
                             contentScale = ContentScale.FillWidth
                         )
-                        Text(
-                            text = stringResource(onboard[page].second),
-                            style = MaterialTheme.typography.h6,
-                            fontWeight = FontWeight.W600,
-                            textAlign = TextAlign.Center,
-                            color = Primary600,
-                            modifier = modifier.fillMaxWidth()
-                        )
-                        Text(
-                            text = stringResource(onboard[page].third),
-                            style = MaterialTheme.typography.body2,
-                            fontWeight = FontWeight.W400,
-                            textAlign = TextAlign.Center,
-                            color = Neutral100,
-                            modifier = modifier.fillMaxWidth()
-                        )
-
+                        Spacer(modifier = modifier.height(6.dp))
                     },
                     middle = { },
                     bottom = {
                         if (page == 3) {
                             StepFour(
                                 onNavigateToSignUp = {
-                                    navHostController.navigate("sign_up")
+                                    navHostController.navigate("sign_up") {
+                                        popUpTo("onboard") {
+                                            inclusive = true
+                                        }
+                                    }
                                 },
                                 onNavigateToTermCondition = {
                                     navHostController.navigate("term_and_condition")
                                 },
                                 onNavigationToSignInEmail = {
-                                    navHostController.navigate("sign_in")
+                                    navHostController.navigate("sign_in") {
+                                        popUpTo("onboard") {
+                                            inclusive = true
+                                        }
+                                    }
                                 },
                                 onSignInGoogle = {
                                     googleAuthLauncher.launch(1)
@@ -284,8 +312,13 @@ fun FrameScreen(
             modifier = modifier
                 .fillMaxHeight(fraction = 0.6f)
                 .padding(
-                    start = 18.dp, end = 18.dp, bottom = 18.dp
-                ), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Bottom
+                    start = 18.dp,
+                    end = 18.dp,
+                    bottom = 18.dp,
+                    top = 18.dp
+                ),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.SpaceBetween
         ) {
             top(this)
         }

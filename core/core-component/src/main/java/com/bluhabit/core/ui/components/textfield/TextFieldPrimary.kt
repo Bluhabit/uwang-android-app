@@ -53,7 +53,7 @@ fun TextFieldPrimary(
     val focus = LocalFocusManager.current
     OutlinedTextField(
         modifier = modifier,
-        label = label,
+        placeholder = label,
         shape = shape,
         colors = colors,
         value = value,

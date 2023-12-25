@@ -12,14 +12,14 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.consumeAsFlow
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
 abstract class BaseViewModel<State, Action, Effect>(
     private val initialState: State
 ) : ViewModel() {
     protected val _effect: Channel<Effect> = Channel(Channel.BUFFERED)
-    val onEffect = _effect.consumeAsFlow()
+    val onEffect = _effect.receiveAsFlow()
 
     protected val _state: MutableStateFlow<State> = MutableStateFlow(initialState)
     val state = _state.asStateFlow()

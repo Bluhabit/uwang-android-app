@@ -5,15 +5,15 @@
  * Proprietary and confidential
  */
 
-package com.bluhabit.blu.android.data.authentication.datasource.remote.request
+package com.bluhabit.blu.android.data.authentication.datasource.remote.response
 
 import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class SignInBasicRequest(
-    @SerializedName("email")
-    val email: String,
-    @SerializedName("password")
-    val password: String
+data class SignUpBasicResponse(
+    @SerializedName("token")
+    val token: String,
+    @SerializedName("credential")
+    val credential: UserCredentialResponse
 )

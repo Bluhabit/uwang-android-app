@@ -15,9 +15,10 @@ import com.bluhabit.blu.android.data.authentication.datasource.remote.request.Si
 import com.bluhabit.blu.android.data.authentication.datasource.remote.request.VerifyOtpSignInRequest
 import com.bluhabit.blu.android.data.authentication.datasource.remote.request.VerifyOtpSignUpRequest
 import com.bluhabit.blu.android.data.authentication.datasource.remote.response.SignInBasicResponse
+import com.bluhabit.blu.android.data.authentication.datasource.remote.response.SignInGoogleResponse
+import com.bluhabit.blu.android.data.authentication.datasource.remote.response.SignUpBasicResponse
 import com.bluhabit.blu.data.common.Response
 import com.bluhabit.blu.data.common.safeApiCall
-import com.bluhabit.blu.android.data.authentication.datasource.remote.response.SignInGoogleResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
@@ -28,7 +29,8 @@ class AuthRepository @Inject constructor(
     private val sharedPreferences: SharedPreferences
 ) {
     companion object {
-        const val KEY_SESSION_ID = "session_id"
+        const val KEY_SESSION_ID = "d0ca-fc40"
+        const val KEY_TOKEN = "abc0-df12"
         const val KEY_IS_LOGGED_IN = "f435-bc0f2"
     }
 
@@ -39,10 +41,10 @@ class AuthRepository @Inject constructor(
     //end session
 
     //sign in region
-    suspend fun signInBasic(email: String): Response<String> {
+    suspend fun signInBasic(email: String,password: String): Response<String> {
         return when (val result = safeApiCall<String> {
             httpClient.post("/api/auth/sign-in-basic") {
-                setBody(SignInBasicRequest(email = email))
+                setBody(SignInBasicRequest(email = email,password=password))
             }
         }) {
             is Response.Error -> result
@@ -96,9 +98,8 @@ class AuthRepository @Inject constructor(
             is Response.Result -> {
                 //set session to share pref
                 sharedPreferences.edit {
-                    putBoolean("isLoggedIn", true)
-                    putString("token", result.data.token)
-                    putString("", "")
+                    putBoolean(KEY_IS_LOGGED_IN, true)
+                    putString(KEY_TOKEN, result.data.token)
                     apply()
                 }
                 Response.Result(result.data)
@@ -110,7 +111,6 @@ class AuthRepository @Inject constructor(
     //sign up region
 
     suspend fun signUpBasic(
-        fullName: String,
         email: String,
         password: String
     ): Response<String> {
@@ -118,7 +118,6 @@ class AuthRepository @Inject constructor(
             httpClient.post("/auth/sign-up-basic") {
                 setBody(
                     SignUpBasicRequest(
-                        fullName = fullName,
                         email = email,
                         password = password
                     )
@@ -138,11 +137,11 @@ class AuthRepository @Inject constructor(
         }
     }
 
-    suspend fun verifyOtpSignUpBasic(otp: String): Response<String> {
+    suspend fun verifyOtpSignUpBasic(otp: String): Response<SignUpBasicResponse> {
         val sessionId = sharedPreferences.getString(KEY_SESSION_ID, null)
             ?: Response.Error("Sesi tidak ditemukan sudah habis", 401)
 
-        return when (val result = safeApiCall<String> {
+        return when (val result = safeApiCall<SignUpBasicResponse> {
             httpClient.post("/auth/sign-up-basic/verify-otp") {
                 setBody(
                     VerifyOtpSignUpRequest(

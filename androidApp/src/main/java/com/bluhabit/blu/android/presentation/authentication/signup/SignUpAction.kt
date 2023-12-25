@@ -8,24 +8,33 @@
 package com.bluhabit.blu.android.presentation.authentication.signup
 
 sealed interface SignUpAction {
-
-    data class EmailAction (
-        val value: String = "",
-        val error: Boolean = false
-    ) : SignUpAction
-    data class PasswordAction(
-        val value: String = "",
-        val visibility: Boolean = false,
-        val error: Boolean = false,
+    data class OnScreenChange(
+        val screen: Int = 0,
     ) : SignUpAction
 
-    data class PasswordConfirmationAction(
-        val value: String = "",
-        val visibility: Boolean = false,
-        val error: Boolean = false,
+    data class OnEmailChange(
+        val value: String = ""
     ) : SignUpAction
 
-    data class ButtonAction(
-        val enabled: Boolean = true,
+    data class OnPasswordChange(
+        val value: String = ""
     ) : SignUpAction
+
+    data class OnPasswordVisibilityChange(
+        val visibility: Boolean = false
+    ) : SignUpAction
+
+    data class OnPasswordConfirmationChange(
+        val value: String = ""
+    ) : SignUpAction
+
+    data class OnPasswordConfirmationVisibilityChange(
+        val visibility: Boolean = false
+    ) : SignUpAction
+
+    data class OnOtpChange(
+        val otp: String="",
+    ) : SignUpAction
+    object SignUpBasic : SignUpAction
+    object VerifyOtpUpBasic : SignUpAction
 }

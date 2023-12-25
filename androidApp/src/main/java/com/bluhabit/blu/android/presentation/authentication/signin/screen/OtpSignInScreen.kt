@@ -32,21 +32,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluehabit.core.ui.R
 import com.bluhabit.blu.android.presentation.authentication.signin.SignInAction
-import com.bluhabit.blu.android.presentation.authentication.signin.SignInEffect
 import com.bluhabit.blu.android.presentation.authentication.signin.SignInState
 import com.bluhabit.core.ui.components.button.ButtonPrimary
 import com.bluhabit.core.ui.components.textfield.TextFieldOtp
 import com.bluhabit.core.ui.theme.CustomColor
 import com.bluhabit.core.ui.theme.CustomTypography
 import com.bluhabit.core.ui.theme.UwangTheme
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
 
 @Composable
 fun OtpSignInScreen(
-    signInState: SignInState = SignInState(),
-    stateFlow: Flow<SignInState> = flowOf(),
-    effectFlow: Flow<SignInEffect> = flowOf(),
+    state: SignInState = SignInState(),
+    onBackPressed: () -> Unit,
     onAction: (SignInAction) -> Unit = {},
 ) {
     val focusManager = LocalFocusManager.current
@@ -60,7 +56,7 @@ fun OtpSignInScreen(
     ) {
         IconButton(
             onClick = {
-                // On Back Pressed
+                onBackPressed()
             }) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_arrow_back),
@@ -111,8 +107,8 @@ fun OtpSignInScreen(
                 modifier = Modifier.align(Alignment.Center),
                 enabled = true,
                 length = 4,
-                value = signInState.otpNumberState,
-                error = signInState.otpNumberError,
+                value = state.otpNumberState,
+                error = state.otpNumberError,
                 onDone = {
                     focusManager.clearFocus(true)
                 },
@@ -127,9 +123,9 @@ fun OtpSignInScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 16.dp, end = 16.dp, bottom = 42.dp),
-            enabled = signInState.otpButtonEnabled
+            enabled = state.otpButtonEnabled
         ) {
-            // Next
+            onAction(SignInAction.OnVerifyOtp)
         }
     }
 }
@@ -138,6 +134,8 @@ fun OtpSignInScreen(
 @Composable
 fun OtpSignInScreenPreview() {
     UwangTheme {
-        OtpSignInScreen()
+        OtpSignInScreen(
+            onBackPressed = {}
+        )
     }
 }

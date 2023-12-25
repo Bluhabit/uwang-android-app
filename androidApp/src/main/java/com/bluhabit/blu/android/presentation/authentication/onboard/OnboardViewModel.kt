@@ -11,6 +11,7 @@ import androidx.lifecycle.viewModelScope
 import com.bluhabit.blu.android.common.BaseViewModel
 import com.bluhabit.blu.android.data.authentication.domain.CheckSessionUseCase
 import com.bluhabit.blu.android.data.authentication.domain.SignInGoogleUseCase
+import com.bluhabit.blu.data.common.Response
 import com.bluhabit.blu.data.common.executeAsFlow
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.tasks.Task
@@ -49,7 +50,18 @@ class OnboardViewModel @Inject constructor(
         val auth = task.await()
         executeAsFlow { signInGoogleUseCase(auth.idToken.orEmpty()) }
             .onStart { }
-            .onEach { }
+            .onEach {
+                when (it) {
+                    is Response.Error -> Unit
+                    is Response.Result -> {
+                        if (it.data.credential.profile.isEmpty()) {
+                            _effect.send(OnboardEffect.NavigateCompleteProfile)
+                        } else {
+                            _effect.send(OnboardEffect.NavigateHome)
+                        }
+                    }
+                }
+            }
             .collect()
     }
 }

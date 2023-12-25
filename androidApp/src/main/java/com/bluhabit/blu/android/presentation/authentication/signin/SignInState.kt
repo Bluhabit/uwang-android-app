@@ -11,6 +11,9 @@ import javax.annotation.concurrent.Immutable
 
 @Immutable
 data class SignInState(
+    //global
+    // 0 == input 1 == otp
+    val currentScreen: Int = 0,
     // Sign In Screen
     val emailState: String = "",
     val emailError: Boolean = false,

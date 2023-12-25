@@ -16,10 +16,13 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.bluhabit.blu.android.presentation.authentication.onboard.OnboardScreen
 import com.bluhabit.blu.android.presentation.authentication.onboard.OnboardViewModel
+import com.bluhabit.blu.android.presentation.authentication.resetPassword.ForgotPasswordViewModel
+import com.bluhabit.blu.android.presentation.authentication.resetPassword.screen.ForgotPasswordScreen
 import com.bluhabit.blu.android.presentation.authentication.signin.SignInScreen
 import com.bluhabit.blu.android.presentation.authentication.signin.SignInViewModel
+import com.bluhabit.blu.android.presentation.authentication.signup.SignUpScreen
+import com.bluhabit.blu.android.presentation.authentication.signup.SignUpViewModel
 import com.bluhabit.blu.android.presentation.authentication.termAndCondition.TermAndConditionScreen
-import com.bluhabit.blu.android.presentation.authentication.termAndCondition.TermAndConditionViewModel
 import com.bluhabit.core.ui.theme.UwangTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -41,7 +44,7 @@ class MainActivity : ComponentActivity() {
             ) {
                 NavHost(
                     navController = navHostController,
-                    startDestination = "onboard",
+                    startDestination = "sign_up",
                 ) {
                     composable("onboard") {
                         val viewModel = hiltViewModel<OnboardViewModel>()
@@ -53,19 +56,37 @@ class MainActivity : ComponentActivity() {
                         )
                     }
                     composable("term_and_condition") {
-                        val viewModel = hiltViewModel<TermAndConditionViewModel>()
                         TermAndConditionScreen(
-                            stateFlow = viewModel.state,
-                            effectFlow = viewModel.onEffect,
-                            onAction = viewModel::onAction
+                            onBackPressed = {
+                                navHostController.navigateUp()
+                            }
                         )
                     }
                     composable("sign_in") {
                         val viewModel = hiltViewModel<SignInViewModel>()
                         SignInScreen(
+                            navHostController = navHostController,
                             stateFlow = viewModel.state,
                             effectFlow = viewModel.onEffect,
                             onAction = viewModel::onAction,
+                        )
+                    }
+                    composable("sign_up") {
+                        val viewModel = hiltViewModel<SignUpViewModel>()
+                        SignUpScreen(
+                            navHostController = navHostController,
+                            stateFlow = viewModel.state,
+                            effectFlow = viewModel.onEffect,
+                            onAction = viewModel::onAction,
+                        )
+                    }
+                    composable("reset_password") {
+                        val viewModel = hiltViewModel<ForgotPasswordViewModel>()
+                        ForgotPasswordScreen(
+                            navHostController=navHostController,
+                            stateFlow = viewModel.state,
+                            effectFlow = viewModel.onEffect,
+                            onAction = viewModel::onAction
                         )
                     }
                 }

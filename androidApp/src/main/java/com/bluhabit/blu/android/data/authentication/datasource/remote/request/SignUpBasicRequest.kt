@@ -12,8 +12,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class SignUpBasicRequest(
-    @SerializedName("full_name")
-    val fullName: String,
     @SerializedName("email")
     val email: String,
     @SerializedName("password")
