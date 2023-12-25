@@ -16,4 +16,9 @@ sealed interface CompleteProfileAction {
     data class InputDobScreenNextButtonAction(
         val enabled: Boolean = true,
     ) : CompleteProfileAction
+
+    data class SetPreferenceScreenPreferenceItem(
+        val checked: Boolean = false,
+        val index: Int = 0,
+    ) : CompleteProfileAction
 }

@@ -50,7 +50,7 @@ fun ButtonPrimary(
             backgroundColor = if (error) Error600 else CustomColor.Primary.Blue500,
             contentColor = CustomColor.Neutral.Grey1,
             disabledBackgroundColor = if (error) Error200 else CustomColor.Primary.Blue100,
-            disabledContentColor = CustomColor.Neutral.Grey1
+            disabledContentColor = CustomColor.Neutral.Grey1,
         ),
         elevation = ButtonDefaults.elevation(
             defaultElevation = 0.dp

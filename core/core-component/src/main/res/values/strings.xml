@@ -292,6 +292,14 @@
     <string name="input_odb_screen_dob_text_field_title">Lengkapi data diri</string>
     <string name="input_odb_screen_dob_text_field_text">Contoh : 11 Desember 2001</string>
     <string name="input_odb_screen_dob_next_button_text">Selanjutnya</string>
+    <!-- end input dob screen  -->
+
+    <!--  [NEW] set preference screen  -->
+    <string name="set_preference_screen_title">Preferensi Keuangan</string>
+    <string name="set_preference_screen_instruction">Pilih minimal 3 topik keuangan yang ingin Anda jelajahi untuk memulai perjalanan keuangan Anda:</string>
+    <string name="set_preference_screen_next_button_text">Selanjutnya</string>
+    <!-- end set preference screen  -->
+
     <!-- end input dob screen screen  -->
 
 </resources>

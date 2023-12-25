@@ -23,6 +23,15 @@ class CompleteProfileViewModel
                 otpDobScreenDateState = action.value,
                 otpDobScreenDateStateError = action.error
             ) }
+
+            is CompleteProfileAction.SetPreferenceScreenPreferenceItem -> updateState {
+                val updatedItem = preferenceItems[action.index].copy(checked = action.checked)
+                val updatedList = preferenceItems.toMutableList()
+                updatedList[action.index] = updatedItem
+                copy(
+                    preferenceItems = updatedList
+                )
+            }
         }
     }
 }
