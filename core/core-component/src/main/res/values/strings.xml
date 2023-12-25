@@ -286,7 +286,7 @@
     <string name="otp_sign_in_screen_reset_next_button_text">Selanjutnya</string>
     <!-- end forgot password screen  -->
 
-    <!--  [NEW] input dob screen  -->
+    <!--  [NEW] input dob screen screen  -->
     <string name="input_odb_screen_title">Lengkapi data diri</string>
     <string name="input_odb_screen_instruction">Isi tanggal lahir Anda untuk membantu kami memberikan rekomendasi dan saran yang lebih sesuai dengan situasi keuangan Anda.</string>
     <string name="input_odb_screen_dob_text_field_title">Lengkapi data diri</string>
@@ -299,5 +299,7 @@
     <string name="set_preference_screen_instruction">Pilih minimal 3 topik keuangan yang ingin Anda jelajahi untuk memulai perjalanan keuangan Anda:</string>
     <string name="set_preference_screen_next_button_text">Selanjutnya</string>
     <!-- end set preference screen  -->
+
+    <!-- end input dob screen screen  -->
 
 </resources>
