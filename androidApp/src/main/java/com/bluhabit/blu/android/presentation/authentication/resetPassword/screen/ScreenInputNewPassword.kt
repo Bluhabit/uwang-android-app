@@ -24,26 +24,23 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.bluhabit.blu.android.R
-import com.bluhabit.blu.android.presentation.authentication.resetPassword.ForgotPasswordAction
-import com.bluhabit.blu.android.presentation.authentication.resetPassword.ForgotPasswordEffect
+import androidx.compose.ui.unit.sp
+import com.bluehabit.core.ui.R
 import com.bluhabit.blu.android.presentation.authentication.resetPassword.ForgotPasswordState
+import com.bluhabit.blu.android.presentation.authentication.signin.SignInAction
 import com.bluhabit.core.ui.components.button.ButtonPrimary
+import com.bluhabit.core.ui.components.textfield.TextFieldPrimary
 import com.bluhabit.core.ui.theme.CustomColor
 import com.bluhabit.core.ui.theme.CustomTypography
 import com.bluhabit.core.ui.theme.UwangTheme
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
-
 
 @Composable
 fun InputNewPasswordScreen(
-    forgotPasswordState: ForgotPasswordState = ForgotPasswordState(),
-    stateFlow: Flow<ForgotPasswordState> = flowOf(),
-    effectFlow: Flow<ForgotPasswordEffect> = flowOf(),
-    onAction: (ForgotPasswordAction) -> Unit = {},
+    inputNewPasswordState: ForgotPasswordState = ForgotPasswordState(),
+    onAction: (SignInAction) -> Unit = {},
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -69,48 +66,115 @@ fun InputNewPasswordScreen(
             Text(
                 text = stringResource(id = com.bluehabit.core.ui.R.string.input_password_screen_reset_password),
                 style = CustomTypography.Body.XL.W600,
+                fontSize = 20.sp,
                 color = CustomColor.Neutral.Grey13
             )
             Text(
                 text = stringResource(id = com.bluehabit.core.ui.R.string.input_password_screen_hint),
                 style = CustomTypography.Body.Small.W400,
+                fontSize = 14.sp,
                 color = CustomColor.Neutral.Grey9
             )
-            Text(
-                text = stringResource(id = com.bluehabit.core.ui.R.string.input_password_screen_password),
-                style = CustomTypography.Body.Small.W400,
-                color = CustomColor.Neutral.Grey9
-            )
-            InputNewPasswordScreen()
-            if (forgotPasswordState.emailError) {
+            Spacer(modifier = Modifier.padding(6.dp))
+            Column {
                 Text(
-                    text = forgotPasswordState.emailErrorText,
-                    style = CustomTypography.Label.Small.W400,
-                    color = CustomColor.Error.Red300
+                    text = stringResource(id = com.bluehabit.core.ui.R.string.input_password_screen_password),
+                    fontSize = 14.sp,
+                    style = CustomTypography.Body.Small.W400,
+                    color = CustomColor.Neutral.Grey9
+                )
+                TextFieldPrimary(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    label = {
+                        Text(text = stringResource(id = R.string.input_password_screen_email_text_field_label))
+                    },
+                    trailingIcon = {
+                        IconButton(
+                            onClick = {
+                                onAction(SignInAction.PasswordAction(visibility = !inputNewPasswordState.passwordVisibility))
+                            }
+                        ) {
+                            Icon(
+                                painter = painterResource(
+                                    id = if (!inputNewPasswordState.passwordVisibility) {
+                                        R.drawable.ic_eye_closed
+                                    } else {
+                                        R.drawable.ic_eye_open
+                                    }
+                                ),
+                                tint = CustomColor.Neutral.Grey7,
+                                contentDescription = null,
+                            )
+                        }
+                    },
+                    visualTransformation = PasswordVisualTransformation(),
+                    value = inputNewPasswordState.passwordState,
+                    onValueChange = {
+                        onAction(SignInAction.PasswordAction(value = it))
+                    },
+                    error = inputNewPasswordState.passwordError
                 )
             }
-            Text(
-                text = stringResource(id = com.bluehabit.core.ui.R.string.input_password_screen_Passrowd_konfirm),
-                style = CustomTypography.Body.Small.W400,
-                color = CustomColor.Neutral.Grey9
-            )
-            InputNewPasswordScreen()
-            if (forgotPasswordState.emailError) {
+            Spacer(modifier = Modifier.padding(6.dp))
+            Column {
                 Text(
-                    text = forgotPasswordState.emailErrorText,
-                    style = CustomTypography.Label.Small.W400,
-                    color = CustomColor.Error.Red300
+                    text = stringResource(id = com.bluehabit.core.ui.R.string.input_password_screen_Password_konfirm),
+                    fontSize = 14.sp,
+                    style = CustomTypography.Body.Small.W400,
+                    color = CustomColor.Neutral.Grey9
+                )
+                TextFieldPrimary(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    label = {
+                        Text(text = stringResource(id = R.string.input_password_screen_email_text_field_label))
+                    },
+                    trailingIcon = {
+                        IconButton(
+                            onClick = {
+                                onAction(SignInAction.PasswordAction(visibility = !inputNewPasswordState.passwordVisibility))
+                            }
+                        ) {
+                            Icon(
+                                painter = painterResource(
+                                    id = if (!inputNewPasswordState.passwordVisibility) {
+                                        R.drawable.ic_eye_closed
+                                    } else {
+                                        R.drawable.ic_eye_open
+                                    }
+                                ),
+                                tint = CustomColor.Neutral.Grey7,
+                                contentDescription = null,
+                            )
+                        }
+                    },
+                    visualTransformation = PasswordVisualTransformation(),
+                    value = inputNewPasswordState.passwordState,
+                    onValueChange = {
+                        onAction(SignInAction.PasswordAction(value = it))
+                    },
+                    error = inputNewPasswordState.passwordError
                 )
             }
         }
-
-        Spacer(modifier = Modifier.weight(1f))
+        if (inputNewPasswordState.emailError) {
+            Text(
+                text = stringResource(id = com.bluehabit.core.ui.R.string.input_password_screen_email_text_field_label),
+                style = CustomTypography.Label.Small.W400,
+                color = CustomColor.Error.Red300
+            )
+        }
+    }
+    Column(verticalArrangement = Arrangement.Bottom)
+    {
+        Spacer(modifier = Modifier.padding(380.dp))
         ButtonPrimary(
             text = stringResource(id = com.bluehabit.core.ui.R.string.input_password_screen_next),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 16.dp, end = 16.dp, bottom = 42.dp),
-            enabled = forgotPasswordState.nextButtonEnabled
+            enabled = inputNewPasswordState.nextButtonEnabled
         ) {
             // Next
         }

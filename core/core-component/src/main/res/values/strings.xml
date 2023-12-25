@@ -263,7 +263,7 @@
     <string name="input_password_screen_reset_password">Buat Password Baru</string>
     <string name="input_password_screen_hint">Silakan buat password baru untuk melanjutkan akses ke akun Anda.</string>
     <string name="input_password_screen_password">Password</string>
-    <string name="input_password_screen_Passrowd_konfirm">Konfirmasi Password</string>
+    <string name="input_password_screen_Password_konfirm">Konfirmasi Password</string>
     <string name="input_password_screen_email_text_field_label">Masukan Password </string>
     <string name="input_password_screen_next">Simpan</string>
     <!-- end input new password screen  -->
