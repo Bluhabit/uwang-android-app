@@ -10,6 +10,7 @@ package com.bluhabit.blu.android.presentation.authentication.completeProfile
 import androidx.lifecycle.viewModelScope
 import com.bluhabit.blu.android.common.BaseViewModel
 import com.bluhabit.blu.android.data.authentication.domain.CompleteProfileUseCase
+import com.bluhabit.blu.data.common.Response
 import com.bluhabit.blu.data.common.executeAsFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -75,9 +76,15 @@ class CompleteProfileViewModel @Inject constructor(
             )
         }
             .onStart { }
-            .onEach { }
+            .onEach {
+                when (it) {
+                    is Response.Error -> _effect.send(CompleteProfileEffect.Error(it.message))
+                    is Response.Result -> updateState {
+                        copy(showDialogSuccess = true)
+                    }
+                }
+            }
             .collect()
-
     }
 
 }

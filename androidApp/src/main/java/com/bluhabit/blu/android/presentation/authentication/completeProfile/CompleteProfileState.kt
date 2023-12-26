@@ -38,5 +38,6 @@ data class CompleteProfileState(
         PreferenceItem(false, "Hutang / Kredit", R.drawable.preference_image_5),
         PreferenceItem(false, "Analisis Pemasukan", R.drawable.preference_image_5),
         PreferenceItem(false, "Budgeting", R.drawable.preference_image_2),
-    )
+    ),
+    val showDialogSuccess: Boolean = false
 )
