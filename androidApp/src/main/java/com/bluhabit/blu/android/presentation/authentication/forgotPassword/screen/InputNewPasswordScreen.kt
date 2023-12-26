@@ -93,15 +93,14 @@ fun InputNewPasswordScreen(
                 },
                 error = state.emailError
             )
-            if (state.emailError) {
-                Text(
-                    text = state.emailErrorText,
-                    style = CustomTypography.Label.Small.W400,
-                    color = CustomColor.Error.Red300
-                )
-            }
             Text(
-                text = stringResource(id = com.bluehabit.core.ui.R.string.input_password_screen_Passrowd_konfirm),
+                text = state.emailErrorText,
+                style = CustomTypography.Label.Small.W400,
+                color = CustomColor.Error.Red300
+            )
+
+            Text(
+                text = stringResource(id = R.string.reset_password_screen_confirm_password_label),
                 style = CustomTypography.Body.Small.W400,
                 color = CustomColor.Neutral.Grey9
             )

@@ -33,15 +33,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluehabit.core.ui.R
 import com.bluhabit.blu.android.presentation.authentication.completeProfile.CompleteProfileAction
-import com.bluhabit.blu.android.presentation.authentication.completeProfile.CompleteProfileEffect
 import com.bluhabit.blu.android.presentation.authentication.completeProfile.CompleteProfileState
 import com.bluhabit.core.ui.components.button.ButtonPrimary
 import com.bluhabit.core.ui.components.checkbox.PreferenceItemCheckBox
 import com.bluhabit.core.ui.theme.CustomColor
 import com.bluhabit.core.ui.theme.CustomTypography
 import com.bluhabit.core.ui.theme.UwangTheme
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
 
 data class PreferenceItem(
     val checked: Boolean = false,
@@ -51,9 +48,8 @@ data class PreferenceItem(
 
 @Composable
 fun SetPreferenceScreen(
-    completeProfileState: CompleteProfileState = CompleteProfileState(),
-    stateFlow: Flow<CompleteProfileState> = flowOf(),
-    effectFlow: Flow<CompleteProfileEffect> = flowOf(),
+    state: CompleteProfileState = CompleteProfileState(),
+    onBackPressed:()->Unit,
     onAction: (CompleteProfileAction) -> Unit = {},
 ) {
     Box(
@@ -84,7 +80,7 @@ fun SetPreferenceScreen(
                         contentDescription = "arrow back",
                         modifier = Modifier
                             .clickable {
-                                // On back pressed
+                                onBackPressed()
                             }
                     )
                 }
@@ -111,7 +107,7 @@ fun SetPreferenceScreen(
                     )
                 }
             }
-            itemsIndexed(completeProfileState.preferenceItems) { index, item ->
+            itemsIndexed(state.preferenceItems) { index, item ->
                 PreferenceItemCheckBox(
                     title = item.title,
                     image = {
@@ -139,9 +135,9 @@ fun SetPreferenceScreen(
                 .fillMaxWidth()
                 .padding(start = 16.dp, end = 16.dp, bottom = 28.dp)
                 .align(Alignment.BottomCenter),
-            enabled = completeProfileState.otpDobScreenNextButtonEnabled
+            enabled = true
         ) {
-            // Next
+            onAction(CompleteProfileAction.NextStep)
         }
     }
 }
@@ -150,6 +146,8 @@ fun SetPreferenceScreen(
 @Composable
 fun SetPreferenceScreenPreview() {
     UwangTheme {
-        SetPreferenceScreen()
+        SetPreferenceScreen(
+            onBackPressed = {}
+        )
     }
 }

@@ -7,9 +7,11 @@
 
 package com.bluhabit.blu.android.presentation.authentication.completeProfile
 
+import androidx.lifecycle.viewModelScope
 import com.bluhabit.blu.android.common.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kotlinx.coroutines.launch
 
 @HiltViewModel
 class CompleteProfileViewModel
@@ -18,10 +20,8 @@ class CompleteProfileViewModel
 ) {
     override fun onAction(action: CompleteProfileAction) {
         when (action) {
-            is CompleteProfileAction.InputDobScreenNextButtonAction -> updateState { copy(otpDobScreenNextButtonEnabled = action.enabled) }
-            is CompleteProfileAction.InputDobScreenDateAction -> updateState { copy(
-                otpDobScreenDateState = action.value,
-                otpDobScreenDateStateError = action.error
+            is CompleteProfileAction.OnDateOfBirthChange -> updateState { copy(
+                dateOfBirthState = action.value
             ) }
 
             is CompleteProfileAction.SetPreferenceScreenPreferenceItem -> updateState {
@@ -32,6 +32,25 @@ class CompleteProfileViewModel
                     preferenceItems = updatedList
                 )
             }
+
+            CompleteProfileAction.NextStep -> nextStep()
+            is CompleteProfileAction.OnImageChange -> updateState { copy(avatar = action.value) }
+            is CompleteProfileAction.OnScreenChange -> updateState { copy(currentScreen = action.screen) }
+            is CompleteProfileAction.OnUsernameChange -> onUsernameChange(action.value)
+            CompleteProfileAction.SubmitData -> submitData()
         }
     }
+
+    private fun nextStep()=viewModelScope.launch {
+
+    }
+
+    private fun onUsernameChange(username:String)=viewModelScope.launch {
+        updateState { copy(usernameState=username) }
+    }
+
+    private fun submitData()=viewModelScope.launch {
+
+    }
+
 }

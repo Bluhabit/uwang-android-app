@@ -44,8 +44,24 @@ fun CompleteProfileScreen(
     }
 
     when (state.currentScreen) {
-        0 -> InputDobScreen()
-        1 -> SetPreferenceScreen()
-        2 -> InputUsernameScreen(onAction = {})
+        0 -> InputDobScreen(
+            state=state,
+            onBackPressed = {},
+            onAction=onAction
+        )
+        1 -> SetPreferenceScreen(
+            state=state,
+            onBackPressed = {
+                goBack()
+            },
+            onAction=onAction
+        )
+        2 -> InputUsernameScreen(
+            state=state,
+            onBackPressed = {
+                goBack()
+            },
+            onAction = {}
+        )
     }
 }

@@ -48,6 +48,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun DatePickerBottomSheet(
     title: String = String.Empty,
+    value:LocalDate?= null,
     minDate: LocalDate = LocalDate.now(),
     onDone: () -> Unit = {},
     onClose: () -> Unit = {},

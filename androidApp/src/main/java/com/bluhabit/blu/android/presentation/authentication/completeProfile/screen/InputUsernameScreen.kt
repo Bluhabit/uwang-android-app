@@ -19,9 +19,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
@@ -48,32 +46,32 @@ import com.bluhabit.core.ui.theme.UwangTheme
 
 @Composable
 fun InputUsernameScreen(
-    modifier: Modifier=Modifier,
-    state:CompleteProfileState= CompleteProfileState(),
-    onAction:(CompleteProfileAction)->Unit
+    modifier: Modifier = Modifier,
+    state: CompleteProfileState = CompleteProfileState(),
+    onBackPressed:()->Unit,
+    onAction: (CompleteProfileAction) -> Unit
 ) {
 
     Column(
-        verticalArrangement = Arrangement.spacedBy(16.dp),
+        verticalArrangement = Arrangement.SpaceBetween,
         modifier = modifier
             .fillMaxSize()
             .background(MaterialTheme.colors.background)
-            .verticalScroll(rememberScrollState()),
+            .padding(horizontal = 18.dp, vertical = 18.dp)
     ) {
-        IconButton(
-            onClick = {
-                // TODO
-            }) {
-            Icon(
-                painter = painterResource(id = com.bluehabit.core.ui.R.drawable.ic_arrow_back),
-                contentDescription = "arrow back"
-            )
-        }
         Column(
             verticalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier
-                .padding(horizontal = 16.dp)
         ) {
+            IconButton(
+                onClick = {
+                    onBackPressed()
+                }) {
+                Icon(
+                    painter = painterResource(id = com.bluehabit.core.ui.R.drawable.ic_arrow_back),
+                    contentDescription = "arrow back"
+                )
+            }
             Text(
                 text = stringResource(id = com.bluehabit.core.ui.R.string.edit_profile_screen),
                 style = CustomTypography.Body.XL.W600,
@@ -85,24 +83,17 @@ fun InputUsernameScreen(
                     fontSize = 14.sp,
                     lineHeight = 18.sp,
                     fontWeight = FontWeight(400),
-                    color = Color(0xFF626361),
-
-                    )
+                    color = Color(0xFF626361)
+                )
             )
-        }
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            // Image
 
             Row(
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
             ) {
                 Image(
-                    painter = painterResource(id = profilePicture),
+                    painter = painterResource(id = com.bluhabit.blu.data.R.drawable.dummy_avatar),
                     contentDescription = null,
                     modifier = modifier
                         .size(120.dp)
@@ -113,11 +104,8 @@ fun InputUsernameScreen(
                 )
             }
             Spacer(modifier = Modifier.height(16.dp))
-
             Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(16.dp),
+                modifier = Modifier,
                 horizontalAlignment = Alignment.Start
             ) {
                 Text(
@@ -134,38 +122,38 @@ fun InputUsernameScreen(
                             style = CustomTypography.Body.XS.W500
                         )
                     },
-                    value = editProfileState.profileState,
+                    value = state.usernameState,
                     onValueChange = {
-                        true
+                        onAction(CompleteProfileAction.OnUsernameChange(it))
                     },
-                    error = editProfileState.profileError
+                    error = state.usernameError
                 )
-                if (editProfileState.profileError) {
-                    Text(
-                        text = editProfileState.profileErrorText,
-                        style = CustomTypography.Label.Small.W400,
-                        color = CustomColor.Error.Red300
-                    )
-                }
-
-
-                // Save Button
-                ButtonPrimary(
-                    text = stringResource(id = com.bluehabit.core.ui.R.string.edit_profile_screen_next),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(start = 16.dp, top = 340.dp, end = 16.dp, bottom = 30.dp),
-                    enabled = true
+                Text(
+                    text = state.usernameErrorText,
+                    style = CustomTypography.Label.Small.W400,
+                    color = CustomColor.Error.Red300
                 )
             }
         }
+        // Save Button
+        ButtonPrimary(
+            text = stringResource(id = com.bluehabit.core.ui.R.string.edit_profile_screen_next),
+            modifier = Modifier
+                .fillMaxWidth(),
+            enabled = true,
+            onClick = {
+                onAction(CompleteProfileAction.SubmitData)
+            }
+        )
     }
 }
+
 @Preview
 @Composable
 fun EditProfileScreenPreview() {
     UwangTheme {
         InputUsernameScreen(
+            onBackPressed = {},
             onAction = {}
         )
     }

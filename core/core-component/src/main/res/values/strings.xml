@@ -266,6 +266,7 @@
     <string name="reset_password_screen_reset_password">Reset Password</string>
     <string name="reset_password_screen_hint">Masukkan alamat email yang terdaftar dan kami akan mengirimkan email berisi kode OTP untuk mengatur ulang Password</string>
     <string name="reset_password_screen_email">Email</string>
+    <string name="reset_password_screen_confirm_password_label">Konfirmasi Password</string>
     <string name="reset_password_screen_email_text_field_label">Contoh : jenny11@gmail.com</string>
     <string name="reset_password_screen_next">Selanjutnya</string>
     <!-- end forgot password screen  -->
