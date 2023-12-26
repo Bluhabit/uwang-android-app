@@ -14,6 +14,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.bluhabit.blu.android.presentation.authentication.completeProfile.CompleteProfileScreen
+import com.bluhabit.blu.android.presentation.authentication.completeProfile.CompleteProfileViewModel
 import com.bluhabit.blu.android.presentation.authentication.forgotPassword.ForgotPasswordScreen
 import com.bluhabit.blu.android.presentation.authentication.forgotPassword.ForgotPasswordViewModel
 import com.bluhabit.blu.android.presentation.authentication.onboard.OnboardScreen
@@ -83,6 +85,15 @@ class MainActivity : ComponentActivity() {
                     composable("forgot_password") {
                         val viewModel = hiltViewModel<ForgotPasswordViewModel>()
                         ForgotPasswordScreen(
+                            navHostController = navHostController,
+                            stateFlow = viewModel.state,
+                            effectFlow = viewModel.onEffect,
+                            onAction = viewModel::onAction
+                        )
+                    }
+                    composable("complete_profile") {
+                        val viewModel = hiltViewModel<CompleteProfileViewModel>()
+                        CompleteProfileScreen(
                             navHostController = navHostController,
                             stateFlow = viewModel.state,
                             effectFlow = viewModel.onEffect,
