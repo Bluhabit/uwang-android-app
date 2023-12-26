@@ -37,7 +37,13 @@ fun CompleteProfileScreen(
     })
 
     fun goBack() {
-
+        if(state.currentScreen > 0){
+            onAction(CompleteProfileAction.OnScreenChange(
+                screen= state.currentScreen -1
+            ))
+        }else{
+            navHostController.navigateUp()
+        }
     }
     BackHandler {
         goBack()
@@ -61,7 +67,7 @@ fun CompleteProfileScreen(
             onBackPressed = {
                 goBack()
             },
-            onAction = {}
+            onAction = onAction
         )
     }
 }

@@ -7,6 +7,9 @@
 
 package com.bluhabit.blu.android.presentation.authentication.completeProfile.screen
 
+import android.provider.MediaStore
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -29,6 +32,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -40,6 +45,7 @@ import com.bluhabit.blu.android.presentation.authentication.completeProfile.Comp
 import com.bluhabit.blu.android.presentation.authentication.completeProfile.CompleteProfileState
 import com.bluhabit.core.ui.components.button.ButtonPrimary
 import com.bluhabit.core.ui.components.textfield.TextFieldPrimary
+import com.bluhabit.core.ui.ext.getBitmap
 import com.bluhabit.core.ui.theme.CustomColor
 import com.bluhabit.core.ui.theme.CustomTypography
 import com.bluhabit.core.ui.theme.UwangTheme
@@ -48,10 +54,29 @@ import com.bluhabit.core.ui.theme.UwangTheme
 fun InputUsernameScreen(
     modifier: Modifier = Modifier,
     state: CompleteProfileState = CompleteProfileState(),
-    onBackPressed:()->Unit,
+    onBackPressed: () -> Unit,
     onAction: (CompleteProfileAction) -> Unit
 ) {
-
+    val ctx = LocalContext.current
+    val imageLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.GetContent(),
+        onResult = {
+            if (it != null) {
+                val bitmap = it.getBitmap(ctx.contentResolver)
+                if (bitmap != null) {
+                    onAction(CompleteProfileAction.OnImageChange(bitmap))
+                }
+            }
+        }
+    )
+//    val requestPermissionContract = rememberLauncherForActivityResult(
+//        contract = ActivityResultContracts.RequestPermission(),
+//        onResult = {
+//            if (it) {
+//                imageLauncher.launch("image/*")
+//            }
+//        }
+//    )
     Column(
         verticalArrangement = Arrangement.SpaceBetween,
         modifier = modifier
@@ -92,16 +117,29 @@ fun InputUsernameScreen(
                 modifier = modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center
             ) {
-                Image(
-                    painter = painterResource(id = com.bluhabit.blu.data.R.drawable.dummy_avatar),
-                    contentDescription = null,
-                    modifier = modifier
-                        .size(120.dp)
-                        .clip(CircleShape)
-                        .clickable {
-                            // Handle image click
-                        }
-                )
+                if(state.avatar==null) {
+                    Image(
+                        painter = painterResource(id = com.bluhabit.blu.data.R.drawable.dummy_avatar),
+                        contentDescription = null,
+                        modifier = modifier
+                            .size(120.dp)
+                            .clip(CircleShape)
+                            .clickable {
+                                imageLauncher.launch("image/*")
+                            }
+                    )
+                }else{
+                    Image(
+                        bitmap = state.avatar.asImageBitmap(),
+                        contentDescription = null,
+                        modifier = modifier
+                            .size(120.dp)
+                            .clip(CircleShape)
+                            .clickable {
+                                imageLauncher.launch("image/*")
+                            }
+                    )
+                }
             }
             Spacer(modifier = Modifier.height(16.dp))
             Column(

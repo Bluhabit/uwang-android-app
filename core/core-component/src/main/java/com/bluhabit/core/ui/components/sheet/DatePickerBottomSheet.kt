@@ -93,6 +93,7 @@ fun DatePickerBottomSheet(
         WheelDatePicker(
             modifier = Modifier
                 .fillMaxWidth(),
+            startDate = value ?: LocalDate.now(),
             minDate = minDate,
             size = DpSize(321.dp, 264.dp),
             rowCount = 5,

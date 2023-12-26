@@ -68,6 +68,7 @@ fun InputDobScreen(
         sheetContent = {
             DatePickerBottomSheet(
                 title = "Title Here",
+                value=state.dateOfBirthState,
                 minDate = LocalDate.MIN,
                 onClose = {
                     scope.launch {
@@ -157,7 +158,7 @@ fun InputDobScreen(
                             )
                         }
                     },
-                    value = state.dateOfBirthState?.format(DateTimeFormatter.ofPattern("dd-mm-yyyy")).orEmpty(),
+                    value = state.dateOfBirthState?.toString().orEmpty(),
                     onValueChange = {
 
                     },
@@ -172,7 +173,7 @@ fun InputDobScreen(
                     .padding(start = 16.dp, end = 16.dp, bottom = 42.dp),
                 enabled = true
             ) {
-               onAction(CompleteProfileAction.NextStep)
+                onAction(CompleteProfileAction.NextStep)
             }
         }
     }
