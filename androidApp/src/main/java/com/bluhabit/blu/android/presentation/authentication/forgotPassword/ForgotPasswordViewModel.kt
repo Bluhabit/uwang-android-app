@@ -7,7 +7,6 @@
 
 package com.bluhabit.blu.android.presentation.authentication.forgotPassword
 
-import android.util.Log
 import android.util.Patterns
 import androidx.lifecycle.viewModelScope
 import com.bluhabit.blu.android.common.BaseViewModel

@@ -7,7 +7,6 @@
 
 package com.bluhabit.blu.android.presentation.authentication.signin.screen
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box

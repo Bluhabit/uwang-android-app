@@ -15,10 +15,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.bluhabit.blu.android.presentation.authentication.forgotPassword.ForgotPasswordScreen
+import com.bluhabit.blu.android.presentation.authentication.forgotPassword.ForgotPasswordViewModel
 import com.bluhabit.blu.android.presentation.authentication.onboard.OnboardScreen
 import com.bluhabit.blu.android.presentation.authentication.onboard.OnboardViewModel
-import com.bluhabit.blu.android.presentation.authentication.forgotPassword.ForgotPasswordViewModel
-import com.bluhabit.blu.android.presentation.authentication.forgotPassword.screen.InputForgotPasswordScreen
 import com.bluhabit.blu.android.presentation.authentication.signin.SignInScreen
 import com.bluhabit.blu.android.presentation.authentication.signin.SignInViewModel
 import com.bluhabit.blu.android.presentation.authentication.signup.SignUpScreen
