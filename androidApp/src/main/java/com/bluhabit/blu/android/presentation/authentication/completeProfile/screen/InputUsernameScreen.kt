@@ -7,7 +7,6 @@
 
 package com.bluhabit.blu.android.presentation.authentication.completeProfile.screen
 
-import android.provider.MediaStore
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image

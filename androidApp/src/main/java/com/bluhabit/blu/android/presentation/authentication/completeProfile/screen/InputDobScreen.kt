@@ -43,7 +43,6 @@ import com.bluhabit.core.ui.theme.CustomColor
 import com.bluhabit.core.ui.theme.CustomTypography
 import com.bluhabit.core.ui.theme.UwangTheme
 import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import kotlinx.coroutines.launch
 
 @Composable
