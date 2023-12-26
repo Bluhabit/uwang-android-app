@@ -278,12 +278,19 @@
     <string name="send_otp_screen_next">Selanjutnya</string>
     <!-- end forgot password screen  -->
 
+    <!--  [NEW] edit profile screen  -->
+    <string name="edit_profile_screen">Yuk, satu langkah lagi</string>
+    <string name="edit_profile_screen_hint">Tambahkan foto profil dan username diaplikasi Uwang.</string>
+    <string name="edit_profile_screen_placeholder">Username</string>
+    <string name="edit_profile_screen_field_label">Contoh : Jenny</string>
+    <string name="edit_profile_screen_next">Simpan</string>
+    <!--  [NEW] edit profile screen  -->
 
     <!--  [NEW] input new password screen  -->
     <string name="input_password_screen_reset_password">Buat Password Baru</string>
     <string name="input_password_screen_hint">Silakan buat password baru untuk melanjutkan akses ke akun Anda.</string>
     <string name="input_password_screen_password">Password</string>
-    <string name="input_password_screen_Passrowd_konfirm">Konfirmasi Password</string>
+    <string name="input_password_screen_Password_konfirm">Konfirmasi Password</string>
     <string name="input_password_screen_email_text_field_label">Masukan Password </string>
     <string name="input_password_screen_next">Simpan</string>
     <!-- end input new password screen  -->
