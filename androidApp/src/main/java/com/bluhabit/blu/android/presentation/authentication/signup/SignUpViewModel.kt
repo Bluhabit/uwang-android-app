@@ -10,21 +10,26 @@ package com.bluhabit.blu.android.presentation.authentication.signup
 import android.util.Patterns
 import androidx.lifecycle.viewModelScope
 import com.bluhabit.blu.android.common.BaseViewModel
+import com.bluhabit.blu.android.data.authentication.domain.SignInGoogleUseCase
 import com.bluhabit.blu.android.data.authentication.domain.SignUpBasicUseCase
 import com.bluhabit.blu.android.data.authentication.domain.VerifyOtpSignUpBasicUseCase
 import com.bluhabit.blu.data.common.Response
 import com.bluhabit.blu.data.common.executeAsFlow
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.tasks.Task
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
     private val signUpBasicUseCase: SignUpBasicUseCase,
-    private val verifyOtpSignUpBasicUseCase: VerifyOtpSignUpBasicUseCase
+    private val verifyOtpSignUpBasicUseCase: VerifyOtpSignUpBasicUseCase,
+    private val signInGoogleUseCase: SignInGoogleUseCase,
 ) : BaseViewModel<SignUpState, SignUpAction, SignUpEffect>(SignUpState()) {
     override fun onAction(action: SignUpAction) {
         when (action) {
@@ -38,6 +43,7 @@ class SignUpViewModel @Inject constructor(
             SignUpAction.SignUpBasic -> signUpBasic()
             SignUpAction.VerifyOtpUpBasic -> verifyOtp()
             is SignUpAction.OnButtonEnabledChange -> updateState { copy(buttonEnabled = false) }
+            is SignUpAction.OnSignInGoogle -> signUpGoogle(action.authResult)
         }
     }
 
@@ -117,6 +123,25 @@ class SignUpViewModel @Inject constructor(
                     is Response.Error -> Unit
                     is Response.Result -> {
                         _effect.send(SignUpEffect.NavigateToCompleteProfile)
+                    }
+                }
+            }
+            .collect()
+    }
+
+    private fun signUpGoogle(task: Task<GoogleSignInAccount>) = viewModelScope.launch {
+        val auth = task.await()
+        executeAsFlow { signInGoogleUseCase(auth.idToken.orEmpty()) }
+            .onStart { }
+            .onEach {
+                when (it) {
+                    is Response.Error -> Unit
+                    is Response.Result -> {
+                        if (it.data.credential.profile.isEmpty()) {
+                            _effect.send(SignUpEffect.NavigateToCompleteProfile)
+                        } else {
+                            _effect.send(SignUpEffect.NavigateToMain)
+                        }
                     }
                 }
             }
