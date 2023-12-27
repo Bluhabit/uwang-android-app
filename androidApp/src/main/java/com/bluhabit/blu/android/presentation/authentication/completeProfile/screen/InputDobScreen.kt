@@ -35,7 +35,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluehabit.core.ui.R
 import com.bluhabit.blu.android.presentation.authentication.completeProfile.CompleteProfileAction
-import com.bluhabit.blu.android.presentation.authentication.completeProfile.CompleteProfileEffect
 import com.bluhabit.blu.android.presentation.authentication.completeProfile.CompleteProfileState
 import com.bluhabit.core.ui.components.button.ButtonPrimary
 import com.bluhabit.core.ui.components.sheet.DatePickerBottomSheet
@@ -44,15 +43,12 @@ import com.bluhabit.core.ui.theme.CustomColor
 import com.bluhabit.core.ui.theme.CustomTypography
 import com.bluhabit.core.ui.theme.UwangTheme
 import java.time.LocalDate
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 
 @Composable
 fun InputDobScreen(
-    completeProfileState: CompleteProfileState = CompleteProfileState(),
-    stateFlow: Flow<CompleteProfileState> = flowOf(),
-    effectFlow: Flow<CompleteProfileEffect> = flowOf(),
+    state: CompleteProfileState = CompleteProfileState(),
+    onBackPressed: () -> Unit = {},
     onAction: (CompleteProfileAction) -> Unit = {},
 ) {
     val modalSheetState = rememberModalBottomSheetState(
@@ -71,6 +67,7 @@ fun InputDobScreen(
         sheetContent = {
             DatePickerBottomSheet(
                 title = "Title Here",
+                value=state.dateOfBirthState,
                 minDate = LocalDate.MIN,
                 onClose = {
                     scope.launch {
@@ -83,7 +80,7 @@ fun InputDobScreen(
                     }
                 },
                 onChange = { localDate ->
-                    // On Date Changed
+                    onAction(CompleteProfileAction.OnDateOfBirthChange(localDate))
                 }
             )
         }
@@ -96,7 +93,7 @@ fun InputDobScreen(
                 .verticalScroll(rememberScrollState()),
         ) {
             IconButton(onClick = {
-                // On back pressed
+                onBackPressed()
             }) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_arrow_back), contentDescription = "arrow back"
@@ -131,7 +128,7 @@ fun InputDobScreen(
                     modifier = Modifier
                         .fillMaxWidth(),
                     enabled = false,
-                    colors = if (completeProfileState.otpDobScreenDateState.isEmpty()) {
+                    colors = if (state.dateOfBirthState == null) {
                         TextFieldDefaults.outlinedTextFieldColors(
                             disabledBorderColor = CustomColor.Neutral.Grey6,
                             disabledTextColor = CustomColor.Neutral.Grey7
@@ -160,10 +157,11 @@ fun InputDobScreen(
                             )
                         }
                     },
-                    value = completeProfileState.otpDobScreenDateState, onValueChange = {
-                        onAction(CompleteProfileAction.InputDobScreenDateAction(value = it))
+                    value = state.dateOfBirthState?.toString().orEmpty(),
+                    onValueChange = {
+
                     },
-                    error = completeProfileState.otpDobScreenDateStateError
+                    error = state.dateOfBirthError
                 )
             }
             Spacer(modifier = Modifier.weight(1f))
@@ -172,9 +170,9 @@ fun InputDobScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 16.dp, end = 16.dp, bottom = 42.dp),
-                enabled = completeProfileState.otpDobScreenNextButtonEnabled
+                enabled = true
             ) {
-                // Next
+                onAction(CompleteProfileAction.NextStep)
             }
         }
     }
@@ -184,6 +182,8 @@ fun InputDobScreen(
 @Composable
 fun InputDobScreenPreview() {
     UwangTheme {
-        InputDobScreen()
+        InputDobScreen(
+            onBackPressed = {}
+        )
     }
 }

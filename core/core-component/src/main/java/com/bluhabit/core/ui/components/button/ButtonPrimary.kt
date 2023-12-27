@@ -16,6 +16,7 @@ import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -47,10 +48,10 @@ fun ButtonPrimary(
         enabled = enabled,
         shape = RoundedCornerShape(12.dp),
         colors = ButtonDefaults.buttonColors(
-            backgroundColor = if (error) Error600 else CustomColor.Primary.Blue500,
-            contentColor = CustomColor.Neutral.Grey1,
-            disabledBackgroundColor = if (error) Error200 else CustomColor.Primary.Blue100,
-            disabledContentColor = CustomColor.Neutral.Grey1,
+            backgroundColor = if (error) CustomColor.Error.Red500 else CustomColor.Primary.Blue500,
+            contentColor = Color(0xFFFFFFFF),
+            disabledBackgroundColor = if (error) CustomColor.Error.Red200 else CustomColor.Primary.Blue200,
+            disabledContentColor = Color(0xFFFFFFFF),
         ),
         elevation = ButtonDefaults.elevation(
             defaultElevation = 0.dp

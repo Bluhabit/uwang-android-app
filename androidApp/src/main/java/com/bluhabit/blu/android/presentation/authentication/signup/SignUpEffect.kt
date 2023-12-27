@@ -8,5 +8,7 @@
 package com.bluhabit.blu.android.presentation.authentication.signup
 
 sealed interface SignUpEffect {
-    object None:SignUpEffect
+    object None : SignUpEffect
+
+    object NavigateToCompleteProfile : SignUpEffect
 }

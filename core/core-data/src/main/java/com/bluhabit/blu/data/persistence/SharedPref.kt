@@ -14,9 +14,9 @@ class SharedPref(
     private val sharedPreferences: SharedPreferences
 ) {
     companion object {
-        const val isLoggedInKey = "hsdracvjkd"
-        const val tokenKey = "syrtfjykvsujgdf"
-        const val languageKey = "dtfvdff"
+        const val KEY_TOKEN = "abc0-df12"
+        const val KEY_IS_LOGGED_IN = "f435-bc0f2"
+
     }
 
     fun setPersistData(key: String, value: String) = sharedPreferences.edit {
@@ -31,39 +31,32 @@ class SharedPref(
 
     fun getPersistData(key: String) = sharedPreferences.getString(key, "")
 
-    fun setLanguage(lang: String) = sharedPreferences.edit {
-        putString(languageKey, lang)
-        apply()
-    }
-
-    fun getLanguage() = sharedPreferences.getString(languageKey, "").orEmpty()
-
     fun setIsLoggedIn(isLoggedIn: Boolean) = sharedPreferences.edit {
-        putBoolean(isLoggedInKey, isLoggedIn)
+        putBoolean(KEY_IS_LOGGED_IN, isLoggedIn)
         apply()
     }
 
     fun getIsLoggedIn(): Boolean =
-        sharedPreferences.getBoolean(isLoggedInKey, false)
+        sharedPreferences.getBoolean(KEY_IS_LOGGED_IN, false)
 
     fun setToken(token: String) = sharedPreferences.edit {
-        putString(tokenKey, token)
+        putString(KEY_TOKEN, token)
         apply()
     }
 
     fun getToken(): String =
-        sharedPreferences.getString(tokenKey, "")
+        sharedPreferences.getString(KEY_TOKEN, "")
             .orEmpty()
 
     fun setUserLoggedIn(
         token: String
     ) = sharedPreferences.edit {
-        putBoolean(isLoggedInKey, true)
-        putString(tokenKey, token)
+        putBoolean(KEY_IS_LOGGED_IN, true)
+        putString(KEY_TOKEN, token)
         apply()
     }
 
-    fun clearAllSession()=sharedPreferences.edit {
+    fun clearAllSession() = sharedPreferences.edit {
         clear()
         commit()
     }

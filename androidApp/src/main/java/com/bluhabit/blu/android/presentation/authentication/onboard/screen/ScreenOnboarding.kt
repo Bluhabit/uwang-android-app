@@ -42,6 +42,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluhabit.core.ui.components.button.ButtonPrimary
 import com.bluhabit.core.ui.components.button.ButtonPrimaryVariant
+import com.bluhabit.core.ui.theme.CustomColor
 import com.bluhabit.core.ui.theme.Neutral100
 import com.bluhabit.core.ui.theme.Primary50
 import com.bluhabit.core.ui.theme.UwangTheme
@@ -53,21 +54,26 @@ fun ScreenOnboarding(
     navigateToAuth: () -> Unit = {}
 ) {
     val onboard = listOf(
-        Triple(com.bluehabit.core.ui.R.drawable.onboarding1,
+        Triple(
+            com.bluehabit.core.ui.R.drawable.onboarding1,
             com.bluehabit.core.ui.R.string.text_onboard_1,
-            com.bluehabit.core.ui.R.string.text_title_1),
-        Triple(com.bluehabit.core.ui.R.drawable.onboarding2,
+            com.bluehabit.core.ui.R.string.text_title_1
+        ),
+        Triple(
+            com.bluehabit.core.ui.R.drawable.onboarding2,
             com.bluehabit.core.ui.R.string.text_onboard_2,
-            com.bluehabit.core.ui.R.string.text_title_2),
-        Triple(com.bluehabit.core.ui.R.drawable.onboarding3,
+            com.bluehabit.core.ui.R.string.text_title_2
+        ),
+        Triple(
+            com.bluehabit.core.ui.R.drawable.onboarding3,
             com.bluehabit.core.ui.R.string.text_onboard_3,
-            com.bluehabit.core.ui.R.string.text_title_3),
+            com.bluehabit.core.ui.R.string.text_title_3
+        ),
     )
     val pagerState = rememberPagerState(
         initialPage = 0,
         initialPageOffsetFraction = 0f
-    ) {1}
-    HorizontalPager(state = pagerState) {}
+    ) { 1 }
     val ctx = LocalContext.current
     val scope = rememberCoroutineScope()
 
@@ -113,7 +119,7 @@ fun ScreenOnboarding(
                         style = MaterialTheme.typography.h6,
                         fontWeight = FontWeight.W600,
                         textAlign = TextAlign.Center,
-                        color = Neutral100 ,
+                        color = Neutral100,
                         modifier = modifier.padding(
                             horizontal = 16.dp
                         )
@@ -123,7 +129,7 @@ fun ScreenOnboarding(
                         style = MaterialTheme.typography.h6,
                         fontWeight = FontWeight.W600,
                         textAlign = TextAlign.Center,
-                        color = Primary50 ,
+                        color = Primary50,
                         modifier = modifier.padding(
                             horizontal = 16.dp
                         )
@@ -179,7 +185,6 @@ fun PagerIndicator(
         contentAlignment = Alignment.Center
     ) {
         Indicators(size = size, index = index)
-
     }
 }
 
@@ -215,7 +220,7 @@ fun Indicator(modifier: Modifier = Modifier, isSelected: Boolean) {
             .clip(RoundedCornerShape(3.dp))
             .background(
                 color =
-                if (isSelected) MaterialTheme.colors.primary else MaterialTheme.colors.primary.copy(
+                if (isSelected) CustomColor.Primary.Blue500 else CustomColor.Primary.Blue500.copy(
                     alpha = 0.5f
                 )
             )

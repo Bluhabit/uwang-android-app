@@ -46,14 +46,14 @@ fun TextFieldPrimary(
     trailingIcon: @Composable (() -> Unit)? = null,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
-    singleLine: Boolean = false,
-    maxLines: Int = Int.MAX_VALUE,
+    singleLine: Boolean = true,
+    maxLines: Int = 1,
     readOnly: Boolean = false,
 ) {
     val focus = LocalFocusManager.current
     OutlinedTextField(
         modifier = modifier,
-        label = label,
+        placeholder = label,
         shape = shape,
         colors = colors,
         value = value,

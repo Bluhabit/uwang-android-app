@@ -11,7 +11,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -22,6 +21,11 @@ import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -32,24 +36,34 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluehabit.core.ui.R
 import com.bluhabit.blu.android.presentation.authentication.signin.SignInAction
-import com.bluhabit.blu.android.presentation.authentication.signin.SignInEffect
 import com.bluhabit.blu.android.presentation.authentication.signin.SignInState
+import com.bluhabit.core.ui.components.alert.CountdownText
 import com.bluhabit.core.ui.components.button.ButtonPrimary
 import com.bluhabit.core.ui.components.textfield.TextFieldOtp
 import com.bluhabit.core.ui.theme.CustomColor
 import com.bluhabit.core.ui.theme.CustomTypography
 import com.bluhabit.core.ui.theme.UwangTheme
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.delay
 
 @Composable
 fun OtpSignInScreen(
-    signInState: SignInState = SignInState(),
-    stateFlow: Flow<SignInState> = flowOf(),
-    effectFlow: Flow<SignInEffect> = flowOf(),
+    state: SignInState = SignInState(),
+    onBackPressed: () -> Unit,
     onAction: (SignInAction) -> Unit = {},
 ) {
+
     val focusManager = LocalFocusManager.current
+    var timeLeft by remember { mutableStateOf(1 * 60 * 1000L) }
+
+    LaunchedEffect(key1 = timeLeft) {
+        while (timeLeft > 0) {
+            delay(1000)
+            timeLeft -= 1000
+        }
+        if (timeLeft == 0L) {
+            onAction(SignInAction.OnButtonEnabledChange(false))
+        }
+    }
 
     Column(
         verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -60,7 +74,7 @@ fun OtpSignInScreen(
     ) {
         IconButton(
             onClick = {
-                // On Back Pressed
+                onBackPressed()
             }) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_arrow_back),
@@ -86,24 +100,7 @@ fun OtpSignInScreen(
                 color = CustomColor.Neutral.Grey9
             )
         }
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 4.dp, bottom = 7.dp)
-        ) {
-            Text(
-                text = stringResource(id = R.string.otp_sign_in_screen_reset_confirmation_time),
-                style = CustomTypography.Body.XS.W500,
-                color = CustomColor.Neutral.Grey13
-            )
-            Text(
-                text = "00.57",
-                style = CustomTypography.Body.XS.W500,
-                color = CustomColor.Error.Red500
-            )
-        }
+        CountdownText(timeLeft)
         Box(
             modifier = Modifier.fillMaxWidth(),
         ) {
@@ -111,13 +108,13 @@ fun OtpSignInScreen(
                 modifier = Modifier.align(Alignment.Center),
                 enabled = true,
                 length = 4,
-                value = signInState.otpNumberState,
-                error = signInState.otpNumberError,
+                value = state.otpNumberState,
+                error = state.otpNumberError,
                 onDone = {
                     focusManager.clearFocus(true)
                 },
                 onChange = { value ->
-                    onAction(SignInAction.OtpNumberAction(value = value))
+                    onAction(SignInAction.OnOtpChange(value = value))
                 }
             )
         }
@@ -127,9 +124,9 @@ fun OtpSignInScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 16.dp, end = 16.dp, bottom = 42.dp),
-            enabled = signInState.otpButtonEnabled
+            enabled = state.otpButtonEnabled
         ) {
-            // Next
+            onAction(SignInAction.OnVerifyOtp)
         }
     }
 }
@@ -138,6 +135,8 @@ fun OtpSignInScreen(
 @Composable
 fun OtpSignInScreenPreview() {
     UwangTheme {
-        OtpSignInScreen()
+        OtpSignInScreen(
+            onBackPressed = {}
+        )
     }
 }

@@ -106,8 +106,8 @@
     <string name="description_icon_success">Ikon sukses</string>
     <!--    end alert component-->
     <!--    complete profile  -->
-    <string name="text_title_success_profile">Yeay, Profil berhasil dibuat</string>
-    <string name="text_subtitle_success_profile">Silakan masuk ke akunmu dan nikmati pengalamanmu dalam aplikasi Uwang</string>
+    <string name="text_title_success_profile">Selamat, Profil berhasil dibuat!</string>
+    <string name="text_subtitle_success_profile">Silakan masuk ke akun Anda dan nikmati pengalaman perjalanan keuangan Anda dengan aplikasi Uwang</string>
     <string name="text_btn_success_profile">Beranda</string>
     <!--   end complete profile  -->
     <!--    favorite task component-->
@@ -120,10 +120,15 @@
     <string name="text_delete_image">Hapus Gambar</string>
     <!--   end bottom sheet edit profile component-->
 
+    <!--    bottom sheet date picker-->
+    <string name="text_start">Mulai</string>
+    <string name="btn_text_choose">Pilih</string>
+    <!--   end bottom sheet date picker-->
+
     <!--    bottom sheet date picker component-->
     <string name="btn_text_save">Save</string>
     <!--   end bottom sheet date picker component-->
-  
+
     <!--    search component-->
     <string name="text_placeholder_search_bar">Cari tugas atau proyek Anda</string>
     <!--    end search component-->
@@ -214,6 +219,10 @@
     <string name="text_description_ic_delete_input_subtask">Ikon menghapus subtask</string>
     <!-- nput subtask component -->
 
+    <!--  [NEW] onboard  -->
+    <string name="onboard_screen_sign_in_google_button_text">Masuk dengan Google</string>
+    <string name="onboard_screen_sign_in_email_button_text">Masuk dengan alamat Email</string>
+    <!--  end onboard  -->
 
     <!--  [NEW] sign in screen  -->
     <string name="sign_in_screen_welcome">Selamat datang</string>
@@ -257,6 +266,7 @@
     <string name="reset_password_screen_reset_password">Reset Password</string>
     <string name="reset_password_screen_hint">Masukkan alamat email yang terdaftar dan kami akan mengirimkan email berisi kode OTP untuk mengatur ulang Password</string>
     <string name="reset_password_screen_email">Email</string>
+    <string name="reset_password_screen_confirm_password_label">Konfirmasi Password</string>
     <string name="reset_password_screen_email_text_field_label">Contoh : jenny11@gmail.com</string>
     <string name="reset_password_screen_next">Selanjutnya</string>
     <!-- end forgot password screen  -->
@@ -269,12 +279,19 @@
     <string name="send_otp_screen_next">Selanjutnya</string>
     <!-- end forgot password screen  -->
 
+    <!--  [NEW] edit profile screen  -->
+    <string name="edit_profile_screen">Yuk, satu langkah lagi</string>
+    <string name="edit_profile_screen_hint">Tambahkan foto profil dan username diaplikasi Uwang.</string>
+    <string name="edit_profile_screen_placeholder">Username</string>
+    <string name="edit_profile_screen_field_label">Contoh : Jenny</string>
+    <string name="edit_profile_screen_next">Simpan</string>
+    <!--  [NEW] edit profile screen  -->
 
     <!--  [NEW] input new password screen  -->
     <string name="input_password_screen_reset_password">Buat Password Baru</string>
     <string name="input_password_screen_hint">Silakan buat password baru untuk melanjutkan akses ke akun Anda.</string>
     <string name="input_password_screen_password">Password</string>
-    <string name="input_password_screen_Passrowd_konfirm">Konfirmasi Password</string>
+    <string name="input_password_screen_Password_konfirm">Konfirmasi Password</string>
     <string name="input_password_screen_email_text_field_label">Masukan Password </string>
     <string name="input_password_screen_next">Simpan</string>
     <!-- end input new password screen  -->

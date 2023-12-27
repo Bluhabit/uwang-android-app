@@ -33,6 +33,7 @@ import io.ktor.http.ContentType
 import io.ktor.http.contentType
 import io.ktor.serialization.gson.gson
 import java.util.Locale
+import okhttp3.logging.HttpLoggingInterceptor
 
 
 @Module
@@ -71,6 +72,8 @@ object DataModule {
         @ApplicationContext appContext: Context,
         sharedPref: SharedPref
     ): HttpClient {
+        val logging = HttpLoggingInterceptor()
+        logging.level = HttpLoggingInterceptor.Level.BODY
         val chucker = ChuckerInterceptor
             .Builder(appContext)
             .collector(
@@ -86,6 +89,7 @@ object DataModule {
             .build()
         val okHttpEngine = OkHttp.create {
             addInterceptor(chucker)
+            addInterceptor(logging)
         }
         return HttpClient(okHttpEngine) {
             expectSuccess = true
@@ -95,10 +99,9 @@ object DataModule {
             install(Resources)
             defaultRequest {
                 url(BuildConfig.BASE_URL)
-                val locale = sharedPref.getLanguage()
                 val token = sharedPref.getToken()
                 header("Authorization", "Bearer ".plus(token))
-                header("Accept-Language", locale.ifEmpty { Locale.forLanguageTag("ID").language })
+                header("Accept-Language", Locale.forLanguageTag("ID").language)
                 contentType(ContentType.Application.Json)
             }
             install(ContentNegotiation) {
@@ -111,4 +114,5 @@ object DataModule {
         }
     }
 }
+
 

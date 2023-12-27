@@ -48,6 +48,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun DatePickerBottomSheet(
     title: String = String.Empty,
+    value:LocalDate?= null,
     minDate: LocalDate = LocalDate.now(),
     onDone: () -> Unit = {},
     onClose: () -> Unit = {},
@@ -92,6 +93,7 @@ fun DatePickerBottomSheet(
         WheelDatePicker(
             modifier = Modifier
                 .fillMaxWidth(),
+            startDate = value ?: LocalDate.now(),
             minDate = minDate,
             size = DpSize(321.dp, 264.dp),
             rowCount = 5,

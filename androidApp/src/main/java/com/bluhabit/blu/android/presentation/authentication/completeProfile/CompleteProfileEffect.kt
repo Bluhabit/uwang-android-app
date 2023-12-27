@@ -9,4 +9,7 @@ package com.bluhabit.blu.android.presentation.authentication.completeProfile
 
 sealed interface CompleteProfileEffect {
     object None:CompleteProfileEffect
+    data class Error (
+        val errorMessage: String
+    ): CompleteProfileEffect
 }
