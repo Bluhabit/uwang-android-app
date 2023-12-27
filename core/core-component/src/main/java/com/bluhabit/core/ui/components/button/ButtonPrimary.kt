@@ -13,20 +13,18 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluhabit.core.ui.ext.Empty
+import com.bluhabit.core.ui.theme.CustomColor
+import com.bluhabit.core.ui.theme.CustomTypography
 import com.bluhabit.core.ui.theme.Error200
 import com.bluhabit.core.ui.theme.Error600
-import com.bluhabit.core.ui.theme.Primary200
-import com.bluhabit.core.ui.theme.Primary700
 import com.bluhabit.core.ui.theme.UwangTheme
 
 /**
@@ -44,16 +42,15 @@ fun ButtonPrimary(
     error: Boolean = false,
     onClick: () -> Unit = {}
 ) {
-    val ctx = LocalContext.current
     Button(
-        modifier = modifier.height(44.dp),
+        modifier = modifier.height(40.dp),
         onClick = onClick,
         enabled = enabled,
-        shape = RoundedCornerShape(8.dp),
+        shape = RoundedCornerShape(12.dp),
         colors = ButtonDefaults.buttonColors(
-            backgroundColor = if (error) Error600 else Primary700,
+            backgroundColor = if (error) CustomColor.Error.Red500 else CustomColor.Primary.Blue500,
             contentColor = Color(0xFFFFFFFF),
-            disabledBackgroundColor = if (error) Error200 else Primary200,
+            disabledBackgroundColor = if (error) CustomColor.Error.Red200 else CustomColor.Primary.Blue200,
             disabledContentColor = Color(0xFFFFFFFF),
         ),
         elevation = ButtonDefaults.elevation(
@@ -62,8 +59,9 @@ fun ButtonPrimary(
     ) {
         Text(
             text = text,
-            style = MaterialTheme.typography.button,
-            fontWeight = FontWeight.SemiBold
+            style = CustomTypography.Label.Medium.W500,
+            fontWeight = FontWeight.SemiBold,
+            color = CustomColor.Neutral.Grey1
         )
     }
 }

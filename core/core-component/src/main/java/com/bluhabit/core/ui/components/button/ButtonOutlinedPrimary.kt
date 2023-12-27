@@ -24,6 +24,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluhabit.core.ui.ext.Empty
+import com.bluhabit.core.ui.theme.CustomColor
 import com.bluhabit.core.ui.theme.Error300
 import com.bluhabit.core.ui.theme.Error700
 import com.bluhabit.core.ui.theme.Primary300
@@ -45,22 +46,21 @@ fun ButtonOutlinedPrimary(
     error: Boolean = false,
     onClick: () -> Unit = {}
 ) {
-    val ctx = LocalContext.current
     OutlinedButton(
-        modifier = modifier.height(44.dp),
+        modifier = modifier.height(40.dp),
         onClick = onClick,
         enabled = enabled,
         shape = RoundedCornerShape(8.dp),
         colors = ButtonDefaults.outlinedButtonColors(
             backgroundColor = Color.Transparent,
-            contentColor = if (error) Error700 else Primary700,
-            disabledContentColor = if (error) Error300 else Primary300
+            contentColor = if (error) CustomColor.Error.Red300 else CustomColor.Primary.Blue500,
+            disabledContentColor = if (error) CustomColor.Error.Red300 else CustomColor.Primary.Blue300
         ),
         border = BorderStroke(
             width = 1.dp,
             color = when {
-                error -> if (enabled) Error700 else Error300
-                else -> if (enabled) Primary700 else Primary300
+                error -> if (enabled) CustomColor.Error.Red500 else CustomColor.Primary.Blue300
+                else -> if (enabled) CustomColor.Primary.Blue500 else CustomColor.Primary.Blue300
             }
         ),
         elevation = ButtonDefaults.elevation(

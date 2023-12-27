@@ -14,7 +14,7 @@ plugins {
 
 android {
     namespace = "com.bluehabit.core.ui"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 24
@@ -43,6 +43,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.material3)
     coreLibraryDesugaring(libs.desugar.jdk.lib)
     implementation(libs.core.ktx)
 

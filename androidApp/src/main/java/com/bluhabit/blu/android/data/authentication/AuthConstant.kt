@@ -8,5 +8,4 @@
 package com.bluhabit.blu.android.data.authentication
 
 object AuthConstant {
-
 }

@@ -5,10 +5,8 @@
  * Proprietary and confidential
  */
 
-package com.bluhabit.blu.android.data.profile.datasource.remote
+package com.bluhabit.blu.android.presentation.authentication.forgotPassword
 
-import io.ktor.resources.Resource
-
-@Resource("/api/v1/profile")
-class ProfileApi {
+sealed interface ForgotPasswordEffect {
+    object None:ForgotPasswordEffect
 }

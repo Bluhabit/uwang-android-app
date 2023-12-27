@@ -72,10 +72,21 @@
     <string name="text_button_complete_reset_password">Masuk</string>
     <!--    end reset password-->
     <!--    onboard  -->
-    <string name="text_onboard_1">Atur tugas &amp; selesaikan dengan mudah</string>
-    <string name="text_onboard_2">Tetap fokus &amp; monitor tugas setiap hari</string>
-    <string name="text_onboard_3">Koloborasi dengan tim buat jadi lebih mudah</string>
-    <string name="text_onboard_4">Apapun Gaweannya enjoy adalah jalannya.</string>
+    <string name="text_button_daftar">Daftar</string>
+    <string name="text_button_skip">Lewati</string>
+    <string name="text_button_signin_with_email_onboard">Masuk Dengan alamat Email</string>
+    <string name="text_button_signin_with_google_screen_onboard">Masuk Dengan Google</string>
+    <string name="text_button_term_and_condition">Syarat dan Ketentuan kebijakan aplikasi</string>
+    <string name="text_title_1">Selamat datang di Uwang!</string>
+    <string name="text_title_2">Templating keuangan</string>
+    <string name="text_title_3">Komunitas diskusi</string>
+    <string name="text_title_4">Sumber belajar</string>
+    <string name="text_title_daftar">Belum memiliki akun sebelumnya?</string>
+    <string name="text_title_termcondition">Dengan melakukan pendaftaran akun atau masuk ke dalam akun anda menyetujui </string>
+    <string name="text_onboard_2">Dapatkan template keuangan terbaik untuk membantu Anda merencanakan dan mencapai tujuan keuangan Anda.</string>
+    <string name="text_onboard_3">Bergabunglah dalam obrolan dengan komunitas kami, tanyakan pertanyaan, dan bagikan tips keuangan Anda.</string>
+    <string name="text_onboard_1">Kami hadir untuk membantu Anda membangun kehidupan keuangan yang lebih baik.</string>
+    <string name="text_onboard_4">Baca artikel dan ikuti berita terkini seputar keuangan untuk tetap terinformasi..</string>
     <!--    end onboarrd  -->
     <!--    complete profile  -->
     <string name="text_title_complete_profile">Lengkapi Profil</string>
@@ -94,7 +105,11 @@
     <string name="description_icon_error">Ikon error</string>
     <string name="description_icon_success">Ikon sukses</string>
     <!--    end alert component-->
-
+    <!--    complete profile  -->
+    <string name="text_title_success_profile">Selamat, Profil berhasil dibuat!</string>
+    <string name="text_subtitle_success_profile">Silakan masuk ke akun Anda dan nikmati pengalaman perjalanan keuangan Anda dengan aplikasi Uwang</string>
+    <string name="text_btn_success_profile">Beranda</string>
+    <!--   end complete profile  -->
     <!--    favorite task component-->
     <string name="description_icon_star">Ikon penanda tugas favorite</string>
     <!--    end alert component-->
@@ -109,7 +124,11 @@
     <string name="text_start">Mulai</string>
     <string name="btn_text_choose">Pilih</string>
     <!--   end bottom sheet date picker-->
-  
+
+    <!--    bottom sheet date picker component-->
+    <string name="btn_text_save">Save</string>
+    <!--   end bottom sheet date picker component-->
+
     <!--    search component-->
     <string name="text_placeholder_search_bar">Cari tugas atau proyek Anda</string>
     <!--    end search component-->
@@ -128,6 +147,12 @@
     <string name="text_label_confirm_dialog_password">Password Berhasil diubah!</string>
     <string name="text_subtitle_confirm_dialog_password">Yey, kamu berhasil mengubah password baru kamu. </string>
     <string name="text_button_confirm_dialog_password">Oke</string>
+    <!--    end alert component-->
+
+    <!--    forgot password component-->
+    <string name="text_label_forgot_password">Password berhasil diubah</string>
+    <string name="text_subtitle_forgot_password">Silakan masuk ke akunmu dengan memasukkan kata sandi terbaru. </string>
+    <string name="text_button_forgot_password">Login</string>
     <!--    end alert component-->
 
     <!--    bottom navigation-->
@@ -193,5 +218,105 @@
     <string name="text_placeholder_input_subtask">Masukan subtugas Anda</string>
     <string name="text_description_ic_delete_input_subtask">Ikon menghapus subtask</string>
     <!-- nput subtask component -->
+
+    <!--  [NEW] onboard  -->
+    <string name="onboard_screen_sign_in_google_button_text">Masuk dengan Google</string>
+    <string name="onboard_screen_sign_in_email_button_text">Masuk dengan alamat Email</string>
+    <!--  end onboard  -->
+
+    <!--  [NEW] sign in screen  -->
+    <string name="sign_in_screen_welcome">Selamat datang</string>
+    <string name="onboard_screen_login">Sumber belajar</string>
+    <string name="onboard_screen_login_title">Baca artikel dan ikuti berita terkini seputar keuangan untuk tetap terinformasi.</string>
+    <string name="sign_in_screen_description">Masukkan alamat email dan password Anda untuk melakukan login</string>
+    <string name="sign_in_screen_email_text_field_title">Email</string>
+    <string name="sign_in_screen_email_text_field_label">Contoh  : fadelptr09@gmail.com</string>
+    <string name="sign_in_screen_password_text_field_title">Password</string>
+    <string name="sign_in_screen_password_text_field_label">Masukkan password Anda</string>
+    <string name="sign_in_screen_forgot_password">Lupa Password</string>
+    <string name="sign_in_screen_sign_in_button_text">Masuk</string>
+    <string name="sign_in_screen_login_email_button_text">Masuk dengan alamat Email</string>
+    <string name="sign_in_screen_or">Atau</string>
+    <string name="sign_in_screen_sign_in_google_button_text">Masuk dengan Google</string>
+    <string name="sign_in_screen_not_have_an_account">Belum memiliki akun sebelumnya?\u0020</string>
+    <string name="sign_in_screen_register">Daftar</string>
+    <string name="sign_in_screen_term_and_condition_1">Dengan melakukan pendaftaran akun atau masuk ke dalam akun anda menyetujui</string>
+    <string name="sign_in_screen_term_and_condition_2">Syarat &amp; Ketentuan kebijakan aplikasi</string>
+    <!-- end sign in screen  -->
+
+    <!--  [NEW] sign up screen  -->
+    <string name="sign_up_screen_title">Daftarkan akun anda</string>
+    <string name="sign_up_screen_instruction">Masukkan alamat email Anda dan buat password Anda untuk melakukan pendaftaran</string>
+    <string name="sign_up_screen_email_text_field_title">Email</string>
+    <string name="sign_up_screen_email_text_field_label">Contoh  : fadelptr09@gmail.com</string>
+    <string name="sign_up_screen_password_text_field_title">Password</string>
+    <string name="sign_up_screen_password_text_field_label">Masukkan password Anda</string>
+    <string name="sign_up_screen_password_confirmation_text_field_title">Konfirmasi Password</string>
+    <string name="sign_up_screen_password_confirmation_text_field_label">Konfirmasi password Anda</string>
+    <string name="sign_up_screen_sign_up_button_text">Daftar</string>
+    <string name="sign_up_screen_or">Atau</string>
+    <string name="sign_up_screen_sign_in_google_button_text">Daftar dengan Google</string>
+    <string name="sign_up_screen_already_have_an_account">Sudah memiliki akun sebelumnya?\u0020</string>
+    <string name="sign_up_screen_sign_in">Masuk</string>
+    <string name="sign_up_screen_term_and_condition_1">Dengan melakukan pendaftaran akun atau masuk ke dalam akun anda menyetujui</string>
+    <string name="sign_up_screen_term_and_condition_2">Syarat &amp; Ketentuan kebijakan aplikasi</string>
+    <!-- end sign up screen  -->
+
+    <!--  [NEW] forgot password screen  -->
+    <string name="reset_password_screen_reset_password">Reset Password</string>
+    <string name="reset_password_screen_hint">Masukkan alamat email yang terdaftar dan kami akan mengirimkan email berisi kode OTP untuk mengatur ulang Password</string>
+    <string name="reset_password_screen_email">Email</string>
+    <string name="reset_password_screen_confirm_password_label">Konfirmasi Password</string>
+    <string name="reset_password_screen_email_text_field_label">Contoh : jenny11@gmail.com</string>
+    <string name="reset_password_screen_next">Selanjutnya</string>
+    <!-- end forgot password screen  -->
+
+    <!--  [NEW] forgot password screen  -->
+    <string name="send_otp">Masukkan Kode OTP</string>
+    <string name="send_otp_p1">Silakan periksa kotak masuk dan spam pada email</string>
+    <string name="send_otp_p2">""</string>
+    <string name="send_otp_p3"> masukkan kode OTP untuk buat password baru</string>
+    <string name="send_otp_screen_next">Selanjutnya</string>
+    <!-- end forgot password screen  -->
+
+    <!--  [NEW] edit profile screen  -->
+    <string name="edit_profile_screen">Yuk, satu langkah lagi</string>
+    <string name="edit_profile_screen_hint">Tambahkan foto profil dan username diaplikasi Uwang.</string>
+    <string name="edit_profile_screen_placeholder">Username</string>
+    <string name="edit_profile_screen_field_label">Contoh : Jenny</string>
+    <string name="edit_profile_screen_next">Simpan</string>
+    <!--  [NEW] edit profile screen  -->
+
+    <!--  [NEW] input new password screen  -->
+    <string name="input_password_screen_reset_password">Buat Password Baru</string>
+    <string name="input_password_screen_hint">Silakan buat password baru untuk melanjutkan akses ke akun Anda.</string>
+    <string name="input_password_screen_password">Password</string>
+    <string name="input_password_screen_Password_konfirm">Konfirmasi Password</string>
+    <string name="input_password_screen_email_text_field_label">Masukan Password </string>
+    <string name="input_password_screen_next">Simpan</string>
+    <!-- end input new password screen  -->
+
+    <!--  [NEW] otp sign in screen  -->
+    <string name="otp_sign_in_screen_reset_title">Masukkan Kode OTP</string>
+    <string name="otp_sign_in_screen_reset_instruction">Silakan periksa kotak masuk dan spam pada email %s, masukkan kode OTP  untuk buat password baru</string>
+    <string name="otp_sign_in_screen_reset_confirmation_time">Waktu konfirmasi\u0020</string>
+    <string name="otp_sign_in_screen_reset_next_button_text">Selanjutnya</string>
+    <!-- end forgot password screen  -->
+
+    <!--  [NEW] input dob screen screen  -->
+    <string name="input_odb_screen_title">Lengkapi data diri</string>
+    <string name="input_odb_screen_instruction">Isi tanggal lahir Anda untuk membantu kami memberikan rekomendasi dan saran yang lebih sesuai dengan situasi keuangan Anda.</string>
+    <string name="input_odb_screen_dob_text_field_title">Lengkapi data diri</string>
+    <string name="input_odb_screen_dob_text_field_text">Contoh : 11 Desember 2001</string>
+    <string name="input_odb_screen_dob_next_button_text">Selanjutnya</string>
+    <!-- end input dob screen  -->
+
+    <!--  [NEW] set preference screen  -->
+    <string name="set_preference_screen_title">Preferensi Keuangan</string>
+    <string name="set_preference_screen_instruction">Pilih minimal 3 topik keuangan yang ingin Anda jelajahi untuk memulai perjalanan keuangan Anda:</string>
+    <string name="set_preference_screen_next_button_text">Selanjutnya</string>
+    <!-- end set preference screen  -->
+
+    <!-- end input dob screen screen  -->
 
 </resources>
