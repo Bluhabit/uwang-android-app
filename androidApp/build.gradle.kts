@@ -43,13 +43,11 @@ android {
             firebaseAppDistribution {
                 artifactType = "APK"
                 releaseNotesFile = "./FirebaseDistributionConfig/release_notes.txt"
-                testers="triandamai@gmail.com"
+                testersFile="./FirebaseDistributionConfig/testers.txt"
+                groupsFile="./FirebaseDistributionConfig/groups.txt"
                 serviceCredentialsFile = "./secret/uwang-app-distribution.json"
                 appId = "1:616208190167:android:21914953259000a938fe92"
             }
-            setupKeystore()
-        }
-        getByName("debug") {
             setupKeystore()
         }
         getByName("debug") {
@@ -61,6 +59,7 @@ android {
             isMinifyEnabled = true
             isShrinkResources = true
             isDebuggable = false
+            signingConfig = signingConfigs.getByName("release")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -71,10 +70,12 @@ android {
             isShrinkResources = false
             isDebuggable = true
             applicationIdSuffix = ".debug"
+            signingConfig = signingConfigs.getByName("debug")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+
         }
     }
     setFlavorDimensions(listOf("Environment"))
@@ -93,7 +94,7 @@ android {
         }
     }
     applicationVariants.all {
-        setProperty("archivesBaseName", "UWANG-1.0.${getTimestamp()}-SNAPSHOT")
+        setProperty("archivesBaseName", "UWANG-1.0.${getTimestamp()}")
     }
 
     buildFeatures {
