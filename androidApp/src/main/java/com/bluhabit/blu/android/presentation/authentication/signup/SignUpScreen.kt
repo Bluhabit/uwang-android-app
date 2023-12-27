@@ -8,6 +8,7 @@
 package com.bluhabit.blu.android.presentation.authentication.signup
 
 import androidx.activity.compose.BackHandler
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -18,6 +19,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.bluhabit.blu.android.presentation.authentication.signup.screen.InputSignUpScreen
 import com.bluhabit.blu.android.presentation.authentication.signup.screen.OtpSignUpScreen
+import com.bluhabit.blu.data.common.Response
+import com.bluhabit.blu.data.contract.GoogleAuthContract
 import com.bluhabit.core.ui.theme.UwangTheme
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
@@ -38,8 +41,19 @@ fun SignUpScreen(
             SignUpEffect.NavigateToCompleteProfile -> {
                 navHostController.navigate("complete_profile")
             }
+
+            SignUpEffect.NavigateToMain -> Unit
         }
     })
+    val googleAuthLauncher = rememberLauncherForActivityResult(contract = GoogleAuthContract(), onResult = {
+        when (it) {
+            is Response.Error -> Unit
+            is Response.Result -> {
+                onAction(SignUpAction.OnSignInGoogle(it.data))
+            }
+        }
+    })
+
     fun goBack() {
         if (state.currentScreen == 1) {
             onAction(SignUpAction.OnScreenChange(0))
@@ -63,6 +77,9 @@ fun SignUpScreen(
             },
             onSignIn = {
                 navHostController.navigateUp()
+            },
+            onSignUpGoogle = {
+                googleAuthLauncher.launch(1)
             },
             onAction = onAction
         )

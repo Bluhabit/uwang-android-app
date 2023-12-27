@@ -49,6 +49,7 @@ fun InputSignUpScreen(
     onTermAndCondition: () -> Unit,
     onBackPressed: () -> Unit,
     onSignIn: () -> Unit,
+    onSignUpGoogle: () -> Unit,
     onAction: (SignUpAction) -> Unit
 ) {
 
@@ -148,7 +149,7 @@ fun InputSignUpScreen(
                         )
                     }
                 },
-                visualTransformation = if(state.passwordVisibility) VisualTransformation.None else PasswordVisualTransformation(),
+                visualTransformation = if (state.passwordVisibility) VisualTransformation.None else PasswordVisualTransformation(),
                 value = state.passwordState,
                 onValueChange = {
                     onAction(SignUpAction.OnPasswordChange(value = it))
@@ -196,7 +197,7 @@ fun InputSignUpScreen(
                         )
                     }
                 },
-                visualTransformation = if(state.passwordConfirmationVisibility) VisualTransformation.None else PasswordVisualTransformation(),
+                visualTransformation = if (state.passwordConfirmationVisibility) VisualTransformation.None else PasswordVisualTransformation(),
                 value = state.passwordConfirmationState,
                 onValueChange = {
                     onAction(SignUpAction.OnPasswordConfirmationChange(value = it))
@@ -247,6 +248,9 @@ fun InputSignUpScreen(
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp),
             text = stringResource(id = R.string.sign_up_screen_sign_in_google_button_text),
+            onClick = {
+                onSignUpGoogle()
+            }
         )
         Row(
             modifier = Modifier
@@ -298,7 +302,8 @@ fun TermAndConditionScreenPreview() {
             onAction = {},
             onBackPressed = {},
             onTermAndCondition = {},
-            onSignIn = {}
+            onSignIn = {},
+            onSignUpGoogle = {}
         )
     }
 }
