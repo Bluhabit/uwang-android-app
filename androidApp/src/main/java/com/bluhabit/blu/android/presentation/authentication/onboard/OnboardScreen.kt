@@ -109,8 +109,8 @@ fun OnboardScreen(
             OnboardEffect.None -> Unit
             is OnboardEffect.ShowDialog -> Unit
             OnboardEffect.NavigateAuth -> Unit
-            OnboardEffect.NavigateHome -> navHostController.navigate("/home")
-            OnboardEffect.NavigateCompleteProfile -> TODO()
+            OnboardEffect.NavigateHome -> navHostController.navigate("home")
+            OnboardEffect.NavigateCompleteProfile -> navHostController.navigate("complete_profile")
         }
     })
     Box(modifier = modifier.fillMaxSize()) {
