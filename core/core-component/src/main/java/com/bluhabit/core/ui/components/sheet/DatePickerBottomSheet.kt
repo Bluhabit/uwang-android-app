@@ -38,7 +38,7 @@ import androidx.compose.ui.unit.sp
 import com.bluehabit.core.ui.R
 import com.bluhabit.core.ui.components.button.ButtonPrimary
 import com.bluhabit.core.ui.ext.Empty
-import com.bluhabit.core.ui.theme.CustomColor
+import com.bluhabit.core.ui.theme.UwangColors
 import com.bluhabit.core.ui.theme.CustomTypography
 import com.commandiron.wheel_picker_compose.WheelDatePicker
 import com.commandiron.wheel_picker_compose.core.WheelPickerDefaults
@@ -85,7 +85,7 @@ fun DatePickerBottomSheet(
             Text(
                 text = title,
                 lineHeight = 28.sp,
-                color = CustomColor.Neutral.Grey9,
+                color = UwangColors.Neutral.Grey9,
                 style = CustomTypography.Body.XL.W600,
                 modifier = Modifier.fillMaxWidth()
             )

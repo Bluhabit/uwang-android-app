@@ -60,7 +60,6 @@ fun UwangTheme(
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
         }
     }
-
     MaterialTheme(
         colors = colorScheme,
         typography = Typography,

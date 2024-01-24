@@ -30,7 +30,7 @@ import com.bluhabit.blu.android.presentation.authentication.completeProfile.scre
 import com.bluhabit.blu.android.presentation.authentication.completeProfile.screen.SetPreferenceScreen
 import com.bluhabit.core.ui.components.button.ButtonPrimary
 import com.bluhabit.core.ui.components.dialog.DialogPrimary
-import com.bluhabit.core.ui.theme.CustomColor
+import com.bluhabit.core.ui.theme.UwangColors
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
@@ -67,7 +67,7 @@ fun CompleteProfileScreen(
             dismissIcon = {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_close),
-                    tint = CustomColor.Neutral.Grey12,
+                    tint = UwangColors.Neutral.Grey12,
                     contentDescription = "",
                     modifier = Modifier
                         .clickable {

@@ -35,7 +35,7 @@ import com.bluhabit.blu.android.presentation.authentication.forgotPassword.Forgo
 import com.bluhabit.blu.android.presentation.authentication.forgotPassword.ForgotPasswordState
 import com.bluhabit.core.ui.components.button.ButtonPrimary
 import com.bluhabit.core.ui.components.textfield.TextFieldOtp
-import com.bluhabit.core.ui.theme.CustomColor
+import com.bluhabit.core.ui.theme.UwangColors
 import com.bluhabit.core.ui.theme.CustomTypography
 import com.bluhabit.core.ui.theme.UwangTheme
 
@@ -71,7 +71,7 @@ fun OtpForgotPasswordScreen(
             Text(
                 text = stringResource(id = R.string.otp_sign_in_screen_reset_title),
                 style = CustomTypography.Body.XL.W600,
-                color = CustomColor.Neutral.Grey13
+                color = UwangColors.Neutral.Grey13
             )
             Text(
                 text = stringResource(
@@ -79,7 +79,7 @@ fun OtpForgotPasswordScreen(
                     "J****11@gmail.com"
                 ),
                 style = CustomTypography.Body.Small.W400,
-                color = CustomColor.Neutral.Grey9
+                color = UwangColors.Neutral.Grey9
             )
         }
         Row(
@@ -92,12 +92,12 @@ fun OtpForgotPasswordScreen(
             Text(
                 text = stringResource(id = R.string.otp_sign_in_screen_reset_confirmation_time),
                 style = CustomTypography.Body.XS.W500,
-                color = CustomColor.Neutral.Grey13
+                color = UwangColors.Neutral.Grey13
             )
             Text(
-                text = "00.57",
+                text = "00.00",
                 style = CustomTypography.Body.XS.W500,
-                color = CustomColor.Error.Red500
+                color = UwangColors.Error.Red500
             )
         }
         Box(

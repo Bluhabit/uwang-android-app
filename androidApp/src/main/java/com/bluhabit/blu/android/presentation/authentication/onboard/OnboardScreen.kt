@@ -15,7 +15,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -23,7 +22,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.Divider
@@ -37,26 +35,52 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.bluehabit.core.ui.R
-import com.bluhabit.blu.android.presentation.authentication.onboard.screen.Indicators
+import com.bluhabit.blu.android.presentation.authentication.onboard.screen.ScreenFrameOnboarding
 import com.bluhabit.blu.data.common.Response
 import com.bluhabit.blu.data.contract.GoogleAuthContract
 import com.bluhabit.core.ui.components.button.ButtonGoogle
 import com.bluhabit.core.ui.components.button.ButtonOutlinedPrimary
 import com.bluhabit.core.ui.components.button.ButtonPrimary
-import com.bluhabit.core.ui.theme.CustomColor
+import com.bluhabit.core.ui.components.pager.Indicators
+import com.bluhabit.core.ui.theme.UwangColors
 import com.bluhabit.core.ui.theme.CustomTypography
+import com.bluhabit.core.ui.theme.UwangDimens
 import com.bluhabit.core.ui.theme.Neutral100
+import com.bluhabit.core.ui.theme.UwangTheme
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
+
+val onboard = listOf(
+    Triple(
+        R.drawable.onboarding1,
+        R.string.text_title_1,
+        R.string.text_onboard_1
+    ), Triple(
+        R.drawable.onboarding2,
+        R.string.text_title_2,
+        R.string.text_onboard_2
+    ), Triple(
+        R.drawable.onboarding3,
+        R.string.text_title_3,
+        R.string.text_onboard_3
+    ), Triple(
+        R.drawable.onboard4,
+        R.string.onboard_screen_login,
+        R.string.onboard_screen_login_title
+    )
+)
 
 @Composable
 fun OnboardScreen(
@@ -70,33 +94,16 @@ fun OnboardScreen(
     val state by stateFlow.collectAsStateWithLifecycle(initialValue = OnboardState())
     val effect by effectFlow.collectAsState(initial = OnboardEffect.None)
     val scope = rememberCoroutineScope()
+    val ctx = LocalContext.current
+    val dimens = UwangDimens.from(ctx)
 
-    val onboard = listOf(
-        Triple(
-            R.drawable.onboarding1,
-            R.string.text_title_1,
-            R.string.text_onboard_1
-        ), Triple(
-            R.drawable.onboarding2,
-            R.string.text_title_2,
-            R.string.text_onboard_2
-        ), Triple(
-            R.drawable.onboarding3,
-            R.string.text_title_3,
-            R.string.text_onboard_3
-        ), Triple(
-            R.drawable.onboard4,
-            R.string.onboard_screen_login,
-            R.string.onboard_screen_login_title
-        )
-    )
     val pagerState = rememberPagerState(
         initialPage = 0, initialPageOffsetFraction = 0f
     ) { onboard.size }
     val googleAuthLauncher = rememberLauncherForActivityResult(contract = GoogleAuthContract(), onResult = {
         when (it) {
             is Response.Error -> {
-                Log.e("HEHE", it.message)
+                Log.e("Sign In Google", it.message)
             }
 
             is Response.Result -> {
@@ -122,31 +129,32 @@ fun OnboardScreen(
             verticalArrangement = Arrangement.SpaceBetween
         ) {
             HorizontalPager(
-                state = pagerState, userScrollEnabled = true
+                state = pagerState,
+                userScrollEnabled = true
             ) { page ->
-                FrameScreen(
+                ScreenFrameOnboarding(
                     modifier = modifier,
                     top = {
                         Column(
                             modifier = modifier
-                                .padding(top = 35.dp),
+                                .padding(top = dimens.dp_30),
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalArrangement = Arrangement.Center
                         ) {
                             Text(
                                 text = stringResource(onboard[page].second),
                                 style = MaterialTheme.typography.h6.copy(
-                                    fontSize = 20.sp
+                                    fontSize = dimens.sp_20
                                 ),
                                 fontWeight = FontWeight.W600,
                                 textAlign = TextAlign.Center,
-                                color = CustomColor.Primary.Blue500,
+                                color = UwangColors.Primary.Blue500,
                                 modifier = modifier.fillMaxWidth()
                             )
                             Text(
                                 text = stringResource(onboard[page].third),
                                 style = MaterialTheme.typography.body2.copy(
-                                    fontSize = 14.sp
+                                    fontSize = dimens.sp_14
                                 ),
                                 fontWeight = FontWeight.W400,
                                 textAlign = TextAlign.Center,
@@ -158,10 +166,10 @@ fun OnboardScreen(
                             painter = painterResource(onboard[page].first),
                             contentDescription = "",
                             modifier = modifier
-                                .fillMaxHeight(0.4f)
+                                .fillMaxHeight(0.6f)
                                 .fillMaxWidth()
-                                .padding(horizontal = 20.dp),
-                            contentScale = ContentScale.FillWidth
+                                .padding(horizontal = dimens.dp_20),
+                            contentScale = ContentScale.FillBounds
                         )
                         Spacer(modifier = modifier.height(6.dp))
                     },
@@ -196,7 +204,7 @@ fun OnboardScreen(
                                 text = "Selanjutnya",
                                 onClick = {
                                     scope.launch {
-                                        pagerState.scrollToPage(page = page + 1)
+                                        pagerState.animateScrollToPage(page = page + 1)
                                     }
                                 }
                             )
@@ -204,7 +212,7 @@ fun OnboardScreen(
                     })
             }
         }
-        FrameScreen(
+        ScreenFrameOnboarding(
             modifier = modifier,
             top = {},
             middle = { Indicators(size = 4, index = pagerState.currentPage) },
@@ -250,7 +258,7 @@ fun StepFour(
         Text(
             text = stringResource(id = R.string.sign_in_screen_or),
             style = CustomTypography.Body.Small.W400,
-            color = CustomColor.Neutral.Grey8,
+            color = UwangColors.Neutral.Grey8,
             textAlign = TextAlign.Center,
             modifier = Modifier.weight(0.4f)
         )
@@ -265,84 +273,46 @@ fun StepFour(
     )
     Row(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 10.dp), horizontalArrangement = Arrangement.Start
+            .fillMaxWidth(),
+        horizontalArrangement = Arrangement.Start
     ) {
         Text(
             text = stringResource(id = R.string.sign_in_screen_not_have_an_account),
             style = CustomTypography.Body.Small.W400,
-            color = CustomColor.Neutral.Grey9
+            color = UwangColors.Neutral.Grey9
         )
         Text(text = stringResource(id = R.string.sign_in_screen_register),
             style = CustomTypography.Body.Small.W400,
-            color = CustomColor.Primary.Blue500,
+            color = UwangColors.Primary.Blue500,
             modifier = Modifier.clickable {
                 onNavigateToSignUp()
             })
     }
     Spacer(modifier = Modifier.padding(bottom = 16.dp))
-    Column(
-        modifier = Modifier.padding(horizontal = 16.dp),
-    ) {
+    Column{
         Text(
             text = stringResource(id = R.string.sign_in_screen_term_and_condition_1),
             style = CustomTypography.Body.Small.W400,
-            color = CustomColor.Neutral.Grey7
+            color = UwangColors.Neutral.Grey7
         )
         Text(text = stringResource(id = R.string.sign_in_screen_term_and_condition_2),
             style = CustomTypography.Body.Small.W400,
-            color = CustomColor.Primary.Blue500,
+            color = UwangColors.Primary.Blue500,
             modifier = Modifier.clickable {
                 onNavigateToTermCondition()
             })
     }
 }
 
+@Preview
 @Composable
-fun FrameScreen(
-    modifier: Modifier = Modifier,
-    top: @Composable ColumnScope.() -> Unit = {},
-    middle: @Composable () -> Unit = {},
-    bottom: @Composable ColumnScope.() -> Unit = {}
-) {
-    Column(
-        modifier = modifier.fillMaxSize()
-    ) {
-        Column(
-            modifier = modifier
-                .fillMaxHeight(fraction = 0.6f)
-                .padding(
-                    start = 18.dp,
-                    end = 18.dp,
-                    bottom = 18.dp,
-                    top = 18.dp
-                ),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.SpaceBetween
-        ) {
-            top(this)
-        }
-        Column(
-            modifier = modifier.fillMaxHeight(fraction = 0.1f),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            Box(
-                modifier = modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp), contentAlignment = Alignment.Center
-            ) {
-                middle()
-            }
-        }
-        Column(
-            modifier = modifier
-                .wrapContentHeight()
-                .padding(start = 18.dp, end = 18.dp, top = 18.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Top
-        ) {
-            bottom(this)
-        }
+fun PreviewOnboarding() {
+    UwangTheme {
+        OnboardScreen(
+            navHostController = rememberNavController(),
+            stateFlow = flowOf(),
+            effectFlow = flowOf(),
+            onAction = {}
+        )
     }
 }

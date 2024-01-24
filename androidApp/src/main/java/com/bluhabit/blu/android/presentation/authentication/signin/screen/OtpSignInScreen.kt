@@ -40,7 +40,7 @@ import com.bluhabit.blu.android.presentation.authentication.signin.SignInState
 import com.bluhabit.core.ui.components.alert.CountdownText
 import com.bluhabit.core.ui.components.button.ButtonPrimary
 import com.bluhabit.core.ui.components.textfield.TextFieldOtp
-import com.bluhabit.core.ui.theme.CustomColor
+import com.bluhabit.core.ui.theme.UwangColors
 import com.bluhabit.core.ui.theme.CustomTypography
 import com.bluhabit.core.ui.theme.UwangTheme
 import kotlinx.coroutines.delay
@@ -89,7 +89,7 @@ fun OtpSignInScreen(
             Text(
                 text = stringResource(id = R.string.otp_sign_in_screen_reset_title),
                 style = CustomTypography.Body.XL.W600,
-                color = CustomColor.Neutral.Grey13
+                color = UwangColors.Neutral.Grey13
             )
             Text(
                 text = stringResource(
@@ -97,7 +97,7 @@ fun OtpSignInScreen(
                     "J****11@gmail.com"
                 ),
                 style = CustomTypography.Body.Small.W400,
-                color = CustomColor.Neutral.Grey9
+                color = UwangColors.Neutral.Grey9
             )
         }
         CountdownText(timeLeft)

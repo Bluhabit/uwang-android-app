@@ -8,16 +8,21 @@
 package com.bluhabit.blu.android
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.runtime.LaunchedEffect
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.bluhabit.blu.android.common.event.EventObserverImpl
+import com.bluhabit.blu.android.common.event.EventPublisher
 import com.bluhabit.blu.android.presentation.authentication.completeProfile.CompleteProfileScreen
 import com.bluhabit.blu.android.presentation.authentication.completeProfile.CompleteProfileViewModel
 import com.bluhabit.blu.android.presentation.authentication.forgotPassword.ForgotPasswordScreen
 import com.bluhabit.blu.android.presentation.authentication.forgotPassword.ForgotPasswordViewModel
+import com.bluhabit.blu.android.presentation.authentication.onboard.OnboardAction
 import com.bluhabit.blu.android.presentation.authentication.onboard.OnboardScreen
 import com.bluhabit.blu.android.presentation.authentication.onboard.OnboardViewModel
 import com.bluhabit.blu.android.presentation.authentication.signin.SignInScreen
@@ -27,6 +32,8 @@ import com.bluhabit.blu.android.presentation.authentication.signup.SignUpViewMod
 import com.bluhabit.blu.android.presentation.authentication.termAndCondition.TermAndConditionScreen
 import com.bluhabit.core.ui.theme.UwangTheme
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
+import kotlinx.coroutines.delay
 
 
 @AndroidEntryPoint
