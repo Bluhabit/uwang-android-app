@@ -22,14 +22,13 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluehabit.core.ui.R
 import com.bluhabit.core.ui.ext.Empty
-import com.bluhabit.core.ui.theme.CustomColor
+import com.bluhabit.core.ui.theme.UwangColors
 import com.bluhabit.core.ui.theme.CustomTypography
 import com.bluhabit.core.ui.theme.Gray700
 import com.bluhabit.core.ui.theme.UwangTheme
@@ -65,7 +64,7 @@ fun ButtonSocial(
         shape = RoundedCornerShape(8.dp),
         border = BorderStroke(
             width = 0.8.dp,
-            color = CustomColor.Primary.Blue500
+            color = UwangColors.Primary.Blue500
         ),
         colors = ButtonDefaults.buttonColors(
             backgroundColor = backgroundColor,

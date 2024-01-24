@@ -32,7 +32,7 @@ import androidx.compose.ui.window.Dialog
 import com.bluehabit.core.ui.R
 import com.bluhabit.core.ui.components.button.ButtonPrimary
 import com.bluhabit.core.ui.ext.Empty
-import com.bluhabit.core.ui.theme.CustomColor
+import com.bluhabit.core.ui.theme.UwangColors
 import com.bluhabit.core.ui.theme.CustomTypography
 import com.bluhabit.core.ui.theme.UwangTheme
 
@@ -88,13 +88,13 @@ fun DialogPrimary(
                     Text(
                         text = title,
                         style = CustomTypography.Body.XL.W600,
-                        color = CustomColor.Neutral.Grey13,
+                        color = UwangColors.Neutral.Grey13,
                         textAlign = TextAlign.Center
                     )
                     Text(
                         text = message,
                         style = CustomTypography.Body.Small.W400,
-                        color = CustomColor.Neutral.Grey9,
+                        color = UwangColors.Neutral.Grey9,
                         textAlign = TextAlign.Center
                     )
                 }
@@ -130,7 +130,7 @@ fun DialogPrimaryPreview() {
             dismissIcon = {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_close),
-                    tint = CustomColor.Neutral.Grey12,
+                    tint = UwangColors.Neutral.Grey12,
                     contentDescription = "",
                     modifier = Modifier
                         .clickable {

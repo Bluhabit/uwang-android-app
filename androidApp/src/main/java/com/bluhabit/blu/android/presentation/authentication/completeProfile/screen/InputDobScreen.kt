@@ -39,7 +39,7 @@ import com.bluhabit.blu.android.presentation.authentication.completeProfile.Comp
 import com.bluhabit.core.ui.components.button.ButtonPrimary
 import com.bluhabit.core.ui.components.sheet.DatePickerBottomSheet
 import com.bluhabit.core.ui.components.textfield.TextFieldPrimary
-import com.bluhabit.core.ui.theme.CustomColor
+import com.bluhabit.core.ui.theme.UwangColors
 import com.bluhabit.core.ui.theme.CustomTypography
 import com.bluhabit.core.ui.theme.UwangTheme
 import java.time.LocalDate
@@ -105,12 +105,12 @@ fun InputDobScreen(
                 Text(
                     text = stringResource(id = R.string.input_odb_screen_title),
                     style = CustomTypography.Body.XL.W600,
-                    color = CustomColor.Neutral.Grey13
+                    color = UwangColors.Neutral.Grey13
                 )
                 Text(
                     text = stringResource(id = R.string.input_odb_screen_instruction),
                     style = CustomTypography.Body.Small.W400,
-                    color = CustomColor.Neutral.Grey9
+                    color = UwangColors.Neutral.Grey9
                 )
             }
             Column(
@@ -122,7 +122,7 @@ fun InputDobScreen(
                 Text(
                     text = stringResource(id = R.string.input_odb_screen_dob_text_field_title),
                     style = CustomTypography.Body.Small.W400,
-                    color = CustomColor.Neutral.Grey9
+                    color = UwangColors.Neutral.Grey9
                 )
                 TextFieldPrimary(
                     modifier = Modifier
@@ -130,13 +130,13 @@ fun InputDobScreen(
                     enabled = false,
                     colors = if (state.dateOfBirthState == null) {
                         TextFieldDefaults.outlinedTextFieldColors(
-                            disabledBorderColor = CustomColor.Neutral.Grey6,
-                            disabledTextColor = CustomColor.Neutral.Grey7
+                            disabledBorderColor = UwangColors.Neutral.Grey6,
+                            disabledTextColor = UwangColors.Neutral.Grey7
                         )
                     } else {
                         TextFieldDefaults.outlinedTextFieldColors(
-                            disabledBorderColor = CustomColor.Neutral.Grey13,
-                            disabledTextColor = CustomColor.Neutral.Grey13
+                            disabledBorderColor = UwangColors.Neutral.Grey13,
+                            disabledTextColor = UwangColors.Neutral.Grey13
                         )
                     },
                     label = {
@@ -153,7 +153,7 @@ fun InputDobScreen(
                             Icon(
                                 painter = painterResource(id = R.drawable.arrow_down),
                                 contentDescription = "arrow back",
-                                tint = CustomColor.Neutral.Grey7
+                                tint = UwangColors.Neutral.Grey7
                             )
                         }
                     },

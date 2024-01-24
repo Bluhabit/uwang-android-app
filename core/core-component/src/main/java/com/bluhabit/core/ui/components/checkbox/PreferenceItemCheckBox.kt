@@ -37,7 +37,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluehabit.core.ui.R
 import com.bluhabit.core.ui.ext.Empty
-import com.bluhabit.core.ui.theme.CustomColor
+import com.bluhabit.core.ui.theme.UwangColors
 import com.bluhabit.core.ui.theme.CustomTypography
 import com.bluhabit.core.ui.theme.UwangTheme
 
@@ -58,7 +58,7 @@ fun PreferenceItemCheckBox(
             .clip(RoundedCornerShape(12.dp))
             .border(
                 width = 1.dp,
-                color = CustomColor.Neutral.Grey6,
+                color = UwangColors.Neutral.Grey6,
                 shape = RoundedCornerShape(12.dp)
             )
             .background(Color.White)

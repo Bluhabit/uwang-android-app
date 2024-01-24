@@ -29,7 +29,7 @@ import kotlinx.coroutines.tasks.await
 class SignUpViewModel @Inject constructor(
     private val signUpBasicUseCase: SignUpBasicUseCase,
     private val verifyOtpSignUpBasicUseCase: VerifyOtpSignUpBasicUseCase,
-    private val signInGoogleUseCase: SignInGoogleUseCase,
+    private val signInGoogleUseCase: SignInGoogleUseCase
 ) : BaseViewModel<SignUpState, SignUpAction, SignUpEffect>(SignUpState()) {
     override fun onAction(action: SignUpAction) {
         when (action) {
@@ -46,7 +46,6 @@ class SignUpViewModel @Inject constructor(
             is SignUpAction.OnSignInGoogle -> signUpGoogle(action.authResult)
         }
     }
-
     private fun onEmailChange(email: String) = viewModelScope.launch {
         val isEmailValid = Patterns.EMAIL_ADDRESS.matcher(email).matches()
         val isPasswordValid = state.value.passwordState.isNotEmpty()

@@ -38,7 +38,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluhabit.core.ui.ext.Empty
-import com.bluhabit.core.ui.theme.CustomColor
+import com.bluhabit.core.ui.theme.UwangColors
 import com.bluhabit.core.ui.theme.CustomTypography
 import com.bluhabit.core.ui.theme.UwangTheme
 
@@ -112,9 +112,9 @@ fun CharView(
             .border(
                 width = 1.dp,
                 color = when {
-                    enabled -> CustomColor.Neutral.Grey13
-                    error -> CustomColor.Error.Red500
-                    else -> CustomColor.Neutral.Grey7
+                    enabled -> UwangColors.Neutral.Grey13
+                    error -> UwangColors.Error.Red500
+                    else -> UwangColors.Neutral.Grey7
                 },
                 shape = RoundedCornerShape(12.dp)
             )
@@ -126,9 +126,9 @@ fun CharView(
             text = char,
             style = CustomTypography.Body.Large.W600,
             color = when {
-                (index >= text.length || !enabled) -> CustomColor.Neutral.Grey7
-                error -> CustomColor.Error.Red500
-                else -> CustomColor.Neutral.Grey13
+                (index >= text.length || !enabled) -> UwangColors.Neutral.Grey7
+                error -> UwangColors.Error.Red500
+                else -> UwangColors.Neutral.Grey13
             },
             textAlign = TextAlign.Center,
         )

@@ -21,7 +21,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
-import com.bluhabit.core.ui.theme.CustomColor
+import com.bluhabit.core.ui.theme.UwangColors
 import com.bluhabit.core.ui.theme.CustomTypography
 
 @Composable
@@ -30,12 +30,12 @@ fun TextFieldPrimary(
     label: @Composable (() -> Unit)? = null,
     shape: Shape = RoundedCornerShape(12.dp),
     colors: TextFieldColors = TextFieldDefaults.outlinedTextFieldColors(
-        textColor = CustomColor.Neutral.Grey13,
+        textColor = UwangColors.Neutral.Grey13,
         backgroundColor = Color.White,
-        focusedBorderColor = CustomColor.Neutral.Grey13,
-        unfocusedBorderColor = CustomColor.Neutral.Grey5,
-        unfocusedLabelColor = CustomColor.Neutral.Grey7,
-        errorBorderColor = CustomColor.Error.Red500,
+        focusedBorderColor = UwangColors.Neutral.Grey13,
+        unfocusedBorderColor = UwangColors.Neutral.Grey5,
+        unfocusedLabelColor = UwangColors.Neutral.Grey7,
+        errorBorderColor = UwangColors.Error.Red500,
     ),
     textStyle: TextStyle = CustomTypography.Body.Small.W400,
     value: String = "",

@@ -39,7 +39,7 @@ import com.bluhabit.blu.android.presentation.authentication.signup.SignUpState
 import com.bluhabit.core.ui.components.button.ButtonGoogle
 import com.bluhabit.core.ui.components.button.ButtonPrimary
 import com.bluhabit.core.ui.components.textfield.TextFieldPrimary
-import com.bluhabit.core.ui.theme.CustomColor
+import com.bluhabit.core.ui.theme.UwangColors
 import com.bluhabit.core.ui.theme.CustomTypography
 import com.bluhabit.core.ui.theme.UwangTheme
 
@@ -77,12 +77,12 @@ fun InputSignUpScreen(
             Text(
                 text = stringResource(id = R.string.sign_up_screen_title),
                 style = CustomTypography.Body.XL.W600,
-                color = CustomColor.Neutral.Grey13
+                color = UwangColors.Neutral.Grey13
             )
             Text(
                 text = stringResource(id = R.string.sign_up_screen_instruction),
                 style = CustomTypography.Body.Small.W400,
-                color = CustomColor.Neutral.Grey9
+                color = UwangColors.Neutral.Grey9
             )
         }
         Column(
@@ -93,7 +93,7 @@ fun InputSignUpScreen(
             Text(
                 text = stringResource(id = R.string.sign_up_screen_email_text_field_title),
                 style = CustomTypography.Body.Small.W400,
-                color = CustomColor.Neutral.Grey9
+                color = UwangColors.Neutral.Grey9
             )
             TextFieldPrimary(
                 modifier = Modifier
@@ -110,7 +110,7 @@ fun InputSignUpScreen(
             Text(
                 text = state.emailErrorText,
                 style = CustomTypography.Label.Small.W400,
-                color = CustomColor.Error.Red300
+                color = UwangColors.Error.Red300
             )
 
         }
@@ -122,7 +122,7 @@ fun InputSignUpScreen(
             Text(
                 text = stringResource(id = R.string.sign_up_screen_password_text_field_title),
                 style = CustomTypography.Body.Small.W400,
-                color = CustomColor.Neutral.Grey9
+                color = UwangColors.Neutral.Grey9
             )
             TextFieldPrimary(
                 modifier = Modifier
@@ -144,7 +144,7 @@ fun InputSignUpScreen(
                                     R.drawable.ic_eye_open
                                 }
                             ),
-                            tint = CustomColor.Neutral.Grey7,
+                            tint = UwangColors.Neutral.Grey7,
                             contentDescription = null,
                         )
                     }
@@ -159,7 +159,7 @@ fun InputSignUpScreen(
             Text(
                 text = state.passwordErrorText,
                 style = CustomTypography.Label.Small.W400,
-                color = CustomColor.Error.Red300
+                color = UwangColors.Error.Red300
             )
         }
         Column(
@@ -170,7 +170,7 @@ fun InputSignUpScreen(
             Text(
                 text = stringResource(id = R.string.sign_up_screen_password_confirmation_text_field_title),
                 style = CustomTypography.Body.Small.W400,
-                color = CustomColor.Neutral.Grey9
+                color = UwangColors.Neutral.Grey9
             )
             TextFieldPrimary(
                 modifier = Modifier
@@ -192,7 +192,7 @@ fun InputSignUpScreen(
                                     R.drawable.ic_eye_open
                                 }
                             ),
-                            tint = CustomColor.Neutral.Grey7,
+                            tint = UwangColors.Neutral.Grey7,
                             contentDescription = "",
                         )
                     }
@@ -207,7 +207,7 @@ fun InputSignUpScreen(
             Text(
                 text = state.passwordConfirmationErrorText,
                 style = CustomTypography.Label.Small.W400,
-                color = CustomColor.Error.Red300
+                color = UwangColors.Error.Red300
             )
 
         }
@@ -233,7 +233,7 @@ fun InputSignUpScreen(
             Text(
                 text = stringResource(id = R.string.sign_up_screen_or),
                 style = CustomTypography.Body.Small.W400,
-                color = CustomColor.Neutral.Grey8,
+                color = UwangColors.Neutral.Grey8,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
                     .weight(0.4f)
@@ -259,12 +259,12 @@ fun InputSignUpScreen(
             Text(
                 text = stringResource(id = R.string.sign_up_screen_already_have_an_account),
                 style = CustomTypography.Body.Small.W400,
-                color = CustomColor.Neutral.Grey9
+                color = UwangColors.Neutral.Grey9
             )
             Text(
                 text = stringResource(id = R.string.sign_up_screen_sign_in),
                 style = CustomTypography.Body.Small.W400,
-                color = CustomColor.Primary.Blue500,
+                color = UwangColors.Primary.Blue500,
                 modifier = Modifier
                     .clickable {
                         onSignIn()
@@ -279,12 +279,12 @@ fun InputSignUpScreen(
             Text(
                 text = stringResource(id = R.string.sign_up_screen_term_and_condition_1),
                 style = CustomTypography.Body.Small.W400,
-                color = CustomColor.Neutral.Grey7
+                color = UwangColors.Neutral.Grey7
             )
             Text(
                 text = stringResource(id = R.string.sign_up_screen_term_and_condition_2),
                 style = CustomTypography.Body.Small.W400,
-                color = CustomColor.Primary.Blue500,
+                color = UwangColors.Primary.Blue500,
                 modifier = Modifier
                     .clickable {
                         onTermAndCondition()

@@ -144,6 +144,7 @@ fun getCurrentFlavor(): String {
         Pattern.compile("bundle(\\w+)(Release|Debug)")
     }
 
+    print(taskRequestsStr)
     val matcher = pattern.matcher(taskRequestsStr)
     val flavor = if (matcher.find()) {
         matcher.group(1).lowercase()
