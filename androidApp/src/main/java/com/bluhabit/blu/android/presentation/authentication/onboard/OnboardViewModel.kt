@@ -7,11 +7,8 @@
 
 package com.bluhabit.blu.android.presentation.authentication.onboard
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.bluhabit.blu.android.common.BaseViewModel
-import com.bluhabit.blu.android.common.event.EventObserverImpl
-import com.bluhabit.blu.android.common.event.EventPublisher
 import com.bluhabit.blu.android.data.authentication.domain.CheckSessionUseCase
 import com.bluhabit.blu.android.data.authentication.domain.SignInGoogleUseCase
 import com.bluhabit.blu.data.common.Response

@@ -21,9 +21,8 @@ class EventPublisher {
     }
 
     fun sendEvent(key: String,event:Any) {
-        observers[key]?.forEach { it:EventObserver<Any>->
+        observers[key]?.forEach {
             it.onEvent(event)
         }
     }
-
 }
