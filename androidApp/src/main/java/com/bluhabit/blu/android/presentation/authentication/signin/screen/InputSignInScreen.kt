@@ -31,6 +31,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluehabit.core.ui.R
 import com.bluhabit.blu.android.presentation.authentication.signin.SignInAction
@@ -254,4 +255,18 @@ fun InputSignInScreen(
             )
         }
     }
+}
+
+@Preview
+@Composable
+fun InputSignInScreenPreview() {
+    InputSignInScreen(
+        onSignInGoogle = { /*TODO*/ },
+        onSignUp = { /*TODO*/ },
+        onForgotPassword = { /*TODO*/ },
+        onTermAndCondition = { /*TODO*/ },
+        action = {
+
+        }
+    )
 }
