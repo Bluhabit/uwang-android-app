@@ -16,8 +16,8 @@ data class SignInState(
     val currentScreen: Int = 0,
     // Sign In Screen
     val emailState: String = "",
-    val emailError: Boolean = true,
-    val emailErrorText: String = "Email tidak valid",
+    val emailError: Boolean = false,
+    val emailErrorText: String = "",
 
     val passwordState: String = "",
     val passwordError: Boolean = false,
