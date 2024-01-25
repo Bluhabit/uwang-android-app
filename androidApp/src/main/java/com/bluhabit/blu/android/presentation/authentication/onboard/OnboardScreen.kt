@@ -53,10 +53,10 @@ import com.bluhabit.core.ui.components.button.ButtonGoogle
 import com.bluhabit.core.ui.components.button.ButtonOutlinedPrimary
 import com.bluhabit.core.ui.components.button.ButtonPrimary
 import com.bluhabit.core.ui.components.pager.Indicators
-import com.bluhabit.core.ui.theme.UwangColors
 import com.bluhabit.core.ui.theme.CustomTypography
-import com.bluhabit.core.ui.theme.UwangDimens
 import com.bluhabit.core.ui.theme.Neutral100
+import com.bluhabit.core.ui.theme.UwangColors
+import com.bluhabit.core.ui.theme.UwangDimens
 import com.bluhabit.core.ui.theme.UwangTheme
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
@@ -77,8 +77,8 @@ val onboard = listOf(
         R.string.text_onboard_3
     ), Triple(
         R.drawable.onboard4,
-        R.string.onboard_screen_login,
-        R.string.onboard_screen_login_title
+        R.string.text_title_4,
+        R.string.text_onboard_4
     )
 )
 
@@ -256,7 +256,7 @@ fun StepFour(
             modifier = Modifier.weight(0.9f)
         )
         Text(
-            text = stringResource(id = R.string.sign_in_screen_or),
+            text = stringResource(id = R.string.label_divider),
             style = CustomTypography.Body.Small.W400,
             color = UwangColors.Neutral.Grey8,
             textAlign = TextAlign.Center,
@@ -277,11 +277,11 @@ fun StepFour(
         horizontalArrangement = Arrangement.Start
     ) {
         Text(
-            text = stringResource(id = R.string.sign_in_screen_not_have_an_account),
+            text = stringResource(id = R.string.placeholder_teks_register),
             style = CustomTypography.Body.Small.W400,
             color = UwangColors.Neutral.Grey9
         )
-        Text(text = stringResource(id = R.string.sign_in_screen_register),
+        Text(text = stringResource(id = R.string.label_teks_button_register),
             style = CustomTypography.Body.Small.W400,
             color = UwangColors.Primary.Blue500,
             modifier = Modifier.clickable {
@@ -289,13 +289,13 @@ fun StepFour(
             })
     }
     Spacer(modifier = Modifier.padding(bottom = 16.dp))
-    Column{
+    Column {
         Text(
-            text = stringResource(id = R.string.sign_in_screen_term_and_condition_1),
+            text = stringResource(id = R.string.onboard_screen_term_and_condition_1),
             style = CustomTypography.Body.Small.W400,
             color = UwangColors.Neutral.Grey7
         )
-        Text(text = stringResource(id = R.string.sign_in_screen_term_and_condition_2),
+        Text(text = stringResource(id = R.string.onboard_screen_term_and_condition_2),
             style = CustomTypography.Body.Small.W400,
             color = UwangColors.Primary.Blue500,
             modifier = Modifier.clickable {

@@ -222,6 +222,8 @@
     <!--  [NEW] onboard  -->
     <string name="onboard_screen_sign_in_google_button_text">Masuk dengan Google</string>
     <string name="onboard_screen_sign_in_email_button_text">Masuk dengan alamat Email</string>
+    <string name="onboard_screen_term_and_condition_1">Dengan melakukan pendaftaran akun atau masuk ke dalam akun anda menyetujui</string>
+    <string name="onboard_screen_term_and_condition_2">Syarat &amp; Ketentuan kebijakan aplikasi</string>
     <!--  end onboard  -->
 
     <!--  [NEW] sign up screen  -->
@@ -306,7 +308,7 @@
     <string name="placholder_field_password">Masukkan password kamu</string>
     <string name="label_forgot_password">Lupa password?</string>
     <string name="label_button_login">Masuk</string>
-    <string name="placeholder_teks_register">Belum punya akun?</string>
+    <string name="placeholder_teks_register">Belum punya akun?\u0020</string>
     <string name="label_teks_button_register">Daftar</string>
     <string name="caption_error_field_email">Email tidak valid</string>
     <string name="caption_error_field_login">Email atau password tidak valid</string>
