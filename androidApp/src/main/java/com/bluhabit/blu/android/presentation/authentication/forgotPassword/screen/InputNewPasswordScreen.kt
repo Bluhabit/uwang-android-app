@@ -91,7 +91,7 @@ fun InputNewPasswordScreen(
                 onValueChange = {
                     onAction(ForgotPasswordAction.OnEmailChange(value = it))
                 },
-                error = state.emailError
+                isError = state.emailError
             )
             Text(
                 text = state.emailErrorText,
@@ -117,7 +117,7 @@ fun InputNewPasswordScreen(
                 onValueChange = {
                     onAction(ForgotPasswordAction.OnEmailChange(value = it))
                 },
-                error = state.emailError
+                isError = state.emailError
             )
             if (state.emailError) {
                 Text(

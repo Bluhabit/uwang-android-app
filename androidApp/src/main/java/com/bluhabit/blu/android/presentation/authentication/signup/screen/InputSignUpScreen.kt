@@ -105,7 +105,7 @@ fun InputSignUpScreen(
                 onValueChange = {
                     onAction(SignUpAction.OnEmailChange(value = it))
                 },
-                error = state.emailError
+                isError = state.emailError
             )
             Text(
                 text = state.emailErrorText,
@@ -154,7 +154,7 @@ fun InputSignUpScreen(
                 onValueChange = {
                     onAction(SignUpAction.OnPasswordChange(value = it))
                 },
-                error = state.passwordError
+                isError = state.passwordError
             )
             Text(
                 text = state.passwordErrorText,
@@ -202,7 +202,7 @@ fun InputSignUpScreen(
                 onValueChange = {
                     onAction(SignUpAction.OnPasswordConfirmationChange(value = it))
                 },
-                error = state.passwordConfirmationError
+                isError = state.passwordConfirmationError
             )
             Text(
                 text = state.passwordConfirmationErrorText,

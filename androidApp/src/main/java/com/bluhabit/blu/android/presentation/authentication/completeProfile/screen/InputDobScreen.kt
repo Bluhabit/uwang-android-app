@@ -161,7 +161,7 @@ fun InputDobScreen(
                     onValueChange = {
 
                     },
-                    error = state.dateOfBirthError
+                    isError = state.dateOfBirthError
                 )
             }
             Spacer(modifier = Modifier.weight(1f))

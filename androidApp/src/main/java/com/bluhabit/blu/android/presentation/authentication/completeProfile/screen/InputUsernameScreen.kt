@@ -163,7 +163,7 @@ fun InputUsernameScreen(
                     onValueChange = {
                         onAction(CompleteProfileAction.OnUsernameChange(it))
                     },
-                    error = state.usernameError
+                    isError = state.usernameError
                 )
                 Text(
                     text = state.usernameErrorText,

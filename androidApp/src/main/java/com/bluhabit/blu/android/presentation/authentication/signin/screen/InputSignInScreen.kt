@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -24,11 +25,11 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -60,10 +61,9 @@ fun InputSignInScreen(
     val ctx = LocalContext.current
     val dimens = UwangDimens.from(ctx)
     Column(
-        verticalArrangement = Arrangement.spacedBy(dimens.dp_16),
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colors.background)
+            .background(Color.White)
             .padding(horizontal = dimens.dp_16, vertical = dimens.dp_24)
             .verticalScroll(rememberScrollState()),
     ) {
@@ -89,18 +89,20 @@ fun InputSignInScreen(
                     .align(Alignment.Center)
             )
         }
+        Spacer(modifier = Modifier.padding(bottom = dimens.dp_24))
         Text(
             text = stringResource(id = R.string.title_header_login),
             style = UwangTypography.BodyLarge.SemiBold,
-            color = UwangColors.Neutral.Grey13
+            color = UwangColors.Text.Main
         )
+        Spacer(modifier = Modifier.padding(bottom = dimens.dp_16))
         Column(
-            verticalArrangement = Arrangement.spacedBy(8.dp),
+            verticalArrangement = Arrangement.spacedBy(4.dp),
         ) {
             Text(
                 text = "Email",
-                style = UwangTypography.BodyLarge.Regular,
-                color = UwangColors.Neutral.Grey9
+                style = UwangTypography.BodySmall.Regular,
+                color = UwangColors.Palette.Neutral.Grey9
             )
             TextFieldPrimary(
                 modifier = Modifier
@@ -108,35 +110,63 @@ fun InputSignInScreen(
                 label = {
                     Text(
                         text = "Masukkan email kamu",
-                        style = UwangTypography.BodyLarge.Regular,
-                        color = UwangColors.Neutral.Grey7
+                        style = UwangTypography.BodySmall.Regular,
+                        color = UwangColors.Palette.Neutral.Grey7
                     )
                 },
                 value = state.emailState,
                 onValueChange = {
                     action(SignInAction.OnEmailChange(value = it))
                 },
-                error = state.emailError
+                isError = state.emailError,
+                trailingIcon = {
+                    if (state.emailError) {
+                        Image(
+                            painter = painterResource(id = R.drawable.info),
+                            contentDescription = "",
+                            modifier = Modifier
+                                .size(dimens.dp_16)
+                        )
+                    }
+                }
             )
-            Text(
-                text = state.emailErrorText,
-                style = CustomTypography.Label.Small.W400,
-                color = UwangColors.Error.Red300
-            )
+            if (state.emailError) {
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.alert_triangle),
+                        contentDescription = "",
+                        modifier = Modifier
+                            .size(dimens.dp_16)
+                    )
+                    Text(
+                        text = state.emailErrorText,
+                        style = UwangTypography.LabelMedium.Regular,
+                        color = UwangColors.State.Error.Main
+                    )
+                }
+            }
         }
+        Spacer(modifier = Modifier.padding(bottom = dimens.dp_12))
         Column(
-            verticalArrangement = Arrangement.spacedBy(8.dp),
+            verticalArrangement = Arrangement.spacedBy(4.dp),
         ) {
             Text(
-                text = stringResource(id = R.string.sign_in_screen_password_text_field_title),
-                style = CustomTypography.Body.Small.W400,
-                color = UwangColors.Neutral.Grey9
+                text = "Password",
+                style = UwangTypography.BodySmall.Regular,
+                color = UwangColors.Palette.Neutral.Grey9
             )
             TextFieldPrimary(
                 modifier = Modifier
                     .fillMaxWidth(),
                 label = {
-                    Text(text = stringResource(id = R.string.sign_in_screen_password_text_field_label))
+                    Text(
+                        text = "Masukkan password kamu",
+                        style = UwangTypography.BodySmall.Regular,
+                        color = UwangColors.Palette.Neutral.Grey7
+                    )
                 },
                 trailingIcon = {
                     IconButton(
@@ -156,7 +186,7 @@ fun InputSignInScreen(
                                     R.drawable.ic_eye_closed
                                 }
                             ),
-                            tint = UwangColors.Neutral.Grey7,
+                            tint = Color(0xFF0A0A0A),
                             contentDescription = null,
                         )
                     }
@@ -166,94 +196,113 @@ fun InputSignInScreen(
                 onValueChange = {
                     action(SignInAction.OnPasswordChange(value = it))
                 },
-                error = state.passwordError
+                isError = state.passwordError
             )
-            Text(
-                text = state.passwordErrorText,
-                style = CustomTypography.Label.Small.W400,
-                color = UwangColors.Error.Red300
-            )
-
-        }
-        Text(
-            text = stringResource(id = R.string.sign_in_screen_forgot_password),
-            style = CustomTypography.Body.XS.W500,
-            textAlign = TextAlign.Right,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp)
-                .clickable {
-                    onForgotPassword()
+            if (state.passwordError) {
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.alert_triangle),
+                        contentDescription = "",
+                        modifier = Modifier
+                            .size(dimens.dp_16)
+                    )
+                    Text(
+                        text = state.passwordErrorText,
+                        style = UwangTypography.LabelMedium.Regular,
+                        color = UwangColors.State.Error.Main
+                    )
                 }
-        )
-        ButtonPrimary(
-            text = stringResource(id = R.string.sign_in_screen_sign_in_button_text),
-            modifier = Modifier
-                .fillMaxWidth(),
-            enabled = state.buttonEnabled
-        ) {
-            action(SignInAction.OnSignInBasic)
-        }
-        Row(
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Divider(
-                modifier = Modifier
-                    .weight(0.9f)
-            )
-            Text(
-                text = stringResource(id = R.string.sign_in_screen_or),
-                style = CustomTypography.Body.Small.W400,
-                color = UwangColors.Neutral.Grey8,
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .weight(0.4f)
-            )
-            Divider(
-                modifier = Modifier
-                    .weight(0.9f)
-            )
-        }
-        ButtonGoogle(
-            modifier = Modifier
-                .fillMaxWidth(),
-            text = stringResource(id = R.string.sign_in_screen_sign_in_google_button_text),
-            onClick = {
-                onSignInGoogle()
+
             }
-        )
-        Row {
+            Spacer(modifier = Modifier.padding(bottom = dimens.dp_24))
             Text(
-                text = stringResource(id = R.string.sign_in_screen_not_have_an_account),
-                style = CustomTypography.Body.Small.W400,
-                color = UwangColors.Neutral.Grey9
-            )
-            Text(
-                text = stringResource(id = R.string.sign_in_screen_register),
-                style = CustomTypography.Body.Small.W400,
-                color = UwangColors.Primary.Blue500,
+                text = "Lupa password?",
+                style = UwangTypography.LabelMedium.Medium,
+                color = UwangColors.State.Primary.Main,
+                textAlign = TextAlign.Right,
                 modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp)
                     .clickable {
-                        onSignUp()
+                        onForgotPassword()
                     }
             )
-        }
-        Spacer(modifier = Modifier.padding(bottom = 16.dp))
-        Column {
-            Text(
-                text = stringResource(id = R.string.sign_in_screen_term_and_condition_1),
-                style = CustomTypography.Body.Small.W400,
-                color = UwangColors.Neutral.Grey7
-            )
-            Text(
-                text = stringResource(id = R.string.sign_in_screen_term_and_condition_2),
-                style = CustomTypography.Body.Small.W400,
-                color = UwangColors.Primary.Blue500,
+            Spacer(modifier = Modifier.padding(bottom = dimens.dp_24))
+            ButtonPrimary(
+                text = "Masuk",
                 modifier = Modifier
-                    .clickable {
-                        onTermAndCondition()
-                    }
+                    .height(44.dp)
+                    .fillMaxWidth(),
+                enabled = state.buttonEnabled
+            ) {
+                action(SignInAction.OnSignInBasic)
+            }
+            Spacer(modifier = Modifier.padding(bottom = dimens.dp_24))
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Divider(
+                    modifier = Modifier
+                        .weight(0.9f),
+                    color = UwangColors.Text.Separator
+                )
+                Text(
+                    text = "ATAU",
+                    style = UwangTypography.LabelSmall.Regular,
+                    color = UwangColors.Text.Secondary,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .weight(0.4f)
+                )
+                Divider(
+                    modifier = Modifier
+                        .weight(0.9f)
+                )
+            }
+            ButtonGoogle(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                text = stringResource(id = R.string.sign_in_screen_sign_in_google_button_text),
+                onClick = {
+                    onSignInGoogle()
+                }
             )
+            Row {
+                Text(
+                    text = stringResource(id = R.string.sign_in_screen_not_have_an_account),
+                    style = CustomTypography.Body.Small.W400,
+                    color = UwangColors.Neutral.Grey9
+                )
+                Text(
+                    text = stringResource(id = R.string.sign_in_screen_register),
+                    style = CustomTypography.Body.Small.W400,
+                    color = UwangColors.Primary.Blue500,
+                    modifier = Modifier
+                        .clickable {
+                            onSignUp()
+                        }
+                )
+            }
+            Spacer(modifier = Modifier.padding(bottom = 16.dp))
+            Column {
+                Text(
+                    text = stringResource(id = R.string.sign_in_screen_term_and_condition_1),
+                    style = CustomTypography.Body.Small.W400,
+                    color = UwangColors.Neutral.Grey7
+                )
+                Text(
+                    text = stringResource(id = R.string.sign_in_screen_term_and_condition_2),
+                    style = CustomTypography.Body.Small.W400,
+                    color = UwangColors.Primary.Blue500,
+                    modifier = Modifier
+                        .clickable {
+                            onTermAndCondition()
+                        }
+                )
+            }
         }
     }
 }
