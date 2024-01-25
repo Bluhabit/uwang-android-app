@@ -224,26 +224,6 @@
     <string name="onboard_screen_sign_in_email_button_text">Masuk dengan alamat Email</string>
     <!--  end onboard  -->
 
-    <!--  [NEW] sign in screen  -->
-    <string name="title_header_login">Masuk ke akun kamu</string>
-    <string name="onboard_screen_login">Sumber belajar</string>
-    <string name="onboard_screen_login_title">Baca artikel dan ikuti berita terkini seputar keuangan untuk tetap terinformasi.</string>
-    <string name="sign_in_screen_description">Masukkan alamat email dan password Anda untuk melakukan login</string>
-    <string name="sign_in_screen_email_text_field_title">Email</string>
-    <string name="sign_in_screen_email_text_field_label">Contoh  : fadelptr09@gmail.com</string>
-    <string name="sign_in_screen_password_text_field_title">Password</string>
-    <string name="sign_in_screen_password_text_field_label">Masukkan password Anda</string>
-    <string name="sign_in_screen_forgot_password">Lupa Password</string>
-    <string name="sign_in_screen_sign_in_button_text">Masuk</string>
-    <string name="sign_in_screen_login_email_button_text">Masuk dengan alamat Email</string>
-    <string name="sign_in_screen_or">Atau</string>
-    <string name="sign_in_screen_sign_in_google_button_text">Masuk dengan Google</string>
-    <string name="sign_in_screen_not_have_an_account">Belum memiliki akun sebelumnya?\u0020</string>
-    <string name="sign_in_screen_register">Daftar</string>
-    <string name="sign_in_screen_term_and_condition_1">Dengan melakukan pendaftaran akun atau masuk ke dalam akun anda menyetujui</string>
-    <string name="sign_in_screen_term_and_condition_2">Syarat &amp; Ketentuan kebijakan aplikasi</string>
-    <!-- end sign in screen  -->
-
     <!--  [NEW] sign up screen  -->
     <string name="sign_up_screen_title">Daftarkan akun anda</string>
     <string name="sign_up_screen_instruction">Masukkan alamat email Anda dan buat password Anda untuk melakukan pendaftaran</string>
@@ -317,6 +297,19 @@
     <string name="set_preference_screen_next_button_text">Selanjutnya</string>
     <!-- end set preference screen  -->
 
-    <!-- end input dob screen screen  -->
+    <string name="label_button_google">Lanjutkan Dengan Google</string>
+    <string name="label_divider">ATAU</string>
+    <string name="title_header_login">Masuk ke akun kamu</string>
+    <string name="label_field_email">Email</string>
+    <string name="placholder_field_email">Masukkan email kamu</string>
+    <string name="label_field_password">Password</string>
+    <string name="placholder_field_password">Masukkan password kamu</string>
+    <string name="label_forgot_password">Lupa password?</string>
+    <string name="label_button_login">Masuk</string>
+    <string name="placeholder_teks_register">Belum punya akun?</string>
+    <string name="label_teks_button_register">Daftar</string>
+    <string name="caption_error_field_email">Email tidak valid</string>
+    <string name="caption_error_field_login">Email atau password tidak valid</string>
+    <string name="caption_error_field_login_locked">Akun kamu terkunci untuk sementara waktu</string>
 
 </resources>

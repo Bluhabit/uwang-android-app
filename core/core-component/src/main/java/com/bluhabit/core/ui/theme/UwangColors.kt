@@ -77,6 +77,7 @@ object UwangColors {
         val Green800 = Color(0xFF0D5634)
         val Green900 = Color(0xFF0A4227)
     }
+
     object Text {
         val Heading = Palette.Neutral.Grey11
         val Main = Palette.Neutral.Grey9
@@ -86,6 +87,7 @@ object UwangColors {
         val Separator = Palette.Neutral.Grey4
         val LayoutBackground = Palette.Neutral.Grey2
     }
+
     object State {
         object Primary {
             val Main = Palette.Primary.Blue6
@@ -134,6 +136,7 @@ object UwangColors {
             val Focus = Palette.Success.Green6.copy(alpha = 0.20f)
         }
     }
+
     object Palette {
         object Primary {
             val Blue1 = Color(0xFFe7ecf8)
@@ -201,6 +204,7 @@ object UwangColors {
             val Green10 = Color(0xFF0a472a)
         }
     }
+
     object Base {
         val White = Color.White
         val Black = Color.Black
