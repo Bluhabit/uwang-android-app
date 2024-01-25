@@ -7,15 +7,18 @@
 
 package com.bluhabit.blu.android.presentation.authentication.signin.screen
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Divider
@@ -26,6 +29,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -39,8 +43,10 @@ import com.bluhabit.blu.android.presentation.authentication.signin.SignInState
 import com.bluhabit.core.ui.components.button.ButtonGoogle
 import com.bluhabit.core.ui.components.button.ButtonPrimary
 import com.bluhabit.core.ui.components.textfield.TextFieldPrimary
-import com.bluhabit.core.ui.theme.UwangColors
 import com.bluhabit.core.ui.theme.CustomTypography
+import com.bluhabit.core.ui.theme.UwangColors
+import com.bluhabit.core.ui.theme.UwangDimens
+import com.bluhabit.core.ui.theme.UwangTypography
 
 @Composable
 fun InputSignInScreen(
@@ -48,56 +54,63 @@ fun InputSignInScreen(
     onSignInGoogle: () -> Unit,
     onSignUp: () -> Unit,
     onForgotPassword: () -> Unit,
-    onTermAndCondition:()->Unit,
+    onTermAndCondition: () -> Unit,
     action: (SignInAction) -> Unit
 ) {
+    val ctx = LocalContext.current
+    val dimens = UwangDimens.from(ctx)
     Column(
-        verticalArrangement = Arrangement.spacedBy(16.dp),
+        verticalArrangement = Arrangement.spacedBy(dimens.dp_16),
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colors.background)
+            .padding(horizontal = dimens.dp_16, vertical = dimens.dp_24)
             .verticalScroll(rememberScrollState()),
     ) {
-        IconButton(
-            onClick = {
-                // TODO
-            }) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+        ) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_arrow_back),
-                contentDescription = "arrow back"
+                contentDescription = "arrow back",
+                modifier = Modifier
+                    .size(dimens.dp_24)
+                    .align(Alignment.CenterStart)
+                    .clickable {
+                        // TODO: On Back Pressed
+                    }
+            )
+            Image(
+                painter = painterResource(id = R.drawable.app_logo),
+                contentDescription = "",
+                modifier = Modifier
+                    .size(dimens.dp_24)
+                    .align(Alignment.Center)
             )
         }
+        Text(
+            text = stringResource(id = R.string.title_header_login),
+            style = UwangTypography.BodyLarge.SemiBold,
+            color = UwangColors.Neutral.Grey13
+        )
         Column(
             verticalArrangement = Arrangement.spacedBy(8.dp),
-            modifier = Modifier
-                .padding(horizontal = 16.dp)
         ) {
             Text(
-                text = stringResource(id = R.string.sign_in_screen_welcome),
-                style = CustomTypography.Body.XL.W600,
-                color = UwangColors.Neutral.Grey13
-            )
-            Text(
-                text = stringResource(id = R.string.sign_in_screen_description),
-                style = CustomTypography.Body.Small.W400,
-                color = UwangColors.Neutral.Grey9
-            )
-        }
-        Column(
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-            modifier = Modifier
-                .padding(horizontal = 16.dp)
-        ) {
-            Text(
-                text = stringResource(id = R.string.sign_in_screen_email_text_field_title),
-                style = CustomTypography.Body.Small.W400,
+                text = "Email",
+                style = UwangTypography.BodyLarge.Regular,
                 color = UwangColors.Neutral.Grey9
             )
             TextFieldPrimary(
                 modifier = Modifier
                     .fillMaxWidth(),
                 label = {
-                    Text(text = stringResource(id = R.string.sign_in_screen_email_text_field_label))
+                    Text(
+                        text = "Masukkan email kamu",
+                        style = UwangTypography.BodyLarge.Regular,
+                        color = UwangColors.Neutral.Grey7
+                    )
                 },
                 value = state.emailState,
                 onValueChange = {
@@ -113,8 +126,6 @@ fun InputSignInScreen(
         }
         Column(
             verticalArrangement = Arrangement.spacedBy(8.dp),
-            modifier = Modifier
-                .padding(horizontal = 16.dp)
         ) {
             Text(
                 text = stringResource(id = R.string.sign_in_screen_password_text_field_title),
@@ -178,15 +189,12 @@ fun InputSignInScreen(
         ButtonPrimary(
             text = stringResource(id = R.string.sign_in_screen_sign_in_button_text),
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp),
+                .fillMaxWidth(),
             enabled = state.buttonEnabled
         ) {
             action(SignInAction.OnSignInBasic)
         }
         Row(
-            modifier = Modifier
-                .padding(horizontal = 16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Divider(
@@ -208,17 +216,13 @@ fun InputSignInScreen(
         }
         ButtonGoogle(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp),
+                .fillMaxWidth(),
             text = stringResource(id = R.string.sign_in_screen_sign_in_google_button_text),
             onClick = {
                 onSignInGoogle()
             }
         )
-        Row(
-            modifier = Modifier
-                .padding(horizontal = 16.dp),
-        ) {
+        Row {
             Text(
                 text = stringResource(id = R.string.sign_in_screen_not_have_an_account),
                 style = CustomTypography.Body.Small.W400,
@@ -235,10 +239,7 @@ fun InputSignInScreen(
             )
         }
         Spacer(modifier = Modifier.padding(bottom = 16.dp))
-        Column(
-            modifier = Modifier
-                .padding(horizontal = 16.dp),
-        ) {
+        Column {
             Text(
                 text = stringResource(id = R.string.sign_in_screen_term_and_condition_1),
                 style = CustomTypography.Body.Small.W400,

@@ -225,7 +225,7 @@
     <!--  end onboard  -->
 
     <!--  [NEW] sign in screen  -->
-    <string name="sign_in_screen_welcome">Selamat datang</string>
+    <string name="title_header_login">Masuk ke akun kamu</string>
     <string name="onboard_screen_login">Sumber belajar</string>
     <string name="onboard_screen_login_title">Baca artikel dan ikuti berita terkini seputar keuangan untuk tetap terinformasi.</string>
     <string name="sign_in_screen_description">Masukkan alamat email dan password Anda untuk melakukan login</string>

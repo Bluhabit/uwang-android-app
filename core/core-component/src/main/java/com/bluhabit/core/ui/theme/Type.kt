@@ -161,6 +161,162 @@ val FontFamilyPlusJakartaSans = FontFamily(
     ),
 )
 
+object UwangTypography {
+    object DisplayXXL {
+        val Medium = TextStyle(
+            fontFamily = FontFamilyInter,
+            fontWeight = FontWeight.Medium,
+            fontSize = 64.sp,
+            lineHeight = 76.sp
+        )
+        val SemiBold = Medium.copy(fontWeight = FontWeight.SemiBold)
+        val Bold = Medium.copy(fontWeight = FontWeight.Bold)
+    }
+
+    object DisplayXL {
+        val Medium = TextStyle(
+            fontFamily = FontFamilyInter,
+            fontWeight = FontWeight.Medium,
+            fontSize = 56.sp,
+            lineHeight = 64.sp
+        )
+        val SemiBold = Medium.copy(fontWeight = FontWeight.SemiBold)
+        val Bold = Medium.copy(fontWeight = FontWeight.Bold)
+    }
+
+    object DisplayLarge {
+        val Medium = TextStyle(
+            fontFamily = FontFamilyInter,
+            fontWeight = FontWeight.Medium,
+            fontSize = 48.sp,
+            lineHeight = 56.sp
+        )
+        val SemiBold = Medium.copy(fontWeight = FontWeight.SemiBold)
+        val Bold = Medium.copy(fontWeight = FontWeight.Bold)
+    }
+
+    object DisplayMedium {
+        val Medium = TextStyle(
+            fontFamily = FontFamilyInter,
+            fontWeight = FontWeight.Medium,
+            fontSize = 36.sp,
+            lineHeight = 44.sp
+        )
+        val SemiBold = Medium.copy(fontWeight = FontWeight.SemiBold)
+        val Bold = Medium.copy(fontWeight = FontWeight.Bold)
+    }
+
+    object DisplaySmall {
+        val Medium = TextStyle(
+            fontFamily = FontFamilyInter,
+            fontWeight = FontWeight.Medium,
+            fontSize = 30.sp,
+            lineHeight = 36.sp
+        )
+        val SemiBold = Medium.copy(fontWeight = FontWeight.SemiBold)
+        val Bold = Medium.copy(fontWeight = FontWeight.Bold)
+    }
+
+    object DisplayXS {
+        val Medium = TextStyle(
+            fontFamily = FontFamilyInter,
+            fontWeight = FontWeight.Medium,
+            fontSize = 24.sp,
+            lineHeight = 30.sp
+        )
+        val SemiBold = Medium.copy(fontWeight = FontWeight.SemiBold)
+        val Bold = Medium.copy(fontWeight = FontWeight.Bold)
+    }
+
+    object BodyXL {
+        val Regular = TextStyle(
+            fontFamily = FontFamilyInter,
+            fontWeight = FontWeight.Normal,
+            fontSize = 20.sp,
+            lineHeight = 26.sp
+        )
+        val Medium = Regular.copy(fontWeight = FontWeight.Medium)
+        val SemiBold = Regular.copy(fontWeight = FontWeight.SemiBold)
+    }
+
+    object BodyLarge {
+        val Regular = TextStyle(
+            fontFamily = FontFamilyInter,
+            fontWeight = FontWeight.Normal,
+            fontSize = 18.sp,
+            lineHeight = 28.sp
+        )
+        val Medium = Regular.copy(fontWeight = FontWeight.Medium)
+        val SemiBold = Regular.copy(fontWeight = FontWeight.SemiBold)
+    }
+
+    object BodyMedium {
+        val Regular = TextStyle(
+            fontFamily = FontFamilyInter,
+            fontWeight = FontWeight.Normal,
+            fontSize = 16.sp,
+            lineHeight = 24.sp
+        )
+        val Medium = Regular.copy(fontWeight = FontWeight.Medium)
+        val SemiBold = Regular.copy(fontWeight = FontWeight.SemiBold)
+    }
+
+    object BodySmall {
+        val Regular = TextStyle(
+            fontFamily = FontFamilyInter,
+            fontWeight = FontWeight.Normal,
+            fontSize = 14.sp,
+            lineHeight = 20.sp
+        )
+        val Medium = Regular.copy(fontWeight = FontWeight.Medium)
+        val SemiBold = Regular.copy(fontWeight = FontWeight.SemiBold)
+    }
+
+    object BodyXS {
+        val Regular = TextStyle(
+            fontFamily = FontFamilyInter,
+            fontWeight = FontWeight.Normal,
+            fontSize = 12.sp,
+            lineHeight = 18.sp
+        )
+        val Medium = Regular.copy(fontWeight = FontWeight.Medium)
+        val SemiBold = Regular.copy(fontWeight = FontWeight.SemiBold)
+    }
+
+    object LabelLarge {
+        val Regular = TextStyle(
+            fontFamily = FontFamilyInter,
+            fontWeight = FontWeight.Normal,
+            fontSize = 16.sp,
+            lineHeight = 18.sp
+        )
+        val Medium = Regular.copy(fontWeight = FontWeight.Medium)
+        val SemiBold = Regular.copy(fontWeight = FontWeight.SemiBold)
+    }
+
+    object LabelMedium {
+        val Regular = TextStyle(
+            fontFamily = FontFamilyInter,
+            fontWeight = FontWeight.Normal,
+            fontSize = 14.sp,
+            lineHeight = 14.sp
+        )
+        val Medium = Regular.copy(fontWeight = FontWeight.Medium)
+        val SemiBold = Regular.copy(fontWeight = FontWeight.SemiBold)
+    }
+
+    object LabelSmall {
+        val Regular = TextStyle(
+            fontFamily = FontFamilyInter,
+            fontWeight = FontWeight.Normal,
+            fontSize = 12.sp,
+            lineHeight = 12.sp
+        )
+        val Medium = Regular.copy(fontWeight = FontWeight.Medium)
+        val SemiBold = Regular.copy(fontWeight = FontWeight.SemiBold)
+    }
+}
+
 object CustomTypography {
     object Display {
         object XXL {
@@ -459,196 +615,6 @@ object CustomTypography {
                 fontSize = 12.sp,
                 lineHeight = 12.sp
             )
-        }
-    }
-}
-
-object Inter {
-    object Titles {
-        object Large {
-            val Regular = TextStyle(
-                fontFamily = FontFamilyInter,
-                fontWeight = FontWeight.Normal,
-                fontSize = 120.sp,
-                lineHeight = 150.sp,
-                letterSpacing = (-2).sp
-            )
-            val Medium = Regular.copy(fontWeight = FontWeight.Medium)
-            val SemiBold = Regular.copy(fontWeight = FontWeight.SemiBold)
-            val Bold = Regular.copy(fontWeight = FontWeight.Bold)
-        }
-
-        object Small {
-            val Regular = TextStyle(
-                fontFamily = FontFamilyInter,
-                fontWeight = FontWeight.Normal,
-                fontSize = 96.sp,
-                lineHeight = 120.sp,
-                letterSpacing = (-2).sp
-            )
-            val Medium = Regular.copy(fontWeight = FontWeight.Medium)
-            val SemiBold = Regular.copy(fontWeight = FontWeight.SemiBold)
-            val Bold = Regular.copy(fontWeight = FontWeight.Bold)
-        }
-    }
-
-    object Headings {
-        object Huge {
-            val Regular = TextStyle(
-                fontFamily = FontFamilyInter,
-                fontWeight = FontWeight.Normal,
-                fontSize = 72.sp,
-                lineHeight = 90.sp,
-                letterSpacing = (-2).sp
-            )
-            val Medium = Regular.copy(fontWeight = FontWeight.Medium)
-            val SemiBold = Regular.copy(fontWeight = FontWeight.SemiBold)
-            val Bold = Regular.copy(fontWeight = FontWeight.Bold)
-        }
-
-        object ExtraLarge {
-            val Regular = TextStyle(
-                fontFamily = FontFamilyInter,
-                fontWeight = FontWeight.Normal,
-                fontSize = 60.sp,
-                lineHeight = 72.sp,
-                letterSpacing = (-2).sp
-            )
-            val Medium = Regular.copy(fontWeight = FontWeight.Medium)
-            val SemiBold = Regular.copy(fontWeight = FontWeight.SemiBold)
-            val Bold = Regular.copy(fontWeight = FontWeight.Bold)
-        }
-
-        object Large {
-            val Regular = TextStyle(
-                fontFamily = FontFamilyInter,
-                fontWeight = FontWeight.Normal,
-                fontSize = 48.sp,
-                lineHeight = 60.sp,
-                letterSpacing = (-2).sp
-            )
-            val Medium = Regular.copy(fontWeight = FontWeight.Medium)
-            val SemiBold = Regular.copy(fontWeight = FontWeight.SemiBold)
-            val Bold = Regular.copy(fontWeight = FontWeight.Bold)
-        }
-
-        object Medium {
-            val Regular = TextStyle(
-                fontFamily = FontFamilyInter,
-                fontWeight = FontWeight.Normal,
-                fontSize = 36.sp,
-                lineHeight = 44.sp,
-                letterSpacing = (-2).sp
-            )
-            val Medium = Regular.copy(fontWeight = FontWeight.Medium)
-            val SemiBold = Regular.copy(fontWeight = FontWeight.SemiBold)
-            val Bold = Regular.copy(fontWeight = FontWeight.Bold)
-        }
-
-        object Small {
-            val Regular = TextStyle(
-                fontFamily = FontFamilyInter,
-                fontWeight = FontWeight.Normal,
-                fontSize = 30.sp,
-                lineHeight = 38.sp,
-                letterSpacing = 0.sp
-            )
-            val Medium = Regular.copy(fontWeight = FontWeight.Medium)
-            val SemiBold = Regular.copy(fontWeight = FontWeight.SemiBold)
-            val Bold = Regular.copy(fontWeight = FontWeight.Bold)
-        }
-
-        object ExtraSmall {
-            val Regular = TextStyle(
-                fontFamily = FontFamilyInter,
-                fontWeight = FontWeight.Normal,
-                fontSize = 24.sp,
-                lineHeight = 32.sp,
-                letterSpacing = 0.sp
-            )
-            val Medium = Regular.copy(fontWeight = FontWeight.Medium)
-            val SemiBold = Regular.copy(fontWeight = FontWeight.SemiBold)
-            val Bold = Regular.copy(fontWeight = FontWeight.Bold)
-        }
-    }
-
-    object Body {
-        object ExtraLarge {
-            val Regular = TextStyle(
-                fontFamily = FontFamilyInter,
-                fontWeight = FontWeight.Normal,
-                fontSize = 20.sp,
-                lineHeight = 30.sp,
-                letterSpacing = 0.sp
-            )
-            val Medium = Regular.copy(fontWeight = FontWeight.Medium)
-            val SemiBold = Regular.copy(fontWeight = FontWeight.SemiBold)
-            val Bold = Regular.copy(fontWeight = FontWeight.Bold)
-        }
-
-        object Large {
-            val Regular = TextStyle(
-                fontFamily = FontFamilyInter,
-                fontWeight = FontWeight.Normal,
-                fontSize = 18.sp,
-                lineHeight = 28.sp,
-                letterSpacing = 0.sp
-            )
-            val Medium = Regular.copy(fontWeight = FontWeight.Medium)
-            val SemiBold = Regular.copy(fontWeight = FontWeight.SemiBold)
-            val Bold = Regular.copy(fontWeight = FontWeight.Bold)
-        }
-
-        object Medium {
-            val Regular = TextStyle(
-                fontFamily = FontFamilyInter,
-                fontWeight = FontWeight.Normal,
-                fontSize = 16.sp,
-                lineHeight = 24.sp,
-                letterSpacing = 0.sp
-            )
-            val Medium = Regular.copy(fontWeight = FontWeight.Medium)
-            val SemiBold = Regular.copy(fontWeight = FontWeight.SemiBold)
-            val Bold = Regular.copy(fontWeight = FontWeight.Bold)
-        }
-
-        object Small {
-            val Regular = TextStyle(
-                fontFamily = FontFamilyInter,
-                fontWeight = FontWeight.Normal,
-                fontSize = 14.sp,
-                lineHeight = 20.sp,
-                letterSpacing = 0.sp
-            )
-            val Medium = Regular.copy(fontWeight = FontWeight.Medium)
-            val SemiBold = Regular.copy(fontWeight = FontWeight.SemiBold)
-            val Bold = Regular.copy(fontWeight = FontWeight.Bold)
-        }
-
-        object ExtraSmall {
-            val Regular = TextStyle(
-                fontFamily = FontFamilyInter,
-                fontWeight = FontWeight.Normal,
-                fontSize = 12.sp,
-                lineHeight = 18.sp,
-                letterSpacing = 0.sp
-            )
-            val Medium = Regular.copy(fontWeight = FontWeight.Medium)
-            val SemiBold = Regular.copy(fontWeight = FontWeight.SemiBold)
-            val Bold = Regular.copy(fontWeight = FontWeight.Bold)
-        }
-
-        object Tiny {
-            val Regular = TextStyle(
-                fontFamily = FontFamilyInter,
-                fontWeight = FontWeight.Normal,
-                fontSize = 10.sp,
-                lineHeight = 16.sp,
-                letterSpacing = 0.sp
-            )
-            val Medium = Regular.copy(fontWeight = FontWeight.Medium)
-            val SemiBold = Regular.copy(fontWeight = FontWeight.SemiBold)
-            val Bold = Regular.copy(fontWeight = FontWeight.Bold)
         }
     }
 }
