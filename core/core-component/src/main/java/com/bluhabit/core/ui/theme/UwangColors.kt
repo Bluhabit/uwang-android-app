@@ -22,7 +22,16 @@ object UwangColors {
         val Blue700 = Color(0xFF0B2E82)
         val Blue800 = Color(0xFF092465)
         val Blue900 = Color(0xFF071B4D)
+
+        // New Update
+        val Main = Blue6
+        val Surface = Blue1
+        val Border = Blue1
+        val Hover = Blue7
+        val Pressed = Blue9
+        val Focus = Blue6.copy(alpha = 0.20f)
     }
+
     object Neutral {
         val Grey1 = Color(0xFFFFFFFF)
         val Grey2 = Color(0xFFFDFDFD)
@@ -37,7 +46,17 @@ object UwangColors {
         val Grey11 = Color(0xFF2B2C29)
         val Grey12 = Color(0xFF21221F)
         val Grey13 = Color(0xFF0E0F0C)
+
+        // New Update
+        val Heading = Grey11
+        val Main = Grey9
+        val Secondary = Grey7
+        val Disabled = Grey5
+        val Border = Grey5
+        val Separator = Grey4
+        val LayoutBackground = Grey2
     }
+
     object Error {
         val Red50 = Color(0xFFFCEAEA)
         val Red100 = Color(0xFFF4BEBE)
@@ -49,7 +68,16 @@ object UwangColors {
         val Red700 = Color(0xFF9D2121)
         val Red800 = Color(0xFF7A1919)
         val Red900 = Color(0xFF5D1313)
+
+        // New Update
+        val Main = Red6
+        val Surface = Red1
+        val Border = Red1
+        val Hover = Red7
+        val Pressed = Red9
+        val Focus = Red6.copy(alpha = 0.20f)
     }
+
     object Warning {
         val Yellow50 = Color(0xFFFEFAEA)
         val Yellow100 = Color(0xFFFCF0BF)
@@ -61,7 +89,16 @@ object UwangColors {
         val Yellow700 = Color(0xFFAD9422)
         val Yellow800 = Color(0xFF86721A)
         val Yellow900 = Color(0xFF665714)
+
+        // New Update
+        val Main = Yellow6
+        val Surface = Yellow1
+        val Border = Yellow2
+        val Hover = Yellow7
+        val Pressed = Yellow9
+        val Focus = Yellow6.copy(alpha = 0.20f)
     }
+
     object Success {
         val Green50 = Color(0xFFE8F5EF)
         val Green100 = Color(0xFFB7E1CD)
@@ -73,5 +110,13 @@ object UwangColors {
         val Green700 = Color(0xFF106F43)
         val Green800 = Color(0xFF0D5634)
         val Green900 = Color(0xFF0A4227)
+
+        // New Update
+        val Main = Green6
+        val Surface = Green1
+        val Border = Green2
+        val Hover = Green7
+        val Pressed = Green9
+        val Focus = Green6.copy(alpha = 0.20f)
     }
 }
