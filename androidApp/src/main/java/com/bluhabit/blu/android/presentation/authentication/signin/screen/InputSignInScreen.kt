@@ -78,7 +78,7 @@ fun InputSignInScreen(
                     .size(dimens.dp_24)
                     .align(Alignment.CenterStart)
                     .clickable {
-                        // TODO: On Back Pressed
+                        // On Back Pressed
                     }
             )
             Image(
