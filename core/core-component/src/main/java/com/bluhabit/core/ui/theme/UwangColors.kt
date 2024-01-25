@@ -78,10 +78,13 @@ object UwangColors {
         val Green900 = Color(0xFF0A4227)
     }
     object Text {
-        val Main = Color(0xFF101828)
-        val Border = Color(0xFFD0D5DD)
-        val Secondary = Color(0xFF667085)
-        val Separator = Color(0xFFEAECF0)
+        val Heading = Palette.Neutral.Grey11
+        val Main = Palette.Neutral.Grey9
+        val Secondary = Palette.Neutral.Grey7
+        val Disabled = Palette.Neutral.Grey5
+        val Border = Palette.Neutral.Grey5
+        val Separator = Palette.Neutral.Grey4
+        val LayoutBackground = Palette.Neutral.Grey2
     }
     object State {
         object Primary {
