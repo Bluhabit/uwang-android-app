@@ -41,7 +41,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bluhabit.blu.android.presentation.authentication.signup.SignUpAction
 import com.bluhabit.blu.android.presentation.authentication.signup.SignUpState
-import com.bluhabit.core.ui.components.alert.CountdownText
 import com.bluhabit.core.ui.components.button.ButtonPrimary
 import com.bluhabit.core.ui.components.textfield.TextFieldOtp
 import com.bluhabit.core.ui.theme.UwangTheme
@@ -112,7 +111,6 @@ fun OtpSignUpScreen(
                         fontSize = 14.sp,
                         fontWeight = FontWeight.W400
                     )
-                    CountdownText(timeLeft)
                     Text(
                         text = buildAnnotatedString {
                             withStyle(

@@ -313,5 +313,15 @@
     <string name="caption_error_field_email">Email tidak valid</string>
     <string name="caption_error_field_login">Email atau password tidak valid</string>
     <string name="caption_error_field_login_locked">Akun kamu terkunci untuk sementara waktu</string>
+    <string name="title_header_otp">Verifikasi kode OTP</string>
+    <string name="description_header_otp">Kode OTP dikirim ke %s</string>
+    <string name="label_teks_button_resend_otp">Kirim ulang kode OTP?</string>
+    <string name="label_button_otp">Verifikasi OTP</string>
+    <string name="label_alert_success">Kode OTP berhasil dikirim</string>
+    <string name="label_alert_error">Kode OTP gagal dikirm</string>
+    <string name="caption_error_field_otp">Kode OTP salah</string>
+    <string name="placeholder_teks_hour_otp">Tunggu 1 jam dan masukkan ulang kode otp</string>
+    <string name="placeholder_teks_waiting_otp">Kirim ulang kode dalam</string>
+    <string name="placeholder_teks_many_otp">Yah terlalu sering meminta OTP, tunggu 1 jam</string>
 
 </resources>

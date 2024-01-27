@@ -27,7 +27,12 @@ data class SignInState(
 
     val buttonEnabled: Boolean = false,
     // Otp Sign In Screen
+    val otpSentCountDown: Long = 120000L,
     val otpNumberState: String = "",
     val otpNumberError: Boolean = false,
-    val otpButtonEnabled: Boolean = true,
+    val otpNumberEnabled: Boolean = true,
+    val otpSentAlertVisibility: Boolean = false,
+    val otpSentAlertSuccess: Boolean = false,
+    val otpSentLimit: Boolean = false,
+    val isAccountLocked: Boolean = false,
 )

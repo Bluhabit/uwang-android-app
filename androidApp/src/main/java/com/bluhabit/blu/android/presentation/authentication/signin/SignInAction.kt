@@ -44,4 +44,9 @@ sealed interface SignInAction {
     data class OnOtpChange(
         val value: String = ""
     ) : SignInAction
+    data class OnSentOtpAlertVisibilityChange(
+        val visibility: Boolean = false,
+    ) : SignInAction
+    object OnCountDownStart : SignInAction
+    object OnResentOtp : SignInAction
 }

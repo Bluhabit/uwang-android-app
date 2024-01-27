@@ -7,6 +7,7 @@
 
 package com.bluhabit.blu.android.presentation.authentication.signin
 
+import android.os.CountDownTimer
 import android.util.Patterns
 import androidx.lifecycle.viewModelScope
 import com.bluhabit.blu.android.common.BaseViewModel
@@ -33,6 +34,8 @@ class SignInViewModel @Inject constructor(
 ) : BaseViewModel<SignInState, SignInAction, SignInEffect>(
     SignInState()
 ) {
+    private var countDownTimer: CountDownTimer? = null
+
     override fun onAction(action: SignInAction) {
         when (action) {
             is SignInAction.OnEmailChange -> onEmailChange(action.value)
@@ -42,6 +45,7 @@ class SignInViewModel @Inject constructor(
             is SignInAction.OnOtpChange -> {
                 updateState { copy(otpNumberState = action.value) }
             }
+
             is SignInAction.OnPasswordVisibilityChange -> updateState {
                 copy(passwordVisibility = action.visibility)
             }
@@ -49,6 +53,45 @@ class SignInViewModel @Inject constructor(
             SignInAction.OnVerifyOtp -> verifyOtp()
             is SignInAction.OnScreenChange -> updateState { copy(currentScreen = action.screen) }
             is SignInAction.OnButtonEnabledChange -> updateState { copy(buttonEnabled = action.enabled) }
+            is SignInAction.OnSentOtpAlertVisibilityChange -> updateState { copy(otpSentAlertVisibility = action.visibility) }
+            SignInAction.OnCountDownStart -> onCountDownStart()
+            SignInAction.OnResentOtp -> reSentOtp()
+        }
+    }
+
+    private fun onCountDownStart() {
+        val countDownTime = _state.value.otpSentCountDown
+        if (countDownTime > 0) {
+            countDownTimer = object : CountDownTimer(countDownTime, 1000) {
+                override fun onTick(millisUntilFinished: Long) {
+                    updateState { copy(otpSentCountDown = millisUntilFinished) }
+                }
+
+                override fun onFinish() {
+                    countDownTimer?.cancel()
+                }
+            }
+            countDownTimer?.start()
+        }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        countDownTimer?.cancel()
+    }
+
+    private fun reSentOtp() {
+        // Ketika hasil response sudah keluar jalankan fungsi
+        updateState { copy(otpSentCountDown = 120000L) }
+        onCountDownStart()
+        updateState {
+            if (true) { // rubah parameter menjadi hasil response
+                // Ketika response berhasil
+                copy(otpSentAlertSuccess = true)
+            } else {
+                // Ketika response gagal
+                copy(otpSentAlertSuccess = false)
+            }
         }
     }
 
