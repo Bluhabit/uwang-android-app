@@ -81,7 +81,7 @@ class SignInViewModel @Inject constructor(
 
     private fun reSentOtp() {
         // Ketika hasil response sudah keluar jalankan fungsi
-        updateState { copy(otpSentCountDown = 120000) }
+        updateState { copy(otpSentCountDown = 120_000L) }
         onCountDownStart()
         updateState {
             if (true) { // rubah parameter menjadi hasil response
