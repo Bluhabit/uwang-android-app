@@ -52,7 +52,6 @@ class SignInViewModel @Inject constructor(
 
             SignInAction.OnVerifyOtp -> verifyOtp()
             is SignInAction.OnScreenChange -> updateState { copy(currentScreen = action.screen) }
-            is SignInAction.OnButtonEnabledChange -> updateState { copy(buttonEnabled = action.enabled) }
             is SignInAction.OnSentOtpAlertVisibilityChange -> updateState { copy(otpSentAlertVisibility = action.visibility) }
             SignInAction.OnCountDownStart -> onCountDownStart()
             SignInAction.OnResentOtp -> reSentOtp()

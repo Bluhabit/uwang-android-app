@@ -26,10 +26,6 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableLongStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -51,7 +47,6 @@ import com.bluhabit.core.ui.theme.UwangColors
 import com.bluhabit.core.ui.theme.UwangDimens
 import com.bluhabit.core.ui.theme.UwangTheme
 import com.bluhabit.core.ui.theme.UwangTypography
-import kotlinx.coroutines.delay
 
 @Composable
 fun OtpSignInScreen(
@@ -60,17 +55,6 @@ fun OtpSignInScreen(
     onAction: (SignInAction) -> Unit = {},
 ) {
     val focusManager = LocalFocusManager.current
-    var timeLeft by remember { mutableLongStateOf(1 * 60 * 1000L) }
-
-    LaunchedEffect(key1 = timeLeft) {
-        while (timeLeft > 0) {
-            delay(1000)
-            timeLeft -= 1000
-        }
-        if (timeLeft == 0L) {
-            onAction(SignInAction.OnButtonEnabledChange(false))
-        }
-    }
 
     LaunchedEffect(Unit) {
         onAction(SignInAction.OnCountDownStart)
