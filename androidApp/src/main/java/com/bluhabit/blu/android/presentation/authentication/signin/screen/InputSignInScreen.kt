@@ -235,7 +235,7 @@ fun InputSignInScreen(
                 modifier = Modifier
                     .height(44.dp)
                     .fillMaxWidth(),
-                enabled = state.buttonEnabled
+                enabled = state.signInButtonEnabled
             ) {
                 action(SignInAction.OnSignInBasic)
             }

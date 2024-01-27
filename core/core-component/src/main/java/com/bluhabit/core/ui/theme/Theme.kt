@@ -45,7 +45,7 @@ private val shapeScheme = Shapes(
 
 @Composable
 fun UwangTheme(
-    darkStatusBarContent: Boolean = false,
+    darkStatusBarContent: Boolean = true,
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {

@@ -218,7 +218,7 @@ fun OtpSignInScreen(
                 modifier = Modifier
                     .fillMaxWidth(),
                 text = stringResource(id = R.string.label_button_otp),
-                enabled = state.buttonEnabled && !state.isAccountLocked
+                enabled = state.verifyOtpButtonEnabled && !state.isAccountLocked
             ) {
                 onAction(SignInAction.OnVerifyOtp)
             }
@@ -229,7 +229,7 @@ fun OtpSignInScreen(
 @Preview
 @Composable
 fun OtpSignInScreenPreview() {
-    UwangTheme(darkStatusBarContent = true) {
+    UwangTheme {
         OtpSignInScreen(
             onBackPressed = {}
         )

@@ -18,14 +18,11 @@ data class SignInState(
     val emailState: String = "",
     val emailError: Boolean = false,
     val emailErrorText: String = "",
-
     val passwordState: String = "",
     val passwordError: Boolean = false,
     val passwordErrorText: String = "",
-
     val passwordVisibility: Boolean = false,
-
-    val buttonEnabled: Boolean = false,
+    val signInButtonEnabled: Boolean = false,
     // Otp Sign In Screen
     val otpSentCountDown: Long = 120_000L,
     val otpNumberState: String = "",
@@ -35,4 +32,5 @@ data class SignInState(
     val otpSentAlertSuccess: Boolean = false,
     val otpSentLimit: Boolean = false,
     val isAccountLocked: Boolean = false,
+    val verifyOtpButtonEnabled: Boolean = true,
 )

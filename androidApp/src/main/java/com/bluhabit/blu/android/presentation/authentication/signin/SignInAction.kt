@@ -30,7 +30,6 @@ sealed interface SignInAction {
     ) : SignInAction
 
     object OnSignInBasic : SignInAction
-    object OnVerifyOtp : SignInAction
 
     data class OnSignInGoogle(
         val authResult: Task<GoogleSignInAccount>
@@ -45,4 +44,5 @@ sealed interface SignInAction {
     ) : SignInAction
     object OnCountDownStart : SignInAction
     object OnResentOtp : SignInAction
+    object OnVerifyOtp : SignInAction
 }

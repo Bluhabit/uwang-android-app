@@ -7,44 +7,46 @@
 
 package com.bluhabit.blu.android.presentation.authentication.signup.screen
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawingPadding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import com.bluehabit.core.ui.R
+import com.bluhabit.blu.android.common.toDateTime
 import com.bluhabit.blu.android.presentation.authentication.signup.SignUpAction
 import com.bluhabit.blu.android.presentation.authentication.signup.SignUpState
+import com.bluhabit.core.ui.components.alert.AlertError
+import com.bluhabit.core.ui.components.alert.AlertSuccess
 import com.bluhabit.core.ui.components.button.ButtonPrimary
 import com.bluhabit.core.ui.components.textfield.TextFieldOtp
+import com.bluhabit.core.ui.theme.UwangColors
+import com.bluhabit.core.ui.theme.UwangDimens
 import com.bluhabit.core.ui.theme.UwangTheme
-import kotlinx.coroutines.delay
+import com.bluhabit.core.ui.theme.UwangTypography
 
 @Composable
 fun OtpSignUpScreen(
@@ -54,117 +56,175 @@ fun OtpSignUpScreen(
     onAction: (SignUpAction) -> Unit
 ) {
     val focusManager = LocalFocusManager.current
-    var timeLeft by remember { mutableStateOf(1 * 60 * 1000L) }
 
-    LaunchedEffect(key1 = timeLeft) {
-        while (timeLeft > 0) {
-            delay(1000)
-            timeLeft -= 1000
-        }
-        if (timeLeft == 0L) {
-            onAction(SignUpAction.OnButtonEnabledChange(false))
-        }
+    LaunchedEffect(Unit) {
+        onAction(SignUpAction.OnCountDownStart)
     }
 
+    val ctx = LocalContext.current
+    val dimens = UwangDimens.from(ctx)
     Column(
-        verticalArrangement = Arrangement.Top,
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White),
+            .background(Color.White)
+            .safeDrawingPadding()
+            .padding(horizontal = dimens.dp_16, vertical = dimens.dp_24)
+            .verticalScroll(rememberScrollState()),
     ) {
-        IconButton(
-            onClick = {
-                onBackPressed()
-            }) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+        ) {
             Icon(
-                painter = painterResource(id = com.bluehabit.core.ui.R.drawable.ic_arrow_back),
-                contentDescription = "arrow back"
+                painter = painterResource(id = R.drawable.ic_arrow_back),
+                contentDescription = "arrow back",
+                modifier = Modifier
+                    .size(dimens.dp_24)
+                    .align(Alignment.CenterStart)
+                    .clickable {
+                        // On Back Pressed
+                    }
+            )
+            Image(
+                painter = painterResource(id = R.drawable.app_logo),
+                contentDescription = "",
+                modifier = Modifier
+                    .size(dimens.dp_24)
+                    .align(Alignment.Center)
             )
         }
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = 16.dp, vertical = 18.dp),
-            verticalArrangement = Arrangement.SpaceBetween
+        Spacer(modifier = Modifier.padding(bottom = dimens.dp_24))
+        Text(
+            text = if (state.isAccountLocked) "Kode OTP salah 3 kali" else stringResource(id = R.string.title_header_otp),
+            style = UwangTypography.BodyXL.SemiBold,
+            color = UwangColors.Text.Main
+        )
+        Spacer(modifier = Modifier.padding(bottom = 4.dp))
+        Text(
+            text =
+            if (state.isAccountLocked)
+                stringResource(id = R.string.caption_error_field_login_locked)
+            else
+                stringResource(id = R.string.description_header_otp, "johndoe@gmail.com"),
+            style = UwangTypography.BodySmall.Regular,
+            color = UwangColors.Text.Secondary
+        )
+        Spacer(modifier = Modifier.padding(bottom = dimens.dp_24))
+        Box(
+            modifier = Modifier.fillMaxWidth(),
         ) {
-            Column {
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Top
+            TextFieldOtp(
+                modifier = Modifier.align(Alignment.Center),
+                enabled = state.otpNumberEnabled && !state.isAccountLocked,
+                length = 4,
+                value = state.otpNumberState,
+                error = state.otpNumberError,
+                onDone = {
+                    focusManager.clearFocus(true)
+                    onAction(SignUpAction.OnVerifyOtp)
+                },
+                onChange = { value ->
+                    onAction(SignUpAction.OnOtpChange(value = value))
+                }
+            )
+        }
+        Spacer(modifier = Modifier.padding(bottom = 5.dp))
+        if (state.otpNumberError) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.alert_triangle),
+                    contentDescription = "",
+                    modifier = Modifier
+                        .size(dimens.dp_16)
+                )
+                Spacer(modifier = Modifier.padding(end = dimens.dp_8))
+                Text(
+                    text = "Kode OTP salah",
+                    style = UwangTypography.LabelMedium.Regular,
+                    color = UwangColors.State.Error.Main
+                )
+            }
+        }
+        Spacer(modifier = Modifier.padding(bottom = dimens.dp_24))
+        when {
+            state.isAccountLocked -> {
+                Text(
+                    text = stringResource(id = R.string.placeholder_teks_hour_otp),
+                    style = UwangTypography.BodySmall.Regular,
+                    color = UwangColors.Text.Secondary
+                )
+            }
+
+            state.otpSentLimit -> {
+                Text(
+                    text = stringResource(id = R.string.placeholder_teks_many_otp),
+                    style = UwangTypography.BodySmall.Regular,
+                    color = UwangColors.Text.Secondary
+                )
+            }
+
+            (state.otpSentCountDown > 0) -> {
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(4.dp),
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = stringResource(id = com.bluehabit.core.ui.R.string.send_otp),
-                        style = MaterialTheme.typography.body1,
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.W600
-                    )
-                    Spacer(modifier = modifier.height(12.dp))
-                    Text(
-                        text = stringResource(id = com.bluehabit.core.ui.R.string.send_otp_p1),
-                        style = MaterialTheme.typography.body1,
-                        fontSize = 14.sp,
-                        fontWeight = FontWeight.W400
+                        text = stringResource(id = R.string.placeholder_teks_waiting_otp),
+                        style = UwangTypography.BodySmall.Regular,
+                        color = UwangColors.Text.Secondary
                     )
                     Text(
-                        text = stringResource(id = com.bluehabit.core.ui.R.string.send_otp_p3),
-                        style = MaterialTheme.typography.body1,
-                        fontSize = 14.sp,
-                        fontWeight = FontWeight.W400
-                    )
-                    Text(
-                        text = buildAnnotatedString {
-                            withStyle(
-                                style = SpanStyle(
-                                    fontStyle = MaterialTheme.typography.body1.fontStyle,
-                                    fontWeight = FontWeight.W400
-                                )
-                            ) {
-                                append(stringResource(id = com.bluehabit.core.ui.R.string.send_otp_p2))
-                            }
-                            append(" ")
-                            withStyle(
-                                style = SpanStyle(
-                                    color = Color(0xFF4F504E),
-                                    fontStyle = MaterialTheme.typography.body1.fontStyle,
-                                    fontWeight = FontWeight.W400
-                                )
-                            ) {
-                                append(state.emailState)
-                            }
-                        }
+                        text = state.otpSentCountDown.toDateTime("mm:ss"),
+                        style = UwangTypography.BodySmall.Medium,
+                        color = UwangColors.Text.Secondary
                     )
                 }
-                Box(
-                    modifier = Modifier.fillMaxWidth(),
-                ) {
-                    TextFieldOtp(
-                        modifier = Modifier.align(Alignment.Center),
-                        enabled = true,
-                        length = 4,
-                        value = state.otpState,
-                        error = state.otpError,
-                        onDone = {
-                            focusManager.clearFocus(true)
-                        },
-                        onChange = { value ->
-                            onAction(SignUpAction.OnOtpChange(value))
-                        }
-                    )
+            }
 
+            else -> {
+                Text(
+                    text = stringResource(id = R.string.label_teks_button_resend_otp),
+                    style = UwangTypography.BodySmall.Medium,
+                    color = UwangColors.State.Primary.Main,
+                    modifier = Modifier
+                        .clickable {
+                            onAction(SignUpAction.OnResentOtp)
+                        }
+                )
+            }
+
+        }
+        Spacer(modifier = Modifier.weight(1f))
+        Column(
+            verticalArrangement = Arrangement.spacedBy(dimens.dp_24),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            if (state.otpSentAlertVisibility) {
+                if (state.otpSentAlertSuccess) {
+                    AlertSuccess(message = stringResource(id = R.string.label_alert_success)) {
+                        onAction(SignUpAction.OnSentOtpAlertVisibilityChange(false))
+                    }
+                } else {
+                    AlertError(message = stringResource(id = R.string.label_alert_error)) {
+                        onAction(SignUpAction.OnSentOtpAlertVisibilityChange(false))
+                    }
                 }
             }
             ButtonPrimary(
-                modifier = modifier
+                modifier = Modifier
                     .fillMaxWidth(),
-                text = stringResource(com.bluehabit.core.ui.R.string.send_otp_screen_next),
-                enabled = state.otpState.isNotEmpty(),
-                onClick = {
-                    onAction(SignUpAction.VerifyOtpUpBasic)
-                }
-            )
+                text = stringResource(id = R.string.label_button_otp),
+                enabled = state.verifyOtpButtonEnabled && !state.isAccountLocked && state.otpNumberState.length == 4
+            ) {
+                onAction(SignUpAction.OnVerifyOtp)
+            }
         }
     }
-
 }
 
 @Preview

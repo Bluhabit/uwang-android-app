@@ -77,6 +77,9 @@ class SignInViewModel @Inject constructor(
     override fun onCleared() {
         super.onCleared()
         countDownTimer?.cancel()
+        updateState {
+            SignInState() // Clearing saved state
+        }
     }
 
     private fun reSentOtp() {
@@ -102,7 +105,7 @@ class SignInViewModel @Inject constructor(
                 passwordState = password,
                 passwordError = !isPasswordValid,
                 passwordErrorText = if (isPasswordValid) "" else "Email/username atau password tidak valid",
-                buttonEnabled = isPasswordValid && emailValid
+                signInButtonEnabled = isPasswordValid && emailValid
             )
         }
     }
@@ -115,7 +118,7 @@ class SignInViewModel @Inject constructor(
                 emailState = email,
                 emailError = !emailValid,
                 emailErrorText = if (emailValid) "" else "Email/username atau password tidak valid",
-                buttonEnabled = emailValid && isPasswordValid
+                signInButtonEnabled = emailValid && isPasswordValid
             )
         }
     }
@@ -130,14 +133,19 @@ class SignInViewModel @Inject constructor(
             .onStart { }
             .onEach {
                 when (it) {
-                    is Response.Error -> Unit
+                    is Response.Error -> {
+                        updateState {
+                            copy(
+                                signInButtonEnabled = true
+                            )
+                        }
+                    }
+
                     is Response.Result -> {
                         //go to otp
                         updateState {
                             copy(
                                 currentScreen = 1,
-                                emailState = "",
-                                passwordState = ""
                             )
                         }
                     }
@@ -147,8 +155,7 @@ class SignInViewModel @Inject constructor(
     }
 
     private fun verifyOtp() = viewModelScope.launch {
-        val otp = state.value.otpNumberState
-        executeAsFlow { verifyOtpSignInBasicUseCase(otp) }
+        executeAsFlow { verifyOtpSignInBasicUseCase(state.value.otpNumberState) }
             .onStart { }
             .onEach {
                 when (it) {

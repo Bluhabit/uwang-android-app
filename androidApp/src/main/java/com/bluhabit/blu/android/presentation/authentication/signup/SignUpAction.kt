@@ -35,17 +35,26 @@ sealed interface SignUpAction {
         val visibility: Boolean = false
     ) : SignUpAction
 
-    data class OnOtpChange(
-        val otp: String="",
-    ) : SignUpAction
-
     data class OnSignInGoogle(
         val authResult: Task<GoogleSignInAccount>
     ) : SignUpAction
 
     data class OnButtonEnabledChange(
-        val enabled: Boolean=false,
+        val enabled: Boolean = false,
     ) : SignUpAction
+
     object SignUpBasic : SignUpAction
-    object VerifyOtpUpBasic : SignUpAction
+
+    // Otp Sign Up Screen
+    data class OnOtpChange(
+        val value: String = ""
+    ) : SignUpAction
+
+    data class OnSentOtpAlertVisibilityChange(
+        val visibility: Boolean = false,
+    ) : SignUpAction
+
+    object OnCountDownStart : SignUpAction
+    object OnResentOtp : SignUpAction
+    object OnVerifyOtp : SignUpAction
 }

@@ -217,7 +217,7 @@ fun InputSignUpScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp),
-            enabled = state.buttonEnabled
+            enabled = state.signUpButtonEnabled
         ) {
             onAction(SignUpAction.SignUpBasic)
         }
