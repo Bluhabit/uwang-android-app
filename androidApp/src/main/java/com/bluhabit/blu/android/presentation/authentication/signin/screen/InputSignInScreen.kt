@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -46,6 +47,7 @@ import com.bluhabit.core.ui.components.button.ButtonPrimary
 import com.bluhabit.core.ui.components.textfield.TextFieldPrimary
 import com.bluhabit.core.ui.theme.UwangColors
 import com.bluhabit.core.ui.theme.UwangDimens
+import com.bluhabit.core.ui.theme.UwangTheme
 import com.bluhabit.core.ui.theme.UwangTypography
 
 @Composable
@@ -63,6 +65,7 @@ fun InputSignInScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
+            .safeDrawingPadding()
             .padding(horizontal = dimens.dp_16, vertical = dimens.dp_24)
             .verticalScroll(rememberScrollState()),
     ) {
@@ -296,13 +299,15 @@ fun InputSignInScreen(
 @Preview
 @Composable
 fun InputSignInScreenPreview() {
-    InputSignInScreen(
-        onSignInGoogle = { /*TODO*/ },
-        onSignUp = { /*TODO*/ },
-        onForgotPassword = { /*TODO*/ },
-        onTermAndCondition = { /*TODO*/ },
-        action = {
+    UwangTheme {
+        InputSignInScreen(
+            onSignInGoogle = { /*TODO*/ },
+            onSignUp = { /*TODO*/ },
+            onForgotPassword = { /*TODO*/ },
+            onTermAndCondition = { /*TODO*/ },
+            action = {
 
-        }
-    )
+            }
+        )
+    }
 }
