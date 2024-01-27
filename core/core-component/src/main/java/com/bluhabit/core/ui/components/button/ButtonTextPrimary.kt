@@ -27,13 +27,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluhabit.core.ui.ext.Empty
-import com.bluhabit.core.ui.theme.CustomColor
+import com.bluhabit.core.ui.theme.UwangColors
 import com.bluhabit.core.ui.theme.Error200
-import com.bluhabit.core.ui.theme.Error300
-import com.bluhabit.core.ui.theme.Error700
 import com.bluhabit.core.ui.theme.Gray300
 import com.bluhabit.core.ui.theme.Primary200
-import com.bluhabit.core.ui.theme.Primary700
 import com.bluhabit.core.ui.theme.UwangTheme
 
 /**
@@ -64,8 +61,8 @@ fun ButtonTextPrimary(
                 if (error) Error200
                 else Primary200
             else Color.Transparent,
-            contentColor = if (error) CustomColor.Error.Red500 else CustomColor.Primary.Blue500,
-            disabledContentColor = if (error) CustomColor.Error.Red300 else Gray300
+            contentColor = if (error) UwangColors.Error.Red500 else UwangColors.Primary.Blue500,
+            disabledContentColor = if (error) UwangColors.Error.Red300 else Gray300
         ),
         elevation = ButtonDefaults.elevation(
             defaultElevation = 0.dp

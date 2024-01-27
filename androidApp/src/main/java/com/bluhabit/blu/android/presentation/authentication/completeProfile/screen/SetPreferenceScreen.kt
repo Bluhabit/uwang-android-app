@@ -36,7 +36,7 @@ import com.bluhabit.blu.android.presentation.authentication.completeProfile.Comp
 import com.bluhabit.blu.android.presentation.authentication.completeProfile.CompleteProfileState
 import com.bluhabit.core.ui.components.button.ButtonPrimary
 import com.bluhabit.core.ui.components.checkbox.PreferenceItemCheckBox
-import com.bluhabit.core.ui.theme.CustomColor
+import com.bluhabit.core.ui.theme.UwangColors
 import com.bluhabit.core.ui.theme.CustomTypography
 import com.bluhabit.core.ui.theme.UwangTheme
 
@@ -98,12 +98,12 @@ fun SetPreferenceScreen(
                     Text(
                         text = stringResource(id = R.string.set_preference_screen_title),
                         style = CustomTypography.Body.XL.W600,
-                        color = CustomColor.Neutral.Grey13
+                        color = UwangColors.Neutral.Grey13
                     )
                     Text(
                         text = stringResource(id = R.string.set_preference_screen_instruction),
                         style = CustomTypography.Body.Small.W400,
-                        color = CustomColor.Neutral.Grey9
+                        color = UwangColors.Neutral.Grey9
                     )
                 }
             }

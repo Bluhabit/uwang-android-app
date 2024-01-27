@@ -7,6 +7,7 @@
 
 package com.bluhabit.blu.android.presentation.authentication.signup
 
+import android.os.CountDownTimer
 import android.util.Patterns
 import androidx.lifecycle.viewModelScope
 import com.bluhabit.blu.android.common.BaseViewModel
@@ -29,21 +30,68 @@ import kotlinx.coroutines.tasks.await
 class SignUpViewModel @Inject constructor(
     private val signUpBasicUseCase: SignUpBasicUseCase,
     private val verifyOtpSignUpBasicUseCase: VerifyOtpSignUpBasicUseCase,
-    private val signInGoogleUseCase: SignInGoogleUseCase,
+    private val signInGoogleUseCase: SignInGoogleUseCase
 ) : BaseViewModel<SignUpState, SignUpAction, SignUpEffect>(SignUpState()) {
+    private var countDownTimer: CountDownTimer? = null
+
     override fun onAction(action: SignUpAction) {
         when (action) {
             is SignUpAction.OnEmailChange -> onEmailChange(action.value)
             is SignUpAction.OnPasswordChange -> onPasswordChange(action.value)
             is SignUpAction.OnPasswordConfirmationChange -> onPasswordConfirmationChange(action.value)
-            is SignUpAction.OnOtpChange -> onOtpChange(action.otp)
+            is SignUpAction.OnOtpChange -> {
+                updateState { copy(otpNumberState = action.value) }
+            }
+
             is SignUpAction.OnPasswordConfirmationVisibilityChange -> updateState { copy(passwordConfirmationVisibility = action.visibility) }
             is SignUpAction.OnPasswordVisibilityChange -> updateState { copy(passwordVisibility = action.visibility) }
             is SignUpAction.OnScreenChange -> updateState { copy(currentScreen = action.screen) }
             SignUpAction.SignUpBasic -> signUpBasic()
-            SignUpAction.VerifyOtpUpBasic -> verifyOtp()
-            is SignUpAction.OnButtonEnabledChange -> updateState { copy(buttonEnabled = false) }
+            SignUpAction.OnVerifyOtp -> verifyOtp()
+            is SignUpAction.OnButtonEnabledChange -> updateState { copy(signUpButtonEnabled = false) }
             is SignUpAction.OnSignInGoogle -> signUpGoogle(action.authResult)
+            is SignUpAction.OnSentOtpAlertVisibilityChange -> updateState { copy(otpSentAlertVisibility = action.visibility) }
+            SignUpAction.OnCountDownStart -> onCountDownStart()
+            SignUpAction.OnResentOtp -> reSentOtp()
+        }
+    }
+
+    private fun onCountDownStart() {
+        val countDownTime = _state.value.otpSentCountDown
+        if (countDownTime > 0) {
+            countDownTimer = object : CountDownTimer(countDownTime, 1000) {
+                override fun onTick(millisUntilFinished: Long) {
+                    updateState { copy(otpSentCountDown = millisUntilFinished) }
+                }
+
+                override fun onFinish() {
+                    countDownTimer?.cancel()
+                }
+            }
+            countDownTimer?.start()
+        }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        countDownTimer?.cancel()
+        updateState {
+            SignUpState() // Clearing saved state
+        }
+    }
+
+    private fun reSentOtp() {
+        // Ketika hasil response sudah keluar jalankan fungsi
+        updateState { copy(otpSentCountDown = 120_000L) }
+        onCountDownStart()
+        updateState {
+            if (true) { // rubah parameter menjadi hasil response
+                // Ketika response berhasil
+                copy(otpSentAlertSuccess = true)
+            } else {
+                // Ketika response gagal
+                copy(otpSentAlertSuccess = false)
+            }
         }
     }
 
@@ -56,7 +104,7 @@ class SignUpViewModel @Inject constructor(
                 emailState = email,
                 emailError = !isEmailValid,
                 emailErrorText = if (isEmailValid) "" else "Format email tidak valid",
-                buttonEnabled = isPasswordValid && isConfirmPasswordValid && isEmailValid
+                signUpButtonEnabled = isPasswordValid && isConfirmPasswordValid && isEmailValid
             )
         }
     }
@@ -70,7 +118,7 @@ class SignUpViewModel @Inject constructor(
                 passwordState = password,
                 passwordError = !isPasswordValid,
                 passwordErrorText = if (isPasswordValid) "" else "Password harus minimal 8 karakter",
-                buttonEnabled = isPasswordValid && isConfirmPasswordValid && isEmailValid
+                signUpButtonEnabled = isPasswordValid && isConfirmPasswordValid && isEmailValid
             )
         }
     }
@@ -84,30 +132,34 @@ class SignUpViewModel @Inject constructor(
                 passwordConfirmationState = password,
                 passwordConfirmationError = !isConfirmPasswordValid,
                 passwordConfirmationErrorText = if (isConfirmPasswordValid) "" else "Password tidak sesuai",
-                buttonEnabled = isPasswordValid && isConfirmPasswordValid && isEmailValid
+                signUpButtonEnabled = isPasswordValid && isConfirmPasswordValid && isEmailValid
             )
         }
     }
 
-    private fun onOtpChange(otp: String) = viewModelScope.launch {
-        val isOtpValid = otp.isNotEmpty() && otp.length >= 4
-        updateState { copy(otpState = otp, otpError = isOtpValid) }
-    }
-
     private fun signUpBasic() = viewModelScope.launch {
         executeAsFlow { signUpBasicUseCase(email = state.value.emailState, password = state.value.passwordState) }
-            .onStart {}
+            .onStart {
+                updateState {
+                    copy(
+                        signUpButtonEnabled = false
+                    )
+                }
+            }
             .onEach {
                 when (it) {
-                    is Response.Error -> Unit
+                    is Response.Error -> {
+                        updateState {
+                            copy(
+                                signUpButtonEnabled = true
+                            )
+                        }
+                    }
+
                     is Response.Result -> {
                         updateState {
                             copy(
                                 currentScreen = 1,
-                                emailState = "",
-                                passwordState = "",
-                                passwordConfirmationState = "",
-                                buttonEnabled = false
                             )
                         }
                     }
@@ -116,7 +168,7 @@ class SignUpViewModel @Inject constructor(
     }
 
     private fun verifyOtp() = viewModelScope.launch {
-        executeAsFlow { verifyOtpSignUpBasicUseCase(otp = state.value.otpState) }
+        executeAsFlow { verifyOtpSignUpBasicUseCase(otp = state.value.otpNumberState) }
             .onStart {}
             .onEach {
                 when (it) {

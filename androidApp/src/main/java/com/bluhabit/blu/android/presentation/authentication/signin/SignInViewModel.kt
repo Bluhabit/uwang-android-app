@@ -7,6 +7,7 @@
 
 package com.bluhabit.blu.android.presentation.authentication.signin
 
+import android.os.CountDownTimer
 import android.util.Patterns
 import androidx.lifecycle.viewModelScope
 import com.bluhabit.blu.android.common.BaseViewModel
@@ -33,6 +34,8 @@ class SignInViewModel @Inject constructor(
 ) : BaseViewModel<SignInState, SignInAction, SignInEffect>(
     SignInState()
 ) {
+    private var countDownTimer: CountDownTimer? = null
+
     override fun onAction(action: SignInAction) {
         when (action) {
             is SignInAction.OnEmailChange -> onEmailChange(action.value)
@@ -42,13 +45,55 @@ class SignInViewModel @Inject constructor(
             is SignInAction.OnOtpChange -> {
                 updateState { copy(otpNumberState = action.value) }
             }
+
             is SignInAction.OnPasswordVisibilityChange -> updateState {
                 copy(passwordVisibility = action.visibility)
             }
 
             SignInAction.OnVerifyOtp -> verifyOtp()
             is SignInAction.OnScreenChange -> updateState { copy(currentScreen = action.screen) }
-            is SignInAction.OnButtonEnabledChange -> updateState { copy(buttonEnabled = action.enabled) }
+            is SignInAction.OnSentOtpAlertVisibilityChange -> updateState { copy(otpSentAlertVisibility = action.visibility) }
+            SignInAction.OnCountDownStart -> onCountDownStart()
+            SignInAction.OnResentOtp -> reSentOtp()
+        }
+    }
+
+    private fun onCountDownStart() {
+        val countDownTime = _state.value.otpSentCountDown
+        if (countDownTime > 0) {
+            countDownTimer = object : CountDownTimer(countDownTime, 1000) {
+                override fun onTick(millisUntilFinished: Long) {
+                    updateState { copy(otpSentCountDown = millisUntilFinished) }
+                }
+
+                override fun onFinish() {
+                    countDownTimer?.cancel()
+                }
+            }
+            countDownTimer?.start()
+        }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        countDownTimer?.cancel()
+        updateState {
+            SignInState() // Clearing saved state
+        }
+    }
+
+    private fun reSentOtp() {
+        // Ketika hasil response sudah keluar jalankan fungsi
+        updateState { copy(otpSentCountDown = 120_000L) }
+        onCountDownStart()
+        updateState {
+            if (true) { // rubah parameter menjadi hasil response
+                // Ketika response berhasil
+                copy(otpSentAlertSuccess = true)
+            } else {
+                // Ketika response gagal
+                copy(otpSentAlertSuccess = false)
+            }
         }
     }
 
@@ -60,7 +105,7 @@ class SignInViewModel @Inject constructor(
                 passwordState = password,
                 passwordError = !isPasswordValid,
                 passwordErrorText = if (isPasswordValid) "" else "Email/username atau password tidak valid",
-                buttonEnabled = isPasswordValid && emailValid
+                signInButtonEnabled = isPasswordValid && emailValid
             )
         }
     }
@@ -73,7 +118,7 @@ class SignInViewModel @Inject constructor(
                 emailState = email,
                 emailError = !emailValid,
                 emailErrorText = if (emailValid) "" else "Email/username atau password tidak valid",
-                buttonEnabled = emailValid && isPasswordValid
+                signInButtonEnabled = emailValid && isPasswordValid
             )
         }
     }
@@ -88,14 +133,19 @@ class SignInViewModel @Inject constructor(
             .onStart { }
             .onEach {
                 when (it) {
-                    is Response.Error -> Unit
+                    is Response.Error -> {
+                        updateState {
+                            copy(
+                                signInButtonEnabled = true
+                            )
+                        }
+                    }
+
                     is Response.Result -> {
                         //go to otp
                         updateState {
                             copy(
                                 currentScreen = 1,
-                                emailState = "",
-                                passwordState = ""
                             )
                         }
                     }
@@ -105,8 +155,7 @@ class SignInViewModel @Inject constructor(
     }
 
     private fun verifyOtp() = viewModelScope.launch {
-        val otp = state.value.otpNumberState
-        executeAsFlow { verifyOtpSignInBasicUseCase(otp) }
+        executeAsFlow { verifyOtpSignInBasicUseCase(state.value.otpNumberState) }
             .onStart { }
             .onEach {
                 when (it) {

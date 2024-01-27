@@ -30,18 +30,19 @@ sealed interface SignInAction {
     ) : SignInAction
 
     object OnSignInBasic : SignInAction
-    object OnVerifyOtp : SignInAction
 
     data class OnSignInGoogle(
         val authResult: Task<GoogleSignInAccount>
     ) : SignInAction
 
     // Otp Sign In Screen
-
-    data class OnButtonEnabledChange(
-        val enabled:Boolean=false
-    ):SignInAction
     data class OnOtpChange(
         val value: String = ""
     ) : SignInAction
+    data class OnSentOtpAlertVisibilityChange(
+        val visibility: Boolean = false,
+    ) : SignInAction
+    object OnCountDownStart : SignInAction
+    object OnResentOtp : SignInAction
+    object OnVerifyOtp : SignInAction
 }

@@ -45,7 +45,7 @@ import com.bluhabit.blu.android.presentation.authentication.completeProfile.Comp
 import com.bluhabit.core.ui.components.button.ButtonPrimary
 import com.bluhabit.core.ui.components.textfield.TextFieldPrimary
 import com.bluhabit.core.ui.ext.getBitmap
-import com.bluhabit.core.ui.theme.CustomColor
+import com.bluhabit.core.ui.theme.UwangColors
 import com.bluhabit.core.ui.theme.CustomTypography
 import com.bluhabit.core.ui.theme.UwangTheme
 
@@ -99,7 +99,7 @@ fun InputUsernameScreen(
             Text(
                 text = stringResource(id = com.bluehabit.core.ui.R.string.edit_profile_screen),
                 style = CustomTypography.Body.XL.W600,
-                color = CustomColor.Neutral.Grey13
+                color = UwangColors.Neutral.Grey13
             )
             Text(
                 text = stringResource(id = com.bluehabit.core.ui.R.string.edit_profile_screen_hint),
@@ -148,7 +148,7 @@ fun InputUsernameScreen(
                 Text(
                     text = stringResource(id = com.bluehabit.core.ui.R.string.edit_profile_screen_placeholder),
                     style = CustomTypography.Body.Small.W400,
-                    color = CustomColor.Neutral.Grey9
+                    color = UwangColors.Neutral.Grey9
                 )
                 TextFieldPrimary(
                     modifier = Modifier
@@ -163,12 +163,12 @@ fun InputUsernameScreen(
                     onValueChange = {
                         onAction(CompleteProfileAction.OnUsernameChange(it))
                     },
-                    error = state.usernameError
+                    isError = state.usernameError
                 )
                 Text(
                     text = state.usernameErrorText,
                     style = CustomTypography.Label.Small.W400,
-                    color = CustomColor.Error.Red300
+                    color = UwangColors.Error.Red300
                 )
             }
         }

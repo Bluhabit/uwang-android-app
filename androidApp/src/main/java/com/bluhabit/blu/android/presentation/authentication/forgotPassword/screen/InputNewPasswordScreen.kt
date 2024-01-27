@@ -31,7 +31,7 @@ import com.bluhabit.blu.android.presentation.authentication.forgotPassword.Forgo
 import com.bluhabit.blu.android.presentation.authentication.forgotPassword.ForgotPasswordState
 import com.bluhabit.core.ui.components.button.ButtonPrimary
 import com.bluhabit.core.ui.components.textfield.TextFieldPrimary
-import com.bluhabit.core.ui.theme.CustomColor
+import com.bluhabit.core.ui.theme.UwangColors
 import com.bluhabit.core.ui.theme.CustomTypography
 import com.bluhabit.core.ui.theme.UwangTheme
 
@@ -66,17 +66,17 @@ fun InputNewPasswordScreen(
             Text(
                 text = stringResource(id = com.bluehabit.core.ui.R.string.input_password_screen_reset_password),
                 style = CustomTypography.Body.XL.W600,
-                color = CustomColor.Neutral.Grey13
+                color = UwangColors.Neutral.Grey13
             )
             Text(
                 text = stringResource(id = com.bluehabit.core.ui.R.string.input_password_screen_hint),
                 style = CustomTypography.Body.Small.W400,
-                color = CustomColor.Neutral.Grey9
+                color = UwangColors.Neutral.Grey9
             )
             Text(
                 text = stringResource(id = com.bluehabit.core.ui.R.string.input_password_screen_password),
                 style = CustomTypography.Body.Small.W400,
-                color = CustomColor.Neutral.Grey9
+                color = UwangColors.Neutral.Grey9
             )
             TextFieldPrimary(
                 modifier = Modifier
@@ -91,18 +91,18 @@ fun InputNewPasswordScreen(
                 onValueChange = {
                     onAction(ForgotPasswordAction.OnEmailChange(value = it))
                 },
-                error = state.emailError
+                isError = state.emailError
             )
             Text(
                 text = state.emailErrorText,
                 style = CustomTypography.Label.Small.W400,
-                color = CustomColor.Error.Red300
+                color = UwangColors.Error.Red300
             )
 
             Text(
                 text = stringResource(id = R.string.reset_password_screen_confirm_password_label),
                 style = CustomTypography.Body.Small.W400,
-                color = CustomColor.Neutral.Grey9
+                color = UwangColors.Neutral.Grey9
             )
             TextFieldPrimary(
                 modifier = Modifier
@@ -117,13 +117,13 @@ fun InputNewPasswordScreen(
                 onValueChange = {
                     onAction(ForgotPasswordAction.OnEmailChange(value = it))
                 },
-                error = state.emailError
+                isError = state.emailError
             )
             if (state.emailError) {
                 Text(
                     text = state.emailErrorText,
                     style = CustomTypography.Label.Small.W400,
-                    color = CustomColor.Error.Red300
+                    color = UwangColors.Error.Red300
                 )
             }
         }

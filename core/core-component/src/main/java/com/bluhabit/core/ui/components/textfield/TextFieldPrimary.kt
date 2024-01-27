@@ -21,8 +21,8 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
-import com.bluhabit.core.ui.theme.CustomColor
-import com.bluhabit.core.ui.theme.CustomTypography
+import com.bluhabit.core.ui.theme.UwangColors
+import com.bluhabit.core.ui.theme.UwangTypography
 
 @Composable
 fun TextFieldPrimary(
@@ -30,18 +30,21 @@ fun TextFieldPrimary(
     label: @Composable (() -> Unit)? = null,
     shape: Shape = RoundedCornerShape(12.dp),
     colors: TextFieldColors = TextFieldDefaults.outlinedTextFieldColors(
-        textColor = CustomColor.Neutral.Grey13,
+        textColor = UwangColors.Text.Main,
         backgroundColor = Color.White,
-        focusedBorderColor = CustomColor.Neutral.Grey13,
-        unfocusedBorderColor = CustomColor.Neutral.Grey5,
-        unfocusedLabelColor = CustomColor.Neutral.Grey7,
-        errorBorderColor = CustomColor.Error.Red500,
+        focusedBorderColor = UwangColors.State.Primary.Main,
+        unfocusedBorderColor = UwangColors.Text.Border,
+        focusedLabelColor = UwangColors.Palette.Neutral.Grey7,
+        unfocusedLabelColor = UwangColors.Palette.Neutral.Grey7,
+        errorBorderColor = UwangColors.State.Error.Main,
+        cursorColor = UwangColors.Text.Main,
+        errorCursorColor = UwangColors.Text.Main
     ),
-    textStyle: TextStyle = CustomTypography.Body.Small.W400,
+    textStyle: TextStyle = UwangTypography.BodySmall.Regular,
     value: String = "",
     onValueChange: (String) -> Unit = {},
     enabled: Boolean = true,
-    error: Boolean = false,
+    isError: Boolean = false,
     leadingIcon: @Composable (() -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
     visualTransformation: VisualTransformation = VisualTransformation.None,
@@ -60,7 +63,7 @@ fun TextFieldPrimary(
         onValueChange = onValueChange,
         enabled = enabled,
         textStyle = textStyle,
-        isError = error,
+        isError = isError,
         leadingIcon = leadingIcon,
         trailingIcon = trailingIcon,
         visualTransformation = visualTransformation,

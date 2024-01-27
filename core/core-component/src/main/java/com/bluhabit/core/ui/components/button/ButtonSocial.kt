@@ -22,17 +22,16 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluehabit.core.ui.R
 import com.bluhabit.core.ui.ext.Empty
-import com.bluhabit.core.ui.theme.CustomColor
-import com.bluhabit.core.ui.theme.CustomTypography
+import com.bluhabit.core.ui.theme.UwangColors
 import com.bluhabit.core.ui.theme.Gray700
 import com.bluhabit.core.ui.theme.UwangTheme
+import com.bluhabit.core.ui.theme.UwangTypography
 
 /**
  * Button Social
@@ -50,9 +49,9 @@ import com.bluhabit.core.ui.theme.UwangTheme
 fun ButtonSocial(
     modifier: Modifier = Modifier,
     text: String = String.Empty,
-    textColor: Color = Gray700,
+    textColor: Color = UwangColors.Text.Main,
     enabled: Boolean = true,
-    backgroundColor: Color = Color.White,
+    backgroundColor: Color = UwangColors.Base.White,
     icon: (@Composable () -> Unit)? = null,
     onClick: () -> Unit = {}
 ) {
@@ -62,10 +61,10 @@ fun ButtonSocial(
             .defaultMinSize(minHeight = 40.dp),
         onClick = onClick,
         enabled = enabled,
-        shape = RoundedCornerShape(8.dp),
+        shape = RoundedCornerShape(12.dp),
         border = BorderStroke(
-            width = 0.8.dp,
-            color = CustomColor.Primary.Blue500
+            width = 1.dp,
+            color = UwangColors.Text.Border
         ),
         colors = ButtonDefaults.buttonColors(
             backgroundColor = backgroundColor,
@@ -81,7 +80,7 @@ fun ButtonSocial(
         )
         Text(
             text = text,
-            style = CustomTypography.Label.Large.W600,
+            style = UwangTypography.BodySmall.Medium,
             fontWeight = FontWeight.SemiBold,
             color = textColor
         )
