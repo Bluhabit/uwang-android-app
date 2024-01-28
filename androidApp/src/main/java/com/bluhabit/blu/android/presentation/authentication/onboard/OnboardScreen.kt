@@ -54,7 +54,7 @@ import com.bluhabit.core.ui.components.button.ButtonOutlinedPrimary
 import com.bluhabit.core.ui.components.button.ButtonPrimary
 import com.bluhabit.core.ui.components.pager.Indicators
 import com.bluhabit.core.ui.theme.CustomTypography
-import com.bluhabit.core.ui.theme.Neutral100
+import com.bluhabit.core.ui.theme.Gray900
 import com.bluhabit.core.ui.theme.UwangColors
 import com.bluhabit.core.ui.theme.UwangDimens
 import com.bluhabit.core.ui.theme.UwangTheme
@@ -64,20 +64,20 @@ import kotlinx.coroutines.launch
 
 val onboard = listOf(
     Triple(
-        R.drawable.onboarding1,
-        R.string.text_title_1,
+        R.drawable.onboarding_1,
+        R.string.title_onboarding_satu,
         R.string.text_onboard_1
     ), Triple(
-        R.drawable.onboarding2,
-        R.string.text_title_2,
+        R.drawable.onboarding_2,
+        R.string.title_onboarding_dua,
         R.string.text_onboard_2
     ), Triple(
-        R.drawable.onboarding3,
-        R.string.text_title_3,
+        R.drawable.onboarding_3,
+        R.string.title_onboarding_tiga,
         R.string.text_onboard_3
     ), Triple(
-        R.drawable.onboard4,
-        R.string.text_title_4,
+        R.drawable.onboard_4,
+        R.string.title_onboarding_empat,
         R.string.text_onboard_4
     )
 )
@@ -120,7 +120,11 @@ fun OnboardScreen(
             OnboardEffect.NavigateCompleteProfile -> navHostController.navigate("complete_profile")
         }
     })
-    Box(modifier = modifier.fillMaxSize()) {
+    Box(
+        modifier = modifier
+            .fillMaxSize()
+            .padding(horizontal = 16.dp)
+    ) {
         Column(
             modifier = modifier
                 .fillMaxSize()
@@ -135,33 +139,16 @@ fun OnboardScreen(
                 ScreenFrameOnboarding(
                     modifier = modifier,
                     top = {
-                        Column(
-                            modifier = modifier
-                                .padding(top = dimens.dp_30),
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalArrangement = Arrangement.Center
-                        ) {
-                            Text(
-                                text = stringResource(onboard[page].second),
-                                style = MaterialTheme.typography.h6.copy(
-                                    fontSize = dimens.sp_20
-                                ),
-                                fontWeight = FontWeight.W600,
-                                textAlign = TextAlign.Center,
-                                color = UwangColors.Primary.Blue500,
-                                modifier = modifier.fillMaxWidth()
-                            )
-                            Text(
-                                text = stringResource(onboard[page].third),
-                                style = MaterialTheme.typography.body2.copy(
-                                    fontSize = dimens.sp_14
-                                ),
-                                fontWeight = FontWeight.W400,
-                                textAlign = TextAlign.Center,
-                                color = Neutral100,
-                                modifier = modifier.fillMaxWidth()
-                            )
-                        }
+                        Text(
+                            text = stringResource(onboard[page].second),
+                            style = MaterialTheme.typography.h6.copy(
+                                fontSize = dimens.sp_24
+                            ),
+                            fontWeight = FontWeight.W600,
+                            textAlign = TextAlign.Start,
+                            color = Gray900,
+                            modifier = modifier.fillMaxWidth()
+                        )
                         Image(
                             painter = painterResource(onboard[page].first),
                             contentDescription = "",
