@@ -22,9 +22,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.Divider
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -34,11 +37,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -51,13 +52,13 @@ import com.bluhabit.blu.data.common.Response
 import com.bluhabit.blu.data.contract.GoogleAuthContract
 import com.bluhabit.core.ui.components.button.ButtonGoogle
 import com.bluhabit.core.ui.components.button.ButtonOutlinedPrimary
-import com.bluhabit.core.ui.components.button.ButtonPrimary
 import com.bluhabit.core.ui.components.pager.Indicators
 import com.bluhabit.core.ui.theme.CustomTypography
 import com.bluhabit.core.ui.theme.Gray900
 import com.bluhabit.core.ui.theme.UwangColors
 import com.bluhabit.core.ui.theme.UwangDimens
 import com.bluhabit.core.ui.theme.UwangTheme
+import com.bluhabit.core.ui.theme.UwangTypography
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
@@ -76,7 +77,7 @@ val onboard = listOf(
         R.string.title_onboarding_tiga,
         R.string.text_onboard_3
     ), Triple(
-        R.drawable.onboard_4,
+        R.drawable.onboarding_4,
         R.string.title_onboarding_empat,
         R.string.text_onboard_4
     )
@@ -123,104 +124,77 @@ fun OnboardScreen(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .padding(horizontal = 16.dp)
+            .background(MaterialTheme.colors.surface)
+            .padding(top = 20.dp)
     ) {
         Column(
             modifier = modifier
-                .fillMaxSize()
-                .background(MaterialTheme.colors.surface),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.SpaceBetween
+                .fillMaxSize(),
         ) {
+
             HorizontalPager(
                 state = pagerState,
                 userScrollEnabled = true
             ) { page ->
                 ScreenFrameOnboarding(
                     modifier = modifier,
-                    top = {
+                    header = {
+                        Row(
+                            modifier = modifier
+                                .fillMaxWidth()
+                                .padding(
+                                    vertical = 20.dp
+                                ),
+                            horizontalArrangement = Arrangement.spacedBy(8.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Image(
+                                painter = painterResource(id = R.drawable.app_logo),
+                                contentDescription = "blu_logo",
+                                modifier = modifier
+                                    .width(24.dp)
+                                    .height(24.dp)
+                            )
+                            Text(
+                                text = stringResource(id = R.string.label_header_logo),
+                                style = UwangTypography.BodyMedium.Regular,
+                                color = UwangColors.Text.Secondary,
+                            )
+                            Spacer(modifier = modifier.weight(1f))
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_close),
+                                contentDescription = "ic_close"
+                            )
+                        }
+                    },
+                    indicator = {},
+                    mid = {
                         Text(
+                            modifier = modifier.padding(bottom = 24.dp),
                             text = stringResource(onboard[page].second),
-                            style = MaterialTheme.typography.h6.copy(
-                                fontSize = dimens.sp_24
-                            ),
-                            fontWeight = FontWeight.W600,
-                            textAlign = TextAlign.Start,
+                            style = UwangTypography.DisplayXS.SemiBold,
                             color = Gray900,
-                            modifier = modifier.fillMaxWidth()
                         )
+                    },
+                    bottom = {
                         Image(
                             painter = painterResource(onboard[page].first),
                             contentDescription = "",
                             modifier = modifier
-                                .fillMaxHeight(0.6f)
                                 .fillMaxWidth()
-                                .padding(horizontal = dimens.dp_20),
-                            contentScale = ContentScale.FillBounds
+                                .weight(1f)
+                                .wrapContentHeight()
                         )
-                        Spacer(modifier = modifier.height(6.dp))
-                    },
-                    middle = { },
-                    bottom = {
-                        if (page == 3) {
-                            StepFour(
-                                onNavigateToSignUp = {
-                                    navHostController.navigate("sign_up") {
-                                        popUpTo("onboard") {
-                                            inclusive = true
-                                        }
-                                    }
-                                },
-                                onNavigateToTermCondition = {
-                                    navHostController.navigate("term_and_condition")
-                                },
-                                onNavigationToSignInEmail = {
-                                    navHostController.navigate("sign_in") {
-                                        popUpTo("onboard") {
-                                            inclusive = true
-                                        }
-                                    }
-                                },
-                                onSignInGoogle = {
-                                    googleAuthLauncher.launch(1)
-                                }
-                            )
-                        } else {
-                            ButtonPrimary(
-                                modifier = modifier.fillMaxWidth(),
-                                text = "Selanjutnya",
-                                onClick = {
-                                    scope.launch {
-                                        pagerState.animateScrollToPage(page = page + 1)
-                                    }
-                                }
-                            )
-                        }
-                    })
+                    }
+                )
             }
         }
         ScreenFrameOnboarding(
             modifier = modifier,
-            top = {},
-            middle = { Indicators(size = 4, index = pagerState.currentPage) },
-            bottom = {}
+            indicator = {Indicators(size = 4, index = pagerState.currentPage)},
         )
-        Column(
-            modifier = modifier
-                .fillMaxSize()
-                .padding(
-                    horizontal = 18.dp,
-                    vertical = 18.dp
-                ),
-            horizontalAlignment = Alignment.End,
-            verticalArrangement = Arrangement.Top
-        ) {
-            Text(text = "Lewati", modifier = Modifier.clickable {
-                scope.launch {
-                    pagerState.scrollToPage(4)
-                }
-            })
-        }
+
+
     }
 }
 
