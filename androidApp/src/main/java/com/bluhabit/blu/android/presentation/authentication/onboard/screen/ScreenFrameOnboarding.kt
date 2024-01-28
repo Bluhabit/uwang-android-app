@@ -9,6 +9,7 @@ package com.bluhabit.blu.android.presentation.authentication.onboard.screen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -101,29 +102,32 @@ fun ScreenFrameOnboarding(
     header: @Composable () -> Unit = {},
     indicator: @Composable () -> Unit = {},
     mid: @Composable () -> Unit = {},
-    bottom: @Composable () -> Unit = {}
+    bottom: @Composable BoxScope.() -> Unit = {}
 ) {
-    Column(
+    Box(
         modifier = modifier
             .fillMaxSize()
             .padding(horizontal = 16.dp)
     ) {
-        Column(
-            modifier = modifier.padding(vertical = 16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            Box(
-                modifier = modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 16.dp),
-                contentAlignment = Alignment.Center
-            ) {
-                indicator()
-            }
-        }
-        header()
-        mid()
+
+       Column {
+           Column(
+               modifier = modifier.padding(vertical = 16.dp),
+               horizontalAlignment = Alignment.CenterHorizontally,
+               verticalArrangement = Arrangement.Center
+           ) {
+               Box(
+                   modifier = modifier
+                       .fillMaxWidth()
+                       .padding(vertical = 16.dp),
+                   contentAlignment = Alignment.Center
+               ) {
+                   indicator()
+               }
+           }
+           header()
+           mid()
+       }
         bottom()
     }
 }

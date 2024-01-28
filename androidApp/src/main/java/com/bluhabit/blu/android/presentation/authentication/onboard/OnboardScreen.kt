@@ -37,6 +37,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -143,7 +144,8 @@ fun OnboardScreen(
                             modifier = modifier
                                 .fillMaxWidth()
                                 .padding(
-                                    vertical = 20.dp
+                                    top = 4.dp,
+                                    bottom = 24.dp
                                 ),
                             horizontalArrangement = Arrangement.spacedBy(8.dp),
                             verticalAlignment = Alignment.CenterVertically
@@ -173,7 +175,7 @@ fun OnboardScreen(
                             modifier = modifier.padding(bottom = 24.dp),
                             text = stringResource(onboard[page].second),
                             style = UwangTypography.DisplayXS.SemiBold,
-                            color = Gray900,
+                            color = if(page % 2 == 0) Gray900 else Color.White ,
                         )
                     },
                     bottom = {
@@ -182,8 +184,7 @@ fun OnboardScreen(
                             contentDescription = "",
                             modifier = modifier
                                 .fillMaxWidth()
-                                .weight(1f)
-                                .wrapContentHeight()
+                                .align(Alignment.BottomCenter)
                         )
                     }
                 )
