@@ -27,6 +27,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.bluehabit.core.ui.R
+import com.bluhabit.core.ui.theme.Gray900
 import com.bluhabit.core.ui.theme.UwangColors
 import com.bluhabit.core.ui.theme.UwangTypography
 
@@ -109,7 +110,7 @@ import com.bluhabit.core.ui.theme.UwangTypography
 @Composable
 fun ScreenFrameOnboarding(
     modifier: Modifier = Modifier,
-    text: @Composable () -> Unit = {},
+    text: Int,
     middle: @Composable () -> Unit = {},
     image: @Composable () -> Unit = {}
 ) {
@@ -146,5 +147,10 @@ fun ScreenFrameOnboarding(
                 contentDescription = "ic_close"
             )
         }
+        Text(
+            text = stringResource(id = text),
+            style = UwangTypography.DisplayXS.SemiBold,
+            color = Gray900,
+        )
     }
 }
