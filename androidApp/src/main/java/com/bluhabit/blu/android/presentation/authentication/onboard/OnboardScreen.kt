@@ -126,7 +126,6 @@ fun OnboardScreen(
         modifier = modifier
             .fillMaxSize()
             .background(MaterialTheme.colors.surface)
-            .padding(top = 20.dp)
     ) {
         Column(
             modifier = modifier

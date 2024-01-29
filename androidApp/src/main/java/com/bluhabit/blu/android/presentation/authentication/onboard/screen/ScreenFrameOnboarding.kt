@@ -119,7 +119,7 @@ fun ScreenFrameOnboarding(
                Box(
                    modifier = modifier
                        .fillMaxWidth()
-                       .padding(vertical = 16.dp),
+                       .padding(start = 16.dp,end = 16.dp, top = 20.dp, bottom = 0.dp),
                    contentAlignment = Alignment.Center
                ) {
                    indicator()
