@@ -11,8 +11,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -21,53 +19,39 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluehabit.core.ui.R
 import com.bluhabit.core.ui.theme.Gray900
+import com.bluhabit.core.ui.theme.UwangDimens
 import com.bluhabit.core.ui.theme.UwangTheme
 import com.bluhabit.core.ui.theme.UwangTypography
 
 @Composable
 fun FirstOnboardScreen(
     modifier: Modifier = Modifier,
-    indicator: @Composable RowScope.() -> Unit = {},
-    header: @Composable () -> Unit = {},
 ) {
     Column(
         modifier = modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colors.surface),
+            .fillMaxSize(),
         verticalArrangement = Arrangement.SpaceBetween
     ) {
-
+        val ctx = LocalContext.current
+        val dimens = UwangDimens.from(ctx)
         Column(
-            modifier = modifier.padding(
-                start = 16.dp,
-                end = 16.dp,
-                top = 26.dp
-            ),
+            modifier = modifier
+                .padding(vertical = dimens.dp_24, horizontal = dimens.dp_16)
         ) {
-            Row(
-                modifier = modifier.padding(vertical = 16.dp),
-                horizontalArrangement = Arrangement.spacedBy(4.dp)
-            ) {
-                indicator()
-            }
-            header()
-            Column(
-                modifier = modifier
-                    .padding(vertical = 24.dp)
-            ) {
-                Text(
-                    text = stringResource(R.string.title_onboarding_satu),
-                    style = UwangTypography.DisplayXS.SemiBold,
-                    color = Gray900,
-                )
-            }
+            Text(
+                text = stringResource(R.string.title_onboarding_satu),
+                style = UwangTypography.DisplayXS.SemiBold,
+                color = Gray900,
+            )
         }
+
         Image(
             painter = painterResource(R.drawable.onboarding_1),
             contentDescription = "",

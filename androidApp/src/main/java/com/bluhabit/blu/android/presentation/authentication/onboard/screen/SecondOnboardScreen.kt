@@ -25,11 +25,13 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluehabit.core.ui.R
+import com.bluhabit.core.ui.theme.UwangDimens
 import com.bluhabit.core.ui.theme.UwangTheme
 import com.bluhabit.core.ui.theme.UwangTypography
 
@@ -37,10 +39,11 @@ import com.bluhabit.core.ui.theme.UwangTypography
 fun SecondOnboardScreen(
     modifier: Modifier = Modifier,
 ) {
+    val ctx = LocalContext.current
+    val dimens = UwangDimens.from(ctx)
     Box(
         modifier = modifier
             .fillMaxSize()
-            .shadow(0.dp),
     ) {
         Image(
             painter = painterResource(id = R.drawable.vector_onboard_2),
@@ -51,19 +54,18 @@ fun SecondOnboardScreen(
                 .align(Alignment.Center)
         )
         Column(
-
             verticalArrangement = Arrangement.SpaceBetween
         ) {
 
             Column(
                 modifier = modifier.padding(
-                    start = 16.dp,
-                    end = 16.dp,
+                    start = dimens.dp_16,
+                    end = dimens.dp_16,
                 ),
             ) {
                 Column(
                     modifier = modifier
-                        .padding(vertical = 24.dp)
+                        .padding(vertical = dimens.dp_24)
                 ) {
                     Text(
                         text = stringResource(R.string.title_onboarding_satu),

@@ -38,12 +38,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -61,7 +58,6 @@ import com.bluhabit.blu.data.contract.GoogleAuthContract
 import com.bluhabit.core.ui.components.button.ButtonGoogle
 import com.bluhabit.core.ui.components.button.ButtonOutlinedPrimary
 import com.bluhabit.core.ui.theme.CustomTypography
-import com.bluhabit.core.ui.theme.Gray900
 import com.bluhabit.core.ui.theme.UwangColors
 import com.bluhabit.core.ui.theme.UwangDimens
 import com.bluhabit.core.ui.theme.UwangTheme
@@ -134,61 +130,49 @@ fun OnboardScreen(
     ) {
 //        Indicators(size = 4, index = pagerState.currentPage)
 
-            HorizontalPager(
-                state = pagerState,
-                userScrollEnabled = true
-            ) { page ->
-                when (page) {
-                    0 -> FirstOnboardScreen(
-                        indicator = {
-                        },
-                        header = {
-                            Row(
-                                modifier = modifier
-                                    .fillMaxWidth()
-                                    .padding(
+        HorizontalPager(
+            state = pagerState,
+            userScrollEnabled = true
+        ) { page ->
+            when (page) {
+                0 -> ScreenFrameOnBoard(
+                    modifier = Modifier.background(MaterialTheme.colors.surface),
+                    headerTextColor = UwangColors.Text.Secondary,
+                    content = { FirstOnboardScreen() }
+                )
 
-                                    ),
-                                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Image(
-                                    painter = painterResource(id = R.drawable.app_logo),
-                                    contentDescription = "blu_logo",
-                                    modifier = modifier
-                                        .width(24.dp)
-                                        .height(24.dp)
-                                )
-                                Text(
-                                    text = stringResource(id = R.string.label_header_logo),
-                                    style = UwangTypography.BodyMedium.Regular,
-                                    color = UwangColors.Text.Secondary,
-                                )
-                                Spacer(modifier = modifier.weight(1f))
-                                Icon(
-                                    painter = painterResource(id = R.drawable.ic_close),
-                                    contentDescription = "ic_close"
-                                )
-                            }
-                        }
-                    )
-                    1 -> SecondOnboardScreen()
-                    2 -> FirstOnboardScreen()
-                    3 -> FirstOnboardScreen()
-                    else -> FirstOnboardScreen()
-                }
+                1 -> ScreenFrameOnBoard(
+                    modifier = Modifier.background(
+                        brush = Brush.verticalGradient(
+                            colors = listOf(
+                                UwangColors.Primary.Blue500,
+                                UwangColors.Primary.Blue1000
+                            )
+                        )
+                    ),
+                    headerTextColor = Color.White,
+                    indicatorColor = Color.White,
+                    content = { SecondOnboardScreen() }
+                )
+
+                2 -> FirstOnboardScreen()
+                3 -> FirstOnboardScreen()
+                else -> FirstOnboardScreen()
             }
+        }
     }
 }
+
 @Composable
 fun ScreenFrameOnBoard(
     modifier: Modifier = Modifier,
     headerTextColor: Color = UwangColors.Text.Secondary,
+    indicatorColor: Color = UwangColors.State.Primary.Main,
     content: @Composable () -> Unit = {},
-){
+) {
     val ctx = LocalContext.current
     val dimens = UwangDimens.from(ctx)
-    Column (modifier = modifier.safeDrawingPadding()) {
+    Column(modifier = modifier.safeDrawingPadding()) {
         Row(
             modifier = Modifier.padding(dimens.dp_16),
             horizontalArrangement = Arrangement.spacedBy(dimens.from(4.dp))
@@ -198,10 +182,10 @@ fun ScreenFrameOnBoard(
                 modifier = Modifier
                     .weight(1f)
                     .height(dimens.from(4.dp)),
-                color = Color.White
+                color = indicatorColor
             )
             LinearProgressIndicator(
-                progress = 50f,
+                progress = 0.5f,
                 modifier = Modifier
                     .weight(1f)
                     .height(dimens.from(4.dp)),
@@ -245,7 +229,7 @@ fun ScreenFrameOnBoard(
                 color = headerTextColor,
             )
             Spacer(modifier = Modifier.weight(1f))
-            Box (
+            Box(
                 modifier = Modifier
                     .clip(CircleShape)
                     .background(Color.White.copy(alpha = 0.2f))
@@ -263,6 +247,7 @@ fun ScreenFrameOnBoard(
         content()
     }
 }
+
 @Composable
 fun StepFour(
     onSignInGoogle: () -> Unit,
@@ -343,21 +328,3 @@ fun PreviewOnboarding() {
     }
 }
 
-@Preview
-@Composable
-fun PreviewScreenFrame(){
-    UwangTheme {
-        ScreenFrameOnBoard(
-            modifier = Modifier.background(
-                brush = Brush.verticalGradient(
-                    colors = listOf(
-                        UwangColors.Primary.Blue500,
-                        UwangColors.Primary.Blue1000
-                    )
-                )
-            ),
-            headerTextColor = Color.White,
-            content = { SecondOnboardScreen()}
-        )
-    }
-}
