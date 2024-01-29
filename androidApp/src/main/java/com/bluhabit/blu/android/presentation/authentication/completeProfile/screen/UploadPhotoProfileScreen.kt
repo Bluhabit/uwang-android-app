@@ -32,6 +32,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -95,7 +96,7 @@ fun UploadPhotoProfileScreen(
             .fillMaxSize()
             .background(UwangColors.Base.White)
             .safeDrawingPadding()
-            .padding(horizontal = dimens.dp_16, vertical = dimens.dp_24)
+            .padding(vertical = dimens.dp_24)
             .verticalScroll(rememberScrollState()),
     ) {
         if (state.showDialogChoice) {
@@ -126,17 +127,22 @@ fun UploadPhotoProfileScreen(
 
         }
         Spacer(modifier = Modifier.padding(bottom = dimens.dp_24))
-        Text(
-            text = stringResource(id = R.string.title_header_photo_profile),
-            style = UwangTypography.BodyXL.SemiBold,
-            color = UwangColors.Text.Main
-        )
-        Spacer(modifier = Modifier.padding(bottom = 4.dp))
-        Text(
-            text = stringResource(id = R.string.description_header_photo_profile),
-            style = UwangTypography.BodySmall.Regular,
-            color = UwangColors.Text.Secondary
-        )
+        Column(
+            verticalArrangement = Arrangement.spacedBy(4.dp),
+            modifier = Modifier
+                .padding(horizontal = 16.dp)
+        ) {
+            Text(
+                text = stringResource(id = R.string.title_header_photo_profile),
+                style = UwangTypography.BodyXL.SemiBold,
+                color = UwangColors.Text.Main
+            )
+            Text(
+                text = stringResource(id = R.string.description_header_photo_profile),
+                style = UwangTypography.BodySmall.Regular,
+                color = UwangColors.Text.Secondary
+            )
+        }
         Spacer(modifier = Modifier.padding(bottom = dimens.dp_24))
         Box(
             modifier = Modifier
@@ -211,12 +217,16 @@ fun UploadPhotoProfileScreen(
             }
         }
         Spacer(modifier = Modifier.weight(1f))
+        Divider(
+            color = UwangColors.Text.Border
+        )
+        Spacer(modifier = Modifier.padding(bottom = dimens.dp_24))
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 1.dp)
+                .padding(start = 16.dp, end = 16.dp, bottom = 1.dp)
         ) {
             ButtonOutlinedPrimary(
                 modifier = Modifier
