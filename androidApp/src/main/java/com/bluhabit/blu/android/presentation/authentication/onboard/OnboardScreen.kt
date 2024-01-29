@@ -53,6 +53,7 @@ import androidx.navigation.compose.rememberNavController
 import com.bluehabit.core.ui.R
 import com.bluhabit.blu.android.presentation.authentication.onboard.screen.FirstOnboardScreen
 import com.bluhabit.blu.android.presentation.authentication.onboard.screen.SecondOnboardScreen
+import com.bluhabit.blu.android.presentation.authentication.onboard.screen.ThirdOnboardScreen
 import com.bluhabit.blu.data.common.Response
 import com.bluhabit.blu.data.contract.GoogleAuthContract
 import com.bluhabit.core.ui.components.button.ButtonGoogle
@@ -155,7 +156,13 @@ fun OnboardScreen(
                     content = { SecondOnboardScreen() }
                 )
 
-                2 -> FirstOnboardScreen()
+                2 -> ScreenFrameOnBoard(
+                    modifier = Modifier.background(
+                        color = Color.White
+                    ),
+                    content = { ThirdOnboardScreen() }
+                )
+
                 3 -> FirstOnboardScreen()
                 else -> FirstOnboardScreen()
             }
@@ -185,18 +192,18 @@ fun ScreenFrameOnBoard(
                 color = indicatorColor
             )
             LinearProgressIndicator(
-                progress = 0.5f,
+                progress = 1f,
                 modifier = Modifier
                     .weight(1f)
                     .height(dimens.from(4.dp)),
-                color = UwangColors.Neutral.Grey3
+                color = indicatorColor
             )
             LinearProgressIndicator(
-                progress = 0f,
+                progress = 1f,
                 modifier = Modifier
                     .weight(1f)
                     .height(dimens.from(4.dp)),
-                color = UwangColors.Neutral.Grey3
+                color = indicatorColor
             )
             LinearProgressIndicator(
                 progress = 0f,

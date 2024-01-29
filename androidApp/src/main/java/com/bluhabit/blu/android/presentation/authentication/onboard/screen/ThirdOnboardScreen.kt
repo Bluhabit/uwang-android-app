@@ -11,6 +11,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -25,12 +26,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.bluehabit.core.ui.R
+import com.bluhabit.core.ui.theme.Gray900
 import com.bluhabit.core.ui.theme.UwangDimens
 import com.bluhabit.core.ui.theme.UwangTheme
 import com.bluhabit.core.ui.theme.UwangTypography
 
 @Composable
-fun SecondOnboardScreen(
+fun ThirdOnboardScreen(
     modifier: Modifier = Modifier,
 ) {
     val ctx = LocalContext.current
@@ -40,35 +42,41 @@ fun SecondOnboardScreen(
             .fillMaxSize()
     ) {
         Image(
-            painter = painterResource(id = R.drawable.vector_onboard_2),
+            painter = painterResource(id = R.drawable.vector_onboard_3),
             contentDescription = "",
             contentScale = ContentScale.FillWidth,
             modifier = Modifier
                 .fillMaxWidth()
-                .align(Alignment.Center)
+                .align(Alignment.BottomCenter)
         )
         Column(
-            verticalArrangement = Arrangement.SpaceBetween
+            modifier = modifier
+                .fillMaxSize()
+                .padding(
+                    horizontal = dimens.dp_16,
+                ),
         ) {
-
-
             Column(
                 modifier = modifier
                     .padding(vertical = dimens.dp_24)
             ) {
                 Text(
-                    text = stringResource(R.string.title_onboarding_2),
+                    text = stringResource(R.string.title_onboarding_satu),
                     style = UwangTypography.DisplayXS.SemiBold,
-                    color = Color.White,
+                    color = Gray900,
                 )
             }
-            Image(
-                painter = painterResource(R.drawable.onboarding_2),
-                contentDescription = "",
-                contentScale = ContentScale.FillHeight,
-                modifier = Modifier
-                    .fillMaxWidth(),
-            )
+            Box (
+                modifier = Modifier.fillMaxHeight()
+            ) {
+                Image(
+                    painter = painterResource(R.drawable.onboarding_3),
+                    contentDescription = "",
+                    modifier = Modifier
+                        .align(Alignment.BottomCenter),
+                )
+            }
+
         }
     }
 
@@ -76,8 +84,8 @@ fun SecondOnboardScreen(
 
 @Preview
 @Composable
-fun PreviewSecondScreen() {
+fun PreviewThirdScreen() {
     UwangTheme {
-        SecondOnboardScreen()
+        ThirdOnboardScreen()
     }
 }
