@@ -54,10 +54,10 @@ fun SecondOnboardScreen(
 
             Column(
                 modifier = modifier
-                    .padding(vertical = dimens.dp_24)
+                    .padding(vertical = dimens.dp_24, horizontal = dimens.dp_16)
             ) {
                 Text(
-                    text = stringResource(R.string.title_onboarding_2),
+                    text = stringResource(R.string.title_onboarding_dua),
                     style = UwangTypography.DisplayXS.SemiBold,
                     color = Color.White,
                 )

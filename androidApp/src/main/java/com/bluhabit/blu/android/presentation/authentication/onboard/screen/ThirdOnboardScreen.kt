@@ -61,7 +61,7 @@ fun ThirdOnboardScreen(
                     .padding(vertical = dimens.dp_24)
             ) {
                 Text(
-                    text = stringResource(R.string.title_onboarding_satu),
+                    text = stringResource(R.string.title_onboarding_tiga),
                     style = UwangTypography.DisplayXS.SemiBold,
                     color = Gray900,
                 )
