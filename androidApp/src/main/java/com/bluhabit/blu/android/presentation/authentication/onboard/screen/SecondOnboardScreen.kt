@@ -21,6 +21,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -29,27 +30,17 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluehabit.core.ui.R
-import com.bluhabit.core.ui.theme.UwangColors
 import com.bluhabit.core.ui.theme.UwangTheme
 import com.bluhabit.core.ui.theme.UwangTypography
 
 @Composable
 fun SecondOnboardScreen(
     modifier: Modifier = Modifier,
-    indicator: @Composable RowScope.() -> Unit = {},
-    header: @Composable () -> Unit = {},
 ) {
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(
-                brush = Brush.verticalGradient(
-                    colors = listOf(
-                        UwangColors.Primary.Blue500,
-                        UwangColors.Primary.Blue1000
-                    )
-                )
-            ),
+            .shadow(0.dp),
     ) {
         Image(
             painter = painterResource(id = R.drawable.vector_onboard_2),
@@ -68,16 +59,8 @@ fun SecondOnboardScreen(
                 modifier = modifier.padding(
                     start = 16.dp,
                     end = 16.dp,
-                    top = 26.dp
                 ),
             ) {
-                Row(
-                    modifier = modifier.padding(vertical = 16.dp),
-                    horizontalArrangement = Arrangement.spacedBy(4.dp)
-                ) {
-                    indicator()
-                }
-                header()
                 Column(
                     modifier = modifier
                         .padding(vertical = 24.dp)
