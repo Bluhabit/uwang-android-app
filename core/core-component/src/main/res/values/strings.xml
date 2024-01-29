@@ -323,5 +323,10 @@
     <string name="placeholder_teks_hour_otp">Tunggu 1 jam dan masukkan ulang kode otp</string>
     <string name="placeholder_teks_waiting_otp">Kirim ulang kode dalam</string>
     <string name="placeholder_teks_many_otp">Yah terlalu sering meminta OTP, tunggu 1 jam</string>
+    <string name="label_button_next">Lanjut</string>
+    <string name="label_button_pass">Lewati</string>
+    <string name="label_teks_button_upload">Upload</string>
+    <string name="description_header_photo_profile">Upload foto selfie favorit kamu.</string>
+    <string name="title_header_photo_profile">Pilih foto profil</string>
 
 </resources>

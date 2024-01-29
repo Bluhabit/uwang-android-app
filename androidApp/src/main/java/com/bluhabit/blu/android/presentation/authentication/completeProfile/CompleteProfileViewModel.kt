@@ -47,6 +47,9 @@ class CompleteProfileViewModel @Inject constructor(
             is CompleteProfileAction.OnScreenChange -> updateState { copy(currentScreen = action.screen) }
             is CompleteProfileAction.OnUsernameChange -> onUsernameChange(action.value)
             CompleteProfileAction.SubmitData -> submitData()
+            // Upload Photo Profile Screen
+            is CompleteProfileAction.OnProfileImageChange -> updateState { copy(profileImage = action.value) }
+            is CompleteProfileAction.OnShowDialogChoice -> updateState { copy(showDialogChoice = action.show) }
         }
     }
 

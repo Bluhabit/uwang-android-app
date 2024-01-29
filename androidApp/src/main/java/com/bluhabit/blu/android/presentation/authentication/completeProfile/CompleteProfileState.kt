@@ -19,11 +19,11 @@ data class CompleteProfileState(
     //global
     val currentScreen: Int = 0,
     //
-    val usernameState:String="",
-    val usernameError:Boolean=false,
-    val usernameErrorText:String="",
+    val usernameState: String = "",
+    val usernameError: Boolean = false,
+    val usernameErrorText: String = "",
 
-    val avatar:Bitmap? = null,
+    val avatar: Bitmap? = null,
 
     // Input Dob Screen
     val dateOfBirthState: LocalDate? = null,
@@ -39,5 +39,8 @@ data class CompleteProfileState(
         PreferenceItem(false, "Analisis Pemasukan", R.drawable.preference_image_5),
         PreferenceItem(false, "Budgeting", R.drawable.preference_image_2),
     ),
-    val showDialogSuccess: Boolean = false
+    val showDialogSuccess: Boolean = false,
+    // UploadPhotoProfileScreen
+    val profileImage: Bitmap? = null,
+    val showDialogChoice: Boolean = false,
 )
