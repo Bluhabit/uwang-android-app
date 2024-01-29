@@ -17,17 +17,16 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.Divider
 import androidx.compose.material.Icon
+import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -38,6 +37,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -48,21 +48,19 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.bluehabit.core.ui.R
+import com.bluhabit.blu.android.presentation.authentication.onboard.screen.FirstOnboardScreen
 import com.bluhabit.blu.android.presentation.authentication.onboard.screen.ScreenFrameOnboarding
 import com.bluhabit.blu.data.common.Response
 import com.bluhabit.blu.data.contract.GoogleAuthContract
 import com.bluhabit.core.ui.components.button.ButtonGoogle
 import com.bluhabit.core.ui.components.button.ButtonOutlinedPrimary
-import com.bluhabit.core.ui.components.pager.Indicators
 import com.bluhabit.core.ui.theme.CustomTypography
-import com.bluhabit.core.ui.theme.Gray900
 import com.bluhabit.core.ui.theme.UwangColors
 import com.bluhabit.core.ui.theme.UwangDimens
 import com.bluhabit.core.ui.theme.UwangTheme
 import com.bluhabit.core.ui.theme.UwangTypography
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.launch
 
 val onboard = listOf(
     Triple(
@@ -127,74 +125,80 @@ fun OnboardScreen(
             .fillMaxSize()
             .background(MaterialTheme.colors.surface)
     ) {
-        Column(
-            modifier = modifier
-                .fillMaxSize(),
-        ) {
+//        Indicators(size = 4, index = pagerState.currentPage)
 
             HorizontalPager(
                 state = pagerState,
                 userScrollEnabled = true
             ) { page ->
-                ScreenFrameOnboarding(
-                    modifier = modifier,
-                    header = {
-                        Row(
-                            modifier = modifier
-                                .fillMaxWidth()
-                                .padding(
-                                    top = 4.dp,
-                                    bottom = 24.dp
-                                ),
-                            horizontalArrangement = Arrangement.spacedBy(8.dp),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Image(
-                                painter = painterResource(id = R.drawable.app_logo),
-                                contentDescription = "blu_logo",
+                when (page) {
+                    0 -> FirstOnboardScreen(
+                        indicator = {
+                            LinearProgressIndicator(
+                                progress = 100f,
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .height(4.dp),
+                                color = UwangColors.State.Primary.Main
+                            )
+                            LinearProgressIndicator(
+                                progress = 100f,
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .height(4.dp),
+                                color = UwangColors.Neutral.Grey3
+                            )
+                            LinearProgressIndicator(
+                                progress = 100f,
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .height(4.dp),
+                                color = UwangColors.Neutral.Grey3
+                            )
+                            LinearProgressIndicator(
+                                progress = 100f,
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .height(4.dp),
+                                color = UwangColors.Neutral.Grey3
+                            )
+                        },
+                        header = {
+                            Row(
                                 modifier = modifier
-                                    .width(24.dp)
-                                    .height(24.dp)
-                            )
-                            Text(
-                                text = stringResource(id = R.string.label_header_logo),
-                                style = UwangTypography.BodyMedium.Regular,
-                                color = UwangColors.Text.Secondary,
-                            )
-                            Spacer(modifier = modifier.weight(1f))
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_close),
-                                contentDescription = "ic_close"
-                            )
+                                    .fillMaxWidth()
+                                    .padding(
+
+                                    ),
+                                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Image(
+                                    painter = painterResource(id = R.drawable.app_logo),
+                                    contentDescription = "blu_logo",
+                                    modifier = modifier
+                                        .width(24.dp)
+                                        .height(24.dp)
+                                )
+                                Text(
+                                    text = stringResource(id = R.string.label_header_logo),
+                                    style = UwangTypography.BodyMedium.Regular,
+                                    color = UwangColors.Text.Secondary,
+                                )
+                                Spacer(modifier = modifier.weight(1f))
+                                Icon(
+                                    painter = painterResource(id = R.drawable.ic_close),
+                                    contentDescription = "ic_close"
+                                )
+                            }
                         }
-                    },
-                    indicator = {},
-                    mid = {
-                        Text(
-                            modifier = modifier.padding(bottom = 24.dp),
-                            text = stringResource(onboard[page].second),
-                            style = UwangTypography.DisplayXS.SemiBold,
-                            color = if(page % 2 == 0) Gray900 else Color.White ,
-                        )
-                    },
-                    bottom = {
-                        Image(
-                            painter = painterResource(onboard[page].first),
-                            contentDescription = "",
-                            modifier = modifier
-                                .fillMaxWidth()
-                                .align(Alignment.BottomCenter)
-                        )
-                    }
-                )
+                    )
+                    1 -> FirstOnboardScreen()
+                    2 -> FirstOnboardScreen()
+                    3 -> FirstOnboardScreen()
+                    else -> FirstOnboardScreen()
+                }
             }
-        }
-        ScreenFrameOnboarding(
-            modifier = modifier,
-            indicator = {Indicators(size = 4, index = pagerState.currentPage)},
-        )
-
-
     }
 }
 

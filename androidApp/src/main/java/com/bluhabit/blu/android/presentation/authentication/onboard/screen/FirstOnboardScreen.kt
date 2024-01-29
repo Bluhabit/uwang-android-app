@@ -10,19 +10,15 @@ package com.bluhabit.blu.android.presentation.authentication.onboard.screen
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -37,30 +33,47 @@ import com.bluhabit.core.ui.theme.UwangTypography
 @Composable
 fun FirstOnboardScreen(
     modifier: Modifier = Modifier,
+    indicator: @Composable RowScope.() -> Unit = {},
+    header: @Composable () -> Unit = {},
 ) {
     Column(
         modifier = modifier
             .fillMaxSize()
-            .background(MaterialTheme.colors.surface)
-            .padding(horizontal = 16.dp),
-        verticalArrangement = Arrangement.Bottom
+            .background(MaterialTheme.colors.surface),
+        verticalArrangement = Arrangement.SpaceBetween
     ) {
 
         Column(
-            modifier = modifier
-                .padding(vertical = 24.dp)
+            modifier = modifier.padding(
+                start = 16.dp,
+                end = 16.dp,
+                top = 26.dp
+            ),
         ) {
-            Text(
-                text = stringResource(R.string.title_onboarding_satu),
-                style = UwangTypography.DisplayXS.SemiBold,
-                color = Gray900,
-            )
+            Row(
+                modifier = modifier.padding(vertical = 16.dp),
+                horizontalArrangement = Arrangement.spacedBy(4.dp)
+            ) {
+                indicator()
+            }
+            header()
+            Column(
+                modifier = modifier
+                    .padding(vertical = 24.dp)
+            ) {
+                Text(
+                    text = stringResource(R.string.title_onboarding_satu),
+                    style = UwangTypography.DisplayXS.SemiBold,
+                    color = Gray900,
+                )
+            }
         }
         Image(
             painter = painterResource(R.drawable.onboarding_1),
             contentDescription = "",
+            contentScale = ContentScale.FillHeight,
             modifier = Modifier
-                .fillMaxWidth()
+                .fillMaxWidth(),
         )
     }
 }
