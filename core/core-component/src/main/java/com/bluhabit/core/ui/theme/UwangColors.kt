@@ -21,6 +21,7 @@ object UwangColors {
         val Blue700 = Color(0xFF0B2E82)
         val Blue800 = Color(0xFF092465)
         val Blue900 = Color(0xFF071B4D)
+        val Blue1000 = Color(0xFF1152ED)
     }
 
     object Neutral {
