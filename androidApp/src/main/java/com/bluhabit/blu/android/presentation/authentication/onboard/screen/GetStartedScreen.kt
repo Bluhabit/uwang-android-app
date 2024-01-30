@@ -67,7 +67,7 @@ fun GetStartedScreen(
                 top = dimens.dp_24,
                 start = dimens.dp_16,
                 end = dimens.dp_16,
-                bottom = dimens.dp_24
+                bottom = dimens.dp_16
             ),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceBetween
@@ -160,7 +160,7 @@ fun GetStartedScreen(
                     )
                 }
             }
-            Spacer(modifier = Modifier.padding(horizontal = dimens.from(40.dp)))
+            Spacer(modifier = Modifier.padding(vertical = dimens.from(40.dp)))
             Row() {
                 Text(
                     text = stringResource(id = R.string.placeholder_teks_login),
@@ -168,7 +168,7 @@ fun GetStartedScreen(
                     color = UwangColors.Text.Secondary
                 )
                 Spacer(modifier = Modifier.padding(horizontal = dimens.from(2.dp)))
-                Text(text = stringResource(id = R.string.text_button_daftar),
+                Text(text = stringResource(id = R.string.sign_up_screen_sign_in),
                     style = UwangTypography.BodySmall.Regular,
                     color = UwangColors.State.Primary.Main,
                     modifier = Modifier.clickable {
