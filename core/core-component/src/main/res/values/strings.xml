@@ -87,11 +87,15 @@
     <string name="text_title_3">Komunitas diskusi</string>
     <string name="text_title_4">Sumber belajar</string>
     <string name="text_title_daftar">Belum memiliki akun sebelumnya?</string>
-    <string name="text_title_termcondition">Dengan melakukan pendaftaran akun atau masuk ke dalam akun anda menyetujui </string>
     <string name="text_onboard_2">Dapatkan template keuangan terbaik untuk membantu Anda merencanakan dan mencapai tujuan keuangan Anda.</string>
     <string name="text_onboard_3">Bergabunglah dalam obrolan dengan komunitas kami, tanyakan pertanyaan, dan bagikan tips keuangan Anda.</string>
     <string name="text_onboard_1">Kami hadir untuk membantu Anda membangun kehidupan keuangan yang lebih baik.</string>
     <string name="text_onboard_4">Baca artikel dan ikuti berita terkini seputar keuangan untuk tetap terinformasi..</string>
+    <string name="text_get_started">Mulai perjalanan belajar finansialmu bersama Uwang.</string>
+    <string name="text_term_conditions_1">Dengan membuat akun, kamu setuju dengan</string>
+    <string name="text_term_conditions_2">Kebijakan &amp; Ketentuan Aplikasi </string>
+    <string name="text_term_conditions_3">Uwang.</string>
+    <string name="placeholder_teks_login">Sudah mempunyai akun?</string>
     <!--    end onboarrd  -->
     <!--    complete profile  -->
     <string name="text_title_complete_profile">Lengkapi Profil</string>
