@@ -33,4 +33,12 @@ sealed interface CompleteProfileAction {
         val checked: Boolean = false,
         val index: Int = 0,
     ) : CompleteProfileAction
+
+    // Upload Photo Profile Screen
+    data class OnProfileImageChange(
+        val value: Bitmap,
+    ) : CompleteProfileAction
+    data class OnShowDialogChoice (
+        val show: Boolean,
+    ) : CompleteProfileAction
 }

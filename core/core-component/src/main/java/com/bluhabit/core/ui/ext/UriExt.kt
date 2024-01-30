@@ -11,20 +11,18 @@ import android.content.ContentResolver
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
+import java.io.IOException
+import java.io.InputStream
 
-fun Uri.getBitmap(c: ContentResolver): Bitmap?{
+fun Uri.getBitmap(contentResolver: ContentResolver): Bitmap? {
+    var inputStream: InputStream? = null
     return try {
-        val input =  c.openInputStream(this)
-        val btmp = BitmapFactory.decodeStream(input)
-
-        Bitmap.createScaledBitmap(
-            btmp,
-            120,
-            120,
-            false
-        )
-
-    }catch (e:Exception){
+        inputStream = contentResolver.openInputStream(this)
+        BitmapFactory.decodeStream(inputStream)
+    } catch (e: IOException) {
+        e.printStackTrace()
         null
+    } finally {
+        inputStream?.close()
     }
 }
