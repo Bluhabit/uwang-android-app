@@ -21,9 +21,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.LinearProgressIndicator
@@ -36,6 +38,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -47,6 +52,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.bluehabit.core.ui.R
 import com.bluhabit.blu.android.presentation.authentication.onboard.screen.FirstOnboardScreen
+import com.bluhabit.blu.android.presentation.authentication.onboard.screen.SecondOnboardScreen
 import com.bluhabit.blu.data.common.Response
 import com.bluhabit.blu.data.contract.GoogleAuthContract
 import com.bluhabit.core.ui.components.button.ButtonGoogle
@@ -124,78 +130,121 @@ fun OnboardScreen(
     ) {
 //        Indicators(size = 4, index = pagerState.currentPage)
 
-            HorizontalPager(
-                state = pagerState,
-                userScrollEnabled = true
-            ) { page ->
-                when (page) {
-                    0 -> FirstOnboardScreen(
-                        indicator = {
-                            LinearProgressIndicator(
-                                progress = 100f,
-                                modifier = Modifier
-                                    .weight(1f)
-                                    .height(4.dp),
-                                color = UwangColors.State.Primary.Main
-                            )
-                            LinearProgressIndicator(
-                                progress = 100f,
-                                modifier = Modifier
-                                    .weight(1f)
-                                    .height(4.dp),
-                                color = UwangColors.Neutral.Grey3
-                            )
-                            LinearProgressIndicator(
-                                progress = 100f,
-                                modifier = Modifier
-                                    .weight(1f)
-                                    .height(4.dp),
-                                color = UwangColors.Neutral.Grey3
-                            )
-                            LinearProgressIndicator(
-                                progress = 100f,
-                                modifier = Modifier
-                                    .weight(1f)
-                                    .height(4.dp),
-                                color = UwangColors.Neutral.Grey3
-                            )
-                        },
-                        header = {
-                            Row(
-                                modifier = modifier
-                                    .fillMaxWidth()
-                                    .padding(
+        HorizontalPager(
+            state = pagerState,
+            userScrollEnabled = true
+        ) { page ->
+            when (page) {
+                0 -> ScreenFrameOnBoard(
+                    modifier = Modifier.background(MaterialTheme.colors.surface),
+                    headerTextColor = UwangColors.Text.Secondary,
+                    content = { FirstOnboardScreen() }
+                )
 
-                                    ),
-                                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Image(
-                                    painter = painterResource(id = R.drawable.app_logo),
-                                    contentDescription = "blu_logo",
-                                    modifier = modifier
-                                        .width(24.dp)
-                                        .height(24.dp)
-                                )
-                                Text(
-                                    text = stringResource(id = R.string.label_header_logo),
-                                    style = UwangTypography.BodyMedium.Regular,
-                                    color = UwangColors.Text.Secondary,
-                                )
-                                Spacer(modifier = modifier.weight(1f))
-                                Icon(
-                                    painter = painterResource(id = R.drawable.ic_close),
-                                    contentDescription = "ic_close"
-                                )
-                            }
-                        }
-                    )
-                    1 -> FirstOnboardScreen()
-                    2 -> FirstOnboardScreen()
-                    3 -> FirstOnboardScreen()
-                    else -> FirstOnboardScreen()
-                }
+                1 -> ScreenFrameOnBoard(
+                    modifier = Modifier.background(
+                        brush = Brush.verticalGradient(
+                            colors = listOf(
+                                UwangColors.Primary.Blue500,
+                                UwangColors.Primary.Blue1000
+                            )
+                        )
+                    ),
+                    headerTextColor = Color.White,
+                    indicatorColor = Color.White,
+                    content = { SecondOnboardScreen() }
+                )
+
+                2 -> FirstOnboardScreen()
+                3 -> FirstOnboardScreen()
+                else -> FirstOnboardScreen()
             }
+        }
+    }
+}
+
+@Composable
+fun ScreenFrameOnBoard(
+    modifier: Modifier = Modifier,
+    headerTextColor: Color = UwangColors.Text.Secondary,
+    indicatorColor: Color = UwangColors.State.Primary.Main,
+    content: @Composable () -> Unit = {},
+) {
+    val ctx = LocalContext.current
+    val dimens = UwangDimens.from(ctx)
+    Column(modifier = modifier.safeDrawingPadding()) {
+        Row(
+            modifier = Modifier.padding(dimens.dp_16),
+            horizontalArrangement = Arrangement.spacedBy(dimens.from(4.dp))
+        ) {
+            LinearProgressIndicator(
+                progress = 100f,
+                modifier = Modifier
+                    .weight(1f)
+                    .height(dimens.from(4.dp)),
+                color = indicatorColor
+            )
+            LinearProgressIndicator(
+                progress = 0.5f,
+                modifier = Modifier
+                    .weight(1f)
+                    .height(dimens.from(4.dp)),
+                color = UwangColors.Neutral.Grey3
+            )
+            LinearProgressIndicator(
+                progress = 0f,
+                modifier = Modifier
+                    .weight(1f)
+                    .height(dimens.from(4.dp)),
+                color = UwangColors.Neutral.Grey3
+            )
+            LinearProgressIndicator(
+                progress = 0f,
+                modifier = Modifier
+                    .weight(1f)
+                    .height(dimens.from(4.dp)),
+                color = UwangColors.Neutral.Grey3
+            )
+        }
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(
+                    horizontal = dimens.dp_16
+                ),
+            horizontalArrangement = Arrangement.spacedBy(dimens.from(8.dp)),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.app_logo),
+                contentDescription = "blu_logo",
+                modifier = Modifier
+                    .width(dimens.dp_24)
+                    .height(dimens.dp_24)
+            )
+            Text(
+                text = stringResource(id = R.string.label_header_logo),
+                style = UwangTypography.BodyMedium.Regular,
+                color = headerTextColor,
+            )
+            Spacer(modifier = Modifier.weight(1f))
+            Box(
+                modifier = Modifier
+                    .clip(CircleShape)
+                    .background(Color.White.copy(alpha = 0.2f))
+                    .padding(dimens.from(4.dp))
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_close),
+                    contentDescription = "ic_close",
+                    tint = headerTextColor
+                )
+            }
+
+        }
+
+        content()
     }
 }
 
@@ -236,7 +285,7 @@ fun StepFour(
     Row(
         modifier = Modifier
             .fillMaxWidth(),
-        horizontalArrangement = Arrangement.Start
+        horizontalArrangement = Arrangement.Start,
     ) {
         Text(
             text = stringResource(id = R.string.placeholder_teks_register),
@@ -278,3 +327,4 @@ fun PreviewOnboarding() {
         )
     }
 }
+
