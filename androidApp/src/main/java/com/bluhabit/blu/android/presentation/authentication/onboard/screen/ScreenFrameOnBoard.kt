@@ -122,13 +122,13 @@ fun ScreenFrameOnBoard(
                 modifier = Modifier
                     .clip(CircleShape)
                     .background(Color.White.copy(alpha = 0.2f))
+                    .clickable{
+                        skipOnboard()
+                    }
                     .padding(dimens.from(4.dp))
             ) {
                 Icon(
-                    modifier = Modifier
-                        .clickable{
-                            skipOnboard()
-                        },
+                    modifier = Modifier,
                     painter = painterResource(id = R.drawable.ic_close),
                     contentDescription = "ic_close",
                     tint = headerTextColor

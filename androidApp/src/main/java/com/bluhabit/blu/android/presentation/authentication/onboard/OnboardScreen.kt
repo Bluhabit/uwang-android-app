@@ -91,8 +91,6 @@ fun OnboardScreen(
     val effect by effectFlow.collectAsState(initial = OnboardEffect.None)
     val scope = rememberCoroutineScope()
     val ctx = LocalContext.current
-    val dimens = UwangDimens.from(ctx)
-
     val pagerState = rememberPagerState(
         initialPage = 0, initialPageOffsetFraction = 0f
     ) { 4 }
@@ -108,18 +106,6 @@ fun OnboardScreen(
         )
 
         else -> Modifier.background(MaterialTheme.colors.surface)
-    }
-
-    suspend fun nextScreen() {
-        coroutineScope {
-            pagerState.scrollToPage(pagerState.currentPage + 1)
-        }
-    }
-
-    suspend fun prevScreen() {
-        coroutineScope {
-            pagerState.scrollToPage(pagerState.currentPage - 1)
-        }
     }
 
     val googleAuthLauncher = rememberLauncherForActivityResult(contract = GoogleAuthContract(), onResult = {
@@ -147,7 +133,6 @@ fun OnboardScreen(
             .fillMaxSize()
             .background(MaterialTheme.colors.surface)
     ) {
-//        Indicators(size = 4, index = pagerState.currentPage)
 
         ScreenFrameOnBoard(
             modifier = backgroundModifier,
