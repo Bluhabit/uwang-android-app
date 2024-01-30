@@ -17,14 +17,16 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.Divider
+import androidx.compose.material.Icon
+import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -34,11 +36,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -46,38 +46,35 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.bluehabit.core.ui.R
-import com.bluhabit.blu.android.presentation.authentication.onboard.screen.ScreenFrameOnboarding
+import com.bluhabit.blu.android.presentation.authentication.onboard.screen.FirstOnboardScreen
 import com.bluhabit.blu.data.common.Response
 import com.bluhabit.blu.data.contract.GoogleAuthContract
 import com.bluhabit.core.ui.components.button.ButtonGoogle
 import com.bluhabit.core.ui.components.button.ButtonOutlinedPrimary
-import com.bluhabit.core.ui.components.button.ButtonPrimary
-import com.bluhabit.core.ui.components.pager.Indicators
 import com.bluhabit.core.ui.theme.CustomTypography
-import com.bluhabit.core.ui.theme.Neutral100
 import com.bluhabit.core.ui.theme.UwangColors
 import com.bluhabit.core.ui.theme.UwangDimens
 import com.bluhabit.core.ui.theme.UwangTheme
+import com.bluhabit.core.ui.theme.UwangTypography
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.launch
 
 val onboard = listOf(
     Triple(
-        R.drawable.onboarding1,
-        R.string.text_title_1,
+        R.drawable.onboarding_1,
+        R.string.title_onboarding_satu,
         R.string.text_onboard_1
     ), Triple(
-        R.drawable.onboarding2,
-        R.string.text_title_2,
+        R.drawable.onboarding_2,
+        R.string.title_onboarding_dua,
         R.string.text_onboard_2
     ), Triple(
-        R.drawable.onboarding3,
-        R.string.text_title_3,
+        R.drawable.onboarding_3,
+        R.string.title_onboarding_tiga,
         R.string.text_onboard_3
     ), Triple(
-        R.drawable.onboard4,
-        R.string.text_title_4,
+        R.drawable.onboarding_4,
+        R.string.title_onboarding_empat,
         R.string.text_onboard_4
     )
 )
@@ -120,120 +117,85 @@ fun OnboardScreen(
             OnboardEffect.NavigateCompleteProfile -> navHostController.navigate("complete_profile")
         }
     })
-    Box(modifier = modifier.fillMaxSize()) {
-        Column(
-            modifier = modifier
-                .fillMaxSize()
-                .background(MaterialTheme.colors.surface),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.SpaceBetween
-        ) {
+    Box(
+        modifier = modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colors.surface)
+    ) {
+//        Indicators(size = 4, index = pagerState.currentPage)
+
             HorizontalPager(
                 state = pagerState,
                 userScrollEnabled = true
             ) { page ->
-                ScreenFrameOnboarding(
-                    modifier = modifier,
-                    top = {
-                        Column(
-                            modifier = modifier
-                                .padding(top = dimens.dp_30),
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalArrangement = Arrangement.Center
-                        ) {
-                            Text(
-                                text = stringResource(onboard[page].second),
-                                style = MaterialTheme.typography.h6.copy(
-                                    fontSize = dimens.sp_20
-                                ),
-                                fontWeight = FontWeight.W600,
-                                textAlign = TextAlign.Center,
-                                color = UwangColors.Primary.Blue500,
-                                modifier = modifier.fillMaxWidth()
+                when (page) {
+                    0 -> FirstOnboardScreen(
+                        indicator = {
+                            LinearProgressIndicator(
+                                progress = 100f,
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .height(4.dp),
+                                color = UwangColors.State.Primary.Main
                             )
-                            Text(
-                                text = stringResource(onboard[page].third),
-                                style = MaterialTheme.typography.body2.copy(
-                                    fontSize = dimens.sp_14
-                                ),
-                                fontWeight = FontWeight.W400,
-                                textAlign = TextAlign.Center,
-                                color = Neutral100,
-                                modifier = modifier.fillMaxWidth()
+                            LinearProgressIndicator(
+                                progress = 100f,
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .height(4.dp),
+                                color = UwangColors.Neutral.Grey3
                             )
+                            LinearProgressIndicator(
+                                progress = 100f,
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .height(4.dp),
+                                color = UwangColors.Neutral.Grey3
+                            )
+                            LinearProgressIndicator(
+                                progress = 100f,
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .height(4.dp),
+                                color = UwangColors.Neutral.Grey3
+                            )
+                        },
+                        header = {
+                            Row(
+                                modifier = modifier
+                                    .fillMaxWidth()
+                                    .padding(
+
+                                    ),
+                                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Image(
+                                    painter = painterResource(id = R.drawable.app_logo),
+                                    contentDescription = "blu_logo",
+                                    modifier = modifier
+                                        .width(24.dp)
+                                        .height(24.dp)
+                                )
+                                Text(
+                                    text = stringResource(id = R.string.label_header_logo),
+                                    style = UwangTypography.BodyMedium.Regular,
+                                    color = UwangColors.Text.Secondary,
+                                )
+                                Spacer(modifier = modifier.weight(1f))
+                                Icon(
+                                    painter = painterResource(id = R.drawable.ic_close),
+                                    contentDescription = "ic_close"
+                                )
+                            }
                         }
-                        Image(
-                            painter = painterResource(onboard[page].first),
-                            contentDescription = "",
-                            modifier = modifier
-                                .fillMaxHeight(0.6f)
-                                .fillMaxWidth()
-                                .padding(horizontal = dimens.dp_20),
-                            contentScale = ContentScale.FillBounds
-                        )
-                        Spacer(modifier = modifier.height(6.dp))
-                    },
-                    middle = { },
-                    bottom = {
-                        if (page == 3) {
-                            StepFour(
-                                onNavigateToSignUp = {
-                                    navHostController.navigate("sign_up") {
-                                        popUpTo("onboard") {
-                                            inclusive = true
-                                        }
-                                    }
-                                },
-                                onNavigateToTermCondition = {
-                                    navHostController.navigate("term_and_condition")
-                                },
-                                onNavigationToSignInEmail = {
-                                    navHostController.navigate("sign_in") {
-                                        popUpTo("onboard") {
-                                            inclusive = true
-                                        }
-                                    }
-                                },
-                                onSignInGoogle = {
-                                    googleAuthLauncher.launch(1)
-                                }
-                            )
-                        } else {
-                            ButtonPrimary(
-                                modifier = modifier.fillMaxWidth(),
-                                text = "Selanjutnya",
-                                onClick = {
-                                    scope.launch {
-                                        pagerState.animateScrollToPage(page = page + 1)
-                                    }
-                                }
-                            )
-                        }
-                    })
-            }
-        }
-        ScreenFrameOnboarding(
-            modifier = modifier,
-            top = {},
-            middle = { Indicators(size = 4, index = pagerState.currentPage) },
-            bottom = {}
-        )
-        Column(
-            modifier = modifier
-                .fillMaxSize()
-                .padding(
-                    horizontal = 18.dp,
-                    vertical = 18.dp
-                ),
-            horizontalAlignment = Alignment.End,
-            verticalArrangement = Arrangement.Top
-        ) {
-            Text(text = "Lewati", modifier = Modifier.clickable {
-                scope.launch {
-                    pagerState.scrollToPage(4)
+                    )
+                    1 -> FirstOnboardScreen()
+                    2 -> FirstOnboardScreen()
+                    3 -> FirstOnboardScreen()
+                    else -> FirstOnboardScreen()
                 }
-            })
-        }
+            }
     }
 }
 
