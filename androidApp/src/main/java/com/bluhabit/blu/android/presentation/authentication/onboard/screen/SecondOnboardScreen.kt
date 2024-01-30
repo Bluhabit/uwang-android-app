@@ -53,7 +53,7 @@ fun SecondOnboardScreen(
 
 
             Column(
-                modifier = modifier
+                modifier = Modifier
                     .padding(vertical = dimens.dp_24, horizontal = dimens.dp_16)
             ) {
                 Text(

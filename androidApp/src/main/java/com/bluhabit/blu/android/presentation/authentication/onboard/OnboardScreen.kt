@@ -41,6 +41,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -148,7 +149,6 @@ fun OnboardScreen(
             headerTextColor = when (pagerState.currentPage) {
                 0, 2 -> UwangColors.Text.Secondary
                 1, 3 -> Color.White
-
                 else -> Color.White
             },
             indicatorColor = when (pagerState.currentPage) {
@@ -156,6 +156,7 @@ fun OnboardScreen(
                 1, 3 -> Color.White
                 else -> Color.White
             },
+            currentPage = pagerState.currentPage,
             skipOnboard = { },
             content = {
                 HorizontalPager(
@@ -180,7 +181,8 @@ fun ScreenFrameOnBoard(
     headerTextColor: Color = UwangColors.Text.Secondary,
     indicatorColor: Color = UwangColors.State.Primary.Main,
     content: @Composable () -> Unit = {},
-    skipOnboard: () -> Unit = {}
+    skipOnboard: () -> Unit = {},
+    currentPage: Int = 0,
 ) {
     val ctx = LocalContext.current
     val dimens = UwangDimens.from(ctx)
@@ -190,32 +192,36 @@ fun ScreenFrameOnBoard(
             horizontalArrangement = Arrangement.spacedBy(dimens.from(4.dp))
         ) {
             LinearProgressIndicator(
-                progress = 100f,
-                modifier = Modifier
-                    .weight(1f)
-                    .height(dimens.from(4.dp)),
-                color = indicatorColor
-            )
-            LinearProgressIndicator(
                 progress = 1f,
                 modifier = Modifier
                     .weight(1f)
                     .height(dimens.from(4.dp)),
-                color = indicatorColor
+                color = indicatorColor,
+                strokeCap = StrokeCap.Round
             )
             LinearProgressIndicator(
-                progress = 1f,
+                progress = if (currentPage >= 1)  1f  else 0f,
                 modifier = Modifier
                     .weight(1f)
                     .height(dimens.from(4.dp)),
-                color = indicatorColor
+                color = indicatorColor,
+                strokeCap = StrokeCap.Round,
             )
             LinearProgressIndicator(
-                progress = 1f,
+                progress = if (currentPage >= 2)  1f  else 0f,
                 modifier = Modifier
                     .weight(1f)
                     .height(dimens.from(4.dp)),
-                color = UwangColors.Neutral.Grey3
+                color = indicatorColor,
+                strokeCap = StrokeCap.Round
+            )
+            LinearProgressIndicator(
+                progress = if (currentPage >= 3)  1f  else 0f,
+                modifier = Modifier
+                    .weight(1f)
+                    .height(dimens.from(4.dp)),
+                color = indicatorColor,
+                strokeCap = StrokeCap.Round
             )
         }
 
@@ -260,7 +266,6 @@ fun ScreenFrameOnBoard(
             }
 
         }
-
         content()
     }
 }
@@ -270,7 +275,8 @@ fun StepFour(
     onSignInGoogle: () -> Unit,
     onNavigationToSignInEmail: () -> Unit,
     onNavigateToSignUp: () -> Unit,
-    onNavigateToTermCondition: () -> Unit
+    onNavigateToTermCondition: () -> Unit,
+
 ) {
     ButtonGoogle(
         modifier = Modifier.fillMaxWidth(),
