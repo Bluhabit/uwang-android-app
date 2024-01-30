@@ -7,7 +7,6 @@
 
 package com.bluhabit.blu.android.presentation.authentication.onboard.screen
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
