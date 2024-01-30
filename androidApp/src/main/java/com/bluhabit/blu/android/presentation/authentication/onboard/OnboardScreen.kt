@@ -52,6 +52,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.bluehabit.core.ui.R
 import com.bluhabit.blu.android.presentation.authentication.onboard.screen.FirstOnboardScreen
+import com.bluhabit.blu.android.presentation.authentication.onboard.screen.FourthOnboardScreen
 import com.bluhabit.blu.android.presentation.authentication.onboard.screen.SecondOnboardScreen
 import com.bluhabit.blu.android.presentation.authentication.onboard.screen.ThirdOnboardScreen
 import com.bluhabit.blu.data.common.Response
@@ -104,12 +105,15 @@ fun OnboardScreen(
     ) { 4 }
     val backgroundModifier = when (pagerState.currentPage) {
         0, 2 -> Modifier.background(MaterialTheme.colors.surface)
-        1 -> Modifier.background(Brush.verticalGradient(
-            colors = listOf(
-                UwangColors.Primary.Blue500,
-                UwangColors.Primary.Blue1000
+        1, 3 -> Modifier.background(
+            Brush.verticalGradient(
+                colors = listOf(
+                    UwangColors.Primary.Blue500,
+                    UwangColors.Primary.Blue1000
+                )
             )
-        ))
+        )
+
         else -> Modifier.background(MaterialTheme.colors.surface)
     }
     val googleAuthLauncher = rememberLauncherForActivityResult(contract = GoogleAuthContract(), onResult = {
@@ -143,16 +147,16 @@ fun OnboardScreen(
             modifier = backgroundModifier,
             headerTextColor = when (pagerState.currentPage) {
                 0, 2 -> UwangColors.Text.Secondary
-                1 -> Color.White
+                1, 3 -> Color.White
 
                 else -> Color.White
             },
             indicatorColor = when (pagerState.currentPage) {
                 0, 2 -> UwangColors.State.Primary.Main
-                1,3 -> Color.White
-
+                1, 3 -> Color.White
                 else -> Color.White
-            } ,
+            },
+            skipOnboard = { },
             content = {
                 HorizontalPager(
                     state = pagerState,
@@ -162,39 +166,9 @@ fun OnboardScreen(
                         0 -> FirstOnboardScreen()
                         1 -> SecondOnboardScreen()
                         2 -> ThirdOnboardScreen()
+                        3 -> FourthOnboardScreen()
                     }
                 }
-//                    when (page) {
-//                        0 -> ScreenFrameOnBoard(
-//                            modifier = Modifier.background(MaterialTheme.colors.surface),
-//                            headerTextColor = UwangColors.Text.Secondary,
-//                            content = {  }
-//                        )
-//
-//                        1 -> ScreenFrameOnBoard(
-//                            modifier = Modifier.background(
-//                                brush = Brush.verticalGradient(
-//                                    colors = listOf(
-//                                        UwangColors.Primary.Blue500,
-//                                        UwangColors.Primary.Blue1000
-//                                    )
-//                                )
-//                            ),
-//                            headerTextColor = Color.White,
-//                            indicatorColor = Color.White,
-//                            content = { SecondOnboardScreen() }
-//                        )
-//
-//                        2 -> ScreenFrameOnBoard(
-//                            modifier = Modifier.background(
-//                                color = Color.White
-//                            ),
-//                            content = { ThirdOnboardScreen() }
-//                        )
-//
-//                        3 -> FirstOnboardScreen()
-//                        else -> FirstOnboardScreen()
-//                    }
             }
         )
     }
@@ -206,6 +180,7 @@ fun ScreenFrameOnBoard(
     headerTextColor: Color = UwangColors.Text.Secondary,
     indicatorColor: Color = UwangColors.State.Primary.Main,
     content: @Composable () -> Unit = {},
+    skipOnboard: () -> Unit = {}
 ) {
     val ctx = LocalContext.current
     val dimens = UwangDimens.from(ctx)
@@ -236,7 +211,7 @@ fun ScreenFrameOnBoard(
                 color = indicatorColor
             )
             LinearProgressIndicator(
-                progress = 0f,
+                progress = 1f,
                 modifier = Modifier
                     .weight(1f)
                     .height(dimens.from(4.dp)),
@@ -273,10 +248,15 @@ fun ScreenFrameOnBoard(
                     .padding(dimens.from(4.dp))
             ) {
                 Icon(
+                    modifier = Modifier
+                        .clickable {
+                            skipOnboard()
+                        },
                     painter = painterResource(id = R.drawable.ic_close),
                     contentDescription = "ic_close",
                     tint = headerTextColor
                 )
+
             }
 
         }
