@@ -28,7 +28,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -44,6 +48,7 @@ import androidx.navigation.compose.rememberNavController
 import com.bluehabit.core.ui.R
 import com.bluhabit.blu.android.presentation.authentication.onboard.screen.FirstOnboardScreen
 import com.bluhabit.blu.android.presentation.authentication.onboard.screen.FourthOnboardScreen
+import com.bluhabit.blu.android.presentation.authentication.onboard.screen.GetStartedScreen
 import com.bluhabit.blu.android.presentation.authentication.onboard.screen.ScreenFrameOnBoard
 import com.bluhabit.blu.android.presentation.authentication.onboard.screen.SecondOnboardScreen
 import com.bluhabit.blu.android.presentation.authentication.onboard.screen.ThirdOnboardScreen
@@ -92,6 +97,26 @@ fun OnboardScreen(
     val pagerState = rememberPagerState(
         initialPage = 0, initialPageOffsetFraction = 0f
     ) { 4 }
+    var isOnBoaardFinished by remember {
+        mutableStateOf(false)
+    }
+
+    fun finishedOnBoard(){
+        isOnBoaardFinished = true
+    }
+
+    fun nextScreen() {
+            if (pagerState.currentPage > 2) {
+               finishedOnBoard()
+            } else {
+                scope.launch {
+                    pagerState.scrollToPage(
+                        pagerState.currentPage + 1
+                    )
+                }
+            }
+    }
+
     val backgroundModifier = when (pagerState.currentPage) {
         0, 2 -> Modifier.background(MaterialTheme.colors.surface)
         1, 3 -> Modifier.background(
@@ -131,48 +156,47 @@ fun OnboardScreen(
             .fillMaxSize()
             .background(MaterialTheme.colors.surface)
     ) {
-
-        ScreenFrameOnBoard(
-            modifier = backgroundModifier,
-            headerTextColor = when (pagerState.currentPage) {
-                0, 2 -> UwangColors.Text.Secondary
-                1, 3 -> Color.White
-                else -> Color.White
-            },
-            indicatorColor = when (pagerState.currentPage) {
-                0, 2 -> UwangColors.State.Primary.Main
-                1, 3 -> Color.White
-                else -> Color.White
-            },
-            currentPage = pagerState.currentPage,
-            skipOnboard = { },
-            nextScreen = {
-                scope.launch {
-                    pagerState.scrollToPage(
-                        pagerState.currentPage + 1
-                    )
-                }
-            },
-            prevScreen = {
-                scope.launch {
-                    pagerState.scrollToPage(
-                        pagerState.currentPage - 1
-                    )
-                }
-            },
-            content = {
-                HorizontalPager(
-                    state = pagerState,
-                ) { page ->
-                    when (page) {
-                        0 -> FirstOnboardScreen()
-                        1 -> SecondOnboardScreen()
-                        2 -> ThirdOnboardScreen()
-                        3 -> FourthOnboardScreen()
+        if (isOnBoaardFinished) {
+            GetStartedScreen()
+        } else {
+            ScreenFrameOnBoard(
+                modifier = backgroundModifier,
+                headerTextColor = when (pagerState.currentPage) {
+                    0, 2 -> UwangColors.Text.Secondary
+                    1, 3 -> Color.White
+                    else -> Color.White
+                },
+                indicatorColor = when (pagerState.currentPage) {
+                    0, 2 -> UwangColors.State.Primary.Main
+                    1, 3 -> Color.White
+                    else -> Color.White
+                },
+                currentPage = pagerState.currentPage,
+                skipOnboard = { finishedOnBoard() },
+                nextScreen = {
+                    nextScreen()
+                },
+                prevScreen = {
+                    scope.launch {
+                        pagerState.scrollToPage(
+                            pagerState.currentPage - 1
+                        )
+                    }
+                },
+                content = {
+                    HorizontalPager(
+                        state = pagerState,
+                    ) { page ->
+                        when (page) {
+                            0 -> FirstOnboardScreen()
+                            1 -> SecondOnboardScreen()
+                            2 -> ThirdOnboardScreen()
+                            3 -> FourthOnboardScreen()
+                        }
                     }
                 }
-            }
-        )
+            )
+        }
     }
 }
 
