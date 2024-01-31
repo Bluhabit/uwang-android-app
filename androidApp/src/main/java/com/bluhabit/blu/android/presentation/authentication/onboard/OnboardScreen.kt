@@ -170,7 +170,7 @@ fun OnboardScreen(
         progressAnimation.animateTo(
             1f,
             animationSpec = tween(
-                000,
+                10000,
                 easing = LinearEasing
             )
         )
