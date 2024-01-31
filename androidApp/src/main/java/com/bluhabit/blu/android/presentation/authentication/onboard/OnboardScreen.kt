@@ -53,9 +53,7 @@ import com.bluhabit.core.ui.components.button.ButtonGoogle
 import com.bluhabit.core.ui.components.button.ButtonOutlinedPrimary
 import com.bluhabit.core.ui.theme.CustomTypography
 import com.bluhabit.core.ui.theme.UwangColors
-import com.bluhabit.core.ui.theme.UwangDimens
 import com.bluhabit.core.ui.theme.UwangTheme
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
