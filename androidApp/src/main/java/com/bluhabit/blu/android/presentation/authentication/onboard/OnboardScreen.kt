@@ -9,6 +9,9 @@ package com.bluhabit.blu.android.presentation.authentication.onboard
 
 import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -59,7 +62,6 @@ import com.bluhabit.core.ui.components.button.ButtonOutlinedPrimary
 import com.bluhabit.core.ui.theme.CustomTypography
 import com.bluhabit.core.ui.theme.UwangColors
 import com.bluhabit.core.ui.theme.UwangTheme
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
@@ -101,11 +103,13 @@ fun OnboardScreen(
     var isOnBoaardFinished by remember {
         mutableStateOf(false)
     }
+    val progressAnimation = remember {
+        Animatable(0f)
+    }
 
     fun finishedOnBoard() {
         isOnBoaardFinished = true
     }
-    var timeProgressBar by remember { mutableFloatStateOf(0f) }
 
     fun nextScreen() {
         if (pagerState.currentPage > 2) {
@@ -116,7 +120,14 @@ fun OnboardScreen(
                     pagerState.currentPage + 1
                 )
             }
-            timeProgressBar = 0f
+        }
+    }
+
+    fun prevScreen() {
+        scope.launch {
+            pagerState.scrollToPage(
+                pagerState.currentPage - 1
+            )
         }
     }
 
@@ -153,15 +164,20 @@ fun OnboardScreen(
             OnboardEffect.NavigateHome -> navHostController.navigate("home")
             OnboardEffect.NavigateCompleteProfile -> navHostController.navigate("complete_profile")
         }
-        while (timeProgressBar < 1f) {
-            delay(1000L)
-            timeProgressBar += 0.3f
-            if (timeProgressBar >= 1f) {
-                nextScreen()
-                timeProgressBar = 0f
-            }
-        }
+
     })
+    LaunchedEffect(key1 = pagerState.currentPage , block = {
+        progressAnimation.snapTo(0f)
+        progressAnimation.animateTo(
+            1f,
+            animationSpec = tween(
+                10000,
+                easing = LinearEasing
+            )
+        )
+        nextScreen()
+    })
+
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -174,9 +190,9 @@ fun OnboardScreen(
                         pagerState.scrollToPage(
                             0
                         )
+                        progressAnimation.snapTo(0f)
                     }
                     isOnBoaardFinished = false
-                    timeProgressBar = 0f
                 }
             )
         } else {
@@ -197,13 +213,9 @@ fun OnboardScreen(
                 nextScreen = {
                     nextScreen()
                 },
-                progressState = timeProgressBar,
+                progressState = progressAnimation.value,
                 prevScreen = {
-                    scope.launch {
-                        pagerState.scrollToPage(
-                            pagerState.currentPage - 1
-                        )
-                    }
+                    prevScreen()
                 },
                 content = {
                     HorizontalPager(
