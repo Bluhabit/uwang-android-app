@@ -24,17 +24,17 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
+import com.bluhabit.core.ui.theme.UwangColors
 import com.bluhabit.core.ui.theme.Gray100
 import com.bluhabit.core.ui.theme.Gray200
 import com.bluhabit.core.ui.theme.Gray300
-import com.bluhabit.core.ui.theme.Primary600
 
 @Composable
 fun BaseCircleCheckbox(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     checked: Boolean = true,
-    backgroundColor: Color = Primary600,
+    backgroundColor: Color = UwangColors.Primary.Blue500,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     onCheckedChange: () -> Unit = {},
     content: @Composable BoxScope.() -> Unit = {},

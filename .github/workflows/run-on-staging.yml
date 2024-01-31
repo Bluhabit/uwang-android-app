@@ -51,4 +51,4 @@ jobs:
         run: ./gradlew detekt
 
       - name: Build with Gradle
-        run: ./gradlew  assembleRelease appDistributionUploadStagingRelease --stacktrace
+        run: ./gradlew  assembleStagingDebug appDistributionUploadStagingDebug --stacktrace

@@ -1,1 +1,6 @@
-In this version, we improved the user experience and fixed some bugs.
+Added feature:
+1. Sign In Basic
+2. Sign Up Basic
+3. Sign In Google
+4. Forgot Password
+5. Complete Profile

@@ -59,9 +59,11 @@ dependencies {
     implementation(libs.androidx.ui.unit.android)
     implementation(libs.androidx.foundation.android)
     coreLibraryDesugaring(libs.desugar.jdk.lib)
-    implementation(platform("com.google.firebase:firebase-bom:32.5.0"))
-    implementation("com.google.firebase:firebase-analytics")
+    api(platform("com.google.firebase:firebase-bom:32.5.0"))
+    api("com.google.firebase:firebase-analytics")
+    api("com.google.firebase:firebase-storage")
 
+    api("com.squareup.okhttp3:logging-interceptor:4.12.0")
     api(libs.sqldelight.android.driver)
     with(libs.ktor){
         api(client.core)
@@ -142,6 +144,7 @@ fun getCurrentFlavor(): String {
         Pattern.compile("bundle(\\w+)(Release|Debug)")
     }
 
+    print(taskRequestsStr)
     val matcher = pattern.matcher(taskRequestsStr)
     val flavor = if (matcher.find()) {
         matcher.group(1).lowercase()

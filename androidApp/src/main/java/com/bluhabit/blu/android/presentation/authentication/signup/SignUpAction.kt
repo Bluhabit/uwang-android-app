@@ -7,25 +7,54 @@
 
 package com.bluhabit.blu.android.presentation.authentication.signup
 
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.tasks.Task
+
 sealed interface SignUpAction {
-
-    data class EmailAction (
-        val value: String = "",
-        val error: Boolean = false
+    data class OnScreenChange(
+        val screen: Int = 0,
     ) : SignUpAction
-    data class PasswordAction(
-        val value: String = "",
+
+    data class OnEmailChange(
+        val value: String = ""
+    ) : SignUpAction
+
+    data class OnPasswordChange(
+        val value: String = ""
+    ) : SignUpAction
+
+    data class OnPasswordVisibilityChange(
+        val visibility: Boolean = false
+    ) : SignUpAction
+
+    data class OnPasswordConfirmationChange(
+        val value: String = ""
+    ) : SignUpAction
+
+    data class OnPasswordConfirmationVisibilityChange(
+        val visibility: Boolean = false
+    ) : SignUpAction
+
+    data class OnSignInGoogle(
+        val authResult: Task<GoogleSignInAccount>
+    ) : SignUpAction
+
+    data class OnButtonEnabledChange(
+        val enabled: Boolean = false,
+    ) : SignUpAction
+
+    object SignUpBasic : SignUpAction
+
+    // Otp Sign Up Screen
+    data class OnOtpChange(
+        val value: String = ""
+    ) : SignUpAction
+
+    data class OnSentOtpAlertVisibilityChange(
         val visibility: Boolean = false,
-        val error: Boolean = false,
     ) : SignUpAction
 
-    data class PasswordConfirmationAction(
-        val value: String = "",
-        val visibility: Boolean = false,
-        val error: Boolean = false,
-    ) : SignUpAction
-
-    data class ButtonAction(
-        val enabled: Boolean = true,
-    ) : SignUpAction
+    object OnCountDownStart : SignUpAction
+    object OnResentOtp : SignUpAction
+    object OnVerifyOtp : SignUpAction
 }

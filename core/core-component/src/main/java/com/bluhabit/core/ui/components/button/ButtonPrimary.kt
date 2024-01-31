@@ -16,19 +16,12 @@ import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluhabit.core.ui.ext.Empty
-import com.bluhabit.core.ui.theme.Blue500
-import com.bluhabit.core.ui.theme.CustomColor
-import com.bluhabit.core.ui.theme.CustomTypography
-import com.bluhabit.core.ui.theme.Error200
-import com.bluhabit.core.ui.theme.Error600
-import com.bluhabit.core.ui.theme.Primary200
+import com.bluhabit.core.ui.theme.UwangColors
 import com.bluhabit.core.ui.theme.UwangTheme
+import com.bluhabit.core.ui.theme.UwangTypography
 
 /**
  * Button Primary
@@ -42,7 +35,6 @@ fun ButtonPrimary(
     modifier: Modifier = Modifier,
     text: String = String.Empty,
     enabled: Boolean = true,
-    error: Boolean = false,
     onClick: () -> Unit = {}
 ) {
     Button(
@@ -51,10 +43,10 @@ fun ButtonPrimary(
         enabled = enabled,
         shape = RoundedCornerShape(12.dp),
         colors = ButtonDefaults.buttonColors(
-            backgroundColor = if (error) Error600 else Blue500,
-            contentColor = Color(0xFFFFFFFF),
-            disabledBackgroundColor = if (error) Error200 else Primary200,
-            disabledContentColor = Color(0xFFFFFFFF),
+            backgroundColor = UwangColors.State.Primary.Main,
+            contentColor = UwangColors.Base.White,
+            disabledBackgroundColor = UwangColors.Palette.Neutral.Grey3,
+            disabledContentColor = UwangColors.Palette.Neutral.Grey5,
         ),
         elevation = ButtonDefaults.elevation(
             defaultElevation = 0.dp
@@ -62,9 +54,8 @@ fun ButtonPrimary(
     ) {
         Text(
             text = text,
-            style = CustomTypography.Label.Medium.W500,
-            fontWeight = FontWeight.SemiBold,
-            color = CustomColor.Neutral.Grey1
+            style = UwangTypography.BodySmall.Medium,
+            color = UwangColors.Base.White
         )
     }
 }
@@ -90,21 +81,6 @@ fun PreviewButtonPrimary() {
                 modifier = Modifier,
                 text = "Button CTA disabled",
                 enabled = false,
-                error = false,
-                onClick = {}
-            )
-            ButtonPrimary(
-                modifier = Modifier,
-                text = "Button CTA error",
-                enabled = true,
-                error = true,
-                onClick = {}
-            )
-            ButtonPrimary(
-                modifier = Modifier,
-                text = "Button CTA error disabled",
-                enabled = false,
-                error = true,
                 onClick = {}
             )
         }

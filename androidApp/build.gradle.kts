@@ -19,7 +19,6 @@ plugins {
     alias(libs.plugins.com.google.dagger.hilt.android)
     alias(libs.plugins.app.cash.sqldelight)
     alias(libs.plugins.io.gitlab.arthubosch.detekt)
-    id("kotlin-parcelize")
     id("com.google.firebase.appdistribution")
     alias(libs.plugins.google.services)
     alias(libs.plugins.org.jetbrains.kotlin.kapt)
@@ -44,13 +43,11 @@ android {
             firebaseAppDistribution {
                 artifactType = "APK"
                 releaseNotesFile = "./FirebaseDistributionConfig/release_notes.txt"
-                testers="triandamai@gmail.com"
+                testersFile="./FirebaseDistributionConfig/testers.txt"
+                groupsFile="./FirebaseDistributionConfig/groups.txt"
                 serviceCredentialsFile = "./secret/uwang-app-distribution.json"
                 appId = "1:616208190167:android:21914953259000a938fe92"
             }
-            setupKeystore()
-        }
-        getByName("debug") {
             setupKeystore()
         }
         getByName("debug") {
@@ -62,6 +59,7 @@ android {
             isMinifyEnabled = true
             isShrinkResources = true
             isDebuggable = false
+            signingConfig = signingConfigs.getByName("release")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -71,11 +69,12 @@ android {
             isMinifyEnabled = false
             isShrinkResources = false
             isDebuggable = true
-            applicationIdSuffix = ".debug"
+            signingConfig = signingConfigs.getByName("debug")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+
         }
     }
     setFlavorDimensions(listOf("Environment"))
@@ -94,7 +93,7 @@ android {
         }
     }
     applicationVariants.all {
-        setProperty("archivesBaseName", "UWANG-1.0.${getTimestamp()}-SNAPSHOT")
+        setProperty("archivesBaseName", "UWANG-1.0.${getTimestamp()}")
     }
 
     buildFeatures {
@@ -133,6 +132,8 @@ dependencies {
     api(project(":core:core-component"))
     api(project(":core:core-data"))
 
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
+
     coreLibraryDesugaring(libs.desugar.jdk.lib)
     implementation(libs.multidex)
     implementation(libs.core.ktx)
@@ -146,6 +147,7 @@ dependencies {
         kaptTest(android.compiler)
         kapt(compiler)
     }
+
 
     implementation(libs.work.runtime)
 
