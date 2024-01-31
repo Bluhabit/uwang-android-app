@@ -78,7 +78,12 @@
     <string name="text_button_signin_with_google_screen_onboard">Masuk Dengan Google</string>
     <string name="text_button_term_and_condition">Syarat dan Ketentuan kebijakan aplikasi</string>
     <string name="text_title_1">Selamat datang di Uwang!</string>
+    <string name="title_onboarding_satu">Siap memulai perjalanan belajar finansialmu?</string>
     <string name="text_title_2">Templating keuangan</string>
+    <string name="title_onboarding_dua">Konten terkini &amp; terupdate tentang keuangan</string>
+    <string name="title_onboarding_tiga">Template finansial untuk atur keuanganmu</string>
+    <string name="title_onboarding_empat">Buat atau gabung dengan grup diskusi yang disukai</string>
+    <string name="label_header_logo">Selamat datang di Uwang</string>
     <string name="text_title_3">Komunitas diskusi</string>
     <string name="text_title_4">Sumber belajar</string>
     <string name="text_title_daftar">Belum memiliki akun sebelumnya?</string>
