@@ -104,9 +104,7 @@ fun GetStartedScreen(
 
         Text(
             text = stringResource(id = R.string.text_get_started),
-            style = UwangTypography.DisplayMedium.SemiBold.copy(
-                fontSize = 30.sp
-            ),
+            style = UwangTypography.DisplaySmall.Bold,
             color = UwangColors.Text.Heading,
 
             )
