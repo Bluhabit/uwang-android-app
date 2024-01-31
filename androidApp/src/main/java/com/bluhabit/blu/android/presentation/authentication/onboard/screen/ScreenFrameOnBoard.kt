@@ -51,6 +51,7 @@ fun ScreenFrameOnBoard(
     content: @Composable () -> Unit = {},
     skipOnboard: () -> Unit = {},
     currentPage: Int = 0,
+    progressState: Float = 0f,
     nextScreen: () ->  Unit = {},
     prevScreen: () ->  Unit = {},
 ) {
@@ -63,7 +64,7 @@ fun ScreenFrameOnBoard(
             horizontalArrangement = Arrangement.spacedBy(dimens.from(4.dp))
         ) {
             LinearProgressIndicator(
-                progress = 1f,
+                progress = if (currentPage == 0) progressState else 1f,
                 modifier = Modifier
                     .weight(1f)
                     .height(dimens.from(4.dp)),
@@ -71,7 +72,7 @@ fun ScreenFrameOnBoard(
                 strokeCap = StrokeCap.Round
             )
             LinearProgressIndicator(
-                progress = if (currentPage >= 1) 1f else 0f,
+                progress = if (currentPage == 1) progressState else if (currentPage >= 1) 1f else 0f,
                 modifier = Modifier
                     .weight(1f)
                     .height(dimens.from(4.dp)),
@@ -79,7 +80,7 @@ fun ScreenFrameOnBoard(
                 strokeCap = StrokeCap.Round,
             )
             LinearProgressIndicator(
-                progress = if (currentPage >= 2) 1f else 0f,
+                progress = if (currentPage == 2) progressState else if (currentPage >= 2) 1f else 0f,
                 modifier = Modifier
                     .weight(1f)
                     .height(dimens.from(4.dp)),
@@ -87,7 +88,7 @@ fun ScreenFrameOnBoard(
                 strokeCap = StrokeCap.Round
             )
             LinearProgressIndicator(
-                progress = if (currentPage >= 3) 1f else 0f,
+                progress = if (currentPage == 3) progressState else if (currentPage >= 3) 1f else 0f,
                 modifier = Modifier
                     .weight(1f)
                     .height(dimens.from(4.dp)),

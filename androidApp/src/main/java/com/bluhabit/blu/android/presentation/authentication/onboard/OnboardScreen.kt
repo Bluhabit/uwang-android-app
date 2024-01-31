@@ -28,10 +28,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -59,6 +59,7 @@ import com.bluhabit.core.ui.components.button.ButtonOutlinedPrimary
 import com.bluhabit.core.ui.theme.CustomTypography
 import com.bluhabit.core.ui.theme.UwangColors
 import com.bluhabit.core.ui.theme.UwangTheme
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
@@ -101,20 +102,22 @@ fun OnboardScreen(
         mutableStateOf(false)
     }
 
-    fun finishedOnBoard(){
+    fun finishedOnBoard() {
         isOnBoaardFinished = true
     }
+    var timeProgressBar by remember { mutableFloatStateOf(0f) }
 
     fun nextScreen() {
-            if (pagerState.currentPage > 2) {
-               finishedOnBoard()
-            } else {
-                scope.launch {
-                    pagerState.scrollToPage(
-                        pagerState.currentPage + 1
-                    )
-                }
+        if (pagerState.currentPage > 2) {
+            finishedOnBoard()
+        } else {
+            scope.launch {
+                pagerState.scrollToPage(
+                    pagerState.currentPage + 1
+                )
             }
+            timeProgressBar = 0f
+        }
     }
 
     val backgroundModifier = when (pagerState.currentPage) {
@@ -150,6 +153,14 @@ fun OnboardScreen(
             OnboardEffect.NavigateHome -> navHostController.navigate("home")
             OnboardEffect.NavigateCompleteProfile -> navHostController.navigate("complete_profile")
         }
+        while (timeProgressBar < 1f) {
+            delay(1000L)
+            timeProgressBar += 0.3f
+            if (timeProgressBar >= 1f) {
+                nextScreen()
+                timeProgressBar = 0f
+            }
+        }
     })
     Box(
         modifier = modifier
@@ -157,7 +168,17 @@ fun OnboardScreen(
             .background(MaterialTheme.colors.surface)
     ) {
         if (isOnBoaardFinished) {
-            GetStartedScreen()
+            GetStartedScreen(
+                onBackToOnboard = {
+                    scope.launch {
+                        pagerState.scrollToPage(
+                            0
+                        )
+                    }
+                    isOnBoaardFinished = false
+                    timeProgressBar = 0f
+                }
+            )
         } else {
             ScreenFrameOnBoard(
                 modifier = backgroundModifier,
@@ -176,6 +197,7 @@ fun OnboardScreen(
                 nextScreen = {
                     nextScreen()
                 },
+                progressState = timeProgressBar,
                 prevScreen = {
                     scope.launch {
                         pagerState.scrollToPage(
@@ -187,11 +209,18 @@ fun OnboardScreen(
                     HorizontalPager(
                         state = pagerState,
                     ) { page ->
+
                         when (page) {
                             0 -> FirstOnboardScreen()
+
+
                             1 -> SecondOnboardScreen()
+
+
                             2 -> ThirdOnboardScreen()
+
                             3 -> FourthOnboardScreen()
+
                         }
                     }
                 }

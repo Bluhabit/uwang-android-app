@@ -54,6 +54,7 @@ fun GetStartedScreen(
     onSignUp: () -> Unit = {},
     onNavigationToSignIn: () -> Unit = {},
     onNavigateToTermCondition: () -> Unit = {},
+    onBackToOnboard: () -> Unit = { }
 ) {
     val ctx = LocalContext.current
     val dimens = UwangDimens.from(ctx)
@@ -72,22 +73,25 @@ fun GetStartedScreen(
         verticalArrangement = Arrangement.SpaceBetween
     ) {
         Box(
-           modifier = Modifier
-               .border(
-                   width = dimens.from(2.dp),
-                   brush = Brush.linearGradient(
-                       colors = listOf(
-                           Color(0xFF000AF9),
-                           Color(0xFF836FFF),
-                           Color(0xFF16E1C8),
-                       )
-                   ),
-                   shape = CircleShape
-               )
-               .padding(2.dp)
-               .size(dimens.from(96.dp)),
+            modifier = Modifier
+                .border(
+                    width = dimens.from(2.dp),
+                    brush = Brush.linearGradient(
+                        colors = listOf(
+                            Color(0xFF000AF9),
+                            Color(0xFF836FFF),
+                            Color(0xFF16E1C8),
+                        )
+                    ),
+                    shape = CircleShape
+                )
+                .padding(2.dp)
+                .size(dimens.from(96.dp))
+                .clickable {
+                    onBackToOnboard()
+                },
 
-        ){
+            ) {
             Image(
                 painter = painterResource(id = R.drawable.app_logo),
                 contentDescription = "",
