@@ -30,10 +30,14 @@ import androidx.compose.ui.viewinterop.AndroidView
 import com.bluhabit.blu.android.common.loadHtmlFromAssets
 import com.bluhabit.core.ui.theme.UwangTheme
 import com.google.android.material.textview.MaterialTextView
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 
 @Composable
 fun TermAndConditionScreen(
-    onBackPressed: () -> Unit
+    stateFlow: Flow<TermAndConditionState>,
+    effectFlow: Flow<TermAndConditionEffect>,
+    onAction: (TermAndConditionAction) -> Unit
 ) {
     val context = LocalContext.current
     Column(
@@ -45,7 +49,7 @@ fun TermAndConditionScreen(
     ) {
         IconButton(
             onClick = {
-                onBackPressed()
+                // TODO
             }) {
             Icon(
                 painter = painterResource(id = com.bluehabit.core.ui.R.drawable.ic_arrow_back),
@@ -79,6 +83,10 @@ fun TermAndConditionScreen(
 @Composable
 fun TermAndConditionScreenPreview() {
     UwangTheme {
-        TermAndConditionScreen(onBackPressed = {})
+        TermAndConditionScreen(
+            stateFlow = flowOf(),
+            effectFlow = flowOf(),
+            onAction = {},
+        )
     }
 }

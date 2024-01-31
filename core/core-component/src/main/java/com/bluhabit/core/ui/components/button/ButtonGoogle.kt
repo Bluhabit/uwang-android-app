@@ -18,6 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluehabit.core.ui.R
 import com.bluhabit.core.ui.ext.Empty
+import com.bluhabit.core.ui.theme.CustomColor
 import com.bluhabit.core.ui.theme.UwangTheme
 
 /**
@@ -45,9 +46,11 @@ fun ButtonGoogle(
                 ),
                 contentDescription = "social icon",
                 modifier = Modifier
-                    .size(20.dp)
+                    .size(24.dp)
             )
         },
+        backgroundColor = CustomColor.Neutral.Grey1,
+        textColor = CustomColor.Primary.Blue500,
         onClick = onClick
     )
 }

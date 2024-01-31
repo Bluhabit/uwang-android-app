@@ -45,7 +45,6 @@ private val shapeScheme = Shapes(
 
 @Composable
 fun UwangTheme(
-    darkStatusBarContent: Boolean = true,
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
@@ -57,11 +56,11 @@ fun UwangTheme(
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkStatusBarContent
-            WindowCompat.setDecorFitsSystemWindows(window, false)
-            window.statusBarColor = Color.Transparent.toArgb()
+            window.statusBarColor = colorScheme.primary.toArgb()
+            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
         }
     }
+
     MaterialTheme(
         colors = colorScheme,
         typography = Typography,

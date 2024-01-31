@@ -8,12 +8,13 @@
 package com.bluhabit.core.ui.components.alert
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -21,7 +22,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.bluhabit.core.ui.theme.UwangTypography
 
 @Composable
 fun BasicAlert(
@@ -31,20 +31,22 @@ fun BasicAlert(
     message: String,
     messageColor: Color,
     backgroundColor: Color,
+    borderColor: Color,
 ) {
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(12.dp))
+            .clip(MaterialTheme.shapes.small)
+            .border(2.dp, borderColor, MaterialTheme.shapes.small)
             .background(backgroundColor)
-            .padding(8.dp),
+            .padding(12.dp),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(4.dp)
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         leadingButton()
         Text(
             text = message,
-            style = UwangTypography.LabelMedium.Medium,
+            style = MaterialTheme.typography.subtitle2,
             color = messageColor
         )
         Spacer(modifier = modifier.weight(1f))

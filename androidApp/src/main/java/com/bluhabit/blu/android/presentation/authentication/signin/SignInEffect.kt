@@ -8,7 +8,5 @@
 package com.bluhabit.blu.android.presentation.authentication.signin
 
 sealed interface SignInEffect {
-    object None : SignInEffect
-    object NavigateToCompleteProfile : SignInEffect
-    object NavigateToMain : SignInEffect
+    object None:SignInEffect
 }
