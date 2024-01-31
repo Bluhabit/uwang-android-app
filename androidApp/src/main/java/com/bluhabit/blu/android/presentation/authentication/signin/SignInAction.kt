@@ -7,42 +7,26 @@
 
 package com.bluhabit.blu.android.presentation.authentication.signin
 
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.gms.tasks.Task
-
 sealed interface SignInAction {
-    data class OnScreenChange(
-        val screen: Int = 0
-    ) : SignInAction
-
 
     // Sign In Screen
-    data class OnEmailChange(
-        val value: String = ""
-    ) : SignInAction
-
-    data class OnPasswordChange(
+    data class EmailAction (
         val value: String = "",
+        val error: Boolean = false
+    ) : SignInAction
+    data class PasswordAction(
+        val value: String = "",
+        val visibility: Boolean = false,
+        val error: Boolean = false,
     ) : SignInAction
 
-    data class OnPasswordVisibilityChange(
-        val visibility: Boolean = false
-    ) : SignInAction
-
-    object OnSignInBasic : SignInAction
-
-    data class OnSignInGoogle(
-        val authResult: Task<GoogleSignInAccount>
+    data class ButtonAction(
+        val enabled: Boolean = true,
     ) : SignInAction
 
     // Otp Sign In Screen
-    data class OnOtpChange(
-        val value: String = ""
-    ) : SignInAction
-    data class OnSentOtpAlertVisibilityChange(
-        val visibility: Boolean = false,
-    ) : SignInAction
-    object OnCountDownStart : SignInAction
-    object OnResentOtp : SignInAction
-    object OnVerifyOtp : SignInAction
+    data class OtpNumberAction(
+        val value: String = "",
+        val error: Boolean = false,
+    ): SignInAction
 }

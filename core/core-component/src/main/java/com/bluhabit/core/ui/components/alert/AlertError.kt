@@ -8,19 +8,18 @@
 package com.bluhabit.core.ui.components.alert
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluehabit.core.ui.R
-import com.bluhabit.core.ui.theme.UwangColors
-import com.bluhabit.core.ui.theme.UwangTheme
+import com.bluhabit.core.ui.theme.Error50
+import com.bluhabit.core.ui.theme.Error700
 
 @Composable
 fun AlertError(
@@ -29,11 +28,10 @@ fun AlertError(
     onClick: () -> Unit,
 ) {
     BasicAlert(
-        modifier = modifier,
         leadingButton = {
             Image(
                 painter = painterResource(
-                    id = R.drawable.ic_error_alert,
+                    id = R.drawable.ic_information_circle_error,
                 ),
                 contentDescription = stringResource(id = R.string.description_icon_error),
             )
@@ -43,7 +41,7 @@ fun AlertError(
                 onClick = {
                     onClick()
                 },
-                modifier = Modifier
+                modifier = modifier
                     .size(24.dp)
             ) {
                 Icon(
@@ -51,28 +49,15 @@ fun AlertError(
                         id = R.drawable.ic_close
                     ),
                     contentDescription = null,
-                    tint = UwangColors.Text.Main,
-                    modifier = Modifier
+                    tint = Error700,
+                    modifier = modifier
                         .size(16.dp)
                 )
             }
         },
         message = message,
-        messageColor = UwangColors.State.Error.Main,
-        backgroundColor = UwangColors.Palette.Error.Red1,
+        messageColor = Error700,
+        backgroundColor = Error50,
+        borderColor = Color(0xFFF34141).copy(0.16f)
     )
-}
-
-@Preview(showBackground = true, backgroundColor = 0xFFFFFFFF)
-@Composable
-fun PreviewAlertError() {
-    UwangTheme {
-        AlertError(
-            modifier = Modifier
-                .padding(16.dp),
-            message = "Test alert error"
-        ) {
-
-        }
-    }
 }

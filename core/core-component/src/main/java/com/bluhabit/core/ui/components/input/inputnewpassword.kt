@@ -34,7 +34,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluehabit.core.ui.R
 import com.bluhabit.core.ui.ext.Empty
-import com.bluhabit.core.ui.theme.UwangColors.Neutral.Grey7
+import com.bluhabit.core.ui.theme.CustomColor.Neutral.Grey7
 import com.bluhabit.core.ui.theme.Error500
 import com.bluhabit.core.ui.theme.Gray300
 import com.bluhabit.core.ui.theme.Gray500

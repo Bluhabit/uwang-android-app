@@ -78,12 +78,7 @@
     <string name="text_button_signin_with_google_screen_onboard">Masuk Dengan Google</string>
     <string name="text_button_term_and_condition">Syarat dan Ketentuan kebijakan aplikasi</string>
     <string name="text_title_1">Selamat datang di Uwang!</string>
-    <string name="title_onboarding_satu">Siap memulai perjalanan belajar finansialmu?</string>
     <string name="text_title_2">Templating keuangan</string>
-    <string name="title_onboarding_dua">Konten terkini &amp; terupdate tentang keuangan</string>
-    <string name="title_onboarding_tiga">Template finansial untuk atur keuanganmu</string>
-    <string name="title_onboarding_empat">Buat atau gabung dengan grup diskusi yang disukai</string>
-    <string name="label_header_logo">Selamat datang di Uwang</string>
     <string name="text_title_3">Komunitas diskusi</string>
     <string name="text_title_4">Sumber belajar</string>
     <string name="text_title_daftar">Belum memiliki akun sebelumnya?</string>
@@ -111,8 +106,8 @@
     <string name="description_icon_success">Ikon sukses</string>
     <!--    end alert component-->
     <!--    complete profile  -->
-    <string name="text_title_success_profile">Selamat, Profil berhasil dibuat!</string>
-    <string name="text_subtitle_success_profile">Silakan masuk ke akun Anda dan nikmati pengalaman perjalanan keuangan Anda dengan aplikasi Uwang</string>
+    <string name="text_title_success_profile">Yeay, Profil berhasil dibuat</string>
+    <string name="text_subtitle_success_profile">Silakan masuk ke akunmu dan nikmati pengalamanmu dalam aplikasi Uwang</string>
     <string name="text_btn_success_profile">Beranda</string>
     <!--   end complete profile  -->
     <!--    favorite task component-->
@@ -129,11 +124,7 @@
     <string name="text_start">Mulai</string>
     <string name="btn_text_choose">Pilih</string>
     <!--   end bottom sheet date picker-->
-
-    <!--    bottom sheet date picker component-->
-    <string name="btn_text_save">Save</string>
-    <!--   end bottom sheet date picker component-->
-
+  
     <!--    search component-->
     <string name="text_placeholder_search_bar">Cari tugas atau proyek Anda</string>
     <!--    end search component-->
@@ -224,12 +215,23 @@
     <string name="text_description_ic_delete_input_subtask">Ikon menghapus subtask</string>
     <!-- nput subtask component -->
 
-    <!--  [NEW] onboard  -->
-    <string name="onboard_screen_sign_in_google_button_text">Masuk dengan Google</string>
-    <string name="onboard_screen_sign_in_email_button_text">Masuk dengan alamat Email</string>
-    <string name="onboard_screen_term_and_condition_1">Dengan melakukan pendaftaran akun atau masuk ke dalam akun anda menyetujui</string>
-    <string name="onboard_screen_term_and_condition_2">Syarat &amp; Ketentuan kebijakan aplikasi</string>
-    <!--  end onboard  -->
+
+    <!--  [NEW] sign in screen  -->
+    <string name="sign_in_screen_welcome">Selamat datang</string>
+    <string name="sign_in_screen_description">Masukkan alamat email dan password Anda untuk melakukan login</string>
+    <string name="sign_in_screen_email_text_field_title">Email</string>
+    <string name="sign_in_screen_email_text_field_label">Contoh  : fadelptr09@gmail.com</string>
+    <string name="sign_in_screen_password_text_field_title">Password</string>
+    <string name="sign_in_screen_password_text_field_label">Masukkan password Anda</string>
+    <string name="sign_in_screen_forgot_password">Lupa Password</string>
+    <string name="sign_in_screen_sign_in_button_text">Masuk</string>
+    <string name="sign_in_screen_or">Atau</string>
+    <string name="sign_in_screen_sign_in_google_button_text">Masuk dengan Google</string>
+    <string name="sign_in_screen_not_have_an_account">Belum memiliki akun sebelumnya?\u0020</string>
+    <string name="sign_in_screen_register">Daftar</string>
+    <string name="sign_in_screen_term_and_condition_1">Dengan melakukan pendaftaran akun atau masuk ke dalam akun anda menyetujui</string>
+    <string name="sign_in_screen_term_and_condition_2">Syarat &amp; Ketentuan kebijakan aplikasi</string>
+    <!-- end sign in screen  -->
 
     <!--  [NEW] sign up screen  -->
     <string name="sign_up_screen_title">Daftarkan akun anda</string>
@@ -253,17 +255,8 @@
     <string name="reset_password_screen_reset_password">Reset Password</string>
     <string name="reset_password_screen_hint">Masukkan alamat email yang terdaftar dan kami akan mengirimkan email berisi kode OTP untuk mengatur ulang Password</string>
     <string name="reset_password_screen_email">Email</string>
-    <string name="reset_password_screen_confirm_password_label">Konfirmasi Password</string>
     <string name="reset_password_screen_email_text_field_label">Contoh : jenny11@gmail.com</string>
     <string name="reset_password_screen_next">Selanjutnya</string>
-    <!-- end forgot password screen  -->
-
-    <!--  [NEW] forgot password screen  -->
-    <string name="send_otp">Masukkan Kode OTP</string>
-    <string name="send_otp_p1">Silakan periksa kotak masuk dan spam pada email</string>
-    <string name="send_otp_p2">""</string>
-    <string name="send_otp_p3"> masukkan kode OTP untuk buat password baru</string>
-    <string name="send_otp_screen_next">Selanjutnya</string>
     <!-- end forgot password screen  -->
 
     <!--  [NEW] edit profile screen  -->
@@ -289,44 +282,4 @@
     <string name="otp_sign_in_screen_reset_confirmation_time">Waktu konfirmasi\u0020</string>
     <string name="otp_sign_in_screen_reset_next_button_text">Selanjutnya</string>
     <!-- end forgot password screen  -->
-
-    <!--  [NEW] input dob screen screen  -->
-    <string name="input_odb_screen_title">Lengkapi data diri</string>
-    <string name="input_odb_screen_instruction">Isi tanggal lahir Anda untuk membantu kami memberikan rekomendasi dan saran yang lebih sesuai dengan situasi keuangan Anda.</string>
-    <string name="input_odb_screen_dob_text_field_title">Lengkapi data diri</string>
-    <string name="input_odb_screen_dob_text_field_text">Contoh : 11 Desember 2001</string>
-    <string name="input_odb_screen_dob_next_button_text">Selanjutnya</string>
-    <!-- end input dob screen  -->
-
-    <!--  [NEW] set preference screen  -->
-    <string name="set_preference_screen_title">Preferensi Keuangan</string>
-    <string name="set_preference_screen_instruction">Pilih minimal 3 topik keuangan yang ingin Anda jelajahi untuk memulai perjalanan keuangan Anda:</string>
-    <string name="set_preference_screen_next_button_text">Selanjutnya</string>
-    <!-- end set preference screen  -->
-
-    <string name="label_button_google">Lanjutkan Dengan Google</string>
-    <string name="label_divider">ATAU</string>
-    <string name="title_header_login">Masuk ke akun kamu</string>
-    <string name="label_field_email">Email</string>
-    <string name="placholder_field_email">Masukkan email kamu</string>
-    <string name="label_field_password">Password</string>
-    <string name="placholder_field_password">Masukkan password kamu</string>
-    <string name="label_forgot_password">Lupa password?</string>
-    <string name="label_button_login">Masuk</string>
-    <string name="placeholder_teks_register">Belum punya akun?\u0020</string>
-    <string name="label_teks_button_register">Daftar</string>
-    <string name="caption_error_field_email">Email tidak valid</string>
-    <string name="caption_error_field_login">Email atau password tidak valid</string>
-    <string name="caption_error_field_login_locked">Akun kamu terkunci untuk sementara waktu</string>
-    <string name="title_header_otp">Verifikasi kode OTP</string>
-    <string name="description_header_otp">Kode OTP dikirim ke %s</string>
-    <string name="label_teks_button_resend_otp">Kirim ulang kode OTP?</string>
-    <string name="label_button_otp">Verifikasi OTP</string>
-    <string name="label_alert_success">Kode OTP berhasil dikirim</string>
-    <string name="label_alert_error">Kode OTP gagal dikirm</string>
-    <string name="caption_error_field_otp">Kode OTP salah</string>
-    <string name="placeholder_teks_hour_otp">Tunggu 1 jam dan masukkan ulang kode otp</string>
-    <string name="placeholder_teks_waiting_otp">Kirim ulang kode dalam</string>
-    <string name="placeholder_teks_many_otp">Yah terlalu sering meminta OTP, tunggu 1 jam</string>
-
 </resources>

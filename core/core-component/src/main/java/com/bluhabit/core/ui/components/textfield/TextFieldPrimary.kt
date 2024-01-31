@@ -21,8 +21,8 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
-import com.bluhabit.core.ui.theme.UwangColors
-import com.bluhabit.core.ui.theme.UwangTypography
+import com.bluhabit.core.ui.theme.CustomColor
+import com.bluhabit.core.ui.theme.CustomTypography
 
 @Composable
 fun TextFieldPrimary(
@@ -30,40 +30,37 @@ fun TextFieldPrimary(
     label: @Composable (() -> Unit)? = null,
     shape: Shape = RoundedCornerShape(12.dp),
     colors: TextFieldColors = TextFieldDefaults.outlinedTextFieldColors(
-        textColor = UwangColors.Text.Main,
+        textColor = CustomColor.Neutral.Grey13,
         backgroundColor = Color.White,
-        focusedBorderColor = UwangColors.State.Primary.Main,
-        unfocusedBorderColor = UwangColors.Text.Border,
-        focusedLabelColor = UwangColors.Palette.Neutral.Grey7,
-        unfocusedLabelColor = UwangColors.Palette.Neutral.Grey7,
-        errorBorderColor = UwangColors.State.Error.Main,
-        cursorColor = UwangColors.Text.Main,
-        errorCursorColor = UwangColors.Text.Main
+        focusedBorderColor = CustomColor.Neutral.Grey13,
+        unfocusedBorderColor = CustomColor.Neutral.Grey5,
+        unfocusedLabelColor = CustomColor.Neutral.Grey7,
+        errorBorderColor = CustomColor.Error.Red500,
     ),
-    textStyle: TextStyle = UwangTypography.BodySmall.Regular,
+    textStyle: TextStyle = CustomTypography.Body.Small.W400,
     value: String = "",
     onValueChange: (String) -> Unit = {},
     enabled: Boolean = true,
-    isError: Boolean = false,
+    error: Boolean = false,
     leadingIcon: @Composable (() -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
-    singleLine: Boolean = true,
-    maxLines: Int = 1,
+    singleLine: Boolean = false,
+    maxLines: Int = Int.MAX_VALUE,
     readOnly: Boolean = false,
 ) {
     val focus = LocalFocusManager.current
     OutlinedTextField(
         modifier = modifier,
-        placeholder = label,
+        label = label,
         shape = shape,
         colors = colors,
         value = value,
         onValueChange = onValueChange,
         enabled = enabled,
         textStyle = textStyle,
-        isError = isError,
+        isError = error,
         leadingIcon = leadingIcon,
         trailingIcon = trailingIcon,
         visualTransformation = visualTransformation,

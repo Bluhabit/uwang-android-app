@@ -19,11 +19,15 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluhabit.core.ui.ext.Empty
-import com.bluhabit.core.ui.theme.UwangColors
+import com.bluhabit.core.ui.theme.Error300
+import com.bluhabit.core.ui.theme.Error700
+import com.bluhabit.core.ui.theme.Primary300
+import com.bluhabit.core.ui.theme.Primary700
 import com.bluhabit.core.ui.theme.UwangTheme
 
 /**
@@ -41,21 +45,22 @@ fun ButtonOutlinedPrimary(
     error: Boolean = false,
     onClick: () -> Unit = {}
 ) {
+    val ctx = LocalContext.current
     OutlinedButton(
-        modifier = modifier.height(40.dp),
+        modifier = modifier.height(44.dp),
         onClick = onClick,
         enabled = enabled,
         shape = RoundedCornerShape(8.dp),
         colors = ButtonDefaults.outlinedButtonColors(
             backgroundColor = Color.Transparent,
-            contentColor = if (error) UwangColors.Error.Red300 else UwangColors.Primary.Blue500,
-            disabledContentColor = if (error) UwangColors.Error.Red300 else UwangColors.Primary.Blue300
+            contentColor = if (error) Error700 else Primary700,
+            disabledContentColor = if (error) Error300 else Primary300
         ),
         border = BorderStroke(
             width = 1.dp,
             color = when {
-                error -> if (enabled) UwangColors.Error.Red500 else UwangColors.Primary.Blue300
-                else -> if (enabled) UwangColors.Primary.Blue500 else UwangColors.Primary.Blue300
+                error -> if (enabled) Error700 else Error300
+                else -> if (enabled) Primary700 else Primary300
             }
         ),
         elevation = ButtonDefaults.elevation(
