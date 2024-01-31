@@ -96,7 +96,6 @@ fun UploadPhotoProfileScreen(
             .fillMaxSize()
             .background(UwangColors.Base.White)
             .safeDrawingPadding()
-            .padding(vertical = dimens.dp_24)
             .verticalScroll(rememberScrollState()),
     ) {
         if (state.showDialogChoice) {
@@ -115,6 +114,7 @@ fun UploadPhotoProfileScreen(
         }
         Box(
             modifier = Modifier
+                .padding(top = 24.dp)
                 .fillMaxWidth()
         ) {
             Image(
@@ -166,7 +166,7 @@ fun UploadPhotoProfileScreen(
             ) {
                 Column(
                     verticalArrangement = Arrangement.spacedBy(16.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally
+                    horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     Box(
                         modifier = Modifier
@@ -217,29 +217,38 @@ fun UploadPhotoProfileScreen(
             }
         }
         Spacer(modifier = Modifier.weight(1f))
-        Divider(
-            color = UwangColors.Text.Border
+        Spacer(
+            modifier = Modifier
+                .padding(top = 24.dp) // Untuk jaga-jaga kalau layar di rotasi dan tidak bisa pakai weight 1f karena tidak ada ruang kosong)
         )
-        Spacer(modifier = Modifier.padding(bottom = dimens.dp_24))
-        Row(
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically,
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 16.dp, end = 16.dp, bottom = 1.dp)
+                .background(UwangColors.Base.White)
         ) {
-            ButtonOutlinedPrimary(
-                modifier = Modifier
-                    .width(dimens.from(102.dp))
-                    .height(dimens.from(36.dp)),
-                text = stringResource(id = R.string.label_button_pass)
+            Divider(
+                color = UwangColors.Text.Border
             )
-            ButtonPrimary(
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
-                    .width(dimens.from(102.dp))
-                    .height(dimens.from(36.dp)),
-                text = stringResource(id = R.string.label_button_next)
-            )
+                    .fillMaxWidth()
+                    .padding(horizontal = dimens.dp_16, vertical = dimens.dp_24)
+            ) {
+                ButtonOutlinedPrimary(
+                    modifier = Modifier
+                        .width(dimens.from(102.dp))
+                        .height(dimens.from(36.dp)),
+                    text = stringResource(id = R.string.label_button_pass)
+                )
+                ButtonPrimary(
+                    modifier = Modifier
+                        .width(dimens.from(102.dp))
+                        .height(dimens.from(36.dp)),
+                    text = stringResource(id = R.string.label_button_next)
+                )
+            }
         }
     }
 }

@@ -42,20 +42,19 @@ fun ThirdOnboardScreen(
         Image(
             painter = painterResource(id = R.drawable.vector_onboard_3),
             contentDescription = "",
-            contentScale = ContentScale.FillWidth,
             modifier = Modifier
                 .fillMaxWidth()
                 .align(Alignment.BottomCenter)
         )
         Column(
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxSize()
                 .padding(
                     horizontal = dimens.dp_16,
                 ),
         ) {
             Column(
-                modifier = modifier
+                modifier = Modifier
                     .padding(vertical = dimens.dp_24)
             ) {
                 Text(
