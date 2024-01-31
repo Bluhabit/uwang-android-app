@@ -116,12 +116,12 @@ fun ChooseLevelScreen(
                         .padding(horizontal = dimens.dp_16)
                 ) {
                     Text(
-                        text = stringResource(id = R.string.title_header_topic),
+                        text = stringResource(id = R.string.title_header_level),
                         style = UwangTypography.BodyXL.SemiBold,
                         color = UwangColors.Text.Main
                     )
                     Text(
-                        text = stringResource(id = R.string.description_header_topic),
+                        text = stringResource(id = R.string.description_header_level),
                         style = UwangTypography.BodySmall.Regular,
                         color = UwangColors.Text.Secondary
                     )

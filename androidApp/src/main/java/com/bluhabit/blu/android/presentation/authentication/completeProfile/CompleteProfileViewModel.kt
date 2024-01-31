@@ -50,6 +50,22 @@ class CompleteProfileViewModel @Inject constructor(
             // Upload Photo Profile Screen
             is CompleteProfileAction.OnProfileImageChange -> updateState { copy(profileImage = action.value) }
             is CompleteProfileAction.OnShowDialogChoice -> updateState { copy(showDialogChoice = action.show) }
+            // Choose Topic Screen
+            is CompleteProfileAction.OnAddSelectedList -> updateState {
+                val newList = selectedTopicList.toMutableList()
+                newList.add(action.topic)
+                copy(selectedTopicList = newList)
+            }
+            CompleteProfileAction.OnClearSelectedList -> updateState {
+                val newList = selectedTopicList.toMutableList()
+                newList.clear()
+                copy(selectedTopicList = newList)
+            }
+            is CompleteProfileAction.OnRemoveSelectedList -> updateState {
+                val newList = selectedTopicList.toMutableList()
+                newList.remove(action.topic)
+                copy(selectedTopicList = newList)
+            }
         }
     }
 

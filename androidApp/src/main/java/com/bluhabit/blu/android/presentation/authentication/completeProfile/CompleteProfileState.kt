@@ -10,6 +10,7 @@ package com.bluhabit.blu.android.presentation.authentication.completeProfile
 import android.graphics.Bitmap
 import com.bluehabit.core.ui.R
 import com.bluhabit.blu.android.presentation.authentication.completeProfile.screen.PreferenceItem
+import com.bluhabit.blu.android.presentation.authentication.completeProfile.screen.SelectedTopic
 import java.time.LocalDate
 import javax.annotation.concurrent.Immutable
 
@@ -43,4 +44,7 @@ data class CompleteProfileState(
     // UploadPhotoProfileScreen
     val profileImage: Bitmap? = null,
     val showDialogChoice: Boolean = false,
+    // Choose Topic Screen
+    val selectedTopicList: List<SelectedTopic> = listOf(),
+    val chooseTopicScreenNextButtonEnabled: Boolean = true,
 )
