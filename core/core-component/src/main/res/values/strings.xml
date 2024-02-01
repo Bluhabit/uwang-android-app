@@ -254,12 +254,12 @@
     <!-- end sign up screen  -->
 
     <!--  [NEW] forgot password screen  -->
-    <string name="reset_password_screen_reset_password">Reset Password</string>
-    <string name="reset_password_screen_hint">Masukkan alamat email yang terdaftar dan kami akan mengirimkan email berisi kode OTP untuk mengatur ulang Password</string>
-    <string name="reset_password_screen_email">Email</string>
+    <string name="reset_password_description_header">Masukkan alamat email yang terdaftar di Uwang.</string>
+    <string name="reset_password_input_label_email">Email</string>
+    <string name="reset_password_title_header">Ubah Password</string>
     <string name="reset_password_screen_confirm_password_label">Konfirmasi Password</string>
     <string name="reset_password_screen_email_text_field_label">Contoh : jenny11@gmail.com</string>
-    <string name="reset_password_screen_next">Selanjutnya</string>
+    <string name="reset_password_screen_next">Lanjut</string>
     <!-- end forgot password screen  -->
 
     <!--  [NEW] forgot password screen  -->

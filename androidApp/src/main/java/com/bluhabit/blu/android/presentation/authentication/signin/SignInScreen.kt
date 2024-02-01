@@ -20,6 +20,7 @@ import com.bluhabit.blu.android.presentation.authentication.signin.screen.InputS
 import com.bluhabit.blu.android.presentation.authentication.signin.screen.OtpSignInScreen
 import com.bluhabit.blu.data.common.Response
 import com.bluhabit.blu.data.contract.GoogleAuthContract
+import com.bluhabit.core.ui.components.dialog.DialogLoading
 import com.bluhabit.core.ui.theme.UwangTheme
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
@@ -37,7 +38,7 @@ fun SignInScreen(
     LaunchedEffect(key1 = effect, block = {
         when (effect) {
             SignInEffect.None -> Unit
-            SignInEffect.NavigateToCompleteProfile -> {
+            SignInEffect.NavigateToPersonalize -> {
                 navHostController.navigate("complete_profile")
             }
 
@@ -62,6 +63,7 @@ fun SignInScreen(
         }
     }
 
+    DialogLoading(show = state.showLoading)
     when (state.currentScreen) {
         0 -> {
             InputSignInScreen(

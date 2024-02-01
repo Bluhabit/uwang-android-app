@@ -77,9 +77,7 @@ class SignInViewModel @Inject constructor(
     override fun onCleared() {
         super.onCleared()
         countDownTimer?.cancel()
-        updateState {
-            SignInState() // Clearing saved state
-        }
+        _state.value = SignInState()
     }
 
     private fun reSentOtp() {
@@ -130,24 +128,19 @@ class SignInViewModel @Inject constructor(
                 password = state.value.passwordState
             )
         }
-            .onStart { }
+            .onStart {
+                updateState { copy(showLoading = true) }
+            }
             .onEach {
+                updateState { copy(showLoading = false) }
                 when (it) {
                     is Response.Error -> {
-                        updateState {
-                            copy(
-                                signInButtonEnabled = true
-                            )
-                        }
+                        updateState { copy(signInButtonEnabled = true) }
                     }
 
                     is Response.Result -> {
                         //go to otp
-                        updateState {
-                            copy(
-                                currentScreen = 1,
-                            )
-                        }
+                        updateState { copy(currentScreen = 1) }
                     }
                 }
             }
@@ -156,13 +149,16 @@ class SignInViewModel @Inject constructor(
 
     private fun verifyOtp() = viewModelScope.launch {
         executeAsFlow { verifyOtpSignInBasicUseCase(state.value.otpNumberState) }
-            .onStart { }
+            .onStart {
+                updateState { copy(showLoading = true) }
+            }
             .onEach {
+                updateState { copy(showLoading = false) }
                 when (it) {
                     is Response.Error -> Unit
                     is Response.Result -> {
                         if (it.data.credential.profile.isEmpty()) {
-                            _effect.send(SignInEffect.NavigateToCompleteProfile)
+                            _effect.send(SignInEffect.NavigateToPersonalize)
                         } else {
                             _effect.send(SignInEffect.NavigateToMain)
                         }
@@ -176,13 +172,16 @@ class SignInViewModel @Inject constructor(
     private fun signInGoogle(task: Task<GoogleSignInAccount>) = viewModelScope.launch {
         val auth = task.await()
         executeAsFlow { signInGoogleUseCase(auth.idToken.orEmpty()) }
-            .onStart { }
+            .onStart {
+                updateState { copy(showLoading = true) }
+            }
             .onEach {
+                updateState { copy(showLoading = false) }
                 when (it) {
                     is Response.Error -> Unit
                     is Response.Result -> {
                         if (it.data.credential.profile.isEmpty()) {
-                            _effect.send(SignInEffect.NavigateToCompleteProfile)
+                            _effect.send(SignInEffect.NavigateToPersonalize)
                         } else {
                             _effect.send(SignInEffect.NavigateToMain)
                         }

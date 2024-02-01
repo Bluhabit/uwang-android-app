@@ -54,7 +54,7 @@ fun ForgotPasswordScreen(
             onBackPressed = {
                 goBack()
             },
-            onAction=onAction
+            action=onAction
         )
 
         1 -> OtpForgotPasswordScreen(

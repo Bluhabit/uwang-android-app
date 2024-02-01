@@ -81,7 +81,7 @@ fun OtpSignInScreen(
                     .size(dimens.dp_24)
                     .align(Alignment.CenterStart)
                     .clickable {
-                        // On Back Pressed
+                       onBackPressed()
                     }
             )
             Image(

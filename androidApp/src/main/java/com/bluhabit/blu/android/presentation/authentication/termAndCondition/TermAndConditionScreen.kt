@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Icon
@@ -33,14 +34,16 @@ import com.google.android.material.textview.MaterialTextView
 
 @Composable
 fun TermAndConditionScreen(
+    modifier: Modifier=Modifier,
     onBackPressed: () -> Unit
 ) {
     val context = LocalContext.current
     Column(
         verticalArrangement = Arrangement.spacedBy(16.dp),
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .background(colors.background)
+            .safeDrawingPadding()
             .verticalScroll(rememberScrollState()),
     ) {
         IconButton(
@@ -54,7 +57,7 @@ fun TermAndConditionScreen(
         }
         // Display
         AndroidView(
-            modifier = Modifier
+            modifier = modifier
                 .padding(horizontal = 16.dp),
             factory = {
                 MaterialTextView(it).apply {

@@ -49,13 +49,16 @@ class OnboardViewModel @Inject constructor(
     private suspend fun signInGoogle(task: Task<GoogleSignInAccount>) = viewModelScope.launch {
         val auth = task.await()
         executeAsFlow { signInGoogleUseCase(auth.idToken.orEmpty()) }
-            .onStart { }
+            .onStart {
+                updateState { copy(showLoading = true) }
+            }
             .onEach {
+                updateState { copy(showLoading = false) }
                 when (it) {
                     is Response.Error -> Unit
                     is Response.Result -> {
                         if (it.data.credential.profile.isEmpty()) {
-                            _effect.send(OnboardEffect.NavigateCompleteProfile)
+                            _effect.send(OnboardEffect.NavigateToPersonalize)
                         } else {
                             _effect.send(OnboardEffect.NavigateHome)
                         }

@@ -7,6 +7,7 @@
 
 package com.bluhabit.blu.android.presentation.authentication.forgotPassword
 
+import android.os.CountDownTimer
 import android.util.Patterns
 import androidx.lifecycle.viewModelScope
 import com.bluhabit.blu.android.common.BaseViewModel
@@ -30,6 +31,7 @@ class ForgotPasswordViewModel @Inject constructor(
 ) : BaseViewModel<ForgotPasswordState, ForgotPasswordAction, ForgotPasswordEffect>(
     ForgotPasswordState()
 ) {
+    private var countDownTimer: CountDownTimer? = null
     override fun onAction(action: ForgotPasswordAction) {
         when (action) {
             is ForgotPasswordAction.OnEmailChange -> onChangeEmail(action.value)
@@ -41,17 +43,46 @@ class ForgotPasswordViewModel @Inject constructor(
             ForgotPasswordAction.ForgotPassword -> onForgotPassword()
             ForgotPasswordAction.VerifyOtp -> onVerifyOtpForgotPassword()
             ForgotPasswordAction.SetNewPassword -> onSetForgotPassword()
-            is ForgotPasswordAction.OnConfirmPasswordVisibilityChange -> updateState { copy(passwordVisibility=action.visibility) }
+            is ForgotPasswordAction.OnConfirmPasswordVisibilityChange -> updateState { copy(passwordVisibility = action.visibility) }
             is ForgotPasswordAction.OnNewPasswordVisibilityChange -> updateState {
-                copy(confirmPasswordVisibility=action.visibility)
+                copy(confirmPasswordVisibility = action.visibility)
             }
+
+            ForgotPasswordAction.OnCountDownStart -> onCountDownStart()
+            ForgotPasswordAction.OnResentOtp -> {}
+            is ForgotPasswordAction.OnSentOtpAlertVisibilityChange -> {}
+            ForgotPasswordAction.OnVerifyOtp -> onVerifyOtpForgotPassword()
         }
     }
 
 
-    private fun onOtpChange(otp:String)=viewModelScope.launch {
-        updateState { copy(otpState=otp) }
+    private fun onCountDownStart() {
+        val countDownTime = _state.value.otpSentCountDown
+        if (countDownTime > 0) {
+            countDownTimer = object : CountDownTimer(countDownTime, 1000) {
+                override fun onTick(millisUntilFinished: Long) {
+                    updateState { copy(otpSentCountDown = millisUntilFinished) }
+                }
+
+                override fun onFinish() {
+                    countDownTimer?.cancel()
+                }
+            }
+            countDownTimer?.start()
+        }
     }
+
+    override fun onCleared() {
+        super.onCleared()
+        countDownTimer?.cancel()
+        _state.value = ForgotPasswordState()
+    }
+
+
+    private fun onOtpChange(otp: String) = viewModelScope.launch {
+        updateState { copy(otpNumberState = otp) }
+    }
+
     private fun onChangeEmail(email: String) = viewModelScope.launch {
         val isEmailValid = Patterns.EMAIL_ADDRESS.matcher(email).matches()
         updateState {
@@ -62,25 +93,29 @@ class ForgotPasswordViewModel @Inject constructor(
         }
     }
 
-    private fun onPasswordChange(password:String)=viewModelScope.launch {
-        updateState { copy(
-            passwordState=password,
-            passwordError = password.isEmpty()
-        ) }
+    private fun onPasswordChange(password: String) = viewModelScope.launch {
+        updateState {
+            copy(
+                passwordState = password,
+                passwordError = password.isEmpty()
+            )
+        }
     }
 
-    private fun onConfirmPasswordChange(password:String)=viewModelScope.launch {
-        updateState { copy(
-            confirmPasswordState =password,
-            confirmPasswordError = password.isEmpty()
-        ) }
+    private fun onConfirmPasswordChange(password: String) = viewModelScope.launch {
+        updateState {
+            copy(
+                confirmPasswordState = password,
+                confirmPasswordError = password.isEmpty()
+            )
+        }
     }
 
-    private fun onForgotPassword()=viewModelScope.launch {
+    private fun onForgotPassword() = viewModelScope.launch {
         executeAsFlow { forgotPasswordUseCase(email = state.value.emailState) }
-            .onStart {  }
+            .onStart { }
             .onEach {
-                when(it){
+                when (it) {
                     is Response.Error -> Unit
                     is Response.Result -> {
                         updateState { copy(currentScreen = 1) }
@@ -90,12 +125,12 @@ class ForgotPasswordViewModel @Inject constructor(
             .collect()
     }
 
-    private fun onVerifyOtpForgotPassword()=viewModelScope.launch {
-        executeAsFlow { verifyOtpForgotPasswordUseCase(otp = state.value.otpState) }
-            .onStart {  }
+    private fun onVerifyOtpForgotPassword() = viewModelScope.launch {
+        executeAsFlow { verifyOtpForgotPasswordUseCase(otp = state.value.otpNumberState) }
+            .onStart { }
             .onEach {
-                when(it){
-                    is Response.Error ->Unit
+                when (it) {
+                    is Response.Error -> Unit
                     is Response.Result -> {
                         updateState { copy(currentScreen = 2) }
                     }
@@ -103,12 +138,13 @@ class ForgotPasswordViewModel @Inject constructor(
             }
             .collect()
     }
-    private fun onSetForgotPassword()=viewModelScope.launch {
+
+    private fun onSetForgotPassword() = viewModelScope.launch {
         executeAsFlow { setForgotPasswordUseCase(password = state.value.passwordState) }
-            .onStart {  }
+            .onStart { }
             .onEach {
-                when(it){
-                    is Response.Error ->Unit
+                when (it) {
+                    is Response.Error -> Unit
                     is Response.Result -> {
                         updateState { copy(currentScreen = 3) }
                     }

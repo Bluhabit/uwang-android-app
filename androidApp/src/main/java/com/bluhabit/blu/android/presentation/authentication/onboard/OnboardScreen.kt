@@ -13,20 +13,11 @@ import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -35,15 +26,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
@@ -56,9 +43,7 @@ import com.bluhabit.blu.android.presentation.authentication.onboard.screen.Secon
 import com.bluhabit.blu.android.presentation.authentication.onboard.screen.ThirdOnboardScreen
 import com.bluhabit.blu.data.common.Response
 import com.bluhabit.blu.data.contract.GoogleAuthContract
-import com.bluhabit.core.ui.components.button.ButtonGoogle
-import com.bluhabit.core.ui.components.button.ButtonOutlinedPrimary
-import com.bluhabit.core.ui.theme.CustomTypography
+import com.bluhabit.core.ui.components.dialog.DialogLoading
 import com.bluhabit.core.ui.theme.UwangColors
 import com.bluhabit.core.ui.theme.UwangTheme
 import kotlinx.coroutines.flow.Flow
@@ -99,7 +84,7 @@ fun OnboardScreen(
     val pagerState = rememberPagerState(
         initialPage = 0, initialPageOffsetFraction = 0f
     ) { 4 }
-    var isOnBoaardFinished by remember {
+    var isOnBoardFinished by remember {
         mutableStateOf(false)
     }
     val progressAnimation = remember {
@@ -107,7 +92,7 @@ fun OnboardScreen(
     }
 
     fun finishedOnBoard() {
-        isOnBoaardFinished = true
+        isOnBoardFinished = true
     }
 
     fun nextScreen() {
@@ -161,11 +146,11 @@ fun OnboardScreen(
             is OnboardEffect.ShowDialog -> Unit
             OnboardEffect.NavigateAuth -> Unit
             OnboardEffect.NavigateHome -> navHostController.navigate("home")
-            OnboardEffect.NavigateCompleteProfile -> navHostController.navigate("complete_profile")
+            OnboardEffect.NavigateToPersonalize -> navHostController.navigate("complete_profile")
         }
 
     })
-    LaunchedEffect(key1 = pagerState.currentPage , block = {
+    LaunchedEffect(key1 = pagerState.currentPage, block = {
         progressAnimation.snapTo(0f)
         progressAnimation.animateTo(
             1f,
@@ -177,12 +162,13 @@ fun OnboardScreen(
         nextScreen()
     })
 
+    DialogLoading(show = state.showLoading)
     Box(
         modifier = modifier
             .fillMaxSize()
             .background(MaterialTheme.colors.surface)
     ) {
-        if (isOnBoaardFinished) {
+        if (isOnBoardFinished) {
             GetStartedScreen(
                 onBackToOnboard = {
                     scope.launch {
@@ -191,7 +177,19 @@ fun OnboardScreen(
                         )
                         progressAnimation.snapTo(0f)
                     }
-                    isOnBoaardFinished = false
+                    isOnBoardFinished = false
+                },
+                onNavigateToTermCondition = {
+                    navHostController.navigate("term_and_condition")
+                },
+                onNavigationToSignIn = {
+                    navHostController.navigate("sign_in")
+                },
+                onSignInGoogle = {
+                    googleAuthLauncher.launch(1)
+                },
+                onSignUp = {
+                    navHostController.navigate("sign_up")
                 }
             )
         } else {
@@ -223,89 +221,14 @@ fun OnboardScreen(
 
                         when (page) {
                             0 -> FirstOnboardScreen()
-
-
                             1 -> SecondOnboardScreen()
-
-
                             2 -> ThirdOnboardScreen()
-
                             3 -> FourthOnboardScreen()
-
                         }
                     }
                 }
             )
         }
-    }
-}
-
-
-@Composable
-fun StepFour(
-    onSignInGoogle: () -> Unit,
-    onNavigationToSignInEmail: () -> Unit,
-    onNavigateToSignUp: () -> Unit,
-    onNavigateToTermCondition: () -> Unit,
-
-    ) {
-    ButtonGoogle(
-        modifier = Modifier.fillMaxWidth(),
-        text = stringResource(id = R.string.onboard_screen_sign_in_google_button_text),
-        onClick = onSignInGoogle
-    )
-    Row(
-        modifier = Modifier.padding(horizontal = 16.dp, vertical = 18.dp), verticalAlignment = Alignment.CenterVertically
-    ) {
-        Divider(
-            modifier = Modifier.weight(0.9f)
-        )
-        Text(
-            text = stringResource(id = R.string.label_divider),
-            style = CustomTypography.Body.Small.W400,
-            color = UwangColors.Neutral.Grey8,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.weight(0.4f)
-        )
-        Divider(
-            modifier = Modifier.weight(0.9f)
-        )
-    }
-    ButtonOutlinedPrimary(
-        modifier = Modifier.fillMaxWidth(),
-        text = stringResource(id = R.string.onboard_screen_sign_in_email_button_text),
-        onClick = onNavigationToSignInEmail
-    )
-    Row(
-        modifier = Modifier
-            .fillMaxWidth(),
-        horizontalArrangement = Arrangement.Start,
-    ) {
-        Text(
-            text = stringResource(id = R.string.placeholder_teks_register),
-            style = CustomTypography.Body.Small.W400,
-            color = UwangColors.Neutral.Grey9
-        )
-        Text(text = stringResource(id = R.string.label_teks_button_register),
-            style = CustomTypography.Body.Small.W400,
-            color = UwangColors.Primary.Blue500,
-            modifier = Modifier.clickable {
-                onNavigateToSignUp()
-            })
-    }
-    Spacer(modifier = Modifier.padding(bottom = 16.dp))
-    Column {
-        Text(
-            text = stringResource(id = R.string.onboard_screen_term_and_condition_1),
-            style = CustomTypography.Body.Small.W400,
-            color = UwangColors.Neutral.Grey7
-        )
-        Text(text = stringResource(id = R.string.onboard_screen_term_and_condition_2),
-            style = CustomTypography.Body.Small.W400,
-            color = UwangColors.Primary.Blue500,
-            modifier = Modifier.clickable {
-                onNavigateToTermCondition()
-            })
     }
 }
 

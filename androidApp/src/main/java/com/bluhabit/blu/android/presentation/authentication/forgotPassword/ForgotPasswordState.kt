@@ -14,11 +14,16 @@ data class ForgotPasswordState(
     //global
     val currentScreen:Int=0,
 
-    val otpButtonEnabled:Boolean=false,
-
-    val otpState:String="",
-    val otpError:Boolean=false,
-    val otpErrorText:String="",
+    // Otp Forgot Password Screen
+    val otpSentCountDown: Long = 120_000L,
+    val otpNumberState: String = "",
+    val otpNumberError: Boolean = false,
+    val otpNumberEnabled: Boolean = true,
+    val otpSentAlertVisibility: Boolean = false,
+    val otpSentAlertSuccess: Boolean = false,
+    val otpSentLimit: Boolean = false,
+    val isAccountLocked: Boolean = false,
+    val verifyOtpButtonEnabled: Boolean = true,
 
     val emailState: String="",
     val emailError: Boolean = false,
