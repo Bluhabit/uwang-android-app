@@ -8,6 +8,7 @@
 package com.bluhabit.blu.android.presentation.authentication.completeProfile
 
 import android.graphics.Bitmap
+import com.bluhabit.blu.android.presentation.authentication.completeProfile.screen.SelectedTopic
 import java.time.LocalDate
 
 sealed interface CompleteProfileAction {
@@ -40,5 +41,13 @@ sealed interface CompleteProfileAction {
     ) : CompleteProfileAction
     data class OnShowDialogChoice (
         val show: Boolean,
+    ) : CompleteProfileAction
+    // Choose Topic Screen
+    object OnClearSelectedList: CompleteProfileAction
+    data class OnAddSelectedList(
+        val topic: SelectedTopic,
+    ) : CompleteProfileAction
+    data class OnRemoveSelectedList(
+        val topic: SelectedTopic,
     ) : CompleteProfileAction
 }
