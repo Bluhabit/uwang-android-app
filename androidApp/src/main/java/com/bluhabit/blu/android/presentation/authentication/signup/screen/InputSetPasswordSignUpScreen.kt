@@ -30,8 +30,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.bluehabit.core.ui.R
-import com.bluhabit.blu.android.presentation.authentication.forgotPassword.ForgotPasswordAction
-import com.bluhabit.blu.android.presentation.authentication.forgotPassword.ForgotPasswordState
 import com.bluhabit.blu.android.presentation.authentication.signup.SignUpAction
 import com.bluhabit.blu.android.presentation.authentication.signup.SignUpState
 import com.bluhabit.core.ui.components.button.ButtonPrimary
