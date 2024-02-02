@@ -7,9 +7,6 @@
 
 package com.bluhabit.blu.android.presentation.authentication.signup
 
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.gms.tasks.Task
-
 sealed interface SignUpAction {
     data class OnScreenChange(
         val screen: Int = 0,
@@ -35,15 +32,9 @@ sealed interface SignUpAction {
         val visibility: Boolean = false
     ) : SignUpAction
 
-    data class OnSignInGoogle(
-        val authResult: Task<GoogleSignInAccount>
-    ) : SignUpAction
-
     data class OnButtonEnabledChange(
         val enabled: Boolean = false,
     ) : SignUpAction
-
-    object SignUpBasic : SignUpAction
 
     // Otp Sign Up Screen
     data class OnOtpChange(
@@ -54,6 +45,7 @@ sealed interface SignUpAction {
         val visibility: Boolean = false,
     ) : SignUpAction
 
+    object SignUpBasic : SignUpAction
     object OnCountDownStart : SignUpAction
     object OnResentOtp : SignUpAction
     object OnVerifyOtp : SignUpAction

@@ -42,7 +42,7 @@ import com.bluhabit.core.ui.theme.UwangTheme
 import com.bluhabit.core.ui.theme.UwangTypography
 
 @Composable
-fun InputSignUpScreen(
+fun CompleteProfileSignUpScreen(
     state: SignUpState = SignUpState(),
     onBackPressed: () -> Unit,
     action: (SignUpAction) -> Unit
@@ -123,9 +123,9 @@ fun InputSignUpScreen(
 
 @Preview
 @Composable
-fun TermAndConditionScreenPreview() {
+fun CompleteProfileSignUpScreenPreview() {
     UwangTheme {
-        InputSignUpScreen(
+        CompleteProfileSignUpScreen(
             onBackPressed = {},
             action = {}
         )

@@ -50,7 +50,6 @@ class SignUpViewModel @Inject constructor(
             SignUpAction.SignUpBasic -> signUpBasic()
             SignUpAction.OnVerifyOtp -> verifyOtp()
             is SignUpAction.OnButtonEnabledChange -> updateState { copy(signUpButtonEnabled = false) }
-            is SignUpAction.OnSignInGoogle -> signUpGoogle(action.authResult)
             is SignUpAction.OnSentOtpAlertVisibilityChange -> updateState { copy(otpSentAlertVisibility = action.visibility) }
             SignUpAction.OnCountDownStart -> onCountDownStart()
             SignUpAction.OnResentOtp -> reSentOtp()
@@ -177,25 +176,6 @@ class SignUpViewModel @Inject constructor(
                     is Response.Error -> Unit
                     is Response.Result -> {
                         _effect.send(SignUpEffect.NavigateToCompleteProfile)
-                    }
-                }
-            }
-            .collect()
-    }
-
-    private fun signUpGoogle(task: Task<GoogleSignInAccount>) = viewModelScope.launch {
-        val auth = task.await()
-        executeAsFlow { signInGoogleUseCase(auth.idToken.orEmpty()) }
-            .onStart { }
-            .onEach {
-                when (it) {
-                    is Response.Error -> Unit
-                    is Response.Result -> {
-                        if (it.data.credential.profile.isEmpty()) {
-                            _effect.send(SignUpEffect.NavigateToCompleteProfile)
-                        } else {
-                            _effect.send(SignUpEffect.NavigateToMain)
-                        }
                     }
                 }
             }
