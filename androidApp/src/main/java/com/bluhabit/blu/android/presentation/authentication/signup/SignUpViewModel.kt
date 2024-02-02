@@ -17,15 +17,12 @@ import com.bluhabit.blu.android.data.authentication.domain.VerifyOtpSignUpBasicU
 import com.bluhabit.blu.data.common.Response
 import com.bluhabit.blu.data.common.executeAsFlow
 import com.bluhabit.core.ui.components.textfield.TextFieldState
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.gms.tasks.Task
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
 
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
