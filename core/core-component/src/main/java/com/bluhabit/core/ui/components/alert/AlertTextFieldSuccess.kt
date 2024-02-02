@@ -45,7 +45,7 @@ fun AlertTextFieldSuccess(
         Text(
             text = message,
             style = UwangTypography.LabelMedium.Regular,
-            color = UwangColors.State.Error.Main
+            color = UwangColors.State.Success.Main
         )
     }
 }

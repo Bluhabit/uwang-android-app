@@ -10,7 +10,9 @@ package com.bluhabit.core.ui.components.textfield
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
@@ -33,6 +35,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluehabit.core.ui.R
 import com.bluhabit.core.ui.components.alert.AlertTextFieldError
@@ -40,6 +43,7 @@ import com.bluhabit.core.ui.components.alert.AlertTextFieldSuccess
 import com.bluhabit.core.ui.components.alert.AlertTextFieldWithHint
 import com.bluhabit.core.ui.theme.UwangColors
 import com.bluhabit.core.ui.theme.UwangDimens
+import com.bluhabit.core.ui.theme.UwangTheme
 import com.bluhabit.core.ui.theme.UwangTypography
 
 @Composable
@@ -167,15 +171,7 @@ fun TextFieldPrimary(
                     }
 
                     TextFieldState.None -> Unit
-                    is TextFieldState.Success -> {
-                        Image(
-                            painter = painterResource(id = R.drawable.info),
-                            contentDescription = "",
-                            modifier = Modifier
-                                .size(dimens.dp_16)
-                        )
-                    }
-
+                    is TextFieldState.Success -> Unit
                     is TextFieldState.WithHint -> Unit
                 }
             },
@@ -271,3 +267,30 @@ fun TextFieldPasswordPrimary(
     }
 }
 
+
+@Preview
+@Composable
+fun PreviewTextField() {
+    UwangTheme {
+        Column(
+            verticalArrangement = Arrangement.spacedBy(4.dp),
+        ) {
+            TextFieldPrimary(
+                modifier = Modifier.fillMaxWidth(),
+                label = stringResource(id = R.string.reset_password_input_label_email),
+                placeholder = stringResource(id = R.string.reset_password_input_placeholder_email),
+                value = "triandamai@gmail.com",
+                onValueChange = {},
+                state = TextFieldState.Success("Sukses"),
+            )
+            TextFieldPrimary(
+                modifier = Modifier.fillMaxWidth(),
+                label = stringResource(id = R.string.reset_password_input_label_email),
+                placeholder = stringResource(id = R.string.reset_password_input_placeholder_email),
+                value = "triandamai@gmail.com",
+                onValueChange = {},
+                state = TextFieldState.None,
+            )
+        }
+    }
+}
