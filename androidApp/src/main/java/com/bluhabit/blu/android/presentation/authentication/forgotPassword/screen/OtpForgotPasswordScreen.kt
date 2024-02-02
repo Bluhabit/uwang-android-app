@@ -109,46 +109,20 @@ fun OtpForgotPasswordScreen(
             color = UwangColors.Text.Secondary
         )
         Spacer(modifier = Modifier.padding(bottom = dimens.dp_24))
-        Box(
+        TextFieldOtp(
             modifier = Modifier.fillMaxWidth(),
-        ) {
-            TextFieldOtp(
-                modifier = Modifier.align(Alignment.Center),
-                enabled = state.otpNumberEnabled && !state.isAccountLocked,
-                length = 4,
-                value = state.otpNumberState,
-                error = state.otpNumberError,
-                onDone = {
-                    focusManager.clearFocus(true)
-                    onAction(ForgotPasswordAction.OnVerifyOtp)
-                },
-                onChange = { value ->
-                    onAction(ForgotPasswordAction.OnOtpChange(value = value))
-                }
-            )
-        }
-        Spacer(modifier = Modifier.padding(bottom = 5.dp))
-        if (state.otpNumberError) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.alert_triangle),
-                    contentDescription = "",
-                    modifier = Modifier
-                        .size(dimens.dp_16)
-                )
-                Spacer(modifier = Modifier.padding(end = dimens.dp_8))
-                Text(
-                    text = "Kode OTP salah",
-                    style = UwangTypography.LabelMedium.Regular,
-                    color = UwangColors.State.Error.Main
-                )
+            enabled = state.otpNumberEnabled && !state.isAccountLocked,
+            length = 4,
+            value = state.otpNumberState,
+            state=state.emailInputState,
+            onDone = {
+                focusManager.clearFocus(true)
+                onAction(ForgotPasswordAction.OnVerifyOtp)
+            },
+            onChange = { value ->
+                onAction(ForgotPasswordAction.OnOtpChange(value = value))
             }
-        }
+        )
         Spacer(modifier = Modifier.padding(bottom = dimens.dp_24))
         when {
             state.isAccountLocked -> {
@@ -192,7 +166,7 @@ fun OtpForgotPasswordScreen(
                     color = UwangColors.State.Primary.Main,
                     modifier = Modifier
                         .clickable {
-                            onAction(ForgotPasswordAction.OnResentOtp)
+                            onAction(ForgotPasswordAction.OnResendOtp)
                         }
                 )
             }

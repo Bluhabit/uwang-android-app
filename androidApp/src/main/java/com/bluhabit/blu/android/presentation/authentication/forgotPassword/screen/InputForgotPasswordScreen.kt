@@ -9,23 +9,22 @@ package com.bluhabit.blu.android.presentation.authentication.forgotPassword.scre
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -36,7 +35,7 @@ import com.bluhabit.blu.android.presentation.authentication.forgotPassword.Forgo
 import com.bluhabit.blu.android.presentation.authentication.forgotPassword.ForgotPasswordState
 import com.bluhabit.core.ui.components.button.ButtonPrimary
 import com.bluhabit.core.ui.components.textfield.TextFieldPrimary
-import com.bluhabit.core.ui.theme.CustomTypography
+import com.bluhabit.core.ui.components.textfield.TextFieldState
 import com.bluhabit.core.ui.theme.UwangColors
 import com.bluhabit.core.ui.theme.UwangDimens
 import com.bluhabit.core.ui.theme.UwangTheme
@@ -48,105 +47,81 @@ fun InputForgotPasswordScreen(
     onBackPressed: () -> Unit,
     action: (ForgotPasswordAction) -> Unit = {},
 ) {
-    val ctx= LocalContext.current
+    val ctx = LocalContext.current
     val dimens = UwangDimens.from(ctx)
     Column(
-        verticalArrangement = Arrangement.spacedBy(16.dp),
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colors.background)
-            .verticalScroll(rememberScrollState()),
+            .background(Color.White)
+            .safeDrawingPadding()
+            .padding(horizontal = dimens.dp_16, vertical = dimens.dp_24),
+        verticalArrangement = Arrangement.SpaceBetween
     ) {
-        IconButton(
-            onClick = {
-                onBackPressed()
-            }) {
-            Icon(
-                painter = painterResource(id = R.drawable.ic_arrow_back),
-                contentDescription = "arrow back"
-            )
-        }
-        Column(
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-            modifier = Modifier
-                .padding(horizontal = 16.dp)
-        ) {
+        Column {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_arrow_back),
+                    contentDescription = "arrow back",
+                    modifier = Modifier
+                        .size(dimens.dp_24)
+                        .align(Alignment.CenterStart)
+                        .clickable {
+                            onBackPressed()
+                        }
+                )
+                Image(
+                    painter = painterResource(id = R.drawable.app_logo),
+                    contentDescription = "",
+                    modifier = Modifier
+                        .size(dimens.dp_24)
+                        .align(Alignment.Center)
+                )
+            }
+            Spacer(modifier = Modifier.padding(bottom = dimens.dp_24))
             Text(
                 text = stringResource(id = R.string.reset_password_title_header),
-                style = CustomTypography.Body.XL.W600,
-                color = UwangColors.Neutral.Grey13
+                style = UwangTypography.BodyLarge.SemiBold,
+                color = UwangColors.Text.Main
             )
+            Spacer(modifier = Modifier.padding(bottom = 4.dp))
             Text(
                 text = stringResource(id = R.string.reset_password_description_header),
-                style = CustomTypography.Body.Small.W400,
-                color = UwangColors.Neutral.Grey9
+                style = UwangTypography.BodySmall.Regular,
+                color = UwangColors.Text.Secondary
             )
+            Spacer(modifier = Modifier.padding(bottom = dimens.dp_16))
+            Column(
+                verticalArrangement = Arrangement.spacedBy(4.dp),
+            ) {
+                TextFieldPrimary(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    label = stringResource(id = R.string.reset_password_input_label_email),
+                    placeholder = stringResource(id = R.string.reset_password_input_placeholder_email),
+                    value = state.emailState,
+                    onValueChange = {
+                        action(ForgotPasswordAction.OnEmailChange(it))
+                    },
+                    state = state.emailInputState,
+                )
+            }
+            Spacer(modifier = Modifier.padding(bottom = dimens.dp_12))
         }
-
         Column(
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-            modifier = Modifier
-                .padding(horizontal = 16.dp)
+            verticalArrangement = Arrangement.spacedBy(dimens.dp_24),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
-                text = stringResource(id = R.string.reset_password_input_label_email),
-                style = CustomTypography.Body.Small.W400,
-                color = UwangColors.Neutral.Grey9
-            )
-            TextFieldPrimary(
+            ButtonPrimary(
                 modifier = Modifier
                     .fillMaxWidth(),
-                label = {
-                    Text(
-                        text = stringResource(id = R.string.placholder_field_email),
-                        style = UwangTypography.BodySmall.Regular,
-                        color = UwangColors.Palette.Neutral.Grey7
-                    )
-                },
-                value = state.emailState,
-                onValueChange = {
-                    action(ForgotPasswordAction.OnEmailChange(value = it))
-                },
-                isError = state.emailError,
-                trailingIcon = {
-                    if (state.emailError) {
-                        Image(
-                            painter = painterResource(id = R.drawable.info),
-                            contentDescription = "",
-                            modifier = Modifier
-                                .size(dimens.dp_16)
-                        )
-                    }
-                }
-            )
-            if (state.emailError) {
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.alert_triangle),
-                        contentDescription = "",
-                        modifier = Modifier
-                            .size(dimens.dp_16)
-                    )
-                    Text(
-                        text = state.emailErrorText,
-                        style = UwangTypography.LabelMedium.Regular,
-                        color = UwangColors.State.Error.Main
-                    )
-                }
+                text = stringResource(id = R.string.reset_password_screen_next),
+                enabled = state.emailInputState !is TextFieldState.Error && state.emailState.isNotEmpty() && !state.isAccountLocked
+            ) {
+                action(ForgotPasswordAction.RequestResetPassword)
             }
-        }
-        Spacer(modifier = Modifier.weight(1f))
-        ButtonPrimary(
-            text = stringResource(id = R.string.reset_password_screen_next),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = 16.dp, end = 16.dp, bottom = 42.dp),
-            enabled = state.nextButtonEnabled
-        ) {
-            action(ForgotPasswordAction.ForgotPassword)
         }
     }
 }

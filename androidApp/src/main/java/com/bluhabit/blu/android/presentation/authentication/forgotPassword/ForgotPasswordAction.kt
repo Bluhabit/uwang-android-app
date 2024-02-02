@@ -37,7 +37,7 @@ sealed interface ForgotPasswordAction {
         val enabled: Boolean = true,
     ) : ForgotPasswordAction
 
-    object ForgotPassword : ForgotPasswordAction
+    object RequestResetPassword : ForgotPasswordAction
     object VerifyOtp : ForgotPasswordAction
     object SetNewPassword : ForgotPasswordAction
 
@@ -51,6 +51,6 @@ sealed interface ForgotPasswordAction {
     ) : ForgotPasswordAction
 
     object OnCountDownStart : ForgotPasswordAction
-    object OnResentOtp : ForgotPasswordAction
+    object OnResendOtp : ForgotPasswordAction
     object OnVerifyOtp : ForgotPasswordAction
 }

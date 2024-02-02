@@ -16,7 +16,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.bluhabit.blu.android.presentation.authentication.forgotPassword.screen.CompleteForgotPasswordScreen
 import com.bluhabit.blu.android.presentation.authentication.forgotPassword.screen.InputForgotPasswordScreen
 import com.bluhabit.blu.android.presentation.authentication.forgotPassword.screen.InputNewPasswordScreen
 import com.bluhabit.blu.android.presentation.authentication.forgotPassword.screen.OtpForgotPasswordScreen
@@ -70,13 +69,7 @@ fun ForgotPasswordScreen(
             onBackPressed = {
                 goBack()
             },
-            onAction=onAction
-        )
-
-        3 -> CompleteForgotPasswordScreen(
-            onConfirm = {
-                navHostController.navigateUp()
-            }
+            action=onAction
         )
     }
 }

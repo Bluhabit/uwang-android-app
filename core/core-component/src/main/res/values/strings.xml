@@ -255,11 +255,21 @@
 
     <!--  [NEW] forgot password screen  -->
     <string name="reset_password_description_header">Masukkan alamat email yang terdaftar di Uwang.</string>
+    <string name="reset_password_input_password_description_header">Password baru untuk mengakses akunmu.</string>
     <string name="reset_password_input_label_email">Email</string>
-    <string name="reset_password_title_header">Ubah Password</string>
+    <string name="reset_password_input_placeholder_email">Masukkan email kamu</string>
+    <string name="reset_password_title_header">Buat password baru</string>
     <string name="reset_password_screen_confirm_password_label">Konfirmasi Password</string>
     <string name="reset_password_screen_email_text_field_label">Contoh : jenny11@gmail.com</string>
     <string name="reset_password_screen_next">Lanjut</string>
+    <string name="reset_password_input_password_header">Buat password baru</string>
+
+    <string name="reset_password_input_password_label">Password</string>
+    <string name="reset_password_input_password_placeholder">Buat password baru</string>
+    <string name="reset_password_input_confirm_password_label">Konfirmasi password</string>
+    <string name="reset_password_input_confirm_password_placeholder">Konfirmasi password baru</string>
+
+
     <!-- end forgot password screen  -->
 
     <!--  [NEW] forgot password screen  -->

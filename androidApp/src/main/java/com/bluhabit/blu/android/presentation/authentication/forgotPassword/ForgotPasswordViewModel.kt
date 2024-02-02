@@ -16,6 +16,7 @@ import com.bluhabit.blu.android.data.authentication.domain.SetForgotPasswordUseC
 import com.bluhabit.blu.android.data.authentication.domain.VerifyOtpForgotPasswordUseCase
 import com.bluhabit.blu.data.common.Response
 import com.bluhabit.blu.data.common.executeAsFlow
+import com.bluhabit.core.ui.components.textfield.TextFieldState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.collect
@@ -39,17 +40,16 @@ class ForgotPasswordViewModel @Inject constructor(
             is ForgotPasswordAction.OnConfirmPasswordChange -> onConfirmPasswordChange(action.value)
             is ForgotPasswordAction.OnNewPasswordChange -> onPasswordChange(action.value)
             is ForgotPasswordAction.OnOtpChange -> onOtpChange(action.value)
-            is ForgotPasswordAction.OnScreenChange -> updateState { copy(action.screen) }
-            ForgotPasswordAction.ForgotPassword -> onForgotPassword()
+            is ForgotPasswordAction.OnScreenChange -> updateState { copy(currentScreen = action.screen) }
+            ForgotPasswordAction.RequestResetPassword -> onRequestResetPassword()
             ForgotPasswordAction.VerifyOtp -> onVerifyOtpForgotPassword()
             ForgotPasswordAction.SetNewPassword -> onSetForgotPassword()
             is ForgotPasswordAction.OnConfirmPasswordVisibilityChange -> updateState { copy(passwordVisibility = action.visibility) }
             is ForgotPasswordAction.OnNewPasswordVisibilityChange -> updateState {
                 copy(confirmPasswordVisibility = action.visibility)
             }
-
             ForgotPasswordAction.OnCountDownStart -> onCountDownStart()
-            ForgotPasswordAction.OnResentOtp -> {}
+            ForgotPasswordAction.OnResendOtp -> {}
             is ForgotPasswordAction.OnSentOtpAlertVisibilityChange -> {}
             ForgotPasswordAction.OnVerifyOtp -> onVerifyOtpForgotPassword()
         }
@@ -88,7 +88,7 @@ class ForgotPasswordViewModel @Inject constructor(
         updateState {
             copy(
                 emailState = email,
-                emailError = !isEmailValid
+                emailInputState = if(isEmailValid) TextFieldState.None else TextFieldState.Error("Email tidak valid.")
             )
         }
     }
@@ -97,7 +97,7 @@ class ForgotPasswordViewModel @Inject constructor(
         updateState {
             copy(
                 passwordState = password,
-                passwordError = password.isEmpty()
+                passwordInputState = if(password.isEmpty()) TextFieldState.None else TextFieldState.Error("Password tidak boleh kosong")
             )
         }
     }
@@ -106,37 +106,39 @@ class ForgotPasswordViewModel @Inject constructor(
         updateState {
             copy(
                 confirmPasswordState = password,
-                confirmPasswordError = password.isEmpty()
+                confirmPasswordInputState = if(password.isEmpty()) TextFieldState.None else TextFieldState.Error("Password tidak boleh kosong")
             )
         }
     }
 
-    private fun onForgotPassword() = viewModelScope.launch {
-        executeAsFlow { forgotPasswordUseCase(email = state.value.emailState) }
-            .onStart { }
-            .onEach {
-                when (it) {
-                    is Response.Error -> Unit
-                    is Response.Result -> {
-                        updateState { copy(currentScreen = 1) }
-                    }
-                }
-            }
-            .collect()
+    private fun onRequestResetPassword() = viewModelScope.launch {
+        updateState { copy(currentScreen = 1) }
+//        executeAsFlow { forgotPasswordUseCase(email = state.value.emailState) }
+//            .onStart { }
+//            .onEach {
+//                when (it) {
+//                    is Response.Error -> Unit
+//                    is Response.Result -> {
+//                        updateState { copy(currentScreen = 1) }
+//                    }
+//                }
+//            }
+//            .collect()
     }
 
     private fun onVerifyOtpForgotPassword() = viewModelScope.launch {
-        executeAsFlow { verifyOtpForgotPasswordUseCase(otp = state.value.otpNumberState) }
-            .onStart { }
-            .onEach {
-                when (it) {
-                    is Response.Error -> Unit
-                    is Response.Result -> {
-                        updateState { copy(currentScreen = 2) }
-                    }
-                }
-            }
-            .collect()
+        updateState { copy(currentScreen = 2) }
+//        executeAsFlow { verifyOtpForgotPasswordUseCase(otp = state.value.otpNumberState) }
+//            .onStart { }
+//            .onEach {
+//                when (it) {
+//                    is Response.Error -> Unit
+//                    is Response.Result -> {
+//                        updateState { copy(currentScreen = 2) }
+//                    }
+//                }
+//            }
+//            .collect()
     }
 
     private fun onSetForgotPassword() = viewModelScope.launch {

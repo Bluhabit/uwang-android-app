@@ -60,7 +60,7 @@ class MainActivity : ComponentActivity() {
             ) {
                 NavHost(
                     navController = navHostController,
-                    startDestination = "onboard",
+                    startDestination = "forgot_password",
                 ) {
                     composable("onboard") {
                         val viewModel = hiltViewModel<OnboardViewModel>()

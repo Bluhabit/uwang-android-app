@@ -7,6 +7,7 @@
 
 package com.bluhabit.core.ui.components.textfield
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -14,8 +15,10 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
@@ -28,7 +31,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -36,8 +41,10 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.bluehabit.core.ui.R
 import com.bluhabit.core.ui.ext.Empty
 import com.bluhabit.core.ui.theme.UwangColors
+import com.bluhabit.core.ui.theme.UwangDimens
 import com.bluhabit.core.ui.theme.UwangTheme
 import com.bluhabit.core.ui.theme.UwangTypography
 
@@ -90,6 +97,60 @@ fun TextFieldOtp(
             }
         }
     )
+}
+
+@Composable
+fun TextFieldOtp(
+    modifier: Modifier = Modifier,
+    value: String = String.Empty,
+    length: Int = 4,
+    enabled: Boolean = true,
+    state: TextFieldState = TextFieldState.None,
+    onChange: (String) -> Unit = {},
+    onDone: () -> Unit = {}
+) {
+    val ctx = LocalContext.current
+    val dimens = UwangDimens.from(ctx)
+    Column(
+        modifier = modifier,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Box(
+            modifier = modifier,
+        ) {
+            TextFieldOtp(
+                modifier = modifier.align(Alignment.Center),
+                enabled = enabled,
+                length = length,
+                value = value,
+                error = state is TextFieldState.Error,
+                onDone = onDone,
+                onChange = onChange
+            )
+        }
+        Spacer(modifier = Modifier.padding(bottom = 5.dp))
+        if (state is TextFieldState.Error) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.alert_triangle),
+                    contentDescription = "",
+                    modifier = Modifier
+                        .size(dimens.dp_16)
+                )
+                Spacer(modifier = Modifier.padding(end = dimens.dp_8))
+                Text(
+                    text = state.errorText,
+                    style = UwangTypography.LabelMedium.Regular,
+                    color = UwangColors.State.Error.Main
+                )
+            }
+        }
+    }
 }
 
 @Composable
@@ -149,11 +210,26 @@ fun TextFieldOtpPreview() {
             TextFieldOtp(
                 enabled = false,
                 length = 4,
+                error = false
             )
             TextFieldOtp(
                 enabled = true,
                 length = 4,
                 value = otpState,
+                onDone = {
+                    focusManager.clearFocus(true)
+                },
+                onChange = { value ->
+                    otpState = value
+                },
+                error = false
+            )
+            TextFieldOtp(
+                modifier = Modifier.fillMaxWidth(),
+                enabled = true,
+                length = 4,
+                value = otpState,
+                state = TextFieldState.None,
                 onDone = {
                     focusManager.clearFocus(true)
                 },
