@@ -112,33 +112,31 @@ class ForgotPasswordViewModel @Inject constructor(
     }
 
     private fun onRequestResetPassword() = viewModelScope.launch {
-        updateState { copy(currentScreen = 1) }
-//        executeAsFlow { forgotPasswordUseCase(email = state.value.emailState) }
-//            .onStart { }
-//            .onEach {
-//                when (it) {
-//                    is Response.Error -> Unit
-//                    is Response.Result -> {
-//                        updateState { copy(currentScreen = 1) }
-//                    }
-//                }
-//            }
-//            .collect()
+        executeAsFlow { forgotPasswordUseCase(email = state.value.emailState) }
+            .onStart { }
+            .onEach {
+                when (it) {
+                    is Response.Error -> Unit
+                    is Response.Result -> {
+                        updateState { copy(currentScreen = 1) }
+                    }
+                }
+            }
+            .collect()
     }
 
     private fun onVerifyOtpForgotPassword() = viewModelScope.launch {
-        updateState { copy(currentScreen = 2) }
-//        executeAsFlow { verifyOtpForgotPasswordUseCase(otp = state.value.otpNumberState) }
-//            .onStart { }
-//            .onEach {
-//                when (it) {
-//                    is Response.Error -> Unit
-//                    is Response.Result -> {
-//                        updateState { copy(currentScreen = 2) }
-//                    }
-//                }
-//            }
-//            .collect()
+        executeAsFlow { verifyOtpForgotPasswordUseCase(otp = state.value.otpNumberState) }
+            .onStart { }
+            .onEach {
+                when (it) {
+                    is Response.Error -> Unit
+                    is Response.Result -> {
+                        updateState { copy(currentScreen = 2) }
+                    }
+                }
+            }
+            .collect()
     }
 
     private fun onSetForgotPassword() = viewModelScope.launch {

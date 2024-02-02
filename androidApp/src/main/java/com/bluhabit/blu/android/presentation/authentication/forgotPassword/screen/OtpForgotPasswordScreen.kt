@@ -57,7 +57,7 @@ fun OtpForgotPasswordScreen(
     val focusManager = LocalFocusManager.current
 
     LaunchedEffect(Unit) {
-//        onAction(SignInAction.OnCountDownStart)
+        onAction(ForgotPasswordAction.OnCountDownStart)
     }
 
     val ctx = LocalContext.current
@@ -114,7 +114,7 @@ fun OtpForgotPasswordScreen(
             enabled = state.otpNumberEnabled && !state.isAccountLocked,
             length = 4,
             value = state.otpNumberState,
-            state=state.emailInputState,
+            state = state.emailInputState,
             onDone = {
                 focusManager.clearFocus(true)
                 onAction(ForgotPasswordAction.OnVerifyOtp)
