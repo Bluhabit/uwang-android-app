@@ -19,14 +19,14 @@
     <string name="text_success_singin">Berhasil Daftar</string>
     <string name="text_one_step_more">Tinggal 1 langkah lagi untuk melengkapi profile Anda.</string>
     <!--    end change reset password-->
-    <!--    sign up -->
-    <string name="btn_confirmation_otp_screen">Konfirmasi kode OTP</string>
-    <string name="text_title_otp_screen">Masukkan kode OTP</string>
-    <string name="text_subtitle_otp_screen">Silahkan ketik kode verifikasi yang dikirim ke</string>
-    <string name="text_subtitle2_otp_screen">Silahkan ketik kode verifikasi yang dikirim ke</string>
-    <string name="text_subtitle3_otp_screen">email</string>
-    <string name="text_resend_otp">Kirim ulang kode OTP</string>
-    <!--    end otp -->
+
+
+    <!--  [NEW] sign up basic  -->
+    <string name="sign_up_title_header">Mulai dengan email kamu</string>
+    <string name="sign_up_input_email_label">Email</string>
+    <string name="sign_up_input_email_placeholder">Masukkan email kamu</string>
+    <string name="sign_up_screen_next">Lanjut</string>
+    <!--  end sign up  -->
 
     <!-- authentication   -->
     <string name="text_button_signin_with_google_screen_auth">Masuk Dengan Google</string>
@@ -268,8 +268,6 @@
     <string name="reset_password_input_password_placeholder">Buat password baru</string>
     <string name="reset_password_input_confirm_password_label">Konfirmasi password</string>
     <string name="reset_password_input_confirm_password_placeholder">Konfirmasi password baru</string>
-
-
     <!-- end forgot password screen  -->
 
     <!--  [NEW] forgot password screen  -->

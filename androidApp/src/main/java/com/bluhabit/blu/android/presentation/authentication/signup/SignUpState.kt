@@ -7,6 +7,7 @@
 
 package com.bluhabit.blu.android.presentation.authentication.signup
 
+import com.bluhabit.core.ui.components.textfield.TextFieldState
 import javax.annotation.concurrent.Immutable
 
 @Immutable
@@ -16,16 +17,7 @@ data class SignUpState(
     val currentScreen: Int = 0,
     //sign up
     val emailState: String = "",
-    val emailError: Boolean = false,
-    val emailErrorText: String = "",
-    val passwordState: String = "",
-    val passwordVisibility: Boolean = false,
-    val passwordError: Boolean = false,
-    val passwordErrorText: String = "",
-    val passwordConfirmationState: String = "",
-    val passwordConfirmationVisibility: Boolean = false,
-    val passwordConfirmationError: Boolean = false,
-    val passwordConfirmationErrorText: String = "",
+    val emailInputState:TextFieldState=TextFieldState.None,
     val signUpButtonEnabled: Boolean = true,
 
     // Otp Sign Up Screen
@@ -38,4 +30,12 @@ data class SignUpState(
     val otpSentLimit: Boolean = false,
     val isAccountLocked: Boolean = false,
     val verifyOtpButtonEnabled: Boolean = true,
+
+    //create password
+    val passwordState: String = "",
+    val passwordInputState: TextFieldState = TextFieldState.None,
+    val passwordVisibility: Boolean = false,
+    val confirmPasswordState: String = "",
+    val confirmPasswordInputState: TextFieldState = TextFieldState.None,
+    val passwordConfirmationVisibility: Boolean = false
 )

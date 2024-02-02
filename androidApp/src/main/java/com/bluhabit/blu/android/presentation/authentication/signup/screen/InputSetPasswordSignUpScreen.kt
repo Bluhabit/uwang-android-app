@@ -28,29 +28,25 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluehabit.core.ui.R
+import com.bluhabit.blu.android.presentation.authentication.forgotPassword.ForgotPasswordAction
+import com.bluhabit.blu.android.presentation.authentication.forgotPassword.ForgotPasswordState
 import com.bluhabit.blu.android.presentation.authentication.signup.SignUpAction
 import com.bluhabit.blu.android.presentation.authentication.signup.SignUpState
 import com.bluhabit.core.ui.components.button.ButtonPrimary
-import com.bluhabit.core.ui.components.textfield.TextFieldPrimary
+import com.bluhabit.core.ui.components.textfield.TextFieldPasswordPrimary
 import com.bluhabit.core.ui.components.textfield.TextFieldState
 import com.bluhabit.core.ui.theme.UwangColors
 import com.bluhabit.core.ui.theme.UwangDimens
-import com.bluhabit.core.ui.theme.UwangTheme
 import com.bluhabit.core.ui.theme.UwangTypography
 
 @Composable
-fun InputSignUpScreen(
+fun InputSetNewPasswordSignUpScreen(
     state: SignUpState = SignUpState(),
-    onTermAndCondition: () -> Unit,
     onBackPressed: () -> Unit,
-    onSignIn: () -> Unit,
-    onSignUpGoogle: () -> Unit,
-    onAction: (SignUpAction) -> Unit
+    action: (SignUpAction) -> Unit = {},
 ) {
-
     val ctx = LocalContext.current
     val dimens = UwangDimens.from(ctx)
     Column(
@@ -86,24 +82,49 @@ fun InputSignUpScreen(
             }
             Spacer(modifier = Modifier.padding(bottom = dimens.dp_24))
             Text(
-                text = stringResource(id = R.string.sign_up_title_header),
+                text = stringResource(id = R.string.reset_password_input_password_header),
                 style = UwangTypography.BodyLarge.SemiBold,
                 color = UwangColors.Text.Main
+            )
+            Spacer(modifier = Modifier.padding(bottom = 4.dp))
+            Text(
+                text = stringResource(id = R.string.reset_password_input_password_description_header),
+                style = UwangTypography.BodySmall.Regular,
+                color = UwangColors.Text.Secondary
             )
             Spacer(modifier = Modifier.padding(bottom = dimens.dp_16))
             Column(
                 verticalArrangement = Arrangement.spacedBy(4.dp),
             ) {
-                TextFieldPrimary(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    label = stringResource(id = R.string.sign_up_input_email_label),
-                    placeholder = stringResource(id = R.string.sign_up_input_email_placeholder),
-                    value = state.emailState,
+                TextFieldPasswordPrimary(
+                    modifier = Modifier.fillMaxWidth(),
+                    label = stringResource(id = R.string.reset_password_input_password_label),
+                    placeholder = stringResource(id = R.string.reset_password_input_password_placeholder),
+                    value = state.passwordState,
+                    onValueChange = {},
+                    onChangeVisibility = {
+
+                    },
+                    state = state.passwordInputState,
+                    onAction = {
+                        it.clearFocus()
+                    }
+                )
+                TextFieldPasswordPrimary(
+                    modifier = Modifier.fillMaxWidth(),
+                    label = stringResource(id = R.string.reset_password_input_confirm_password_label),
+                    placeholder = stringResource(id = R.string.reset_password_input_confirm_password_placeholder),
+                    value = state.confirmPasswordState,
+                    state = state.confirmPasswordInputState,
                     onValueChange = {
 
                     },
-                    state = state.emailInputState,
+                    onChangeVisibility = {
+
+                    },
+                    onAction = {
+                        it.clearFocus()
+                    }
                 )
             }
             Spacer(modifier = Modifier.padding(bottom = dimens.dp_12))
@@ -115,25 +136,14 @@ fun InputSignUpScreen(
             ButtonPrimary(
                 modifier = Modifier
                     .fillMaxWidth(),
-                text = stringResource(id = R.string.sign_up_screen_next),
-                enabled = state.emailInputState !is TextFieldState.Error && state.emailState.isNotEmpty() && !state.isAccountLocked
+                text = stringResource(id = R.string.reset_password_screen_next),
+                enabled = state.passwordState.isNotEmpty()
+                        && state.confirmPasswordState.isNotEmpty()
+                        && state.passwordInputState !is TextFieldState.Error
+                        && state.confirmPasswordInputState !is TextFieldState.Error
+                        && !state.isAccountLocked
             ) {
-
             }
         }
-    }
-}
-
-@Preview
-@Composable
-fun TermAndConditionScreenPreview() {
-    UwangTheme {
-        InputSignUpScreen(
-            onAction = {},
-            onBackPressed = {},
-            onTermAndCondition = {},
-            onSignIn = {},
-            onSignUpGoogle = {}
-        )
     }
 }

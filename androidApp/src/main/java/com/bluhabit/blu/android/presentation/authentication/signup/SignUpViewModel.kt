@@ -16,6 +16,7 @@ import com.bluhabit.blu.android.data.authentication.domain.SignUpBasicUseCase
 import com.bluhabit.blu.android.data.authentication.domain.VerifyOtpSignUpBasicUseCase
 import com.bluhabit.blu.data.common.Response
 import com.bluhabit.blu.data.common.executeAsFlow
+import com.bluhabit.core.ui.components.textfield.TextFieldState
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.tasks.Task
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -98,12 +99,13 @@ class SignUpViewModel @Inject constructor(
     private fun onEmailChange(email: String) = viewModelScope.launch {
         val isEmailValid = Patterns.EMAIL_ADDRESS.matcher(email).matches()
         val isPasswordValid = state.value.passwordState.isNotEmpty()
-        val isConfirmPasswordValid = state.value.passwordConfirmationState.isNotEmpty()
+        val isConfirmPasswordValid = state.value.confirmPasswordState.isNotEmpty()
+
+        val emailInputState = if (isEmailValid) TextFieldState.None else TextFieldState.Error("Format email tidak valid")
         updateState {
             copy(
                 emailState = email,
-                emailError = !isEmailValid,
-                emailErrorText = if (isEmailValid) "" else "Format email tidak valid",
+                emailInputState = emailInputState,
                 signUpButtonEnabled = isPasswordValid && isConfirmPasswordValid && isEmailValid
             )
         }
@@ -112,12 +114,12 @@ class SignUpViewModel @Inject constructor(
     private fun onPasswordChange(password: String) = viewModelScope.launch {
         val isEmailValid = Patterns.EMAIL_ADDRESS.matcher(state.value.emailState).matches()
         val isPasswordValid = password.isNotEmpty() && password.length >= 8
-        val isConfirmPasswordValid = state.value.passwordConfirmationState.isNotEmpty()
+        val isConfirmPasswordValid = state.value.confirmPasswordState.isNotEmpty()
+        val passwordInputState = if (isPasswordValid) TextFieldState.None else TextFieldState.Error("Password harus minimal 8 karakter")
         updateState {
             copy(
                 passwordState = password,
-                passwordError = !isPasswordValid,
-                passwordErrorText = if (isPasswordValid) "" else "Password harus minimal 8 karakter",
+                confirmPasswordInputState = passwordInputState,
                 signUpButtonEnabled = isPasswordValid && isConfirmPasswordValid && isEmailValid
             )
         }
@@ -127,11 +129,11 @@ class SignUpViewModel @Inject constructor(
         val isEmailValid = Patterns.EMAIL_ADDRESS.matcher(state.value.emailState).matches()
         val isPasswordValid = state.value.passwordState.isNotEmpty()
         val isConfirmPasswordValid = password == state.value.passwordState
+        val confirmPasswordInputState = if (isConfirmPasswordValid) TextFieldState.None else TextFieldState.Error("Password tidak sesuai.")
         updateState {
             copy(
-                passwordConfirmationState = password,
-                passwordConfirmationError = !isConfirmPasswordValid,
-                passwordConfirmationErrorText = if (isConfirmPasswordValid) "" else "Password tidak sesuai",
+                confirmPasswordState = password,
+                confirmPasswordInputState = confirmPasswordInputState,
                 signUpButtonEnabled = isPasswordValid && isConfirmPasswordValid && isEmailValid
             )
         }
