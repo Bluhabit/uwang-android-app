@@ -38,10 +38,7 @@ class CompleteProfileViewModel @Inject constructor(
             }
 
             CompleteProfileAction.NextStep -> nextStep()
-            is CompleteProfileAction.OnImageChange -> updateState { copy(avatar = action.value) }
             is CompleteProfileAction.OnScreenChange -> updateState { copy(currentScreen = action.screen) }
-            is CompleteProfileAction.OnUsernameChange -> onUsernameChange(action.value)
-            CompleteProfileAction.SubmitData -> submitData()
             // Upload Photo Profile Screen
             is CompleteProfileAction.OnProfileImageChange -> updateState { copy(profileImage = action.value) }
             is CompleteProfileAction.OnShowDialogChoice -> updateState { copy(showDialogChoice = action.show) }
@@ -61,27 +58,18 @@ class CompleteProfileViewModel @Inject constructor(
                 newList.remove(action.topic)
                 copy(selectedTopicList = newList)
             }
+
+            is CompleteProfileAction.OnUsernameChange -> TODO()
         }
     }
 
     private fun nextStep() = viewModelScope.launch {
         val currentStep = state.value.currentScreen
         if (currentStep < 0 || currentStep >= 2) {
-            submitData()
+            // Submit Data
         } else {
             updateState { copy(currentScreen = currentStep + 1) }
         }
-    }
-
-    private fun onUsernameChange(username: String) = viewModelScope.launch {
-        updateState { copy(usernameState = username) }
-    }
-
-    private fun submitData() = viewModelScope.launch {
-        if (state.value.avatar == null) {
-            return@launch
-        }
-
     }
 
 }

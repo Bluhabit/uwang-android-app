@@ -12,19 +12,11 @@ import com.bluhabit.blu.android.presentation.authentication.completeProfile.scre
 import java.time.LocalDate
 
 sealed interface CompleteProfileAction {
-    data class OnUsernameChange(
-        val value:String=""
-    ):CompleteProfileAction
 
-    data class OnImageChange(
-        val value:Bitmap
-    ):CompleteProfileAction
-
+    // Global
     data class OnScreenChange(
         val screen:Int=0
     ):CompleteProfileAction
-    object SubmitData:CompleteProfileAction
-
     object NextStep:CompleteProfileAction
 
     data class OnDateOfBirthChange(
@@ -49,5 +41,9 @@ sealed interface CompleteProfileAction {
     ) : CompleteProfileAction
     data class OnRemoveSelectedList(
         val topic: SelectedTopic,
+    ) : CompleteProfileAction
+    // Create Username Screen
+    data class OnUsernameChange(
+        val value: String
     ) : CompleteProfileAction
 }

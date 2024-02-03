@@ -11,6 +11,8 @@ import android.graphics.Bitmap
 import com.bluehabit.core.ui.R
 import com.bluhabit.blu.android.presentation.authentication.completeProfile.screen.PreferenceItem
 import com.bluhabit.blu.android.presentation.authentication.completeProfile.screen.SelectedTopic
+import com.bluhabit.core.ui.components.textfield.TextFieldState
+import com.bluhabit.core.ui.ext.Empty
 import java.time.LocalDate
 import javax.annotation.concurrent.Immutable
 
@@ -19,13 +21,6 @@ data class CompleteProfileState(
 
     //global
     val currentScreen: Int = 0,
-    //
-    val usernameState: String = "",
-    val usernameError: Boolean = false,
-    val usernameErrorText: String = "",
-
-    val avatar: Bitmap? = null,
-
     // Input Dob Screen
     val dateOfBirthState: LocalDate? = null,
     val dateOfBirthError: Boolean = false,
@@ -47,4 +42,7 @@ data class CompleteProfileState(
     // Choose Topic Screen
     val selectedTopicList: List<SelectedTopic> = listOf(),
     val chooseTopicScreenNextButtonEnabled: Boolean = true,
+    // Create Username Screen
+    val usernameAlertState: TextFieldState = TextFieldState.None,
+    val usernameState: String = String.Empty,
 )

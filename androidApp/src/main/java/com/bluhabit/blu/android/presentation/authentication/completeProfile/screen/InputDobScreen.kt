@@ -38,9 +38,9 @@ import com.bluhabit.blu.android.presentation.authentication.completeProfile.Comp
 import com.bluhabit.blu.android.presentation.authentication.completeProfile.CompleteProfileState
 import com.bluhabit.core.ui.components.button.ButtonPrimary
 import com.bluhabit.core.ui.components.sheet.DatePickerBottomSheet
-import com.bluhabit.core.ui.components.textfield.TextFieldPrimary
-import com.bluhabit.core.ui.theme.UwangColors
+import com.bluhabit.core.ui.components.textfield.TextFieldBase
 import com.bluhabit.core.ui.theme.CustomTypography
+import com.bluhabit.core.ui.theme.UwangColors
 import com.bluhabit.core.ui.theme.UwangTheme
 import java.time.LocalDate
 import kotlinx.coroutines.launch
@@ -67,7 +67,7 @@ fun InputDobScreen(
         sheetContent = {
             DatePickerBottomSheet(
                 title = "Title Here",
-                value=state.dateOfBirthState,
+                value = state.dateOfBirthState,
                 minDate = LocalDate.MIN,
                 onClose = {
                     scope.launch {
@@ -124,7 +124,7 @@ fun InputDobScreen(
                     style = CustomTypography.Body.Small.W400,
                     color = UwangColors.Neutral.Grey9
                 )
-                TextFieldPrimary(
+                TextFieldBase(
                     modifier = Modifier
                         .fillMaxWidth(),
                     enabled = false,

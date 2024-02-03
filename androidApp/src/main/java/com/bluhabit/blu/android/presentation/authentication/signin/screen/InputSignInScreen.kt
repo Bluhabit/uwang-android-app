@@ -44,7 +44,7 @@ import com.bluhabit.blu.android.presentation.authentication.signin.SignInAction
 import com.bluhabit.blu.android.presentation.authentication.signin.SignInState
 import com.bluhabit.core.ui.components.button.ButtonGoogle
 import com.bluhabit.core.ui.components.button.ButtonPrimary
-import com.bluhabit.core.ui.components.textfield.TextFieldPrimary
+import com.bluhabit.core.ui.components.textfield.TextFieldBase
 import com.bluhabit.core.ui.theme.UwangColors
 import com.bluhabit.core.ui.theme.UwangDimens
 import com.bluhabit.core.ui.theme.UwangTheme
@@ -106,7 +106,7 @@ fun InputSignInScreen(
                 style = UwangTypography.BodySmall.Regular,
                 color = UwangColors.Palette.Neutral.Grey9
             )
-            TextFieldPrimary(
+            TextFieldBase(
                 modifier = Modifier
                     .fillMaxWidth(),
                 label = {
@@ -160,7 +160,7 @@ fun InputSignInScreen(
                 style = UwangTypography.BodySmall.Regular,
                 color = UwangColors.Palette.Neutral.Grey9
             )
-            TextFieldPrimary(
+            TextFieldBase(
                 modifier = Modifier
                     .fillMaxWidth(),
                 label = {

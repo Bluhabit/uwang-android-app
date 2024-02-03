@@ -7,12 +7,13 @@
 
 package com.bluhabit.core.ui.components.textfield
 
-import androidx.compose.foundation.Image
+import android.util.Patterns
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
@@ -24,6 +25,10 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextFieldColors
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.graphics.Color
@@ -47,7 +52,7 @@ import com.bluhabit.core.ui.theme.UwangTheme
 import com.bluhabit.core.ui.theme.UwangTypography
 
 @Composable
-fun TextFieldPrimary(
+fun TextFieldBase(
     modifier: Modifier = Modifier,
     label: @Composable (() -> Unit)? = null,
     shape: Shape = RoundedCornerShape(12.dp),
@@ -120,6 +125,8 @@ fun TextFieldPrimary(
 @Composable
 fun TextFieldPrimary(
     modifier: Modifier = Modifier,
+    leadingIcon: @Composable (() -> Unit)? = null,
+    onClickTrailingIcon: () -> Unit = {},
     label: String = "",
     placeholder: String = "",
     value: String = "",
@@ -143,8 +150,9 @@ fun TextFieldPrimary(
             style = UwangTypography.BodySmall.Regular,
             color = UwangColors.Palette.Neutral.Grey9
         )
-        TextFieldPrimary(
+        TextFieldBase(
             modifier = modifier,
+            leadingIcon = leadingIcon,
             label = {
                 Text(
                     text = placeholder,
@@ -159,22 +167,31 @@ fun TextFieldPrimary(
             value = value,
             onValueChange = onValueChange,
             isError = state is TextFieldState.Error,
-            trailingIcon = {
-                when (state) {
-                    is TextFieldState.Error -> {
-                        Image(
-                            painter = painterResource(id = R.drawable.info),
-                            contentDescription = "",
-                            modifier = Modifier
-                                .size(dimens.dp_16)
-                        )
-                    }
+            trailingIcon = if (value.isNotEmpty()) {
+                {
+                    Icon(
+                        painter = painterResource(
+                            id = if (state is TextFieldState.Error) {
+                                R.drawable.info
+                            } else {
+                                R.drawable.ic_close
+                            }
 
-                    TextFieldState.None -> Unit
-                    is TextFieldState.Success -> Unit
-                    is TextFieldState.WithHint -> Unit
+                        ),
+                        contentDescription = "",
+                        tint = if (state is TextFieldState.Error) {
+                            UwangColors.State.Error.Main
+                        } else {
+                            Color(0xFF0A0A0A)
+                        },
+                        modifier = Modifier
+                            .clickable(
+                                enabled = state !is TextFieldState.Error,
+                                onClick = onClickTrailingIcon
+                            )
+                    )
                 }
-            },
+            } else null,
             visualTransformation = visualTransformation,
             keyboardOptions = keyboardOptions,
             onAction = onAction
@@ -220,7 +237,7 @@ fun TextFieldPasswordPrimary(
             style = UwangTypography.BodySmall.Regular,
             color = UwangColors.Palette.Neutral.Grey9
         )
-        TextFieldPrimary(
+        TextFieldBase(
             modifier = modifier,
             label = {
                 Text(
@@ -268,20 +285,43 @@ fun TextFieldPasswordPrimary(
 }
 
 
-@Preview
+@Preview()
 @Composable
 fun PreviewTextField() {
+    var emailValueState by remember {
+        mutableStateOf("")
+    }
+    var emailState by remember {
+        mutableStateOf<TextFieldState>(TextFieldState.None)
+    }
     UwangTheme {
         Column(
             verticalArrangement = Arrangement.spacedBy(4.dp),
+            modifier = Modifier
+                .safeDrawingPadding()
+                .padding(horizontal = 12.dp, vertical = 48.dp)
         ) {
             TextFieldPrimary(
                 modifier = Modifier.fillMaxWidth(),
                 label = stringResource(id = R.string.reset_password_input_label_email),
                 placeholder = stringResource(id = R.string.reset_password_input_placeholder_email),
-                value = "triandamai@gmail.com",
-                onValueChange = {},
-                state = TextFieldState.Success("Sukses"),
+                value = emailValueState,
+                onValueChange = {
+                    emailValueState = it
+                    emailState = when {
+                        (emailValueState.length > 1 && !Patterns.EMAIL_ADDRESS.matcher(emailValueState).matches()) -> {
+                            TextFieldState.Error("Email tidak valid")
+                        }
+
+                        (emailValueState.length > 1) -> TextFieldState.Success("Email valid")
+                        else -> TextFieldState.None
+                    }
+                },
+                state = emailState,
+                onClickTrailingIcon = {
+                    emailValueState = ""
+                    emailState = TextFieldState.None
+                }
             )
             TextFieldPrimary(
                 modifier = Modifier.fillMaxWidth(),
