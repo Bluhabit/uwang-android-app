@@ -77,7 +77,6 @@ fun UploadPhotoProfileScreen(
             val bitmap = result.getBitmap(ctx.contentResolver)
             if (bitmap != null) {
                 onAction(CompleteProfileAction.OnShowDialogChoice(false))
-                onAction(CompleteProfileAction.OnImageChange(bitmap))
             }
         }
     }
@@ -87,7 +86,6 @@ fun UploadPhotoProfileScreen(
         ) { bitmap: Bitmap? ->
             if (bitmap != null) {
                 onAction(CompleteProfileAction.OnShowDialogChoice(false))
-                onAction(CompleteProfileAction.OnImageChange(bitmap))
                 val newFile = bitmap.toFile(System.currentTimeMillis().toDateTime("yyyy-MM-dd-HH:mm:ss"))
             }
         }

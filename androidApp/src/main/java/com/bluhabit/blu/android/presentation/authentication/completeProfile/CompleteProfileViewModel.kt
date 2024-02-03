@@ -59,7 +59,9 @@ class CompleteProfileViewModel @Inject constructor(
                 copy(selectedTopicList = newList)
             }
 
-            is CompleteProfileAction.OnUsernameChange -> TODO()
+            is CompleteProfileAction.OnUsernameChange -> updateState {
+                copy(usernameValueState = action.value)
+            }
         }
     }
 

@@ -26,7 +26,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.bluehabit.core.ui.R
 import com.bluhabit.blu.android.presentation.authentication.completeProfile.screen.InputDobScreen
-import com.bluhabit.blu.android.presentation.authentication.completeProfile.screen.InputUsernameScreen
 import com.bluhabit.blu.android.presentation.authentication.completeProfile.screen.SetPreferenceScreen
 import com.bluhabit.core.ui.components.button.ButtonPrimary
 import com.bluhabit.core.ui.components.dialog.DialogPrimary
@@ -112,14 +111,6 @@ fun CompleteProfileScreen(
         )
 
         1 -> SetPreferenceScreen(
-            state = state,
-            onBackPressed = {
-                goBack()
-            },
-            onAction = onAction
-        )
-
-        2 -> InputUsernameScreen(
             state = state,
             onBackPressed = {
                 goBack()

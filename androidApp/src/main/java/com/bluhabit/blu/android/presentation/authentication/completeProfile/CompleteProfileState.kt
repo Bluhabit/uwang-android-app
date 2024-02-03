@@ -43,6 +43,7 @@ data class CompleteProfileState(
     val selectedTopicList: List<SelectedTopic> = listOf(),
     val chooseTopicScreenNextButtonEnabled: Boolean = true,
     // Create Username Screen
-    val usernameAlertState: TextFieldState = TextFieldState.None,
-    val usernameState: String = String.Empty,
+    val usernameState: TextFieldState = TextFieldState.None,
+    val usernameValueState: String = String.Empty,
+    val createUsernameNextButton: Boolean = false,
 )

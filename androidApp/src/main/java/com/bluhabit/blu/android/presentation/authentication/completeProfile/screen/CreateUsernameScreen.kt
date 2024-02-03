@@ -12,14 +12,18 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -31,13 +35,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluehabit.core.ui.R
 import com.bluhabit.blu.android.presentation.authentication.completeProfile.CompleteProfileAction
 import com.bluhabit.blu.android.presentation.authentication.completeProfile.CompleteProfileState
+import com.bluhabit.core.ui.components.button.ButtonOutlinedPrimary
+import com.bluhabit.core.ui.components.button.ButtonPrimary
 import com.bluhabit.core.ui.components.textfield.TextFieldPrimary
+import com.bluhabit.core.ui.components.textfield.TextFieldState
 import com.bluhabit.core.ui.theme.UwangColors
 import com.bluhabit.core.ui.theme.UwangDimens
+import com.bluhabit.core.ui.theme.UwangTheme
 import com.bluhabit.core.ui.theme.UwangTypography
 
 @Composable
@@ -75,7 +84,6 @@ fun CreateUsernameScreen(
             .background(UwangColors.Base.White)
             .safeDrawingPadding(),
     ) {
-
         Column(
             modifier = Modifier
                 .verticalScroll(rememberScrollState())
@@ -118,12 +126,56 @@ fun CreateUsernameScreen(
                     .fillMaxWidth(),
                 label = "Nama pengguna",
                 placeholder = "Masukkan nama pengguna",
-                value = state.usernameState,
+                value = state.usernameValueState,
                 onValueChange = {
                     onAction(CompleteProfileAction.OnUsernameChange(it))
                 },
-                state = state.usernameAlertState,
+                state = state.usernameState,
+                leadingIcon = {
+                    Text(
+                        text = "@",
+                        style = UwangTypography.BodySmall.Regular,
+                        color = UwangColors.Text.Main
+                    )
+                }
             )
         }
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(UwangColors.Base.White)
+                .align(Alignment.BottomCenter),
+        ) {
+            Divider(color = UwangColors.Text.Border)
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = dimens.dp_16, vertical = dimens.dp_24)
+            ) {
+                ButtonOutlinedPrimary(
+                    modifier = Modifier
+                        .width(dimens.from(102.dp))
+                        .height(dimens.from(36.dp)),
+                    text = stringResource(id = R.string.label_button_pass)
+                )
+                ButtonPrimary(
+                    modifier = Modifier
+                        .width(dimens.from(102.dp))
+                        .height(dimens.from(36.dp)),
+                    text = stringResource(id = R.string.label_button_next),
+                    enabled = state.usernameValueState.isNotEmpty() && state.usernameState !is TextFieldState.Error && state.createUsernameNextButton
+                )
+            }
+        }
+    }
+}
+
+@Preview
+@Composable
+fun CreateUsernameScreenPreview() {
+    UwangTheme {
+        CreateUsernameScreen()
     }
 }
