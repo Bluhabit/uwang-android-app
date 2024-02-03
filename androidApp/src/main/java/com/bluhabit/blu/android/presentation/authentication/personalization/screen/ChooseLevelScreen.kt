@@ -5,13 +5,14 @@
  * Proprietary and confidential
  */
 
-package com.bluhabit.blu.android.presentation.authentication.completeProfile.screen
+package com.bluhabit.blu.android.presentation.authentication.personalization.screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -21,15 +22,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -38,22 +35,26 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluehabit.core.ui.R
-import com.bluhabit.blu.android.presentation.authentication.completeProfile.CompleteProfileAction
-import com.bluhabit.blu.android.presentation.authentication.completeProfile.CompleteProfileState
+import com.bluhabit.blu.android.presentation.authentication.personalization.PersonalizationAction
+import com.bluhabit.blu.android.presentation.authentication.personalization.PersonalizationState
 import com.bluhabit.core.ui.components.button.ButtonOutlinedPrimary
 import com.bluhabit.core.ui.components.button.ButtonPrimary
-import com.bluhabit.core.ui.components.textfield.TextFieldPrimary
-import com.bluhabit.core.ui.components.textfield.TextFieldState
+import com.bluhabit.core.ui.components.checkbox.ItemLevelCheckBox
 import com.bluhabit.core.ui.theme.UwangColors
 import com.bluhabit.core.ui.theme.UwangDimens
 import com.bluhabit.core.ui.theme.UwangTheme
 import com.bluhabit.core.ui.theme.UwangTypography
 
+data class ItemLevel(
+    val image: Int,
+    val title: String,
+    val description: String,
+)
+
 @Composable
-fun CreateUsernameScreen(
-    state: CompleteProfileState = CompleteProfileState(),
-    onBackPressed: () -> Unit = {},
-    onAction: (CompleteProfileAction) -> Unit = {},
+fun ChooseLevelScreen(
+    state: PersonalizationState = PersonalizationState(),
+    onAction: (PersonalizationAction) -> Unit = {},
 ) {
     val ctx = LocalContext.current
     val dimens = UwangDimens.from(ctx)
@@ -74,9 +75,6 @@ fun CreateUsernameScreen(
             description = stringResource(id = R.string.description_card_expert)
         ),
     )
-    var selectedIndex by remember {
-        mutableStateOf<Int?>(null)
-    }
 
     Box(
         modifier = Modifier
@@ -84,61 +82,63 @@ fun CreateUsernameScreen(
             .background(UwangColors.Base.White)
             .safeDrawingPadding(),
     ) {
-        Column(
+        LazyColumn(
             modifier = Modifier
-                .verticalScroll(rememberScrollState())
-                .padding(
-                    start = dimens.dp_16, end = dimens.dp_16,
-                    top = dimens.dp_24, bottom = dimens.from(82.dp + 32.dp) // 82 (bottom nav size) + 32
-                ),
+                .padding(bottom = dimens.from(72.dp)),
+            contentPadding = PaddingValues(vertical = dimens.dp_24),
+            verticalArrangement = Arrangement.spacedBy(dimens.dp_16)
         ) {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.app_logo),
-                    contentDescription = "",
+            item {
+                Box(
                     modifier = Modifier
-                        .size(dimens.dp_24)
-                        .align(Alignment.Center)
-                )
+                        .fillMaxWidth()
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.app_logo),
+                        contentDescription = "",
+                        modifier = Modifier
+                            .size(dimens.dp_24)
+                            .align(Alignment.Center)
+                    )
 
-            }
-            Spacer(modifier = Modifier.padding(bottom = dimens.dp_24))
-            Column(
-                verticalArrangement = Arrangement.spacedBy(4.dp)
-            ) {
-                Text(
-                    text = "Bagaimana kami memanggilmu?",
-                    style = UwangTypography.BodyXL.SemiBold,
-                    color = UwangColors.Text.Main
-                )
-                Text(
-                    text = "Buat nama @pengguna yang unik.",
-                    style = UwangTypography.BodySmall.Regular,
-                    color = UwangColors.Text.Secondary
-                )
-            }
-            Spacer(modifier = Modifier.padding(bottom = dimens.dp_16))
-            TextFieldPrimary(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                label = "Nama pengguna",
-                placeholder = "Masukkan nama pengguna",
-                value = state.usernameValueState,
-                onValueChange = {
-                    onAction(CompleteProfileAction.OnUsernameChange(it))
-                },
-                state = state.usernameState,
-                leadingIcon = {
+                }
+                Spacer(modifier = Modifier.padding(bottom = dimens.dp_24))
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(4.dp),
+                    modifier = Modifier
+                        .padding(horizontal = dimens.dp_16)
+                ) {
                     Text(
-                        text = "@",
-                        style = UwangTypography.BodySmall.Regular,
+                        text = stringResource(id = R.string.title_header_level),
+                        style = UwangTypography.BodyXL.SemiBold,
                         color = UwangColors.Text.Main
                     )
+                    Text(
+                        text = stringResource(id = R.string.description_header_level),
+                        style = UwangTypography.BodySmall.Regular,
+                        color = UwangColors.Text.Secondary
+                    )
                 }
-            )
+                Spacer(modifier = Modifier.padding(bottom = dimens.dp_8)) // 16 + 8 = 24
+            }
+            itemsIndexed(levelList) { index, item ->
+                ItemLevelCheckBox(
+                    modifier = Modifier
+                        .padding(horizontal = dimens.dp_16),
+                    image = {
+                        Image(
+                            painter = painterResource(id = item.image),
+                            contentDescription = ""
+                        )
+                    },
+                    title = item.title,
+                    description = item.description,
+                    checked = state.selectedIndex == index,
+                    onCheckedChange = {
+                        onAction(PersonalizationAction.OnSelectedLevelChange(index))
+                    }
+                )
+            }
         }
         Column(
             modifier = Modifier
@@ -146,7 +146,9 @@ fun CreateUsernameScreen(
                 .background(UwangColors.Base.White)
                 .align(Alignment.BottomCenter),
         ) {
-            Divider(color = UwangColors.Text.Border)
+            Divider(
+                color = UwangColors.Text.Border
+            )
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
@@ -165,8 +167,10 @@ fun CreateUsernameScreen(
                         .width(dimens.from(102.dp))
                         .height(dimens.from(36.dp)),
                     text = stringResource(id = R.string.label_button_next),
-                    enabled = state.usernameValueState.isNotEmpty() && state.usernameState !is TextFieldState.Error && state.createUsernameNextButton
-                )
+                    enabled = state.chooseLevelNextButtonEnabled && state.selectedIndex != null
+                ) {
+                    onAction(PersonalizationAction.ChooseLevelNextButton)
+                }
             }
         }
     }
@@ -174,8 +178,8 @@ fun CreateUsernameScreen(
 
 @Preview
 @Composable
-fun CreateUsernameScreenPreview() {
+fun ChooseLevelScreenPreview() {
     UwangTheme {
-        CreateUsernameScreen()
+        ChooseLevelScreen()
     }
 }

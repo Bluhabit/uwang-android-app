@@ -5,14 +5,13 @@
  * Proprietary and confidential
  */
 
-package com.bluhabit.blu.android.presentation.authentication.completeProfile.screen
+package com.bluhabit.blu.android.presentation.authentication.personalization.screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -22,8 +21,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -39,26 +38,21 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluehabit.core.ui.R
-import com.bluhabit.blu.android.presentation.authentication.completeProfile.CompleteProfileAction
-import com.bluhabit.blu.android.presentation.authentication.completeProfile.CompleteProfileState
+import com.bluhabit.blu.android.presentation.authentication.personalization.PersonalizationAction
+import com.bluhabit.blu.android.presentation.authentication.personalization.PersonalizationState
 import com.bluhabit.core.ui.components.button.ButtonOutlinedPrimary
 import com.bluhabit.core.ui.components.button.ButtonPrimary
-import com.bluhabit.core.ui.components.checkbox.ItemLevelCheckBox
+import com.bluhabit.core.ui.components.textfield.TextFieldPrimary
+import com.bluhabit.core.ui.components.textfield.TextFieldState
 import com.bluhabit.core.ui.theme.UwangColors
 import com.bluhabit.core.ui.theme.UwangDimens
 import com.bluhabit.core.ui.theme.UwangTheme
 import com.bluhabit.core.ui.theme.UwangTypography
 
-data class ItemLevel(
-    val image: Int,
-    val title: String,
-    val description: String,
-)
-
 @Composable
-fun ChooseLevelScreen(
-    state: CompleteProfileState = CompleteProfileState(),
-    onAction: (CompleteProfileAction) -> Unit = {},
+fun CreateUsernameScreen(
+    state: PersonalizationState = PersonalizationState(),
+    onAction: (PersonalizationAction) -> Unit = {},
 ) {
     val ctx = LocalContext.current
     val dimens = UwangDimens.from(ctx)
@@ -89,63 +83,61 @@ fun ChooseLevelScreen(
             .background(UwangColors.Base.White)
             .safeDrawingPadding(),
     ) {
-        LazyColumn(
+        Column(
             modifier = Modifier
-                .padding(bottom = dimens.from(72.dp)),
-            contentPadding = PaddingValues(vertical = dimens.dp_24),
-            verticalArrangement = Arrangement.spacedBy(dimens.dp_16)
+                .verticalScroll(rememberScrollState())
+                .padding(
+                    start = dimens.dp_16, end = dimens.dp_16,
+                    top = dimens.dp_24, bottom = dimens.from(82.dp + 32.dp) // 82 (bottom nav size) + 32
+                ),
         ) {
-            item {
-                Box(
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.app_logo),
+                    contentDescription = "",
                     modifier = Modifier
-                        .fillMaxWidth()
-                ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.app_logo),
-                        contentDescription = "",
-                        modifier = Modifier
-                            .size(dimens.dp_24)
-                            .align(Alignment.Center)
-                    )
+                        .size(dimens.dp_24)
+                        .align(Alignment.Center)
+                )
 
-                }
-                Spacer(modifier = Modifier.padding(bottom = dimens.dp_24))
-                Column(
-                    verticalArrangement = Arrangement.spacedBy(4.dp),
-                    modifier = Modifier
-                        .padding(horizontal = dimens.dp_16)
-                ) {
-                    Text(
-                        text = stringResource(id = R.string.title_header_level),
-                        style = UwangTypography.BodyXL.SemiBold,
-                        color = UwangColors.Text.Main
-                    )
-                    Text(
-                        text = stringResource(id = R.string.description_header_level),
-                        style = UwangTypography.BodySmall.Regular,
-                        color = UwangColors.Text.Secondary
-                    )
-                }
-                Spacer(modifier = Modifier.padding(bottom = dimens.dp_8)) // 16 + 8 = 24
             }
-            itemsIndexed(levelList) { index, item ->
-                ItemLevelCheckBox(
-                    modifier = Modifier
-                        .padding(horizontal = dimens.dp_16),
-                    image = {
-                        Image(
-                            painter = painterResource(id = item.image),
-                            contentDescription = ""
-                        )
-                    },
-                    title = item.title,
-                    description = item.description,
-                    checked = selectedIndex == index,
-                    onCheckedChange = {
-                        selectedIndex = index
-                    }
+            Spacer(modifier = Modifier.padding(bottom = dimens.dp_24))
+            Column(
+                verticalArrangement = Arrangement.spacedBy(4.dp)
+            ) {
+                Text(
+                    text = stringResource(id = R.string.title_header_username),
+                    style = UwangTypography.BodyXL.SemiBold,
+                    color = UwangColors.Text.Main
+                )
+                Text(
+                    text = stringResource(id = R.string.desctiption_header_username),
+                    style = UwangTypography.BodySmall.Regular,
+                    color = UwangColors.Text.Secondary
                 )
             }
+            Spacer(modifier = Modifier.padding(bottom = dimens.dp_16))
+            TextFieldPrimary(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                label = stringResource(id = R.string.label_field_username),
+                placeholder = stringResource(id = R.string.placeholder_field_username),
+                value = state.usernameValueState,
+                onValueChange = {
+                    onAction(PersonalizationAction.OnUsernameChange(it))
+                },
+                state = state.usernameState,
+                leadingIcon = {
+                    Text(
+                        text = "@",
+                        style = UwangTypography.BodySmall.Regular,
+                        color = UwangColors.Text.Main
+                    )
+                }
+            )
         }
         Column(
             modifier = Modifier
@@ -153,9 +145,7 @@ fun ChooseLevelScreen(
                 .background(UwangColors.Base.White)
                 .align(Alignment.BottomCenter),
         ) {
-            Divider(
-                color = UwangColors.Text.Border
-            )
+            Divider(color = UwangColors.Text.Border)
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
@@ -173,7 +163,9 @@ fun ChooseLevelScreen(
                     modifier = Modifier
                         .width(dimens.from(102.dp))
                         .height(dimens.from(36.dp)),
-                    text = stringResource(id = R.string.label_button_next)
+                    text = stringResource(id = R.string.label_button_next),
+                    enabled = state.usernameValueState.isNotEmpty() && state.usernameState !is TextFieldState.Error && state.createUsernameNextButton,
+                    onClick = { onAction(PersonalizationAction.CreateUsernameNextButton) }
                 )
             }
         }
@@ -182,8 +174,8 @@ fun ChooseLevelScreen(
 
 @Preview
 @Composable
-fun ChooseLevelScreenPreview() {
+fun CreateUsernameScreenPreview() {
     UwangTheme {
-        ChooseLevelScreen()
+        CreateUsernameScreen()
     }
 }

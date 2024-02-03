@@ -26,8 +26,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.bluehabit.core.ui.R
-import com.bluhabit.blu.android.presentation.authentication.completeProfile.CompleteProfileScreen
-import com.bluhabit.blu.android.presentation.authentication.completeProfile.CompleteProfileViewModel
+import com.bluhabit.blu.android.presentation.authentication.personalization.CompleteProfileScreen
+import com.bluhabit.blu.android.presentation.authentication.personalization.PersonalizationViewModel
 import com.bluhabit.blu.android.presentation.authentication.forgotPassword.ForgotPasswordScreen
 import com.bluhabit.blu.android.presentation.authentication.forgotPassword.ForgotPasswordViewModel
 import com.bluhabit.blu.android.presentation.authentication.onboard.OnboardScreen
@@ -106,7 +106,7 @@ class MainActivity : ComponentActivity() {
                         )
                     }
                     composable("complete_profile") {
-                        val viewModel = hiltViewModel<CompleteProfileViewModel>()
+                        val viewModel = hiltViewModel<PersonalizationViewModel>()
                         CompleteProfileScreen(
                             navHostController = navHostController,
                             stateFlow = viewModel.state,

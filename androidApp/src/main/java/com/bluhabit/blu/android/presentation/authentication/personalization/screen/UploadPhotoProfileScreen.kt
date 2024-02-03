@@ -5,7 +5,7 @@
  * Proprietary and confidential
  */
 
-package com.bluhabit.blu.android.presentation.authentication.completeProfile.screen
+package com.bluhabit.blu.android.presentation.authentication.personalization.screen
 
 import android.graphics.Bitmap
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -47,8 +47,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluehabit.core.ui.R
 import com.bluhabit.blu.android.common.toDateTime
-import com.bluhabit.blu.android.presentation.authentication.completeProfile.CompleteProfileAction
-import com.bluhabit.blu.android.presentation.authentication.completeProfile.CompleteProfileState
+import com.bluhabit.blu.android.presentation.authentication.personalization.PersonalizationAction
+import com.bluhabit.blu.android.presentation.authentication.personalization.PersonalizationState
 import com.bluhabit.core.ui.components.button.ButtonOutlinedPrimary
 import com.bluhabit.core.ui.components.button.ButtonPrimary
 import com.bluhabit.core.ui.components.dialog.DialogChoice
@@ -61,8 +61,8 @@ import com.bluhabit.core.ui.theme.UwangTypography
 
 @Composable
 fun UploadPhotoProfileScreen(
-    state: CompleteProfileState = CompleteProfileState(),
-    onAction: (CompleteProfileAction) -> Unit = {},
+    state: PersonalizationState = PersonalizationState(),
+    onAction: (PersonalizationAction) -> Unit = {},
 ) {
     val ctx = LocalContext.current
     val dimens = UwangDimens.from(ctx)
@@ -76,7 +76,8 @@ fun UploadPhotoProfileScreen(
         if (result != null) {
             val bitmap = result.getBitmap(ctx.contentResolver)
             if (bitmap != null) {
-                onAction(CompleteProfileAction.OnShowDialogChoice(false))
+                onAction(PersonalizationAction.OnShowDialogChoice(false))
+                onAction(PersonalizationAction.OnProfileImageChange(bitmap))
             }
         }
     }
@@ -85,8 +86,9 @@ fun UploadPhotoProfileScreen(
             contract = ActivityResultContracts.TakePicturePreview()
         ) { bitmap: Bitmap? ->
             if (bitmap != null) {
-                onAction(CompleteProfileAction.OnShowDialogChoice(false))
+                onAction(PersonalizationAction.OnShowDialogChoice(false))
                 val newFile = bitmap.toFile(System.currentTimeMillis().toDateTime("yyyy-MM-dd-HH:mm:ss"))
+                onAction(PersonalizationAction.OnProfileImageChange(bitmap))
             }
         }
     Column(
@@ -106,7 +108,7 @@ fun UploadPhotoProfileScreen(
                     }
                 },
                 onDismissRequest = {
-                    onAction(CompleteProfileAction.OnShowDialogChoice(false))
+                    onAction(PersonalizationAction.OnShowDialogChoice(false))
                 }
             )
         }
@@ -179,7 +181,7 @@ fun UploadPhotoProfileScreen(
                                 shape = CircleShape
                             )
                             .clickable {
-                                onAction(CompleteProfileAction.OnShowDialogChoice(true))
+                                onAction(PersonalizationAction.OnShowDialogChoice(true))
                             },
                         contentAlignment = Alignment.Center
                     ) {
@@ -244,7 +246,11 @@ fun UploadPhotoProfileScreen(
                     modifier = Modifier
                         .width(dimens.from(102.dp))
                         .height(dimens.from(36.dp)),
-                    text = stringResource(id = R.string.label_button_next)
+                    text = stringResource(id = R.string.label_button_next),
+                    enabled = state.profileImage != null && state.uploadPhotoNextButton,
+                    onClick = {
+                        onAction(PersonalizationAction.UploadPhotoProfileNextButton)
+                    }
                 )
             }
         }

@@ -389,5 +389,13 @@
     <string name="label_tag_topic_sembilanbelas"> 💼 Pengembangan pendapatan</string>
     <string name="label_tag_topic_duapuluh"> 📜 Obligasi</string>
     <string name="label_tag_topic_duapuluhsatu"> 📊 Reksa dana</string>
+    <string name="title_header_username">Bagaimana kami memanggilmu?</string>
+    <string name="desctiption_header_username">Buat nama @pengguna yang unik.</string>
+    <string name="label_field_username">Nama pengguna</string>
+    <string name="placeholder_field_username">Masukkan nama pengguna</string>
+    <string name="caption_error_field_username_min">Nama pengguna minimal 3 karakter</string>
+    <string name="caption_error_field_username_max">Nama pengguna maksimal 60 karakter</string>
+    <string name="caption_error_field_username_already">Nama ini sudah digunakan</string>
+    <string name="caption_error_field_username_badword">Nama ini melanggar kebijakan konten kami</string>
 
 </resources>

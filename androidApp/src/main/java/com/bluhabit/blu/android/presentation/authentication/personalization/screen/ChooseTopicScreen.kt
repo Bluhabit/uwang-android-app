@@ -5,7 +5,7 @@
  * Proprietary and confidential
  */
 
-package com.bluhabit.blu.android.presentation.authentication.completeProfile.screen
+package com.bluhabit.blu.android.presentation.authentication.personalization.screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -39,8 +39,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluehabit.core.ui.R
-import com.bluhabit.blu.android.presentation.authentication.completeProfile.CompleteProfileAction
-import com.bluhabit.blu.android.presentation.authentication.completeProfile.CompleteProfileState
+import com.bluhabit.blu.android.presentation.authentication.personalization.PersonalizationAction
+import com.bluhabit.blu.android.presentation.authentication.personalization.PersonalizationState
 import com.bluhabit.core.ui.components.button.ButtonOutlinedPrimary
 import com.bluhabit.core.ui.components.button.ButtonPrimary
 import com.bluhabit.core.ui.components.chip.RoundedChip
@@ -57,8 +57,8 @@ data class SelectedTopic(
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun ChooseTopicScreen(
-    state: CompleteProfileState = CompleteProfileState(),
-    onAction: (CompleteProfileAction) -> Unit = {},
+    state: PersonalizationState = PersonalizationState(),
+    onAction: (PersonalizationAction) -> Unit = {},
 ) {
     val ctx = LocalContext.current
     val dimens = UwangDimens.from(ctx)
@@ -140,7 +140,7 @@ fun ChooseTopicScreen(
                             text = it.topic,
                             selected = true,
                             onClick = {
-                                onAction(CompleteProfileAction.OnRemoveSelectedList(it))
+                                onAction(PersonalizationAction.OnRemoveSelectedList(it))
                             }
                         )
                     }
@@ -161,7 +161,7 @@ fun ChooseTopicScreen(
                         modifier = Modifier
                             .clip(RoundedCornerShape(4.dp))
                             .clickable {
-                                onAction(CompleteProfileAction.OnClearSelectedList)
+                                onAction(PersonalizationAction.OnClearSelectedList)
                             }
                     )
                 }
@@ -183,7 +183,7 @@ fun ChooseTopicScreen(
                             selected = false,
                             onClick = {
                                 onAction(
-                                    CompleteProfileAction.OnAddSelectedList(
+                                    PersonalizationAction.OnAddSelectedList(
                                         SelectedTopic(
                                             topic = it,
                                             selectedTime = System.currentTimeMillis(),
@@ -220,8 +220,10 @@ fun ChooseTopicScreen(
                         .width(dimens.from(102.dp))
                         .height(dimens.from(36.dp)),
                     text = stringResource(id = R.string.label_button_next),
-                    enabled = state.selectedTopicList.isNotEmpty() && state.chooseTopicScreenNextButtonEnabled
-                )
+                    enabled = state.selectedTopicList.isNotEmpty() && state.chooseTopicNextButtonEnabled
+                ) {
+                    onAction(PersonalizationAction.ChooseTopicNextButton)
+                }
             }
         }
     }

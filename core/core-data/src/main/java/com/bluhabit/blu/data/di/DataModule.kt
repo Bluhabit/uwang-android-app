@@ -13,6 +13,7 @@ import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.android.AndroidSqliteDriver
 import com.bluehabit.uwang.db.Database
 import com.bluhabit.blu.data.BuildConfig
+import com.bluhabit.blu.data.common.ResourceProvider
 import com.bluhabit.blu.data.persistence.SharedPref
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
@@ -42,6 +43,11 @@ import okhttp3.logging.HttpLoggingInterceptor
 )
 object DataModule {
 
+
+    @Provides
+    fun provideResource(
+        @ApplicationContext appContext: Context,
+    ) : ResourceProvider = ResourceProvider(appContext)
 
     @Provides
     fun provideSharedPref(
