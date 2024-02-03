@@ -7,12 +7,31 @@
 
 package com.bluhabit.blu.android.presentation.authentication.signup
 
+import java.time.LocalDate
+
 sealed interface SignUpAction {
     data class OnScreenChange(
         val screen: Int = 0,
     ) : SignUpAction
 
+    data class OnShowBottomSheet(
+        val show:Boolean=true,
+        val type:BottomSheetSignUpType
+    ) : SignUpAction
+
     data class OnEmailChange(
+        val value: String = ""
+    ) : SignUpAction
+
+    data class OnFullNameChange(
+        val value: String = ""
+    ) : SignUpAction
+
+    data class OnDateOfBirthChange(
+        val value: LocalDate
+    ) : SignUpAction
+
+    data class OnGenderChange(
         val value: String = ""
     ) : SignUpAction
 
@@ -47,6 +66,6 @@ sealed interface SignUpAction {
 
     object SignUpBasic : SignUpAction
     object OnCountDownStart : SignUpAction
-    object OnResentOtp : SignUpAction
+    object OnResendOtp : SignUpAction
     object OnVerifyOtp : SignUpAction
 }

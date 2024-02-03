@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
@@ -34,6 +35,7 @@ import com.bluehabit.core.ui.R
 import com.bluhabit.blu.android.presentation.authentication.signup.SignUpAction
 import com.bluhabit.blu.android.presentation.authentication.signup.SignUpState
 import com.bluhabit.core.ui.components.button.ButtonPrimary
+import com.bluhabit.core.ui.components.textfield.ClickableTextFieldPrimary
 import com.bluhabit.core.ui.components.textfield.TextFieldPrimary
 import com.bluhabit.core.ui.components.textfield.TextFieldState
 import com.bluhabit.core.ui.theme.UwangColors
@@ -43,15 +45,18 @@ import com.bluhabit.core.ui.theme.UwangTypography
 
 @Composable
 fun CompleteProfileSignUpScreen(
+    modifier:Modifier = Modifier,
     state: SignUpState = SignUpState(),
     onBackPressed: () -> Unit,
-    action: (SignUpAction) -> Unit
+    action: (SignUpAction) -> Unit,
+    onSelectDateOfBirth: () -> Unit,
+    onSelectGender: () -> Unit
 ) {
 
     val ctx = LocalContext.current
     val dimens = UwangDimens.from(ctx)
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .background(Color.White)
             .safeDrawingPadding()
@@ -60,13 +65,13 @@ fun CompleteProfileSignUpScreen(
     ) {
         Column {
             Box(
-                modifier = Modifier
+                modifier = modifier
                     .fillMaxWidth()
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_arrow_back),
                     contentDescription = "arrow back",
-                    modifier = Modifier
+                    modifier = modifier
                         .size(dimens.dp_24)
                         .align(Alignment.CenterStart)
                         .clickable {
@@ -76,41 +81,66 @@ fun CompleteProfileSignUpScreen(
                 Image(
                     painter = painterResource(id = R.drawable.app_logo),
                     contentDescription = "",
-                    modifier = Modifier
+                    modifier = modifier
                         .size(dimens.dp_24)
                         .align(Alignment.Center)
                 )
             }
-            Spacer(modifier = Modifier.padding(bottom = dimens.dp_24))
+            Spacer(modifier = modifier.padding(bottom = dimens.dp_24))
             Text(
-                text = stringResource(id = R.string.sign_up_title_header),
+                text = stringResource(id = R.string.sign_up_complete_profile_title_header),
                 style = UwangTypography.BodyLarge.SemiBold,
                 color = UwangColors.Text.Main
             )
-            Spacer(modifier = Modifier.padding(bottom = dimens.dp_16))
+            Spacer(modifier = modifier.padding(bottom = dimens.dp_16))
             Column(
                 verticalArrangement = Arrangement.spacedBy(4.dp),
             ) {
                 TextFieldPrimary(
-                    modifier = Modifier
+                    modifier = modifier
                         .fillMaxWidth(),
-                    label = stringResource(id = R.string.sign_up_input_email_label),
-                    placeholder = stringResource(id = R.string.sign_up_input_email_placeholder),
+                    label = stringResource(id = R.string.reset_password_input_label_email),
+                    placeholder = stringResource(id = R.string.reset_password_input_placeholder_email),
                     value = state.emailState,
                     onValueChange = {
                         action(SignUpAction.OnEmailChange(it))
                     },
                     state = state.emailInputState,
                 )
+                Spacer(modifier = Modifier.height(dimens.dp_12))
+                ClickableTextFieldPrimary(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    label = stringResource(id = R.string.sign_up_input_date_of_birth_label),
+                    placeholder = stringResource(id = R.string.sign_up_input_date_of_birth_placeholder),
+                    value = state.emailState,
+                    state = state.emailInputState,
+                    onClick = {
+                        onSelectDateOfBirth()
+                    }
+                )
+                Spacer(modifier = modifier.height(dimens.dp_12))
+                ClickableTextFieldPrimary(
+                    modifier = modifier
+                        .fillMaxWidth(),
+                    label = stringResource(id = R.string.sign_up_input_gender_label),
+                    placeholder = stringResource(id = R.string.sign_up_input_gender_placeholder),
+                    value = state.emailState,
+                    state = state.emailInputState,
+                    onClick = {
+                        onSelectGender()
+                    }
+                )
+
             }
-            Spacer(modifier = Modifier.padding(bottom = dimens.dp_12))
+            Spacer(modifier = modifier.padding(bottom = dimens.dp_12))
         }
         Column(
             verticalArrangement = Arrangement.spacedBy(dimens.dp_24),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             ButtonPrimary(
-                modifier = Modifier
+                modifier = modifier
                     .fillMaxWidth(),
                 text = stringResource(id = R.string.sign_up_screen_next),
                 enabled = state.emailInputState !is TextFieldState.Error && state.emailState.isNotEmpty() && !state.isAccountLocked
@@ -127,7 +157,9 @@ fun CompleteProfileSignUpScreenPreview() {
     UwangTheme {
         CompleteProfileSignUpScreen(
             onBackPressed = {},
-            action = {}
+            action = {},
+            onSelectDateOfBirth = {},
+            onSelectGender = {}
         )
     }
 }

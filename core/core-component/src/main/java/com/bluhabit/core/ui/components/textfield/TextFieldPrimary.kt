@@ -238,7 +238,7 @@ fun TextFieldPasswordPrimary(
             isError = state is TextFieldState.Error,
             trailingIcon = {
                 IconButton(onClick = {
-                    onChangeVisibility(showPassword)
+                    onChangeVisibility(!showPassword)
                 }) {
                     Icon(
                         painter = painterResource(id = if (showPassword) R.drawable.eye_open else R.drawable.eye_close),

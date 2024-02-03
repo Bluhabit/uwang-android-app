@@ -193,7 +193,7 @@ fun OtpSignUpScreen(
                     color = UwangColors.State.Primary.Main,
                     modifier = Modifier
                         .clickable {
-                            onAction(SignUpAction.OnResentOtp)
+                            onAction(SignUpAction.OnResendOtp)
                         }
                 )
             }

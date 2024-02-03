@@ -8,7 +8,7 @@
 package com.bluhabit.blu.android.data.authentication.repositories
 
 import android.graphics.Bitmap
-import com.bluhabit.blu.android.data.authentication.datasource.remote.request.CompleteProfileRequest
+import com.bluhabit.blu.android.data.authentication.datasource.remote.request.CompleteProfileSignUpRequest
 import com.bluhabit.blu.android.data.authentication.datasource.remote.request.ForgotPasswordRequest
 import com.bluhabit.blu.android.data.authentication.datasource.remote.request.ResendOtpForgotPasswordRequest
 import com.bluhabit.blu.android.data.authentication.datasource.remote.request.ResendOtpSignInBasicRequest
@@ -20,7 +20,6 @@ import com.bluhabit.blu.android.data.authentication.datasource.remote.request.Si
 import com.bluhabit.blu.android.data.authentication.datasource.remote.request.VerifyOtpForgotPasswordRequest
 import com.bluhabit.blu.android.data.authentication.datasource.remote.request.VerifyOtpSignInRequest
 import com.bluhabit.blu.android.data.authentication.datasource.remote.request.VerifyOtpSignUpRequest
-import com.bluhabit.blu.android.data.authentication.datasource.remote.response.ForgotPasswordResponse
 import com.bluhabit.blu.android.data.authentication.datasource.remote.response.ResendOtpForgotPasswordResponse
 import com.bluhabit.blu.android.data.authentication.datasource.remote.response.ResendOtpSignInBasicResponse
 import com.bluhabit.blu.android.data.authentication.datasource.remote.response.ResendOtpSignUpBasicResponse
@@ -178,6 +177,28 @@ class AuthRepository @Inject constructor(
         }
     }
 
+    suspend fun completeProfileSignUp(
+        fullName: String,
+        dateOfBirth: String,
+        gender: String
+    ): Response<UserCredentialResponse> {
+        val sessionId = sharedPref.getPersistData(KEY_SESSION_ID)
+            ?: return Response.Error("Sesi tidak ditemukan sudah habis", 401)
+
+        return safeApiCall {
+            httpClient.post("auth/v1/sign-up/complete-profile") {
+                setBody(
+                    CompleteProfileSignUpRequest(
+                        sessionId = sessionId,
+                        fullName = fullName,
+                        dateOfBirth = dateOfBirth,
+                        gender = gender
+                    )
+                )
+            }
+        }
+    }
+
     suspend fun resendOtpSignUpBasic(): Response<ResendOtpSignUpBasicResponse> {
         val sessionId = sharedPref.getPersistData(KEY_SESSION_ID)
             ?: return Response.Error("Sesi tidak ditemukan sudah habis", 401)
@@ -213,11 +234,11 @@ class AuthRepository @Inject constructor(
 
     suspend fun verifyOtpForgotPassword(
         otp: String
-    ): Response<ForgotPasswordResponse> {
+    ): Response<String> {
         val sessionId = sharedPref.getPersistData(KEY_SESSION_ID)
             ?: return Response.Error("Sesi tidak ditemukan sudah habis", 401)
 
-        return when (val result = safeApiCall<ForgotPasswordResponse> {
+        return when (val result = safeApiCall<String> {
             httpClient.post("auth/v1/forgot-password/verify-otp") {
                 setBody(
                     VerifyOtpForgotPasswordRequest(
@@ -229,8 +250,7 @@ class AuthRepository @Inject constructor(
         }) {
             is Response.Error -> result
             is Response.Result -> {
-                sharedPref.setToken(result.data.token)
-                sharedPref.setPersistData(KEY_USER_ID, result.data.credential.id)
+                sharedPref.setPersistData(KEY_SESSION_ID, result.data)
                 result
             }
         }
@@ -283,27 +303,6 @@ class AuthRepository @Inject constructor(
     ): Response<String> {
 
         return Response.Error("", 10)
-    }
-
-    suspend fun updateProfile(
-        avatar: String,
-        username: String,
-        dateOfBirth: String,
-        personalPreferences: List<String>
-    ): Response<UserCredentialResponse> {
-
-        return safeApiCall {
-            httpClient.post("auth/v1/complete-profile") {
-                setBody(
-                    CompleteProfileRequest(
-                        avatar = avatar,
-                        username = username,
-                        dateOfBirth = dateOfBirth,
-                        personalPreferences = personalPreferences
-                    )
-                )
-            }
-        }
     }
     //end
 

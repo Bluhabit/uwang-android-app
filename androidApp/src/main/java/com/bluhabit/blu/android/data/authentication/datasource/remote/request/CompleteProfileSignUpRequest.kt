@@ -11,13 +11,13 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class CompleteProfileRequest(
-    @SerializedName("username")
-    val username: String,
-    @SerializedName("avatar")
-    val avatar:String,
+data class CompleteProfileSignUpRequest(
+    @SerializedName("session_id")
+    val sessionId: String,
+    @SerializedName("full_name")
+    val fullName: String,
+    @SerializedName("gender")
+    val gender:String,
     @SerializedName("date_of_birth")
-    val dateOfBirth:String,
-    @SerializedName("personal_preferences")
-    val personalPreferences:List<String>
+    val dateOfBirth:String
 )

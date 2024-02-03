@@ -9,19 +9,14 @@ package com.bluhabit.blu.android.presentation.authentication.completeProfile
 
 import androidx.lifecycle.viewModelScope
 import com.bluhabit.blu.android.common.BaseViewModel
-import com.bluhabit.blu.android.data.authentication.domain.CompleteProfileUseCase
-import com.bluhabit.blu.data.common.Response
-import com.bluhabit.blu.data.common.executeAsFlow
+import com.bluhabit.blu.android.data.authentication.domain.CompleteProfileSignUpUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
 @HiltViewModel
 class CompleteProfileViewModel @Inject constructor(
-    private val completeProfileUseCase: CompleteProfileUseCase
+    private val completeProfileSignUpUseCase: CompleteProfileSignUpUseCase
 ) : BaseViewModel<CompleteProfileState, CompleteProfileAction, CompleteProfileEffect>(
     CompleteProfileState()
 ) {
@@ -86,24 +81,7 @@ class CompleteProfileViewModel @Inject constructor(
         if (state.value.avatar == null) {
             return@launch
         }
-        executeAsFlow {
-            completeProfileUseCase(
-                avatar = state.value.avatar!!,
-                username = state.value.usernameState,
-                dateOfBirth = state.value.dateOfBirthState.toString(),
-                personalPreferences = state.value.preferenceItems.map { it.title }
-            )
-        }
-            .onStart { }
-            .onEach {
-                when (it) {
-                    is Response.Error -> _effect.send(CompleteProfileEffect.Error(it.message))
-                    is Response.Result -> updateState {
-                        copy(showDialogSuccess = true)
-                    }
-                }
-            }
-            .collect()
+
     }
 
 }

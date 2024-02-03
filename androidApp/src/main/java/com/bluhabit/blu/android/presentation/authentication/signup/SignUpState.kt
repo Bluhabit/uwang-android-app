@@ -8,16 +8,24 @@
 package com.bluhabit.blu.android.presentation.authentication.signup
 
 import com.bluhabit.core.ui.components.textfield.TextFieldState
+import java.time.LocalDate
 import javax.annotation.concurrent.Immutable
+
+enum class BottomSheetSignUpType {
+    GENDER,
+    DATE_OF_BIRTH
+}
 
 @Immutable
 data class SignUpState(
     //global
     // 0 == sing up 1 == otp
     val currentScreen: Int = 0,
-    //sign up
+    val showLoading: Boolean = false,
+    val bottomSheetType: BottomSheetSignUpType = BottomSheetSignUpType.DATE_OF_BIRTH,
+    //[NEW] sign up
     val emailState: String = "",
-    val emailInputState:TextFieldState=TextFieldState.None,
+    val emailInputState: TextFieldState = TextFieldState.None,
     val signUpButtonEnabled: Boolean = true,
 
     // Otp Sign Up Screen
@@ -30,6 +38,14 @@ data class SignUpState(
     val otpSentLimit: Boolean = false,
     val isAccountLocked: Boolean = false,
     val verifyOtpButtonEnabled: Boolean = true,
+
+    //[NEW] Complete Profile
+    val fullNameState: String = "",
+    val fullNameInputState: TextFieldState = TextFieldState.None,
+    val dateOfBirthState: LocalDate? = null,
+    val dateOfBirthInputState: TextFieldState = TextFieldState.None,
+    val genderState: String = "",
+    val genderInputState: TextFieldState = TextFieldState.None,
 
     //create password
     val passwordState: String = "",

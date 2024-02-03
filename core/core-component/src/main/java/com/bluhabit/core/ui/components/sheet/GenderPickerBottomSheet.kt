@@ -12,6 +12,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -21,6 +22,8 @@ import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetValue
+import androidx.compose.material.RadioButton
+import androidx.compose.material.RadioButtonDefaults
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.rememberModalBottomSheetState
@@ -40,20 +43,20 @@ import com.bluhabit.core.ui.components.button.ButtonPrimary
 import com.bluhabit.core.ui.ext.Empty
 import com.bluhabit.core.ui.theme.UwangColors
 import com.bluhabit.core.ui.theme.CustomTypography
+import com.bluhabit.core.ui.theme.UwangTypography
 import com.commandiron.wheel_picker_compose.WheelDatePicker
 import com.commandiron.wheel_picker_compose.core.WheelPickerDefaults
 import java.time.LocalDate
 import kotlinx.coroutines.launch
 
 @Composable
-fun DatePickerBottomSheet(
+fun GenderPickerBottomSheet(
+    modifier: Modifier = Modifier,
     title: String = String.Empty,
-    value:LocalDate?= null,
-    minDate: LocalDate = LocalDate.MIN,
-    maxDate: LocalDate = LocalDate.MAX,
+    value: String = "",
     onDone: () -> Unit = {},
     onClose: () -> Unit = {},
-    onChange: (date: LocalDate) -> Unit = {}
+    onChange: (String) -> Unit = {}
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(24.dp),
@@ -91,23 +94,78 @@ fun DatePickerBottomSheet(
                 modifier = Modifier.fillMaxWidth()
             )
         }
-        WheelDatePicker(
-            modifier = Modifier
-                .fillMaxWidth(),
-            startDate = value ?: LocalDate.now(),
-            minDate = minDate,
-            maxDate=maxDate,
-            size = DpSize(321.dp, 264.dp),
-            rowCount = 5,
-            textStyle = CustomTypography.Body.Large.W600,
-            textColor = Color(0xFF212121),
-            selectorProperties = WheelPickerDefaults.selectorProperties(
-                enabled = false,
-            ),
-            onSnappedDate = { snappedDate ->
-                onChange.invoke(snappedDate)
+        Column(
+            modifier = modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.Start,
+            verticalArrangement = Arrangement.Top
+        ) {
+            Row(
+                modifier = modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Start
+            ) {
+                RadioButton(
+                    selected = value === "M",
+                    onClick = {
+                        onChange("M")
+                    },
+                    colors = RadioButtonDefaults.colors(
+                        selectedColor = UwangColors.State.Primary.Main,
+                        unselectedColor = UwangColors.State.Primary.Border,
+                        disabledColor = UwangColors.State.Neutral.Disabled
+                    )
+                )
+                Text(
+                    text = "Laki-Laki",
+                    style = UwangTypography.LabelMedium.Medium,
+                    color = UwangColors.Text.Main
+                )
             }
-        )
+            Row(
+                modifier = modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Start
+            ) {
+                RadioButton(
+                    selected = value === "F",
+                    onClick = {
+                        onChange("F")
+                    },
+                    colors = RadioButtonDefaults.colors(
+                        selectedColor = UwangColors.State.Primary.Main,
+                        unselectedColor = UwangColors.State.Primary.Border,
+                        disabledColor = UwangColors.State.Neutral.Disabled
+                    )
+                )
+                Text(
+                    text = "Perempuan",
+                    style = UwangTypography.LabelMedium.Medium,
+                    color = UwangColors.Text.Main
+                )
+            }
+            Row(
+                modifier = modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Start
+            ) {
+                RadioButton(
+                    selected = value === "N/A",
+                    onClick = {
+                        onChange("N/A")
+                    },
+                    colors = RadioButtonDefaults.colors(
+                        selectedColor = UwangColors.State.Primary.Main,
+                        unselectedColor = UwangColors.State.Primary.Border,
+                        disabledColor = UwangColors.State.Neutral.Disabled
+                    )
+                )
+                Text(
+                    text = "Tidak ingin memberitahu",
+                    style = UwangTypography.LabelMedium.Medium,
+                    color = UwangColors.Text.Main
+                )
+            }
+        }
         ButtonPrimary(
             modifier = Modifier
                 .fillMaxWidth(),
@@ -120,13 +178,12 @@ fun DatePickerBottomSheet(
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 @Preview(widthDp = 500, heightDp = 750, backgroundColor = 0xffffff)
-fun DatePickerBottomSheetPreview() {
+fun GenderPickerBottomSheetPreview() {
     val modalSheetState = rememberModalBottomSheetState(
-        initialValue = ModalBottomSheetValue.Hidden,
+        initialValue = ModalBottomSheetValue.Expanded,
         confirmValueChange = { it != ModalBottomSheetValue.HalfExpanded },
-        skipHalfExpanded = true,
-
-        )
+        skipHalfExpanded = true
+    )
     val scope = rememberCoroutineScope()
     ModalBottomSheetLayout(
         sheetState = modalSheetState,
@@ -136,8 +193,9 @@ fun DatePickerBottomSheetPreview() {
             topEnd = 24.dp
         ),
         sheetContent = {
-            DatePickerBottomSheet(
+            GenderPickerBottomSheet(
                 title = "Title Here",
+                value = "M",
                 onClose = {
                     scope.launch {
                         modalSheetState.hide()

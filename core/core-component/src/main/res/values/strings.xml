@@ -23,8 +23,19 @@
 
     <!--  [NEW] sign up basic  -->
     <string name="sign_up_title_header">Mulai dengan email kamu</string>
-    <string name="sign_up_input_email_label">Email</string>
-    <string name="sign_up_input_email_placeholder">Masukkan email kamu</string>
+    <string name="sign_up_complete_profile_title_header">Lengkapi data diri kamu dulu</string>
+
+    <string name="sign_up_bottom_sheet_gender_title">Pilih gender</string>
+    <string name="sign_up_bottom_sheet_date_of_birth_title">Pilih tanggal lahir</string>
+
+    <string name="sign_up_input_email_label">Nama Lengkap</string>
+    <string name="sign_up_input_email_placeholder">Masukkan nama lengkap kamu</string>
+    <string name="sign_up_input_full_name_label">Nama Lengkap</string>
+    <string name="sign_up_input_full_name_placeholder">Masukkan nama lengkap kamu</string>
+    <string name="sign_up_input_date_of_birth_label">Tanggal Lahir</string>
+    <string name="sign_up_input_date_of_birth_placeholder">Masukkan nama tanggal lahir kamu</string>
+    <string name="sign_up_input_gender_label">Gender</string>
+    <string name="sign_up_input_gender_placeholder">Pilih Gender kamu</string>
     <string name="sign_up_screen_next">Lanjut</string>
     <!--  end sign up  -->
 

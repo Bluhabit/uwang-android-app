@@ -11,6 +11,7 @@ import android.os.CountDownTimer
 import android.util.Patterns
 import androidx.lifecycle.viewModelScope
 import com.bluhabit.blu.android.common.BaseViewModel
+import com.bluhabit.blu.android.data.authentication.domain.ResendOtpSignInUseCase
 import com.bluhabit.blu.android.data.authentication.domain.SignInBasicUseCase
 import com.bluhabit.blu.android.data.authentication.domain.SignInGoogleUseCase
 import com.bluhabit.blu.android.data.authentication.domain.VerifyOtpSignInBasicUseCase
@@ -30,6 +31,7 @@ import kotlinx.coroutines.tasks.await
 class SignInViewModel @Inject constructor(
     private val signInGoogleUseCase: SignInGoogleUseCase,
     private val signInBasicUseCase: SignInBasicUseCase,
+    private val resendOtpSignInUseCase: ResendOtpSignInUseCase,
     private val verifyOtpSignInBasicUseCase: VerifyOtpSignInBasicUseCase
 ) : BaseViewModel<SignInState, SignInAction, SignInEffect>(
     SignInState()
@@ -46,15 +48,12 @@ class SignInViewModel @Inject constructor(
                 updateState { copy(otpNumberState = action.value) }
             }
 
-            is SignInAction.OnPasswordVisibilityChange -> updateState {
-                copy(passwordVisibility = action.visibility)
-            }
-
+            is SignInAction.OnPasswordVisibilityChange -> updateState { copy(passwordVisibility = action.visibility) }
             SignInAction.OnVerifyOtp -> verifyOtp()
             is SignInAction.OnScreenChange -> updateState { copy(currentScreen = action.screen) }
             is SignInAction.OnSentOtpAlertVisibilityChange -> updateState { copy(otpSentAlertVisibility = action.visibility) }
             SignInAction.OnCountDownStart -> onCountDownStart()
-            SignInAction.OnResentOtp -> reSentOtp()
+            SignInAction.OnResentOtp -> resendOtpSignIn()
         }
     }
 
@@ -78,21 +77,6 @@ class SignInViewModel @Inject constructor(
         super.onCleared()
         countDownTimer?.cancel()
         _state.value = SignInState()
-    }
-
-    private fun reSentOtp() {
-        // Ketika hasil response sudah keluar jalankan fungsi
-        updateState { copy(otpSentCountDown = 120_000L) }
-        onCountDownStart()
-        updateState {
-            if (true) { // rubah parameter menjadi hasil response
-                // Ketika response berhasil
-                copy(otpSentAlertSuccess = true)
-            } else {
-                // Ketika response gagal
-                copy(otpSentAlertSuccess = false)
-            }
-        }
     }
 
     private fun onPasswordChange(password: String) {
@@ -157,6 +141,33 @@ class SignInViewModel @Inject constructor(
                 when (it) {
                     is Response.Error -> Unit
                     is Response.Result -> {
+                        if (it.data.credential.profile.isEmpty()) {
+                            _effect.send(SignInEffect.NavigateToPersonalize)
+                        } else {
+                            _effect.send(SignInEffect.NavigateToMain)
+                        }
+                    }
+                }
+            }
+            .collect()
+    }
+
+    private fun resendOtpSignIn() = viewModelScope.launch {
+        // Ketika hasil response sudah keluar jalankan fungsi
+        onCountDownStart()
+        executeAsFlow { resendOtpSignInUseCase() }
+            .onStart {
+                updateState { copy(showLoading = true) }
+            }
+            .onEach {
+                updateState { copy(showLoading = false) }
+                when (it) {
+                    is Response.Error -> {
+                        updateState { copy(otpSentAlertSuccess = false) }
+                    }
+
+                    is Response.Result -> {
+                        updateState { copy(otpSentAlertSuccess = true, otpSentCountDown = 120_000L) }
                         if (it.data.credential.profile.isEmpty()) {
                             _effect.send(SignInEffect.NavigateToPersonalize)
                         } else {

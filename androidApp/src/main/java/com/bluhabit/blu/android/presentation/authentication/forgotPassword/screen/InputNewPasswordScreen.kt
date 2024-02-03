@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
@@ -102,28 +103,31 @@ fun InputNewPasswordScreen(
                     label = stringResource(id = R.string.reset_password_input_password_label),
                     placeholder = stringResource(id = R.string.reset_password_input_password_placeholder),
                     value = state.passwordState,
+                    state = state.passwordInputState,
+                    showPassword = state.passwordVisibility,
                     onValueChange = {
                         action(ForgotPasswordAction.OnNewPasswordChange(it))
                     },
                     onChangeVisibility = {
-                        action(ForgotPasswordAction.OnNewPasswordVisibilityChange(!it))
+                        action(ForgotPasswordAction.OnNewPasswordVisibilityChange(it))
                     },
-                    state = state.passwordInputState,
                     onAction = {
                         it.clearFocus()
                     }
                 )
+                Spacer(modifier = Modifier.height(8.dp))
                 TextFieldPasswordPrimary(
                     modifier = Modifier.fillMaxWidth(),
                     label = stringResource(id = R.string.reset_password_input_confirm_password_label),
                     placeholder = stringResource(id = R.string.reset_password_input_confirm_password_placeholder),
                     value = state.confirmPasswordState,
                     state = state.confirmPasswordInputState,
+                    showPassword=state.confirmPasswordVisibility,
                     onValueChange = {
                         action(ForgotPasswordAction.OnConfirmPasswordChange(it))
                     },
                     onChangeVisibility = {
-                        action(ForgotPasswordAction.OnConfirmPasswordVisibilityChange(!it))
+                        action(ForgotPasswordAction.OnConfirmPasswordVisibilityChange(it))
                     },
                     onAction = {
                         it.clearFocus()

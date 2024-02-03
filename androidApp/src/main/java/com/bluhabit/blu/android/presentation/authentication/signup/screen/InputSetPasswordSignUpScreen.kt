@@ -28,6 +28,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluehabit.core.ui.R
 import com.bluhabit.blu.android.presentation.authentication.signup.SignUpAction
@@ -37,6 +38,7 @@ import com.bluhabit.core.ui.components.textfield.TextFieldPasswordPrimary
 import com.bluhabit.core.ui.components.textfield.TextFieldState
 import com.bluhabit.core.ui.theme.UwangColors
 import com.bluhabit.core.ui.theme.UwangDimens
+import com.bluhabit.core.ui.theme.UwangTheme
 import com.bluhabit.core.ui.theme.UwangTypography
 
 @Composable
@@ -143,5 +145,17 @@ fun InputSetNewPasswordSignUpScreen(
             ) {
             }
         }
+    }
+}
+
+@Preview
+@Composable
+fun InputSetPasswordSignUpScreenPreview() {
+    UwangTheme {
+        InputSetNewPasswordSignUpScreen(
+            state = SignUpState(),
+            onBackPressed = {},
+            action = {},
+        )
     }
 }

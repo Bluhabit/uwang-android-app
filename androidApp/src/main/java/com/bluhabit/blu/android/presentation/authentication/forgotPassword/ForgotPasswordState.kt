@@ -14,6 +14,7 @@ import javax.annotation.concurrent.Immutable
 data class ForgotPasswordState(
     //global
     val currentScreen: Int = 0,
+    val showLoading:Boolean=false,
 
     // Otp Forgot Password Screen
     val otpSentCountDown: Long = 120_000L,

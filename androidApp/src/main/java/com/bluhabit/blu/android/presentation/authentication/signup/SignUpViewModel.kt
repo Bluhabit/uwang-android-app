@@ -11,7 +11,8 @@ import android.os.CountDownTimer
 import android.util.Patterns
 import androidx.lifecycle.viewModelScope
 import com.bluhabit.blu.android.common.BaseViewModel
-import com.bluhabit.blu.android.data.authentication.domain.SignInGoogleUseCase
+import com.bluhabit.blu.android.data.authentication.domain.CompleteProfileSignUpUseCase
+import com.bluhabit.blu.android.data.authentication.domain.ResendOtpSignUpUseCase
 import com.bluhabit.blu.android.data.authentication.domain.SignUpBasicUseCase
 import com.bluhabit.blu.android.data.authentication.domain.VerifyOtpSignUpBasicUseCase
 import com.bluhabit.blu.data.common.Response
@@ -28,7 +29,8 @@ import kotlinx.coroutines.launch
 class SignUpViewModel @Inject constructor(
     private val signUpBasicUseCase: SignUpBasicUseCase,
     private val verifyOtpSignUpBasicUseCase: VerifyOtpSignUpBasicUseCase,
-    private val signInGoogleUseCase: SignInGoogleUseCase
+    private val resendOtpSignUpUseCase: ResendOtpSignUpUseCase,
+    private val completeProfileSignUpUseCase: CompleteProfileSignUpUseCase
 ) : BaseViewModel<SignUpState, SignUpAction, SignUpEffect>(SignUpState()) {
     private var countDownTimer: CountDownTimer? = null
 
@@ -49,7 +51,11 @@ class SignUpViewModel @Inject constructor(
             is SignUpAction.OnButtonEnabledChange -> updateState { copy(signUpButtonEnabled = false) }
             is SignUpAction.OnSentOtpAlertVisibilityChange -> updateState { copy(otpSentAlertVisibility = action.visibility) }
             SignUpAction.OnCountDownStart -> onCountDownStart()
-            SignUpAction.OnResentOtp -> reSentOtp()
+            SignUpAction.OnResendOtp -> resendOtp()
+            is SignUpAction.OnShowBottomSheet -> updateState { copy(bottomSheetType = action.type) }
+            is SignUpAction.OnDateOfBirthChange -> updateState { copy(dateOfBirthState = action.value) }
+            is SignUpAction.OnFullNameChange -> updateState { copy(fullNameState = action.value) }
+            is SignUpAction.OnGenderChange -> updateState { copy(genderState = action.value) }
         }
     }
 
@@ -74,21 +80,6 @@ class SignUpViewModel @Inject constructor(
         countDownTimer?.cancel()
         updateState {
             SignUpState() // Clearing saved state
-        }
-    }
-
-    private fun reSentOtp() {
-        // Ketika hasil response sudah keluar jalankan fungsi
-        updateState { copy(otpSentCountDown = 120_000L) }
-        onCountDownStart()
-        updateState {
-            if (true) { // rubah parameter menjadi hasil response
-                // Ketika response berhasil
-                copy(otpSentAlertSuccess = true)
-            } else {
-                // Ketika response gagal
-                copy(otpSentAlertSuccess = false)
-            }
         }
     }
 
@@ -138,28 +129,17 @@ class SignUpViewModel @Inject constructor(
     private fun signUpBasic() = viewModelScope.launch {
         executeAsFlow { signUpBasicUseCase(email = state.value.emailState, password = state.value.passwordState) }
             .onStart {
-                updateState {
-                    copy(
-                        signUpButtonEnabled = false
-                    )
-                }
+                updateState { copy(signUpButtonEnabled = false, showLoading = true) }
             }
             .onEach {
+                updateState { copy(showLoading = false) }
                 when (it) {
                     is Response.Error -> {
-                        updateState {
-                            copy(
-                                signUpButtonEnabled = true
-                            )
-                        }
+                        updateState { copy(signUpButtonEnabled = true) }
                     }
 
                     is Response.Result -> {
-                        updateState {
-                            copy(
-                                currentScreen = 1,
-                            )
-                        }
+                        updateState { copy(currentScreen = 1) }
                     }
                 }
             }.collect()
@@ -167,11 +147,61 @@ class SignUpViewModel @Inject constructor(
 
     private fun verifyOtp() = viewModelScope.launch {
         executeAsFlow { verifyOtpSignUpBasicUseCase(otp = state.value.otpNumberState) }
-            .onStart {}
+            .onStart { updateState { copy(showLoading = true) } }
             .onEach {
+                updateState { copy(showLoading = false) }
                 when (it) {
                     is Response.Error -> Unit
                     is Response.Result -> {
+                        updateState { copy(currentScreen = 2) }
+                        _effect.send(SignUpEffect.NavigateToCompleteProfile)
+                    }
+                }
+            }
+            .collect()
+    }
+
+    private fun completeProfile() = viewModelScope.launch {
+        val state =_state.value
+        executeAsFlow { completeProfileSignUpUseCase(
+            fullName = state.fullNameState,
+            gender = state.genderState,
+            dateOfBirth = state.dateOfBirthState
+        ) }
+            .onStart { updateState { copy(showLoading = true) } }
+            .onEach {
+                updateState { copy(showLoading = false) }
+                when (it) {
+                    is Response.Error -> Unit
+                    is Response.Result -> {
+                        updateState { copy(currentScreen = 2) }
+                        _effect.send(SignUpEffect.NavigateToCompleteProfile)
+                    }
+                }
+            }
+            .collect()
+    }
+
+    private fun resendOtp() = viewModelScope.launch {
+        executeAsFlow { resendOtpSignUpUseCase() }
+            .onStart {
+                updateState { copy(showLoading = true) }
+            }
+            .onEach {
+                updateState { copy(showLoading = false) }
+                when (it) {
+                    is Response.Error -> {
+                        updateState { copy(otpSentAlertSuccess = false) }
+                    }
+
+                    is Response.Result -> {
+                        onCountDownStart()
+                        updateState {
+                            copy(
+                                otpSentCountDown = 120_000L,
+                                otpSentAlertSuccess = true
+                            )
+                        }
                         _effect.send(SignUpEffect.NavigateToCompleteProfile)
                     }
                 }
