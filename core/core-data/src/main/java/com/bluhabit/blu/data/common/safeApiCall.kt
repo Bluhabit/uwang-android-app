@@ -7,7 +7,6 @@
 
 package com.bluhabit.blu.data.common
 
-import android.util.Log
 import com.bluhabit.blu.data.model.BaseResponse
 import com.bluhabit.blu.data.model.BaseResponseError
 import io.ktor.client.call.NoTransformationFoundException

@@ -33,7 +33,6 @@ import io.ktor.client.request.header
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
 import io.ktor.serialization.gson.gson
-import io.ktor.serialization.kotlinx.json.json
 import java.util.Locale
 import okhttp3.logging.HttpLoggingInterceptor
 

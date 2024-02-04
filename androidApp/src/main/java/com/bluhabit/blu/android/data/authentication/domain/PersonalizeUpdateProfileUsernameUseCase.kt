@@ -7,12 +7,8 @@
 
 package com.bluhabit.blu.android.data.authentication.domain
 
-import com.bluhabit.blu.android.data.authentication.datasource.remote.response.UserCredentialResponse
-import com.bluhabit.blu.android.data.authentication.repositories.AuthRepository
 import com.bluhabit.blu.android.data.authentication.repositories.UserRepository
 import com.bluhabit.blu.data.common.Response
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 class PersonalizeUpdateProfileUsernameUseCase @Inject constructor(

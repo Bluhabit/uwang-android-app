@@ -26,9 +26,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.bluehabit.core.ui.R
-import com.bluhabit.blu.android.presentation.authentication.signup.SignUpAction
-import com.bluhabit.blu.android.presentation.authentication.signup.SignUpEffect
-import com.bluhabit.blu.android.presentation.authentication.signup.SignUpState
 import com.bluhabit.core.ui.components.button.ButtonPrimary
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
