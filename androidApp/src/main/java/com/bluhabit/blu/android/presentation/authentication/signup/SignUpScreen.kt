@@ -16,6 +16,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -46,19 +47,37 @@ fun SignUpScreen(
     val effect by effectFlow.collectAsState(initial = SignUpEffect.None)
     val bottomSheetState = rememberModalBottomSheetState(
         initialValue = ModalBottomSheetValue.Hidden,
-        confirmValueChange = { it != ModalBottomSheetValue.HalfExpanded },
+        confirmValueChange = {
+            if (state.bottomSheetType == BottomSheetSignUpType.DATE_OF_BIRTH && it == ModalBottomSheetValue.Hidden) {
+                onAction(SignUpAction.ValidateDateOfBirth)
+            }
+            it != ModalBottomSheetValue.HalfExpanded
+        },
         skipHalfExpanded = true
     )
     val scope = rememberCoroutineScope()
+    val focusManager = LocalFocusManager.current
 
     LaunchedEffect(key1 = effect, block = {
         when (effect) {
             SignUpEffect.None -> Unit
-            SignUpEffect.NavigateToCompleteProfile -> {
-                navHostController.navigate("complete_profile")
+            SignUpEffect.NavigateToPersonalize -> {
+                navHostController.navigate("personalize"){
+                    launchSingleTop = true
+                    popUpTo("sign_up") {
+                        inclusive = true
+                    }
+                }
             }
 
-            SignUpEffect.NavigateToMain -> Unit
+            SignUpEffect.NavigateToMain -> {
+                navHostController.navigate("home") {
+                    launchSingleTop = true
+                    popUpTo("sign_up") {
+                        inclusive = true
+                    }
+                }
+            }
         }
     })
 
@@ -76,6 +95,7 @@ fun SignUpScreen(
     DialogLoading(show = state.showLoading)
     ModalBottomSheetLayout(
         sheetState = bottomSheetState,
+        sheetGesturesEnabled = false,
         sheetContent = {
             when (state.bottomSheetType) {
                 BottomSheetSignUpType.GENDER -> {
@@ -107,11 +127,13 @@ fun SignUpScreen(
                         onDone = {
                             scope.launch {
                                 bottomSheetState.hide()
+                                onAction(SignUpAction.ValidateDateOfBirth)
                             }
                         },
                         onClose = {
                             scope.launch {
                                 bottomSheetState.hide()
+                                onAction(SignUpAction.ValidateDateOfBirth)
                             }
                         },
                         onChange = {
@@ -147,15 +169,17 @@ fun SignUpScreen(
                 action = onAction,
                 onSelectDateOfBirth = {
                     scope.launch {
-                        bottomSheetState.show()
                         onAction(SignUpAction.OnShowBottomSheet(true, BottomSheetSignUpType.DATE_OF_BIRTH))
+                        bottomSheetState.show()
+                        focusManager.clearFocus(true)
                     }
 
                 },
                 onSelectGender = {
                     scope.launch {
-                        bottomSheetState.show()
                         onAction(SignUpAction.OnShowBottomSheet(true, BottomSheetSignUpType.GENDER))
+                        bottomSheetState.show()
+                        focusManager.clearFocus(true)
                     }
                 }
             )

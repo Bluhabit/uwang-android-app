@@ -7,20 +7,35 @@
 
 package com.bluhabit.blu.android.presentation.authentication.personalization
 
+import android.graphics.Bitmap
 import androidx.lifecycle.viewModelScope
 import com.bluehabit.core.ui.R
 import com.bluhabit.blu.android.common.BaseViewModel
-import com.bluhabit.blu.android.data.authentication.domain.CompleteProfileSignUpUseCase
+import com.bluhabit.blu.android.data.authentication.domain.PersonalizeUpdateProfileLevelUseCase
+import com.bluhabit.blu.android.data.authentication.domain.PersonalizeUpdateProfilePictureUseCase
+import com.bluhabit.blu.android.data.authentication.domain.PersonalizeUpdateProfileTopicsUseCase
+import com.bluhabit.blu.android.data.authentication.domain.PersonalizeUpdateProfileUsernameUseCase
+import com.bluhabit.blu.android.data.authentication.domain.PersonalizeUploadProfilePictureUseCase
+import com.bluhabit.blu.android.presentation.authentication.personalization.screen.SelectedTopic
 import com.bluhabit.blu.data.common.ResourceProvider
+import com.bluhabit.blu.data.common.Response
+import com.bluhabit.blu.data.common.executeAsFlow
 import com.bluhabit.core.ui.components.textfield.TextFieldState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
 @HiltViewModel
 class PersonalizationViewModel @Inject constructor(
-    private val completeProfileSignUpUseCase: CompleteProfileSignUpUseCase,
     private val resourceProvider: ResourceProvider,
+    private val personalizeUpdateProfileUsernameUseCase: PersonalizeUpdateProfileUsernameUseCase,
+    private val personalizeUpdateProfilePictureUseCase: PersonalizeUpdateProfilePictureUseCase,
+    private val personalizeUploadProfilePictureUseCase: PersonalizeUploadProfilePictureUseCase,
+    private val personalizeUpdateProfileTopicsUseCase: PersonalizeUpdateProfileTopicsUseCase,
+    private val personalizeUpdateProfileLevelUseCase: PersonalizeUpdateProfileLevelUseCase
 ) : BaseViewModel<PersonalizationState, PersonalizationAction, PersonalizationEffect>(
     PersonalizationState()
 ) {
@@ -28,94 +43,165 @@ class PersonalizationViewModel @Inject constructor(
         when (action) {
             PersonalizationAction.NextSkip -> nextStep()
             is PersonalizationAction.OnScreenChange -> updateState { copy(currentScreen = action.screen) }
-            // Create Username Screen
-            is PersonalizationAction.OnUsernameChange -> updateState {
-                copy(
-                    usernameValueState = action.value,
-                    usernameState = when {
-                        action.value.length < 3 ->
-                            TextFieldState.Error(resourceProvider.getString(R.string.caption_error_field_username_min))
-
-                        resourceProvider.isBadWord(action.value) ->
-                            TextFieldState.Error(resourceProvider.getString(R.string.caption_error_field_username_badword))
-
-                        action.value.length > 60 ->
-                            TextFieldState.Error(resourceProvider.getString(R.string.caption_error_field_username_already))
-
-                        else -> TextFieldState.None
-                    }
-                )
-            }
-
+            is PersonalizationAction.OnUsernameChange -> onUsernameChange(action.value)
             PersonalizationAction.CreateUsernameNextButton -> submitUsername()
-            // Upload Photo Profile Screen
-            is PersonalizationAction.OnProfileImageChange -> {
-                updateState {
-                    copy(
-                        profileImage = action.value,
-                    )
-                }
-                uploadPhotoProfile()
-            }
-
+            is PersonalizationAction.OnProfileImageChange -> onProfilePictureSelected(action.value)
             is PersonalizationAction.OnShowDialogChoice -> updateState { copy(showDialogChoice = action.show) }
             PersonalizationAction.UploadPhotoProfileNextButton -> submitPhotoProfileLink()
-            // Choose Topic Screen
-            is PersonalizationAction.OnAddSelectedList -> updateState {
-                val newList = selectedTopicList.toMutableList()
-                newList.add(action.topic)
-                copy(selectedTopicList = newList)
-            }
+            is PersonalizationAction.OnAddSelectedList -> onSelectedTopicsSelected(action.topic)
+            PersonalizationAction.OnClearSelectedList -> onClearSelectedTopic()
 
-            PersonalizationAction.OnClearSelectedList -> updateState {
-                val newList = selectedTopicList.toMutableList()
-                newList.clear()
-                copy(selectedTopicList = newList)
-            }
-
-            is PersonalizationAction.OnRemoveSelectedList -> updateState {
-                val newList = selectedTopicList.toMutableList()
-                newList.remove(action.topic)
-                copy(selectedTopicList = newList)
-            }
+            is PersonalizationAction.OnRemoveSelectedList -> onRemoveSelectedTopic(action.topic)
 
             PersonalizationAction.ChooseTopicNextButton -> submitTopic()
             // Choose Level Screen
-            is PersonalizationAction.OnSelectedLevelChange -> updateState {
-                copy(selectedIndex = action.index)
-            }
+            is PersonalizationAction.OnSelectedLevelChange -> onSelectedLevel(action.value)
 
             PersonalizationAction.ChooseLevelNextButton -> submitLevel()
         }
     }
 
-    private fun submitLevel() {
-        TODO("Not yet implemented")
+    private fun onSelectedLevel(level: String) {
+        updateState {
+            copy(selectedLevel = level)
+        }
     }
 
-    private fun submitTopic() {
-        TODO("Not yet implemented")
+    private fun onRemoveSelectedTopic(topic: SelectedTopic) {
+        updateState {
+            val newList = selectedTopicList.toMutableList()
+            newList.remove(topic)
+            copy(selectedTopicList = newList)
+        }
     }
 
-    private fun submitPhotoProfileLink() {
-        TODO("Not yet implemented")
+    private fun onClearSelectedTopic() {
+        updateState {
+            val newList = selectedTopicList.toMutableList()
+            newList.clear()
+            copy(selectedTopicList = newList)
+        }
     }
 
-    private fun uploadPhotoProfile() {
+    private fun onSelectedTopicsSelected(
+        topic: SelectedTopic
+    ) {
+        updateState {
+            val newList = selectedTopicList.toMutableList()
+            newList.add(topic)
+            copy(selectedTopicList = newList)
+        }
+    }
+
+    private fun onUsernameChange(username: String) {
         updateState {
             copy(
-                uploadPhotoNextButton = true, // Jika sukses enable button
+                usernameValueState = username,
+                usernameState = when {
+                    username.length < 3 ->
+                        TextFieldState.Error(resourceProvider.getString(R.string.caption_error_field_username_min))
+
+                    resourceProvider.isBadWord(username) ->
+                        TextFieldState.Error(resourceProvider.getString(R.string.caption_error_field_username_badword))
+
+                    username.length > 60 ->
+                        TextFieldState.Error(resourceProvider.getString(R.string.caption_error_field_username_already))
+
+                    else -> TextFieldState.None
+                }
             )
         }
     }
 
-    private fun submitUsername() {
-        updateState { copy(createUsernameNextButton = false) }
+    private fun submitUsername() = viewModelScope.launch {
+        executeAsFlow { personalizeUpdateProfileUsernameUseCase(username = _state.value.usernameValueState) }
+            .onStart {
+                updateState { copy(showLoading = true) }
+            }
+            .onEach {
+                updateState { copy(showLoading = false) }
+                when (it) {
+                    is Response.Error -> Unit
+                    is Response.Result -> {
+                        updateState { copy(currentScreen = 1) }
+                    }
+                }
+            }
+            .collect()
+    }
+
+    private fun onProfilePictureSelected(bitmap: Bitmap) = viewModelScope.launch {
+        updateState { copy(profileImage = bitmap) }
+        executeAsFlow { personalizeUploadProfilePictureUseCase(file = _state.value.profileImage!!) }
+            .onStart {
+                updateState { copy(showLoading = true) }
+            }
+            .onEach {
+                when (it) {
+                    is Response.Error -> {
+                        updateState { copy(showLoading = false, uploadProfileSuccess = false) }
+                    }
+
+                    is Response.Result -> {
+                        updateState { copy(showLoading = false, uploadProfileSuccess = true) }
+                    }
+                }
+            }
+            .collect()
+    }
+
+    private fun submitPhotoProfileLink() = viewModelScope.launch {
+        executeAsFlow { personalizeUpdateProfilePictureUseCase() }
+            .onStart {
+                updateState { copy(showLoading = true) }
+            }
+            .onEach {
+                updateState { copy(showLoading = false) }
+                when (it) {
+                    is Response.Error -> Unit
+                    is Response.Result -> {
+                        updateState { copy(currentScreen = 2) }
+                    }
+                }
+            }
+            .collect()
+    }
+
+
+    private fun submitTopic() = viewModelScope.launch {
+        executeAsFlow { personalizeUpdateProfileTopicsUseCase(topics = _state.value.selectedTopicList.map { it.topic }) }
+            .onStart { updateState { copy(showLoading = true) } }
+            .onEach {
+                updateState { copy(showLoading = false) }
+                when (it) {
+                    is Response.Error -> Unit
+                    is Response.Result -> {
+                        updateState { copy(currentScreen = 3) }
+                    }
+                }
+            }
+            .collect()
+    }
+
+
+    private fun submitLevel() = viewModelScope.launch {
+        executeAsFlow { personalizeUpdateProfileLevelUseCase(level = _state.value.selectedLevel) }
+            .onStart { updateState { copy(showLoading = true) } }
+            .onEach {
+                updateState { copy(showLoading = false) }
+                when (it) {
+                    is Response.Error -> Unit
+                    is Response.Result -> {
+                        sendEffect(PersonalizationEffect.NavigateToMain)
+                    }
+                }
+            }
+            .collect()
     }
 
     private fun nextStep() = viewModelScope.launch {
         val currentStep = state.value.currentScreen
-        if (currentStep < 0 || currentStep >= 2) {
+        if (currentStep >= 3) {
             // Submit Data
         } else {
             updateState { copy(currentScreen = currentStep + 1) }

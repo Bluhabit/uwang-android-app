@@ -24,7 +24,7 @@ class CompleteProfileSignUpUseCase @Inject constructor(
     ): Response<UserCredentialResponse> {
         return authRepository.completeProfileSignUp(
             fullName = fullName,
-            dateOfBirth = dateOfBirth?.format(DateTimeFormatter.ofPattern("d-m-y")) ?: "",
+            dateOfBirth = dateOfBirth?.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")) ?: "",
             gender = gender
         )
 

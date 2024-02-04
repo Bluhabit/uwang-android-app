@@ -31,22 +31,22 @@ class OnboardViewModel @Inject constructor(
     OnboardState()
 ) {
     override fun onAction(action: OnboardAction) {
-        viewModelScope.launch {
-            when (action) {
-                OnboardAction.CheckSession -> {
-                    if (checkSessionUseCase()) {
-                        _effect.send(OnboardEffect.NavigateHome)
-                    } else {
-                        _effect.send(OnboardEffect.NavigateAuth)
-                    }
+        when (action) {
+            OnboardAction.CheckSession -> {
+                if (checkSessionUseCase()) {
+                    sendEffect(OnboardEffect.NavigateHome)
+                } else {
+                    sendEffect(OnboardEffect.NavigateAuth)
                 }
-
-                is OnboardAction.SignInGoogle -> signInGoogle(action.task)
             }
+
+            is OnboardAction.SignInGoogle -> signInGoogle(action.task)
+            is OnboardAction.OnChangeCurrentScreen -> updateState { copy(currentScreen=action.screen) }
         }
+
     }
 
-    private suspend fun signInGoogle(task: Task<GoogleSignInAccount>) = viewModelScope.launch {
+    private fun signInGoogle(task: Task<GoogleSignInAccount>) = viewModelScope.launch {
         val auth = task.await()
         executeAsFlow { signInGoogleUseCase(auth.idToken.orEmpty()) }
             .onStart {

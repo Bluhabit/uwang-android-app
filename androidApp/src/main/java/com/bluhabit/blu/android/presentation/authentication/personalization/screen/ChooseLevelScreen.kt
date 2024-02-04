@@ -23,7 +23,7 @@ import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -46,6 +46,7 @@ import com.bluhabit.core.ui.theme.UwangTheme
 import com.bluhabit.core.ui.theme.UwangTypography
 
 data class ItemLevel(
+    val value: String = "",
     val image: Int,
     val title: String,
     val description: String,
@@ -53,6 +54,7 @@ data class ItemLevel(
 
 @Composable
 fun ChooseLevelScreen(
+    modifier: Modifier = Modifier,
     state: PersonalizationState = PersonalizationState(),
     onAction: (PersonalizationAction) -> Unit = {},
 ) {
@@ -60,16 +62,19 @@ fun ChooseLevelScreen(
     val dimens = UwangDimens.from(ctx)
     val levelList = listOf(
         ItemLevel(
+            value = "INTERMEDIATE",
             image = R.drawable.image_level_1,
             title = stringResource(id = R.string.title_card_beginner),
             description = stringResource(id = R.string.description_card_beginner)
         ),
         ItemLevel(
+            value = "PRO",
             image = R.drawable.image_level_2,
             title = stringResource(id = R.string.title_card_intermediate),
             description = stringResource(id = R.string.description_card_Intermediate)
         ),
         ItemLevel(
+            value = "ADVANCE",
             image = R.drawable.image_level_3,
             title = stringResource(id = R.string.title_card_expert),
             description = stringResource(id = R.string.description_card_expert)
@@ -77,35 +82,35 @@ fun ChooseLevelScreen(
     )
 
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .background(UwangColors.Base.White)
             .safeDrawingPadding(),
     ) {
         LazyColumn(
-            modifier = Modifier
+            modifier = modifier
                 .padding(bottom = dimens.from(72.dp)),
             contentPadding = PaddingValues(vertical = dimens.dp_24),
             verticalArrangement = Arrangement.spacedBy(dimens.dp_16)
         ) {
             item {
                 Box(
-                    modifier = Modifier
+                    modifier = modifier
                         .fillMaxWidth()
                 ) {
                     Image(
                         painter = painterResource(id = R.drawable.app_logo),
                         contentDescription = "",
-                        modifier = Modifier
+                        modifier = modifier
                             .size(dimens.dp_24)
                             .align(Alignment.Center)
                     )
 
                 }
-                Spacer(modifier = Modifier.padding(bottom = dimens.dp_24))
+                Spacer(modifier = modifier.padding(bottom = dimens.dp_24))
                 Column(
                     verticalArrangement = Arrangement.spacedBy(4.dp),
-                    modifier = Modifier
+                    modifier = modifier
                         .padding(horizontal = dimens.dp_16)
                 ) {
                     Text(
@@ -119,55 +124,49 @@ fun ChooseLevelScreen(
                         color = UwangColors.Text.Secondary
                     )
                 }
-                Spacer(modifier = Modifier.padding(bottom = dimens.dp_8)) // 16 + 8 = 24
+                Spacer(modifier = modifier.padding(bottom = dimens.dp_8)) // 16 + 8 = 24
             }
-            itemsIndexed(levelList) { index, item ->
+            items(levelList) { item ->
                 ItemLevelCheckBox(
-                    modifier = Modifier
+                    modifier = modifier
                         .padding(horizontal = dimens.dp_16),
-                    image = {
-                        Image(
-                            painter = painterResource(id = item.image),
-                            contentDescription = ""
-                        )
-                    },
+                    image = { Image(painter = painterResource(id = item.image), contentDescription = "") },
                     title = item.title,
                     description = item.description,
-                    checked = state.selectedIndex == index,
+                    checked = state.selectedLevel == item.value,
                     onCheckedChange = {
-                        onAction(PersonalizationAction.OnSelectedLevelChange(index))
+                        onAction(PersonalizationAction.OnSelectedLevelChange(item.value))
                     }
                 )
             }
         }
         Column(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxWidth()
                 .background(UwangColors.Base.White)
                 .align(Alignment.BottomCenter),
         ) {
-            Divider(
-                color = UwangColors.Text.Border
-            )
+            Divider(color = UwangColors.Text.Border)
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier
+                modifier = modifier
                     .fillMaxWidth()
                     .padding(horizontal = dimens.dp_16, vertical = dimens.dp_24)
             ) {
                 ButtonOutlinedPrimary(
-                    modifier = Modifier
+                    modifier = modifier
                         .width(dimens.from(102.dp))
                         .height(dimens.from(36.dp)),
-                    text = stringResource(id = R.string.label_button_pass)
+                    text = stringResource(id = R.string.label_button_pass),
+                    onClick = {onAction(PersonalizationAction.NextSkip)}
                 )
                 ButtonPrimary(
-                    modifier = Modifier
+                    modifier = modifier
                         .width(dimens.from(102.dp))
                         .height(dimens.from(36.dp)),
                     text = stringResource(id = R.string.label_button_next),
-                    enabled = state.chooseLevelNextButtonEnabled && state.selectedIndex != null
+                    enabled = state.selectedLevel.isNotEmpty()
                 ) {
                     onAction(PersonalizationAction.ChooseLevelNextButton)
                 }

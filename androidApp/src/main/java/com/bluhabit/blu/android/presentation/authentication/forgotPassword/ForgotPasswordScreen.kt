@@ -75,7 +75,16 @@ fun ForgotPasswordScreen(
             action = onAction
         )
 
-        3 -> FinishForgotPasswordScreen()
+        3 -> FinishForgotPasswordScreen(
+            onClick={
+                navHostController.navigate("sign_in"){
+                    launchSingleTop=true
+                    popUpTo("forgot_password"){
+                        inclusive=true
+                    }
+                }
+            }
+        )
     }
 }
 

@@ -7,6 +7,7 @@
 
 package com.bluhabit.blu.data.common
 
+import android.util.Log
 import com.bluhabit.blu.data.model.BaseResponse
 import com.bluhabit.blu.data.model.BaseResponseError
 import io.ktor.client.call.NoTransformationFoundException
@@ -20,12 +21,24 @@ import java.net.ConnectException
 suspend inline fun <reified T> safeApiCall(call: () -> HttpResponse): Response<T> {
     return try {
         val response = call.invoke()
-        if (response.status.value in 200..209) {
-            val data = response.body<BaseResponse<T>>()
-            Response.Result(data.data)
-        } else {
-            val data = response.body<BaseResponse<List<Any>>>()
-            Response.Error(data.message, data.statusCode)
+        when (response.status.value) {
+            in 200..209 -> {
+                val data = response.body<BaseResponse<T>>()
+                if (data.statusCode in 200..209) {
+                    Response.Result(data.data)
+                } else {
+                    Response.Error(data.message, data.statusCode)
+                }
+            }
+
+            404 -> {
+                Response.Error("Tidak dapat menemukan server.", 404)
+            }
+
+            else -> {
+                val data = response.body<BaseResponse<List<Any>>>()
+                Response.Error(data.message, data.statusCode)
+            }
         }
     } catch (e: ClientRequestException) {
         val data = e.response.body<BaseResponseError<Any>>()
@@ -44,11 +57,11 @@ suspend inline fun <reified T> safeApiCall(call: () -> HttpResponse): Response<T
         }
     } catch (connectionException: ConnectException) {
         Response.Error("Failed connect to server", 503)
-    }catch (e: NoTransformationFoundException){
+    } catch (e: NoTransformationFoundException) {
         Response.Error("Server error", 500)
-    }catch (e: ConnectTimeoutException){
+    } catch (e: ConnectTimeoutException) {
         Response.Error("Server timeout", 500)
-    }catch (e: ServerResponseException){
+    } catch (e: ServerResponseException) {
         Response.Error("Server Error", 500)
     }
 }

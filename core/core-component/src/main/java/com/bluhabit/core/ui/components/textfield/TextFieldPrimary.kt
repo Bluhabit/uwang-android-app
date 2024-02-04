@@ -141,7 +141,6 @@ fun TextFieldPrimary(
     onAction: (FocusManager) -> Unit = {}
 ) {
     val ctx = LocalContext.current
-    val dimens = UwangDimens.from(ctx)
     Column(
         verticalArrangement = Arrangement.spacedBy(4.dp),
     ) {

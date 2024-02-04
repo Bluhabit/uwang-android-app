@@ -7,6 +7,7 @@
 
 package com.bluhabit.blu.android.presentation.authentication.personalization.screen
 
+import android.Manifest
 import android.graphics.Bitmap
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -46,6 +47,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluehabit.core.ui.R
+import com.bluhabit.blu.android.common.checkGrantedPermissionFrom
 import com.bluhabit.blu.android.common.toDateTime
 import com.bluhabit.blu.android.presentation.authentication.personalization.PersonalizationAction
 import com.bluhabit.blu.android.presentation.authentication.personalization.PersonalizationState
@@ -61,6 +63,7 @@ import com.bluhabit.core.ui.theme.UwangTypography
 
 @Composable
 fun UploadPhotoProfileScreen(
+    modifier: Modifier = Modifier,
     state: PersonalizationState = PersonalizationState(),
     onAction: (PersonalizationAction) -> Unit = {},
 ) {
@@ -87,12 +90,20 @@ fun UploadPhotoProfileScreen(
         ) { bitmap: Bitmap? ->
             if (bitmap != null) {
                 onAction(PersonalizationAction.OnShowDialogChoice(false))
-                val newFile = bitmap.toFile(System.currentTimeMillis().toDateTime("yyyy-MM-dd-HH:mm:ss"))
                 onAction(PersonalizationAction.OnProfileImageChange(bitmap))
             }
         }
+
+    val requestPermissionContract = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestPermission(),
+        onResult = {
+            if (it) {
+                cameraLauncher.launch()
+            }
+        }
+    )
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .background(UwangColors.Base.White)
             .safeDrawingPadding()
@@ -103,7 +114,14 @@ fun UploadPhotoProfileScreen(
                 items = choiceList,
                 onSelected = {
                     when (it) {
-                        0 -> cameraLauncher.launch()
+                        0 -> {
+                            if (arrayOf<String>(Manifest.permission.CAMERA).checkGrantedPermissionFrom(ctx)) {
+                                cameraLauncher.launch()
+                            } else {
+                                requestPermissionContract.launch(Manifest.permission.CAMERA)
+                            }
+                        }
+
                         1 -> imageLauncher.launch("image/*")
                     }
                 },
@@ -113,23 +131,23 @@ fun UploadPhotoProfileScreen(
             )
         }
         Box(
-            modifier = Modifier
+            modifier = modifier
                 .padding(top = 24.dp)
                 .fillMaxWidth()
         ) {
             Image(
                 painter = painterResource(id = R.drawable.app_logo),
                 contentDescription = "",
-                modifier = Modifier
+                modifier = modifier
                     .size(dimens.dp_24)
                     .align(Alignment.Center)
             )
 
         }
-        Spacer(modifier = Modifier.padding(bottom = dimens.dp_24))
+        Spacer(modifier = modifier.padding(bottom = dimens.dp_24))
         Column(
             verticalArrangement = Arrangement.spacedBy(4.dp),
-            modifier = Modifier
+            modifier = modifier
                 .padding(horizontal = 16.dp)
         ) {
             Text(
@@ -143,14 +161,14 @@ fun UploadPhotoProfileScreen(
                 color = UwangColors.Text.Secondary
             )
         }
-        Spacer(modifier = Modifier.padding(bottom = dimens.dp_24))
+        Spacer(modifier = modifier.padding(bottom = dimens.dp_24))
         Box(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxWidth(),
             contentAlignment = Alignment.Center
         ) {
             Box(
-                modifier = Modifier
+                modifier = modifier
                     .width(dimens.from(188.dp))
                     .height(dimens.from(224.dp))
                     .background(UwangColors.Text.LayoutBackground, shape = RoundedCornerShape(12.dp))
@@ -169,7 +187,7 @@ fun UploadPhotoProfileScreen(
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     Box(
-                        modifier = Modifier
+                        modifier = modifier
                             .size(dimens.from(144.dp))
                             .clip(CircleShape)
                             .background(UwangColors.Text.LayoutBackground)
@@ -206,23 +224,22 @@ fun UploadPhotoProfileScreen(
                                     .fillMaxSize()
                             )
                         }
-
                     }
                     Text(
-                        text = "@johndoe",
+                        text = "@".plus(state.usernameValueState),
                         style = UwangTypography.BodyMedium.Regular,
                         color = UwangColors.Text.Secondary
                     )
                 }
             }
         }
-        Spacer(modifier = Modifier.weight(1f))
+        Spacer(modifier = modifier.weight(1f))
         Spacer(
-            modifier = Modifier
+            modifier = modifier
                 .padding(top = 24.dp) // Untuk jaga-jaga kalau layar di rotasi dan tidak bisa pakai weight 1f karena tidak ada ruang kosong)
         )
         Column(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxWidth()
                 .background(UwangColors.Base.White)
         ) {
@@ -232,22 +249,23 @@ fun UploadPhotoProfileScreen(
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier
+                modifier = modifier
                     .fillMaxWidth()
                     .padding(horizontal = dimens.dp_16, vertical = dimens.dp_24)
             ) {
                 ButtonOutlinedPrimary(
-                    modifier = Modifier
+                    modifier = modifier
                         .width(dimens.from(102.dp))
                         .height(dimens.from(36.dp)),
-                    text = stringResource(id = R.string.label_button_pass)
+                    text = stringResource(id = R.string.label_button_pass),
+                    onClick = { onAction(PersonalizationAction.NextSkip) }
                 )
                 ButtonPrimary(
-                    modifier = Modifier
+                    modifier = modifier
                         .width(dimens.from(102.dp))
                         .height(dimens.from(36.dp)),
                     text = stringResource(id = R.string.label_button_next),
-                    enabled = state.profileImage != null && state.uploadPhotoNextButton,
+                    enabled = state.profileImage != null && state.uploadProfileSuccess,
                     onClick = {
                         onAction(PersonalizationAction.UploadPhotoProfileNextButton)
                     }

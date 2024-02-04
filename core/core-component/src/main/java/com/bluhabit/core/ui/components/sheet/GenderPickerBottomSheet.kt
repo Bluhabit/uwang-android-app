@@ -60,7 +60,7 @@ fun GenderPickerBottomSheet(
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(24.dp),
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(20.dp)
             .background(
@@ -71,28 +71,26 @@ fun GenderPickerBottomSheet(
                 )
             )
     ) {
-        Column(
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+        Row(
+            modifier = modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Box(modifier = Modifier.fillMaxWidth()) {
-                IconButton(
-                    onClick = onClose,
-                    modifier = Modifier.align(Alignment.CenterEnd)
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_close),
-                        contentDescription = "close",
-                        tint = Color.Black,
-                    )
-                }
-            }
             Text(
                 text = title,
                 lineHeight = 28.sp,
                 color = UwangColors.Neutral.Grey9,
-                style = CustomTypography.Body.XL.W600,
-                modifier = Modifier.fillMaxWidth()
+                style = CustomTypography.Body.XL.W600
             )
+            IconButton(
+                onClick = onClose
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_close),
+                    contentDescription = "close",
+                    tint = Color.Black,
+                )
+            }
         }
         Column(
             modifier = modifier.fillMaxWidth(),
@@ -105,9 +103,9 @@ fun GenderPickerBottomSheet(
                 horizontalArrangement = Arrangement.Start
             ) {
                 RadioButton(
-                    selected = value === "M",
+                    selected = value === "MALE",
                     onClick = {
-                        onChange("M")
+                        onChange("MALE")
                     },
                     colors = RadioButtonDefaults.colors(
                         selectedColor = UwangColors.State.Primary.Main,
@@ -127,9 +125,9 @@ fun GenderPickerBottomSheet(
                 horizontalArrangement = Arrangement.Start
             ) {
                 RadioButton(
-                    selected = value === "F",
+                    selected = value === "FEMALE",
                     onClick = {
-                        onChange("F")
+                        onChange("FEMALE")
                     },
                     colors = RadioButtonDefaults.colors(
                         selectedColor = UwangColors.State.Primary.Main,
@@ -149,9 +147,9 @@ fun GenderPickerBottomSheet(
                 horizontalArrangement = Arrangement.Start
             ) {
                 RadioButton(
-                    selected = value === "N/A",
+                    selected = value === "HIDDEN",
                     onClick = {
-                        onChange("N/A")
+                        onChange("HIDDEN")
                     },
                     colors = RadioButtonDefaults.colors(
                         selectedColor = UwangColors.State.Primary.Main,

@@ -43,6 +43,7 @@ import com.bluhabit.core.ui.theme.UwangTypography
 
 @Composable
 fun InputSignUpScreen(
+    modifier:Modifier=Modifier,
     state: SignUpState = SignUpState(),
     onBackPressed: () -> Unit,
     action: (SignUpAction) -> Unit
@@ -51,7 +52,7 @@ fun InputSignUpScreen(
     val ctx = LocalContext.current
     val dimens = UwangDimens.from(ctx)
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .background(Color.White)
             .safeDrawingPadding()
@@ -60,13 +61,13 @@ fun InputSignUpScreen(
     ) {
         Column {
             Box(
-                modifier = Modifier
+                modifier = modifier
                     .fillMaxWidth()
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_arrow_back),
                     contentDescription = "arrow back",
-                    modifier = Modifier
+                    modifier = modifier
                         .size(dimens.dp_24)
                         .align(Alignment.CenterStart)
                         .clickable {
@@ -76,29 +77,32 @@ fun InputSignUpScreen(
                 Image(
                     painter = painterResource(id = R.drawable.app_logo),
                     contentDescription = "",
-                    modifier = Modifier
+                    modifier = modifier
                         .size(dimens.dp_24)
                         .align(Alignment.Center)
                 )
             }
-            Spacer(modifier = Modifier.padding(bottom = dimens.dp_24))
+            Spacer(modifier = modifier.padding(bottom = dimens.dp_24))
             Text(
                 text = stringResource(id = R.string.sign_up_title_header),
                 style = UwangTypography.BodyLarge.SemiBold,
                 color = UwangColors.Text.Main
             )
-            Spacer(modifier = Modifier.padding(bottom = dimens.dp_16))
+            Spacer(modifier = modifier.padding(bottom = dimens.dp_16))
             Column(
                 verticalArrangement = Arrangement.spacedBy(4.dp),
             ) {
                 TextFieldPrimary(
-                    modifier = Modifier
+                    modifier = modifier
                         .fillMaxWidth(),
-                    label = stringResource(id = R.string.sign_up_input_email_label),
-                    placeholder = stringResource(id = R.string.sign_up_input_email_placeholder),
+                    label = stringResource(id = R.string.sign_up_screen_input_email_label),
+                    placeholder = stringResource(id = R.string.sign_up_screen_input_email_placeholder),
                     value = state.emailState,
                     onValueChange = {
                         action(SignUpAction.OnEmailChange(it))
+                    },
+                    onClickTrailingIcon = {
+                        action(SignUpAction.OnEmailChange(""))
                     },
                     state = state.emailInputState,
                 )
@@ -110,10 +114,12 @@ fun InputSignUpScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             ButtonPrimary(
-                modifier = Modifier
+                modifier = modifier
                     .fillMaxWidth(),
                 text = stringResource(id = R.string.sign_up_screen_next),
-                enabled = state.emailInputState !is TextFieldState.Error && state.emailState.isNotEmpty() && !state.isAccountLocked
+                enabled = state.emailInputState !is TextFieldState.Error
+                        && state.emailState.isNotEmpty()
+                        && state.otpAttempt < 3
             ) {
                 action(SignUpAction.SignUpBasic)
             }

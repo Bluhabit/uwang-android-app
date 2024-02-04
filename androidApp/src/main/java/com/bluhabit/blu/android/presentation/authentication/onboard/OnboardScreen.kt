@@ -7,8 +7,12 @@
 
 package com.bluhabit.blu.android.presentation.authentication.onboard
 
+import android.Manifest
 import android.util.Log
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.result.launch
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
@@ -35,6 +39,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.bluehabit.core.ui.R
+import com.bluhabit.blu.android.common.loadHtmlFromAssets
 import com.bluhabit.blu.android.presentation.authentication.onboard.screen.FirstOnboardScreen
 import com.bluhabit.blu.android.presentation.authentication.onboard.screen.FourthOnboardScreen
 import com.bluhabit.blu.android.presentation.authentication.onboard.screen.GetStartedScreen
@@ -44,6 +49,7 @@ import com.bluhabit.blu.android.presentation.authentication.onboard.screen.Third
 import com.bluhabit.blu.data.common.Response
 import com.bluhabit.blu.data.contract.GoogleAuthContract
 import com.bluhabit.core.ui.components.dialog.DialogLoading
+import com.bluhabit.core.ui.components.screen.TermAndConditionScreen
 import com.bluhabit.core.ui.theme.UwangColors
 import com.bluhabit.core.ui.theme.UwangTheme
 import kotlinx.coroutines.flow.Flow
@@ -79,30 +85,33 @@ fun OnboardScreen(
 
     val state by stateFlow.collectAsStateWithLifecycle(initialValue = OnboardState())
     val effect by effectFlow.collectAsState(initial = OnboardEffect.None)
-    val scope = rememberCoroutineScope()
     val ctx = LocalContext.current
+    val scope = rememberCoroutineScope()
     val pagerState = rememberPagerState(
         initialPage = 0, initialPageOffsetFraction = 0f
     ) { 4 }
-    var isOnBoardFinished by remember {
-        mutableStateOf(false)
-    }
+
     val progressAnimation = remember {
         Animatable(0f)
     }
+    val requestPermissionContract = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestPermission(),
+        onResult = {
+            if (it) {
 
-    fun finishedOnBoard() {
-        isOnBoardFinished = true
-    }
+            }
+        }
+    )
+    LaunchedEffect(key1 = Unit, block = {
+        requestPermissionContract.launch(Manifest.permission.MANAGE_EXTERNAL_STORAGE)
+    })
 
     fun nextScreen() {
         if (pagerState.currentPage > 2) {
-            finishedOnBoard()
+            onAction(OnboardAction.OnChangeCurrentScreen(1))
         } else {
             scope.launch {
-                pagerState.scrollToPage(
-                    pagerState.currentPage + 1
-                )
+                pagerState.scrollToPage(pagerState.currentPage + 1)
             }
         }
     }
@@ -161,6 +170,13 @@ fun OnboardScreen(
         )
         nextScreen()
     })
+    BackHandler {
+        if(state.currentScreen <= 1){
+            navHostController.navigateUp()
+        }else{
+            onAction(OnboardAction.OnChangeCurrentScreen(screen = state.currentScreen - 1))
+        }
+    }
 
     DialogLoading(show = state.showLoading)
     Box(
@@ -168,66 +184,88 @@ fun OnboardScreen(
             .fillMaxSize()
             .background(MaterialTheme.colors.surface)
     ) {
-        if (isOnBoardFinished) {
-            GetStartedScreen(
-                onBackToOnboard = {
-                    scope.launch {
-                        pagerState.scrollToPage(
-                            0
-                        )
-                        progressAnimation.snapTo(0f)
-                    }
-                    isOnBoardFinished = false
-                },
-                onNavigateToTermCondition = {
-                    navHostController.navigate("term_and_condition")
-                },
-                onNavigationToSignIn = {
-                    navHostController.navigate("sign_in")
-                },
-                onSignInGoogle = {
-                    googleAuthLauncher.launch(1)
-                },
-                onSignUp = {
-                    navHostController.navigate("sign_up")
-                }
-            )
-        } else {
-            ScreenFrameOnBoard(
-                modifier = backgroundModifier,
-                headerTextColor = when (pagerState.currentPage) {
-                    0, 2 -> UwangColors.Text.Secondary
-                    1, 3 -> Color.White
-                    else -> Color.White
-                },
-                indicatorColor = when (pagerState.currentPage) {
-                    0, 2 -> UwangColors.State.Primary.Main
-                    1, 3 -> Color.White
-                    else -> Color.White
-                },
-                currentPage = pagerState.currentPage,
-                skipOnboard = { finishedOnBoard() },
-                nextScreen = {
-                    nextScreen()
-                },
-                progressState = progressAnimation.value,
-                prevScreen = {
-                    prevScreen()
-                },
-                content = {
-                    HorizontalPager(
-                        state = pagerState,
-                    ) { page ->
+        when (state.currentScreen) {
+            0 -> {
+                ScreenFrameOnBoard(
+                    modifier = backgroundModifier,
+                    headerTextColor = when (pagerState.currentPage) {
+                        0, 2 -> UwangColors.Text.Secondary
+                        1, 3 -> Color.White
+                        else -> Color.White
+                    },
+                    indicatorColor = when (pagerState.currentPage) {
+                        0, 2 -> UwangColors.State.Primary.Main
+                        1, 3 -> Color.White
+                        else -> Color.White
+                    },
+                    currentPage = pagerState.currentPage,
+                    skipOnboard = {
+                        onAction(OnboardAction.OnChangeCurrentScreen(1))
+                    },
+                    nextScreen = {
+                        nextScreen()
+                    },
+                    progressState = progressAnimation.value,
+                    prevScreen = {
+                        prevScreen()
+                    },
+                    content = {
+                        HorizontalPager(
+                            state = pagerState,
+                        ) { page ->
 
-                        when (page) {
-                            0 -> FirstOnboardScreen()
-                            1 -> SecondOnboardScreen()
-                            2 -> ThirdOnboardScreen()
-                            3 -> FourthOnboardScreen()
+                            when (page) {
+                                0 -> FirstOnboardScreen()
+                                1 -> SecondOnboardScreen()
+                                2 -> ThirdOnboardScreen()
+                                3 -> FourthOnboardScreen()
+                            }
                         }
                     }
-                }
-            )
+                )
+            }
+
+            1 -> {
+                GetStartedScreen(
+                    onBackToOnboard = {
+                        scope.launch {
+                            pagerState.scrollToPage(
+                                0
+                            )
+                            progressAnimation.snapTo(0f)
+                        }
+                        onAction(OnboardAction.OnChangeCurrentScreen(0))
+                    },
+                    onNavigateToTermCondition = {
+                        onAction(OnboardAction.OnChangeCurrentScreen(2))
+                    },
+                    onNavigationToSignIn = {
+                        navHostController.navigate("sign_in"){
+                            launchSingleTop=true
+                        }
+                    },
+                    onSignInGoogle = {
+                        googleAuthLauncher.launch(1)
+                    },
+                    onSignUp = {
+                        navHostController.navigate("sign_up"){
+                            launchSingleTop=true
+                        }
+                    }
+                )
+            }
+
+            2 -> {
+                TermAndConditionScreen(
+                    htmlString = loadHtmlFromAssets(
+                        context = ctx,
+                        fileName = "termAndCondition.html"
+                    ),
+                    onBackPressed = {
+                        onAction(OnboardAction.OnChangeCurrentScreen(1))
+                    }
+                )
+            }
         }
     }
 }

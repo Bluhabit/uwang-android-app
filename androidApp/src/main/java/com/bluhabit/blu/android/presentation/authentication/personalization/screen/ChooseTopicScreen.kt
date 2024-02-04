@@ -57,6 +57,7 @@ data class SelectedTopic(
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun ChooseTopicScreen(
+    modifier: Modifier = Modifier,
     state: PersonalizationState = PersonalizationState(),
     onAction: (PersonalizationAction) -> Unit = {},
 ) {
@@ -87,13 +88,13 @@ fun ChooseTopicScreen(
     )
 
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .background(UwangColors.Base.White)
             .safeDrawingPadding(),
     ) {
         Column(
-            modifier = Modifier
+            modifier = modifier
                 .verticalScroll(rememberScrollState())
                 .padding(
                     start = dimens.dp_16, end = dimens.dp_16,
@@ -102,19 +103,19 @@ fun ChooseTopicScreen(
             verticalArrangement = Arrangement.spacedBy(dimens.dp_16)
         ) {
             Box(
-                modifier = Modifier
+                modifier = modifier
                     .fillMaxWidth()
             ) {
                 Image(
                     painter = painterResource(id = R.drawable.app_logo),
                     contentDescription = "",
-                    modifier = Modifier
+                    modifier = modifier
                         .size(dimens.dp_24)
                         .align(Alignment.Center)
                 )
 
             }
-            Spacer(modifier = Modifier.padding(bottom = dimens.dp_8)) // 16 + 8
+            Spacer(modifier = modifier.padding(bottom = dimens.dp_8)) // 16 + 8
             Column(
                 verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
@@ -196,7 +197,7 @@ fun ChooseTopicScreen(
             }
         }
         Column(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxWidth()
                 .background(UwangColors.Base.White)
                 .align(Alignment.BottomCenter),
@@ -205,22 +206,23 @@ fun ChooseTopicScreen(
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier
+                modifier = modifier
                     .fillMaxWidth()
                     .padding(horizontal = dimens.dp_16, vertical = dimens.dp_24)
             ) {
                 ButtonOutlinedPrimary(
-                    modifier = Modifier
+                    modifier = modifier
                         .width(dimens.from(102.dp))
                         .height(dimens.from(36.dp)),
-                    text = stringResource(id = R.string.label_button_pass)
+                    text = stringResource(id = R.string.label_button_pass),
+                    onClick = {onAction(PersonalizationAction.NextSkip)}
                 )
                 ButtonPrimary(
-                    modifier = Modifier
+                    modifier = modifier
                         .width(dimens.from(102.dp))
                         .height(dimens.from(36.dp)),
                     text = stringResource(id = R.string.label_button_next),
-                    enabled = state.selectedTopicList.isNotEmpty() && state.chooseTopicNextButtonEnabled
+                    enabled = state.selectedTopicList.isNotEmpty()
                 ) {
                     onAction(PersonalizationAction.ChooseTopicNextButton)
                 }

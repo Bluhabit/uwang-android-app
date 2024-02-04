@@ -8,17 +8,21 @@
 package com.bluhabit.blu.android.presentation.authentication.signup
 
 import android.os.CountDownTimer
+import android.util.Log
 import android.util.Patterns
 import androidx.lifecycle.viewModelScope
 import com.bluhabit.blu.android.common.BaseViewModel
 import com.bluhabit.blu.android.data.authentication.domain.CompleteProfileSignUpUseCase
 import com.bluhabit.blu.android.data.authentication.domain.ResendOtpSignUpUseCase
+import com.bluhabit.blu.android.data.authentication.domain.SetPasswordSignUpUseCase
 import com.bluhabit.blu.android.data.authentication.domain.SignUpBasicUseCase
 import com.bluhabit.blu.android.data.authentication.domain.VerifyOtpSignUpBasicUseCase
 import com.bluhabit.blu.data.common.Response
 import com.bluhabit.blu.data.common.executeAsFlow
 import com.bluhabit.core.ui.components.textfield.TextFieldState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import java.time.LocalDate
+import java.time.Period
 import javax.inject.Inject
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
@@ -30,7 +34,8 @@ class SignUpViewModel @Inject constructor(
     private val signUpBasicUseCase: SignUpBasicUseCase,
     private val verifyOtpSignUpBasicUseCase: VerifyOtpSignUpBasicUseCase,
     private val resendOtpSignUpUseCase: ResendOtpSignUpUseCase,
-    private val completeProfileSignUpUseCase: CompleteProfileSignUpUseCase
+    private val completeProfileSignUpUseCase: CompleteProfileSignUpUseCase,
+    private val setPasswordSignUpUseCase: SetPasswordSignUpUseCase
 ) : BaseViewModel<SignUpState, SignUpAction, SignUpEffect>(SignUpState()) {
     private var countDownTimer: CountDownTimer? = null
 
@@ -40,7 +45,10 @@ class SignUpViewModel @Inject constructor(
             is SignUpAction.OnPasswordChange -> onPasswordChange(action.value)
             is SignUpAction.OnPasswordConfirmationChange -> onPasswordConfirmationChange(action.value)
             is SignUpAction.OnOtpChange -> {
-                updateState { copy(otpNumberState = action.value) }
+                updateState { copy(otpNumberState = action.value, otpNumberInputState = TextFieldState.None) }
+                if (action.value.length == 4) {
+                    verifyOtp()
+                }
             }
 
             is SignUpAction.OnPasswordConfirmationVisibilityChange -> updateState { copy(passwordConfirmationVisibility = action.visibility) }
@@ -56,7 +64,22 @@ class SignUpViewModel @Inject constructor(
             is SignUpAction.OnDateOfBirthChange -> updateState { copy(dateOfBirthState = action.value) }
             is SignUpAction.OnFullNameChange -> updateState { copy(fullNameState = action.value) }
             is SignUpAction.OnGenderChange -> updateState { copy(genderState = action.value) }
+            SignUpAction.OnCompleteProfile -> completeProfile()
+            SignUpAction.ValidateDateOfBirth -> validateDateOfBirth()
+            SignUpAction.OnSetPassword -> setPassword()
         }
+    }
+
+    private fun validateDateOfBirth() {
+        val state = _state.value
+        val dob = state.dateOfBirthState ?: LocalDate.now()
+        val currentDate = LocalDate.now()
+        val period = Period.between(dob, currentDate)
+        val age = period.years
+        val dobInputState = if (age < 16) {
+            TextFieldState.Error("Usia kamu kurang dari 16 tahun")
+        } else TextFieldState.None
+        updateState { copy(dateOfBirthInputState = dobInputState) }
     }
 
     private fun onCountDownStart() {
@@ -68,9 +91,11 @@ class SignUpViewModel @Inject constructor(
                 }
 
                 override fun onFinish() {
+                    updateState { copy(showButtonResendOtp = true) }
                     countDownTimer?.cancel()
                 }
             }
+            updateState { copy(showButtonResendOtp = false) }
             countDownTimer?.start()
         }
     }
@@ -78,9 +103,7 @@ class SignUpViewModel @Inject constructor(
     override fun onCleared() {
         super.onCleared()
         countDownTimer?.cancel()
-        updateState {
-            SignUpState() // Clearing saved state
-        }
+        _state.value = SignUpState()
     }
 
     private fun onEmailChange(email: String) = viewModelScope.launch {
@@ -102,11 +125,12 @@ class SignUpViewModel @Inject constructor(
         val isEmailValid = Patterns.EMAIL_ADDRESS.matcher(state.value.emailState).matches()
         val isPasswordValid = password.isNotEmpty() && password.length >= 8
         val isConfirmPasswordValid = state.value.confirmPasswordState.isNotEmpty()
-        val passwordInputState = if (isPasswordValid) TextFieldState.None else TextFieldState.Error("Password harus minimal 8 karakter")
+        val passwordInputState =
+            if (isPasswordValid) TextFieldState.Success("Sekarang sudah aman") else TextFieldState.Error("Password harus minimal 8 karakter")
         updateState {
             copy(
                 passwordState = password,
-                confirmPasswordInputState = passwordInputState,
+                passwordInputState = passwordInputState,
                 signUpButtonEnabled = isPasswordValid && isConfirmPasswordValid && isEmailValid
             )
         }
@@ -116,7 +140,8 @@ class SignUpViewModel @Inject constructor(
         val isEmailValid = Patterns.EMAIL_ADDRESS.matcher(state.value.emailState).matches()
         val isPasswordValid = state.value.passwordState.isNotEmpty()
         val isConfirmPasswordValid = password == state.value.passwordState
-        val confirmPasswordInputState = if (isConfirmPasswordValid) TextFieldState.None else TextFieldState.Error("Password tidak sesuai.")
+        val confirmPasswordInputState =
+            if (isConfirmPasswordValid) TextFieldState.Success("Password sesuai") else TextFieldState.Error("Password tidak sesuai.")
         updateState {
             copy(
                 confirmPasswordState = password,
@@ -127,15 +152,16 @@ class SignUpViewModel @Inject constructor(
     }
 
     private fun signUpBasic() = viewModelScope.launch {
-        executeAsFlow { signUpBasicUseCase(email = state.value.emailState, password = state.value.passwordState) }
+        executeAsFlow { signUpBasicUseCase(email = state.value.emailState) }
             .onStart {
                 updateState { copy(signUpButtonEnabled = false, showLoading = true) }
             }
             .onEach {
+
                 updateState { copy(showLoading = false) }
                 when (it) {
                     is Response.Error -> {
-                        updateState { copy(signUpButtonEnabled = true) }
+                        updateState { copy(emailInputState = TextFieldState.Error(it.message)) }
                     }
 
                     is Response.Result -> {
@@ -151,10 +177,18 @@ class SignUpViewModel @Inject constructor(
             .onEach {
                 updateState { copy(showLoading = false) }
                 when (it) {
-                    is Response.Error -> Unit
+                    is Response.Error -> {
+                        val otp = _state.value.otpAttempt
+                        updateState {
+                            copy(
+                                otpNumberInputState = TextFieldState.Error(it.message),
+                                otpAttempt = (otp + 1)
+                            )
+                        }
+                    }
+
                     is Response.Result -> {
                         updateState { copy(currentScreen = 2) }
-                        _effect.send(SignUpEffect.NavigateToCompleteProfile)
                     }
                 }
             }
@@ -162,20 +196,40 @@ class SignUpViewModel @Inject constructor(
     }
 
     private fun completeProfile() = viewModelScope.launch {
-        val state =_state.value
-        executeAsFlow { completeProfileSignUpUseCase(
-            fullName = state.fullNameState,
-            gender = state.genderState,
-            dateOfBirth = state.dateOfBirthState
-        ) }
+        val state = _state.value
+        executeAsFlow {
+            completeProfileSignUpUseCase(
+                fullName = state.fullNameState,
+                gender = state.genderState,
+                dateOfBirth = state.dateOfBirthState
+            )
+        }
             .onStart { updateState { copy(showLoading = true) } }
             .onEach {
                 updateState { copy(showLoading = false) }
                 when (it) {
                     is Response.Error -> Unit
                     is Response.Result -> {
-                        updateState { copy(currentScreen = 2) }
-                        _effect.send(SignUpEffect.NavigateToCompleteProfile)
+                        updateState { copy(currentScreen = 3) }
+                    }
+                }
+            }
+            .collect()
+    }
+
+    private fun setPassword() = viewModelScope.launch {
+        val state = _state.value
+        executeAsFlow { setPasswordSignUpUseCase(password = state.passwordState) }
+            .onStart { updateState { copy(showLoading = true) } }
+            .onEach {
+                updateState { copy(showLoading = false) }
+                when (it) {
+                    is Response.Error -> {
+
+                    }
+
+                    is Response.Result -> {
+                        sendEffect(SignUpEffect.NavigateToMain)
                     }
                 }
             }
@@ -191,7 +245,12 @@ class SignUpViewModel @Inject constructor(
                 updateState { copy(showLoading = false) }
                 when (it) {
                     is Response.Error -> {
-                        updateState { copy(otpSentAlertSuccess = false) }
+                        updateState {
+                            copy(
+                                otpSentAlertSuccess = false,
+                                otpSentAlertVisibility = true
+                            )
+                        }
                     }
 
                     is Response.Result -> {
@@ -199,10 +258,11 @@ class SignUpViewModel @Inject constructor(
                         updateState {
                             copy(
                                 otpSentCountDown = 120_000L,
-                                otpSentAlertSuccess = true
+                                otpSentAlertSuccess = true,
+                                otpSentAlertVisibility = true
                             )
                         }
-                        _effect.send(SignUpEffect.NavigateToCompleteProfile)
+                        sendEffect(SignUpEffect.NavigateToPersonalize)
                     }
                 }
             }

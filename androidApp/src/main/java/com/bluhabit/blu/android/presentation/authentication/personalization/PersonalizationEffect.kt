@@ -9,4 +9,6 @@ package com.bluhabit.blu.android.presentation.authentication.personalization
 
 sealed interface PersonalizationEffect {
     object None:PersonalizationEffect
+
+    object NavigateToMain:PersonalizationEffect
 }

@@ -7,6 +7,7 @@
 
 package com.bluhabit.core.ui.components.textfield
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -22,6 +23,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -70,15 +72,17 @@ fun TextFieldOtp(
             if (newText.all { it.isDigit() }) {
                 if (newText.length <= length) {
                     onChange(newText)
-                    if (newText.length == length) {
-                        onDone()
-                    }
                 }
             }
         },
         keyboardOptions = KeyboardOptions(
             keyboardType = KeyboardType.Number,
-            imeAction = ImeAction.Done
+            imeAction = ImeAction.None
+        ),
+        keyboardActions = KeyboardActions(
+            onDone={
+                onDone()
+            }
         ),
         decorationBox = {
             Row(

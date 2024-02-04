@@ -22,6 +22,29 @@
 
 
     <!--  [NEW] sign up basic  -->
+    <string name="sign_up_screen_title">Daftarkan akun anda</string>
+    <string name="sign_up_screen_instruction">Masukkan alamat email Anda dan buat password Anda untuk melakukan pendaftaran</string>
+    <string name="sign_up_screen_email_text_field_title">Email</string>
+
+    <string name="sign_up_screen_input_email_label">Email</string>
+    <string name="sign_up_screen_input_email_placeholder">Masukkan email kamu</string>
+
+    <string name="sign_up_screen_input_full_name_label">Nama Lengkap</string>
+    <string name="sign_up_screen_input_full_name_placeholder">Masukkan nama lengkap kamu</string>
+
+    <string name="sign_up_screen_email_text_field_label">Contoh  : fadelptr09@gmail.com</string>
+    <string name="sign_up_screen_password_text_field_title">Password</string>
+    <string name="sign_up_screen_password_text_field_label">Masukkan password Anda</string>
+    <string name="sign_up_screen_password_confirmation_text_field_title">Konfirmasi Password</string>
+    <string name="sign_up_screen_password_confirmation_text_field_label">Konfirmasi password Anda</string>
+    <string name="sign_up_screen_sign_up_button_text">Daftar</string>
+    <string name="sign_up_screen_or">Atau</string>
+    <string name="sign_up_screen_sign_in_google_button_text">Daftar dengan Google</string>
+    <string name="sign_up_screen_already_have_an_account">Sudah memiliki akun sebelumnya?\u0020</string>
+    <string name="sign_up_screen_sign_in">Masuk</string>
+    <string name="sign_up_screen_term_and_condition_1">Dengan melakukan pendaftaran akun atau masuk ke dalam akun anda menyetujui</string>
+    <string name="sign_up_screen_term_and_condition_2">Syarat &amp; Ketentuan kebijakan aplikasi</string>
+
     <string name="sign_up_title_header">Mulai dengan email kamu</string>
     <string name="sign_up_complete_profile_title_header">Lengkapi data diri kamu dulu</string>
 
@@ -37,6 +60,8 @@
     <string name="sign_up_input_gender_label">Gender</string>
     <string name="sign_up_input_gender_placeholder">Pilih Gender kamu</string>
     <string name="sign_up_screen_next">Lanjut</string>
+
+    <string name="sign_up_otp_action_locked">Minta kode otp baru dan masukkan ulang</string>
     <!--  end sign up  -->
 
     <!-- authentication   -->
@@ -246,24 +271,6 @@
     <string name="onboard_screen_term_and_condition_2">Syarat &amp; Ketentuan kebijakan aplikasi</string>
     <!--  end onboard  -->
 
-    <!--  [NEW] sign up screen  -->
-    <string name="sign_up_screen_title">Daftarkan akun anda</string>
-    <string name="sign_up_screen_instruction">Masukkan alamat email Anda dan buat password Anda untuk melakukan pendaftaran</string>
-    <string name="sign_up_screen_email_text_field_title">Email</string>
-    <string name="sign_up_screen_email_text_field_label">Contoh  : fadelptr09@gmail.com</string>
-    <string name="sign_up_screen_password_text_field_title">Password</string>
-    <string name="sign_up_screen_password_text_field_label">Masukkan password Anda</string>
-    <string name="sign_up_screen_password_confirmation_text_field_title">Konfirmasi Password</string>
-    <string name="sign_up_screen_password_confirmation_text_field_label">Konfirmasi password Anda</string>
-    <string name="sign_up_screen_sign_up_button_text">Daftar</string>
-    <string name="sign_up_screen_or">Atau</string>
-    <string name="sign_up_screen_sign_in_google_button_text">Daftar dengan Google</string>
-    <string name="sign_up_screen_already_have_an_account">Sudah memiliki akun sebelumnya?\u0020</string>
-    <string name="sign_up_screen_sign_in">Masuk</string>
-    <string name="sign_up_screen_term_and_condition_1">Dengan melakukan pendaftaran akun atau masuk ke dalam akun anda menyetujui</string>
-    <string name="sign_up_screen_term_and_condition_2">Syarat &amp; Ketentuan kebijakan aplikasi</string>
-    <!-- end sign up screen  -->
-
     <!--  [NEW] forgot password screen  -->
     <string name="reset_password_description_header">Masukkan alamat email yang terdaftar di Uwang.</string>
     <string name="reset_password_input_password_description_header">Password baru untuk mengakses akunmu.</string>
@@ -279,6 +286,8 @@
     <string name="reset_password_input_password_placeholder">Buat password baru</string>
     <string name="reset_password_input_confirm_password_label">Konfirmasi password</string>
     <string name="reset_password_input_confirm_password_placeholder">Konfirmasi password baru</string>
+    <string name="reset_password_title_complete_forgot">Passowrd berhasil dibuat</string>
+    <string name="reset_password_subtitle_complete_forgot">Masuk ke akun kamu dengan password baru.</string>
     <!-- end forgot password screen  -->
 
     <!--  [NEW] forgot password screen  -->

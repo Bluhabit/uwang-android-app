@@ -122,7 +122,7 @@ fun InputNewPasswordScreen(
                     placeholder = stringResource(id = R.string.reset_password_input_confirm_password_placeholder),
                     value = state.confirmPasswordState,
                     state = state.confirmPasswordInputState,
-                    showPassword=state.confirmPasswordVisibility,
+                    showPassword = state.confirmPasswordVisibility,
                     onValueChange = {
                         action(ForgotPasswordAction.OnConfirmPasswordChange(it))
                     },
@@ -148,8 +148,8 @@ fun InputNewPasswordScreen(
                         && state.confirmPasswordState.isNotEmpty()
                         && state.passwordInputState !is TextFieldState.Error
                         && state.confirmPasswordInputState !is TextFieldState.Error
-                        && !state.isAccountLocked
             ) {
+                action(ForgotPasswordAction.SetNewPassword)
             }
         }
     }

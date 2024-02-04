@@ -94,24 +94,24 @@ fun OtpForgotPasswordScreen(
         }
         Spacer(modifier = Modifier.padding(bottom = dimens.dp_24))
         Text(
-            text = if (state.isAccountLocked) "Kode OTP salah 3 kali" else stringResource(id = R.string.title_header_otp),
+            text = if (state.otpAttempt >= 4) "Kode OTP salah 3 kali" else stringResource(id = R.string.title_header_otp),
             style = UwangTypography.BodyXL.SemiBold,
             color = UwangColors.Text.Main
         )
         Spacer(modifier = Modifier.padding(bottom = 4.dp))
         Text(
             text =
-            if (state.isAccountLocked)
+            if (state.otpAttempt >= 4)
                 stringResource(id = R.string.caption_error_field_login_locked)
             else
-                stringResource(id = R.string.description_header_otp, "johndoe@gmail.com"),
+                stringResource(id = R.string.description_header_otp, state.emailState),
             style = UwangTypography.BodySmall.Regular,
             color = UwangColors.Text.Secondary
         )
         Spacer(modifier = Modifier.padding(bottom = dimens.dp_24))
         TextFieldOtp(
             modifier = Modifier.fillMaxWidth(),
-            enabled = state.otpNumberEnabled && !state.isAccountLocked,
+            enabled = state.otpAttempt < 4,
             length = 4,
             value = state.otpNumberState,
             state = state.emailInputState,
@@ -125,23 +125,19 @@ fun OtpForgotPasswordScreen(
         )
         Spacer(modifier = Modifier.padding(bottom = dimens.dp_24))
         when {
-            state.isAccountLocked -> {
+            state.showButtonResendOtp -> {
                 Text(
-                    text = stringResource(id = R.string.placeholder_teks_hour_otp),
-                    style = UwangTypography.BodySmall.Regular,
-                    color = UwangColors.Text.Secondary
+                    text = stringResource(id = R.string.label_teks_button_resend_otp),
+                    style = UwangTypography.BodySmall.Medium,
+                    color = UwangColors.State.Primary.Main,
+                    modifier = Modifier
+                        .clickable {
+                            onAction(ForgotPasswordAction.OnResendOtp)
+                        }
                 )
             }
 
-            state.otpSentLimit -> {
-                Text(
-                    text = stringResource(id = R.string.placeholder_teks_many_otp),
-                    style = UwangTypography.BodySmall.Regular,
-                    color = UwangColors.Text.Secondary
-                )
-            }
-
-            (state.otpSentCountDown > 0) -> {
+            !state.showButtonResendOtp -> {
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(4.dp),
                     verticalAlignment = Alignment.CenterVertically
@@ -158,19 +154,6 @@ fun OtpForgotPasswordScreen(
                     )
                 }
             }
-
-            else -> {
-                Text(
-                    text = stringResource(id = R.string.label_teks_button_resend_otp),
-                    style = UwangTypography.BodySmall.Medium,
-                    color = UwangColors.State.Primary.Main,
-                    modifier = Modifier
-                        .clickable {
-                            onAction(ForgotPasswordAction.OnResendOtp)
-                        }
-                )
-            }
-
         }
         Spacer(modifier = Modifier.weight(1f))
         Column(
@@ -192,7 +175,8 @@ fun OtpForgotPasswordScreen(
                 modifier = Modifier
                     .fillMaxWidth(),
                 text = stringResource(id = R.string.label_button_otp),
-                enabled = state.verifyOtpButtonEnabled && !state.isAccountLocked
+                enabled = state.otpNumberState.length == 4
+                        && state.otpAttempt < 4
             ) {
                 onAction(ForgotPasswordAction.OnVerifyOtp)
             }

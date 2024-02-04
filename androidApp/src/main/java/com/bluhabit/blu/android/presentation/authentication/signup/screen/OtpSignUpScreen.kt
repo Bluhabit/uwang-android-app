@@ -64,7 +64,7 @@ fun OtpSignUpScreen(
     val ctx = LocalContext.current
     val dimens = UwangDimens.from(ctx)
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .background(Color.White)
             .safeDrawingPadding()
@@ -72,53 +72,53 @@ fun OtpSignUpScreen(
             .verticalScroll(rememberScrollState()),
     ) {
         Box(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxWidth()
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_arrow_back),
                 contentDescription = "arrow back",
-                modifier = Modifier
+                modifier = modifier
                     .size(dimens.dp_24)
                     .align(Alignment.CenterStart)
                     .clickable {
-                        // On Back Pressed
+                        onBackPressed()
                     }
             )
             Image(
                 painter = painterResource(id = R.drawable.app_logo),
                 contentDescription = "",
-                modifier = Modifier
+                modifier = modifier
                     .size(dimens.dp_24)
                     .align(Alignment.Center)
             )
         }
-        Spacer(modifier = Modifier.padding(bottom = dimens.dp_24))
+        Spacer(modifier = modifier.padding(bottom = dimens.dp_24))
         Text(
-            text = if (state.isAccountLocked) "Kode OTP salah 3 kali" else stringResource(id = R.string.title_header_otp),
+            text = if (state.otpAttempt >= 4) "Kode OTP salah 3 kali" else stringResource(id = R.string.title_header_otp),
             style = UwangTypography.BodyXL.SemiBold,
             color = UwangColors.Text.Main
         )
-        Spacer(modifier = Modifier.padding(bottom = 4.dp))
+        Spacer(modifier = modifier.padding(bottom = 4.dp))
         Text(
             text =
-            if (state.isAccountLocked)
-                stringResource(id = R.string.caption_error_field_login_locked)
+            if (state.otpAttempt >= 4)
+                stringResource(id = R.string.sign_up_otp_action_locked)
             else
-                stringResource(id = R.string.description_header_otp, "johndoe@gmail.com"),
+                stringResource(id = R.string.description_header_otp, state.emailState),
             style = UwangTypography.BodySmall.Regular,
             color = UwangColors.Text.Secondary
         )
-        Spacer(modifier = Modifier.padding(bottom = dimens.dp_24))
+        Spacer(modifier = modifier.padding(bottom = dimens.dp_24))
         Box(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = modifier.fillMaxWidth(),
         ) {
             TextFieldOtp(
-                modifier = Modifier.align(Alignment.Center),
-                enabled = state.otpNumberEnabled && !state.isAccountLocked,
+                modifier = modifier.fillMaxWidth(),
+                enabled = state.otpAttempt < 4,
                 length = 4,
                 value = state.otpNumberState,
-                error = state.otpNumberError,
+                state = state.otpNumberInputState,
                 onDone = {
                     focusManager.clearFocus(true)
                     onAction(SignUpAction.OnVerifyOtp)
@@ -128,47 +128,21 @@ fun OtpSignUpScreen(
                 }
             )
         }
-        Spacer(modifier = Modifier.padding(bottom = 5.dp))
-        if (state.otpNumberError) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.alert_triangle),
-                    contentDescription = "",
-                    modifier = Modifier
-                        .size(dimens.dp_16)
-                )
-                Spacer(modifier = Modifier.padding(end = dimens.dp_8))
-                Text(
-                    text = "Kode OTP salah",
-                    style = UwangTypography.LabelMedium.Regular,
-                    color = UwangColors.State.Error.Main
-                )
-            }
-        }
         Spacer(modifier = Modifier.padding(bottom = dimens.dp_24))
         when {
-            state.isAccountLocked -> {
+            state.showButtonResendOtp -> {
                 Text(
-                    text = stringResource(id = R.string.placeholder_teks_hour_otp),
-                    style = UwangTypography.BodySmall.Regular,
-                    color = UwangColors.Text.Secondary
+                    text = stringResource(id = R.string.label_teks_button_resend_otp),
+                    style = UwangTypography.BodySmall.Medium,
+                    color = UwangColors.State.Primary.Main,
+                    modifier = Modifier
+                        .clickable {
+                            onAction(SignUpAction.OnResendOtp)
+                        }
                 )
             }
 
-            state.otpSentLimit -> {
-                Text(
-                    text = stringResource(id = R.string.placeholder_teks_many_otp),
-                    style = UwangTypography.BodySmall.Regular,
-                    color = UwangColors.Text.Secondary
-                )
-            }
-
-            (state.otpSentCountDown > 0) -> {
+            !state.showButtonResendOtp -> {
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(4.dp),
                     verticalAlignment = Alignment.CenterVertically
@@ -185,20 +159,8 @@ fun OtpSignUpScreen(
                     )
                 }
             }
-
-            else -> {
-                Text(
-                    text = stringResource(id = R.string.label_teks_button_resend_otp),
-                    style = UwangTypography.BodySmall.Medium,
-                    color = UwangColors.State.Primary.Main,
-                    modifier = Modifier
-                        .clickable {
-                            onAction(SignUpAction.OnResendOtp)
-                        }
-                )
-            }
-
         }
+
         Spacer(modifier = Modifier.weight(1f))
         Column(
             verticalArrangement = Arrangement.spacedBy(dimens.dp_24),
@@ -219,7 +181,8 @@ fun OtpSignUpScreen(
                 modifier = Modifier
                     .fillMaxWidth(),
                 text = stringResource(id = R.string.label_button_otp),
-                enabled = state.verifyOtpButtonEnabled && !state.isAccountLocked && state.otpNumberState.length == 4
+                enabled = state.otpNumberState.length == 4
+                        && state.otpAttempt < 4
             ) {
                 onAction(SignUpAction.OnVerifyOtp)
             }

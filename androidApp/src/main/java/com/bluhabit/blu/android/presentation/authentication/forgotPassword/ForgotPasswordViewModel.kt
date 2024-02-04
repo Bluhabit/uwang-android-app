@@ -46,7 +46,7 @@ class ForgotPasswordViewModel @Inject constructor(
             ForgotPasswordAction.RequestResetPassword -> onRequestResetPassword()
             ForgotPasswordAction.VerifyOtp -> onVerifyOtpForgotPassword()
             ForgotPasswordAction.SetNewPassword -> onSetNewPasswordForgotPassword()
-            is ForgotPasswordAction.OnConfirmPasswordVisibilityChange -> updateState { copy(confirmPasswordVisibility  = action.visibility) }
+            is ForgotPasswordAction.OnConfirmPasswordVisibilityChange -> updateState { copy(confirmPasswordVisibility = action.visibility) }
             is ForgotPasswordAction.OnNewPasswordVisibilityChange -> updateState { copy(passwordVisibility = action.visibility) }
             ForgotPasswordAction.OnCountDownStart -> onCountDownStart()
             ForgotPasswordAction.OnResendOtp -> onResendOtpForgotPassword()
@@ -65,10 +65,11 @@ class ForgotPasswordViewModel @Inject constructor(
                 }
 
                 override fun onFinish() {
-                    updateState { copy(otpSentCountDown = 0) }
+                    updateState { copy(showButtonResendOtp = true) }
                     countDownTimer?.cancel()
                 }
             }
+            updateState { copy(showButtonResendOtp = false) }
             countDownTimer?.start()
         }
     }
@@ -81,11 +82,14 @@ class ForgotPasswordViewModel @Inject constructor(
 
 
     private fun onOtpChange(otp: String) = viewModelScope.launch {
-        updateState { copy(otpNumberState = otp) }
+        updateState { copy(otpNumberState = otp, otpNumberInputState = TextFieldState.None) }
+        if (otp.length == 4) {
+            onVerifyOtpForgotPassword()
+        }
     }
 
     private fun onChangeEmail(email: String) = viewModelScope.launch {
-        val isEmailValid = when{
+        val isEmailValid = when {
             email.length > 1 && !Patterns.EMAIL_ADDRESS.matcher(email).matches() -> TextFieldState.Error("Email tidak valid")
             else -> TextFieldState.None
         }
@@ -115,7 +119,7 @@ class ForgotPasswordViewModel @Inject constructor(
         val passwordState = when {
             password.length == 1 -> TextFieldState.WithHint("Password harus sama")
             password.length in 2..7 -> TextFieldState.Error("Password tidak sama.")
-            password != _state.value.passwordState ->  TextFieldState.Error("Password tidak sama.")
+            password != _state.value.passwordState -> TextFieldState.Error("Password tidak sama.")
             else -> TextFieldState.Success("Password sesuai")
         }
         updateState {
@@ -135,7 +139,10 @@ class ForgotPasswordViewModel @Inject constructor(
             .onEach {
                 updateState { copy(showLoading = false) }
                 when (it) {
-                    is Response.Error -> Unit
+                    is Response.Error -> {
+                        updateState { copy(emailInputState = TextFieldState.Error(it.message)) }
+                    }
+
                     is Response.Result -> {
                         updateState { copy(currentScreen = 1) }
                     }
@@ -152,7 +159,10 @@ class ForgotPasswordViewModel @Inject constructor(
             .onEach {
                 updateState { copy(showLoading = false) }
                 when (it) {
-                    is Response.Error -> Unit
+                    is Response.Error -> {
+                        updateState { copy(otpNumberInputState = TextFieldState.Error(it.message)) }
+                    }
+
                     is Response.Result -> {
                         updateState { copy(currentScreen = 2) }
                     }
@@ -169,8 +179,24 @@ class ForgotPasswordViewModel @Inject constructor(
             .onEach {
                 updateState { copy(showLoading = false) }
                 when (it) {
-                    is Response.Error -> Unit
-                    is Response.Result -> {}
+                    is Response.Error -> {
+                        updateState {
+                            copy(
+                                otpSentAlertVisibility = true,
+                                otpSentAlertSuccess = false
+                            )
+                        }
+                    }
+
+                    is Response.Result -> {
+                        onCountDownStart()
+                        updateState {
+                            copy(
+                                otpSentAlertVisibility = true,
+                                otpSentAlertSuccess = true
+                            )
+                        }
+                    }
                 }
             }
             .collect()

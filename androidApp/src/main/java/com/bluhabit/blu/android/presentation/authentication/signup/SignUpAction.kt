@@ -68,4 +68,7 @@ sealed interface SignUpAction {
     object OnCountDownStart : SignUpAction
     object OnResendOtp : SignUpAction
     object OnVerifyOtp : SignUpAction
+    object OnCompleteProfile : SignUpAction
+    object OnSetPassword : SignUpAction
+    object ValidateDateOfBirth:SignUpAction
 }

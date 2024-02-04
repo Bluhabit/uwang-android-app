@@ -9,6 +9,7 @@ package com.bluhabit.blu.android.presentation.authentication.personalization
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
@@ -24,17 +25,26 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
 @Composable
-fun CompleteProfileScreen(
+fun PersonalizeScreen(
     navHostController: NavHostController = rememberNavController(),
     stateFlow: Flow<PersonalizationState> = flowOf(PersonalizationState()),
     effectFlow: Flow<PersonalizationEffect> = flowOf(),
     onAction: (PersonalizationAction) -> Unit = {},
 ) {
-    val context = LocalContext.current
     val effect by effectFlow.collectAsState(initial = PersonalizationEffect.None)
     val state by stateFlow.collectAsStateWithLifecycle(initialValue = PersonalizationState())
-    DialogLoading(show = state.showLoading)
 
+    LaunchedEffect(key1 = effect, block = {
+        when (effect) {
+            PersonalizationEffect.None -> Unit
+            PersonalizationEffect.NavigateToMain -> navHostController.navigate("home") {
+                launchSingleTop = true
+                popUpTo("personalize") {
+                    inclusive = true
+                }
+            }
+        }
+    })
     fun goBack() {
         if (state.currentScreen > 0) {
             onAction(
@@ -49,7 +59,7 @@ fun CompleteProfileScreen(
     BackHandler {
         goBack()
     }
-
+    DialogLoading(show = state.showLoading)
     when (state.currentScreen) {
         0 -> CreateUsernameScreen(
             state = state,

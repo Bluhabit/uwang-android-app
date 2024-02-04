@@ -10,7 +10,7 @@ package com.bluhabit.blu.data.model
 import com.google.gson.annotations.SerializedName
 
 data class BaseResponse<T>(
-    @SerializedName("statusCode")
+    @SerializedName("status_code")
     val statusCode: Int,
     @SerializedName("data")
     val data: T,
@@ -19,12 +19,12 @@ data class BaseResponse<T>(
 )
 
 data class BaseResponseError<T>(
-    @SerializedName("statusCode")
+    @SerializedName("status_code")
     val statusCode: Int,
     @SerializedName("data")
     val data: T,
     @SerializedName("message")
     val message: String,
-    @SerializedName("errorField")
+    @SerializedName("error_field")
     val errorField: List<Map<String, String>>,
 )

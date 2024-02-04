@@ -21,6 +21,7 @@ data class SignUpState(
     //global
     // 0 == sing up 1 == otp
     val currentScreen: Int = 0,
+    val showButtonResendOtp:Boolean=false,
     val showLoading: Boolean = false,
     val bottomSheetType: BottomSheetSignUpType = BottomSheetSignUpType.DATE_OF_BIRTH,
     //[NEW] sign up
@@ -31,12 +32,13 @@ data class SignUpState(
     // Otp Sign Up Screen
     val otpSentCountDown: Long = 120_000L,
     val otpNumberState: String = "",
-    val otpNumberError: Boolean = false,
+    val otpNumberInputState:TextFieldState=TextFieldState.None,
+
     val otpNumberEnabled: Boolean = true,
     val otpSentAlertVisibility: Boolean = false,
     val otpSentAlertSuccess: Boolean = false,
     val otpSentLimit: Boolean = false,
-    val isAccountLocked: Boolean = false,
+    val otpAttempt: Int = 1,
     val verifyOtpButtonEnabled: Boolean = true,
 
     //[NEW] Complete Profile

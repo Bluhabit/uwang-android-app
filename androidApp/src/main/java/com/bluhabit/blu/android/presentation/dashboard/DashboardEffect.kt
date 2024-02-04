@@ -5,7 +5,10 @@
  * Proprietary and confidential
  */
 
-package com.bluhabit.blu.android.data.authentication
+package com.bluhabit.blu.android.presentation.dashboard
 
-object AuthConstant {
+sealed interface DashboardEffect {
+    object Exit:DashboardEffect
+
+    object None:DashboardEffect
 }

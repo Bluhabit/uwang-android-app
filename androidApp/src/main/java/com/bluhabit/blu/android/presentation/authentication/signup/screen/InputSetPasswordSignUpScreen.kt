@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
@@ -43,6 +44,7 @@ import com.bluhabit.core.ui.theme.UwangTypography
 
 @Composable
 fun InputSetNewPasswordSignUpScreen(
+    modifier: Modifier = Modifier,
     state: SignUpState = SignUpState(),
     onBackPressed: () -> Unit,
     action: (SignUpAction) -> Unit = {},
@@ -50,7 +52,7 @@ fun InputSetNewPasswordSignUpScreen(
     val ctx = LocalContext.current
     val dimens = UwangDimens.from(ctx)
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .background(Color.White)
             .safeDrawingPadding()
@@ -59,13 +61,13 @@ fun InputSetNewPasswordSignUpScreen(
     ) {
         Column {
             Box(
-                modifier = Modifier
+                modifier = modifier
                     .fillMaxWidth()
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_arrow_back),
                     contentDescription = "arrow back",
-                    modifier = Modifier
+                    modifier = modifier
                         .size(dimens.dp_24)
                         .align(Alignment.CenterStart)
                         .clickable {
@@ -75,7 +77,7 @@ fun InputSetNewPasswordSignUpScreen(
                 Image(
                     painter = painterResource(id = R.drawable.app_logo),
                     contentDescription = "",
-                    modifier = Modifier
+                    modifier = modifier
                         .size(dimens.dp_24)
                         .align(Alignment.Center)
                 )
@@ -92,57 +94,64 @@ fun InputSetNewPasswordSignUpScreen(
                 style = UwangTypography.BodySmall.Regular,
                 color = UwangColors.Text.Secondary
             )
-            Spacer(modifier = Modifier.padding(bottom = dimens.dp_16))
+            Spacer(modifier = modifier.padding(bottom = dimens.dp_16))
             Column(
                 verticalArrangement = Arrangement.spacedBy(4.dp),
             ) {
                 TextFieldPasswordPrimary(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = modifier.fillMaxWidth(),
                     label = stringResource(id = R.string.reset_password_input_password_label),
                     placeholder = stringResource(id = R.string.reset_password_input_password_placeholder),
                     value = state.passwordState,
-                    onValueChange = {},
-                    onChangeVisibility = {
-
-                    },
                     state = state.passwordInputState,
+                    showPassword = state.passwordVisibility,
+                    onValueChange = {
+                        action(SignUpAction.OnPasswordChange(it))
+                    },
+                    onChangeVisibility = {
+                        action(SignUpAction.OnPasswordVisibilityChange(it))
+                    },
                     onAction = {
                         it.clearFocus()
                     }
                 )
+                Spacer(modifier = modifier.height(10.dp))
                 TextFieldPasswordPrimary(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = modifier.fillMaxWidth(),
                     label = stringResource(id = R.string.reset_password_input_confirm_password_label),
                     placeholder = stringResource(id = R.string.reset_password_input_confirm_password_placeholder),
                     value = state.confirmPasswordState,
                     state = state.confirmPasswordInputState,
+                    showPassword = state.passwordConfirmationVisibility,
                     onValueChange = {
+                        action(SignUpAction.OnPasswordConfirmationChange(it))
 
                     },
                     onChangeVisibility = {
-
+                        action(SignUpAction.OnPasswordConfirmationVisibilityChange(it))
                     },
                     onAction = {
                         it.clearFocus()
                     }
                 )
             }
-            Spacer(modifier = Modifier.padding(bottom = dimens.dp_12))
+            Spacer(modifier = modifier.padding(bottom = dimens.dp_12))
         }
         Column(
             verticalArrangement = Arrangement.spacedBy(dimens.dp_24),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             ButtonPrimary(
-                modifier = Modifier
+                modifier = modifier
                     .fillMaxWidth(),
                 text = stringResource(id = R.string.reset_password_screen_next),
                 enabled = state.passwordState.isNotEmpty()
                         && state.confirmPasswordState.isNotEmpty()
                         && state.passwordInputState !is TextFieldState.Error
                         && state.confirmPasswordInputState !is TextFieldState.Error
-                        && !state.isAccountLocked
+                        && state.otpAttempt < 3
             ) {
+                action(SignUpAction.OnSetPassword)
             }
         }
     }

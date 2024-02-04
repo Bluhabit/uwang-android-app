@@ -39,10 +39,22 @@ fun SignInScreen(
         when (effect) {
             SignInEffect.None -> Unit
             SignInEffect.NavigateToPersonalize -> {
-                navHostController.navigate("complete_profile")
+                navHostController.navigate("personalize") {
+                    launchSingleTop = true
+                    popUpTo("sign_in") {
+                        inclusive = true
+                    }
+                }
             }
 
-            SignInEffect.NavigateToMain -> Unit
+            SignInEffect.NavigateToMain -> {
+                navHostController.navigate("home") {
+                    launchSingleTop = true
+                    popUpTo("sign_in") {
+                        inclusive = true
+                    }
+                }
+            }
         }
     })
 
@@ -75,8 +87,8 @@ fun SignInScreen(
                 onForgotPassword = {
                     navHostController.navigate("forgot_password")
                 },
-                onTermAndCondition = {
-                    navHostController.navigate("term_and_condition")
+                onBackPressed = {
+                    navHostController.navigateUp()
                 },
                 action = onAction
             )

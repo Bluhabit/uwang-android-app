@@ -14,6 +14,6 @@ import javax.inject.Inject
 class SignUpBasicUseCase @Inject constructor(
     private val authRepository: AuthRepository
 ) {
-    suspend operator fun invoke(email: String, password: String): Response<String> =
-        authRepository.signUpBasic(email = email, password = password)
+    suspend operator fun invoke(email: String): Response<String> =
+        authRepository.signUpBasic(email = email)
 }

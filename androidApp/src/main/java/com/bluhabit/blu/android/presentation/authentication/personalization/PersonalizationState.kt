@@ -17,20 +17,17 @@ import javax.annotation.concurrent.Immutable
 data class PersonalizationState(
 
     //global
+    val showLoading:Boolean=false,
     val currentScreen: Int = 0,
-    val showLoading: Boolean = false,
     // Create Username Screen
     val usernameState: TextFieldState = TextFieldState.None,
     val usernameValueState: String = String.Empty,
-    val createUsernameNextButton: Boolean = true,
     // UploadPhotoProfileScreen
     val profileImage: Bitmap? = null,
     val showDialogChoice: Boolean = false,
-    val uploadPhotoNextButton: Boolean = false,
+    val uploadProfileSuccess: Boolean = false,
     // Choose Topic Screen
     val selectedTopicList: List<SelectedTopic> = listOf(),
-    val chooseTopicNextButtonEnabled: Boolean = true,
-    // Choose Level Screen
-    val selectedIndex: Int? = null,
-    val chooseLevelNextButtonEnabled: Boolean = true,
+    // Choose Level Screen [INTERMEDIATE,PRO,ADVANCE]
+    val selectedLevel: String = ""
 )

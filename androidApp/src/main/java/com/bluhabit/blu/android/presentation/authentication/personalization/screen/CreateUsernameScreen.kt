@@ -51,40 +51,21 @@ import com.bluhabit.core.ui.theme.UwangTypography
 
 @Composable
 fun CreateUsernameScreen(
+    modifier: Modifier = Modifier,
     state: PersonalizationState = PersonalizationState(),
     onAction: (PersonalizationAction) -> Unit = {},
 ) {
     val ctx = LocalContext.current
     val dimens = UwangDimens.from(ctx)
-    val levelList = listOf(
-        ItemLevel(
-            image = R.drawable.image_level_1,
-            title = stringResource(id = R.string.title_card_beginner),
-            description = stringResource(id = R.string.description_card_beginner)
-        ),
-        ItemLevel(
-            image = R.drawable.image_level_2,
-            title = stringResource(id = R.string.title_card_intermediate),
-            description = stringResource(id = R.string.description_card_Intermediate)
-        ),
-        ItemLevel(
-            image = R.drawable.image_level_3,
-            title = stringResource(id = R.string.title_card_expert),
-            description = stringResource(id = R.string.description_card_expert)
-        ),
-    )
-    var selectedIndex by remember {
-        mutableStateOf<Int?>(null)
-    }
 
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .background(UwangColors.Base.White)
             .safeDrawingPadding(),
     ) {
         Column(
-            modifier = Modifier
+            modifier = modifier
                 .verticalScroll(rememberScrollState())
                 .padding(
                     start = dimens.dp_16, end = dimens.dp_16,
@@ -92,19 +73,19 @@ fun CreateUsernameScreen(
                 ),
         ) {
             Box(
-                modifier = Modifier
+                modifier = modifier
                     .fillMaxWidth()
             ) {
                 Image(
                     painter = painterResource(id = R.drawable.app_logo),
                     contentDescription = "",
-                    modifier = Modifier
+                    modifier = modifier
                         .size(dimens.dp_24)
                         .align(Alignment.Center)
                 )
 
             }
-            Spacer(modifier = Modifier.padding(bottom = dimens.dp_24))
+            Spacer(modifier = modifier.padding(bottom = dimens.dp_24))
             Column(
                 verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
@@ -119,9 +100,9 @@ fun CreateUsernameScreen(
                     color = UwangColors.Text.Secondary
                 )
             }
-            Spacer(modifier = Modifier.padding(bottom = dimens.dp_16))
+            Spacer(modifier = modifier.padding(bottom = dimens.dp_16))
             TextFieldPrimary(
-                modifier = Modifier
+                modifier = modifier
                     .fillMaxWidth(),
                 label = stringResource(id = R.string.label_field_username),
                 placeholder = stringResource(id = R.string.placeholder_field_username),
@@ -140,7 +121,7 @@ fun CreateUsernameScreen(
             )
         }
         Column(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxWidth()
                 .background(UwangColors.Base.White)
                 .align(Alignment.BottomCenter),
@@ -149,23 +130,27 @@ fun CreateUsernameScreen(
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier
+                modifier = modifier
                     .fillMaxWidth()
                     .padding(horizontal = dimens.dp_16, vertical = dimens.dp_24)
             ) {
                 ButtonOutlinedPrimary(
-                    modifier = Modifier
+                    modifier = modifier
                         .width(dimens.from(102.dp))
                         .height(dimens.from(36.dp)),
-                    text = stringResource(id = R.string.label_button_pass)
+                    text = stringResource(id = R.string.label_button_pass),
+                    onClick = {onAction(PersonalizationAction.NextSkip)}
                 )
                 ButtonPrimary(
-                    modifier = Modifier
+                    modifier = modifier
                         .width(dimens.from(102.dp))
                         .height(dimens.from(36.dp)),
                     text = stringResource(id = R.string.label_button_next),
-                    enabled = state.usernameValueState.isNotEmpty() && state.usernameState !is TextFieldState.Error && state.createUsernameNextButton,
-                    onClick = { onAction(PersonalizationAction.CreateUsernameNextButton) }
+                    enabled = state.usernameValueState.isNotEmpty()
+                            && state.usernameState !is TextFieldState.Error,
+                    onClick = {
+                        onAction(PersonalizationAction.CreateUsernameNextButton)
+                    }
                 )
             }
         }

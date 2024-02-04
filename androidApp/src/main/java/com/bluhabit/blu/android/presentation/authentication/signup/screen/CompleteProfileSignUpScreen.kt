@@ -42,10 +42,11 @@ import com.bluhabit.core.ui.theme.UwangColors
 import com.bluhabit.core.ui.theme.UwangDimens
 import com.bluhabit.core.ui.theme.UwangTheme
 import com.bluhabit.core.ui.theme.UwangTypography
+import java.time.format.DateTimeFormatter
 
 @Composable
 fun CompleteProfileSignUpScreen(
-    modifier:Modifier = Modifier,
+    modifier: Modifier = Modifier,
     state: SignUpState = SignUpState(),
     onBackPressed: () -> Unit,
     action: (SignUpAction) -> Unit,
@@ -97,24 +98,31 @@ fun CompleteProfileSignUpScreen(
                 verticalArrangement = Arrangement.spacedBy(4.dp),
             ) {
                 TextFieldPrimary(
-                    modifier = modifier
-                        .fillMaxWidth(),
-                    label = stringResource(id = R.string.reset_password_input_label_email),
-                    placeholder = stringResource(id = R.string.reset_password_input_placeholder_email),
-                    value = state.emailState,
+                    modifier = modifier.fillMaxWidth(),
+                    label = stringResource(id = R.string.sign_up_screen_input_full_name_label),
+                    placeholder = stringResource(id = R.string.sign_up_screen_input_full_name_placeholder),
+                    value = state.fullNameState,
                     onValueChange = {
-                        action(SignUpAction.OnEmailChange(it))
+                        action(SignUpAction.OnFullNameChange(it))
                     },
-                    state = state.emailInputState,
+                    onClickTrailingIcon = {
+                        action(SignUpAction.OnFullNameChange(""))
+                    },
+                    state = state.fullNameInputState,
                 )
-                Spacer(modifier = Modifier.height(dimens.dp_12))
+                Spacer(modifier = modifier.height(dimens.dp_12))
                 ClickableTextFieldPrimary(
-                    modifier = Modifier
-                        .fillMaxWidth(),
+                    modifier = modifier.fillMaxWidth(),
                     label = stringResource(id = R.string.sign_up_input_date_of_birth_label),
                     placeholder = stringResource(id = R.string.sign_up_input_date_of_birth_placeholder),
-                    value = state.emailState,
-                    state = state.emailInputState,
+                    value = state.dateOfBirthState?.format(DateTimeFormatter.ofPattern("dd-M-yyyy")) ?: "",
+                    state = state.dateOfBirthInputState,
+                    trailingIcon = {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_calendar),
+                            contentDescription = ""
+                        )
+                    },
                     onClick = {
                         onSelectDateOfBirth()
                     }
@@ -125,8 +133,19 @@ fun CompleteProfileSignUpScreen(
                         .fillMaxWidth(),
                     label = stringResource(id = R.string.sign_up_input_gender_label),
                     placeholder = stringResource(id = R.string.sign_up_input_gender_placeholder),
-                    value = state.emailState,
-                    state = state.emailInputState,
+                    value = when (state.genderState) {
+                        "MALE" -> "Laki-Laki"
+                        "FEMALE" -> "Perempuan"
+                        "HIDDEN" -> "Tidak ingin memberitahu"
+                        else -> stringResource(id = R.string.sign_up_input_gender_placeholder)
+                    },
+                    state = state.genderInputState,
+                    trailingIcon = {
+                        Icon(
+                            painter = painterResource(id = R.drawable.arrow_down),
+                            contentDescription = ""
+                        )
+                    },
                     onClick = {
                         onSelectGender()
                     }
@@ -143,9 +162,14 @@ fun CompleteProfileSignUpScreen(
                 modifier = modifier
                     .fillMaxWidth(),
                 text = stringResource(id = R.string.sign_up_screen_next),
-                enabled = state.emailInputState !is TextFieldState.Error && state.emailState.isNotEmpty() && !state.isAccountLocked
+                enabled = state.fullNameInputState !is TextFieldState.Error
+                        && state.fullNameState.isNotEmpty()
+                        && state.dateOfBirthState != null
+                        && state.genderInputState !is TextFieldState.Error
+                        && state.genderState.isNotEmpty()
+                        && state.otpAttempt <3
             ) {
-                action(SignUpAction.SignUpBasic)
+                action(SignUpAction.OnCompleteProfile)
             }
         }
     }

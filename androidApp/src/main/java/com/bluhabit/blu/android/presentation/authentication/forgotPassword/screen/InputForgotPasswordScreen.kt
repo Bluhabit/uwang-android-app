@@ -118,7 +118,8 @@ fun InputForgotPasswordScreen(
                 modifier = Modifier
                     .fillMaxWidth(),
                 text = stringResource(id = R.string.reset_password_screen_next),
-                enabled = state.emailInputState !is TextFieldState.Error && state.emailState.isNotEmpty() && !state.isAccountLocked
+                enabled = state.emailInputState !is TextFieldState.Error
+                        && state.emailState.isNotEmpty()
             ) {
                 action(ForgotPasswordAction.RequestResetPassword)
             }

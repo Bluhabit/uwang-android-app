@@ -8,12 +8,15 @@
 package com.bluhabit.blu.android.data.authentication.repositories
 
 import android.graphics.Bitmap
+import com.bluhabit.blu.android.data.authentication.DataConstant.KEY_SESSION_ID
+import com.bluhabit.blu.android.data.authentication.DataConstant.KEY_USER_ID
 import com.bluhabit.blu.android.data.authentication.datasource.remote.request.CompleteProfileSignUpRequest
 import com.bluhabit.blu.android.data.authentication.datasource.remote.request.ForgotPasswordRequest
 import com.bluhabit.blu.android.data.authentication.datasource.remote.request.ResendOtpForgotPasswordRequest
 import com.bluhabit.blu.android.data.authentication.datasource.remote.request.ResendOtpSignInBasicRequest
 import com.bluhabit.blu.android.data.authentication.datasource.remote.request.ResendOtpSignUpBasicRequest
 import com.bluhabit.blu.android.data.authentication.datasource.remote.request.SetForgotPasswordRequest
+import com.bluhabit.blu.android.data.authentication.datasource.remote.request.SetPasswordSignUpBasicRequest
 import com.bluhabit.blu.android.data.authentication.datasource.remote.request.SignInBasicRequest
 import com.bluhabit.blu.android.data.authentication.datasource.remote.request.SignInGoogleRequest
 import com.bluhabit.blu.android.data.authentication.datasource.remote.request.SignUpBasicRequest
@@ -39,15 +42,14 @@ class AuthRepository @Inject constructor(
     private val httpClient: HttpClient,
     private val sharedPref: SharedPref
 ) {
-    companion object {
-        const val KEY_SESSION_ID = "d0ca-fc40"
-        const val KEY_USER_ID = "fcd0-acbd"
-
-    }
 
     //session
     fun isLoggedIn(): Boolean {
         return sharedPref.getIsLoggedIn()
+    }
+
+    fun signOut(){
+        sharedPref.clearAllSession()
     }
     //end session
 
@@ -129,17 +131,11 @@ class AuthRepository @Inject constructor(
     //sign up region
 
     suspend fun signUpBasic(
-        email: String,
-        password: String
+        email: String
     ): Response<String> {
         return when (val result = safeApiCall<String> {
             httpClient.post("auth/v1/sign-up-basic") {
-                setBody(
-                    SignUpBasicRequest(
-                        email = email,
-                        password = password
-                    )
-                )
+                setBody(SignUpBasicRequest(email = email))
             }
         }) {
             is Response.Error -> result
@@ -169,7 +165,7 @@ class AuthRepository @Inject constructor(
             is Response.Error -> result
             is Response.Result -> {
                 sharedPref.removePersistData(KEY_USER_ID)
-                sharedPref.setPersistData(KEY_USER_ID, result.data.credential.id)
+                sharedPref.setPersistData(KEY_USER_ID, result.data.user.id)
                 sharedPref.setToken(result.data.token)
                 sharedPref.setIsLoggedIn(true)
                 result
@@ -186,13 +182,27 @@ class AuthRepository @Inject constructor(
             ?: return Response.Error("Sesi tidak ditemukan sudah habis", 401)
 
         return safeApiCall {
-            httpClient.post("auth/v1/sign-up/complete-profile") {
+            httpClient.post("auth/v1/sign-up-basic/complete-profile") {
                 setBody(
                     CompleteProfileSignUpRequest(
                         sessionId = sessionId,
                         fullName = fullName,
                         dateOfBirth = dateOfBirth,
                         gender = gender
+                    )
+                )
+            }
+        }
+    }
+
+    suspend fun setPasswordSignUp(
+       password:String
+    ): Response<Any> {
+        return safeApiCall {
+            httpClient.post("auth/v1/sign-up-basic/set-password") {
+                setBody(
+                    SetPasswordSignUpBasicRequest(
+                        newPassword = password
                     )
                 )
             }

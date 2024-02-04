@@ -14,34 +14,45 @@ sealed interface PersonalizationAction {
 
     // Global
     data class OnScreenChange(
-        val screen:Int=0
-    ):PersonalizationAction
-    object NextSkip:PersonalizationAction
+        val screen: Int = 0
+    ) : PersonalizationAction
+
+    object NextSkip : PersonalizationAction
+
     // Create Username Screen
     data class OnUsernameChange(
         val value: String
     ) : PersonalizationAction
+
     object CreateUsernameNextButton : PersonalizationAction
+
     // Upload Photo Profile Screen
     data class OnProfileImageChange(
         val value: Bitmap,
     ) : PersonalizationAction
-    data class OnShowDialogChoice (
+
+    data class OnShowDialogChoice(
         val show: Boolean,
     ) : PersonalizationAction
+
     object UploadPhotoProfileNextButton : PersonalizationAction
+
     // Choose Topic Screen
-    object OnClearSelectedList: PersonalizationAction
+    object OnClearSelectedList : PersonalizationAction
     data class OnAddSelectedList(
         val topic: SelectedTopic,
     ) : PersonalizationAction
+
     data class OnRemoveSelectedList(
         val topic: SelectedTopic,
     ) : PersonalizationAction
+
     object ChooseTopicNextButton : PersonalizationAction
+
     // Choose Level Screen
     data class OnSelectedLevelChange(
-        val index: Int,
+        val value: String,
     ) : PersonalizationAction
+
     object ChooseLevelNextButton : PersonalizationAction
 }
