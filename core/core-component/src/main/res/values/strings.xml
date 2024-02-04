@@ -150,9 +150,9 @@
     <!--    end alert component-->
 
     <!--    forgot password component-->
-    <string name="text_label_forgot_password">Password berhasil diubah</string>
-    <string name="text_subtitle_forgot_password">Silakan masuk ke akunmu dengan memasukkan kata sandi terbaru. </string>
-    <string name="text_button_forgot_password">Login</string>
+    <string name="text_label_forgot_password">Password berhasil dibuat</string>
+    <string name="text_subtitle_forgot_password">Masuk ke akun kamu dengan password baru. </string>
+    <string name="text_button_forgot_password">Masuk</string>
     <!--    end alert component-->
 
     <!--    bottom navigation-->
