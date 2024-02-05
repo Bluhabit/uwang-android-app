@@ -27,3 +27,11 @@ data class UserProfileResponse(
     @SerializedName("deleted")
     val deleted: Boolean
 )
+
+fun List<UserProfileResponse>.toMap(): Map<String, String> {
+    val data = HashMap<String, String>()
+    this.forEach {
+        data.put(it.key, it.value)
+    }
+    return data
+}

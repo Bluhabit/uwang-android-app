@@ -11,5 +11,7 @@ import javax.annotation.concurrent.Immutable
 
 @Immutable
 data class OnboardState(
-    val tes: String=""
+    val showLoading:Boolean= false,
+
+    val currentScreen:Int=0
 )

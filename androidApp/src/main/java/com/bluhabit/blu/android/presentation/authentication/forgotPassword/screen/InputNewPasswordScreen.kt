@@ -7,21 +7,26 @@
 
 package com.bluhabit.blu.android.presentation.authentication.forgotPassword.screen
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.layout.safeDrawingPadding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -30,113 +35,122 @@ import com.bluehabit.core.ui.R
 import com.bluhabit.blu.android.presentation.authentication.forgotPassword.ForgotPasswordAction
 import com.bluhabit.blu.android.presentation.authentication.forgotPassword.ForgotPasswordState
 import com.bluhabit.core.ui.components.button.ButtonPrimary
-import com.bluhabit.core.ui.components.textfield.TextFieldPrimary
+import com.bluhabit.core.ui.components.textfield.TextFieldPasswordPrimary
+import com.bluhabit.core.ui.components.textfield.TextFieldState
 import com.bluhabit.core.ui.theme.UwangColors
-import com.bluhabit.core.ui.theme.CustomTypography
+import com.bluhabit.core.ui.theme.UwangDimens
 import com.bluhabit.core.ui.theme.UwangTheme
+import com.bluhabit.core.ui.theme.UwangTypography
 
 
 @Composable
 fun InputNewPasswordScreen(
     state: ForgotPasswordState = ForgotPasswordState(),
     onBackPressed: () -> Unit,
-    onAction: (ForgotPasswordAction) -> Unit = {},
+    action: (ForgotPasswordAction) -> Unit = {},
 ) {
+    val ctx = LocalContext.current
+    val dimens = UwangDimens.from(ctx)
     Column(
-        verticalArrangement = Arrangement.spacedBy(16.dp),
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colors.background)
-            .verticalScroll(rememberScrollState()),
+            .background(Color.White)
+            .safeDrawingPadding()
+            .padding(horizontal = dimens.dp_16, vertical = dimens.dp_24),
+        verticalArrangement = Arrangement.SpaceBetween
     ) {
-        IconButton(
-            onClick = {
-                onBackPressed()
-            }) {
-            Icon(
-                painter = painterResource(id = com.bluehabit.core.ui.R.drawable.ic_arrow_back),
-                contentDescription = "arrow back"
-            )
-        }
-        Column(
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-            modifier = Modifier
-                .padding(horizontal = 16.dp)
-        ) {
-            Text(
-                text = stringResource(id = com.bluehabit.core.ui.R.string.input_password_screen_reset_password),
-                style = CustomTypography.Body.XL.W600,
-                color = UwangColors.Neutral.Grey13
-            )
-            Text(
-                text = stringResource(id = com.bluehabit.core.ui.R.string.input_password_screen_hint),
-                style = CustomTypography.Body.Small.W400,
-                color = UwangColors.Neutral.Grey9
-            )
-            Text(
-                text = stringResource(id = com.bluehabit.core.ui.R.string.input_password_screen_password),
-                style = CustomTypography.Body.Small.W400,
-                color = UwangColors.Neutral.Grey9
-            )
-            TextFieldPrimary(
+        Column {
+            Box(
                 modifier = Modifier
-                    .fillMaxWidth(),
-                label = {
-                    Text(
-                        text = stringResource(id = R.string.reset_password_screen_email_text_field_label),
-                        style = CustomTypography.Body.XS.W500
-                    )
-                },
-                value = state.emailState,
-                onValueChange = {
-                    onAction(ForgotPasswordAction.OnEmailChange(value = it))
-                },
-                isError = state.emailError
-            )
-            Text(
-                text = state.emailErrorText,
-                style = CustomTypography.Label.Small.W400,
-                color = UwangColors.Error.Red300
-            )
-
-            Text(
-                text = stringResource(id = R.string.reset_password_screen_confirm_password_label),
-                style = CustomTypography.Body.Small.W400,
-                color = UwangColors.Neutral.Grey9
-            )
-            TextFieldPrimary(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                label = {
-                    Text(
-                        text = stringResource(id = R.string.reset_password_screen_email_text_field_label),
-                        style = CustomTypography.Body.XS.W500
-                    )
-                },
-                value = state.emailState,
-                onValueChange = {
-                    onAction(ForgotPasswordAction.OnEmailChange(value = it))
-                },
-                isError = state.emailError
-            )
-            if (state.emailError) {
-                Text(
-                    text = state.emailErrorText,
-                    style = CustomTypography.Label.Small.W400,
-                    color = UwangColors.Error.Red300
+                    .fillMaxWidth()
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_arrow_back),
+                    contentDescription = "arrow back",
+                    modifier = Modifier
+                        .size(dimens.dp_24)
+                        .align(Alignment.CenterStart)
+                        .clickable {
+                            onBackPressed()
+                        }
+                )
+                Image(
+                    painter = painterResource(id = R.drawable.app_logo),
+                    contentDescription = "",
+                    modifier = Modifier
+                        .size(dimens.dp_24)
+                        .align(Alignment.Center)
                 )
             }
+            Spacer(modifier = Modifier.padding(bottom = dimens.dp_24))
+            Text(
+                text = stringResource(id = R.string.reset_password_input_password_header),
+                style = UwangTypography.BodyLarge.SemiBold,
+                color = UwangColors.Text.Main
+            )
+            Spacer(modifier = Modifier.padding(bottom = 4.dp))
+            Text(
+                text = stringResource(id = R.string.reset_password_input_password_description_header),
+                style = UwangTypography.BodySmall.Regular,
+                color = UwangColors.Text.Secondary
+            )
+            Spacer(modifier = Modifier.padding(bottom = dimens.dp_16))
+            Column(
+                verticalArrangement = Arrangement.spacedBy(4.dp),
+            ) {
+                TextFieldPasswordPrimary(
+                    modifier = Modifier.fillMaxWidth(),
+                    label = stringResource(id = R.string.reset_password_input_password_label),
+                    placeholder = stringResource(id = R.string.reset_password_input_password_placeholder),
+                    value = state.passwordState,
+                    state = state.passwordInputState,
+                    showPassword = state.passwordVisibility,
+                    onValueChange = {
+                        action(ForgotPasswordAction.OnNewPasswordChange(it))
+                    },
+                    onChangeVisibility = {
+                        action(ForgotPasswordAction.OnNewPasswordVisibilityChange(it))
+                    },
+                    onAction = {
+                        it.clearFocus()
+                    }
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                TextFieldPasswordPrimary(
+                    modifier = Modifier.fillMaxWidth(),
+                    label = stringResource(id = R.string.reset_password_input_confirm_password_label),
+                    placeholder = stringResource(id = R.string.reset_password_input_confirm_password_placeholder),
+                    value = state.confirmPasswordState,
+                    state = state.confirmPasswordInputState,
+                    showPassword = state.confirmPasswordVisibility,
+                    onValueChange = {
+                        action(ForgotPasswordAction.OnConfirmPasswordChange(it))
+                    },
+                    onChangeVisibility = {
+                        action(ForgotPasswordAction.OnConfirmPasswordVisibilityChange(it))
+                    },
+                    onAction = {
+                        it.clearFocus()
+                    }
+                )
+            }
+            Spacer(modifier = Modifier.padding(bottom = dimens.dp_12))
         }
-
-        Spacer(modifier = Modifier.weight(1f))
-        ButtonPrimary(
-            text = stringResource(id = com.bluehabit.core.ui.R.string.input_password_screen_next),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = 16.dp, end = 16.dp, bottom = 42.dp),
-            enabled = state.nextButtonEnabled
+        Column(
+            verticalArrangement = Arrangement.spacedBy(dimens.dp_24),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Next
+            ButtonPrimary(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                text = stringResource(id = R.string.reset_password_screen_next),
+                enabled = state.passwordState.isNotEmpty()
+                        && state.confirmPasswordState.isNotEmpty()
+                        && state.passwordInputState !is TextFieldState.Error
+                        && state.confirmPasswordInputState !is TextFieldState.Error
+            ) {
+                action(ForgotPasswordAction.SetNewPassword)
+            }
         }
     }
 }

@@ -17,9 +17,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import com.bluhabit.core.ui.theme.UwangColors
 import com.bluhabit.core.ui.theme.UwangTheme
 
 @Composable
@@ -31,14 +34,15 @@ fun DialogLoading(
         Dialog(onDismissRequest = {}) {
             Box(
                 modifier = modifier
-                    .clip(RoundedCornerShape(10.dp))
-                    .background(MaterialTheme.colors.surface)
-                    .size(
-                        100.dp
-                    )
+                    .background(Color.Transparent)
+                    .size(200.dp)
             ) {
                 CircularProgressIndicator(
-                    modifier = modifier.align(Alignment.Center)
+                    modifier = modifier.align(Alignment.Center),
+                    strokeCap = StrokeCap.Round,
+                    strokeWidth = 4.dp,
+                    color = UwangColors.Base.White,
+                    backgroundColor = Color.Gray.copy(alpha = 0.5f)
                 )
             }
         }

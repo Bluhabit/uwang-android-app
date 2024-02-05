@@ -11,6 +11,6 @@ package com.bluhabit.blu.android.presentation.authentication.signup
 sealed interface SignUpEffect {
     object None : SignUpEffect
 
-    object NavigateToCompleteProfile : SignUpEffect
+    object NavigateToPersonalize : SignUpEffect
     object NavigateToMain : SignUpEffect
 }

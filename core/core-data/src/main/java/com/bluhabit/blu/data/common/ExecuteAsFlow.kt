@@ -15,7 +15,11 @@ import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.runBlocking
 
 inline fun <reified T> executeAsFlow(crossinline call: suspend () -> Response<T>): Flow<Response<T>> = flow {
-    emit(call.invoke())
+    try {
+        emit(call.invoke())
+    }catch (e:Exception){
+        emit(Response.Error(e.message.orEmpty(),400))
+    }
 }.flowOn(Dispatchers.IO)
 
 inline fun <reified T> executeThenReturn(crossinline call: suspend () -> Flow<Response<T>>): Response<T> {

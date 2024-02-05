@@ -15,5 +15,5 @@ data class SignInBasicResponse(
     @SerializedName("token")
     val token: String,
     @SerializedName("user")
-    val credential: UserCredentialResponse
+    val user: UserCredentialResponse
 )
