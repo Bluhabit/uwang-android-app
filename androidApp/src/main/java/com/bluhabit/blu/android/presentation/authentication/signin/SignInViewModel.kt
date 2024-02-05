@@ -155,7 +155,7 @@ class SignInViewModel @Inject constructor(
                     }
 
                     is Response.Result -> {
-                        if (it.data.credential.profile.isEmpty()) {
+                        if (it.data.user.profile.isEmpty()) {
                             sendEffect(SignInEffect.NavigateToPersonalize)
                         } else {
                             sendEffect(SignInEffect.NavigateToMain)

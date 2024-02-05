@@ -7,11 +7,9 @@
 
 package com.bluhabit.blu.android.presentation.authentication.onboard
 
-import android.Manifest
 import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
@@ -91,17 +89,6 @@ fun OnboardScreen(
     val progressAnimation = remember {
         Animatable(0f)
     }
-    val requestPermissionContract = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.RequestPermission(),
-        onResult = {
-            if (it) {
-                //non empty
-            }
-        }
-    )
-    LaunchedEffect(key1 = Unit, block = {
-        requestPermissionContract.launch(Manifest.permission.MANAGE_EXTERNAL_STORAGE)
-    })
 
     fun nextScreen() {
         if (pagerState.currentPage > 2) {
@@ -154,7 +141,9 @@ fun OnboardScreen(
             OnboardEffect.NavigateHome -> navHostController.navigate("home")
             OnboardEffect.NavigateToPersonalize -> navHostController.navigate("complete_profile")
         }
-
+    })
+    LaunchedEffect(key1 = Unit, block = {
+        onAction(OnboardAction.CheckSession)
     })
     LaunchedEffect(key1 = pagerState.currentPage, block = {
         progressAnimation.snapTo(0f)
@@ -168,9 +157,9 @@ fun OnboardScreen(
         nextScreen()
     })
     BackHandler {
-        if(state.currentScreen <= 1){
+        if (state.currentScreen <= 1) {
             navHostController.navigateUp()
-        }else{
+        } else {
             onAction(OnboardAction.OnChangeCurrentScreen(screen = state.currentScreen - 1))
         }
     }
@@ -237,16 +226,16 @@ fun OnboardScreen(
                         onAction(OnboardAction.OnChangeCurrentScreen(2))
                     },
                     onNavigationToSignIn = {
-                        navHostController.navigate("sign_in"){
-                            launchSingleTop=true
+                        navHostController.navigate("sign_in") {
+                            launchSingleTop = true
                         }
                     },
                     onSignInGoogle = {
                         googleAuthLauncher.launch(1)
                     },
                     onSignUp = {
-                        navHostController.navigate("sign_up"){
-                            launchSingleTop=true
+                        navHostController.navigate("sign_up") {
+                            launchSingleTop = true
                         }
                     }
                 )

@@ -7,9 +7,7 @@
 
 package com.bluhabit.blu.android.data.authentication.repositories
 
-import android.graphics.Bitmap
 import com.bluhabit.blu.android.data.authentication.DataConstant.KEY_SESSION_ID
-import com.bluhabit.blu.android.data.authentication.DataConstant.KEY_USER_ID
 import com.bluhabit.blu.android.data.authentication.datasource.remote.request.CompleteProfileSignUpRequest
 import com.bluhabit.blu.android.data.authentication.datasource.remote.request.ForgotPasswordRequest
 import com.bluhabit.blu.android.data.authentication.datasource.remote.request.ResendOtpForgotPasswordRequest
@@ -30,6 +28,7 @@ import com.bluhabit.blu.android.data.authentication.datasource.remote.response.S
 import com.bluhabit.blu.android.data.authentication.datasource.remote.response.SignInGoogleResponse
 import com.bluhabit.blu.android.data.authentication.datasource.remote.response.SignUpBasicResponse
 import com.bluhabit.blu.android.data.authentication.datasource.remote.response.UserCredentialResponse
+import com.bluhabit.blu.android.data.authentication.datasource.remote.response.toMap
 import com.bluhabit.blu.data.common.Response
 import com.bluhabit.blu.data.common.safeApiCall
 import com.bluhabit.blu.data.persistence.SharedPref
@@ -48,7 +47,7 @@ class AuthRepository @Inject constructor(
         return sharedPref.getIsLoggedIn()
     }
 
-    fun signOut(){
+    fun signOut() {
         sharedPref.clearAllSession()
     }
     //end session
@@ -87,6 +86,9 @@ class AuthRepository @Inject constructor(
         }) {
             is Response.Error -> result
             is Response.Result -> {
+                sharedPref.setToken(result.data.token)
+                sharedPref.setIsLoggedIn(true)
+                sharedPref.saveSession(result.data.user.toMap())
                 sharedPref.removePersistData(KEY_SESSION_ID)
                 result
             }
@@ -98,11 +100,7 @@ class AuthRepository @Inject constructor(
             ?: return Response.Error("Sesi tidak ditemukan sudah habis", 401)
         return safeApiCall<ResendOtpSignInBasicResponse> {
             httpClient.post("auth/v1/sign-in-basic/resend-otp") {
-                setBody(
-                    ResendOtpSignInBasicRequest(
-                        sessionId = sessionId
-                    )
-                )
+                setBody(ResendOtpSignInBasicRequest(sessionId = sessionId))
             }
         }
     }
@@ -118,10 +116,10 @@ class AuthRepository @Inject constructor(
             is Response.Error -> result
             is Response.Result -> {
                 //set session to share pref
-                sharedPref.removePersistData(KEY_USER_ID)
-                sharedPref.setPersistData(KEY_USER_ID, result.data.credential.id)
                 sharedPref.setToken(result.data.token)
                 sharedPref.setIsLoggedIn(true)
+                sharedPref.saveSession(result.data.credential.toMap())
+                sharedPref.removePersistData(KEY_SESSION_ID)
                 Response.Result(result.data)
             }
         }
@@ -164,9 +162,10 @@ class AuthRepository @Inject constructor(
         }) {
             is Response.Error -> result
             is Response.Result -> {
-                sharedPref.removePersistData(KEY_USER_ID)
-                sharedPref.setPersistData(KEY_USER_ID, result.data.user.id)
                 sharedPref.setToken(result.data.token)
+                sharedPref.setIsLoggedIn(true)
+                sharedPref.saveSession(result.data.user.toMap())
+                sharedPref.removePersistData(KEY_SESSION_ID)
                 sharedPref.setIsLoggedIn(true)
                 result
             }
@@ -196,7 +195,7 @@ class AuthRepository @Inject constructor(
     }
 
     suspend fun setPasswordSignUp(
-       password:String
+        password: String
     ): Response<Any> {
         return safeApiCall {
             httpClient.post("auth/v1/sign-up-basic/set-password") {
@@ -307,13 +306,5 @@ class AuthRepository @Inject constructor(
     }
 
     //end password
-    //compete profile
-    suspend fun uploadAvatar(
-        avatar: Bitmap
-    ): Response<String> {
-
-        return Response.Error("", 10)
-    }
-    //end
 
 }
