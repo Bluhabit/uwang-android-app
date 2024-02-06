@@ -13,23 +13,16 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluhabit.core.ui.ext.Empty
-import com.bluhabit.core.ui.theme.CustomColor
-import com.bluhabit.core.ui.theme.Error300
-import com.bluhabit.core.ui.theme.Error700
-import com.bluhabit.core.ui.theme.Primary300
-import com.bluhabit.core.ui.theme.Primary700
+import com.bluhabit.core.ui.theme.UwangColors
 import com.bluhabit.core.ui.theme.UwangTheme
+import com.bluhabit.core.ui.theme.UwangTypography
 
 /**
  * Button Primary
@@ -50,28 +43,25 @@ fun ButtonOutlinedPrimary(
         modifier = modifier.height(40.dp),
         onClick = onClick,
         enabled = enabled,
-        shape = RoundedCornerShape(8.dp),
+        shape = RoundedCornerShape(12.dp),
         colors = ButtonDefaults.outlinedButtonColors(
-            backgroundColor = Color.Transparent,
-            contentColor = if (error) CustomColor.Error.Red300 else CustomColor.Primary.Blue500,
-            disabledContentColor = if (error) CustomColor.Error.Red300 else CustomColor.Primary.Blue300
+            backgroundColor = UwangColors.Base.White,
+            contentColor = if (error) UwangColors.State.Error.Main else UwangColors.State.Primary.Main,
+            disabledContentColor = UwangColors.Text.Disabled
         ),
         border = BorderStroke(
             width = 1.dp,
             color = when {
-                error -> if (enabled) CustomColor.Error.Red500 else CustomColor.Primary.Blue300
-                else -> if (enabled) CustomColor.Primary.Blue500 else CustomColor.Primary.Blue300
+                error -> UwangColors.State.Error.Main
+                enabled -> UwangColors.State.Primary.Main
+                else -> UwangColors.Text.Disabled
             }
         ),
-        elevation = ButtonDefaults.elevation(
-            defaultElevation = 0.dp,
-            pressedElevation = 0.dp
-        )
     ) {
         Text(
             text = text,
-            style = MaterialTheme.typography.button,
-            fontWeight = FontWeight.SemiBold
+            style = UwangTypography.BodySmall.Medium,
+            color = UwangColors.State.Primary.Main
         )
     }
 }

@@ -16,9 +16,6 @@ sealed interface ForgotPasswordAction {
         val value: String = ""
     ) : ForgotPasswordAction
 
-    data class OnOtpChange(
-        val value: String = ""
-    ) : ForgotPasswordAction
 
     data class OnNewPasswordChange(
         val value: String = ""
@@ -40,7 +37,20 @@ sealed interface ForgotPasswordAction {
         val enabled: Boolean = true,
     ) : ForgotPasswordAction
 
-    object ForgotPassword : ForgotPasswordAction
+    object RequestResetPassword : ForgotPasswordAction
     object VerifyOtp : ForgotPasswordAction
     object SetNewPassword : ForgotPasswordAction
+
+    //    [new] - otp
+    data class OnOtpChange(
+        val value: String = ""
+    ) : ForgotPasswordAction
+
+    data class OnSentOtpAlertVisibilityChange(
+        val visibility: Boolean = false,
+    ) : ForgotPasswordAction
+
+    object OnCountDownStart : ForgotPasswordAction
+    object OnResendOtp : ForgotPasswordAction
+    object OnVerifyOtp : ForgotPasswordAction
 }

@@ -7,32 +7,37 @@
 
 package com.bluhabit.blu.android.presentation.authentication.forgotPassword
 
+import com.bluhabit.core.ui.components.textfield.TextFieldState
 import javax.annotation.concurrent.Immutable
 
 @Immutable
 data class ForgotPasswordState(
     //global
-    val currentScreen:Int=0,
+    val currentScreen: Int = 0,
+    val showLoading:Boolean=false,
+    val showButtonResendOtp:Boolean=false,
 
-    val otpButtonEnabled:Boolean=false,
+    // Otp Forgot Password Screen
+    val otpSentCountDown: Long = 120_000L,
+    val otpNumberState: String = "",
+    val otpNumberInputState:TextFieldState=TextFieldState.None,
+    val otpNumberEnabled: Boolean = true,
+    val otpSentAlertVisibility: Boolean = false,
+    val otpSentAlertSuccess: Boolean = false,
+    val otpSentLimit: Boolean = false,
+    val otpAttempt: Int = 1,
+    val verifyOtpButtonEnabled: Boolean = true,
 
-    val otpState:String="",
-    val otpError:Boolean=false,
-    val otpErrorText:String="",
+    val emailState: String = "",
+    val emailInputState: TextFieldState = TextFieldState.None,
 
-    val emailState: String="",
-    val emailError: Boolean = false,
-    val emailErrorText: String = "",
+    val passwordState: String = "",
+    val passwordInputState: TextFieldState = TextFieldState.WithHint("Password minimal terdiri dari 8 karakter"),
+    val passwordVisibility: Boolean = false,
 
-    val passwordState:String="",
-    val passwordError:Boolean=false,
-    val passwordErrorText:String="",
-    val passwordVisibility:Boolean=false,
-
-    val confirmPasswordState:String="",
-    val confirmPasswordError:Boolean=false,
-    val confirmPasswordErrorText:String="",
-    val confirmPasswordVisibility:Boolean=false,
+    val confirmPasswordState: String = "",
+    val confirmPasswordInputState: TextFieldState = TextFieldState.WithHint("Password harus sama"),
+    val confirmPasswordVisibility: Boolean = false,
 
     val nextButtonEnabled: Boolean = true,
 )

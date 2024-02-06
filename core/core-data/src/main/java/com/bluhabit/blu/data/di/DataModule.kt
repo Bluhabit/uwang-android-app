@@ -13,6 +13,8 @@ import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.android.AndroidSqliteDriver
 import com.bluehabit.uwang.db.Database
 import com.bluhabit.blu.data.BuildConfig
+import com.bluhabit.blu.data.common.ResourceProvider
+import com.bluhabit.blu.data.interceptor.AuthInterceptor
 import com.bluhabit.blu.data.persistence.SharedPref
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
@@ -42,6 +44,11 @@ import okhttp3.logging.HttpLoggingInterceptor
 )
 object DataModule {
 
+
+    @Provides
+    fun provideResource(
+        @ApplicationContext appContext: Context,
+    ) : ResourceProvider = ResourceProvider(appContext)
 
     @Provides
     fun provideSharedPref(
@@ -87,9 +94,12 @@ object DataModule {
             .redactHeaders(emptySet())
             .alwaysReadResponseBody(false)
             .build()
+
+        val interceptor = AuthInterceptor(sharedPref)
         val okHttpEngine = OkHttp.create {
             addInterceptor(chucker)
             addInterceptor(logging)
+            addInterceptor(interceptor)
         }
         return HttpClient(okHttpEngine) {
             expectSuccess = true
@@ -99,8 +109,6 @@ object DataModule {
             install(Resources)
             defaultRequest {
                 url(BuildConfig.BASE_URL)
-                val token = sharedPref.getToken()
-                header("Authorization", "Bearer ".plus(token))
                 header("Accept-Language", Locale.forLanguageTag("ID").language)
                 contentType(ContentType.Application.Json)
             }

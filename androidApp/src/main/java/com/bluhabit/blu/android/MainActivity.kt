@@ -10,12 +10,13 @@ package com.bluhabit.blu.android
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.bluhabit.blu.android.presentation.authentication.completeProfile.CompleteProfileScreen
-import com.bluhabit.blu.android.presentation.authentication.completeProfile.CompleteProfileViewModel
+import com.bluhabit.blu.android.presentation.authentication.personalization.PersonalizeScreen
+import com.bluhabit.blu.android.presentation.authentication.personalization.PersonalizationViewModel
 import com.bluhabit.blu.android.presentation.authentication.forgotPassword.ForgotPasswordScreen
 import com.bluhabit.blu.android.presentation.authentication.forgotPassword.ForgotPasswordViewModel
 import com.bluhabit.blu.android.presentation.authentication.onboard.OnboardScreen
@@ -25,6 +26,8 @@ import com.bluhabit.blu.android.presentation.authentication.signin.SignInViewMod
 import com.bluhabit.blu.android.presentation.authentication.signup.SignUpScreen
 import com.bluhabit.blu.android.presentation.authentication.signup.SignUpViewModel
 import com.bluhabit.blu.android.presentation.authentication.termAndCondition.TermAndConditionScreen
+import com.bluhabit.blu.android.presentation.dashboard.DashboardScreen
+import com.bluhabit.blu.android.presentation.dashboard.DashboardViewModel
 import com.bluhabit.core.ui.theme.UwangTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -39,6 +42,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         setContent {
             val navHostController = rememberNavController()
             UwangTheme(
@@ -46,9 +50,9 @@ class MainActivity : ComponentActivity() {
             ) {
                 NavHost(
                     navController = navHostController,
-                    startDestination = "onboard",
+                    startDestination = Routes.Onboard,
                 ) {
-                    composable("onboard") {
+                    composable(Routes.Onboard) {
                         val viewModel = hiltViewModel<OnboardViewModel>()
                         OnboardScreen(
                             navHostController = navHostController,
@@ -57,14 +61,14 @@ class MainActivity : ComponentActivity() {
                             onAction = viewModel::onAction
                         )
                     }
-                    composable("term_and_condition") {
+                    composable(Routes.TermAndCondition) {
                         TermAndConditionScreen(
                             onBackPressed = {
                                 navHostController.navigateUp()
                             }
                         )
                     }
-                    composable("sign_in") {
+                    composable(Routes.SignIn) {
                         val viewModel = hiltViewModel<SignInViewModel>()
                         SignInScreen(
                             navHostController = navHostController,
@@ -73,7 +77,7 @@ class MainActivity : ComponentActivity() {
                             onAction = viewModel::onAction,
                         )
                     }
-                    composable("sign_up") {
+                    composable(Routes.SignUp) {
                         val viewModel = hiltViewModel<SignUpViewModel>()
                         SignUpScreen(
                             navHostController = navHostController,
@@ -82,7 +86,7 @@ class MainActivity : ComponentActivity() {
                             onAction = viewModel::onAction,
                         )
                     }
-                    composable("forgot_password") {
+                    composable(Routes.ForgotPassword) {
                         val viewModel = hiltViewModel<ForgotPasswordViewModel>()
                         ForgotPasswordScreen(
                             navHostController = navHostController,
@@ -91,9 +95,18 @@ class MainActivity : ComponentActivity() {
                             onAction = viewModel::onAction
                         )
                     }
-                    composable("complete_profile") {
-                        val viewModel = hiltViewModel<CompleteProfileViewModel>()
-                        CompleteProfileScreen(
+                    composable(Routes.Personalize) {
+                        val viewModel = hiltViewModel<PersonalizationViewModel>()
+                        PersonalizeScreen(
+                            navHostController = navHostController,
+                            stateFlow = viewModel.state,
+                            effectFlow = viewModel.onEffect,
+                            onAction = viewModel::onAction
+                        )
+                    }
+                    composable(Routes.Home) {
+                        val viewModel = hiltViewModel<DashboardViewModel>()
+                        DashboardScreen(
                             navHostController = navHostController,
                             stateFlow = viewModel.state,
                             effectFlow = viewModel.onEffect,

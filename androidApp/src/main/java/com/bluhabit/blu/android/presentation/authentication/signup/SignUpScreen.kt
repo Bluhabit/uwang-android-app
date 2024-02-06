@@ -8,22 +8,34 @@
 package com.bluhabit.blu.android.presentation.authentication.signup
 
 import androidx.activity.compose.BackHandler
-import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.compose.material.ModalBottomSheetLayout
+import androidx.compose.material.ModalBottomSheetValue
+import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.bluehabit.core.ui.R
+import com.bluhabit.blu.android.Routes
+import com.bluhabit.blu.android.presentation.authentication.signup.screen.CompleteProfileSignUpScreen
+import com.bluhabit.blu.android.presentation.authentication.signup.screen.InputSetNewPasswordSignUpScreen
 import com.bluhabit.blu.android.presentation.authentication.signup.screen.InputSignUpScreen
 import com.bluhabit.blu.android.presentation.authentication.signup.screen.OtpSignUpScreen
-import com.bluhabit.blu.data.common.Response
-import com.bluhabit.blu.data.contract.GoogleAuthContract
+import com.bluhabit.core.ui.components.dialog.DialogLoading
+import com.bluhabit.core.ui.components.sheet.DatePickerBottomSheet
+import com.bluhabit.core.ui.components.sheet.GenderPickerBottomSheet
 import com.bluhabit.core.ui.theme.UwangTheme
+import java.time.LocalDate
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.launch
 
 @Composable
 fun SignUpScreen(
@@ -34,22 +46,38 @@ fun SignUpScreen(
 ) {
     val state by stateFlow.collectAsStateWithLifecycle(initialValue = SignUpState())
     val effect by effectFlow.collectAsState(initial = SignUpEffect.None)
+    val bottomSheetState = rememberModalBottomSheetState(
+        initialValue = ModalBottomSheetValue.Hidden,
+        confirmValueChange = {
+            if (state.bottomSheetType == BottomSheetSignUpType.DATE_OF_BIRTH && it == ModalBottomSheetValue.Hidden) {
+                onAction(SignUpAction.ValidateDateOfBirth)
+            }
+            it != ModalBottomSheetValue.HalfExpanded
+        },
+        skipHalfExpanded = true
+    )
+    val scope = rememberCoroutineScope()
+    val focusManager = LocalFocusManager.current
 
     LaunchedEffect(key1 = effect, block = {
         when (effect) {
             SignUpEffect.None -> Unit
-            SignUpEffect.NavigateToCompleteProfile -> {
-                navHostController.navigate("complete_profile")
+            SignUpEffect.NavigateToPersonalize -> {
+                navHostController.navigate(Routes.Personalize) {
+                    launchSingleTop = true
+                    popUpTo(Routes.SignUp){
+                        inclusive = true
+                    }
+                }
             }
 
-            SignUpEffect.NavigateToMain -> Unit
-        }
-    })
-    val googleAuthLauncher = rememberLauncherForActivityResult(contract = GoogleAuthContract(), onResult = {
-        when (it) {
-            is Response.Error -> Unit
-            is Response.Result -> {
-                onAction(SignUpAction.OnSignInGoogle(it.data))
+            SignUpEffect.NavigateToMain -> {
+                navHostController.navigate(Routes.Home) {
+                    launchSingleTop = true
+                    popUpTo(Routes.SignUp){
+                        inclusive = true
+                    }
+                }
             }
         }
     })
@@ -65,32 +93,107 @@ fun SignUpScreen(
     BackHandler {
         goBack()
     }
+    DialogLoading(show = state.showLoading)
+    ModalBottomSheetLayout(
+        sheetState = bottomSheetState,
+        sheetGesturesEnabled = false,
+        sheetContent = {
+            when (state.bottomSheetType) {
+                BottomSheetSignUpType.GENDER -> {
+                    GenderPickerBottomSheet(
+                        title = stringResource(id = R.string.sign_up_bottom_sheet_gender_title),
+                        value = state.genderState,
+                        onDone = {
+                            scope.launch {
+                                bottomSheetState.hide()
+                            }
+                        },
+                        onChange = {
+                            onAction(SignUpAction.OnGenderChange(it))
+                        },
+                        onClose = {
+                            scope.launch {
+                                bottomSheetState.hide()
+                            }
+                        }
+                    )
+                }
 
-    when (state.currentScreen) {
-        0 -> InputSignUpScreen(
-            state = state,
-            onTermAndCondition = {
-                navHostController.navigate("term_and_condition")
-            },
-            onBackPressed = {
-                goBack()
-            },
-            onSignIn = {
-                navHostController.navigateUp()
-            },
-            onSignUpGoogle = {
-                googleAuthLauncher.launch(1)
-            },
-            onAction = onAction
-        )
+                BottomSheetSignUpType.DATE_OF_BIRTH -> {
+                    DatePickerBottomSheet(
+                        title = stringResource(id = R.string.sign_up_bottom_sheet_date_of_birth_title),
+                        value = state.dateOfBirthState,
+                        minDate = LocalDate.MIN,
+                        maxDate = LocalDate.now(),
+                        onDone = {
+                            scope.launch {
+                                bottomSheetState.hide()
+                                onAction(SignUpAction.ValidateDateOfBirth)
+                            }
+                        },
+                        onClose = {
+                            scope.launch {
+                                bottomSheetState.hide()
+                                onAction(SignUpAction.ValidateDateOfBirth)
+                            }
+                        },
+                        onChange = {
+                            onAction(SignUpAction.OnDateOfBirthChange(it))
+                        }
+                    )
+                }
+            }
+        }
+    ) {
 
-        1 -> OtpSignUpScreen(
-            state = state,
-            onBackPressed = {
-                goBack()
-            },
-            onAction = onAction
-        )
+        when (state.currentScreen) {
+            0 -> InputSignUpScreen(
+                state = state,
+                onBackPressed = {
+                    goBack()
+                },
+                action = onAction
+            )
+
+            1 -> OtpSignUpScreen(
+                state = state,
+                onBackPressed = {
+                    goBack()
+                },
+                onAction = onAction
+            )
+
+            2 -> CompleteProfileSignUpScreen(
+                state = state,
+                onBackPressed = {
+                    goBack()
+                },
+                action = onAction,
+                onSelectDateOfBirth = {
+                    scope.launch {
+                        onAction(SignUpAction.OnShowBottomSheet(true, BottomSheetSignUpType.DATE_OF_BIRTH))
+                        bottomSheetState.show()
+                        focusManager.clearFocus(true)
+                    }
+
+                },
+                onSelectGender = {
+                    scope.launch {
+                        onAction(SignUpAction.OnShowBottomSheet(true, BottomSheetSignUpType.GENDER))
+                        bottomSheetState.show()
+                        focusManager.clearFocus(true)
+                    }
+                }
+            )
+
+            3 -> InputSetNewPasswordSignUpScreen(
+                state = state,
+                onBackPressed = {
+                    goBack()
+                },
+                action = onAction
+            )
+        }
     }
 }
 

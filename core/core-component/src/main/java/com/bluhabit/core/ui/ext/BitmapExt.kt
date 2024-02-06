@@ -7,19 +7,27 @@
 
 package com.bluhabit.core.ui.ext
 
+import android.content.Context
+import android.content.ContextWrapper
 import android.graphics.Bitmap
 import android.os.Environment
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
+import java.io.OutputStream
+import java.util.UUID
 
 fun Bitmap.toFile(fileNameToSave: String): File? { // File name like "image.png"
     //create a file to write bitmap data
     var file: File? = null
     val bitmap = this
     return try {
-        file = File(Environment.getExternalStorageDirectory().toString() + File.separator + fileNameToSave)
-        file.createNewFile()
+        file = File(Environment.getExternalStorageDirectory().toString() +"/${Environment.DIRECTORY_DCIM}/bluhabit/${fileNameToSave}")
+        if(!file.exists()){
+            file.mkdir()
+            file.createNewFile()
+        }
+
 
         //Convert bitmap to byte array
         val bos = ByteArrayOutputStream()
@@ -36,4 +44,15 @@ fun Bitmap.toFile(fileNameToSave: String): File? { // File name like "image.png"
         e.printStackTrace()
         file // it will return null
     }
+}
+
+fun Bitmap.toFile(context: Context):File{
+    val wrapper = ContextWrapper(context)
+    var file = wrapper.getDir("Images", Context.MODE_PRIVATE)
+    file = File(file,"${UUID.randomUUID()}.png")
+    val stream: OutputStream = FileOutputStream(file)
+    this.compress(Bitmap.CompressFormat.PNG,70,stream)
+    stream.flush()
+    stream.close()
+    return file
 }

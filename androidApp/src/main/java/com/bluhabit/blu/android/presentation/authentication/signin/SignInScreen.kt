@@ -16,10 +16,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.bluhabit.blu.android.Routes
 import com.bluhabit.blu.android.presentation.authentication.signin.screen.InputSignInScreen
 import com.bluhabit.blu.android.presentation.authentication.signin.screen.OtpSignInScreen
 import com.bluhabit.blu.data.common.Response
 import com.bluhabit.blu.data.contract.GoogleAuthContract
+import com.bluhabit.core.ui.components.dialog.DialogLoading
 import com.bluhabit.core.ui.theme.UwangTheme
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
@@ -37,11 +39,23 @@ fun SignInScreen(
     LaunchedEffect(key1 = effect, block = {
         when (effect) {
             SignInEffect.None -> Unit
-            SignInEffect.NavigateToCompleteProfile -> {
-                navHostController.navigate("complete_profile")
+            SignInEffect.NavigateToPersonalize -> {
+                navHostController.navigate(Routes.Personalize) {
+                    launchSingleTop = true
+                    popUpTo(Routes.SignIn){
+                        inclusive=true
+                    }
+                }
             }
 
-            SignInEffect.NavigateToMain -> Unit
+            SignInEffect.NavigateToMain -> {
+                navHostController.navigate(Routes.Home) {
+                    launchSingleTop = true
+                    popUpTo(Routes.SignIn){
+                        inclusive = true
+                    }
+                }
+            }
         }
     })
 
@@ -62,6 +76,7 @@ fun SignInScreen(
         }
     }
 
+    DialogLoading(show = state.showLoading)
     when (state.currentScreen) {
         0 -> {
             InputSignInScreen(
@@ -73,8 +88,8 @@ fun SignInScreen(
                 onForgotPassword = {
                     navHostController.navigate("forgot_password")
                 },
-                onTermAndCondition = {
-                    navHostController.navigate("term_and_condition")
+                onBackPressed = {
+                    navHostController.navigateUp()
                 },
                 action = onAction
             )

@@ -14,6 +14,6 @@ import kotlinx.serialization.Serializable
 data class SignUpBasicResponse(
     @SerializedName("token")
     val token: String,
-    @SerializedName("credential")
-    val credential: UserCredentialResponse
+    @SerializedName("user")
+    val user: UserCredentialResponse
 )

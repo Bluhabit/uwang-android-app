@@ -11,6 +11,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.tasks.Task
 
 sealed interface OnboardAction {
+    data class OnChangeCurrentScreen(val screen: Int) : OnboardAction
     object CheckSession : OnboardAction
     data class SignInGoogle(
         val task: Task<GoogleSignInAccount>

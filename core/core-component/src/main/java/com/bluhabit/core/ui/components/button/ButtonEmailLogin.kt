@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluhabit.core.ui.ext.Empty
-import com.bluhabit.core.ui.theme.CustomColor
+import com.bluhabit.core.ui.theme.UwangColors
 import com.bluhabit.core.ui.theme.UwangTheme
 
 @Composable
@@ -28,8 +28,8 @@ fun ButtonEmailLogin(
         modifier = modifier,
         text = text,
         enabled = enabled,
-        backgroundColor = CustomColor.Neutral.Grey1,
-        textColor = CustomColor.Primary.Blue500,
+        backgroundColor = UwangColors.Neutral.Grey1,
+        textColor = UwangColors.Primary.Blue500,
         onClick = onClick
     )
 }

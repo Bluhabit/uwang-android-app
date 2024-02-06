@@ -19,14 +19,50 @@
     <string name="text_success_singin">Berhasil Daftar</string>
     <string name="text_one_step_more">Tinggal 1 langkah lagi untuk melengkapi profile Anda.</string>
     <!--    end change reset password-->
-    <!--    sign up -->
-    <string name="btn_confirmation_otp_screen">Konfirmasi kode OTP</string>
-    <string name="text_title_otp_screen">Masukkan kode OTP</string>
-    <string name="text_subtitle_otp_screen">Silahkan ketik kode verifikasi yang dikirim ke</string>
-    <string name="text_subtitle2_otp_screen">Silahkan ketik kode verifikasi yang dikirim ke</string>
-    <string name="text_subtitle3_otp_screen">email</string>
-    <string name="text_resend_otp">Kirim ulang kode OTP</string>
-    <!--    end otp -->
+
+
+    <!--  [NEW] sign up basic  -->
+    <string name="sign_up_screen_title">Daftarkan akun anda</string>
+    <string name="sign_up_screen_instruction">Masukkan alamat email Anda dan buat password Anda untuk melakukan pendaftaran</string>
+    <string name="sign_up_screen_email_text_field_title">Email</string>
+
+    <string name="sign_up_screen_input_email_label">Email</string>
+    <string name="sign_up_screen_input_email_placeholder">Masukkan email kamu</string>
+
+    <string name="sign_up_screen_input_full_name_label">Nama Lengkap</string>
+    <string name="sign_up_screen_input_full_name_placeholder">Masukkan nama lengkap kamu</string>
+
+    <string name="sign_up_screen_email_text_field_label">Contoh  : fadelptr09@gmail.com</string>
+    <string name="sign_up_screen_password_text_field_title">Password</string>
+    <string name="sign_up_screen_password_text_field_label">Masukkan password Anda</string>
+    <string name="sign_up_screen_password_confirmation_text_field_title">Konfirmasi Password</string>
+    <string name="sign_up_screen_password_confirmation_text_field_label">Konfirmasi password Anda</string>
+    <string name="sign_up_screen_sign_up_button_text">Daftar</string>
+    <string name="sign_up_screen_or">Atau</string>
+    <string name="sign_up_screen_sign_in_google_button_text">Daftar dengan Google</string>
+    <string name="sign_up_screen_already_have_an_account">Sudah memiliki akun sebelumnya?\u0020</string>
+    <string name="sign_up_screen_sign_in">Masuk</string>
+    <string name="sign_up_screen_term_and_condition_1">Dengan melakukan pendaftaran akun atau masuk ke dalam akun anda menyetujui</string>
+    <string name="sign_up_screen_term_and_condition_2">Syarat &amp; Ketentuan kebijakan aplikasi</string>
+
+    <string name="sign_up_title_header">Mulai dengan email kamu</string>
+    <string name="sign_up_complete_profile_title_header">Lengkapi data diri kamu dulu</string>
+
+    <string name="sign_up_bottom_sheet_gender_title">Pilih gender</string>
+    <string name="sign_up_bottom_sheet_date_of_birth_title">Pilih tanggal lahir</string>
+
+    <string name="sign_up_input_email_label">Nama Lengkap</string>
+    <string name="sign_up_input_email_placeholder">Masukkan nama lengkap kamu</string>
+    <string name="sign_up_input_full_name_label">Nama Lengkap</string>
+    <string name="sign_up_input_full_name_placeholder">Masukkan nama lengkap kamu</string>
+    <string name="sign_up_input_date_of_birth_label">Tanggal Lahir</string>
+    <string name="sign_up_input_date_of_birth_placeholder">Masukkan nama tanggal lahir kamu</string>
+    <string name="sign_up_input_gender_label">Gender</string>
+    <string name="sign_up_input_gender_placeholder">Pilih Gender kamu</string>
+    <string name="sign_up_screen_next">Lanjut</string>
+
+    <string name="sign_up_otp_action_locked">Minta kode otp baru dan masukkan ulang</string>
+    <!--  end sign up  -->
 
     <!-- authentication   -->
     <string name="text_button_signin_with_google_screen_auth">Masuk Dengan Google</string>
@@ -78,15 +114,24 @@
     <string name="text_button_signin_with_google_screen_onboard">Masuk Dengan Google</string>
     <string name="text_button_term_and_condition">Syarat dan Ketentuan kebijakan aplikasi</string>
     <string name="text_title_1">Selamat datang di Uwang!</string>
+    <string name="title_onboarding_satu">Siap memulai perjalanan belajar finansialmu?</string>
     <string name="text_title_2">Templating keuangan</string>
+    <string name="title_onboarding_dua">Konten terkini &amp; terupdate tentang keuangan</string>
+    <string name="title_onboarding_tiga">Template finansial untuk atur keuanganmu</string>
+    <string name="title_onboarding_empat">Buat atau gabung dengan grup diskusi yang disukai</string>
+    <string name="label_header_logo">Selamat datang di Uwang</string>
     <string name="text_title_3">Komunitas diskusi</string>
     <string name="text_title_4">Sumber belajar</string>
     <string name="text_title_daftar">Belum memiliki akun sebelumnya?</string>
-    <string name="text_title_termcondition">Dengan melakukan pendaftaran akun atau masuk ke dalam akun anda menyetujui </string>
     <string name="text_onboard_2">Dapatkan template keuangan terbaik untuk membantu Anda merencanakan dan mencapai tujuan keuangan Anda.</string>
     <string name="text_onboard_3">Bergabunglah dalam obrolan dengan komunitas kami, tanyakan pertanyaan, dan bagikan tips keuangan Anda.</string>
     <string name="text_onboard_1">Kami hadir untuk membantu Anda membangun kehidupan keuangan yang lebih baik.</string>
     <string name="text_onboard_4">Baca artikel dan ikuti berita terkini seputar keuangan untuk tetap terinformasi..</string>
+    <string name="text_get_started">Mulai perjalanan belajar finansialmu bersama Uwang.</string>
+    <string name="text_term_conditions_1">Dengan membuat akun, kamu setuju dengan</string>
+    <string name="text_term_conditions_2">Kebijakan &amp; Ketentuan Aplikasi </string>
+    <string name="text_term_conditions_3">Uwang.</string>
+    <string name="placeholder_teks_login">Sudah mempunyai akun?</string>
     <!--    end onboarrd  -->
     <!--    complete profile  -->
     <string name="text_title_complete_profile">Lengkapi Profil</string>
@@ -222,53 +267,27 @@
     <!--  [NEW] onboard  -->
     <string name="onboard_screen_sign_in_google_button_text">Masuk dengan Google</string>
     <string name="onboard_screen_sign_in_email_button_text">Masuk dengan alamat Email</string>
+    <string name="onboard_screen_term_and_condition_1">Dengan melakukan pendaftaran akun atau masuk ke dalam akun anda menyetujui</string>
+    <string name="onboard_screen_term_and_condition_2">Syarat &amp; Ketentuan kebijakan aplikasi</string>
     <!--  end onboard  -->
 
-    <!--  [NEW] sign in screen  -->
-    <string name="sign_in_screen_welcome">Selamat datang</string>
-    <string name="onboard_screen_login">Sumber belajar</string>
-    <string name="onboard_screen_login_title">Baca artikel dan ikuti berita terkini seputar keuangan untuk tetap terinformasi.</string>
-    <string name="sign_in_screen_description">Masukkan alamat email dan password Anda untuk melakukan login</string>
-    <string name="sign_in_screen_email_text_field_title">Email</string>
-    <string name="sign_in_screen_email_text_field_label">Contoh  : fadelptr09@gmail.com</string>
-    <string name="sign_in_screen_password_text_field_title">Password</string>
-    <string name="sign_in_screen_password_text_field_label">Masukkan password Anda</string>
-    <string name="sign_in_screen_forgot_password">Lupa Password</string>
-    <string name="sign_in_screen_sign_in_button_text">Masuk</string>
-    <string name="sign_in_screen_login_email_button_text">Masuk dengan alamat Email</string>
-    <string name="sign_in_screen_or">Atau</string>
-    <string name="sign_in_screen_sign_in_google_button_text">Masuk dengan Google</string>
-    <string name="sign_in_screen_not_have_an_account">Belum memiliki akun sebelumnya?\u0020</string>
-    <string name="sign_in_screen_register">Daftar</string>
-    <string name="sign_in_screen_term_and_condition_1">Dengan melakukan pendaftaran akun atau masuk ke dalam akun anda menyetujui</string>
-    <string name="sign_in_screen_term_and_condition_2">Syarat &amp; Ketentuan kebijakan aplikasi</string>
-    <!-- end sign in screen  -->
-
-    <!--  [NEW] sign up screen  -->
-    <string name="sign_up_screen_title">Daftarkan akun anda</string>
-    <string name="sign_up_screen_instruction">Masukkan alamat email Anda dan buat password Anda untuk melakukan pendaftaran</string>
-    <string name="sign_up_screen_email_text_field_title">Email</string>
-    <string name="sign_up_screen_email_text_field_label">Contoh  : fadelptr09@gmail.com</string>
-    <string name="sign_up_screen_password_text_field_title">Password</string>
-    <string name="sign_up_screen_password_text_field_label">Masukkan password Anda</string>
-    <string name="sign_up_screen_password_confirmation_text_field_title">Konfirmasi Password</string>
-    <string name="sign_up_screen_password_confirmation_text_field_label">Konfirmasi password Anda</string>
-    <string name="sign_up_screen_sign_up_button_text">Daftar</string>
-    <string name="sign_up_screen_or">Atau</string>
-    <string name="sign_up_screen_sign_in_google_button_text">Daftar dengan Google</string>
-    <string name="sign_up_screen_already_have_an_account">Sudah memiliki akun sebelumnya?\u0020</string>
-    <string name="sign_up_screen_sign_in">Masuk</string>
-    <string name="sign_up_screen_term_and_condition_1">Dengan melakukan pendaftaran akun atau masuk ke dalam akun anda menyetujui</string>
-    <string name="sign_up_screen_term_and_condition_2">Syarat &amp; Ketentuan kebijakan aplikasi</string>
-    <!-- end sign up screen  -->
-
     <!--  [NEW] forgot password screen  -->
-    <string name="reset_password_screen_reset_password">Reset Password</string>
-    <string name="reset_password_screen_hint">Masukkan alamat email yang terdaftar dan kami akan mengirimkan email berisi kode OTP untuk mengatur ulang Password</string>
-    <string name="reset_password_screen_email">Email</string>
+    <string name="reset_password_description_header">Masukkan alamat email yang terdaftar di Uwang.</string>
+    <string name="reset_password_input_password_description_header">Password baru untuk mengakses akunmu.</string>
+    <string name="reset_password_input_label_email">Email</string>
+    <string name="reset_password_input_placeholder_email">Masukkan email kamu</string>
+    <string name="reset_password_title_header">Buat password baru</string>
     <string name="reset_password_screen_confirm_password_label">Konfirmasi Password</string>
     <string name="reset_password_screen_email_text_field_label">Contoh : jenny11@gmail.com</string>
-    <string name="reset_password_screen_next">Selanjutnya</string>
+    <string name="reset_password_screen_next">Lanjut</string>
+    <string name="reset_password_input_password_header">Buat password baru</string>
+
+    <string name="reset_password_input_password_label">Password</string>
+    <string name="reset_password_input_password_placeholder">Buat password baru</string>
+    <string name="reset_password_input_confirm_password_label">Konfirmasi password</string>
+    <string name="reset_password_input_confirm_password_placeholder">Konfirmasi password baru</string>
+    <string name="reset_password_title_complete_forgot">Password berhasil dibuat</string>
+    <string name="reset_password_subtitle_complete_forgot">Masuk ke akun kamu dengan password baru.</string>
     <!-- end forgot password screen  -->
 
     <!--  [NEW] forgot password screen  -->
@@ -317,6 +336,75 @@
     <string name="set_preference_screen_next_button_text">Selanjutnya</string>
     <!-- end set preference screen  -->
 
-    <!-- end input dob screen screen  -->
+    <string name="label_button_google">Lanjutkan Dengan Google</string>
+    <string name="label_divider">ATAU</string>
+    <string name="title_header_login">Masuk ke akun kamu</string>
+    <string name="label_field_email">Email</string>
+    <string name="placholder_field_email">Masukkan email kamu</string>
+    <string name="label_field_password">Password</string>
+    <string name="placholder_field_password">Masukkan password kamu</string>
+    <string name="label_forgot_password">Lupa password?</string>
+    <string name="label_button_login">Masuk</string>
+    <string name="placeholder_teks_register">Belum punya akun?\u0020</string>
+    <string name="label_teks_button_register">Daftar</string>
+    <string name="caption_error_field_email">Email tidak valid</string>
+    <string name="caption_error_field_login">Email atau password tidak valid</string>
+    <string name="caption_error_field_login_locked">Akun kamu terkunci untuk sementara waktu</string>
+    <string name="title_header_otp">Verifikasi kode OTP</string>
+    <string name="description_header_otp">Kode OTP dikirim ke %s</string>
+    <string name="label_teks_button_resend_otp">Kirim ulang kode OTP?</string>
+    <string name="label_button_otp">Verifikasi OTP</string>
+    <string name="label_alert_success">Kode OTP berhasil dikirim</string>
+    <string name="label_alert_error">Kode OTP gagal dikirm</string>
+    <string name="caption_error_field_otp">Kode OTP salah</string>
+    <string name="placeholder_teks_hour_otp">Tunggu 1 jam dan masukkan ulang kode otp</string>
+    <string name="placeholder_teks_waiting_otp">Kirim ulang kode dalam</string>
+    <string name="placeholder_teks_many_otp">Yah terlalu sering meminta OTP, tunggu 1 jam</string>
+    <string name="label_button_next">Lanjut</string>
+    <string name="label_button_pass">Lewati</string>
+    <string name="label_teks_button_upload">Upload</string>
+    <string name="description_header_photo_profile">Upload foto selfie favorit kamu.</string>
+    <string name="title_header_photo_profile">Pilih foto profil</string>
+    <string name="title_header_level">Apa tingkatan peranmu saat ini?</string>
+    <string name="description_header_level">Pilih satu yang menggambarkan dirimu</string>
+    <string name="title_card_beginner">Pemula</string>
+    <string name="description_card_beginner">Seseorang yang mengetahui konsep dasar keuangan seperti pengeluaran, pendapatan, anggaran, dan tabungan.</string>
+    <string name="title_card_intermediate">Menengah</string>
+    <string name="description_card_Intermediate">Seseorang yang memahami topik manajemen resiko, portofolio investasi dan pemahaman mendalam mengenai saham dan obligasi.</string>
+    <string name="title_card_expert">Ahli</string>
+    <string name="description_card_expert">Seseorang yang memiliki pemahaman mendalam mengenai analisis keuangan, strategi investasi, dan manajemen keuangan bisnis.</string>
+    <string name="title_header_topic">Pilih 3 topik keuangan</string>
+    <string name="description_header_topic">Topik ini sebagai referensi belajar yang diminati</string>
+    <string name="placeholder_count_topic">Dipilih: %s</string>
+    <string name="label_text_button_reset">Reset</string>
+    <string name="label_tag_topic_satu">📑 Manajemen anggaran</string>
+    <string name="label_tag_topic_dua">📈 Investasi</string>
+    <string name="label_tag_topic_tiga">🖥️ Teknologi Keuangan</string>
+    <string name="label_tag_topic_empat">🚀 Kewirausahaan</string>
+    <string name="label_tag_topic_lima">💼Sampingan </string>
+    <string name="label_tag_topic_enam">📑Pajak </string>
+    <string name="label_tag_topic_tujuh">💵Pendanaan </string>
+    <string name="label_tag_topic_delapan"> 🤝 Crowdfunding </string>
+    <string name="label_tag_topic_sembilan"> 📜 Harta waris</string>
+    <string name="label_tag_topic_sepuluh"> 📚Edukasi anak</string>
+    <string name="label_tag_topic_sebelas"> 📊 Kredit skor</string>
+    <string name="label_tag_topic_duabelas">🏢 Bisnis UMKM</string>
+    <string name="label_tag_topic_tigabelas"> 👨‍👩‍👧‍👦 Keuangan keluarga</string>
+    <string name="label_tag_topic_empatbelas">🗓️ Perencanaan pensiun</string>
+    <string name="label_tag_topic_limabelas">🗓️ Pensiun dini</string>
+    <string name="label_tag_topic_enambelas"> 📚 Pendidikan keuangan</string>
+    <string name="label_tag_topic_tujuhbelas"> 🏦 Menabung</string>
+    <string name="label_tag_topic_delapanbelas"> ⚠️ Pengelolaan resiko</string>
+    <string name="label_tag_topic_sembilanbelas"> 💼 Pengembangan pendapatan</string>
+    <string name="label_tag_topic_duapuluh"> 📜 Obligasi</string>
+    <string name="label_tag_topic_duapuluhsatu"> 📊 Reksa dana</string>
+    <string name="title_header_username">Bagaimana kami memanggilmu?</string>
+    <string name="desctiption_header_username">Buat nama @pengguna yang unik.</string>
+    <string name="label_field_username">Nama pengguna</string>
+    <string name="placeholder_field_username">Masukkan nama pengguna</string>
+    <string name="caption_error_field_username_min">Nama pengguna minimal 3 karakter</string>
+    <string name="caption_error_field_username_max">Nama pengguna maksimal 60 karakter</string>
+    <string name="caption_error_field_username_already">Nama ini sudah digunakan</string>
+    <string name="caption_error_field_username_badword">Nama ini melanggar kebijakan konten kami</string>
 
 </resources>

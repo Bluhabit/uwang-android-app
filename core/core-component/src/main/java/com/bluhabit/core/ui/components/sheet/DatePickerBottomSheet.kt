@@ -12,6 +12,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -38,7 +39,7 @@ import androidx.compose.ui.unit.sp
 import com.bluehabit.core.ui.R
 import com.bluhabit.core.ui.components.button.ButtonPrimary
 import com.bluhabit.core.ui.ext.Empty
-import com.bluhabit.core.ui.theme.CustomColor
+import com.bluhabit.core.ui.theme.UwangColors
 import com.bluhabit.core.ui.theme.CustomTypography
 import com.commandiron.wheel_picker_compose.WheelDatePicker
 import com.commandiron.wheel_picker_compose.core.WheelPickerDefaults
@@ -47,16 +48,18 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun DatePickerBottomSheet(
+    modifier: Modifier=Modifier,
     title: String = String.Empty,
     value:LocalDate?= null,
-    minDate: LocalDate = LocalDate.now(),
+    minDate: LocalDate = LocalDate.MIN,
+    maxDate: LocalDate = LocalDate.MAX,
     onDone: () -> Unit = {},
     onClose: () -> Unit = {},
     onChange: (date: LocalDate) -> Unit = {}
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(24.dp),
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(20.dp)
             .background(
@@ -67,34 +70,33 @@ fun DatePickerBottomSheet(
                 )
             )
     ) {
-        Column(
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+        Row(
+            modifier = modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Box(modifier = Modifier.fillMaxWidth()) {
-                IconButton(
-                    onClick = onClose,
-                    modifier = Modifier.align(Alignment.CenterEnd)
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_close),
-                        contentDescription = "close",
-                        tint = Color.Black,
-                    )
-                }
-            }
             Text(
                 text = title,
                 lineHeight = 28.sp,
-                color = CustomColor.Neutral.Grey9,
-                style = CustomTypography.Body.XL.W600,
-                modifier = Modifier.fillMaxWidth()
+                color = UwangColors.Neutral.Grey9,
+                style = CustomTypography.Body.XL.W600
             )
+            IconButton(
+                onClick = onClose
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_close),
+                    contentDescription = "close",
+                    tint = Color.Black,
+                )
+            }
         }
         WheelDatePicker(
             modifier = Modifier
                 .fillMaxWidth(),
             startDate = value ?: LocalDate.now(),
             minDate = minDate,
+            maxDate=maxDate,
             size = DpSize(321.dp, 264.dp),
             rowCount = 5,
             textStyle = CustomTypography.Body.Large.W600,

@@ -11,7 +11,7 @@ sealed interface OnboardEffect {
     object None:OnboardEffect
     object NavigateAuth:OnboardEffect
     object NavigateHome:OnboardEffect
-    object NavigateCompleteProfile:OnboardEffect
+    object NavigateToPersonalize:OnboardEffect
 
     data class ShowDialog(
         val message: String

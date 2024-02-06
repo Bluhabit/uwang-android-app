@@ -56,6 +56,64 @@ class SharedPref(
         apply()
     }
 
+    fun saveSession(user: Map<String, Any>) {
+        sharedPreferences.edit {
+            user.forEach { (key, value) ->
+                try {
+                    when (value) {
+                        is Int -> {
+                            putInt(key, value)
+                        }
+
+                        is Float -> {
+                            putFloat(key, value)
+                        }
+
+                        is String -> {
+                            putString(key, value)
+                        }
+
+                        is Boolean -> {
+                            putBoolean(key, value)
+                        }
+
+                        else -> {
+                            putString(key, value.toString())
+                        }
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+            apply()
+        }
+    }
+
+    private fun getKeyUserSession(): Array<String> {
+        return arrayOf(
+            "id",
+            "authProvider",
+            "email",
+            "fullName",
+            "username",
+            "dateOfBirth",
+            "gender",
+            "profile",
+            "status",
+            "createdAt",
+            "updatedAt"
+        )
+    }
+
+    fun getSession(): HashMap<String, String> {
+        val data = HashMap<String, String>()
+        getKeyUserSession().forEach {
+            val value = sharedPreferences.getString(it, "") ?: ""
+            data[it] = value
+        }
+        return data
+    }
+
     fun clearAllSession() = sharedPreferences.edit {
         clear()
         commit()

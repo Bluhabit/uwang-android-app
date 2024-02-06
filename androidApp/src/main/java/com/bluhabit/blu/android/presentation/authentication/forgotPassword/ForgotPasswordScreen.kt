@@ -16,10 +16,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.bluhabit.blu.android.presentation.authentication.forgotPassword.screen.CompleteForgotPasswordScreen
+import com.bluhabit.blu.android.Routes
+import com.bluhabit.blu.android.presentation.authentication.forgotPassword.screen.FinishForgotPasswordScreen
 import com.bluhabit.blu.android.presentation.authentication.forgotPassword.screen.InputForgotPasswordScreen
 import com.bluhabit.blu.android.presentation.authentication.forgotPassword.screen.InputNewPasswordScreen
 import com.bluhabit.blu.android.presentation.authentication.forgotPassword.screen.OtpForgotPasswordScreen
+import com.bluhabit.core.ui.components.dialog.DialogLoading
 import com.bluhabit.core.ui.theme.UwangTheme
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
@@ -48,13 +50,14 @@ fun ForgotPasswordScreen(
     BackHandler {
         goBack()
     }
+    DialogLoading(show = state.showLoading)
     when (state.currentScreen) {
         0 -> InputForgotPasswordScreen(
             state = state,
             onBackPressed = {
                 goBack()
             },
-            onAction=onAction
+            action = onAction
         )
 
         1 -> OtpForgotPasswordScreen(
@@ -62,7 +65,7 @@ fun ForgotPasswordScreen(
             onBackPressed = {
                 goBack()
             },
-            onAction=onAction
+            onAction = onAction
         )
 
         2 -> InputNewPasswordScreen(
@@ -70,12 +73,18 @@ fun ForgotPasswordScreen(
             onBackPressed = {
                 goBack()
             },
-            onAction=onAction
+            action = onAction
         )
 
-        3 -> CompleteForgotPasswordScreen(
-            onConfirm = {
-                navHostController.navigateUp()
+        3 -> FinishForgotPasswordScreen(
+            onClick={
+                navHostController.navigate(Routes.SignIn){
+                    launchSingleTop=true
+                    restoreState = false
+                    popUpTo(Routes.ForgotPassword){
+                        inclusive=true
+                    }
+                }
             }
         )
     }
