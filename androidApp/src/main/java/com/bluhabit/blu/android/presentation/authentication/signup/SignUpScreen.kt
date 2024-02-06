@@ -23,6 +23,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.bluehabit.core.ui.R
+import com.bluhabit.blu.android.Routes
 import com.bluhabit.blu.android.presentation.authentication.signup.screen.CompleteProfileSignUpScreen
 import com.bluhabit.blu.android.presentation.authentication.signup.screen.InputSetNewPasswordSignUpScreen
 import com.bluhabit.blu.android.presentation.authentication.signup.screen.InputSignUpScreen
@@ -62,18 +63,18 @@ fun SignUpScreen(
         when (effect) {
             SignUpEffect.None -> Unit
             SignUpEffect.NavigateToPersonalize -> {
-                navHostController.navigate("personalize"){
+                navHostController.navigate(Routes.Personalize) {
                     launchSingleTop = true
-                    popUpTo("sign_up") {
+                    popUpTo(Routes.SignUp){
                         inclusive = true
                     }
                 }
             }
 
             SignUpEffect.NavigateToMain -> {
-                navHostController.navigate("home") {
+                navHostController.navigate(Routes.Home) {
                     launchSingleTop = true
-                    popUpTo("sign_up") {
+                    popUpTo(Routes.SignUp){
                         inclusive = true
                     }
                 }
@@ -144,6 +145,7 @@ fun SignUpScreen(
             }
         }
     ) {
+
         when (state.currentScreen) {
             0 -> InputSignUpScreen(
                 state = state,

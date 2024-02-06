@@ -122,7 +122,6 @@ class SignInViewModel @Inject constructor(
                     is Response.Error -> {
                         updateState {
                             copy(
-                                emailInputState = TextFieldState.Error(it.message),
                                 passwordInputState = TextFieldState.Error(it.message),
                             )
                         }
@@ -146,10 +145,11 @@ class SignInViewModel @Inject constructor(
                 when (it) {
                     is Response.Error -> {
                         val otp = _state.value.otpAttempt
+                        val attempt = (otp + 1)
                         updateState {
                             copy(
                                 otpNumberInputState = TextFieldState.Error(it.message),
-                                otpAttempt = (otp + 1)
+                                otpAttempt = attempt
                             )
                         }
                     }

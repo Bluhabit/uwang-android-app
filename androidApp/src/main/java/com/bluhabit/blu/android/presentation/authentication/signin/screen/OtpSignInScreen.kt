@@ -20,8 +20,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -67,8 +65,7 @@ fun OtpSignInScreen(
             .fillMaxSize()
             .background(Color.White)
             .safeDrawingPadding()
-            .padding(horizontal = dimens.dp_16, vertical = dimens.dp_24)
-            .verticalScroll(rememberScrollState()),
+            .padding(horizontal = dimens.dp_16, vertical = dimens.dp_24),
     ) {
         Box(
             modifier = Modifier

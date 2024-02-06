@@ -34,6 +34,9 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.bluehabit.core.ui.R
+import com.bluhabit.blu.android.MainActivity
+import com.bluhabit.blu.android.Routes
+import com.bluhabit.blu.android.common.findActivity
 import com.bluhabit.blu.android.common.loadHtmlFromAssets
 import com.bluhabit.blu.android.presentation.authentication.onboard.screen.FirstOnboardScreen
 import com.bluhabit.blu.android.presentation.authentication.onboard.screen.FourthOnboardScreen
@@ -138,8 +141,20 @@ fun OnboardScreen(
             OnboardEffect.None -> Unit
             is OnboardEffect.ShowDialog -> Unit
             OnboardEffect.NavigateAuth -> Unit
-            OnboardEffect.NavigateHome -> navHostController.navigate("home")
-            OnboardEffect.NavigateToPersonalize -> navHostController.navigate("complete_profile")
+            OnboardEffect.NavigateHome -> navHostController.navigate(Routes.Home){
+                launchSingleTop=true
+                restoreState = false
+                popUpTo(Routes.Onboard){
+                    inclusive=true
+                }
+            }
+            OnboardEffect.NavigateToPersonalize -> navHostController.navigate(Routes.Personalize){
+                launchSingleTop=true
+                restoreState = false
+                popUpTo(Routes.Onboard){
+                    inclusive=true
+                }
+            }
         }
     })
     LaunchedEffect(key1 = Unit, block = {
@@ -158,7 +173,7 @@ fun OnboardScreen(
     })
     BackHandler {
         if (state.currentScreen <= 1) {
-            navHostController.navigateUp()
+            (ctx.findActivity() as MainActivity).finish()
         } else {
             onAction(OnboardAction.OnChangeCurrentScreen(screen = state.currentScreen - 1))
         }
@@ -226,16 +241,22 @@ fun OnboardScreen(
                         onAction(OnboardAction.OnChangeCurrentScreen(2))
                     },
                     onNavigationToSignIn = {
-                        navHostController.navigate("sign_in") {
+                        navHostController.navigate(Routes.SignIn) {
                             launchSingleTop = true
+                            popUpTo(Routes.Onboard){
+                                inclusive=true
+                            }
                         }
                     },
                     onSignInGoogle = {
                         googleAuthLauncher.launch(1)
                     },
                     onSignUp = {
-                        navHostController.navigate("sign_up") {
+                        navHostController.navigate(Routes.SignUp) {
                             launchSingleTop = true
+                            popUpTo(Routes.Onboard){
+                                inclusive=true
+                            }
                         }
                     }
                 )

@@ -16,6 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.bluhabit.blu.android.Routes
 import com.bluhabit.blu.android.presentation.authentication.signin.screen.InputSignInScreen
 import com.bluhabit.blu.android.presentation.authentication.signin.screen.OtpSignInScreen
 import com.bluhabit.blu.data.common.Response
@@ -39,18 +40,18 @@ fun SignInScreen(
         when (effect) {
             SignInEffect.None -> Unit
             SignInEffect.NavigateToPersonalize -> {
-                navHostController.navigate("personalize") {
+                navHostController.navigate(Routes.Personalize) {
                     launchSingleTop = true
-                    popUpTo("sign_in") {
-                        inclusive = true
+                    popUpTo(Routes.SignIn){
+                        inclusive=true
                     }
                 }
             }
 
             SignInEffect.NavigateToMain -> {
-                navHostController.navigate("home") {
+                navHostController.navigate(Routes.Home) {
                     launchSingleTop = true
-                    popUpTo("sign_in") {
+                    popUpTo(Routes.SignIn){
                         inclusive = true
                     }
                 }

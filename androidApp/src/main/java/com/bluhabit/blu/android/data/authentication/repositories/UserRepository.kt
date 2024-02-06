@@ -21,12 +21,14 @@ import com.bluhabit.core.ui.ext.toFile
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.onUpload
+import io.ktor.client.request.forms.InputProvider
 import io.ktor.client.request.forms.MultiPartFormDataContent
 import io.ktor.client.request.forms.formData
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import io.ktor.http.Headers
 import io.ktor.http.HttpHeaders
+import io.ktor.utils.io.streams.asInput
 import javax.inject.Inject
 
 class UserRepository @Inject constructor(
@@ -46,16 +48,17 @@ class UserRepository @Inject constructor(
 
     suspend fun updateProfilePicture(
         bitmap: Bitmap
-    ): Response<Any> {
+    ): Response<String> {
+
         val file = bitmap.toFile(context = context)
-            ?: return Response.Error("File tidak ditemukan", 400)
-        return safeApiCall {
+        return when(val result = safeApiCall<String> {
             httpClient.post("storage/v1/upload-profile-picture") {
                 setBody(
                     MultiPartFormDataContent(
                         formData {
-                            append("file", file.readBytes(), Headers.build {
+                            append("file", InputProvider{file.inputStream().asInput()}, Headers.build {
                                 append(HttpHeaders.ContentType, "image/png")
+                                append(HttpHeaders.ContentDisposition,"filename=user.png")
                             })
                         },
                         boundary = "WebAppBoundary"
@@ -64,6 +67,15 @@ class UserRepository @Inject constructor(
                 onUpload { bytesSentTotal, contentLength ->
                     //tracking progress
                 }
+            }
+        }){
+            is Response.Error -> result
+            is Response.Result -> {
+                if (result.data.isNotEmpty()){
+                    sharedPref.setPersistData(KEY_PROFILE_PICTURE,result.data)
+                }
+
+                result
             }
         }
     }
@@ -81,7 +93,7 @@ class UserRepository @Inject constructor(
         topics: List<String>
     ): Response<Any> {
         return safeApiCall {
-            httpClient.post("account/v1/update-profile-topics") {
+            httpClient.post("account/v1/update-profile-interest-topics") {
                 setBody(PersonalizeTopicsRequest(topics = topics.joinToString(",")))
             }
         }

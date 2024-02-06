@@ -64,8 +64,8 @@ fun InputSignInScreen(
             .fillMaxSize()
             .background(Color.White)
             .safeDrawingPadding()
-            .padding(horizontal = dimens.dp_16, vertical = dimens.dp_24)
-            .verticalScroll(rememberScrollState()),
+            .verticalScroll(rememberScrollState())
+            .padding(horizontal = dimens.dp_16, vertical = dimens.dp_24),
     ) {
         Box(
             modifier = Modifier

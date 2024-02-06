@@ -50,9 +50,9 @@ class MainActivity : ComponentActivity() {
             ) {
                 NavHost(
                     navController = navHostController,
-                    startDestination = "onboard",
+                    startDestination = Routes.Onboard,
                 ) {
-                    composable("onboard") {
+                    composable(Routes.Onboard) {
                         val viewModel = hiltViewModel<OnboardViewModel>()
                         OnboardScreen(
                             navHostController = navHostController,
@@ -61,14 +61,14 @@ class MainActivity : ComponentActivity() {
                             onAction = viewModel::onAction
                         )
                     }
-                    composable("term_and_condition") {
+                    composable(Routes.TermAndCondition) {
                         TermAndConditionScreen(
                             onBackPressed = {
                                 navHostController.navigateUp()
                             }
                         )
                     }
-                    composable("sign_in") {
+                    composable(Routes.SignIn) {
                         val viewModel = hiltViewModel<SignInViewModel>()
                         SignInScreen(
                             navHostController = navHostController,
@@ -77,7 +77,7 @@ class MainActivity : ComponentActivity() {
                             onAction = viewModel::onAction,
                         )
                     }
-                    composable("sign_up") {
+                    composable(Routes.SignUp) {
                         val viewModel = hiltViewModel<SignUpViewModel>()
                         SignUpScreen(
                             navHostController = navHostController,
@@ -86,7 +86,7 @@ class MainActivity : ComponentActivity() {
                             onAction = viewModel::onAction,
                         )
                     }
-                    composable("forgot_password") {
+                    composable(Routes.ForgotPassword) {
                         val viewModel = hiltViewModel<ForgotPasswordViewModel>()
                         ForgotPasswordScreen(
                             navHostController = navHostController,
@@ -95,7 +95,7 @@ class MainActivity : ComponentActivity() {
                             onAction = viewModel::onAction
                         )
                     }
-                    composable("personalize") {
+                    composable(Routes.Personalize) {
                         val viewModel = hiltViewModel<PersonalizationViewModel>()
                         PersonalizeScreen(
                             navHostController = navHostController,
@@ -104,7 +104,7 @@ class MainActivity : ComponentActivity() {
                             onAction = viewModel::onAction
                         )
                     }
-                    composable("home") {
+                    composable(Routes.Home) {
                         val viewModel = hiltViewModel<DashboardViewModel>()
                         DashboardScreen(
                             navHostController = navHostController,

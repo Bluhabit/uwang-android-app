@@ -21,9 +21,6 @@ import com.bluhabit.blu.android.data.authentication.datasource.remote.request.Si
 import com.bluhabit.blu.android.data.authentication.datasource.remote.request.VerifyOtpForgotPasswordRequest
 import com.bluhabit.blu.android.data.authentication.datasource.remote.request.VerifyOtpSignInRequest
 import com.bluhabit.blu.android.data.authentication.datasource.remote.request.VerifyOtpSignUpRequest
-import com.bluhabit.blu.android.data.authentication.datasource.remote.response.ResendOtpForgotPasswordResponse
-import com.bluhabit.blu.android.data.authentication.datasource.remote.response.ResendOtpSignInBasicResponse
-import com.bluhabit.blu.android.data.authentication.datasource.remote.response.ResendOtpSignUpBasicResponse
 import com.bluhabit.blu.android.data.authentication.datasource.remote.response.SignInBasicResponse
 import com.bluhabit.blu.android.data.authentication.datasource.remote.response.SignInGoogleResponse
 import com.bluhabit.blu.android.data.authentication.datasource.remote.response.SignUpBasicResponse
@@ -95,10 +92,10 @@ class AuthRepository @Inject constructor(
         }
     }
 
-    suspend fun resendOtpSignInBasic(): Response<ResendOtpSignInBasicResponse> {
+    suspend fun resendOtpSignInBasic(): Response<String> {
         val sessionId = sharedPref.getPersistData(KEY_SESSION_ID)
             ?: return Response.Error("Sesi tidak ditemukan sudah habis", 401)
-        return safeApiCall<ResendOtpSignInBasicResponse> {
+        return safeApiCall<String> {
             httpClient.post("auth/v1/sign-in-basic/resend-otp") {
                 setBody(ResendOtpSignInBasicRequest(sessionId = sessionId))
             }
@@ -208,7 +205,7 @@ class AuthRepository @Inject constructor(
         }
     }
 
-    suspend fun resendOtpSignUpBasic(): Response<ResendOtpSignUpBasicResponse> {
+    suspend fun resendOtpSignUpBasic(): Response<String> {
         val sessionId = sharedPref.getPersistData(KEY_SESSION_ID)
             ?: return Response.Error("Sesi tidak ditemukan sudah habis", 401)
 
@@ -265,7 +262,7 @@ class AuthRepository @Inject constructor(
         }
     }
 
-    suspend fun resentOtpForgotPassword(): Response<ResendOtpForgotPasswordResponse> {
+    suspend fun resentOtpForgotPassword(): Response<String> {
         val sessionId = sharedPref.getPersistData(KEY_SESSION_ID)
             ?: return Response.Error("Sesi tidak ditemukan sudah habis", 401)
 

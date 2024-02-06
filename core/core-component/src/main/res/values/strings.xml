@@ -286,7 +286,7 @@
     <string name="reset_password_input_password_placeholder">Buat password baru</string>
     <string name="reset_password_input_confirm_password_label">Konfirmasi password</string>
     <string name="reset_password_input_confirm_password_placeholder">Konfirmasi password baru</string>
-    <string name="reset_password_title_complete_forgot">Passowrd berhasil dibuat</string>
+    <string name="reset_password_title_complete_forgot">Password berhasil dibuat</string>
     <string name="reset_password_subtitle_complete_forgot">Masuk ke akun kamu dengan password baru.</string>
     <!-- end forgot password screen  -->
 

@@ -7,7 +7,6 @@
 
 package com.bluhabit.blu.android.data.authentication.domain
 
-import com.bluhabit.blu.android.data.authentication.datasource.remote.response.ResendOtpForgotPasswordResponse
 import com.bluhabit.blu.android.data.authentication.repositories.AuthRepository
 import com.bluhabit.blu.data.common.Response
 import javax.inject.Inject
@@ -15,6 +14,6 @@ import javax.inject.Inject
 class ResendOtpForgotPasswordUseCase @Inject constructor(
     private val authRepository: AuthRepository
 ) {
-    suspend operator fun invoke(): Response<ResendOtpForgotPasswordResponse> =
+    suspend operator fun invoke(): Response<String> =
         authRepository.resentOtpForgotPassword()
 }
