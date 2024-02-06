@@ -3,4 +3,4 @@ Added feature:
 2. Sign Up Basic
 3. Sign In Google
 4. Forgot Password
-5. Personalize Profile
+5. Personalize Account
