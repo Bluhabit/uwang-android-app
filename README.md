@@ -14,6 +14,5 @@ ketika aplikasi membutuhkan data dari backend dan menyimpan ke database lokal ma
 Domain merupakan penguhubung antara persentation(UI) dengan data(Repository) karena repository hanya memiliki tugas untuk perputaran data pada perangkat 
 dan terkadang pada beberapa fitur kita perlu memakai lebih dari 1 repository.
 
-
-# PRESENTATION
+https://storage.bluhabit.id/uwang-dev/profile-picture/ad1e34da-0736-4956-a598-52859926ed36.png
 Presentation merupakan layer yang berhubungan dengan interaksi aplikasi dengan user yaitu meliputi UI(Halaman,Tampilan),ViewModel

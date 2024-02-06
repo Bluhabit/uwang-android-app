@@ -16,6 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.bluhabit.blu.android.Routes
 import com.bluhabit.blu.android.presentation.authentication.forgotPassword.screen.FinishForgotPasswordScreen
 import com.bluhabit.blu.android.presentation.authentication.forgotPassword.screen.InputForgotPasswordScreen
 import com.bluhabit.blu.android.presentation.authentication.forgotPassword.screen.InputNewPasswordScreen
@@ -77,9 +78,10 @@ fun ForgotPasswordScreen(
 
         3 -> FinishForgotPasswordScreen(
             onClick={
-                navHostController.navigate("sign_in"){
+                navHostController.navigate(Routes.SignIn){
                     launchSingleTop=true
-                    popUpTo("forgot_password"){
+                    restoreState = false
+                    popUpTo(Routes.ForgotPassword){
                         inclusive=true
                     }
                 }

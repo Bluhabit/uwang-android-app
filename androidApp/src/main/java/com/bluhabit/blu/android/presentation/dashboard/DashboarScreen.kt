@@ -7,6 +7,7 @@
 
 package com.bluhabit.blu.android.presentation.dashboard
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -23,12 +24,16 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.bluehabit.core.ui.R
+import com.bluhabit.blu.android.MainActivity
+import com.bluhabit.blu.android.Routes
+import com.bluhabit.blu.android.common.findActivity
 import com.bluhabit.core.ui.components.button.ButtonPrimary
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
@@ -43,15 +48,21 @@ fun DashboardScreen(
     val state by stateFlow.collectAsStateWithLifecycle(initialValue = DashboardState())
     val effect by effectFlow.collectAsStateWithLifecycle(initialValue = DashboardEffect.None)
 
+    val ctx = LocalContext.current
+
     LaunchedEffect(key1 = effect, block = {
         when (effect) {
             DashboardEffect.Exit -> {
-                navHostController.navigateUp()
+                (ctx.findActivity() as MainActivity).finish()
             }
 
             DashboardEffect.None -> Unit
         }
     })
+
+    BackHandler {
+        (ctx.findActivity() as MainActivity).finish()
+    }
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -69,7 +80,7 @@ fun DashboardScreen(
         ButtonPrimary(
             text = "Personalisasi akun",
             onClick = {
-                navHostController.navigate("personalize")
+                navHostController.navigate(Routes.Personalize)
             }
         )
         Spacer(modifier = Modifier.height(10.dp))

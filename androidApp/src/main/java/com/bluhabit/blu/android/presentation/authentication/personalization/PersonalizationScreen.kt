@@ -15,6 +15,7 @@ import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.bluhabit.blu.android.Routes
 import com.bluhabit.blu.android.presentation.authentication.personalization.screen.ChooseLevelScreen
 import com.bluhabit.blu.android.presentation.authentication.personalization.screen.ChooseTopicScreen
 import com.bluhabit.blu.android.presentation.authentication.personalization.screen.CreateUsernameScreen
@@ -36,10 +37,11 @@ fun PersonalizeScreen(
     LaunchedEffect(key1 = effect, block = {
         when (effect) {
             PersonalizationEffect.None -> Unit
-            PersonalizationEffect.NavigateToMain -> navHostController.navigate("home") {
+            PersonalizationEffect.NavigateToMain -> navHostController.navigate(Routes.Home) {
                 launchSingleTop = true
-                popUpTo("personalize") {
-                    inclusive = true
+                restoreState=false
+                popUpTo(Routes.Personalize){
+                    inclusive=true
                 }
             }
         }

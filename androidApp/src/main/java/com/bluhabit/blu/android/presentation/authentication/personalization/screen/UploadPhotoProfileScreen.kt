@@ -7,7 +7,6 @@
 
 package com.bluhabit.blu.android.presentation.authentication.personalization.screen
 
-import android.Manifest
 import android.graphics.Bitmap
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -29,10 +28,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -47,7 +44,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluehabit.core.ui.R
-import com.bluhabit.blu.android.common.checkGrantedPermissionFrom
 import com.bluhabit.blu.android.presentation.authentication.personalization.PersonalizationAction
 import com.bluhabit.blu.android.presentation.authentication.personalization.PersonalizationState
 import com.bluhabit.core.ui.components.button.ButtonOutlinedPrimary
@@ -82,15 +78,14 @@ fun UploadPhotoProfileScreen(
             }
         }
     }
-    val cameraLauncher =
-        rememberLauncherForActivityResult(
-            contract = ActivityResultContracts.TakePicturePreview()
-        ) { bitmap: Bitmap? ->
-            if (bitmap != null) {
-                onAction(PersonalizationAction.OnShowDialogChoice(false))
-                onAction(PersonalizationAction.OnProfileImageChange(bitmap))
-            }
+    val cameraLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.TakePicturePreview()
+    ) { bitmap: Bitmap? ->
+        if (bitmap != null) {
+            onAction(PersonalizationAction.OnShowDialogChoice(false))
+            onAction(PersonalizationAction.OnProfileImageChange(bitmap))
         }
+    }
 
     val requestPermissionContract = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.RequestPermission(),
@@ -104,8 +99,7 @@ fun UploadPhotoProfileScreen(
         modifier = modifier
             .fillMaxSize()
             .background(UwangColors.Base.White)
-            .safeDrawingPadding()
-            .verticalScroll(rememberScrollState()),
+            .safeDrawingPadding(),
     ) {
         if (state.showDialogChoice) {
             DialogChoice(
@@ -113,11 +107,8 @@ fun UploadPhotoProfileScreen(
                 onSelected = {
                     when (it) {
                         0 -> {
-                            if (arrayOf<String>(Manifest.permission.CAMERA).checkGrantedPermissionFrom(ctx)) {
-                                cameraLauncher.launch()
-                            } else {
-                                requestPermissionContract.launch(Manifest.permission.CAMERA)
-                            }
+
+                            cameraLauncher.launch()
                         }
 
                         1 -> imageLauncher.launch("image/*")
