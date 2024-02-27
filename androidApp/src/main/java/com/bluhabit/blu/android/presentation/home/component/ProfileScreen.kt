@@ -164,7 +164,7 @@ fun TopSection(
                 .fillMaxWidth()
         ) {
             AsyncImage(
-                model = state.imageProfileUrl ?: "https://r2.easyimg.io/ukfssx1w7/user.png",
+                model = state.imageProfileUrl ?: "https://r2.easyimg.io/shbq3yqpw/frame_37002.png",
                 contentDescription = "",
                 alignment = Alignment.Center,
                 contentScale = ContentScale.Crop,
@@ -466,17 +466,17 @@ fun ProfileScreenPreview() {
     val dummyState = HomeState(
         username = "johndoe",
         fullName = "John Doe",
-        imageProfileUrl = "https://r2.easyimg.io/zvc1zf5s0/profile_default_image.png",
-        bioProfile = "Opportunities don't happen. You create them!",
-        websiteProfile = "www.johndoe.com",
-        currentPoint = 0,
+        imageProfileUrl = null,
+        bioProfile = null,
+        websiteProfile = null,
+        currentPoint = 100,
         sizePoint = 500,
         topicList = listOf(
             stringResource(id = R.string.label_tag_topic_satu),
             stringResource(id = R.string.label_tag_topic_dua),
             stringResource(id = R.string.label_tag_topic_tiga),
         ),
-        completedStep = 2,
+        completedStep = 1,
         sizeStep = 4,
         sizePost = 0,
         sizeFollowers = 1244,
