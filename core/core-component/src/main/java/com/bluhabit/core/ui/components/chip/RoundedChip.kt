@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -31,6 +32,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.bluehabit.core.ui.R
 import com.bluhabit.core.ui.ext.Empty
@@ -44,6 +46,8 @@ fun RoundedChip(
     text: String = String.Empty,
     selected: Boolean = false,
     enabled: Boolean = true,
+    height: Dp,
+    verticalPadding: Dp,
     onClick: () -> Unit = {},
 ) {
     val ctx = LocalContext.current
@@ -62,7 +66,8 @@ fun RoundedChip(
                 shape = CircleShape
             )
             .clickable(onClick = onClick, enabled = enabled, interactionSource = remember { MutableInteractionSource() }, indication = null)
-            .padding(horizontal = dimens.dp_12, vertical = dimens.dp_8)
+            .height(height)
+            .padding(horizontal = dimens.dp_12, vertical = verticalPadding)
     ) {
         Text(
             text = text,
@@ -87,6 +92,8 @@ fun RoundedChipPreview() {
     var selected by remember {
         mutableStateOf(false)
     }
+    val ctx = LocalContext.current
+    val dimens = UwangDimens.from(ctx)
     UwangTheme {
         Box(
             contentAlignment = Alignment.Center,
@@ -95,6 +102,8 @@ fun RoundedChipPreview() {
             RoundedChip(
                 text = "\uD83D\uDCD1 Manajemen anggaran",
                 selected = selected,
+                height = dimens.dp_36,
+                verticalPadding = dimens.dp_8,
             ) {
                 selected = !selected
             }

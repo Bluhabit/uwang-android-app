@@ -406,5 +406,17 @@
     <string name="caption_error_field_username_max">Nama pengguna maksimal 60 karakter</string>
     <string name="caption_error_field_username_already">Nama ini sudah digunakan</string>
     <string name="caption_error_field_username_badword">Nama ini melanggar kebijakan konten kami</string>
-
+    <string name="beginner_1">Pemula 1</string>
+    <string name="remaining_points">%d points untuk ke level selanjutnya</string>
+    <string name="financial_topic_of_interest">Topik keuangan yang diminati:</string>
+    <string name="post">postingan</string>
+    <string name="followers">pengikut</string>
+    <string name="following">mengikuti</string>
+    <string name="reply">Balasan</string>
+    <string name="tab_post">Postingan</string>
+    <string name="tab_reply">Balasan</string>
+    <string name="tab_repost">Posting ulang</string>
+    <string name="join_at">%s bergabung</string>
+    <string name="label_button_edit_profile">Edit Profile</string>
+    <string name="empty_post">Tidak ada postingan</string>
 </resources>
