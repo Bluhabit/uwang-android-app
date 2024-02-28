@@ -371,14 +371,20 @@ fun BottomSection(
     ) {
         TabRow(
             modifier = Modifier
-                .height(dimens.from(44.dp))
-                .padding(horizontal = dimens.dp_16),
+                .height(dimens.from(44.dp)),
             selectedTabIndex = pagerState.currentPage,
             indicator = { tabPositions: List<TabPosition> ->
                 Box(
                     modifier = Modifier
                         .tabIndicatorOffset(tabPositions[pagerState.currentPage])
                         .height(dimens.from(4.dp))
+                        .padding(
+                            when {
+                                (pagerState.currentPage == 0) -> PaddingValues(start = dimens.dp_16)
+                                (pagerState.currentPage == pagerState.pageCount - 1) -> PaddingValues(end = dimens.dp_16)
+                                else -> PaddingValues()
+                            }
+                        )
                         .clip(RoundedCornerShape(dimens.dp_16))
                         .background(UwangColors.State.Primary.Main)
                 )
