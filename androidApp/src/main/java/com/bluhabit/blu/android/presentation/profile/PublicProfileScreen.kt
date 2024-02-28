@@ -317,6 +317,12 @@ fun BottomSection(
     val scope = rememberCoroutineScope()
     val ctx = LocalContext.current
     val dimens = UwangDimens.from(ctx)
+    val indicatorPadding: PaddingValues = when {
+        (pagerState.currentPage == 0) -> PaddingValues(start = dimens.dp_16)
+        (pagerState.currentPage == pagerState.pageCount - 1) -> PaddingValues(end = dimens.dp_16)
+        else -> PaddingValues()
+    }
+
     Column(
         modifier = Modifier
             .height(screenHeight)
@@ -330,13 +336,7 @@ fun BottomSection(
                     modifier = Modifier
                         .tabIndicatorOffset(tabPositions[pagerState.currentPage])
                         .height(dimens.from(4.dp))
-                        .padding(
-                            when {
-                                (pagerState.currentPage == 0) -> PaddingValues(start = dimens.dp_16)
-                                (pagerState.currentPage == pagerState.pageCount - 1) -> PaddingValues(end = dimens.dp_16)
-                                else -> PaddingValues()
-                            }
-                        )
+                        .padding(indicatorPadding)
                         .clip(RoundedCornerShape(dimens.dp_16))
                         .background(UwangColors.State.Primary.Main)
                 )
@@ -345,6 +345,14 @@ fun BottomSection(
         ) {
             tabList.forEachIndexed { index, title ->
                 Tab(
+                    modifier = Modifier
+                        .padding(
+                            when (index) {
+                                0 -> PaddingValues(start = dimens.dp_16)
+                                (tabList.size - 1) -> PaddingValues(end = dimens.dp_16)
+                                else -> PaddingValues()
+                            }
+                        ),
                     selected = pagerState.currentPage == index,
                     onClick = {
                         scope.launch {
