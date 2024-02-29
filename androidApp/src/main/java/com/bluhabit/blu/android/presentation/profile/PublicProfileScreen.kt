@@ -5,7 +5,7 @@
  * Proprietary and confidential
  */
 
-package com.bluhabit.blu.android.presentation.home.component
+package com.bluhabit.blu.android.presentation.profile
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.ScrollState
@@ -60,13 +60,11 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.bluehabit.core.ui.R
-import com.bluhabit.blu.android.presentation.home.HomeAction
-import com.bluhabit.blu.android.presentation.home.HomeState
 import com.bluhabit.core.ui.components.button.ButtonOutlinedPrimary
-import com.bluhabit.core.ui.components.card.CompleteProfileCard
-import com.bluhabit.core.ui.components.card.ProfileLevelOneCard
+import com.bluhabit.core.ui.components.button.ButtonPrimary
 import com.bluhabit.core.ui.components.card.ProfileLevelOneNoInfoCard
-import com.bluhabit.core.ui.components.card.ProfileTopicCard
+import com.bluhabit.core.ui.components.card.ProfileLevelWithTopicCard
+import com.bluhabit.core.ui.components.topbar.TopAppBarPrimary
 import com.bluhabit.core.ui.ext.formatToReadable
 import com.bluhabit.core.ui.theme.UwangColors
 import com.bluhabit.core.ui.theme.UwangDimens
@@ -75,9 +73,8 @@ import com.bluhabit.core.ui.theme.UwangTypography
 import kotlinx.coroutines.launch
 
 @Composable
-fun ProfileScreen(
-    state: HomeState = HomeState(),
-    onAction: (HomeAction) -> Unit = {},
+fun PublicProfileScreen(
+    state: PublicProfileState = PublicProfileState(),
 ) {
     val ctx = LocalContext.current
     val dimens = UwangDimens.from(ctx)
@@ -88,9 +85,6 @@ fun ProfileScreen(
     )
     val pagerState = rememberPagerState(0) {
         tabList.size
-    }
-    val middlePagerState = rememberPagerState(0) {
-        2
     }
     val scrollState = rememberScrollState()
 
@@ -105,9 +99,28 @@ fun ProfileScreen(
                 .fillMaxSize()
                 .verticalScroll(state = scrollState)
         ) {
+            TopAppBarPrimary(
+                title = "@" + state.username,
+                onBackPressed = {
+                    // On back pressed
+                },
+                action = {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_more_vertical),
+                        contentDescription = "",
+                        tint = UwangColors.Text.Main,
+                        modifier = Modifier
+                            .size(dimens.dp_24)
+                            .clickable {
+                                // On menu clicked
+                            }
+                    )
+                }
+            )
+            Spacer(modifier = Modifier.padding(top = dimens.dp_8))
             TopSection(state = state)
             Spacer(modifier = Modifier.padding(top = dimens.dp_12))
-            MiddleSection(state = state, pagerState = middlePagerState)
+            MiddleSection(state = state)
             Spacer(modifier = Modifier.padding(top = dimens.dp_16))
             BottomSection(
                 screenHeight = screenHeight,
@@ -122,7 +135,7 @@ fun ProfileScreen(
 
 @Composable
 fun TopSection(
-    state: HomeState = HomeState(),
+    state: PublicProfileState = PublicProfileState(),
 ) {
     val ctx = LocalContext.current
     val dimens = UwangDimens.from(ctx)
@@ -131,32 +144,6 @@ fun TopSection(
             .fillMaxWidth()
             .padding(horizontal = dimens.dp_16)
     ) {
-        Row(
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = dimens.dp_8)
-        ) {
-            Text(
-                text = "@" + state.username,
-                color = UwangColors.Text.Main,
-                style = UwangTypography.BodyLarge.SemiBold,
-            )
-            Icon(
-                painter = painterResource(id = R.drawable.ic_menu),
-                contentDescription = "",
-                modifier = Modifier
-                    .clickable {
-                        // On Menu Pressed
-                    }
-                    .padding(
-                        horizontal = dimens.from(3.dp),
-                        vertical = dimens.from(6.dp)
-                    )
-            )
-        }
-        Spacer(modifier = Modifier.padding(bottom = dimens.dp_8))
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -279,78 +266,43 @@ fun TopSection(
 
 @Composable
 fun MiddleSection(
-    state: HomeState,
-    pagerState: PagerState
+    state: PublicProfileState,
 ) {
     val ctx = LocalContext.current
     val dimens = UwangDimens.from(ctx)
     Column(
         modifier = Modifier
             .fillMaxWidth()
+            .padding(horizontal = dimens.dp_16),
+        verticalArrangement = Arrangement.spacedBy(dimens.dp_12)
     ) {
         with(state) {
             when {
-                completedStep == 4 ->
-                    HorizontalPager(
-                        state = pagerState,
-                        contentPadding = PaddingValues(horizontal = dimens.dp_16),
-                        pageSpacing = dimens.dp_8,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                    ) {
-                        when (it) {
-                            0 -> ProfileLevelOneCard(
-                                currentPoint = currentPoint,
-                                sizePoint = sizePoint
-                            ) {
-                                // On Card Click
-                            }
-
-                            1 -> ProfileTopicCard(
-                                topicList = topicList,
-                                onTopicChipClicked = {
-                                    // On Topic Clicked
-                                },
-                            ) {
-                                // On Card Click
-                            }
-                        }
-                    }
-
-                currentPoint > 0 ->
-                    ProfileLevelOneCard(
-                        currentPoint = currentPoint,
-                        sizePoint = sizePoint,
-                        modifier = Modifier.padding(horizontal = dimens.dp_16)
-                    ) {
-                        // On Card Click
-                    }
+                topicList.isNotEmpty() ->
+                    ProfileLevelWithTopicCard(
+                        topicList = topicList
+                    )
 
                 else ->
-                    ProfileLevelOneNoInfoCard(
-                        modifier = Modifier
-                            .padding(horizontal = dimens.dp_16)
-                    )
+                    ProfileLevelOneNoInfoCard()
             }
-            if (completedStep < 4) {
-                Spacer(modifier = Modifier.padding(bottom = dimens.from(8.dp)))
-                CompleteProfileCard(
+            if (isFollowed)
+                ButtonOutlinedPrimary(
                     modifier = Modifier
-                        .padding(horizontal = dimens.dp_16),
-                    completedStep = completedStep,
-                    sizeStep = sizeStep,
+                        .fillMaxWidth()
+                        .height(dimens.dp_36),
+                    text = "Mengikuti",
+                    borderColor = UwangColors.Text.Border,
+                    textColor = UwangColors.Text.Main,
                 )
-            }
-            Spacer(modifier = Modifier.padding(bottom = dimens.dp_12))
-            ButtonOutlinedPrimary(
-                modifier = Modifier
-                    .padding(horizontal = dimens.dp_16)
-                    .fillMaxWidth()
-                    .height(dimens.dp_36),
-                text = stringResource(id = R.string.label_button_edit_profile),
-                borderColor = UwangColors.Text.Border,
-                textColor = UwangColors.Text.Main,
-            )
+            else
+                ButtonPrimary(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(dimens.dp_36),
+                    text = "Ikuti"
+                )
+
         }
     }
 }
@@ -476,29 +428,26 @@ fun Page(
 
 @Preview
 @Composable
-fun ProfileScreenPreview() {
-    val dummyState = HomeState(
+fun PublicProfileScreenPreview() {
+    val dummyState = PublicProfileState(
         username = "johndoe",
         fullName = "John Doe",
-        imageProfileUrl = null,
-        bioProfile = null,
-        websiteProfile = null,
-        currentPoint = 100,
-        sizePoint = 500,
+        imageProfileUrl = "https://r2.easyimg.io/zvc1zf5s0/profile_default_image.png",
+        bioProfile = "Opportunities don't happen. You create them!",
+        websiteProfile = "www.johndoe.com",
         topicList = listOf(
             stringResource(id = R.string.label_tag_topic_satu),
             stringResource(id = R.string.label_tag_topic_dua),
             stringResource(id = R.string.label_tag_topic_tiga),
         ),
-        completedStep = 1,
-        sizeStep = 4,
         sizePost = 0,
         sizeFollowers = 1244,
         sizeFollowing = 254,
-        joinDate = "21 juli 2023"
+        joinDate = "21 juli 2023",
+        isFollowed = false
     )
     UwangTheme {
-        ProfileScreen(
+        PublicProfileScreen(
             state = dummyState
         )
     }
