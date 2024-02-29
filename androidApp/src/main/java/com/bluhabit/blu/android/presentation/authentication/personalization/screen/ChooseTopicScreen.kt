@@ -137,6 +137,8 @@ fun ChooseTopicScreen(
                         RoundedChip(
                             text = it.topic,
                             selected = true,
+                            height = dimens.dp_36,
+                            verticalPadding = dimens.dp_8,
                             onClick = {
                                 onAction(PersonalizationAction.OnRemoveSelectedList(it))
                             }
@@ -179,6 +181,8 @@ fun ChooseTopicScreen(
                         RoundedChip(
                             text = it,
                             selected = false,
+                            height = dimens.dp_36,
+                            verticalPadding = dimens.dp_8,
                             onClick = {
                                 onAction(
                                     PersonalizationAction.OnAddSelectedList(
