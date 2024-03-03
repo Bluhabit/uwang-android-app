@@ -14,11 +14,10 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
 
-): BaseViewModel<HomeState, HomeAction, HomeEffect>(HomeState()) {
+) : BaseViewModel<HomeState, HomeAction, HomeEffect>(HomeState()) {
     override fun onAction(action: HomeAction) {
         when (action) {
-
-            else -> {}
+            is HomeAction.OnScreenChange -> updateState { copy(currentScreen = action.screen) }
         }
     }
 

@@ -19,7 +19,7 @@ import com.bluhabit.blu.android.presentation.home.HomeAction
 import com.bluhabit.blu.android.presentation.home.HomeState
 
 @Composable
-fun MainScreen(
+fun PostScreen(
     paddingValues: PaddingValues = PaddingValues(),
     state: HomeState = HomeState(),
     onAction: (HomeAction) -> Unit = {},
@@ -30,6 +30,6 @@ fun MainScreen(
             .safeDrawingPadding(),
         contentAlignment = Alignment.Center
     ) {
-        Text(text = "Home Screen")
+        Text(text = "Post Screen")
     }
 }
