@@ -218,7 +218,14 @@ fun BottomNavigationBar(
                                 if (bottomNavigationItem.isBadgeVisible) {
                                     Box(
                                         modifier = Modifier
-                                            .size(dimens.from(6.dp))
+                                            .border(
+                                                width =
+                                                if (isSelected && index == 4) dimens.from(1.dp)
+                                                else dimens.from(0.dp),
+                                                shape = CircleShape,
+                                                color = UwangColors.Base.White
+                                            )
+                                            .size(dimens.from(5.dp))
                                             .clip(CircleShape)
                                             .background(Color(0xFFDD2E2E))
                                             .align(Alignment.TopEnd)
