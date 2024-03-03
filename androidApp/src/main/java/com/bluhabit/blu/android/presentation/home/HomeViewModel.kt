@@ -18,6 +18,16 @@ class HomeViewModel @Inject constructor(
     override fun onAction(action: HomeAction) {
         when (action) {
             is HomeAction.OnScreenChange -> updateState { copy(currentScreen = action.screen) }
+            is HomeAction.OnBottomNavBadgeVisibilityChange ->
+                updateState {
+                    val newBottomNavigationItems = bottomNavigationItems.toMutableList()
+                    val newBottomNavigationItem = bottomNavigationItems[action.index]
+                            .copy(isBadgeVisible = action.visibility)
+                    newBottomNavigationItems[action.index] = newBottomNavigationItem
+                    copy(
+                        bottomNavigationItems = newBottomNavigationItems
+                    )
+                }
         }
     }
 

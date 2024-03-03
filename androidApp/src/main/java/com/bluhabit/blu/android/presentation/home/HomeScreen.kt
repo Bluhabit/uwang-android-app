@@ -168,8 +168,9 @@ fun BottomNavigationBar(
             backgroundColor = UwangColors.Base.White
         ) {
             state.bottomNavigationItems.forEachIndexed { index, bottomNavigationItem ->
+                val isSelected = state.currentScreen == index
                 BottomNavigationItem(
-                    selected = state.currentScreen == index,
+                    selected = isSelected,
                     onClick = {
                         onAction(HomeAction.OnScreenChange(index))
                     },
@@ -180,34 +181,50 @@ fun BottomNavigationBar(
                                 .height(dimens.from(40.dp)),
                             contentAlignment = Alignment.Center
                         ) {
-                            if (index < 4) {
-                                Icon(
-                                    painter = painterResource(id = bottomNavigationItem.icon as Int),
-                                    contentDescription = "",
-                                    tint = if (state.currentScreen == index) UwangColors.Text.Heading
-                                    else Color(0xFF98A2B3),
-                                )
-                            } else {
-                                val iconProfileModel = rememberAsyncImagePainter(
-                                    model = when {
-                                        state.imageProfileUrl != null -> state.imageProfileUrl
-                                        else -> "https://r2.easyimg.io/shbq3yqpw/frame_37002.png"
-                                    }
-                                )
-                                Image(
-                                    painter = iconProfileModel,
-                                    contentDescription = "",
-                                    modifier = Modifier
-                                        .size(dimens.dp_24)
-                                        .clip(CircleShape)
-                                        .border(
-                                            width = if (state.currentScreen == index) dimens.from(2.dp) else dimens.from(1.dp),
-                                            color =
-                                            if (state.currentScreen == index) UwangColors.Text.Heading
-                                            else Color(0xFF98A2B3),
-                                            shape = CircleShape
-                                        )
-                                )
+                            Box {
+                                if (index < 4) {
+                                    Image(
+                                        modifier = Modifier
+                                            .size(dimens.dp_24)
+                                            .align(Alignment.Center),
+                                        painter = painterResource(
+                                            id = if (isSelected) (bottomNavigationItem.selectedIcon as Int)
+                                            else (bottomNavigationItem.icon as Int)
+                                        ),
+                                        contentDescription = ""
+                                    )
+                                } else {
+                                    val iconProfileModel = rememberAsyncImagePainter(
+                                        model = when {
+                                            state.imageProfileUrl != null -> state.imageProfileUrl
+                                            else -> "https://r2.easyimg.io/shbq3yqpw/frame_37002.png"
+                                        }
+                                    )
+                                    Image(
+                                        painter = iconProfileModel,
+                                        contentDescription = "",
+                                        modifier = Modifier
+                                            .size(dimens.dp_24)
+                                            .clip(CircleShape)
+                                            .border(
+                                                width = if (isSelected) dimens.from(2.dp) else dimens.from(1.dp),
+                                                color =
+                                                if (isSelected) UwangColors.Text.Heading
+                                                else Color(0xFF98A2B3),
+                                                shape = CircleShape
+                                            )
+                                            .align(Alignment.Center)
+                                    )
+                                }
+                                if (bottomNavigationItem.isBadgeVisible) {
+                                    Box(
+                                        modifier = Modifier
+                                            .size(dimens.from(6.dp))
+                                            .clip(CircleShape)
+                                            .background(Color(0xFFDD2E2E))
+                                            .align(Alignment.TopEnd)
+                                    )
+                                }
                             }
                         }
                     }

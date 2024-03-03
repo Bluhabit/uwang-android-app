@@ -12,4 +12,8 @@ sealed interface HomeAction {
     data class OnScreenChange(
         val screen: Int,
     ): HomeAction
+    data class OnBottomNavBadgeVisibilityChange(
+        val index: Int,
+        val visibility: Boolean,
+    ): HomeAction
 }

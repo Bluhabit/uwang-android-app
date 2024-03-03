@@ -13,19 +13,29 @@ data class HomeState(
     val currentScreen: Int = 0,
     val bottomNavigationItems: List<BottomNavigationItem> = listOf(
         BottomNavigationItem(
-            icon = R.drawable.ic_home
+            icon = R.drawable.ic_home,
+            selectedIcon = R.drawable.ic_home_fill,
+            isBadgeVisible = true
         ),
         BottomNavigationItem(
-            icon = R.drawable.ic_search
+            icon = R.drawable.ic_search,
+            selectedIcon = R.drawable.ic_search_fill,
+            isBadgeVisible = false
         ),
         BottomNavigationItem(
-            icon = R.drawable.ic_plus_square
+            icon = R.drawable.ic_add_square,
+            selectedIcon = R.drawable.ic_add_square_fill,
+            isBadgeVisible = false
         ),
         BottomNavigationItem(
-            icon = R.drawable.ic_notification
+            icon = R.drawable.ic_notification,
+            selectedIcon = R.drawable.ic_notification_fill,
+            isBadgeVisible = false
         ),
         BottomNavigationItem(
-            icon = {}
+            icon = {},
+            selectedIcon = {},
+            isBadgeVisible = true
         ),
     ),
     // Main
@@ -46,5 +56,7 @@ data class HomeState(
 )
 
 data class BottomNavigationItem(
-    val icon: Any
+    val icon: Any,
+    val selectedIcon: Any,
+    val isBadgeVisible: Boolean,
 )

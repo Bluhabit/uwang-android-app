@@ -7,6 +7,7 @@
 
 package com.bluhabit.blu.android.presentation.home.component
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -30,6 +31,16 @@ fun MainScreen(
             .safeDrawingPadding(),
         contentAlignment = Alignment.Center
     ) {
-        Text(text = "Home Screen")
+        Text(
+            text = "Home Screen",
+            modifier = Modifier
+                .clickable {
+                    // Contoh cara mengganti visibilitas badge di bottom nav
+                    onAction(HomeAction.OnBottomNavBadgeVisibilityChange(
+                        index = 0,
+                        visibility = !state.bottomNavigationItems[0].isBadgeVisible
+                    ))
+                }
+        )
     }
 }
