@@ -29,7 +29,8 @@ class EditProfileViewModel @Inject constructor(
             is EditProfileAction.OnUploadProfileImageErrorVisibilityChange ->
                 updateState { copy(uploadImageProfileErrorAlertVisibility = action.visible) }
 
-            is EditProfileAction.OnUploadProfileImageSuccessVisibilityChange -> updateState { copy(uploadImageProfileSuccessAlertVisibility = action.visible) }
+            is EditProfileAction.OnUploadProfileImageSuccessVisibilityChange ->
+                updateState { copy(uploadImageProfileSuccessAlertVisibility = action.visible) }
             is EditProfileAction.OnUsernameChange -> onUsernameChange(action.value)
             is EditProfileAction.OnFullNameChange -> onFullNameChange(action.value)
             is EditProfileAction.OnLinkChange -> updateState { copy(link = action.value) }
