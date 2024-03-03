@@ -33,6 +33,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -61,29 +62,7 @@ fun ChooseTopicScreen(
 ) {
     val ctx = LocalContext.current
     val dimens = UwangDimens.from(ctx)
-    val topicList = listOf(
-        stringResource(id = R.string.label_tag_topic_satu),
-        stringResource(id = R.string.label_tag_topic_dua),
-        stringResource(id = R.string.label_tag_topic_tiga),
-        stringResource(id = R.string.label_tag_topic_empat),
-        stringResource(id = R.string.label_tag_topic_lima),
-        stringResource(id = R.string.label_tag_topic_enam),
-        stringResource(id = R.string.label_tag_topic_tujuh),
-        stringResource(id = R.string.label_tag_topic_delapan),
-        stringResource(id = R.string.label_tag_topic_sembilan),
-        stringResource(id = R.string.label_tag_topic_sepuluh),
-        stringResource(id = R.string.label_tag_topic_sebelas),
-        stringResource(id = R.string.label_tag_topic_duabelas),
-        stringResource(id = R.string.label_tag_topic_tigabelas),
-        stringResource(id = R.string.label_tag_topic_empatbelas),
-        stringResource(id = R.string.label_tag_topic_limabelas),
-        stringResource(id = R.string.label_tag_topic_enambelas),
-        stringResource(id = R.string.label_tag_topic_tujuhbelas),
-        stringResource(id = R.string.label_tag_topic_delapanbelas),
-        stringResource(id = R.string.label_tag_topic_sembilanbelas),
-        stringResource(id = R.string.label_tag_topic_duapuluh),
-        stringResource(id = R.string.label_tag_topic_duapuluhsatu),
-    )
+    val topicList = stringArrayResource(id = R.array.topic_list)
 
     Box(
         modifier = modifier

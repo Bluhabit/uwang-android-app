@@ -8,10 +8,10 @@
 package com.bluhabit.core.ui.components.alert
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -41,23 +41,16 @@ fun AlertSuccess(
             )
         },
         trailingButton = {
-            IconButton(
-                onClick = {
-                    onClick()
-                },
+            Icon(
+                painter = painterResource(
+                    id = R.drawable.ic_close
+                ),
+                contentDescription = null,
+                tint = UwangColors.Text.Main,
                 modifier = Modifier
                     .size(16.dp)
-            ) {
-                Icon(
-                    painter = painterResource(
-                        id = R.drawable.ic_close
-                    ),
-                    contentDescription = null,
-                    tint = UwangColors.Text.Main,
-                    modifier = Modifier
-                        .size(16.dp)
-                )
-            }
+                    .clickable(onClick = onClick)
+            )
         },
         message = message,
         messageColor = UwangColors.State.Success.Main,
