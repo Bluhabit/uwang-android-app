@@ -32,7 +32,7 @@ import com.bluehabit.core.ui.R
 import com.bluhabit.core.ui.theme.Success600
 
 @Composable
-fun NotificatioBarSuccess(
+fun NotificationBarSuccess(
     notificationText: String
 ) {
     Surface(
@@ -70,6 +70,6 @@ fun NotificatioBarSuccess(
 
 @Preview
 @Composable
-fun NotificationBarPreview() {
-    NotificatioBarSuccess(notificationText = stringResource(id = R.string.text_label_notif_profile))
+fun NotificationBarSuccessPreview() {
+    NotificationBarSuccess(notificationText = stringResource(id = R.string.text_label_notif_profile))
 }

@@ -54,6 +54,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -251,7 +252,7 @@ fun TopSection(
                 tint = UwangColors.Text.Secondary
             )
             Text(
-                text = "Bergabung 21 juli 2023",
+                text = state.joinDate,
                 style = UwangTypography.BodyXS.Regular,
                 color = UwangColors.Text.Secondary
             )
@@ -477,6 +478,7 @@ fun Page(
 @Preview
 @Composable
 fun ProfileScreenPreview() {
+    val topicList = stringArrayResource(id = R.array.topic_list).copyOfRange(0,3).toList()
     val dummyState = HomeState(
         username = "johndoe",
         fullName = "John Doe",
@@ -485,11 +487,7 @@ fun ProfileScreenPreview() {
         websiteProfile = null,
         currentPoint = 100,
         sizePoint = 500,
-        topicList = listOf(
-            stringResource(id = R.string.label_tag_topic_satu),
-            stringResource(id = R.string.label_tag_topic_dua),
-            stringResource(id = R.string.label_tag_topic_tiga),
-        ),
+        topicList = topicList,
         completedStep = 1,
         sizeStep = 4,
         sizePost = 0,
