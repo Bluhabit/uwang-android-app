@@ -17,6 +17,7 @@ import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluhabit.core.ui.ext.Empty
@@ -37,6 +38,8 @@ fun ButtonOutlinedPrimary(
     text: String = String.Empty,
     enabled: Boolean = true,
     error: Boolean = false,
+    borderColor: Color = UwangColors.Text.Disabled,
+    textColor: Color = UwangColors.State.Primary.Main,
     onClick: () -> Unit = {}
 ) {
     OutlinedButton(
@@ -53,7 +56,7 @@ fun ButtonOutlinedPrimary(
             width = 1.dp,
             color = when {
                 error -> UwangColors.State.Error.Main
-                enabled -> UwangColors.State.Primary.Main
+                enabled -> borderColor
                 else -> UwangColors.Text.Disabled
             }
         ),
@@ -61,7 +64,7 @@ fun ButtonOutlinedPrimary(
         Text(
             text = text,
             style = UwangTypography.BodySmall.Medium,
-            color = UwangColors.State.Primary.Main
+            color = textColor
         )
     }
 }
