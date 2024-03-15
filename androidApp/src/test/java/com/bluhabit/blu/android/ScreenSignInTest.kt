@@ -7,19 +7,14 @@
 
 package com.bluhabit.blu.android
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
-import app.trian.mvi.ui.internal.contract.UIContract
-import app.trian.mvi.ui.internal.rememberUIController
-import com.bluhabit.blu.feature.authentication.auth.AuthScreen
-import com.bluhabit.blu.feature.authentication.auth.AuthState
+import androidx.navigation.compose.rememberNavController
+import com.bluhabit.blu.android.presentation.authentication.onboard.OnboardScreen
+import kotlinx.coroutines.flow.flowOf
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -31,19 +26,20 @@ import org.robolectric.shadows.ShadowLog
 class ScreenSignInTest {
     @get:Rule
     val composeRule = createComposeRule()
+
     @Before
     @Throws(Exception::class)
     fun setUp() {
         ShadowLog.stream = System.out //logcat to console
         composeRule.setContent {
-            var state by remember { mutableStateOf(AuthState()) }
-            AuthScreen(uiContract = UIContract(
-                rememberUIController(),
-                state = state,
-                mutation = {
-                    state = it
+
+            OnboardScreen(
+                navHostController = rememberNavController(),
+                stateFlow = flowOf(),
+                effectFlow = flowOf(),
+                onAction = {
                 }
-            ))
+            )
         }
     }
 
