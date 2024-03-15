@@ -44,7 +44,13 @@ class SignUpViewModel @Inject constructor(
             is SignUpAction.OnPasswordChange -> onPasswordChange(action.value)
             is SignUpAction.OnPasswordConfirmationChange -> onPasswordConfirmationChange(action.value)
             is SignUpAction.OnOtpChange -> {
-                updateState { copy(otpNumberState = action.value, otpNumberInputState = TextFieldState.None) }
+                updateState {
+                    copy(
+                        otpNumberState = action.value,
+                        otpNumberInputState = TextFieldState.None,
+                        verifyOtpButtonEnabled = true
+                    )
+                }
                 if (action.value.length == 4) {
                     verifyOtp()
                 }
@@ -181,7 +187,8 @@ class SignUpViewModel @Inject constructor(
                         updateState {
                             copy(
                                 otpNumberInputState = TextFieldState.Error(it.message),
-                                otpAttempt = (otp + 1)
+                                otpAttempt = (otp + 1),
+                                verifyOtpButtonEnabled = false
                             )
                         }
                     }
@@ -228,7 +235,7 @@ class SignUpViewModel @Inject constructor(
                     }
 
                     is Response.Result -> {
-                        sendEffect(SignUpEffect.NavigateToMain)
+                        sendEffect(SignUpEffect.NavigateToPersonalize)
                     }
                 }
             }
@@ -261,7 +268,6 @@ class SignUpViewModel @Inject constructor(
                                 otpSentAlertVisibility = true
                             )
                         }
-                        sendEffect(SignUpEffect.NavigateToPersonalize)
                     }
                 }
             }

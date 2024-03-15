@@ -70,15 +70,6 @@ fun SignUpScreen(
                     }
                 }
             }
-
-            SignUpEffect.NavigateToMain -> {
-                navHostController.navigate(Routes.Home) {
-                    launchSingleTop = true
-                    popUpTo(Routes.SignUp){
-                        inclusive = true
-                    }
-                }
-            }
         }
     })
 
