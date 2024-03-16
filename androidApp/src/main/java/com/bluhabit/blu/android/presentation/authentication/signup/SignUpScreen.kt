@@ -8,6 +8,9 @@
 package com.bluhabit.blu.android.presentation.authentication.signup
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.safeDrawingPadding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.rememberModalBottomSheetState
@@ -16,9 +19,11 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
@@ -31,6 +36,7 @@ import com.bluhabit.blu.android.presentation.authentication.signup.screen.OtpSig
 import com.bluhabit.core.ui.components.dialog.DialogLoading
 import com.bluhabit.core.ui.components.sheet.DatePickerBottomSheet
 import com.bluhabit.core.ui.components.sheet.GenderPickerBottomSheet
+import com.bluhabit.core.ui.theme.UwangColors
 import com.bluhabit.core.ui.theme.UwangTheme
 import java.time.LocalDate
 import kotlinx.coroutines.flow.Flow
@@ -95,8 +101,15 @@ fun SignUpScreen(
     }
     DialogLoading(show = state.showLoading)
     ModalBottomSheetLayout(
+        modifier = Modifier
+            .background(UwangColors.Base.White)
+            .safeDrawingPadding(),
         sheetState = bottomSheetState,
         sheetGesturesEnabled = false,
+        sheetShape = RoundedCornerShape(
+            topStart = 24.dp,
+            topEnd = 24.dp
+        ),
         sheetContent = {
             when (state.bottomSheetType) {
                 BottomSheetSignUpType.GENDER -> {
