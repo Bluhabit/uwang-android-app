@@ -39,9 +39,9 @@ fun PersonalizeScreen(
             PersonalizationEffect.None -> Unit
             PersonalizationEffect.NavigateToMain -> navHostController.navigate(Routes.Home) {
                 launchSingleTop = true
-                restoreState=false
-                popUpTo(Routes.Personalize){
-                    inclusive=true
+                restoreState = false
+                popUpTo(Routes.Personalize) {
+                    inclusive = true
                 }
             }
         }

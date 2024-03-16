@@ -95,21 +95,26 @@ class PersonalizationViewModel @Inject constructor(
 
     private fun onUsernameChange(username: String) {
         updateState {
-            copy(
-                usernameValueState = username,
-                usernameState = when {
-                    username.length < 3 ->
-                        TextFieldState.Error(resourceProvider.getString(R.string.caption_error_field_username_min))
+            when {
+                username.length < 3 -> copy(
+                    usernameState = TextFieldState.Error(resourceProvider.getString(R.string.caption_error_field_username_min)),
+                    usernameValueState = username,
+                )
 
-                    resourceProvider.isBadWord(username) ->
-                        TextFieldState.Error(resourceProvider.getString(R.string.caption_error_field_username_badword))
+                resourceProvider.isBadWord(username) -> copy(
+                    usernameState = TextFieldState.Error(resourceProvider.getString(R.string.caption_error_field_username_badword)),
+                    usernameValueState = username,
+                )
 
-                    username.length > 60 ->
-                        TextFieldState.Error(resourceProvider.getString(R.string.caption_error_field_username_max))
+                username.length > 60 -> copy(
+                    usernameState = TextFieldState.Error(resourceProvider.getString(R.string.caption_error_field_username_max))
+                )
 
-                    else -> TextFieldState.None
-                }
-            )
+                else -> copy(
+                    usernameState = TextFieldState.None,
+                    usernameValueState = username,
+                )
+            }
         }
     }
 

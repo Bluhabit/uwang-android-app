@@ -7,7 +7,9 @@
 
 package com.bluhabit.blu.android.presentation.authentication.personalization.screen
 
+import android.Manifest
 import android.graphics.Bitmap
+import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.launch
@@ -44,6 +46,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bluehabit.core.ui.R
+import com.bluhabit.blu.android.common.checkGrantedPermissionFrom
 import com.bluhabit.blu.android.presentation.authentication.personalization.PersonalizationAction
 import com.bluhabit.blu.android.presentation.authentication.personalization.PersonalizationState
 import com.bluhabit.core.ui.components.button.ButtonOutlinedPrimary
@@ -88,13 +91,16 @@ fun UploadPhotoProfileScreen(
     }
 
     val requestPermissionContract = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.RequestPermission(),
+        contract = ActivityResultContracts.RequestMultiplePermissions(),
         onResult = {
-            if (it) {
-                cameraLauncher.launch()
+            if (!it.containsValue(false)) {
+                onAction(PersonalizationAction.OnShowDialogChoice(true))
+            } else {
+                Toast.makeText(ctx, "Permission declined", Toast.LENGTH_SHORT).show()
             }
         }
     )
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -107,7 +113,6 @@ fun UploadPhotoProfileScreen(
                 onSelected = {
                     when (it) {
                         0 -> {
-
                             cameraLauncher.launch()
                         }
 
@@ -188,7 +193,19 @@ fun UploadPhotoProfileScreen(
                                 shape = CircleShape
                             )
                             .clickable {
-                                onAction(PersonalizationAction.OnShowDialogChoice(true))
+                                val requiredPermissionList = arrayOf(
+                                    Manifest.permission.CAMERA,
+                                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                                )
+                                val isAllPermissionGranted = requiredPermissionList
+                                    .checkGrantedPermissionFrom(ctx)
+                                if (isAllPermissionGranted) {
+                                    onAction(PersonalizationAction.OnShowDialogChoice(true))
+                                } else {
+                                    requestPermissionContract.launch(
+                                        requiredPermissionList
+                                    )
+                                }
                             },
                         contentAlignment = Alignment.Center
                     ) {
