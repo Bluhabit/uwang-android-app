@@ -105,11 +105,10 @@ fun CreateUsernameScreen(
                 },
                 state = state.usernameState,
                 leadingIcon = {
-                    Text(
-                        text = "@",
-                        style = UwangTypography.BodySmall.Regular,
-                        color = UwangColors.Text.Main
-                    )
+                    Image(painter = painterResource(id = R.drawable.ic_at_sign), contentDescription = "")
+                },
+                onClickTrailingIcon = {
+                    onAction(PersonalizationAction.OnUsernameChange(""))
                 }
             )
         }
