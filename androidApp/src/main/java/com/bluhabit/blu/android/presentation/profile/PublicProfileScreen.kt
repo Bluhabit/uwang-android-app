@@ -54,6 +54,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -429,17 +430,14 @@ fun Page(
 @Preview
 @Composable
 fun PublicProfileScreenPreview() {
+    val topicList = stringArrayResource(id = R.array.topic_list).copyOfRange(0,3).toList()
     val dummyState = PublicProfileState(
         username = "johndoe",
         fullName = "John Doe",
         imageProfileUrl = "https://r2.easyimg.io/zvc1zf5s0/profile_default_image.png",
         bioProfile = "Opportunities don't happen. You create them!",
         websiteProfile = "www.johndoe.com",
-        topicList = listOf(
-            stringResource(id = R.string.label_tag_topic_satu),
-            stringResource(id = R.string.label_tag_topic_dua),
-            stringResource(id = R.string.label_tag_topic_tiga),
-        ),
+        topicList = topicList,
         sizePost = 0,
         sizeFollowers = 1244,
         sizeFollowing = 254,

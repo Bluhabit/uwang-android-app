@@ -159,12 +159,6 @@
     <string name="description_icon_star">Ikon penanda tugas favorite</string>
     <!--    end alert component-->
 
-    <!--    bottom sheet edit profile component-->
-    <string name="text_upload_image_from_phone">Upload foto baru dari ponsel</string>
-    <string name="text_take_picture">Ambil Gambar</string>
-    <string name="text_delete_image">Hapus Gambar</string>
-    <!--   end bottom sheet edit profile component-->
-
     <!--    bottom sheet date picker-->
     <string name="text_start">Mulai</string>
     <string name="btn_text_choose">Pilih</string>
@@ -377,35 +371,18 @@
     <string name="description_header_topic">Topik ini sebagai referensi belajar yang diminati</string>
     <string name="placeholder_count_topic">Dipilih: %s</string>
     <string name="label_text_button_reset">Reset</string>
-    <string name="label_tag_topic_satu">📑 Manajemen anggaran</string>
-    <string name="label_tag_topic_dua">📈 Investasi</string>
-    <string name="label_tag_topic_tiga">🖥️ Teknologi Keuangan</string>
-    <string name="label_tag_topic_empat">🚀 Kewirausahaan</string>
-    <string name="label_tag_topic_lima">💼Sampingan </string>
-    <string name="label_tag_topic_enam">📑Pajak </string>
-    <string name="label_tag_topic_tujuh">💵Pendanaan </string>
-    <string name="label_tag_topic_delapan"> 🤝 Crowdfunding </string>
-    <string name="label_tag_topic_sembilan"> 📜 Harta waris</string>
-    <string name="label_tag_topic_sepuluh"> 📚Edukasi anak</string>
-    <string name="label_tag_topic_sebelas"> 📊 Kredit skor</string>
-    <string name="label_tag_topic_duabelas">🏢 Bisnis UMKM</string>
-    <string name="label_tag_topic_tigabelas"> 👨‍👩‍👧‍👦 Keuangan keluarga</string>
-    <string name="label_tag_topic_empatbelas">🗓️ Perencanaan pensiun</string>
-    <string name="label_tag_topic_limabelas">🗓️ Pensiun dini</string>
-    <string name="label_tag_topic_enambelas"> 📚 Pendidikan keuangan</string>
-    <string name="label_tag_topic_tujuhbelas"> 🏦 Menabung</string>
-    <string name="label_tag_topic_delapanbelas"> ⚠️ Pengelolaan resiko</string>
-    <string name="label_tag_topic_sembilanbelas"> 💼 Pengembangan pendapatan</string>
-    <string name="label_tag_topic_duapuluh"> 📜 Obligasi</string>
-    <string name="label_tag_topic_duapuluhsatu"> 📊 Reksa dana</string>
     <string name="title_header_username">Bagaimana kami memanggilmu?</string>
     <string name="desctiption_header_username">Buat nama @pengguna yang unik.</string>
     <string name="label_field_username">Nama pengguna</string>
     <string name="placeholder_field_username">Masukkan nama pengguna</string>
     <string name="caption_error_field_username_min">Nama pengguna minimal 3 karakter</string>
     <string name="caption_error_field_username_max">Nama pengguna maksimal 60 karakter</string>
-    <string name="caption_error_field_username_already">Nama ini sudah digunakan</string>
-    <string name="caption_error_field_username_badword">Nama ini melanggar kebijakan konten kami</string>
+    <string name="caption_error_field_name_min">Nama minimal 3 karakter</string>
+    <string name="caption_error_field_name_max">Nama maksimal 60 karakter</string>
+    <string name="caption_error_field_name_badword">Nama ini melanggar kebijakan konten kami</string>
+    <string name="caption_error_field_username_already">Nama pengguna ini sudah digunakan</string>
+    <string name="caption_error_field_username_badword">Nama pengguna ini melanggar kebijakan konten kami</string>
+    <string name="caption_error_field_bio_max">Bio maksimal 150 karakter</string>
     <string name="beginner_1">Pemula 1</string>
     <string name="remaining_points">%d points untuk ke level selanjutnya</string>
     <string name="financial_topic_of_interest">Topik keuangan yang diminati:</string>
@@ -419,4 +396,42 @@
     <string name="join_at">%s bergabung</string>
     <string name="label_button_edit_profile">Edit Profile</string>
     <string name="empty_post">Tidak ada postingan</string>
+    <string name="label_field_link">Link</string>
+    <string name="placeholder_field_link">Silahkan masukan url kamu</string>
+    <string name="label_field_bio">Bio</string>
+    <string name="placeholder_field_bio">Silahkan masukan bio kamu</string>
+    <string name="label_selected_topic">Topik terpilih</string>
+    <string name="title_selected_topic">Topik Terpilih</string>
+    <string name="title_other_topic">Topik Lainnya</string>
+    <string name="message_error_upload_image_profile">Unggah foto profil gagal</string>
+    <string name="message_success_upload_image_profile">Unggah foto profil berhasil</string>
+    <string name="camera">Kamera</string>
+    <string name="gallery">Galeri</string>
+    <string name="image_profile">Foto Profil</string>
+    <string name="add_topic">Tambah Topik</string>
+    <array name="topic_list">
+        <item>📑 Manajemen anggaran</item>
+        <item>📈 Investasi</item>
+        <item>🖥️ Teknologi Keuangan</item>
+        <item>🚀 Kewirausahaan</item>
+        <item>💼 Sampingan</item>
+        <item>📑 Pajak</item>
+        <item>💵 Pendanaan</item>
+        <item>🤝 Crowdfunding</item>
+        <item>📜 Harta waris</item>
+        <item>📚 Edukasi anak</item>
+        <item>📊 Kredit skor</item>
+        <item>🏢 Bisnis UMKM</item>
+        <item>👨‍👩‍👧‍👦 Keuangan keluarga</item>
+        <item>🗓️ Perencanaan pensiun</item>
+        <item>🗓️ Pensiun dini</item>
+        <item>📚 Pendidikan keuangan</item>
+        <item>🏦 Menabung</item>
+        <item>⚠️ Pengelolaan resiko</item>
+        <item>💼 Pengembangan pendapatan</item>
+        <item>📜 Obligasi</item>
+        <item>📊 Reksa dana</item>
+    </array>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="edit_topic">Edit Topic</string>
 </resources>

@@ -27,6 +27,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -103,11 +104,7 @@ fun ProfileTopicCard(
 @Composable
 fun ProfileTopicCardPreview() {
     UwangTheme {
-        val topicList = listOf(
-            stringResource(id = R.string.label_tag_topic_satu),
-            stringResource(id = R.string.label_tag_topic_dua),
-            stringResource(id = R.string.label_tag_topic_tiga),
-        )
+        val topicList = stringArrayResource(id = R.array.topic_list).copyOfRange(0,3).toList()
         ProfileTopicCard(
             modifier = Modifier
                 .padding(top = 56.dp, start = 16.dp, end = 16.dp)
