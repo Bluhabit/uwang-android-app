@@ -77,6 +77,7 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun ProfileScreen(
+    paddingValues: PaddingValues = PaddingValues(),
     state: HomeState = HomeState(),
     onAction: (HomeAction) -> Unit = {},
 ) {
@@ -99,6 +100,7 @@ fun ProfileScreen(
         modifier = Modifier
             .background(UwangColors.Base.White)
             .safeDrawingPadding()
+            .padding(paddingValues)
     ) {
         val screenHeight = maxHeight
         Column(
@@ -227,45 +229,49 @@ fun TopSection(
                 )
             }
         }
-        Spacer(modifier = Modifier.padding(bottom = 4.dp))
-        Text(
-            text = state.fullName,
-            style = UwangTypography.BodyMedium.Medium,
-            color = UwangColors.Text.Main
-        )
-        Spacer(modifier = Modifier.padding(bottom = 4.dp))
+        state.fullName?.let {
+            Spacer(modifier = Modifier.padding(bottom = 4.dp))
+            Text(
+                text = it,
+                style = UwangTypography.BodyMedium.Medium,
+                color = UwangColors.Text.Main
+            )
+        }
         state.bioProfile?.let {
+            Spacer(modifier = Modifier.padding(bottom = 4.dp))
             Text(
                 text = it,
                 style = UwangTypography.BodyXS.Regular,
                 color = UwangColors.Text.Main
             )
         }
-        Spacer(modifier = Modifier.padding(bottom = 4.dp))
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(4.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Icon(
-                painter = painterResource(id = R.drawable.ic_calendar),
-                contentDescription = "",
-                tint = UwangColors.Text.Secondary
-            )
-            Text(
-                text = state.joinDate,
-                style = UwangTypography.BodyXS.Regular,
-                color = UwangColors.Text.Secondary
-            )
+        state.joinDate?.let {
+            Spacer(modifier = Modifier.padding(bottom = 4.dp))
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(4.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_calendar),
+                    contentDescription = "",
+                    tint = UwangColors.Text.Secondary
+                )
+                Text(
+                    text = it,
+                    style = UwangTypography.BodyXS.Regular,
+                    color = UwangColors.Text.Secondary
+                )
+            }
         }
-        Spacer(modifier = Modifier.padding(bottom = 4.dp))
         state.websiteProfile?.let {
+            Spacer(modifier = Modifier.padding(bottom = 4.dp))
             Row(
                 horizontalArrangement = Arrangement.spacedBy(4.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_link),
-                    contentDescription = stringResource(id = R.string.join_at, state.joinDate),
+                    contentDescription = "",
                     tint = UwangColors.State.Primary.Main
                 )
                 Text(
