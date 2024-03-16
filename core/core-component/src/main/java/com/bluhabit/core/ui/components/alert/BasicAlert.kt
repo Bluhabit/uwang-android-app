@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
@@ -20,7 +21,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import com.bluhabit.core.ui.theme.UwangDimens
 import com.bluhabit.core.ui.theme.UwangTypography
 
 @Composable
@@ -32,12 +35,15 @@ fun BasicAlert(
     messageColor: Color,
     backgroundColor: Color,
 ) {
+    val ctx = LocalContext.current
+    val dimens = UwangDimens.from(ctx)
     Row(
         modifier = modifier
             .fillMaxWidth()
+            .height(dimens.dp_36)
             .clip(RoundedCornerShape(12.dp))
             .background(backgroundColor)
-            .padding(8.dp),
+            .padding(horizontal = dimens.dp_8),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(4.dp)
     ) {
@@ -47,7 +53,7 @@ fun BasicAlert(
             style = UwangTypography.LabelMedium.Medium,
             color = messageColor
         )
-        Spacer(modifier = modifier.weight(1f))
+        Spacer(modifier = Modifier.weight(1f))
         trailingButton()
     }
 }

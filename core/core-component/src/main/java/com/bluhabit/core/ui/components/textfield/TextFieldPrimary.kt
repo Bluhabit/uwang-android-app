@@ -140,7 +140,6 @@ fun TextFieldPrimary(
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     onAction: (FocusManager) -> Unit = {}
 ) {
-    val ctx = LocalContext.current
     Column(
         verticalArrangement = Arrangement.spacedBy(4.dp),
     ) {
@@ -266,6 +265,66 @@ fun TextFieldPasswordPrimary(
                 }
             },
             visualTransformation = if (showPassword) VisualTransformation.None else PasswordVisualTransformation(),
+            keyboardOptions = keyboardOptions,
+            onAction = onAction
+        )
+        when (state) {
+            is TextFieldState.Error -> AlertTextFieldError(state.errorText)
+            TextFieldState.None -> Unit
+            is TextFieldState.Success -> {
+                AlertTextFieldSuccess(state.successText)
+            }
+
+            is TextFieldState.WithHint -> {
+                AlertTextFieldWithHint(state.hintText)
+            }
+        }
+    }
+}
+
+@Composable
+fun TextFieldBox(
+    modifier: Modifier = Modifier,
+    leadingIcon: @Composable (() -> Unit)? = null,
+    label: String = "",
+    placeholder: String = "",
+    value: String = "",
+    onValueChange: (String) -> Unit = {},
+    enabled: Boolean = true,
+    state: TextFieldState = TextFieldState.None,
+    singleLine: Boolean = false,
+    maxLines: Int = 5,
+    readOnly: Boolean = false,
+    visualTransformation: VisualTransformation = VisualTransformation.None,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    onAction: (FocusManager) -> Unit = {}
+) {
+    Column(
+        verticalArrangement = Arrangement.spacedBy(4.dp),
+    ) {
+        Text(
+            text = label,
+            style = UwangTypography.BodySmall.Regular,
+            color = UwangColors.Palette.Neutral.Grey9
+        )
+        TextFieldBase(
+            modifier = modifier,
+            leadingIcon = leadingIcon,
+            label = {
+                Text(
+                    text = placeholder,
+                    style = UwangTypography.BodySmall.Regular,
+                    color = UwangColors.Palette.Neutral.Grey7
+                )
+            },
+            singleLine = singleLine,
+            enabled = enabled,
+            readOnly = readOnly,
+            maxLines = maxLines,
+            value = value,
+            onValueChange = onValueChange,
+            isError = state is TextFieldState.Error,
+            visualTransformation = visualTransformation,
             keyboardOptions = keyboardOptions,
             onAction = onAction
         )

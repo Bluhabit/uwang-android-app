@@ -105,7 +105,7 @@ class PersonalizationViewModel @Inject constructor(
                         TextFieldState.Error(resourceProvider.getString(R.string.caption_error_field_username_badword))
 
                     username.length > 60 ->
-                        TextFieldState.Error(resourceProvider.getString(R.string.caption_error_field_username_already))
+                        TextFieldState.Error(resourceProvider.getString(R.string.caption_error_field_username_max))
 
                     else -> TextFieldState.None
                 }
