@@ -7,6 +7,7 @@
 
 package com.bluhabit.blu.android.presentation.authentication.personalization.screen
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -159,6 +160,7 @@ fun ChooseLevelScreen(
                         .width(dimens.from(102.dp))
                         .height(dimens.from(36.dp)),
                     text = stringResource(id = R.string.label_button_pass),
+                    borderColor = UwangColors.State.Primary.Main,
                     onClick = {onAction(PersonalizationAction.NextSkip)}
                 )
                 ButtonPrimary(
@@ -166,7 +168,15 @@ fun ChooseLevelScreen(
                         .width(dimens.from(102.dp))
                         .height(dimens.from(36.dp)),
                     text = stringResource(id = R.string.label_button_next),
-                    enabled = state.selectedLevel.isNotEmpty()
+                    enabled = state.selectedLevel.isNotEmpty(),
+                    // Adjustment to match the size of the outline button
+                    border = BorderStroke(
+                        width = 1.dp,
+                        color = when {
+                            state.selectedLevel.isNotEmpty() -> UwangColors.State.Primary.Main
+                            else -> UwangColors.Palette.Neutral.Grey3
+                        }
+                    )
                 ) {
                     onAction(PersonalizationAction.ChooseLevelNextButton)
                 }
@@ -179,6 +189,10 @@ fun ChooseLevelScreen(
 @Composable
 fun ChooseLevelScreenPreview() {
     UwangTheme {
-        ChooseLevelScreen()
+        ChooseLevelScreen(
+            state = PersonalizationState(
+                selectedLevel = "INTERMEDIATE"
+            )
+        )
     }
 }
