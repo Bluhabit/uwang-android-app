@@ -179,7 +179,7 @@ fun OtpSignUpScreen(
                     .fillMaxWidth(),
                 text = stringResource(id = R.string.label_button_otp),
                 enabled = state.otpNumberState.length == 4
-                        && state.otpAttempt < 4
+                        && state.otpAttempt < 4 && state.verifyOtpButtonEnabled
             ) {
                 onAction(SignUpAction.OnVerifyOtp)
             }

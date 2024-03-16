@@ -12,5 +12,4 @@ sealed interface SignUpEffect {
     object None : SignUpEffect
 
     object NavigateToPersonalize : SignUpEffect
-    object NavigateToMain : SignUpEffect
 }
