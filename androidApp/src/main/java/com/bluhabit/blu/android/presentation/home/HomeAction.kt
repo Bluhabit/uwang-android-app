@@ -9,4 +9,11 @@ package com.bluhabit.blu.android.presentation.home
 
 sealed interface HomeAction {
     // Not Empty
+    data class OnScreenChange(
+        val screen: Int,
+    ): HomeAction
+    data class OnBottomNavBadgeVisibilityChange(
+        val index: Int,
+        val visibility: Boolean,
+    ): HomeAction
 }
