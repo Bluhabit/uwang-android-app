@@ -7,6 +7,7 @@
 
 package com.bluhabit.core.ui.components.button
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -35,6 +36,7 @@ fun ButtonPrimary(
     modifier: Modifier = Modifier,
     text: String = String.Empty,
     enabled: Boolean = true,
+    border: BorderStroke? = null,
     onClick: () -> Unit = {}
 ) {
     Button(
@@ -50,7 +52,8 @@ fun ButtonPrimary(
         ),
         elevation = ButtonDefaults.elevation(
             defaultElevation = 0.dp
-        )
+        ),
+        border = border
     ) {
         Text(
             text = text,
