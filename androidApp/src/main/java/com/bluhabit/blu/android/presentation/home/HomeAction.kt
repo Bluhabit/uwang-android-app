@@ -8,7 +8,6 @@
 package com.bluhabit.blu.android.presentation.home
 
 sealed interface HomeAction {
-    // Not Empty
     data class OnScreenChange(
         val screen: Int,
     ): HomeAction
@@ -16,4 +15,6 @@ sealed interface HomeAction {
         val index: Int,
         val visibility: Boolean,
     ): HomeAction
+    // Profile Screen
+    object GetProfile: HomeAction
 }

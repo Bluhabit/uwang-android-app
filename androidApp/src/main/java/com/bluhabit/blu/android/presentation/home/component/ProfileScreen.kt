@@ -42,6 +42,7 @@ import androidx.compose.material.TabRow
 import androidx.compose.material.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -96,6 +97,10 @@ fun ProfileScreen(
     }
     val scrollState = rememberScrollState()
 
+    LaunchedEffect(Unit) {
+        onAction(HomeAction.GetProfile)
+    }
+
     BoxWithConstraints(
         modifier = Modifier
             .background(UwangColors.Base.White)
@@ -134,30 +139,32 @@ fun TopSection(
             .fillMaxWidth()
             .padding(horizontal = dimens.dp_16)
     ) {
-        Row(
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = dimens.dp_8)
-        ) {
-            Text(
-                text = "@" + state.username,
-                color = UwangColors.Text.Main,
-                style = UwangTypography.BodyLarge.SemiBold,
-            )
-            Icon(
-                painter = painterResource(id = R.drawable.ic_menu),
-                contentDescription = "",
+        if (state.username.isNotEmpty()) {
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
-                    .clickable {
-                        // On Menu Pressed
-                    }
-                    .padding(
-                        horizontal = dimens.from(3.dp),
-                        vertical = dimens.from(6.dp)
-                    )
-            )
+                    .fillMaxWidth()
+                    .padding(vertical = dimens.dp_8)
+            ) {
+                Text(
+                    text = "@" + state.username,
+                    color = UwangColors.Text.Main,
+                    style = UwangTypography.BodyLarge.SemiBold,
+                )
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_menu),
+                    contentDescription = "",
+                    modifier = Modifier
+                        .clickable {
+                            // On Menu Pressed
+                        }
+                        .padding(
+                            horizontal = dimens.from(3.dp),
+                            vertical = dimens.from(6.dp)
+                        )
+                )
+            }
         }
         Spacer(modifier = Modifier.padding(bottom = dimens.dp_8))
         Row(
